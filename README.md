@@ -1,2 +1,2 @@
 # https-github.com-your-org-es-cl33-verification
-derivations D.1
+wolfram derivations of the appendix
