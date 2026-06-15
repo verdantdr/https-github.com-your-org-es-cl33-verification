@@ -1,0 +1,129 @@
+#!/usr/bin/env wolframscript
+(* ::Package:: *)
+
+(* ============================================================================
+   split_epsilon_contraction.wl
+   ----------------------------------------------------------------------------
+   Electromagnetic Sphere (ES) framework  --  reproducibility artifact.
+
+   Monograph Part I, Appendix "Explicit machine-verified derivations",
+   Theorem (Split-epsilon contraction)  [thm:splitcontraction].
+
+   WHAT THIS FILE PROVES  (combinatorial identity: EXACT):
+
+       delta^{a p q}_{d r s}  R^{r s}_{p q}  =  -4 G^{a}_{d},
+       with   G^{a}_{d} = R^{a}_{d} - (1/2) delta^{a}_{d} R.
+
+   The double contraction of the curvature against the rank-3 generalized
+   Kronecker delta returns the interior Einstein tensor with coefficient -4.
+   The coefficient is:
+     * dimension-robust    -- identical in n = 4 and n = 6;
+     * signature-independent -- a purely combinatorial identity, so the
+       split-signature (3,3) interior inherits the same -4 as the Euclidean
+       frame used here only to raise/lower indices.
+   Its origin is the gKd trace identity  delta^{abc}_{dec} = (n-2) delta^{ab}_{de}.
+
+   CONVENTIONS:
+     * generalized Kronecker delta = determinant of Kronecker deltas;
+     * Riemann symmetries imposed: antisymmetry in each pair, R_{abcd}=R_{cdab};
+     * Ricci_{bd} = Sum_a R_{a b a d};   scalar R = Sum_b Ricci_{bb}.
+
+   RUN:     wolframscript -file split_epsilon_contraction.wl
+   EXPECT:  three checks report True / residual 0; final "ALL CHECKS PASSED".
+
+   Author: Bencheikh Driss.    License: see repository LICENSE.
+   ============================================================================ *)
+
+ClearAll["Global`*"];
+
+(* ---- generalized Kronecker deltas ---- *)
+kd[i_, j_] := KroneckerDelta[i, j];
+
+gKd2[{a_, b_}, {c_, d_}] :=
+  Det[{{kd[a, c], kd[a, d]},
+       {kd[b, c], kd[b, d]}}];
+
+gKd3[{a_, b_, c_}, {d_, e_, f_}] :=
+  Det[{{kd[a, d], kd[a, e], kd[a, f]},
+       {kd[b, d], kd[b, e], kd[b, f]},
+       {kd[c, d], kd[c, e], kd[c, f]}}];
+
+(* ---- curvature helpers ---- *)
+riemSym[r_, n_] := Module[{A},
+  A = Table[r[[a, b, c, d]] - r[[b, a, c, d]]
+            - r[[a, b, d, c]] + r[[b, a, d, c]],
+            {a, n}, {b, n}, {c, n}, {d, n}];
+  Table[(A[[a, b, c, d]] + A[[c, d, a, b]])/2,
+        {a, n}, {b, n}, {c, n}, {d, n}]];
+
+ricci[RR_, n_] := Table[Sum[RR[[a, b, a, d]], {a, n}], {b, n}, {d, n}];
+
+einstein[RR_, n_] := Module[{ric = ricci[RR, n], sc},
+  sc = Sum[ric[[b, b]], {b, n}];
+  Table[ric[[a, d]] - (1/2) kd[a, d] sc, {a, n}, {d, n}]];
+
+contract[RR_, n_] := Table[                       (* the split-epsilon contraction *)
+  Sum[gKd3[{a, p, q}, {d, u, w}] RR[[u, w, p, q]],
+      {p, n}, {q, n}, {u, n}, {w, n}],
+  {a, n}, {d, n}];
+
+randRiem[n_, seed_] := Module[{T},
+  SeedRandom[seed];
+  T = Table[RandomInteger[{-5, 5}], {n}, {n}, {n}, {n}];
+  riemSym[T, n]];
+
+(* ============================================================================
+   [1]  Combinatorial origin: the gKd trace identities (the source of -4)
+   ============================================================================ *)
+res2 = Table[Max@Abs@Flatten@Table[
+     Sum[gKd2[{a, k}, {c, k}], {k, n}] - (n - 1) kd[a, c],
+     {a, n}, {c, n}], {n, 3, 7}];
+res3 = Table[Max@Abs@Flatten@Table[
+     Sum[gKd3[{a, b, k}, {d, e, k}], {k, n}] - (n - 2) gKd2[{a, b}, {d, e}],
+     {a, n}, {b, n}, {d, n}, {e, n}], {n, 3, 7}];
+t1 = (Max[res2] === 0 && Max[res3] === 0);
+Print["[1] gKd trace identities  d^{ab}_{cb}=(n-1)d^a_c , d^{abc}_{dec}=(n-2)d^{ab}_{de}  (n=3..7)"];
+Print["    residuals: ", res2, " , ", res3, "   -> ", t1];
+
+(* ============================================================================
+   [2]  Symbolic identity in n = 4 (generic Riemann tensor)
+   ============================================================================ *)
+With[{n = 4},
+  Module[{Rsym, diff},
+   Rsym = riemSym[Array[rr, {n, n, n, n}], n];
+   diff = Simplify[contract[Rsym, n] + 4 einstein[Rsym, n]];
+   t2 = (diff === ConstantArray[0, {n, n}]);
+   Print["[2] symbolic n=4:  d^{apq}_{drs} R^{rs}_{pq} == -4 G^a_d  identically  -> ", t2];
+  ]];
+
+(* ============================================================================
+   [3]  Exact-rational verification in n = 6  (single + multi-seed)
+   ============================================================================ *)
+With[{n = 6},
+  Module[{R, lhs, g, resid, coeff},
+   R = randRiem[n, 42];
+   lhs = contract[R, n];
+   g   = einstein[R, n];
+   resid = Max@Abs@Flatten[lhs + 4 g];
+   coeff = DeleteDuplicates@Flatten@Table[
+       If[g[[a, d]] =!= 0, lhs[[a, d]]/g[[a, d]], Nothing], {a, n}, {d, n}];
+   t3 = (resid === 0 && coeff === {-4});
+   Print["[3] exact n=6 (seed 42):  max|LHS + 4G| = ", resid,
+         " , coefficient = ", coeff, "   -> ", t3];
+  ]];
+
+multi = Table[
+   With[{n = 6},
+    Module[{R = randRiem[n, seed]},
+     Max@Abs@Flatten[contract[R, n] + 4 einstein[R, n]]]],
+   {seed, {7, 19, 101, 1234}}];
+t3b = (Max[multi] === 0);
+Print["    n=6 multi-seed {7,19,101,1234} residuals: ", multi, "   -> ", t3b];
+
+(* ============================================================================
+   verdict
+   ============================================================================ *)
+Print["----------------------------------------------------------------------"];
+If[t1 && t2 && t3 && t3b,
+   Print["ALL CHECKS PASSED  ->  delta^{apq}_{drs} R^{rs}_{pq} = -4 G^a_d   [EXACT]"],
+   Print["FAILURE: at least one check did not pass."]];
