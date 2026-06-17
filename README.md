@@ -1,4 +1,4 @@
-# es-cl33-verification
+# ES wolfram interpretation
 
 Machine-verification suite for **Part I** of the Electromagnetic Sphere (ES)
 monograph. This is the repository referenced in **Appendix F** ("Reproducibility:
