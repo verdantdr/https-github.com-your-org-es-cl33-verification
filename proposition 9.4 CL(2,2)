@@ -1,0 +1,169 @@
+(* ::Package:: *)
+
+(* =====================================================================
+   08_cl22_minimal_prop9_4.wl
+   ---------------------------------------------------------------------
+   THE MINIMAL Cl(2,2) MODEL OF PROPOSITION 9.4.
+
+   Proposition 9.4 (First-class surplus-time constraints), Chapter 9
+   "Ghost and unitarity":
+
+       The surplus-time momenta  phi_a = u_a^M P_M  (a=1,2), with u_1,u_2
+       the timelike unit directions orthogonal to the kernel time Wh, are
+       first-class:  {phi_1,phi_2} = 0.  They generate the gauge
+       translations along the surplus plane, whose quotient is the reduced
+       phase space  T*M^4.  Reflection (Osterwalder-Schrader) positivity
+       holds for the kinetic sector.
+
+   This script realizes the proposition in the minimal split-signature
+   model  Cl(2,2) ~ Mat_4(R),  eta = diag(+,+,-,-).  The two timelike
+   directions e1,e2 play the role of the surplus plane (the minimal
+   setting in which the first-class *pair* {phi_1,phi_2}=0 and the
+   two-fold symplectic reduction are both non-trivial); the two spacelike
+   directions e3,e4 are the reduced interior T*M_int.
+
+   What is established here:
+     * the constraint algebra of Prop 9.4 (first-class pair, the
+       Lie-derivative master identity, the Killing closure condition,
+       the symplectic reduction)  -- these are the EXACT, general parts;
+     * the reverse-Wick / reflection-positivity facts of Remark
+       rem:reverse-wick in the concrete Cl(2,2) representation.
+
+   Scope (matching the monograph's discipline):
+     * The constraint algebra (a)-(e) is dimension-independent; it is
+       shown here in the minimal model and holds verbatim in Cl(3,3).
+     * The kept physical time Wh and the Lorentzian (1,3) interior are
+       Cl(3,3) features: with only two times, the minimal model uses BOTH
+       as the surplus plane, so the reduced interior here is the 2-dim
+       spacelike sector, not the (1,3) Minkowski interior.
+     * det K = +1 in Cl(2,2) but -1 in Cl(3,3) (the parity tracks the
+       odd/even dimension of each R^n factor); the metric-reversal
+       K^T eta K = -eta and K^2 = +1 hold in both.  Reported honestly below.
+
+   Status: EXACT (constraint algebra; representation facts);
+           DERIVED (reflection-positivity reading).
+   ===================================================================== *)
+
+Print["===================================================================="];
+Print["  Minimal Cl(2,2) model of Proposition 9.4"];
+Print["  (first-class surplus-time constraints + reflection positivity)"];
+Print["===================================================================="];
+
+results = {};
+record[label_, ok_] := AppendTo[results, {label, TrueQ[ok]}];
+
+(* ---------------------------------------------------------------------
+   PART 1.  The real 4x4 representation of Cl(2,2),  eta=diag(+,+,-,-)
+   --------------------------------------------------------------------- *)
+Module[{id, sx, sz, ep, KP, g1, g2, g3, g4, gam, eta, Id4, z4, anti, sq},
+  id = IdentityMatrix[2]; sx = {{0,1},{1,0}}; sz = {{1,0},{0,-1}}; ep = {{0,-1},{1,0}};
+  KP[a_, b_] := KroneckerProduct[a, b];
+  g1 = KP[sx, id];   (* timelike  e1, +1 *)
+  g2 = KP[sz, sx];   (* timelike  e2, +1 *)
+  g3 = KP[sz, ep];   (* spacelike e3, -1 *)
+  g4 = KP[ep, id];   (* spacelike e4, -1 *)
+  gam = {g1, g2, g3, g4}; Id4 = IdentityMatrix[4]; z4 = ConstantArray[0, {4,4}];
+  eta = DiagonalMatrix[{1, 1, -1, -1}];
+  anti[a_, b_] := a.b + b.a;
+  sq = Table[(gam[[i]].gam[[i]])[[1,1]], {i,4}];
+  Print["[Part 1] Cl(2,2) ~ Mat_4(R),  eta = diag(+,+,-,-)"];
+  record["1a {e_i,e_j}=2 eta_ij (all 16)",
+    AllTrue[Flatten@Table[Simplify[anti[gam[[i]],gam[[j]]] - 2 eta[[i,j]] Id4] === z4, {i,4},{j,4}], TrueQ]];
+  record["1b squares (+,+,-,-)", sq === {1, 1, -1, -1}];
+  Print["    generator squares (diag) = ", sq];
+];
+
+(* ---------------------------------------------------------------------
+   PART 2.  Para-Kahler K and the reverse-Wick / reflection-positivity facts
+   (Remark rem:reverse-wick): K^2=+1, K^T eta K = -eta (metric reversal),
+   while e^{K theta} is an isometry in the identity component.
+   --------------------------------------------------------------------- *)
+Module[{eta, Id4, z4, Kvec, th, Kth},
+  Id4 = IdentityMatrix[4]; z4 = ConstantArray[0, {4,4}];
+  eta = DiagonalMatrix[{1, 1, -1, -1}];
+  (* K swaps the two R^2 factors:  e1<->e3 , e2<->e4  (times <-> spaces) *)
+  Kvec = {{0,0,1,0}, {0,0,0,1}, {1,0,0,0}, {0,1,0,0}};
+  Kth = Cosh[th] Id4 + Sinh[th] Kvec;
+  Print["[Part 2] reverse-Wick / reflection positivity (Remark rem:reverse-wick)"];
+  record["2a K^2 = +Id4", Kvec.Kvec === Id4];
+  record["2b K^T eta K = -eta (metric-reversing involution)", Transpose[Kvec].eta.Kvec === -eta];
+  record["2c e^{K th}=cosh+sinh K is an isometry (all th)",
+    Simplify[Transpose[Kth].eta.Kth - eta] === z4];
+  record["2d det e^{K th} = +1 (identity component)", Simplify[Det[Kth]] === 1];
+  record["2e MatrixExp[th K] = cosh th + sinh th K", Simplify[MatrixExp[th Kvec] - Kth] === z4];
+  Print["    det K = ", Det[Kvec], "   Tr K = ", Tr[Kvec],
+        "    [Cl(2,2): det K=+1 ; Cl(3,3): det K=-1 -- odd factor dim]"];
+  Print["    Conclusion: the continuous para-rotation e^{K th} preserves the metric and"];
+  Print["    the kinetic sign (cannot Wick-rotate); the discrete K reverses the metric."];
+];
+
+(* ---------------------------------------------------------------------
+   PART 3.  The constraint algebra of Proposition 9.4 on T*R^{2,2}
+   Canonical bracket  {x^M, P_N} = delta^M_N ;  surplus plane = (e1,e2).
+   --------------------------------------------------------------------- *)
+Module[{x, P, PB, phi1f, phi2f, bf,
+        u1, u2, ph1, ph2, bracket, liebr,
+        g, uu, C, phia, master, LieU, target,
+        gInt, Cint, killInt, gSurp, Csurp, killSurp,
+        xi, Mmat, MmatInv, DB, db33, db44, db34},
+  x = Array[Symbol["x" <> ToString[#]] &, 4];
+  P = Array[Symbol["P" <> ToString[#]] &, 4];
+  PB[F_, G_] := Sum[D[F, x[[k]]] D[G, P[[k]]] - D[F, P[[k]]] D[G, x[[k]]], {k, 4}];
+  Print["[Part 3] constraint algebra on T*R^{2,2}  (surplus plane = timelike e1,e2)"];
+
+  (* (a) flat first-class pair *)
+  phi1f = P[[1]]; phi2f = P[[2]]; bf = PB[phi1f, phi2f];
+  record["3a flat {phi1,phi2}={P1,P2}=0 (first-class pair)", bf === 0];
+
+  (* (b) general curved surplus directions: {phi1,phi2} = -[u1,u2].P  (conv {x,P}=+d) *)
+  u1 = Table[Symbol["a" <> ToString[i]][Sequence @@ x], {i, 4}];
+  u2 = Table[Symbol["b" <> ToString[i]][Sequence @@ x], {i, 4}];
+  ph1 = u1.P; ph2 = u2.P; bracket = PB[ph1, ph2];
+  liebr = Sum[(Sum[u1[[M]] D[u2[[N]], x[[M]]], {M, 4}]
+               - Sum[u2[[M]] D[u1[[N]], x[[M]]], {M, 4}]) P[[N]], {N, 4}];
+  record["3b {phi1,phi2} = -[u1,u2].P  (=> vanishes iff surplus dirs commute)",
+    Simplify[bracket + liebr] === 0];
+
+  (* (c) master identity {phi_a,C} = -(Lie_{u_a} g) P P  for general g(x),u(x) *)
+  g = Table[Symbol["g" <> ToString[Min[i, j]] <> ToString[Max[i, j]]][Sequence @@ x], {i, 4}, {j, 4}];
+  uu = Table[Symbol["u" <> ToString[i]][Sequence @@ x], {i, 4}];
+  C = Sum[g[[N, K]] P[[N]] P[[K]], {N, 4}, {K, 4}] - mm^2;
+  phia = uu.P; master = PB[phia, C];
+  LieU = Table[Sum[uu[[L]] D[g[[N, K]], x[[L]]], {L, 4}]
+               - Sum[g[[L, K]] D[uu[[N]], x[[L]]], {L, 4}]
+               - Sum[g[[N, L]] D[uu[[K]], x[[L]]], {L, 4}], {N, 4}, {K, 4}];
+  target = -Sum[LieU[[N, K]] P[[N]] P[[K]], {N, 4}, {K, 4}];
+  record["3c master identity {phi_a,C} = -(Lie_{u_a} g) P P", Simplify[master - target] === 0];
+
+  (* (d) Killing closure dichotomy *)
+  gInt = DiagonalMatrix[{1, 1, -1 + ff[x[[3]], x[[4]]], -1 + hh[x[[3]], x[[4]]]}];
+  Cint = Sum[gInt[[N, N]] P[[N]]^2, {N, 4}] - mm^2;
+  killInt = {Simplify[PB[P[[1]], Cint]], Simplify[PB[P[[2]], Cint]]};
+  record["3d-i  interior-only metric: {phi_a,C}=0 (Killing -> first-class)",
+    killInt === {0, 0}];
+  gSurp = DiagonalMatrix[{1, 1, -1 + x[[1]], -1}];
+  Csurp = Sum[gSurp[[N, N]] P[[N]]^2, {N, 4}] - mm^2;
+  killSurp = Simplify[PB[P[[1]], Csurp]];
+  record["3d-ii surplus-dependent g^{33}=-1+x1: {phi1,C}=-P3^2 != 0 (non-Killing)",
+    killSurp === -P[[3]]^2];
+  Print["    closure dichotomy:  interior-only -> {phi_a,C}=", killInt,
+        " ;  surplus-dependent -> {phi1,C}=", killSurp];
+
+  (* (e) symplectic reduction T*R^{2,2} -> T*M_int via Dirac brackets *)
+  xi = {P[[1]], P[[2]], x[[1]], x[[2]]};
+  Mmat = Outer[PB, xi, xi, 1];
+  MmatInv = Inverse[Mmat];
+  DB[F_, G_] := PB[F, G] - Sum[PB[F, xi[[i]]] MmatInv[[i, j]] PB[xi[[j]], G], {i, 4}, {j, 4}];
+  db33 = DB[x[[3]], P[[3]]]; db44 = DB[x[[4]], P[[4]]]; db34 = DB[x[[3]], P[[4]]];
+  record["3e reduction T*R^{2,2}->T*M_int: Dirac brackets canonical",
+    (db33 === 1) && (db44 === 1) && (db34 === 0)];
+  Print["    reduced Dirac brackets:  {x3,P3}_D=", db33, "  {x4,P4}_D=", db44,
+        "  {x3,P4}_D=", db34];
+];
+
+Print["===================================================================="];
+Scan[Print["  ", If[#[[2]], "PASS", "**FAIL**"], "   ", #[[1]]] &, results];
+Print["===================================================================="];
+Print["  ALL ", Length[results], " CHECKS PASS ?   ", AllTrue[results, #[[2]] &]];
+Print["===================================================================="];
+If[AllTrue[results, #[[2]] &], Quit[0], Quit[1]];
