@@ -1,0 +1,171 @@
+\contentsline {chapter}{Abstract}{i}{chapter*.1}%
+\contentsline {paragraph}{Keywords.}{ii}{section*.2}%
+\contentsline {chapter}{What is proved, assumed, and open}{iii}{chapter*.3}%
+\contentsline {paragraph}{What is proved (verified identities and derivations).}{iii}{section*.4}%
+\contentsline {paragraph}{What is assumed (postulates and standing hypotheses).}{iii}{section*.5}%
+\contentsline {paragraph}{What remains open (irreducible inputs and unresolved problems).}{iii}{section*.6}%
+\contentsline {chapter}{Notation and conventions}{viii}{chapter*.8}%
+\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}What this work seeks}{1}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Why $\mathrm {Cl}(3,3)$, and not the alternatives}{2}{section.1.2}%
+\contentsline {paragraph}{Against $\mathrm {Cl}(1,3)$ (ordinary spacetime).}{2}{section*.9}%
+\contentsline {paragraph}{Against $\mathfrak {so}(6)\cong \mathfrak {su}(4)$ (Pati--Salam-type unification).}{2}{section*.10}%
+\contentsline {paragraph}{Against $\mathfrak {so}(4,2)\cong \mathfrak {su}(2,2)$ (conformal / two-time physics).}{2}{section*.11}%
+\contentsline {paragraph}{Against twistor and pure-spinor constructions.}{2}{section*.12}%
+\contentsline {paragraph}{Why split $(3,3)$ specifically.}{2}{section*.13}%
+\contentsline {section}{\numberline {1.3}The physical picture}{3}{section.1.3}%
+\contentsline {section}{\numberline {1.4}Methodology}{3}{section.1.4}%
+\contentsline {section}{\numberline {1.5}Summary of principal results}{3}{section.1.5}%
+\contentsline {paragraph}{Part~I and Part~II.}{4}{section*.14}%
+\contentsline {section}{\numberline {1.6}Architecture of the monograph}{5}{section.1.6}%
+\contentsline {chapter}{\numberline {2}The algebraic foundation}{7}{chapter.2}%
+\contentsline {section}{\numberline {2.1}The algebra and its real representation}{7}{section.2.1}%
+\contentsline {section}{\numberline {2.2}The para-K\"ahler structure}{8}{section.2.2}%
+\contentsline {section}{\numberline {2.3}The octant group and the poles}{9}{section.2.3}%
+\contentsline {section}{\numberline {2.4}The kernel and the surplus times}{9}{section.2.4}%
+\contentsline {section}{\numberline {2.5}The pseudoscalar and Hodge duality}{10}{section.2.5}%
+\contentsline {section}{\numberline {2.6}The orthogonal algebra and its bifurcation}{10}{section.2.6}%
+\contentsline {chapter}{\numberline {3}The split manifold and the interior}{11}{chapter.3}%
+\contentsline {section}{\numberline {3.1}The manifold}{11}{section.3.1}%
+\contentsline {section}{\numberline {3.2}The interior projection}{11}{section.3.2}%
+\contentsline {section}{\numberline {3.3}The tasks performed by the projection}{12}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Limits of the construction}{12}{section.3.4}%
+\contentsline {chapter}{\numberline {4}Gravity: the Cartan--Palatini sector}{14}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Why first order, and why the boosts cannot propagate}{14}{section.4.1}%
+\contentsline {section}{\numberline {4.2}The six-dimensional Palatini action}{15}{section.4.2}%
+\contentsline {section}{\numberline {4.3}The split-$\varepsilon $ contraction and the interior Einstein tensor}{15}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Torsion and matter}{16}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Limits of the gravitational reduction}{16}{section.4.5}%
+\contentsline {chapter}{\numberline {5}The gauge sector and the photon}{17}{chapter.5}%
+\contentsline {section}{\numberline {5.1}The compact sector as Yang--Mills}{17}{section.5.1}%
+\contentsline {section}{\numberline {5.2}The photon as the stabilizer of the kernel}{17}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Breaking $\mathfrak {su}(2)_T\to U(1)_J$ and the weak bosons}{18}{section.5.3}%
+\contentsline {section}{\numberline {5.4}The coupling chain and the single unknown}{18}{section.5.4}%
+\contentsline {section}{\numberline {5.5}The mixed octants as field octants}{18}{section.5.5}%
+\contentsline {section}{\numberline {5.6}The octant--field bijection}{18}{section.5.6}%
+\contentsline {section}{\numberline {5.7}$E=cB$ as a regulator count}{19}{section.5.7}%
+\contentsline {section}{\numberline {5.8}The explicit field components and Maxwell's four equations}{19}{section.5.8}%
+\contentsline {section}{\numberline {5.9}Octant pooling of the Maxwell equations and $F=\mathrm {d}A$}{20}{section.5.9}%
+\contentsline {section}{\numberline {5.10}The running of $\alpha _{\mathrm {em}}$}{20}{section.5.10}%
+\contentsline {section}{\numberline {5.11}Contact with observable physics}{20}{section.5.11}%
+\contentsline {section}{\numberline {5.12}Limits: the value of $g$ is not fixed}{21}{section.5.12}%
+\contentsline {chapter}{\numberline {6}The real spinor}{22}{chapter.6}%
+\contentsline {section}{\numberline {6.1}The eight-component real spinor}{22}{section.6.1}%
+\contentsline {section}{\numberline {6.2}The Fock construction}{22}{section.6.2}%
+\contentsline {section}{\numberline {6.3}The half-spinors and the octant map}{23}{section.6.3}%
+\contentsline {section}{\numberline {6.4}The interior Dirac operator}{24}{section.6.4}%
+\contentsline {section}{\numberline {6.5}Spin one-half}{24}{section.6.5}%
+\contentsline {section}{\numberline {6.6}Chirality and the Hodge map}{24}{section.6.6}%
+\contentsline {section}{\numberline {6.7}Charge conjugation}{25}{section.6.7}%
+\contentsline {section}{\numberline {6.8}Grade parity and the covariant mass}{25}{section.6.8}%
+\contentsline {section}{\numberline {6.9}The double cover and the broken mirror}{25}{section.6.9}%
+\contentsline {section}{\numberline {6.10}The spinor bundle and its monodromy}{25}{section.6.10}%
+\contentsline {section}{\numberline {6.11}The whole particle}{26}{section.6.11}%
+\contentsline {section}{\numberline {6.12}The Dirac sea: the negative-energy vacuum}{26}{section.6.12}%
+\contentsline {section}{\numberline {6.13}Limits}{28}{section.6.13}%
+\contentsline {chapter}{\numberline {7}Mass and symmetry breaking}{30}{chapter.7}%
+\contentsline {section}{\numberline {7.1}The covariant mass: the trivector sector}{30}{section.7.1}%
+\contentsline {section}{\numberline {7.2}The Higgs mechanism for the weak bosons}{31}{section.7.2}%
+\contentsline {section}{\numberline {7.3}The condensate and its octant spectrum}{31}{section.7.3}%
+\contentsline {section}{\numberline {7.4}The one-loop effective potential}{31}{section.7.4}%
+\contentsline {section}{\numberline {7.5}Limits}{32}{section.7.5}%
+\contentsline {chapter}{\numberline {8}The statistical pole}{33}{chapter.8}%
+\contentsline {section}{\numberline {8.1}The space of clock weights}{33}{section.8.1}%
+\contentsline {section}{\numberline {8.2}The Fisher--Rao geometry of the simplex}{33}{section.8.2}%
+\contentsline {section}{\numberline {8.3}The amplitude map and the condensate}{34}{section.8.3}%
+\contentsline {section}{\numberline {8.4}Dual connections and the entropy as a canonical potential}{34}{section.8.4}%
+\contentsline {section}{\numberline {8.5}Maximum-entropy selection of the kernel}{35}{section.8.5}%
+\contentsline {section}{\numberline {8.6}The residual symmetry: $W(D_3)$, not $B_3$}{35}{section.8.6}%
+\contentsline {section}{\numberline {8.7}Limits}{36}{section.8.7}%
+\contentsline {chapter}{\numberline {9}Ghost and unitarity}{37}{chapter.9}%
+\contentsline {section}{\numberline {9.1}The indefinite-kinetic problem}{37}{section.9.1}%
+\contentsline {section}{\numberline {9.2}The real-symmetric interior Hamiltonian}{37}{section.9.2}%
+\contentsline {section}{\numberline {9.3}The residual indefiniteness is the ordinary Dirac one}{38}{section.9.3}%
+\contentsline {section}{\numberline {9.4}The physical mass operator and the true obstruction}{38}{section.9.4}%
+\contentsline {section}{\numberline {9.5}The surplus-time constraints and reflection positivity}{38}{section.9.5}%
+\contentsline {section}{\numberline {9.6}Newton's third law as a conservation law}{39}{section.9.6}%
+\contentsline {section}{\numberline {9.7}Limits}{39}{section.9.7}%
+\contentsline {chapter}{\numberline {10}The $M^6\to M^4$ gravity lift}{41}{chapter.10}%
+\contentsline {section}{\numberline {10.1}The question}{41}{section.10.1}%
+\contentsline {section}{\numberline {10.2}The indefinite content is exactly two surplus boosts}{42}{section.10.2}%
+\contentsline {section}{\numberline {10.3}The master constraint identity and the Killing closure}{42}{section.10.3}%
+\contentsline {section}{\numberline {10.4}The reduction $T^*M^6\to T^*M^4$}{42}{section.10.4}%
+\contentsline {section}{\numberline {10.5}The graviphoton signs and their resolution}{43}{section.10.5}%
+\contentsline {section}{\numberline {10.6}The internal moduli are healthy}{43}{section.10.6}%
+\contentsline {section}{\numberline {10.7}The spinor closure}{43}{section.10.7}%
+\contentsline {section}{\numberline {10.8}The ghost-free verdict and limits}{44}{section.10.8}%
+\contentsline {chapter}{\numberline {11}Open problems and outlook}{45}{chapter.11}%
+\contentsline {section}{\numberline {11.1}The value of the electromagnetic coupling}{45}{section.11.1}%
+\contentsline {section}{\numberline {11.2}The vacuum couplings $v$ and $g_3$}{45}{section.11.2}%
+\contentsline {section}{\numberline {11.3}The interacting fermion mass gap}{46}{section.11.3}%
+\contentsline {section}{\numberline {11.4}Globalization of the gravity lift}{46}{section.11.4}%
+\contentsline {section}{\numberline {11.5}The full-$\mathrm {Cl}(3,3)$ lift of the minimal-model results}{46}{section.11.5}%
+\contentsline {section}{\numberline {11.6}Monopole compatibility}{46}{section.11.6}%
+\contentsline {section}{\numberline {11.7}Positioning and outlook}{46}{section.11.7}%
+\contentsline {chapter}{Conclusion}{47}{chapter*.15}%
+\contentsline {chapter}{\numberline {A}Octant pooling of Maxwell's equations}{48}{appendix.A}%
+\contentsline {paragraph}{Step 1 -- the field strength as a curvature block.}{48}{section*.16}%
+\contentsline {paragraph}{Step 2 -- the octant decomposition of derivatives.}{48}{section*.17}%
+\contentsline {paragraph}{Step 3 -- the deficit in each octant.}{48}{section*.18}%
+\contentsline {paragraph}{Step 4 -- the pooling map.}{48}{section*.19}%
+\contentsline {paragraph}{Step 5 -- reduction to $F=\mathrm {d}A$.}{48}{section*.20}%
+\contentsline {chapter}{\numberline {B}The ghost-free derivation}{49}{appendix.B}%
+\contentsline {paragraph}{Step 1 -- the interior operators.}{49}{section*.21}%
+\contentsline {paragraph}{Step 2 -- the mass.}{49}{section*.22}%
+\contentsline {paragraph}{Step 3 -- the Hamiltonian and its square.}{49}{section*.23}%
+\contentsline {paragraph}{Step 4 -- positivity.}{49}{section*.24}%
+\contentsline {paragraph}{Step 5 -- the residual indefiniteness is the ordinary Dirac one.}{49}{section*.25}%
+\contentsline {chapter}{\numberline {C}The physical mass operator}{50}{appendix.C}%
+\contentsline {paragraph}{Step 1 -- a covariant mass must anticommute with the boosts.}{50}{section*.26}%
+\contentsline {paragraph}{Step 2 -- the Yukawa operator is the kernel-antisymmetrized condensate.}{50}{section*.27}%
+\contentsline {paragraph}{Step 3 -- $M_{\mathrm {eff}}$ is symmetric with real spectrum.}{50}{section*.28}%
+\contentsline {paragraph}{Step 4 -- the obstruction is covariance, not unitarity.}{51}{section*.29}%
+\contentsline {chapter}{\numberline {D}The gravity-lift constraint closure}{52}{appendix.D}%
+\contentsline {paragraph}{Step 1 -- phase space and constraints.}{52}{section*.30}%
+\contentsline {paragraph}{Step 2 -- the bracket of the two constraints.}{52}{section*.31}%
+\contentsline {paragraph}{Step 3 -- the bracket with the dynamics.}{52}{section*.32}%
+\contentsline {paragraph}{Step 4 -- recognition as a Lie derivative.}{52}{section*.33}%
+\contentsline {paragraph}{Step 5 -- the closure condition.}{52}{section*.34}%
+\contentsline {chapter}{\numberline {E}The ghost-free dimensional reduction}{53}{appendix.E}%
+\contentsline {paragraph}{Step 1 -- the indefinite content.}{53}{section*.35}%
+\contentsline {paragraph}{Step 2 -- the constraint algebra.}{53}{section*.36}%
+\contentsline {paragraph}{Step 3 -- the reduction $T^*M^6\to T^*M^4$.}{53}{section*.37}%
+\contentsline {paragraph}{Step 4 -- the graviphotons are pure gauge.}{53}{section*.38}%
+\contentsline {paragraph}{Step 5 -- the moduli are healthy.}{54}{section*.39}%
+\contentsline {paragraph}{Step 6 -- the spinor closure.}{54}{section*.40}%
+\contentsline {paragraph}{Verdict.}{54}{section*.41}%
+\contentsline {chapter}{\numberline {F}Explicit machine-verified derivations}{55}{appendix.F}%
+\contentsline {paragraph}{Code availability.}{55}{section*.42}%
+\contentsline {paragraph}{The representation.}{55}{section*.43}%
+\contentsline {section}{\numberline {F.1}Worked derivations}{55}{section.F.1}%
+\contentsline {subsection}{\numberline {F.1.1}The electromagnetic generator is forced uniquely}{55}{subsection.F.1.1}%
+\contentsline {paragraph}{Step 1 (the temporal-rotation algebra).}{56}{section*.44}%
+\contentsline {paragraph}{Step 2 (the clock, and why no single generator survives).}{56}{section*.45}%
+\contentsline {paragraph}{Step 3 (the centralizer condition).}{56}{section*.46}%
+\contentsline {paragraph}{Step 4 (normalization).}{56}{section*.47}%
+\contentsline {paragraph}{Conclusion.}{56}{section*.48}%
+\contentsline {subsection}{\numberline {F.1.2}Charge quantization from the spectrum of $J$}{56}{subsection.F.1.2}%
+\contentsline {subsection}{\numberline {F.1.3}The relativistic dispersion relation}{57}{subsection.F.1.3}%
+\contentsline {paragraph}{Step 1 (building blocks).}{57}{section*.49}%
+\contentsline {paragraph}{Step 2 (the Hamiltonian).}{57}{section*.50}%
+\contentsline {paragraph}{Step 3 (the square, term by term).}{57}{section*.51}%
+\contentsline {subsection}{\numberline {F.1.4}The Dirac pairing and the Lorentzian signature}{57}{subsection.F.1.4}%
+\contentsline {paragraph}{Step 1 (the gamma matrices).}{57}{section*.52}%
+\contentsline {paragraph}{Step 2 (the Clifford relations of the $(3,1)$ block).}{57}{section*.53}%
+\contentsline {paragraph}{Step 3 (the energy pairing).}{58}{section*.54}%
+\contentsline {subsection}{\numberline {F.1.5}The gravitational double-contraction}{58}{subsection.F.1.5}%
+\contentsline {paragraph}{Step 1 (the object).}{58}{section*.55}%
+\contentsline {paragraph}{Step 2 (the test tensor).}{58}{section*.56}%
+\contentsline {paragraph}{Step 3 (contraction and fit).}{58}{section*.57}%
+\contentsline {subsection}{\numberline {F.1.6}First-class closure is equivalent to the Killing condition}{58}{subsection.F.1.6}%
+\contentsline {paragraph}{Step 1 (the phase space).}{58}{section*.58}%
+\contentsline {paragraph}{Step 2 (the bracket).}{59}{section*.59}%
+\contentsline {paragraph}{Step 3 (the consequence).}{59}{section*.60}%
+\contentsline {section}{\numberline {F.2}Summary of verified identities}{59}{section.F.2}%
+\contentsline {chapter}{\numberline {G}An index of trivial and heuristic results}{61}{appendix.G}%
+\contentsline {section}{\numberline {G.1}The extensive mass as classical-physics philosophy}{62}{section.G.1}%
+\contentsline {section}{\numberline {G.2}The momentum--force--energy tower}{62}{section.G.2}%
+\contentsline {section}{\numberline {G.3}Newton's first law: the inertial limit}{63}{section.G.3}%
+\contentsline {section}{\numberline {G.4}The mass-shell and the relationship to special relativity}{64}{section.G.4}%
+\contentsline {section}{\numberline {G.5}The fixed-point scrutiny: which bivectors the octant group fixes}{65}{section.G.5}%
+\contentsline {chapter}{Bibliography}{66}{appendix*.61}%
