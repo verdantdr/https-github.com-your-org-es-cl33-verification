@@ -1,0 +1,429 @@
+% Track d3 -- The unity and its differentiation in motion: the closure of the force law.
+% Verification: investigations/rest_energy/verify/d3_closure_dynamics.py (claims d3-0 ... d3-21).
+\section{The differentiation in motion: rotor, rate and duality angle}
+\label{d3:sec:main}
+
+This section follows the undivided energy and its differentiation in motion, inside the one dynamics that the arena closes by itself: the
+Lie--Poisson closure of the force law (Section~17 of \cite{ES17}), successor of the former momentum--force chapter with momentum $\alpha X$,
+force $\alpha^*\alpha X$ and energy $\alpha\alpha^*\alpha X$. In the closure the rate $\kappa=c/\ell$ of $\alpha_\pm=\partial_\tau\pm\kappa G$, where the
+hypothesis puts $c^2$, is the angular velocity of a rotor. No interaction and no Yang--Mills field is used. In brief: the closure freezes the
+undivided energy, rest energy and momentum of the field carried by the momentum, so it cannot generate rest energy
+(\cref{d3:thm:frozen,d3:cor:nogen}); the conserved total differentiates into a rate part $\tfrac12(I_0/\ell^2)c^2$ and a Lorentz-invariant frame
+part whose amplitude is set by the rest energy alone, and the duality angle oscillates with $\Omega^2$ proportional to it, with an exact flat
+direction on null data (\cref{d3:prop:pendulum,d3:prop:omega,d3:cor:flat,d3:prop:budget}); a constant rate is the heavy-rotor limit
+(\cref{d3:prop:multiscale}); nothing fixes $\ell$ (\cref{d3:thm:noscale}); and $\hbar\kappa=mc^2$, which gives $\ell=\hbar/(mc)$, is a matching, under
+which even a quantised rotor has energy $\tfrac12mc^2$ (\cref{d3:prop:norel,d3:prop:ladder}).
+
+\paragraph{Conventions.} As in Section~17 of \cite{ES17}: $V=\R^{3,3}$, $\eta=\operatorname{diag}(1,1,1,-1,-1,-1)$, $Ge_i=e_{i+3}$, $Ge_{i+3}=-e_i$,
+so $G^2=-\id$, $G^{\!\top}=-G$, $G^\dagger:=\eta^{-1}G^{\!\top}\eta=G$, $\eta(GX,GY)=-\eta(X,Y)$ (Proposition~3.3, Theorem~16.2 of \cite{ES17}). A
+covector $p$ is a column, $\pi=\eta^{-1}p$, $z(X)=x+iy$ for $X=\sum_j(x_je_j+y_je_{j+3})$, so $G$ acts as $i$, and
+$C(p)=p^{\!\top}\eta^{-1}p$, $D(p)=p^{\!\top}G\eta^{-1}p$, $w(p)=q(z(\pi))=C-iD$. With $(\bB;\bE)=\pi$, the \emph{momentum field} has $z(\pi)=\bB+i\bE$
+and $w=|\bB|^2-|\bE|^2+2i\,\bB\cdot\bE$ (Theorem~12.3 of \cite{ES17}); we put
+\[
+E_6(p):=\tfrac12|z(\pi)|^2,\qquad E_0(p):=\tfrac12|w(p)|,\qquad \mathbf S(p):=\bE\times\bB=\tfrac i2\,\overline{z(\pi)}\times z(\pi),
+\]
+its undivided energy, rest energy (the rest-frame energy density of Section~14.4 of \cite{ES17}) and frame Poynting vector. Units are $\hbar=c=1$
+unless a symbol is shown, and $\tau$ is a time. $G=-\mathcal K\circ\Ad_{e_1e_2e_3}$ (Lemma~3.4 of \cite{ES17}) and the facts above were checked in the
+realisation (d3-0); d3-$n$ refers to \texttt{verify/d3\_closure\_dynamics.py}, whose integrations use an eighth-order Runge--Kutta method with
+relative tolerance $10^{-12}$.
+
+\subsection{What the closure conserves}
+\label{d3:sec:conserve}
+
+The only $\lG$-equivariant closure in which the rotor rotates the frame covector without dilating it is $\mathfrak s=\R\hat g\ltimes_GV$,
+$[\hat g,X]=GX$, $[X,Y]=0$ (Theorem~17.7 of \cite{ES17}). On $\mathfrak s^*$, with coordinates $(h,p)$, $F_h=\partial F/\partial h$ and
+$\nabla F=\partial F/\partial p$, the Lie--Poisson equation $\dot\mu=\ad^*_{dF}\mu$ of an arbitrary Hamiltonian $F$, and the bracket for which it reads
+$\dot K=\{K,F\}$, are
+\begin{equation}
+\label{d3:eq:LPgen}
+\dot p=F_h\,G^{\!\top}p,\qquad \dot h=-\,p^{\!\top}G\,\nabla F,\qquad
+\{F,K\}=p^{\!\top}\bigl(K_h\,G\nabla F-F_h\,G\nabla K\bigr).
+\end{equation}
+For $H=h^2/(2I_0)+\tfrac12p^{\!\top}Np$ this is Proposition~17.8 of \cite{ES17}, $\dot p=(h/I_0)G^{\!\top}p$, $\dot h=-p^{\!\top}GNp$; we re-derived it
+from the structure constants and checked exactly that $H$ is conserved for every symmetric $N$ and $|p|^2$ for every $H$ (d3-1).
+
+\begin{theorem}[The momentum field is frozen up to its duality phase]
+\label{d3:thm:frozen}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item A function $f(p)$ is a Casimir of $\mathfrak s^*$ iff it is invariant under $p\mapsto e^{tG}p$, that is, under the duality rotations
+$z(\pi)\mapsto e^{-it}z(\pi)$. In particular $E_6(p)=\tfrac12|p|^2$, $E_0(p)$ and the vector $\mathbf S(p)$ are Casimirs; $C(p)$ and $D(p)$ are not.
+\item At $p\neq0$ the symplectic leaves are two-dimensional, so there are five independent local Casimirs; the real and imaginary parts of the
+products $\bar z_jz_k$ provide them (their Jacobian has rank five), and $E_6$, $E_0$, $\mathbf S$ account for four, with $E_6^2=E_0^2+|\mathbf S|^2$.
+\item Along the flow of any Hamiltonian, $p(\tau)=e^{-\theta(\tau)G}p_0$ with $\dot\theta=F_h$, $\theta(0)=0$, and
+$z(\pi(\tau))=e^{i\theta(\tau)}z(\pi_0)$, $w(p(\tau))=e^{2i\theta(\tau)}w(p_0)$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(i) For $f=f(p)$, \eqref{d3:eq:LPgen} gives $\{f,K\}=K_h\,p^{\!\top}G\nabla f=-K_h\,(Gp)\cdot\nabla f$, zero for every $K$ iff $f$ is constant along
+$t\mapsto e^{tG}p$. As $\eta G=-G\eta$, $\eta^{-1}e^{tG}p=e^{-tG}\pi$, on which $G$ acts as $i$. $|z|^2$, $|z\cdot z|$ and $\bar z\times z$ are phase invariant,
+while $C=\Re w$ and $D=-\Im w$ rotate into each other; $|\pi|=|p|$ as $\eta$ is orthogonal. (ii) $\{p_i,p_j\}=0$ and $\{h,p_j\}=(Gp)_j$, so the
+Poisson tensor has rank two at $p\neq0$ and $\dim\mathfrak s^*-2=5$. The $\bar z_jz_k$ are phase invariant and have Jacobian rank five at a generic
+point; the relation is $u^2-|\mathbf S|^2=\tfrac14|q|^2$ (Section~14.3 of \cite{ES17}) applied to $\pi$. (iii) $\dot p=-F_hGp$ integrates to
+$p=e^{-\theta G}p_0$, so $\pi=e^{\theta G}\pi_0$, and $w$ is quadratic in $z$.
+\end{proof}
+
+The theorem is fixed: a rotor acting by $a+bG$ with $a\neq0$ dilates $p$ (proof of Theorem~17.7 of \cite{ES17}), and one acting by a boost of $\lG$
+would conserve $E_0$ but not $E_6$; the uniqueness of the closure leaves exactly the duality phase free. All items were checked exactly, including the
+failure for $C$ and $D$ and both ranks (d3-2). Integrating with Lorentz-class inertia for five random data over $\tau\in[0,40]$, $H$, $|p|^2$, $E_6$,
+$E_0$ and $\mathbf S$ drift by less than $7\times10^{-12}$ relative, and (iii) holds to $7\times10^{-12}$ (d3-3). This sharpens \cref{d1:thm:closure}:
+the conserved quantities are Casimirs, conserved by every Hamiltonian.
+
+\begin{corollary}[The closure cannot generate rest energy]
+\label{d3:cor:nogen}
+In the closure of Theorem~17.7 of \cite{ES17}, for every Hamiltonian on $\mathfrak s^*$, quadratic or not, of Lorentz class or not, $E_0(p)$, $E_6(p)$
+and $\mathbf S(p)$ are constant along every solution: a null momentum field stays null, and one of rest energy $E_0$ keeps it.
+\end{corollary}
+
+\begin{proof}
+Casimirs Poisson-commute with every Hamiltonian (\cref{d3:thm:frozen}(i)).
+\end{proof}
+
+This is an obstruction, checked with the generic Hamiltonian $h^2/(2I_0)+\tfrac1{10}h^4+\sin(p^{\!\top}M_1p)+\tfrac15h\,p^{\!\top}M_2p$, $M_{1,2}$ random
+symmetric: $E_6$, $E_0$, $\mathbf S$, $H$ stay constant to $5\times10^{-12}$ while the phase of $w$ moves through $6.3$ radians (d3-4). It is the first
+verdict for the hypothesis. The unity of the momentum field ($E_6$) and its differentiation into rest and motion ($E_6^2=E_0^2+|\mathbf S|^2$) are
+both labels of the leaf, set by the data: mass in the sense of $E_0$ is carried by the dynamics, not produced by it. The dictionary entry
+``$E\leftrightarrow|p|^2$'' is correct as an identity, $E_6=\tfrac12|p|^2$, but the Casimir is inert, and with Lorentz-class inertia it does not
+enter the motion at all (\cref{d3:prop:budget}(iv)). What moves is the duality angle $\theta$ and the rate $h/I_0$, and in their exchange the
+conserved total differentiates.
+
+\subsection{The duality pendulum}
+\label{d3:sec:pendulum}
+
+From now on $N=(a\eta^{-1}+bG\eta^{-1})/m$ is of Lorentz class (Theorem~17.11(ii) of \cite{ES17}) and $(a+ib)w(p_0)=R_0e^{i\varphi_0}$, $R_0\ge0$. On a
+leaf $(\theta,h)$ are canonical and $H=h^2/(2I_0)+U(\theta)$ (Proposition~17.8 of \cite{ES17}).
+
+\begin{proposition}[The potential of the duality angle]
+\label{d3:prop:pendulum}
+$\tfrac12p^{\!\top}Np=\Re\bigl((a+ib)w(p)\bigr)/(2m)$, and with $\psi:=2\theta+\varphi_0$,
+\[
+U(\theta)=\frac{R_0}{2m}\cos\psi,\qquad R_0=|a+ib|\,|w(p_0)|=2|a+ib|\,E_0(p_0),\qquad I_0\ddot\theta=\dot h=\frac{R_0}m\sin\psi .
+\]
+\end{proposition}
+
+\begin{proof}
+$\tfrac12p^{\!\top}Np=(aC+bD)/(2m)=\Re((a+ib)(C-iD))/(2m)$, and $w(p(\theta))=e^{2i\theta}w(p_0)$ by \cref{d3:thm:frozen}(iii). For
+$p(\theta)=e^{-\theta G}p_0$, $dU/d\theta=-p^{\!\top}NGp=p^{\!\top}GNp$ ($N$ symmetric, $G$ antisymmetric), so $\dot h=-dU/d\theta$; and $\dot\theta=h/I_0$.
+\end{proof}
+
+This is Theorem~17.13 of \cite{ES17}, fixed, re-verified exactly and along three random flows to $10^{-9}$ (d3-5). New is the reading of $R_0$: twice
+the rest energy of the momentum field times $|a+ib|$; $E_6$ and $\mathbf S$ do not enter.
+
+\begin{proposition}[Small oscillations]
+\label{d3:prop:omega}
+The stable equilibrium is $\psi=\pi$, $U=-R_0/(2m)$. With $\psi=\pi+\delta$, $\ddot\delta=-\Omega^2\sin\delta$ and
+\[
+\Omega^2=\frac{2R_0}{mI_0}=\frac{4|a+ib|\,E_0(p_0)}{mI_0};
+\]
+$\theta$ oscillates at the same frequency with half the amplitude, and at amplitude $0<\delta_0<\pi$ the period is $4K(\sin^2(\delta_0/2))/\Omega$, with
+$K$ the complete elliptic integral in the parameter convention of \cite{DLMF}.
+\end{proposition}
+
+\begin{proof}
+$\ddot\psi=2\ddot\theta=(2R_0/mI_0)\sin\psi$ and $\sin(\pi+\delta)=-\sin\delta$. The period follows from $\tfrac12\dot\delta^2=\Omega^2(\cos\delta-\cos\delta_0)$
+with $\sin(\delta/2)=\sin(\delta_0/2)\sin t$.
+\end{proof}
+
+Equivalently $\Omega^2=U''(\theta_{\min})/I_0$ with $U''(\theta_{\min})=4\cdot R_0/(2m)$; the factor two comes from the angle $2\theta$. Fixed, as a
+corollary of Theorem~17.13 of \cite{ES17}. The measured period at amplitude $10^{-3}$ exceeds $2\pi/\Omega$ by the relative amount
+$6.25\times10^{-8}$, the anharmonic shift $\delta_0^2/16$; at amplitude $2$ it matches the elliptic formula to $5\times10^{-14}$ (d3-6).
+
+\begin{corollary}[An exact flat direction]
+\label{d3:cor:flat}
+If $w(p_0)=0$, i.e.\ the momentum field is null ($|\bB|=|\bE|$, $\bB\cdot\bE=0$), or $(a,b)=(0,0)$, then $U\equiv0$, $h$ is constant and
+$\theta=h\tau/I_0$. For the duality class $N=n\,\id$, $h$ is constant for all data.
+\end{corollary}
+
+\begin{proof}
+$R_0=0$; and for $N=n\,\id$, $\dot h=-n\,p^{\!\top}Gp=0$.
+\end{proof}
+
+This restates Corollary~17.14 and Theorem~17.11(iii) of \cite{ES17}; fixed, and confirmed numerically, $|h-h_0|<10^{-14}$ over $\tau\in[0,30]$ (d3-7).
+
+\begin{remark}[A pseudo-Goldstone reading, and its limits]
+\label{d3:rem:goldstone}
+On a leaf $\theta$ is the angle of the duality group $U(1)_G$ of the momentum field, whose breaking by a nonzero rest energy is discussed after
+\cref{d2:prop:duality}. In the duality class it is a symmetry of $H$ and $\theta$ is cyclic for all data; in the Lorentz class it is broken, on each leaf
+in proportion to $E_0$. Exactly (d3-8),
+\[
+I_0\,\Omega^2=U''(\theta_{\min})=\frac{2R_0}m=\frac{4|a+ib|\,E_0(p_0)}m :
+\]
+stiffness times squared frequency equals the curvature of the tilting potential. This is the structure of the Gell-Mann--Oakes--Renner relation
+for a pseudo-Goldstone boson \cite{GellMannOakesRenner68,Weinberg72}, with $I_0$ for $f_\pi^2$ and $|a+ib|E_0/m$ for the explicit breaking. The
+identity is fixed; the reading is interpretive, with three limits. The breaking is explicit, by the choice of inertia, not spontaneous: there is no
+vacuum manifold, and $E_0$ is a label fixed by the data (\cref{d3:cor:nogen}), not an order parameter selected by minimisation, in line with
+Section~14.3 of \cite{ES17}. There is one mechanical degree of freedom, so ``mass'' means a frequency. Within these limits the reading is sharp: on a
+null momentum field the angle is an exact zero mode, and a rest energy gives it the frequency $\Omega\propto\sqrt{E_0}$.
+\end{remark}
+
+\subsection{The energy budget: a rate part and a frame part}
+\label{d3:sec:budget}
+
+\begin{proposition}[Rate part and frame part]
+\label{d3:prop:budget}
+With Lorentz-class inertia, along every solution:
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item $H=K+U$, $K=\tfrac12I_0\kappa^2\ge0$, $\kappa=h/I_0$, $U=\tfrac{R_0}{2m}\cos\psi=\Re((a+ib)w(p))/(2m)$, and $\dot K=-\dot U=\tfrac{R_0}m\,\kappa\sin\psi$;
+\item in the rotating regime $K$ runs through exactly $[H-\tfrac{R_0}{2m},H+\tfrac{R_0}{2m}]$ in every period of the rate, so the energy exchanged is
+$R_0/m=2|a+ib|E_0(p_0)/m$; in the librating regime it runs through $[0,H+\tfrac{R_0}{2m}]$;
+\item $K$ and $U$ are separately invariant under $\lG$ acting by $(h,p)\mapsto(h,\Lambda^{-\top}p)$, $\Lambda=e^r$, $r\in\lG$, and the flow commutes with it;
+\item $(\theta,h)(\tau)$ depends on $p_0$ only through $(a+ib)w(p_0)$: $E_6(p_0)$ and $\mathbf S(p_0)$ do not enter the motion.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) By \cref{d3:prop:pendulum}, $\dot K=h\dot h/I_0$ and $\dot U=-(R_0/2m)\,2\kappa\sin\psi$. (ii) Rotating, $\dot\psi=2\kappa$ never vanishes and $\cos\psi$
+covers $[-1,1]$ in each period; librating, $K=0$ at the turning points and is largest at $\psi=\pi$. (iii) The Lorentz requirement $rN+Nr^{\!\top}=0$
+(Definition~17.10 of \cite{ES17}) integrates to $\Lambda^{-1}N\Lambda^{-\top}=N$, so $U(\Lambda^{-\top}p)=U(p)$; $\Lambda^{-\top}$ commutes with $G^{\!\top}$ and maps
+solutions to solutions. (iv) $\pi\mapsto\Lambda\pi$ as $\Lambda\in O(3,3)$, and $\lG\cong\so{3,\C}$ preserves $q$ (Theorem~12.1 of \cite{ES17}), so
+$w(\Lambda^{-\top}p)=w(p)$; the equations for $(\theta,h)$ contain only $R_0$ and $\varphi_0$.
+\end{proof}
+
+Fixed. Numerically $H=K+U$ to $3\times10^{-11}$; over a rotating solution sweeping $\psi$ through $192$ radians the range of $K$ equals $R_0/m$ to
+$3\times10^{-10}$; a random Lorentz transformation of $p_0$ changed $E_6$ by $5.0$ and left $\theta(\tau)$ unchanged to $9\times10^{-12}$ (d3-9). This is the
+precise sense in which the unity differentiates in motion: the conserved total is one number; it splits into a rate part and a frame part, each
+Lorentz invariant, which exchange energy along the pendulum; and the amplitude of the exchange is fixed by the rest energy of the momentum field and
+by nothing else of it. Neither part is the undivided $E_6$, which is inert.
+
+\paragraph{Units, and the factor one half.} With $[\tau]=T$, $[\kappa]=T^{-1}$ (Section~3 of \cite{ES17}) and $[X]=L$, a convention by
+\cref{d3:prop:scalings}(ii) that makes $m$ a mass (d3-10):
+\begin{center}
+\small
+\begin{tabular}{@{}lcccccccc@{}}
+\toprule
+quantity & $\kappa$ & $I_0$ & $h=I_0\kappa$ & $m$ & $p=m\,\eta\,\alpha_+X$ & $N$ & $H$, $K$, $U$ & $M_{\rm rot}:=I_0/\ell^2$\\
+\midrule
+dimension & $T^{-1}$ & $ML^2$ & $ML^2T^{-1}$ & $M$ & $MLT^{-1}$ & $M^{-1}$ & $ML^2T^{-2}$ & $M$\\
+\bottomrule
+\end{tabular}
+\end{center}
+With the clamped value $\kappa=c/\ell$ the rate part is $K=\tfrac12I_0\kappa^2=\tfrac12(I_0/\ell^2)c^2=\tfrac12M_{\rm rot}c^2$, the ``$c^2$ part'' of the
+conserved total; the identification is interpretive. Read literally, $K$ is the Newtonian kinetic energy of a mass $M_{\rm rot}$ on a circle of
+radius $\ell$ at rim speed $c$. It is not $E=mc^2$: the factor $\tfrac12$ comes from a rotor energy quadratic in its rate, where Planck's relation is
+linear; $M_{\rm rot}$ is the rotor inertia, which the algebra does not tie to the frame mass $m$ (\cref{d3:prop:scalings}(iv)); $\kappa=c/\ell$ holds only
+for the clamped rotor; and a rim speed $c$ is outside the domain of Newtonian kinetic energy. That $h$ is an action is what makes
+\cref{d3:sec:quantum} dimensionally possible.
+
+\subsection{When the rate is constant}
+\label{d3:sec:multiscale}
+
+\begin{proposition}[The multiscale criterion]
+\label{d3:prop:multiscale}
+Let $R_0>0$, $\kappa_0=\kappa(0)\neq0$, $\psi_0=\psi(0)$ and $\varepsilon:=R_0/(mI_0\kappa_0^2)=U_{\max}/K(0)$, $U_{\max}=R_0/(2m)$. Then
+$\kappa^2=\kappa_0^2[1+\varepsilon(\cos\psi_0-\cos\psi)]$, so $|\kappa^2/\kappa_0^2-1|\le2\varepsilon$; the rotor turns for all time iff
+$\varepsilon(1-\cos\psi_0)<1$, which holds for every phase when $\varepsilon<\tfrac12$; for $\varepsilon(1-\cos\psi_0)>1$ it librates, and equality is
+the separatrix.
+\end{proposition}
+
+\begin{proof}
+Divide the conservation of $H=\tfrac12I_0\kappa^2+\tfrac{R_0}{2m}\cos\psi$ by $\tfrac12I_0\kappa_0^2$. The least value of $\kappa^2$, at $\cos\psi=1$, is
+$\kappa_0^2[1-\varepsilon(1-\cos\psi_0)]$; if it is negative, $\kappa$ vanishes where $\sin\psi\neq0$, hence $\ddot\theta\neq0$, and changes sign.
+\end{proof}
+
+This is Corollary~17.15 of \cite{ES17}, fixed; the formula holds along four flows to $8\times10^{-12}$, and the criterion was confirmed in five cases on
+both sides (d3-11). The form $\varepsilon=U_{\max}/K(0)$ is ours. The reading is interpretive (d3-12): if $c$ is the fixed conversion of Theorem~3.2 of
+\cite{ES17}, a varying $\kappa=c/\ell$ is a varying length $\ell(\tau)=c/\kappa(\tau)$, whose relative spread along a rotating solution is
+$\varepsilon+O(\varepsilon^2)$ (measured $0.0914$, $0.00992$, $0.00100$ at $\varepsilon=0.1$, $0.01$, $0.001$). A constant ``$c/\ell$'' requires
+$I_0\kappa_0^2\gg R_0/m$, that is $\tfrac12M_{\rm rot}c^2\gg|a+ib|E_0(p)/m$: the rotor energy must dominate the rest-energy amplitude of the momentum
+field, and the clamped interiors of Sections~15--16 of \cite{ES17} are the limit $\varepsilon\to0$ (Proposition~17.9 of \cite{ES17}). The ``symmetric'' $c^2/\ell^2$ is
+constant only insofar as the differentiated part is negligible beside the rotor, and $\varepsilon$ is an input (\cref{d3:prop:scalings}).
+
+\subsection{The rest energy as a rate of rotation}
+\label{d3:sec:rate}
+
+\begin{proposition}[Two rotations at rest]
+\label{d3:prop:tworot}
+(i) For the real first-order Dirac form of Section~4.4 of \cite{ES17} at $\bp=0$, $H(0)=me_1$, $Je_1=T=e_1e_2e_3$, $T^2=-\id$, and
+$\Psi(\lambda)=\cos(m\lambda)\Psi_0-\sin(m\lambda)Je_1\Psi_0=e^{-m\lambda T}\Psi_0$: angular frequency $m$, that is $mc^2/\hbar$. (ii) The zero-momentum
+orbits $X(\tau)=e^{-\kappa G\tau}X_0$ satisfy $\alpha_+X=0$, $\ddot X=-\kappa^2X$: angular frequency $\kappa=c/\ell$, with $z\mapsto e^{-i\kappa\tau}z$ and
+$q\mapsto e^{-2i\kappa\tau}q$ (Proposition~16.5 of \cite{ES17}).
+\end{proposition}
+
+\begin{proof}
+(i) $\dot\Psi=-JH\Psi$ with $JH(0)=mT$, since $e_1$ commutes with $J=e_2e_3$. (ii) $\tfrac{d}{d\tau}e^{-\kappa G\tau}=-\kappa Ge^{-\kappa G\tau}$, $G^2=-\id$.
+\end{proof}
+
+Item (i) is inherited, the realification of $\psi=e^{-imc^2t/\hbar}\psi_0$, de Broglie's internal clock \cite{deBroglie1925} (compare
+\cref{d2:prop:restflow}); (ii) is Theorem~16.2 of \cite{ES17}, used as a datum; both checked exactly (d3-13).
+
+\begin{proposition}[No operator relates the two rates]
+\label{d3:prop:norel}
+(i) $\Ad_{e^{\alpha T}}$ fixes $e_1,e_2,e_3$ and maps a spatial $e_a$ to $\cos2\alpha\,e_a+\sin2\alpha\,Te_a$, a vector only for $\alpha\in\tfrac\pi2\Z$:
+the Dirac rest flow is not a motion of $V$, and $T$, of grade three, is not in $\so{3,3}$. (ii) $(e^{\theta G})^{\!\top}\eta\,e^{\theta G}=\cos2\theta\,\eta+\sin2\theta\,\eta G$,
+so $e^{\theta G}\in O(3,3)$, and lifts to $\mathrm{Pin}(3,3)$, only for $\theta\in\pi\Z$. Hence neither one-parameter group is the image of the other
+under the spin homomorphism, and $m$ and $\kappa$ are independent parameters.
+\end{proposition}
+
+\begin{proof}
+(i) $T$ commutes with the temporal and anticommutes with the spatial generators (Lemma~2.1 of \cite{ES17}), so $e^{\alpha T}e_ae^{-\alpha T}=e^{2\alpha T}e_a$,
+and $Te_a$ has grade four. (ii) Expand with $e^{\theta G}=\cos\theta+\sin\theta\,G$, $G^{\!\top}\eta=\eta G$ symmetric, $G^{\!\top}\eta G=-\eta$.
+\end{proof}
+
+This obstructs any derivation of one rate from the other (d3-15). What remains is a matching, which is interpretive (d3-14): with $E=\hbar\times$rate,
+$\hbar\kappa=mc^2$ with $\kappa=c/\ell$ holds iff $\ell=\hbar/(mc)$, the reduced Compton wavelength. The rate itself is ambiguous by a factor two: the
+invariant $q$ turns at $2\kappa$ and $z$ at $\kappa$, the Dirac bilinears at $0$ or $2m$; matching $2\hbar\kappa=mc^2$ gives $\ell=2\hbar/(mc)$, and the
+algebra decides neither. ``A rest energy is a rate of rotation'' is inherited physics; ``the frame's rate is the Dirac rate'' expresses $\ell$
+through $m$ and derives neither.
+
+\subsection{Scale freedom}
+\label{d3:sec:scale}
+
+\begin{proposition}[Scalings]
+\label{d3:prop:scalings}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item $\eta$, $G$, $G\eta^{-1}$, $\eta G$, $\mathcal K=\tfrac12\ad_{\mathsf P}$ and the structure constants of the complex cross product $\beta_0$ are
+integer matrices.
+\item $\ddot X=-\kappa^2X$ is invariant under $X\mapsto\lambda X$, which scales $\tfrac m2\eta(\alpha_+X,\alpha_+X)$ by $\lambda^2$, absorbed by
+$m\mapsto m/\lambda^2$, and under $(\tau,\kappa)\mapsto(s\tau,\kappa/s)$.
+\item The closure is invariant under $(\tau,I_0,m)\mapsto(s\tau,sI_0,sm)$ with $(\theta,h,p)$ unchanged as functions of the rescaled time, and
+$\varepsilon$ is invariant.
+\item For $s,t>0$, $(I_0,m)\mapsto(sI_0,tm)$ keeps $I_0>0$ and $N$ of Lorentz class and multiplies $\varepsilon$ by $1/(st)$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) $\beta_0(e_i,e_j)=\epsilon_{ijk}e_k$, $\beta_0(e_i,e_{j+3})=\epsilon_{ijk}e_{k+3}$, $\beta_0(e_{i+3},e_{j+3})=-\epsilon_{ijk}e_k$; the rest is Lemma~3.4 of
+\cite{ES17}. (ii) Linearity, and $Y(\tau')=X(\tau'/s)$ solves $Y''=-(\kappa/s)^2Y$. (iii) With $d/d\tau'=s^{-1}d/d\tau$, $I_0'=sI_0$, $N'=N/s$, both equations of
+Proposition~17.8 of \cite{ES17} are reproduced, and $\kappa_0'=\kappa_0/s$ gives $\varepsilon'=\varepsilon$. (iv) $R_0$ does not depend on $(I_0,m)$.
+\end{proof}
+
+Items (i) and (iv) are the remark closing Section~17.5 of \cite{ES17}; (ii) and (iii) are added; all four are fixed. Numerically the closure rescaled
+by $s=2.5$ reproduces $(\theta,h,p)$ to $7\times10^{-12}$, and $\varepsilon$ measured from the range of $\kappa^2$ goes from $0.27209155$ to
+$0.04534858=\varepsilon/6$ under $(I_0,m)\mapsto(2I_0,3m)$ (d3-16, d3-17).
+
+\begin{theorem}[Nothing in the algebra fixes $\ell$]
+\label{d3:thm:noscale}
+(i) Schur's lemma fixes only the form $C=c\,\id$ of the conversion (Theorem~3.2 of \cite{ES17}), and $c$ converts units of time into units of length.
+(ii) No monomial $c^\alpha\hbar^\beta$ is a length, a mass or a time; with a mass $m$ adjoined, the only length is $\hbar/(mc)$ up to a number. (iii) The
+interior systems with different $\kappa>0$ are carried into each other by a rescaling of $\tau$ that fixes every Clifford datum
+(\cref{d3:prop:scalings}(ii)); so no condition formulated in the Clifford data distinguishes one value of $\kappa$, or of $\ell=c/\kappa$, from another,
+and in the closure none fixes $\varepsilon$ (\cref{d3:prop:scalings}(iv)).
+\end{theorem}
+
+\begin{proof}
+(i) The commutant of the vector representation of $\so3$ in $M_3(\R)$ is $\R\,\id$. (ii) In the basis $(M,L,T)$, $[c]=(0,1,-1)$ and $[\hbar]=(1,2,-1)$
+span a plane containing none of $(0,1,0)$, $(1,0,0)$, $(0,0,1)$; adjoining $[m]=(1,0,0)$ gives an invertible matrix, with $(0,1,0)=-[c]+[\hbar]-[m]$.
+(iii) The data are integer matrices, and the rescaling acts on $\tau$ and $\kappa$ only.
+\end{proof}
+
+This is an obstruction (d3-18), and it gives the one exact form of ``$m$ breaks the symmetry of $c^2$'' available here: $c$, fixed up to units by
+Schur's lemma, carries no scale; the shift $\kappa G$ needs a length $\ell$ that the algebra cannot supply; and through $\ell=\hbar/(mc)$ that length is
+a mass. The only dimensionful datum beyond $c$ (and $\hbar$) is $\ell$, equivalently $m$. This is the inherited dimensional analysis of any theory with
+only $c$ and $\hbar$, and what it ``breaks'' is the change of the unit of $\tau$, not a symmetry of a vacuum; the reading is interpretive.
+
+\subsection{The frame drifts}
+\label{d3:sec:drift}
+
+\begin{example}[Example~17.17 of \cite{ES17}, re-verified]
+\label{d3:ex:drift}
+Take $p_0=e^1$, $m=I_0=\kappa_0=1$, $(a,b)=(1,0)$: $w=1$, $\varphi_0=0$, $\varepsilon=1$, $\dot\theta^2=1+2\sin^2\theta$, and by Theorem~17.12 of \cite{ES17}
+($N_c=0$) $\dot x=e^{2\theta G}Np_0=\cos2\theta\,e_1+\sin2\theta\,e_4$. The $e_4$ part integrates to zero ($\theta\mapsto\pi-\theta$), and with $s=\sin^2\theta$ and
+$(1-2s)/\sqrt{1+2s}=2/\sqrt{1+2s}-\sqrt{1+2s}$,
+\[
+\Delta x\big|_{\theta:0\to\pi}=\int_0^\pi\frac{\cos2\theta\,d\theta}{\sqrt{1+2\sin^2\theta}}\,e_1=\bigl(4K(-2)-2E(-2)\bigr)e_1\approx0.3168040511\,e_1 .
+\]
+Over a full turn, $\theta:0\to2\pi$, $\Delta x=(8K(-2)-4E(-2))e_1\approx0.6336081022\,e_1$, the value of Example~17.17 of \cite{ES17}, whose ``turn'' is
+thus $\theta\mapsto\theta+2\pi$. After half a turn $h$ has returned and $p=-p_0$ ($e^{\pi G}=-\id$); after a full turn both have returned.
+\end{example}
+
+Fixed, as a re-verification (d3-19): mpmath quadratures of the $\theta$ integral and of the integral $\lambda$ of Theorem~17.16 of \cite{ES17} agree with
+the elliptic expressions to $10^{-25}$; integrating $(\theta,h,p,x)$ to the event $\theta=2\pi$ reproduces $0.6336081022$ to $3\times10^{-14}$, the half-turn
+value to $10^{-14}$ and the returns of $h$ and $p$ to $3\times10^{-14}$. The bearing on the hypothesis is Theorem~17.16 of \cite{ES17}: with a free rotor
+and Lorentz-class inertia a nonzero rest energy of the momentum field makes the frame unbounded, and a constant rate with a bounded frame occurs exactly
+on null data or on the balance surface of several constituents (Proposition~17.18 of \cite{ES17}). In motion the differentiation unbinds the frame.
+
+\subsection{A quantum rotor, conditionally}
+\label{d3:sec:quantum}
+
+\begin{proposition}[The half turn]
+\label{d3:prop:halfturn}
+(i) $e^{\pi G}=-\id$, $e^{2\pi G}=\id$, and for $p_0\neq0$ the leaf circle $\{e^{\theta G}p_0\}$ has period exactly $2\pi$. (ii) For every symmetric $N$,
+$U(\theta+\pi)=U(\theta)$. (iii) $\Gamma=J\Omega=\pm e_1\cdots e_6$ anticommutes with every generator, $\Gamma^2=\id$, so it implements $e^{\pi G}=-\id$ on
+spinors; by \cref{d3:prop:norel}(ii) the multiples of the half turn are the only rotor elements that lift to $\mathrm{Pin}(3,3)$.
+\end{proposition}
+
+\begin{proof}
+(i) $(e^{\theta G}-\id)p_0=(\cos\theta-1)p_0+\sin\theta\,Gp_0$ with $p_0\perp Gp_0$, $|Gp_0|=|p_0|$. (ii) $p(\theta+\pi)=-p(\theta)$ and $U$ is quadratic. (iii) A
+product of all six anticommuting generators anticommutes with each, and $(e_1\cdots e_6)^2=(-1)^{15}\prod_a\eta_{aa}=\id$.
+\end{proof}
+
+This re-verifies the remark of Section~17.6 of \cite{ES17} and is fixed (d3-20). The quantum statement it permits is conditional on an assumption.
+
+\begin{assumption}[A quantised leaf]
+\label{d3:ass:quant}
+The leaf $T^*S^1$ of \cref{d3:thm:frozen}(ii) is quantised by wave functions with $\Phi(\theta+2\pi)=e^{2\pi i\delta}\Phi(\theta)$, $h=-i\hbar\,\partial_\theta$,
+and the Casimirs of the leaf are treated as numbers.
+\end{assumption}
+
+\begin{proposition}[A conditional rate ladder]
+\label{d3:prop:ladder}
+Under \cref{d3:ass:quant}: (i) $h$ has spectrum $\hbar(\Z+\delta)$; on flat leaves (\cref{d3:cor:flat}) $E_n=\hbar^2(n+\delta)^2/(2I_0)$,
+$\kappa_n=(n+\delta)\hbar/I_0$ and $E_{n+1}-E_n=\tfrac\hbar2(\kappa_n+\kappa_{n+1})$. (ii) If $R_0>0$ the Hamiltonian is a Mathieu operator whose
+potential couples $e^{in\theta}$ only to $e^{i(n\pm2)\theta}$, so for $\delta=0$ the parity of $n$, the half-turn eigenvalue, is conserved; for
+$q:=I_0R_0/(2m\hbar^2)\gg1$ the lowest gap in either parity sector is $\hbar\Omega-\hbar^2/(2I_0)+O(q^{-1/2}\hbar^2/I_0)$, and the two sectors are degenerate
+up to tunnelling. (iii) If moreover $\delta=0$, $h=\hbar$ and $\hbar\kappa_1=mc^2$ with $\ell=\hbar/(mc)$, then $I_0=\hbar^2/(mc^2)$, $M_{\rm rot}=m$, and the
+first level has energy $E_1=\tfrac12mc^2$.
+\end{proposition}
+
+\begin{proof}
+(i) Spectrum of $-i\hbar\partial_\theta$ on twisted periodic functions. (ii) $\cos(2\theta+\varphi_0)$ shifts $n$ by $\pm2$. Dividing the Schr\"odinger equation by $-\hbar^2/(2I_0)$ gives
+$\Phi''+(a-2q\cos(2\theta+\varphi_0))\Phi=0$, $a=2I_0E/\hbar^2$, with $a\sim-2q+2s\sqrt q-\tfrac18(s^2+1)$, $s=2r+1$, as $q\to\infty$ \cite{DLMF}; the levels
+$r=0,1$ lie in the same sector and differ by $4\sqrt q-1$, and $\hbar\Omega=(\hbar^2/2I_0)\,4\sqrt q$. (iii) $\hbar/I_0=c/\ell=mc^2/\hbar$ and $E_1=\hbar^2/(2I_0)$.
+\end{proof}
+
+Checked (d3-21): at $R_0=0$ the ladder is exact; at $R_0/m=2000$, $\hbar=I_0=1$, the lowest even-sector gap is $62.7415$ against
+$\hbar\Omega-\hbar^2/(2I_0)=62.7456$, and the sectors' ground states agree to $2\times10^{-12}$. The proposition is open in the sense of the classification:
+a theorem about a quantisation nothing in the paper supplies. Four things are missing. The assumption itself: nothing fixes $\delta$, and treating
+the Casimirs as numbers presupposes a quantum theory of the momentum field, which the closure does not give and the split-form frame obstructs, having
+no ground state (\cref{d2:cor:noground}). A value of $I_0$: the unit $\hbar/I_0$ of the ladder is free (\cref{d3:prop:scalings}). A coupling to
+matter: the rotor has no continuous spin lift, so nothing identifies $\kappa_n$ with the Dirac rest rate; only the $\Z_2$ of the half turn reaches
+spinors, as $\Gamma$, and nothing here ties the parity of $n$ to chirality. And the two matchings of (iii) are independent inputs, which together
+give the first level $\tfrac12mc^2$: $mc^2$ appears only as $\hbar$ times the rate put in, neither as a level nor as a transition energy.
+
+\subsection{Assessment}
+\label{d3:sec:assess}
+
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{@{}p{2.5cm}p{7.2cm}p{2.9cm}p{2.0cm}@{}}
+\toprule
+claim & statement & class & check\\
+\midrule
+\cref{d3:thm:frozen} & $E_6$, $E_0$, $\mathbf S$ of the momentum field are Casimirs; only the duality phase moves & fixed & d3-1--d3-3\\
+\cref{d3:cor:nogen} & no Hamiltonian on $\mathfrak s^*$ creates or changes rest energy & obstructed & d3-4\\
+\cref{d3:prop:pendulum} & $U=\tfrac{R_0}{2m}\cos(2\theta+\varphi_0)$, $R_0=2|a+ib|E_0$ & fixed & d3-5\\
+\cref{d3:prop:omega} & $\Omega^2=2R_0/(mI_0)=4|a+ib|E_0/(mI_0)$; elliptic period & fixed & d3-6\\
+\cref{d3:cor:flat} & null data (or duality class): exact flat direction & fixed & d3-7\\
+\cref{d3:rem:goldstone} & $I_0\Omega^2=U''$ / $\theta$ as a pseudo-Goldstone angle & fixed / interpretive & d3-8\\
+\cref{d3:prop:budget} & $H=K+U$, exchange amplitude $R_0/m$, Lorentz invariance & fixed & d3-9\\
+units & $K=\tfrac12M_{\rm rot}c^2$ is the ``$c^2$ part''; it is not $E=mc^2$ & interpretive & d3-10\\
+\cref{d3:prop:multiscale} & $\kappa^2$ law, bound $2\varepsilon$, rotation criterion & fixed & d3-11\\
+heavy rotor & a constant $c/\ell$ requires $\tfrac12M_{\rm rot}c^2\gg|a+ib|E_0/m$ & interpretive & d3-12\\
+\cref{d3:prop:tworot} & rest energy as a rotation rate (Dirac, frame) & inherited & d3-13\\
+matching & $\hbar\kappa=mc^2\iff\ell=\hbar/(mc)$ & interpretive & d3-14\\
+\cref{d3:prop:norel} & no Spin or $O(3,3)$ map relates the two rates & obstructed & d3-15\\
+\cref{d3:prop:scalings} & integer data; scalings of $X$, $\tau$, $I_0$, $m$ & fixed & d3-16, d3-17\\
+\cref{d3:thm:noscale} & nothing in the algebra fixes $\ell$ (a mass scale) & obstructed & d3-18\\
+\cref{d3:ex:drift} & $\Delta x=(8K(-2)-4E(-2))e_1$ per full turn & fixed & d3-19\\
+\cref{d3:prop:halfturn} & $e^{\pi G}=-\id$, implemented by $\Gamma$ & fixed & d3-20\\
+\cref{d3:prop:ladder} & conditional ladder $\kappa_n=n\hbar/I_0$; $E_1=\tfrac12mc^2$ & open & d3-21\\
+\bottomrule
+\end{tabular}
+\caption{The claims of \cref{d3:sec:main}, their classes and the checks of \texttt{d3\_closure\_dynamics.py}; d3-0 verifies the conventions.}
+\label{d3:tab:claims}
+\end{table}
+
+Against the working dictionary (\cref{d3:tab:claims}) the closure gives four answers. \emph{$E$ as the Casimir $|p|^2$}: correct as an identity,
+$E_6=\tfrac12|p|^2$, wrong as a dynamical role; the Casimir is inert, and what is conserved and differentiates in motion is $H=K+U$, a rotor part and a
+Lorentz-invariant frame part, not $E_6$ and $E_0$. \emph{$c^2$ as the factorising shift $\kappa G$}: in the closure $c^2$ appears as the rotor term
+$\tfrac12(I_0/\ell^2)c^2$ and, clamped, as $(\kappa G)^2=-c^2/\ell^2$; $c$ is fixed up to units by Schur's lemma, $\ell$ is free, and $\kappa$ is dynamical,
+constant only when $\varepsilon\ll1$; the factor $\tfrac12$ is that of a rotor and stays. \emph{$m$ as the rest energy $\tfrac12|q|$}: confirmed in a
+precise dynamical sense, since $E_0$ of the momentum field is the amplitude of the duality potential, sets $\Omega^2\propto E_0$ and the energy
+exchanged, and $E_0=0$ is the flat direction; but it is a Casimir, carried and not generated, and $m\leftrightarrow T$ cannot be tied to the rotor by any
+operator. \emph{$b$, the Yang--Mills field}: the closure contains none and needs none. No equivariant bracket on the frame closes the force law, and in
+the unique closure the frame is abelian (Theorems~17.6 and~17.7 of \cite{ES17}); a Yang--Mills field can only be added as a transport, and at three
+constituents its binding-compatible form $\so4_\Delta\subset\Cent(G_3)$ commutes with the rotor (Theorem~17.21 and Section~17.6 of \cite{ES17}), where it
+redistributes rest energy among constituents without creating it (\cref{d1:prop:bfield}). This conclusion is interpretive, drawn from fixed
+statements, and it respects the order the hypothesis now asks for: the undivided energy and its differentiation in motion are complete before any
+$b$-field appears.

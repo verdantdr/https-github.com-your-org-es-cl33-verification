@@ -1,0 +1,24 @@
+\section{How the statements were verified}
+\label{s9:sec:methods}
+
+Every finite-dimensional statement of \cref{d1:sec:main,d2:sec:breaks,d3:sec:main,d4:sec:bfield} was checked by computation, in two
+independent passes. The scripts are in \texttt{investigations/rest\_energy/verify/} and run with \texttt{python3} from any directory, using
+\texttt{numpy}, \texttt{sympy}, \texttt{scipy} and \texttt{mpmath}.
+
+\begin{enumerate}
+\item \emph{Derivation scripts} \texttt{d1\_unitary\_energy.py}, \texttt{d2\_symmetry\_breaking.py}, \texttt{d3\_closure\_dynamics.py} and
+\texttt{d4\_bfield.py} were written together with the corresponding sections. They rebuild the realisation of \cite{ES17}, Appendix~A,
+from its definition and print one \texttt{PASS} line per claim of their section, with the claim's label.
+\item \emph{Adversarial scripts} \texttt{x1\_check.py} to \texttt{x4\_check.py} were written afterwards by separate authors whose task was to
+refute the claims. They import nothing from the derivation scripts, rebuild every convention from the paper's sources, and wherever possible
+use a different method: symbolic where the first pass was numerical, random tests where it used special cases, a different integrator for
+the dynamics. Their findings, including one refuted claim and several reclassifications, were applied before the note was assembled.
+\item \texttt{run\_all.py} runs all eight scripts and writes \texttt{RESULTS.md}; it exits with status zero only if every script does.
+\end{enumerate}
+
+Algebraic statements were checked exactly, in integer or rational arithmetic, since every blade of the realisation is a signed permutation
+matrix. Statements about spectra and Jordan structure were checked with rational data; floating-point inputs were not used for
+semisimplicity tests, where they produce false negatives. Dynamical statements were checked by numerical integration with relative
+tolerances of $10^{-11}$ to $10^{-12}$, and elliptic and Mathieu quantities with \texttt{mpmath} and \texttt{scipy.special}. Statements of
+\cite{ES17} that are cited without re-verification are marked as such in the text. The corrections made to \cite{ES17} itself in the course
+of this work are listed, with their own checks, in \texttt{investigations/errata\_2026-10-17/}.
