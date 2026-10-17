@@ -1,0 +1,213 @@
+\section{The orthogonality of the electric and magnetic fields}
+\label{sec:orth}
+
+In the frame reading the orthogonality of $\bE$ and $\bB$ is the reality of the complex invariant, $\Im q=2\,\bE\cdot\bB=0$, and
+by \cref{prop:planes} it is also the condition for the spacetime two-form to be a single plane. Since the arena puts $\bE$ and $\bB$
+on two orthogonal triples, it is natural to ask what orthogonality means physically: what breaks it, whether its failure is a
+symmetry breaking, and whether it can produce mass. The answers are classical once the right questions are asked, and they come out
+sharply negative on the last point.
+
+\subsection{What orthogonality is}
+
+The field strength $F^\mu{}_\nu$ has eigenvalues $\pm\epsilon_E$ and $\pm i\epsilon_M$ with
+\[
+\epsilon_E=|\Im\sqrt q|,\qquad \epsilon_M=|\Re\sqrt q|,
+\]
+and $\bE\cdot\bB=\Pf F=0$ exactly when $F$ is one plane: a pure boost, a pure rotation or a null rotation. Otherwise $F$ generates a
+screw, a boost and a rotation about a common axis. Two simple facts locate orthogonality among all fields.
+
+\begin{proposition}[Single modes are orthogonal]
+\label{prop:modes}
+Let $F=k\wedge b$ with $k,b$ real four-vectors. Then $\Pf F=0$ and $q=(k\cdot k)(b\cdot b)-(k\cdot b)^2$ is real. The field of a mode
+$A_\mu=\Re(a_\mu e^{-ik\cdot x})$ with real $k$ and $k\cdot a=0$ is $k\wedge b(x)$ with $k\cdot b=0$, for every polarisation. A Maxwell mode,
+$k\cdot k=0$, is therefore null at every point, and a Proca mode, $k\cdot k=m^2$, has $q=m^2(b\cdot b)\le0$: it is orthogonal and of
+electric type everywhere.
+\end{proposition}
+
+A mass does not show in the angle between the fields of a single mode; it shows in the other invariant, which it makes nonzero.
+The null cone $q=0$ is the massless locus, and orthogonality is a much larger set, containing every single mode of every mass.
+
+\begin{proposition}[Superposition breaks it]
+\label{prop:twomodes}
+$\Pf(k_1\wedge b_1+k_2\wedge b_2)=\det(k_1^\flat,b_1^\flat,k_2^\flat,b_2^\flat)$. At a point, two modes give $\bE\cdot\bB\neq0$ exactly when
+their two planes together span spacetime. Waves propagating along one null direction $\ell$ never do: the total field is
+$\ell\wedge\sum_j\omega_jb_j$, a single null plane.
+\end{proposition}
+
+\begin{example}[Counter-propagating waves]
+\label{ex:counter}
+In textbook variables, with $\omega=k$, let a wave along $+z$ polarised along $x$ meet a wave along $-z$. With crossed polarisations,
+$\bE=(\cos(kz-kt),\cos(kz+kt),0)$ and $\Btext=(\cos(kz+kt),\cos(kz-kt),0)$; with parallel ones,
+$\bE=(\cos(kz-kt)+\cos(kz+kt),0,0)$ and $\Btext=(0,\cos(kz-kt)-\cos(kz+kt),0)$. Both solve Maxwell's equations, and
+\[
+\begin{aligned}
+&\text{crossed:}&& \bE\cdot\Btext=\cos2kz+\cos2kt, && |\Btext|^2-|\bE|^2=0,\\
+&\text{parallel:}&& \bE\cdot\Btext=0, && |\Btext|^2-|\bE|^2=-2(\cos2kz+\cos2kt).
+\end{aligned}
+\]
+The two configurations have the same energy density and the same Poynting vector at every point. The reason is structural: the crossed
+configuration is the parallel one turned by $\pi/4$ about the $z$ axis and then duality-rotated by $\pi/4$; the rotation preserves the
+energy density and the Poynting vector along $z$, the duality rotation preserves the entire energy--momentum tensor, and only the phase
+of $q$ moves.
+\end{example}
+
+Nothing exotic is needed to break orthogonality. Near the ground the fair-weather electric field of the atmosphere, about $100$~V/m
+and vertical \cite{FeynmanII}, meets the geomagnetic field, which is inclined to the horizontal everywhere except on the magnetic
+equator.
+
+\subsection{How it changes in time}
+
+\begin{proposition}[The local law]
+\label{prop:EBlocal}
+With $\partial_t\bB=\curl\bE$ and $\partial_t\bE=-\curl\bB-\bj$,
+\[
+\partial_tq=-2i\,z\cdot(\curl z)-2i\,z\cdot\bj,\qquad \partial_t(\bE\cdot\bB)=\bE\cdot\curl\bE-\bB\cdot\curl\bB-\bj\cdot\bB ,
+\]
+in textbook variables $\partial_t(\bE\cdot\Btext)=\Btext\cdot\curl\Btext-\bE\cdot\curl\bE-\bj\cdot\Btext$. With potentials,
+$\Btext=\curl\bA$, $\bE=-\partial_t\bA-\nabla\phi$, and in a source-free region $\bE=-\curl\mathbf C$, $\Btext=-\partial_t\mathbf C+\nabla\chi$,
+\[
+\partial_t(\bA\cdot\Btext)+\nabla\cdot(\phi\Btext+\bE\times\bA)=-2\,\bE\cdot\Btext,\qquad
+\partial_t(\mathbf C\cdot\bE)-\nabla\cdot(\Btext\times\mathbf C+\chi\bE)=-2\,\bE\cdot\Btext .
+\]
+\end{proposition}
+
+In vacuum, $\bE\cdot\bB$ changes at a point only through $\bE\cdot\curl\bE$ and $\bB\cdot\curl\bB$, which measure how much each field
+twists about itself. Integrated over a region with vanishing boundary fluxes, $\int\bE\cdot\Btext$ is minus half the rate of change of
+the magnetic helicity $\int\bA\cdot\Btext$ \cite{Woltjer58,BergerField84}, and equally of the electric helicity, so that their
+difference, the optical helicity of \cref{thm:SS}, is conserved in free space \cite{Calkin65,CameronBarnettYao12}. Non-orthogonality
+is the agent that changes the helicity of each field while their combination is kept. In matter, charges moving along the magnetic field
+change $\bE\cdot\bB$ through $-\bj\cdot\bB$.
+
+Conductors screen it. For the generalised Ohm law
+$\bE+\bv\times\Btext=\eta_{\rm R}\bj+(\bj\times\Btext)/(ne)-(\nabla\cdot\mathsf P_e)/(ne)+(m_e/ne^2)\,d\bj/dt$ \cite{PriestForbes},
+\[
+\bE\cdot\Btext=\eta_{\rm R}\,\bj\cdot\Btext-\frac{\Btext\cdot(\nabla\cdot\mathsf P_e)}{ne}+\frac{m_e}{ne^2}\,\Btext\cdot\frac{d\bj}{dt} :
+\]
+the flow term and the Hall term drop out, ideal magnetohydrodynamics enforces orthogonality everywhere, and only resistivity, electron
+pressure and electron inertia allow $\bE\cdot\Btext\neq0$. This is the criterion of Schindler, Hesse and Birn for magnetic reconnection,
+a nonvanishing integral of $E_\parallel$ along field lines \cite{SchindlerHesseBirn88}. Where charges are scarce the screening fails: a
+rotating magnetised neutron star in vacuum induces $\bE\cdot\Btext\neq0$ at its surface, charges drawn from the surface fill the
+magnetosphere until $\bE\cdot\Btext=0$ \cite{GoldreichJulian69}, and the regions left without enough charge keep $\bE\cdot\Btext\neq0$ and
+accelerate particles \cite{RudermanSutherland75}.
+
+\subsection{Non-orthogonality breaks parity and time reversal, and is never spontaneous}
+
+\begin{theorem}[Orthogonality is achirality]
+\label{thm:achiral}
+For a field strength $F$ at a point the following are equivalent: (a) $\bE\cdot\bB=0$; (b) the mirror image $PF$ equals $\Lambda F$ for some
+proper orthochronous Lorentz transformation $\Lambda$; (c) the time-reversed field $TF$ equals $\Lambda F$ for some such $\Lambda$.
+\end{theorem}
+
+\begin{proof}
+If $\bE\cdot\bB=0$ and $\bB\neq0$, the half-turn about $\bB$ fixes $\bB$ and reverses every vector perpendicular to it, sending $(\bB;\bE)$ to
+$(\bB;-\bE)=P(\bB;\bE)$; if $\bB=0$ a half-turn about an axis perpendicular to $\bE$ does the same. Conversely the Pfaffian is invariant
+under proper Lorentz transformations and changes sign under $P$, so $\Pf F=-\Pf F$. For (c), $T=CP$ on fields and $CF=-F$ has the same
+invariant $q$; since $\lG\cong\so{3,\C}$ acts transitively on each level set of $q$ with the origin removed, $-F$ lies in the proper
+Lorentz orbit of $F$, and (c) is equivalent to (b).
+\end{proof}
+
+A non-orthogonal field is therefore chiral in Kelvin's sense, a screw of definite handedness, and the sign of $\bE\cdot\bB$ is that
+handedness; it is odd under $P$ and $T$ and even under $C$, $PT$ and $CPT$. This is a statement about a field at a point. A configuration
+can be orthogonal everywhere and still chiral as a whole: a static Beltrami magnetic field with $\bE=0$ carries a nonzero helicity
+density. The global chirality of a magnetic configuration is its helicity, $P$-odd and $T$-even, and $\bE\cdot\Btext$, $P$-odd and
+$T$-odd, is minus half its rate of change.
+
+The breaking is never spontaneous. Since $u^2-|\mathbf S|^2=\tfrac14|q|^2$ for the energy density $u=\tfrac12(|\bE|^2+|\bB|^2)$ and the
+Poynting vector $\mathbf S$,
+\begin{equation}
+\label{eq:EBbound}
+u\ \ge\ \tfrac12|q|\ \ge\ |\bE\cdot\bB| ,
+\end{equation}
+and the minimum of the energy is the zero field; there is no degenerate family of lowest-energy configurations among which
+$\bE\cdot\bB$ could choose a sign. In the quantum theory the corresponding statement is the theorem of Vafa and Witten: in a vector-like
+gauge theory at $\theta=0$, zero temperature and zero density, parity is not broken spontaneously through a Bose order parameter such
+as $F\tilde F$ \cite{VafaWitten84}. When $\bE\cdot\Btext$ is imposed from outside the vacuum responds, for instance by rotating the
+chiral condensate of quantum chromodynamics through the electromagnetic triangle anomaly \cite{CaoHuang15}; that is the response of a
+vacuum to an explicit breaking, not a breaking of its own.
+
+Duality behaves differently. The rotation $X\mapsto e^{\vartheta G}X$ leaves the energy--momentum tensor invariant and multiplies $q$ by
+$e^{2i\vartheta}$, so for $q\neq0$ only $\vartheta\in\pi\Z$ fixes the invariants, while for $q=0$ every rotation does. The fields whose
+invariants are unchanged by duality are the null ones, not the orthogonal ones, and orthogonality is not a symmetric point of duality.
+On $\R^{3,3}$, moreover, $(e^{\vartheta G})^{\!\top}\eta\,e^{\vartheta G}=\cos2\vartheta\,\eta+\sin2\vartheta\,\eta G$, so $e^{\vartheta G}$ is an
+isometry of $\eta$ only for $\vartheta\in\pi\Z$. Duality is broken explicitly by electric sources, as \cref{sec:mixed} showed, and by the
+vacuum of a theory with charged particles. For a Lagrangian $L(\cF,\cG)$ of the invariants $\cF=\tfrac12(|\bE|^2-|\Btext|^2)$ and
+$\cG=\bE\cdot\Btext$, with $\mathbf D=\partial L/\partial\bE$ and $\mathbf H=-\partial L/\partial\Btext$,
+\[
+\mathbf D\cdot\mathbf H-\bE\cdot\Btext=\cG\bigl(L_\cF^2-L_\cG^2-1\bigr)-2\cF L_\cF L_\cG ,
+\]
+which vanishes for the Maxwell and Born--Infeld Lagrangians, the duality-invariant ones \cite{GaillardZumino81,GibbonsRasheed95}. For the
+weak-field Euler--Heisenberg Lagrangian \cite{HeisenbergEuler36,Dunne04} it is $-\tfrac{8\alpha^2}{15m^4}\cF\cG+O(\alpha^3)$: the duality
+defect of the vacuum of quantum electrodynamics is proportional, at leading order, to $\bE\cdot\Btext$. For every parity-even Lagrangian
+$L=h(\cF,\cG^2)$ it carries the explicit factor $\cG$, so it vanishes on every orthogonal field.
+
+\subsection{Non-orthogonality does not generate mass}
+
+Mass can enter in four ways: as the rest energy of the field itself, as a photon mass, as a mass of charged matter in the background, and
+through an $\bE\cdot\bB$-type term in an action. None of them is produced by non-orthogonality.
+
+\emph{Rest energy.} For $q\neq0$ the field has a local rest frame, moving with velocity $\mathbf S/(u+\tfrac12|q|)$, in which the Poynting
+vector vanishes and the energy density is $\tfrac12|q|=u\sqrt{1-|\mathbf v_E|^2}$, $\mathbf v_E=\mathbf S/u$; null fields transport their
+energy at the speed of light and have no rest frame. The rest-frame energy density is the modulus of $q$, orthogonality its phase, and
+duality turns the phase at fixed energy, momentum and stress. For a finite configuration with total energy $U$ and momentum $\mathbf P$,
+$M^2=U^2-|\mathbf P|^2$ is positive whenever $q\neq0$ on a set of positive measure, but $M$ does not detect orthogonality: the Cauchy data
+$(\bE,\Btext)=(0,\mathbf b)$ and $(\mathbf b\sin\vartheta,\mathbf b\cos\vartheta)$ for a compactly supported divergence-free $\mathbf b$ have the same
+energy density and zero Poynting vector at every point, hence the same $M$, while $\bE\cdot\Btext$ is $0$ for the first and
+$\tfrac12\sin2\vartheta\,|\mathbf b|^2$ for the second.
+
+\emph{Photon mass.} Every Lorentz-covariant linear map from two-forms to vectors is zero; more strongly, a continuous covariant
+vector-valued function of the value of $F$ at a point vanishes, because a non-null field is fixed by a rotation and a boost about a common
+axis that have no common fixed vector, and every tensor power of $(1,0)\oplus(0,1)$ contains only representations $(j_1,j_2)$ with integer
+$j_1,j_2$. A mass term in $\partial_\mu F^{\mu\nu}=j^\nu$ must therefore involve the potential, other fields or derivatives of $F$; no
+function of the two invariants can serve. Derivatives give a massive mode that is a ghost, as Podolsky's Lagrangian shows. A constant
+nonlinear background moves the light cone without opening a gap, $\det W(s\omega,s\bk)=s^6\det W(\omega,\bk)$, and to first order the two
+phase velocities are $1-c_iT^{\mu\nu}k_\mu k_\nu$ for $L=\cF+c_1\cF^2+c_2\cG^2$, which is duality invariant and blind to orthogonality.
+Written into the field equations, the binding rotation of \cref{sec:neutral} gives the frequencies $\kappa\pm|\bk|$ to the two circular
+polarisations, a frequency offset that the time-dependent duality rotation $z=e^{-i\kappa t}w$ removes.
+
+\emph{Charged matter.} The invariant $\epsilon_E$ vanishes exactly when $\bE\cdot\bB=0$ and $|\bB|\ge|\bE|$, so every non-orthogonal field
+has $\epsilon_E>0$ and makes the vacuum of spinor electrodynamics decay into pairs \cite{Schwinger51}, converting field energy into
+particles whose mass is a given parameter. For massless fermions the same field pumps chirality, $dN_5/dt=(e^2/2\pi^2)\int\bE\cdot\Btext$,
+the axial anomaly \cite{Adler69,BellJackiw69,NielsenNinomiya83}; a fermion mass relaxes it, and none is produced. The background that does
+catalyse a fermion mass is a pure magnetic field, which is orthogonal \cite{GusyninMiranskyShovkovy95}.
+
+\emph{Topological terms.} In four dimensions the abelian term $\theta\,\bE\cdot\Btext$ is a total derivative and invisible to the field
+equations; a varying $\theta$ makes it a source, as in axion electrodynamics \cite{Wilczek87}, and a constant gradient gives
+birefringence without a gap \cite{CarrollFieldJackiw90}. In every known mechanism in which a term of this type makes mass, something is
+essential that a single abelian field on a topologically trivial space lacks: the Chern--Simons term in three dimensions \cite{DJT82}, the
+anomaly in the two-dimensional Schwinger model \cite{Schwinger62}, the topological susceptibility of a non-abelian theory with light
+fermions for the $\eta'$ \cite{Witten79eta,Veneziano79}, or a pseudoscalar partner for the axion \cite{Weinberg78,Wilczek78}. The frame field
+of this arena is a single abelian field strength with no fermions and no pseudoscalar partner, so no route from $\bE\cdot\bB$ to mass is
+open within what the arena has built.
+
+The Dirac field supplies an exact counterpart, collected in \cref{tab:diracmaxwell}. Its scalar and pseudoscalar densities
+$\sigma=\bar\psi\psi$ and $\omega=\bar\psi i\gamma_5\psi$ turn under a chiral rotation $e^{i\alpha\gamma_5}$ by the angle $2\alpha$, as
+$(|\bB|^2-|\bE|^2,2\bE\cdot\bB)$ turn under duality; a plane wave has $\omega=0$ as a single mode has $\Im q=0$; and a pseudoscalar mass enters
+the mass shell only through $\sqrt{m_s^2+m_p^2}$. The pseudoscalar density is a phase, not a mass, and $\bE\cdot\bB$ has exactly its place.
+
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{@{}ll@{}}
+\toprule
+Maxwell field & Dirac field\\
+\midrule
+duality $e^{\vartheta G}$, turning $q$ by $2\vartheta$ & chiral rotation $e^{i\alpha\gamma_5}$, turning $\sigma+i\omega$ by $2\alpha$\\
+energy--momentum tensor invariant & vector current $J^\mu$ invariant\\
+$u^2-|\mathbf S|^2=\tfrac14|q|^2$ & $J^\mu J_\mu=\sigma^2+\omega^2$\\
+$|\bB|^2-|\bE|^2$ and $2\,\bE\cdot\bB$ & $\sigma$ and $\omega$\\
+null field, $q=0$ & Weyl spinor, $\sigma=\omega=0$\\
+one mode: $q$ real & one plane wave: $\omega=0$\\
+two modes whose planes span spacetime: $\Im q\neq0$ & both signs of frequency: $\omega\neq0$\\
+$\arg q$, twice the Rainich complexion & $\arg(\sigma+i\omega)$, the Yvon--Takabayasi angle\\
+\bottomrule
+\end{tabular}
+\caption{The invariants of a field strength and the bilinears of a Dirac spinor. Each line is an identity or a worked example; the
+parallel is exact at the level of these identities and is not an identification of the two fields.}
+\label{tab:diracmaxwell}
+\end{table}
+
+In the interior dynamics of the next part, orthogonality is broken by the bound motion itself. On an orbit without momentum the flow
+is the duality rotation $z\mapsto e^{-i\kappa\tau}z$, so $\bE\cdot\bB(\tau)=\tfrac12|q_0|\sin(\phi_0-2\kappa\tau)$, which vanishes four times per
+period, and the rest-frame field turns from magnetic through screws to electric and back at the fixed rest-frame energy density
+$\tfrac12|q_0|$. That is the content of \cref{fig:qplane} read along a trajectory, and \cref{sec:neutral} derives it. It is a rotation of
+the phase of $q$ at fixed modulus, and by everything in this section it moves no mass.

@@ -1,0 +1,347 @@
+\section{Other Lorentz actions, and the vector bosons of the tower}
+\label{sec:actions}
+
+Everything so far takes the Lorentz action from one constituent and treats the others as passengers. \Cref{thm:centraliser} is a
+statement about that choice, which we call the \emph{spectator} action. The choice is adopted, not forced, and the alternatives are
+different mathematics with different verdicts.
+
+\subsection{The diagonal action}
+\label{sec:diagonal}
+
+At three constituents let $\gamma^{(k)}_\mu$ be the interior four-plane of constituent $k$, of metric $\eta$. We call the two
+remaining generators $s^{(k)}_1,s^{(k)}_2$ of that constituent its surplus pair; both square to $+\id$. Write $\mathcal S$ for the six surplus
+directions and put
+\[
+\Sigma^{(k)}_{\mu\nu}=\tfrac12\gamma^{(k)}_\mu\gamma^{(k)}_\nu,\qquad \Delta_{\mu\nu}=\sum_{k=1}^3\Sigma^{(k)}_{\mu\nu}.
+\]
+Bivectors of distinct constituents commute, so $\Delta$ satisfies the $\so{1,3}$ brackets, and as a quadratic space
+\begin{equation}
+\label{eq:tensorpic}
+\R^{9,9}=\bigl(\R^3\otimes\R^{1,3}\bigr)\oplus\R^{6,0},
+\end{equation}
+the first factor carrying a copy index with $\delta_{kl}$ and a Lorentz index with $\eta_{\mu\nu}$. The actions $\Delta$ and $\Sigma^{(1)}$ are
+not conjugate: their centralisers have different dimensions and their Casimirs different spectra.
+
+\begin{definition}
+$M_{kl}=\tfrac12\sum_\mu\eta^{\mu\mu}\gamma^{(k)}_\mu\gamma^{(l)}_\mu$ for $k<l$ span the copy algebra $\mathfrak k_{\rm cop}$, and
+$\mathfrak k_{\mathcal S}$ is the span of the fifteen surplus bivectors.
+\end{definition}
+
+\begin{theorem}[The diagonal centraliser is compact]
+\label{thm:diagcent}
+$\mathfrak z(\Delta)=\mathfrak k_{\mathcal S}\oplus\mathfrak k_{\rm cop}\cong\so6\oplus\so3$, of dimension $18$, and every direction of it is compact.
+\end{theorem}
+
+\begin{proof}
+Under $\Delta$ the vector representation is $3V\oplus6\cdot\mathbf1$ by \eqref{eq:tensorpic}, with $V$ irreducible and nontrivial. By Schur
+an equivariant endomorphism acts as $A\otimes\id_V$ on the first summand and arbitrarily on the second, with no mixing since
+$\Hom_{\so{1,3}}(V,\mathbf1)=0$; antisymmetry for $\delta\otimes\eta$ makes $A\in\so3$, and the surplus block gives $\so6$. Both are
+realised: the surplus bivectors commute with $\Delta$ by \eqref{eq:bladecomm}, and $M_{kl}$ is the spin lift of the copy rotation
+$E_{kl}-E_{lk}$ tensored with the identity on $\R^{1,3}$. Every surplus direction squares to $+\id$, and each term of $M_{kl}$ pairs
+$\gamma^{(k)}_\mu$ with $\gamma^{(l)}_\mu$, two generators of the same square, so every generator is compact by \cref{thm:sig}.
+\end{proof}
+
+For comparison, the centraliser of $\Sigma^{(1)}$ is $\so{8,6}$, of dimension $91$ with $43$ compact and $48$ boost directions; that of all
+three $\Sigma^{(k)}$ together is $\mathfrak k_{\mathcal S}$ alone, of dimension $15$; and that of $\Sigma^{(1)}$ and $\Delta$ together is
+$\mathfrak k_{\mathcal S}\oplus\R M_{23}$, of dimension $16$. The diagonal choice exchanges $91$ internal directions, only $43$ of them
+compact, for $18$ of which all are compact. By \cref{thm:ghost} below the noncompact directions are exactly the ghost-signed ones, so the
+diagonal internal algebra is free of ghosts as a whole while the spectator one is not.
+
+\subsection{A reductive dual pair}
+\label{sec:dualpair}
+
+Put $C_\Delta=-\sum_{a<b}\eta^{aa}\eta^{bb}\Delta_{ab}^2$, $C_{\rm cop}=-\sum_{k<l}M_{kl}^2$ and $C_{\mathcal S}=-\sum_{s<s'}(\tfrac12ss')^2$. For a
+single constituent $-\sum_{a<b}\eta^{aa}\eta^{bb}(\Sigma^{(k)}_{ab})^2=\tfrac32$ identically, the Dirac value, and $C_{\mathcal S}=\tfrac{15}4$
+identically, so the surplus $\so6$ acts isotypically on $S_3$ and its Casimir separates nothing.
+
+\begin{theorem}[Spectrum of the diagonal Casimir]
+\label{thm:diagCspec}
+$\spec C_\Delta=\{\tfrac32\,(160),\ \tfrac{11}2\,(288),\ \tfrac{15}2\,(64)\}$, each eigenprojector being Lorentz invariant. The
+$C_\Delta=\tfrac32$ block, the \emph{Dirac block} $\mathcal D$, has rank $160$.
+\end{theorem}
+
+\begin{proof}
+A quadratic Casimir of $\slr{2,\C}\oplus\slr{2,\C}$ is $\alpha j_L(j_L+1)+\beta j_R(j_R+1)$, and the Dirac value $\tfrac32$ together with the
+vector value $3$ gives $\alpha=\beta=2$. Since the constituent Casimir is $\tfrac32$ identically, each $\R^8$ is $M\oplus M$ with $M$ the
+real Majorana module, and $S_3\cong M^{\otimes3}\otimes\R^8$. Writing $A=(\tfrac12,0)$ and $B=(0,\tfrac12)$,
+\[
+\begin{aligned}
+AAA&=(\tfrac32,0)\oplus2(\tfrac12,0), & AAB&=(1,\tfrac12)\oplus(0,\tfrac12),\\
+ABB&=(\tfrac12,1)\oplus(\tfrac12,0), & BBB&=(0,\tfrac32)\oplus2(0,\tfrac12),
+\end{aligned}
+\]
+with three words of each mixed type. This gives multiplicities $1,3,5$ for $(\tfrac32,0)\oplus(0,\tfrac32)$, $(1,\tfrac12)\oplus(\tfrac12,1)$ and
+$(\tfrac12,0)\oplus(0,\tfrac12)$, of complex dimensions $8,12,4$; the totals $8,36,20$ add up to $64$, and the multiplicity factor $8$ turns them
+into $64,288,160$.
+\end{proof}
+
+\begin{theorem}[A Casimir identity]
+\label{thm:casid}
+As operators on $S_3$,
+\begin{equation}
+\label{eq:casid}
+C_{\rm cop}+C_\Delta=\tfrac{15}2\,\id ,
+\end{equation}
+and for $n$ constituents with a $d$-dimensional interior, $C_{\rm cop}+C_\Delta=\bigl[nd(d-1)/8+\binom n2d/4\bigr]\id$; for $d=4$ this is
+$\tfrac12n(n+2)\,\id$.
+\end{theorem}
+
+\begin{proof}
+Write $B^{kl}_{ab}=\gamma^{(k)}_a\gamma^{(k)}_b\gamma^{(l)}_a\gamma^{(l)}_b$, symmetric in $k\leftrightarrow l$ and in $a\leftrightarrow b$. Expanding,
+\[
+\Delta_{ab}^2=\tfrac14\Bigl[-n\,\eta_{aa}\eta_{bb}+2\sum_{k<l}B^{kl}_{ab}\Bigr],\qquad
+M_{kl}^2=-\tfrac d4-\tfrac12\sum_{\mu<\nu}\eta^{\mu\mu}\eta^{\nu\nu}B^{kl}_{\mu\nu},
+\]
+the first from $\gamma_a\gamma_b\gamma_a\gamma_b=-\eta_{aa}\eta_{bb}$, the second from
+$\gamma^{(k)}_\mu\gamma^{(l)}_\mu\gamma^{(k)}_\nu\gamma^{(l)}_\nu=-B^{kl}_{\mu\nu}$ for $\mu\neq\nu$. Hence $C_\Delta=nd(d-1)/8-\tfrac12\mathsf S$ and
+$C_{\rm cop}=\binom n2d/4+\tfrac12\mathsf S$ with $\mathsf S=\sum_{k<l}\sum_{a<b}\eta^{aa}\eta^{bb}B^{kl}_{ab}$, the only term in which two
+constituents interact. It cancels in the sum.
+\end{proof}
+
+At $n=3$, $d=4$ the constant is $3\cdot4\cdot3/8+3\cdot4/4=\tfrac92+3=\tfrac{15}2$. The proof is half a page and the identity is exact; it is
+the cleanest result of the diagonal sector.
+
+\begin{corollary}[A dual pair]
+\label{cor:howe}
+$\so3_{\rm cop}$ and $\so{1,3}_\Delta$ are mutual centralisers inside $\so{3,9}$, and the joint spectrum of $(C_{\rm cop},C_\Delta)$ has exactly
+three points:
+\begin{center}
+\begin{tabular}{@{}cccccc@{}}
+\toprule
+$j_{\rm cop}$ & $\dim$ & $C_{\rm cop}$ & $C_\Delta$ & Lorentz content & rank in $S_3$\\
+\midrule
+$0$ & $1$ & $0$ & $\tfrac{15}2$ & $(\tfrac32,0)\oplus(0,\tfrac32)$ & $8\cdot1\cdot8=64$\\
+$1$ & $3$ & $2$ & $\tfrac{11}2$ & $(1,\tfrac12)\oplus(\tfrac12,1)$ & $12\cdot3\cdot8=288$\\
+$2$ & $5$ & $6$ & $\tfrac32$ & $(\tfrac12,0)\oplus(0,\tfrac12)$ & $4\cdot5\cdot8=160$\\
+\bottomrule
+\end{tabular}
+\end{center}
+The multiplicities $1,3,5$ of \cref{thm:diagCspec} are the copy representations, so $\mathcal D\cong L\otimes U$ with
+$L=(\tfrac12,0)\oplus(0,\tfrac12)$ and $U=[j_{\rm cop}=2]\otimes\R^8$ carrying the whole gauge action.
+\end{corollary}
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}
+\begin{axis}[width=8.6cm,height=6.2cm,xmin=-0.6,xmax=7.6,ymin=0,ymax=8.6,
+  xlabel={$C_{\rm cop}$},ylabel={$C_\Delta$},xtick={0,2,6},ytick={1.5,5.5,7.5},
+  yticklabels={$\tfrac32$,$\tfrac{11}2$,$\tfrac{15}2$},axis lines=left,clip=false]
+\addplot[gray,dashed,domain=-0.3:7.5] {7.5-x};
+\addplot[only marks,mark=*,mark size=3pt,tcol] coordinates {(0,7.5) (2,5.5) (6,1.5)};
+\node[anchor=west] at (axis cs:0.25,7.75) {\small $j_{\rm cop}=0$: $(\tfrac32,0)\oplus(0,\tfrac32)$, rank $64$};
+\node[anchor=west] at (axis cs:2.25,5.75) {\small $j_{\rm cop}=1$: $(1,\tfrac12)\oplus(\tfrac12,1)$, rank $288$};
+\node[anchor=north east] at (axis cs:5.8,1.25) {\small $j_{\rm cop}=2$: Dirac block, rank $160$};
+\node[gray,rotate=-34,anchor=south] at (axis cs:4.0,3.6) {\small $C_{\rm cop}+C_\Delta=\tfrac{15}2$};
+\end{axis}
+\end{tikzpicture}
+\caption{The diagonal sector at three constituents (\cref{thm:casid,cor:howe}). The copy Casimir and the Lorentz Casimir add up to a constant
+on the whole module, so copy spin is locked to Lorentz type: the Dirac block is exactly the copy quintet.}
+\label{fig:dualpair}
+\end{figure}
+
+A projector selected by a rotation condition alone need not be Lorentz invariant. The rotation Casimir $-\sum_{i<j}\Delta_{ij}^2$ has spectrum
+$\{\tfrac34\,(256),\tfrac{15}4\,(256)\}$, and its rank-$256$ spin-$\tfrac12$ projector commutes with the rotations and with no boost: inside the
+irreducible $(1,\tfrac12)$ a boost carries the $j=\tfrac12$ piece into the $j=\tfrac32$ piece. The Lorentz-invariant answer is rank $160$.
+
+\subsection{Gamma matrices on the Dirac block}
+
+The averaged gammas $V_\mu=3^{-1/2}\sum_k\gamma^{(k)}_\mu$ satisfy $\{V_\mu,V_\nu\}=2\eta_{\mu\nu}$ and transform as a Lorentz vector, but they are a
+copy vector, not a copy singlet: they map $\mathcal D$ into itself and into the rank-$288$ block with equal norms, and their compression to
+$\mathcal D$ degenerates on a rank-$32$ locus. The block does carry gamma matrices; they come from a copy-singlet cubic.
+
+\begin{theorem}[A gauge-invariant $\Cl(1,3)$ on the Dirac block]
+\label{thm:blockgamma}
+Set $\Psi_{abc}=\varepsilon_{klm}\gamma^{(k)}_a\gamma^{(l)}_b\gamma^{(m)}_c$,
+\[
+Q_\mu=\tfrac12\eta^{\nu\rho}\Psi_{\mu\nu\rho}
+=\sum_\nu\eta_{\nu\nu}\bigl(\gamma^{(1)}_\mu\gamma^{(2)}_\nu\gamma^{(3)}_\nu+\gamma^{(1)}_\nu\gamma^{(2)}_\mu\gamma^{(3)}_\nu+\gamma^{(1)}_\nu\gamma^{(2)}_\nu\gamma^{(3)}_\mu\bigr),
+\qquad
+G_\mu=\tfrac16\,\omega_{\mathcal S}Q_\mu\big|_{\mathcal D},
+\]
+with $\omega_{\mathcal S}$ the product of the six surplus generators. Then $\Psi$ is a copy singlet and totally symmetric in $(a,b,c)$; each $Q_\mu$
+is a sum of ten grade-three blades, commutes with all eighteen gauge generators and with $C_\Delta$, is a Lorentz vector, and satisfies
+$\{Q_\mu,Q_\nu\}|_{\mathcal D}=-72\,\eta_{\mu\nu}$. Consequently, on all $160$ dimensions,
+\[
+\{G_\mu,G_\nu\}=2\eta_{\mu\nu}\id_{\mathcal D},\qquad [\Delta_{ab},G_c]=\eta_{bc}G_a-\eta_{ac}G_b,\qquad [G_\mu,\mathfrak z(\Delta)]=0,\qquad
+\tfrac14[G_a,G_b]=\Delta_{ab}|_{\mathcal D}.
+\]
+\end{theorem}
+
+\begin{proof}
+Reordering $\gamma^{(\sigma1)}\gamma^{(\sigma2)}\gamma^{(\sigma3)}$ into copy order costs $\operatorname{sign}\sigma$, because generators of distinct
+constituents anticommute; against the factor $\varepsilon$ this gives $(\operatorname{sign}\sigma)^2=1$, so antisymmetry in the copies is symmetry
+in the Lorentz labels. Block preservation follows because a copy singlet commutes with $C_{\rm cop}$ and hence, by \eqref{eq:casid}, with
+$C_\Delta$. Finally $\omega_{\mathcal S}$ commutes with $Q_\mu$ and $\omega_{\mathcal S}^2=-\id$, so $\{G_\mu,G_\nu\}=\tfrac1{36}(-\id)(-72\eta_{\mu\nu})$.
+\end{proof}
+
+The sign flip is not cosmetic. $\Cl(1,3)\cong M_2(\HH)$ has minimal real module of dimension eight, so the four-dimensional Majorana module
+carries no real $\Cl(1,3)$; the $Q_\mu$ alone generate $\Cl(3,1)$, and $\omega_{\mathcal S}$, with square $-\id$, converts them. The operator
+$\slashed D=G^\mu\nabla_\mu$ is Lorentz covariant and gauge invariant on $\mathcal D$; $G_5=G_0G_1G_2G_3$ has $G_5^2=-\id$, a complex structure
+rather than a chirality, as $M_2(\HH)$ requires.
+
+\subsection{The diagonal sector is vector-like}
+
+\begin{theorem}[Vector-likeness]
+\label{thm:diagvectorlike}
+Let $W_\mu=\gamma^{(1)}_\mu\gamma^{(2)}_\mu\gamma^{(3)}_\mu$. Then $W_\mu^2=-\eta_{\mu\mu}$, so $W_\mu$ is invertible; $[W_\mu,\mathfrak z(\Delta)]=0$;
+$W_\mu$ anticommutes with $\Delta_{ab}$ when $\mu\in\{a,b\}$ and commutes otherwise, hence commutes with $C_\Delta$ and preserves every block;
+and $W_\mu$ anticommutes with the gauge-invariant chirality $\omega=E_1\cdots E_{18}$. Therefore $W_0$ is an invertible
+$\mathfrak z(\Delta)$-equivariant map exchanging the two chiral halves of every $C_\Delta$ block, and all of $S_3$ is vector-like for $\mathfrak z(\Delta)$.
+\end{theorem}
+
+\begin{proof}
+Each property is \eqref{eq:bladecomm} with $|I|=3$: against a surplus bivector the sign is $(-1)^{6}$; against $M_{kl}$, the term with $\nu=\mu$
+meets $W_\mu$ in two indices and the others in none; against $\Delta_{ab}$ it is $(-1)^{6-1}$ when $\mu\in\{a,b\}$; against $\omega$ it is
+$(-1)^{54-3}$. The intertwining conclusion is Schur's lemma.
+\end{proof}
+
+By \cref{cor:howe} the reason is structural: $\mathcal D\cong L\otimes U$ with the gauge algebra acting on $U$ only, so chirality and gauge charge
+are carried by different tensor factors. Vector-like means that the gauge representation permits a mass for every state, not that any mass is
+large; nothing here fixes a scale. A Weyl projection of the block is possible, and it keeps the kinetic operators and the gauge algebra, but it
+is then a choice of field content, and at three constituents it carries a colour anomaly (\cref{prop:diagtower}).
+
+\subsection{The candidate gauge algebra of every Lorentz action}
+
+A Lorentz action on the tower can be taken from each constituent in one of three ways: by the interior algebra $\lint$, by the algebra $\lG$
+that centralises the binding operator (\cref{sec:emfield}), or not at all.
+
+\begin{theorem}[Candidate algebras]
+\label{thm:algebra}
+Let the Lorentz algebra act on rung $n$ by $\lint$ on $k_I$ constituents, by $\lG$ on $k_B$ constituents and trivially on $k_S$ constituents,
+$k_I+k_B\ge1$. The grade-two elements of $\Cl(3n,3n)$ commuting with the action form
+\[
+\mathfrak g(k_I,k_B,k_S)\cong\so{k_I}\oplus\so{2k_I+3k_S,\,3k_S}\oplus\so{k_B,\C},
+\]
+a direct sum of ideals. Its maximal compact subalgebra is $\so{k_I}\oplus\so{2k_I+3k_S}\oplus\so{3k_S}\oplus\so{k_B}$, and the algebra is
+compact exactly when $k_S=0$ and $k_B\le1$.
+\end{theorem}
+
+\begin{proof}
+Grade two is $\so{V_n}$, and $V_n=U\oplus W\oplus F$ with $U=\R^{k_I}\otimes\R^{1,3}$ the interior four-planes, $W$ the Lorentz-trivial directions
+(the surplus pairs of the interior constituents and all directions of the spectators, of signature $(2k_I+3k_S,3k_S)$), and $F=\R^{k_B}\otimes V_f$ with
+$V_f=(1,0)\oplus(0,1)$ the binding frames. The modules $(\tfrac12,\tfrac12)$, $\mathbf1$ and $V_f$ are pairwise inequivalent and irreducible, so
+the mixed parts of $\Lambda^2V_n$ contain no invariant. $\Lambda^2W$ is invariant and gives $\so W$. In
+$\Lambda^2U=(\Lambda^2\R^{k_I}\otimes S^2\R^4)\oplus(S^2\R^{k_I}\otimes\Lambda^2\R^4)$ the invariants of $S^2\R^4$ are the multiples of $\eta$ and those of
+$\Lambda^2\R^4$ vanish, leaving $\so{k_I}$. On $V_f$ the invariant symmetric forms are spanned by $\eta$ and $\eta(\cdot,G\cdot)$ and there is no invariant
+antisymmetric form, leaving $\Lambda^2\R^{k_B}\otimes\operatorname{span}\{\id,G\}\cong\so{k_B,\C}$.
+\end{proof}
+
+\begin{proposition}[Orthogonal against spin actions]
+\label{prop:orthospin}
+A copy rotation of interior four-planes is a sum of four commuting terms of square $-\tfrac14$, and one of binding frames a sum of six; their eigenvalues
+on $S_n$ are $i$ times integers, and a rotation through $2\pi$ is the identity. A rotation $\tfrac12e_se_t$ of two Lorentz-trivial directions of equal
+sign squares to $-\tfrac14$ and its rotation through $2\pi$ is $-\id$. The copy algebras act through orthogonal groups, the algebra of the Lorentz-trivial
+directions through spin groups. Consequently the spin content of $S_n$ is half-integer if $k_I$ is odd and integer if $k_I$ is even: fermions require an
+odd number of interior constituents.
+\end{proposition}
+
+\subsection{The diagonal tower}
+
+Under the diagonal interior action the $4n$ four-plane generators and the $2n$ surplus generators $e^{(k)}_2,e^{(k)}_3$ anticommute, so
+$S_n\otimes\C\cong S_{4n}\otimes S_{2n}$, with the Lorentz and copy algebras acting on the first factor and the surplus $\so{2n}$ on the second. The
+connection algebra is the compact $\so n\oplus\so{2n}$, of dimension $n(5n-3)/2$.
+
+\begin{proposition}[The diagonal tower]
+\label{prop:diagtower}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item For $n\le7$ the factor $S_{4n}$ decomposes under $\lint\oplus\so n$ without multiplicity. Spin is half-integer exactly at odd $n$, and the Dirac
+components occur only at odd $n$, each once, tensored with the copy representation of highest weight $(2,\dots,2)$, of dimension $1,5,35,294$ at
+$n=1,3,5,7$.
+\item At odd $n$ the product $\mathcal J$ of the $2n$ surplus generators is a complex structure commuting with the whole connection algebra, and
+$\Gamma=\mathcal J\Omega$ is a chirality. With $\mathcal J$ as $i$ the Dirac block is $[(\tfrac12,0)\oplus(0,\tfrac12)]\otimes V_{(2,\dots,2)}\otimes S^+$,
+with $S^+$ a half-spinor of the surplus $\so{2n}$, and the charge $q=-\mathcal J\tilde J/2$ of $\tilde J=\sum_kJ^{(k)}$ takes on $S^+$ the values
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+$n$ & $\dim S^+$ & values of $q$ (multiplicity)\\
+\midrule
+$1$ & $1$ & $\tfrac12$\\
+$3$ & $4$ & $-\tfrac32\,(1)$, $\tfrac12\,(3)$\\
+$5$ & $16$ & $-\tfrac32\,(5)$, $\tfrac12\,(10)$, $\tfrac52\,(1)$\\
+$7$ & $64$ & $-\tfrac72\,(1)$, $-\tfrac32\,(21)$, $\tfrac12\,(35)$, $\tfrac52\,(7)$\\
+\bottomrule
+\end{tabular}
+\end{center}
+\item At $n=3$ the centraliser of $\tilde J$ in the surplus $\so6$ is $\uu3$, whose derived algebra is a compact $\su3$; on a Weyl half it acts as
+a triplet with $q=\tfrac12$ and a singlet with $q=-\tfrac32$, so that with $\BmL=\tfrac23q$ the triplet has $\BmL=\tfrac13$ and the singlet $-1$:
+lepton number as the fourth colour \cite{PatiSalam}. The eight gluons are neutral, the six remaining generators of $\so6$ carry $q=\pm2$ and turn
+the triplet into the singlet, as leptoquark bosons do. The copy $\so3$ acts on the Dirac block with Casimir $6$, that is isospin two: it is not weak
+isospin.
+\item At $n=5$, with colour on three surplus planes and weak isospin on two, $S^+$ is one Standard-Model family with a right-handed neutrino,
+$(\mathbf3,\mathbf2)_{1/6}\oplus(\bar{\mathbf3},\mathbf1)_{-2/3}\oplus(\bar{\mathbf3},\mathbf1)_{1/3}\oplus(\mathbf1,\mathbf2)_{-1/2}\oplus(\mathbf1,\mathbf1)_1\oplus(\mathbf1,\mathbf1)_0$,
+the spinor $\mathbf{16}$ of $\so{10}$ \cite{FritzschMinkowski,Slansky}, occurring in $35$ copies. At $n=7$, $S^+$ under $\so{10}\oplus\so4$ is two
+families and two mirror families, the pattern found for the spinor of $\so{18}$ \cite{WilczekZee}.
+\item The Dirac block is vector-like at every odd $n$. Its Weyl projection admits no gauge-invariant mass, since no weight of $S^+$ has its negative in
+$S^+$; at $n=3$ it carries a colour anomaly, $\Tr(P_L\mathcal JH^3)=960$ for the colour Cartan element $H=J^{(1)}+J^{(2)}-2J^{(3)}$, and at $n=5$ every
+Standard-Model anomaly sum vanishes and $\so{10}$ has no cubic anomaly \cite{GeorgiGlashow72}.
+\end{enumerate}
+\end{proposition}
+
+\begin{lemma}[No grade-two generator is chiral by itself]
+\label{lem:nochiral}
+Let $\Gamma$ be, up to sign, a product of $k\ge5$ distinct generators with $\Gamma^2=\id$, and $P_{L,R}=\tfrac12(\id\mp\Gamma)$. A grade-two element $X$
+with $XP_R=0$ is zero.
+\end{lemma}
+
+\begin{proof}
+$XP_R=0$ means $X\Gamma=-X$. For $a\neq b$, $e_ae_b\Gamma$ is a blade of grade $k-2$, $k$ or $k+2$, so $X\Gamma$ has no grade-two component, and
+$X\Gamma=-X$ forces $X=0$.
+\end{proof}
+
+Under the diagonal and the spectator actions the chirality is, up to sign, the volume element of $\Cl(3n,3n)$, so a gauge interaction built from
+connection components can be chiral only through the representation the Weyl block carries.
+
+\subsection{The compact part of the spectator algebra}
+
+Under the spectator action the connection components form $\so{3n-1,3n-3}$, noncompact for $n\ge2$, and the gauge algebra is its compact part
+$\so{3n-1}\oplus\so{3n-3}$, acting through spinors. Let $w$ be the product of the $6n-4$ Lorentz-trivial generators; it commutes with the whole
+connection algebra and serves as its complex structure, and $\Gamma=w\,\Omega^{(1)}$ is the chirality.
+
+\begin{proposition}[What the spectator gauge algebra acts on]
+\label{prop:spectator}
+At $n=2$ the Weyl block is $(\tfrac12,0)\otimes(\mathbf4,\mathbf2)$ under $\spp2\oplus\su2\cong\so5\oplus\so3$: isospin doublets without colour, in a
+real representation, so the weak interaction it carries is vector-like. At $n=3$ the Weyl block is
+\[
+(\tfrac12,0)\otimes\bigl[(\mathbf8_s,\mathbf4)\oplus(\mathbf8_c,\bar{\mathbf4})\bigr]\quad\text{under }\so8\oplus\so6 .
+\]
+With colour on three negative planes, weak isospin on two positive planes and a family $\so4$ on the remaining two, its $64$ weights are two
+Standard-Model families with $\nu^c$ and two mirror families. The cubic $\su4$ sum and the Standard-Model anomaly sums vanish, there are sixteen weak
+doublets, the weak roots carry $Q=\pm1$, the gluons are neutral and the leptoquarks carry $\pm\tfrac23$. The block is chiral and anomaly free under
+$\so8\oplus\so6$ and vector-like under the Standard-Model algebra.
+\end{proposition}
+
+At $n=3$ the compact spectator algebra therefore already contains the Pati--Salam algebra $\so4\oplus\so6\cong\su2_L\oplus\su2_R\oplus\su4$. The
+projector $P_*$ of \cref{sec:pstar} is a way of cutting one chiral family out of this content.
+
+\subsection{Vector bosons rung by rung}
+\label{sec:rungs}
+
+\begin{center}
+\small
+\begin{tabular}{@{}cllcl@{}}
+\toprule
+$n$ & diagonal connection algebra & bosons & fermions & action on the Dirac block\\
+\midrule
+$1$ & $\so2=\uu1_J$ & $1$ & yes & one charge, also the complex structure\\
+$2$ & $\so2\oplus\so4$ & $7$ & no & integer spin only\\
+$3$ & $\so3\oplus\so6\cong\su2\oplus\su4$ & $18$ & yes & $5\times(\mathbf3\oplus\mathbf1)$; the $\su2$ is the copy algebra\\
+$4$ & $\so4\oplus\so8$ & $34$ & no & ---\\
+$5$ & $\so5\oplus\so{10}$ & $55$ & yes & $35\times\mathbf{16}$, one family each\\
+$7$ & $\so7\oplus\so{14}$ & $112$ & yes & $294\times(2\cdot\mathbf{16}\oplus2\cdot\overline{\mathbf{16}})$\\
+\midrule
+$n$ & spectator gauge algebra & bosons & & action on the Weyl block\\
+\midrule
+$1$ & $\so2$ & $1$ & & one charge\\
+$2$ & $\so5\oplus\so3$ & $13$ & & $(\mathbf4,\mathbf2)$: doublets, no colour, real\\
+$3$ & $\so8\oplus\so6$ & $43$ & & two families and two mirror families\\
+\bottomrule
+\end{tabular}
+\end{center}
+The tempting assignment ``$n=1$: photon; $n=2$: $W$ and $Z$; $n=3$: gluons'' can now be tested. The photon at $n=1$ is supported: the single
+connection component $J$ gauges the Dirac spinor and is also its complex structure. Chiral $W$ and $Z$ at $n=2$ are supported by no action: the
+diagonal action has no fermions there, the action that is interior on one constituent and binding on the other has the abelian algebra $\uu1$ only, and
+the spectator Weyl block is a real representation. Gluons at $n=3$ are supported, without weak bosons under the diagonal action, where the $\su2$ is
+the copy algebra, and with them under the spectator action. Rung three is the first at which some gauge algebra contains
+$\su3\oplus\su2\oplus\uu1$ acting on fermions in Standard-Model representations, there together with mirror families; among the actions with a compact
+connection algebra the first such rung is $n=5$, through $\so{10}$, with one family per copy and thirty-five copies. Nothing computed here reduces the
+copy multiplicity to three, and the rung index counts tensor factors, so none of this identifies particles with constituents.

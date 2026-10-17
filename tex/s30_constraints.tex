@@ -1,0 +1,89 @@
+\section{Where the surplus constraints come from}
+\label{sec:constraints}
+
+The baseline showed that the constraints $p_u=p_v=0$ remove exactly the unstable band, and the curved model showed that they are first class. A first-class constraint
+generates a gauge symmetry, so the question is which symmetry, and whether it is a natural one.
+
+\begin{theorem}[A worldline gauge symmetry]
+\label{thm:wlgauge}
+For arbitrary $A_\mu(x)$ and flat $h$, with $C=A_\mu h^{\mu\nu}k_\nu$, the constraints satisfy $\{p_u,H\}=-Cp_v$, $\{p_v,H\}=Cp_u$, $\{p_u,p_v\}=0$ and $\{\ell,H\}=0$. The extended action
+\[
+\int d\tau\,\bigl(p\cdot\dot x-NH-\lambda_1p_u-\lambda_2p_v\bigr)
+\]
+is invariant under
+\[
+\delta u=\varepsilon_1(\tau),\qquad \delta v=\varepsilon_2(\tau),\qquad \delta\lambda_1=\dot\varepsilon_1+NC\varepsilon_2,\qquad \delta\lambda_2=\dot\varepsilon_2-NC\varepsilon_1,
+\]
+all other variables fixed: local translations along the normal plane, which are gauge symmetries although they are not isometries when $F\neq0$, the algebra closing with
+structure functions \cite{HenneauxTeitelboim92}. In Dirac quantisation the physical states are the functions $\Psi(x)$ on spacetime, and on them $\hat H\Psi=-\tfrac12\Box_h\Psi$;
+the potential $A$ drops out.
+\end{theorem}
+
+\begin{proposition}[Gauging the isometry is not enough]
+\label{prop:isometryonly}
+In polar normal coordinates $\ell=-p_\phi$ and $p_u^2+p_v^2=p_r^2+p_\phi^2/r^2$. Gauging only the rotation $\ell$, the isometry of the normal plane, leaves
+$p_0^2=|\mathbf p|^2+m^2-p_r^2$: the radial surplus momentum keeps the unstable band. For fields, the rotation-invariant modes $J_0(qr)e^{-i\omega t+i\bk\cdot\mathbf x}$ obey
+$\omega^2=|\bk|^2+m^2-q^2$.
+\end{proposition}
+
+The symmetry that removes the instability is therefore the full group of local translations along the normal plane, not its rotation subgroup.
+
+\begin{corollary}[Weak emergence for scalar matter]
+\label{cor:weak}
+If the normal translations are gauged, the scalar sector reduces to the Klein--Gordon field on $(M^4,h)$: its energy is bounded below, its evolution is unitary, and
+$[\phi(x),\phi(y)]=0$ at spacelike separation for the cone of $h$ \cite{WeinbergQFT}. In the free theory the zero modes $\psi$ and the surplus modes $\chi$ do not mix, since
+translation invariance along the normal plane makes the mixed kernel $K_{\psi\chi}$ vanish, so the Schur complement is trivial and $K_{\rm eff}=K_{\psi\psi}$; the content is not in
+the kernel but in whether $\chi$ is physical, and under the gauge principle it is not. The causal cone is that of $h$, the metric of the selected four-plane: it is inherited
+from the reduction, not derived from the six-dimensional sum.
+\end{corollary}
+
+What the reduction leaves over is the geometry of the normal plane itself, and it is not healthy.
+
+\begin{theorem}[Every normal-plane vector is a ghost]
+\label{thm:ghostvec}
+For $ds^2=h+\sigma\bigl[(du+B^u)^2+(dv+B^v)^2\bigr]$ with flat $h$, $B^u=b_1x^1dx^2$ and $B^v=b_2x^0dx^3$, one finds $R_6=-\tfrac\sigma4\sum F_{\mu\nu}F^{\mu\nu}$, and for the
+rotation ansatz $B^u=vA$, $B^v=-uA$, $R_6=-\sigma\,r^2F^2/4$, which at $\sigma=+1$ is the ambient scalar curvature of \cref{thm:ein6}. The coefficient is odd in $\sigma$, so the
+healthy sign is that of a normal plane of the sign of space, $\sigma=-1$, the ordinary Kaluza--Klein case. By \cref{thm:selector}(ii) the normal plane of a Lorentzian
+four-plane in $\R^{3,3}$ always has the sign of time. Every Kaluza--Klein vector from the normal plane, from its translations or its rotation, therefore gravitates with the
+wrong sign, and by \cref{thm:wlgauge} none of them couples to spinless matter.
+\end{theorem}
+
+The failure condition ``ghosts or negative spectral weights'' is therefore met by the normal-plane vectors, and the photon cannot come from them. If the Maxwell field
+emerges, it must come from elsewhere: from the univectorial potential of the interior reading, or from the field-strength reading $\R^{3,3}=\Lambda^2\R^{1,3}$, where the
+energy is the positive Hermitian form $|\bB|^2+|\bE|^2$ (\cref{sec:spin}).
+
+\subsection{What the causal analysis establishes}
+
+\Cref{tab:causal} collects the outcome against the failure conditions fixed at the start of \cref{sec:baseline}.
+
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{2.3cm}>{\raggedright\arraybackslash}p{6.6cm}>{\raggedright\arraybackslash}p{5.1cm}@{}}
+\toprule
+stage & result & verdict\\
+\midrule
+baseline & growing modes and no ground state; exactly the band the surplus constraints remove; compactification makes tachyons & obstruction confirmed, cure located\\
+reduction & kinematics: selector $=J$, cone $=$ twisted squares at one constituent; dynamics: no $SO(3,3)$-invariant scalar mechanism; the positive route breaks the boosts &
+kinematics exact; dynamical selection fails as posed\\
+effective theory & scalar matter: no mixing, $K_{\rm eff}=K_{\psi\psi}$; normal-plane vectors are ghosts & failure condition met by the vectors\\
+causality & the scalar sector is microcausal for the cone of $h$ & conditional on gauged translations; inherited\\
+Maxwell & normal-plane vectors excluded as photons & blocked on this route\\
+\bottomrule
+\end{tabular}
+\caption{The causal analysis against the failure conditions fixed in advance (\cref{sec:baseline,sec:selector,sec:typesel,sec:constraints}).}
+\label{tab:causal}
+\end{table}
+
+Weak emergence holds for scalar matter, conditionally on a gauge principle, local translations along the normal plane, that is consistent but chosen rather than derived.
+Strong emergence through a scalar order parameter is excluded. What survives is a sharper statement of the question. The selector is the complex structure $J$, and every
+construction here that produced a healthy Lorentzian sector also used one extra datum: a positive inner product, which is the transpose of the realisation, equivalently
+the temporal triple. Within these computations the totality of $SO(3,3)$-invariant dynamics fixes at most the type of the structure, never the instance, and it fixes even
+the type only imperfectly. The datum that singles out time, wherever things worked, is the positivity of an inner product; in quantum mechanics it is the positivity of
+the Hilbert-space norm. That is where a derivation of causal order from the split geometry would have to look.
+
+Several routes remain open. A gauge mechanism for type selection, an $SO(3,3)$ analogue of the MacDowell--Mansouri and Stelle--West breaking
+\cite{MacDowellMansouri77,StelleWest80}, $SO(3,3)\to SO(2)\times SO(1,3)$, would make the would-be ghosts gauge, solder the eight broken directions to the base and remove the six
+flat ones. A principle that makes the normal translations gauge, rather than adding the multipliers by hand, would turn weak emergence from a conditional statement into a
+derived one. At three constituents, a $\mathrm{Spin}(9,9)$-covariant construction of the cone of $E$, for which pure spinors are the natural candidates, or a proof that
+none exists without the positive inner product, would settle whether the cone survives the tower.

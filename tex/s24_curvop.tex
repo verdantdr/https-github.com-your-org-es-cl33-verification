@@ -1,0 +1,149 @@
+\section{Curvature in the field-strength reading}
+\label{sec:curvop}
+
+In the field-strength reading the six directions are $\Lambda^2\R^{1,3}$, $\eta$ is the induced metric and $G$ the Hodge star (\cref{thm:emfield}). A
+tensor $R_{abcd}$ antisymmetric in each pair is then an operator $\cR$ on the frame, $(\cR\omega)_{ab}=\tfrac12R_{ab}{}^{cd}\omega_{cd}$ \cite{SingerThorpe69,Besse87},
+and the conditions that make it a Riemann tensor become conditions stated with $\eta$ and $G$. Write $\Ric(\cR)_{bd}=R^a{}_{bad}$.
+
+\begin{proposition}[The curvature operator lives on the frame]
+\label{prop:curvop}
+$\cR$ comes from a pair-symmetric tensor, $R_{abcd}=R_{cdab}$, if and only if $\cR$ is $\eta$-self-adjoint, a $21$-dimensional space $\mathcal S$; the
+$\eta$-antisymmetric operators give $R_{abcd}=-R_{cdab}$ instead. On $\mathcal S$, $\Tr\cR=\tfrac12R$ and
+\[
+R_{abcd}+R_{acdb}+R_{adbc}=-\tfrac12\Tr(G\cR)\,\varepsilon_{abcd},\qquad \varepsilon_{0123}=+1,
+\]
+so the first Bianchi identity is the single linear condition $\Tr(G\cR)=0$, and the algebraic curvature operators form a $20$-dimensional subspace $\mathcal V$,
+the dimension of the space of Riemann tensors in four dimensions.
+\end{proposition}
+
+Pair symmetry is the same condition $G=G^\dagger$ that makes the interior shift factorise (\cref{thm:neutral}), imposed on an operator of another type: the frame
+is shared, not the object. The binding root, which is $\eta$-self-adjoint, is itself in $\mathcal S$ but not in $\mathcal V$, since $\Tr(G\cdot G)=-6$; it is the one
+direction of $\mathcal S$ that violates the Bianchi identity.
+
+\subsection{A phase family that ends at the Einstein tensor}
+
+\begin{theorem}[The phase family]
+\label{thm:phase}
+For every $\cR\in\mathcal S$, on or off the Bianchi shell, and every $\theta$, the operator $\cR_\theta:=e^{\theta G}\cR\,e^{\theta G}$ lies in $\mathcal S$ and
+\[
+\Ric(\cR_\theta)_{ab}=R_{ab}-\tfrac12\sin^2\theta\,R\,g_{ab}+\tfrac12\sin2\theta\,\Tr(G\cR)\,g_{ab}.
+\]
+At $\theta=\pi/2$ the operator is the double dual $G\cR G$ of Lanczos \cite{Lanczos38,MTW}, and its contraction is the Einstein tensor $R_{ab}-\tfrac12Rg_{ab}$.
+\end{theorem}
+
+\begin{proof}
+Two lemmas hold on all of $\mathcal S$: $\Ric(G\cR G)=\Ric(\cR)-\tfrac12Rg$, and $\Ric(G\cR)+\Ric(\cR G)=\Tr(G\cR)\,g$. With $e^{\theta G}=\cos\theta+\sin\theta\,G$,
+\[
+\cR_\theta=\cos^2\theta\,\cR+\sin\theta\cos\theta\,(G\cR+\cR G)+\sin^2\theta\,G\cR G ,
+\]
+and the lemmas contract this to the formula. It has also been checked as a polynomial identity in the $21$ entries, modulo $\cos^2\theta+\sin^2\theta=1$. Since $G$ is
+$\eta$-self-adjoint, so is $e^{\theta G}$, and $\cR_\theta\in\mathcal S$.
+\end{proof}
+
+\begin{example}[A maximally symmetric curvature]
+\label{ex:dS}
+For de Sitter space of curvature $k$, $R_{abcd}=k(g_{ac}g_{bd}-g_{ad}g_{bc})$, the curvature operator is $\cR=k\,\id$ on the frame up to the sign convention of the
+induced metric, so $\Tr\cR=6k=\tfrac12R$ gives $R=12k$ and $\Tr(G\cR)=k\Tr G=0$. Then $G\cR G=kG^2=-k\,\id$, and the formula gives
+$\Ric(\cR_{\pi/2})=R_{ab}-\tfrac12Rg_{ab}=3kg_{ab}-6kg_{ab}=-3kg_{ab}$, the Einstein tensor of de Sitter space, which is $-\Lambda g_{ab}$ with $\Lambda=3k$. The double
+dual of a constant-curvature operator is minus itself, and the trace reversal that turns Ricci into Einstein is the sign change $G^2=-\id$.
+\end{example}
+
+\begin{corollary}[What selects the endpoint]
+\label{cor:phasesel}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item For the curvature operator of a metric and a constant phase, the contracted Bianchi identity gives $\nabla^aH_{ab}(\theta)=\tfrac12\cos^2\theta\,\nabla_bR$ for
+$H(\theta):=\Ric(\cR_\theta)$, so divergence-freedom for every metric selects $\theta\equiv\pi/2\pmod\pi$.
+\item $\Tr(G\cR_\theta)=\cos2\theta\,\Tr(G\cR)-\tfrac12\sin2\theta\,R$, so on the Bianchi shell and for $R\neq0$, $\cR_\theta$ is itself a curvature operator only at
+$\sin2\theta=0$, compatible with (i) and narrowing nothing further.
+\item $Q(\cR):=\tfrac12\Tr(\cR G\cR G)=-\tfrac18\bigl(R^2-4R_{ab}R^{ab}+R_{abcd}R^{abcd}\bigr)$ for every pair-symmetric $\cR$, and $dQ[\mathcal D]=\Tr(G\cR G\mathcal D)$: the
+double dual is the algebraic gradient of the Gauss--Bonnet density, exactly so on $\mathcal V$, where $G\cR G=\operatorname{grad}_{\mathcal V}Q$.
+\end{enumerate}
+\end{corollary}
+
+The gradient in (iii) does not lift to a field equation. The spacetime integral of the Gauss--Bonnet density has identically vanishing metric variation in four
+dimensions, which is Lanczos's identity \cite{Lanczos38,Lovelock71}: the Euler--Lagrange tensor $P_a{}^{cde}R_{bcde}-\tfrac12g_{ab}\mathcal E_{\rm GB}-2\nabla^c\nabla^dP_{acdb}$ with
+$P=-2\,{*R*}$ vanishes because the double dual is divergence-free and $(*R*)_a{}^{cde}R_{bcde}=-\tfrac14g_{ab}\mathcal E_{\rm GB}$ in four dimensions. The two facts sit one
+Lovelock degree apart: the algebraic gradient of the quadratic density contracts to the metric gradient of the linear density $\Tr\cR=\tfrac12R$, and the quadratic
+density itself is inert. Which members of the family are variational at all is a sharper question, and it has a sharp answer.
+
+\begin{theorem}[Only the Einstein phase is variational]
+\label{thm:helmholtz}
+Consider the operators $g\mapsto H(\theta)[g]_{ab}=R_{ab}-\tfrac12\sin^2\theta\,Rg_{ab}$. There is a Lagrangian $L(g,\partial g,\partial^2g,\dots)$, covariant or not, defined
+on a neighbourhood of flat space, whose Euler--Lagrange expression is $H(\theta)$ if and only if $\cos\theta=0$; then $R\sqrt{|g|}$ is one.
+\end{theorem}
+
+\begin{proof}
+An Euler--Lagrange operator has a formally self-adjoint Fr\'echet derivative at every point of its domain, the necessity half of the Helmholtz conditions
+\cite{Vainberg64,Olver93}. At $g=\eta$, $H(\theta)[\eta]=0$, so the density factor does not contribute and the linearisation acts on plane waves $h_{ab}e^{ik\cdot x}$ with a
+symbol quadratic in $k$. Pairing it with a second perturbation $q_{ab}$, the antisymmetric part of the bilinear form is
+\[
+q^{ab}\,\delta H_{ab}[h]-h^{ab}\,\delta H_{ab}[q]=\tfrac12\cos^2\theta\bigl[(k\cdot q\cdot k)\,\tr h-(k\cdot h\cdot k)\,\tr q\bigr],
+\]
+which vanishes identically only when $\cos\theta=0$. There the operator is the Einstein tensor, and $\delta(R\sqrt{|g|})=\sqrt{|g|}\,\mathcal G_{ab}\,\delta g^{ab}$ up to a
+divergence.
+\end{proof}
+
+For a diffeomorphism-invariant action Noether's second theorem makes the Euler--Lagrange tensor divergence-free, so \cref{cor:phasesel}(i) is the covariant
+necessary condition and \cref{thm:helmholtz} the full condition, obtained without assuming covariance. Both select the same phase.
+
+\subsection{The first-order form: the phase is a Barbero--Immirzi angle}
+
+Let $e^a$ be a coframe, $\omega$ a Lorentz connection with curvature $F^{ab}$, and $\Sigma^{ab}=e^a\wedge e^b$. Both $\Sigma$ and $F$ are two-forms valued in
+$\Lambda^2\R^{1,3}$, which is the frame by \cref{thm:emfield}. Pair them by $\langle\Sigma\wedge X\rangle=\tfrac12\Sigma_{ab}\wedge X^{ab}$, orient by
+$\mathrm{vol}=e^0\wedge e^1\wedge e^2\wedge e^3$, and let $\cR$ be the curvature operator of $\omega$ in the frame $e$.
+
+\begin{proposition}[Palatini and Holst on the frame]
+\label{prop:holst}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item $\tfrac14\varepsilon_{abcd}\,e^a\wedge e^b\wedge F^{cd}=\langle G\Sigma\wedge F\rangle=\Tr(\cR)\,\mathrm{vol}$: the Palatini Lagrangian, which on the torsion-free
+locus is $\tfrac12R\,\mathrm{vol}$.
+\item $e_a\wedge e_b\wedge F^{ab}=2\langle\Sigma\wedge F\rangle=-2\Tr(G\cR)\,\mathrm{vol}$: the Holst term is the first-Bianchi datum of \cref{prop:curvop}.
+\item For the phase family, $\langle e^{\theta G}\Sigma\wedge e^{\theta G}F\rangle=\cos2\theta\,\langle\Sigma\wedge F\rangle+\sin2\theta\,\langle G\Sigma\wedge F\rangle=-\Tr(G\cR_\theta)\,\mathrm{vol}$.
+In the normalisation $\tfrac12\varepsilon_{abcd}e^ae^bF^{cd}-\gamma^{-1}e_ae_bF^{ab}$ this is the Holst action \cite{Holst96} with
+\[
+\gamma=-\tan2\theta ,
+\]
+the Barbero--Immirzi parameter.
+\item The connection equation of $\int\langle e^{\theta G}\Sigma\wedge e^{\theta G}F\rangle$ is $e^{2\theta G}D\Sigma=0$, so the torsion vanishes, and the coframe equation is
+$-2\sin2\theta\,\mathcal G^{af}=0$ on the torsion-free locus. The vacuum equations are Einstein's for every $\theta\notin\tfrac\pi2\Z$ and empty for $\theta\in\tfrac\pi2\Z$.
+\end{enumerate}
+\end{proposition}
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}
+\begin{axis}[width=11.5cm,height=6.8cm,xmin=0,xmax=3.1416,ymin=-0.75,ymax=0.75,axis lines=middle,
+  xtick={0,0.7854,1.5708,2.3562,3.1416},xticklabels={$0$,$\frac\pi4$,$\frac\pi2$,$\frac{3\pi}4$,$\pi$},
+  ytick={-0.5,0.5},yticklabels={$-\frac12$,$\frac12$},xlabel={$\theta$},
+  xlabel style={anchor=west},x tick label style={yshift=-2pt},
+  legend style={at={(0.5,-0.12)},anchor=north,font=\footnotesize,draw=none,legend columns=1},legend cell align=left]
+\addplot[tcol,very thick,domain=0:3.1416,samples=120] {-0.5*sin(deg(x))^2};
+\addlegendentry{second order: trace coefficient $-\frac12\sin^2\theta$ in $H(\theta)=\Ric(e^{\theta G}\cR e^{\theta G})$}
+\addplot[scol,very thick,dashed,domain=0:3.1416,samples=120] {0.5*sin(deg(2*x))};
+\addlegendentry{first order: weight $\frac12\sin2\theta$ of $R\,\mathrm{vol}$, with $\gamma=-\tan2\theta$}
+\addplot[only marks,mark=*,mark size=2.6pt,tcol,forget plot] coordinates {(1.5708,-0.5)};
+\addplot[only marks,mark=*,mark size=2.6pt,scol,forget plot] coordinates {(0.7854,0.5)};
+\addplot[only marks,mark=o,mark size=2.8pt,scol,very thick,forget plot] coordinates {(1.5708,0)};
+\node[tcol,anchor=north,font=\footnotesize,align=center] at (axis cs:1.5708,-0.53) {Einstein: divergence-free, variational};
+\node[scol,anchor=south,font=\footnotesize] at (axis cs:0.7854,0.53) {Palatini};
+\node[scol,anchor=south west,font=\footnotesize,align=left] at (axis cs:1.62,0.04) {pure Holst,\\ equations empty};
+\end{axis}
+\end{tikzpicture}
+\caption{Two uses of one duality rotation of the curvature (\cref{thm:phase,thm:helmholtz,prop:holst}). In the second-order family $H(\theta)=\Ric(e^{\theta G}\cR e^{\theta G})$
+the endpoint $\theta=\pi/2$ is the Einstein tensor, the only divergence-free and the only variational member. In the first-order family the same rotation weights the
+Einstein--Hilbert term by $\tfrac12\sin2\theta$: Einstein's equations follow for every $\theta\notin\tfrac\pi2\Z$, the Palatini point is $\pi/4$, and at $\theta=\pi/2$ the Lagrangian
+degenerates to the pure Holst term, with $\gamma=-\tan2\theta$.}
+\label{fig:phase}
+\end{figure}
+
+The roles of the phase differ between the two formalisms, as \cref{fig:phase} shows. In the second-order family the variational point is $\theta=\pi/2$; in the
+first-order family Einstein's equations hold for every $\theta\notin\tfrac\pi2\Z$, the Palatini point is $\theta=\pi/4$, and the endpoint $\theta=\pi/2$, where $\cR_\theta=G\cR G$, is
+exactly where the first-order Lagrangian degenerates to the pure Holst term. These are two uses of one rotation and must not be conflated. The self-dual value
+$\gamma=\pm i$ of Ashtekar's variables is not attained for any complex $\theta$; it is approached as $\Im\theta\to\mp\infty$, where $e^{2\theta G}$ becomes proportional to a
+projector onto an eigenspace of $G$. With torsion sources such as fermions the Holst term is no longer inert and the phase would enter an effective four-fermion
+interaction \cite{PerezRovelli06,FreidelMinicTakeuchi05}; nothing here fixes it.
+
+Both readings of $\R^{3,3}$ therefore construct the Einstein tensor of a given four-metric: the interior reading by restricting the six-dimensional Einstein tensor to
+the slice (\cref{thm:ein6}), the field-strength reading as the contraction of $G\cR G$ (\cref{thm:phase}). Neither determines the metric. No gravitational coupling,
+source or equation of motion for $G$ follows, the selection criteria come from Riemannian geometry rather than from the Clifford structure, and the coefficient
+$\tfrac12$ of the trace reversal comes from the algebra of the Hodge star.

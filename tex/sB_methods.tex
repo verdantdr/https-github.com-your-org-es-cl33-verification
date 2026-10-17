@@ -1,0 +1,34 @@
+\section{How the statements were verified}
+\label{app:methods}
+
+The finite-dimensional statements of this paper fall into three kinds, and they were verified in different ways.
+
+\paragraph{Exact statements.} Most results are identities, ranks, dimensions, spectra and decompositions of explicitly given matrices. Since every generator of the
+realisation of \cref{app:realisation} is a signed permutation matrix, every blade at every rung is one as well, and products, commutators and traces are computed in integer
+arithmetic without rounding. Ranks and kernel dimensions, such as the dimension $272$ of the space of mass kernels, the dimensions of centralisers and stabilisers, and the
+orbit dimensions $34$ and $20$, were obtained by Gaussian elimination over the rationals. Decompositions into irreducible modules were identified by Casimir operators,
+computed exactly and diagonalised on rational or algebraic eigenvalues; a statement such as $\spec C_\Delta=\{\tfrac32,\tfrac{11}2,\tfrac{15}2\}$ with multiplicities
+$160,288,64$ is the exact characteristic polynomial of an integer matrix. Polynomial identities, such as the phase family of the curvature operator, the Casimir identity of the
+diagonal sector, the closed form of the drift of the frame, or the Einstein tensor of the curved model on a Friedmann base, were checked as identities in the symbolic
+variables, modulo the stated relations.
+
+The exact statements were obtained by symbolic and exact computation in the Wolfram Language, and the central ones were recomputed by a second,
+independent instrument: a program in pure Python using exact rational arithmetic (the \texttt{Fraction} type) and sparse representations of signed permutations, written
+without reference to the first. Where possible the second instrument uses different methods: the kernel space by solving the linear conditions on all antisymmetric matrices rather than by
+enumerating blades, invariant counts by enumerating weight multisets rather than by Brauer's formula, and the holomorphic quartic in an independent tensor model. Where the two
+instruments use different normalisations, as for the invariant pairing in the Klein correspondence, the comparison was made on normalisation-independent quantities such as the
+duality angle.
+
+\paragraph{Derived statements.} Some statements follow from exact ones by an argument given in the text, for instance the identification of an unbroken $\uu1$ with
+hypercharge, the physical reading of the second-rung vacuum, or the statement that a non-orthogonal field carries no mass. These are proved in the text and do not rest on
+computation beyond the exact statements they cite.
+
+\paragraph{Numerical statements.} A small number of statements rest on floating-point computation, and they are identified as such where they occur: the random-start
+minimisations of the one-loop energy on $\mathcal T$ and on the full kernel space, which locate the competing configuration and the crossing value $x_*=24.88405$; the gradient
+flows at the benchmark couplings, which illustrate the transition at $|\kappa|=7.2$; the numerical integrations of the free rotor, which reproduce the exact drift of
+\cref{ex:drift} to ten digits; the integrations of a Zeitlin truncation in \cref{sec:closure}; and a few spot checks at random spinors in \cref{sec:selector}. In every case the
+numerical result is either a confirmation of an exact formula or a statement explicitly labelled as numerical, and the two conjectures of \cref{sec:selection}, the global
+thresholds $192/7$ on $\mathcal T$ and $x_*$ on all of $\Kc$, rest on such minimisations and are stated as conjectures.
+
+\paragraph{Inherited statements.} Results of the established literature, such as the anomaly cancellation of the Standard Model, the Vafa--Witten theorem, Michel's theorem
+on critical orbits, the Helmholtz conditions or Lanczos's identity, are cited and not recomputed; where the paper uses them, it says so.

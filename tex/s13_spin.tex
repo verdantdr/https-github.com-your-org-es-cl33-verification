@@ -1,0 +1,465 @@
+\section{Spin one in both readings}
+\label{sec:spin}
+
+A photon is a massless particle of spin one with two helicities. Its covariant description is a field strength, a two-form, and
+its potential is a four-vector defined up to gauge. The arena offers two places for it. In the \emph{interior reading} the
+potential is a grade-one element of the four-plane $E$ on which the Dirac sector is built and the field strength is the grade-two
+module of \cref{prop:bivectorF}. In the \emph{frame reading} the field strength occupies the six directions themselves, under the
+algebra $\lG$ of \cref{thm:GLorentz}. This section shows that each reading produces a free field with the spin content of the photon,
+that the two are related by the Klein correspondence, and that at the second rung both can be housed under one Lorentz action and
+coupled to a Dirac block. \Cref{fig:tworoutes} summarises the comparison.
+
+\subsection{The univectorial photon}
+
+\begin{proposition}[Grade one under the interior action]
+\label{prop:gradeone}
+Under $\lint\oplus\uu1_J$, with $J=e_2e_3$ acting by $\ad(J/2)$,
+\[
+V=\bigl(\tfrac12,\tfrac12\bigr)_0\oplus(0,0)_{+1}\oplus(0,0)_{-1}.
+\]
+The Lorentz Casimir is $\operatorname{diag}(3,0,0,3,3,3)$ on $(e_1,\dots,e_6)$, and $\ad(J/2)$ vanishes on the four-plane and acts on
+$(e_2,e_3)$ by $\bigl(\begin{smallmatrix}0&1\\-1&0\end{smallmatrix}\bigr)$, with eigenvalues $\pm i$.
+\end{proposition}
+
+The potential $A=A^\mu\gamma_\mu$ is therefore neutral under the charge, as a photon must be, while the surplus pair is a Lorentz
+scalar of charge $\pm1$. The photon potential is the four-plane part of grade one, not the whole of it.
+
+\begin{proposition}[Spin one and spin one-half from the same rotors]
+\label{prop:samerotors}
+The interior rotations $S_k$ satisfy $[S_i,S_j]=\epsilon_{ijk}S_k$. On grade one $\ad S_k$ acts on $(e_4,e_5,e_6)$ as the standard
+rotation generator $r_k$ and annihilates $e_1,e_2,e_3$, so that $-\sum_k(\ad S_k)^2=\operatorname{diag}(0,0,0,2,2,2)$ and
+$\spec\ad S_3=\{\pm i,0,0,0,0\}$. On $S=\R^8$, by left multiplication, $-\sum_kS_k^2=\tfrac34\id$ and $S_3$ has eigenvalues $\pm\tfrac i2$.
+Consequently $\exp(2\pi\ad S_3)=\id$ on grade one while $\exp(2\pi S_3)=-\id$ on $S$.
+\end{proposition}
+
+A vector transforms by conjugation, $A\mapsto RAR^{-1}$ with $R=e^{\theta S_3}$, and a spinor by left multiplication,
+$\psi\mapsto R\psi$. At $\theta=2\pi$ the rotor is $-\id$; the sign cancels in the first case and survives in the second. This is the
+space-time-algebra account of the difference between vectors and spinors \cite{Hestenes66}, realised here by the rotors of the Dirac
+sector: the same $S_k$ give spin one to the potential and spin one-half to matter.
+
+\begin{theorem}[Maxwell's equations as one Clifford equation]
+\label{thm:nablaF}
+Put $\nabla=\gamma^\mu\partial_\mu$ and $\sigma_k=\gamma_k\gamma_0$.
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item For $A=A^\mu\gamma_\mu$, $\nabla A=\partial\cdot A+\nabla\wedge A$, and for $F:=\nabla\wedge A$ the grade-one part of $\nabla F$ is
+$(\Box A^\nu-\partial^\nu\partial\cdot A)\gamma_\nu$, while its grade-three part vanishes identically.
+\item $F=\bE+\Omega\,\bB$ with $\bE=\sum_kE_k\sigma_k$, $E_k=-\partial_kA^0-\partial_tA^k$ and $\bB=\curl\bA$.
+\item For every $F=\sum_k(E_k\sigma_k+B_k\Omega\sigma_k)$,
+\[
+\nabla F=(\nabla\cdot\bE)\gamma_0+(\curl\bB-\partial_t\bE)^k\gamma_k+\Omega\bigl[-(\nabla\cdot\bB)\gamma_0+(\partial_t\bB+\curl\bE)^k\gamma_k\bigr],
+\]
+with no other grades.
+\end{enumerate}
+Hence $\nabla F=\mathcal J$, with $\mathcal J=\rho\gamma_0+\mathcal J^k\gamma_k$, is Gauss's law, the Amp\`ere--Maxwell law, the absence of
+magnetic charge and Faraday's law, and for $F=\nabla\wedge A$ the last two hold identically.
+\end{theorem}
+
+This is Hestenes' single Maxwell equation \cite{Hestenes66}, here on the four-plane of the Dirac sector inside the $8\times8$ matrices
+of $\Cl(3,3)$. Plane waves show how the gauge freedom removes the unphysical polarisations and how helicity appears.
+
+\begin{example}[A plane wave of the univectorial photon]
+\label{ex:univectorwave}
+Let $k=\gamma_0+\gamma_3$, so $k^2=0$, and $\varepsilon=\varepsilon^\mu\gamma_\mu$ with $k\cdot\varepsilon=0$, that is $\varepsilon^0=\varepsilon^3$. Then
+\[
+F(\varepsilon)=k\varepsilon=\varepsilon^1F_1+\varepsilon^2F_2,\qquad F_j=k\gamma_j ,
+\]
+because the component of $\varepsilon$ along $k$ drops out, $k^2=0$. The condition $k\cdot\varepsilon=0$ has removed the component along the
+other null direction $\gamma_0-\gamma_3$, so only the two transverse polarisations remain, and the gauge freedom
+$\varepsilon\mapsto\varepsilon+ck$ is exactly the helicity-zero direction. Moreover $F_j^2=0$ and $F_1F_2+F_2F_1=0$, so every $F(\varepsilon)$ squares
+to zero: in the space-time algebra $F^2=\bE^2-\bB^2+2\Omega\,\bE\cdot\bB$, so this is the null condition $|\bE|=|\bB|$,
+$\bE\perp\bB$. On $\operatorname{span}\{F_1,F_2\}$,
+\[
+\ad S_3=\begin{pmatrix}0&-1\\1&0\end{pmatrix},\qquad \Omega=\begin{pmatrix}0&1\\-1&0\end{pmatrix}=-\ad S_3 ,
+\]
+both with eigenvalues $\pm i$. For positive-frequency waves the eigenvectors of $\ad S_3$ with eigenvalues $\mp i$ carry helicity
+$\pm1$, and on them the Hodge star is $i$ times the helicity: circular polarisation is self-duality or anti-self-duality of $F$.
+\end{example}
+
+\begin{proposition}[Every field-strength module under the interior action]
+\label{prop:censusint}
+The Lorentz Casimir on the grades of $\Cl(3,3)$, the number of field-strength modules (Casimir value $4$) and their charges under
+$\ad(J/2)$ are
+\begin{center}
+\begin{tabular}{@{}clcc@{}}
+\toprule
+grade & spectrum of the Casimir (multiplicity) & field-strength modules & charges\\
+\midrule
+$0,6$ & $0\,(1)$ & $0$ & ---\\
+$1,5$ & $3\,(4)$, $0\,(2)$ & $0$ & ---\\
+$2,4$ & $4\,(6)$, $3\,(8)$, $0\,(1)$ & $1$ & $0$\\
+$3$ & $4\,(12)$, $3\,(8)$ & $2$ & $\pm1$\\
+\bottomrule
+\end{tabular}
+\end{center}
+and on $S$ the Casimir is $\tfrac32$ throughout.
+\end{proposition}
+
+Because $J$ commutes with the four-plane, the grade-four module is $J$ times the grade-two one, and $J$ is the complex structure at
+one constituent (\cref{thm:i}). Up to that complex structure the neutral field strength is unique and sits at grade two; the two
+grade-three copies carry charge $\pm1$ and are not candidates for the photon.
+
+\subsection{The frame photon}
+
+In the frame reading the field strength is the vector $X$ itself, and the boosts of $\lG$ turn out to be the spin matrices of the
+photon.
+
+\begin{proposition}[Spin matrices on the frame]
+\label{prop:spinmatrices}
+$K_k=GL_k$ for $k=1,2,3$, both families commute with $G$ and preserve $\eta$, and the Casimir $\sum K_k^2-\sum L_k^2$ equals $4\,\id$ on
+$V$, the field-strength value. On $z=\bB+i\bE$ the rotation $L_k$ acts as $r_k$ and the boost $K_k$ as
+\[
+s_k=i\,r_k,\qquad (s_k)_{ab}=-i\epsilon_{kab},
+\]
+which are Hermitian with $[s_i,s_j]=i\epsilon_{ijk}s_k$, $\sum_ks_k^2=2\,\id$ and $\spec s_3=\{-1,0,1\}$. With $p=-i\nabla$ one has
+$(s\cdot p)z=\curl z$ identically, so the frame Maxwell system \eqref{eq:RS} is the photon wave equation
+\[
+i\partial_tz=(s\cdot p)\,z,\qquad p\cdot z=0 ,
+\]
+and the kernel of $s_3$ is spanned by $\hat e_3$: transversality removes exactly the helicity-zero component of a wave moving along
+$\hat e_3$.
+\end{proposition}
+
+These are the spin-one matrices that Oppenheimer and Bialynicki-Birula use to write the photon wave function
+\cite{Oppenheimer1931,BialynickiBirula96}. The rotations act on $z$ as $r_k$, and their Hermitian generators $s_k=ir_k$ are the action
+of the boosts, because on this module a boost is $G$ times a rotation.
+
+\begin{proposition}[Orthogonality on the frame]
+\label{prop:orthframe}
+For $X=\sum_i(B_ie_i+E_ie_{i+3})$,
+\[
+z\cdot z=\eta(X,X)-i\,\eta(X,GX).
+\]
+Hence $\bE\perp\bB$ exactly when $X\perp_\eta GX$, $|\bE|=|\bB|$ exactly when $X$ is $\eta$-null, and both hold exactly when the plane
+$\operatorname{span}\{X,GX\}$ is totally $\eta$-null.
+\end{proposition}
+
+\begin{theorem}[The axis of a null field]
+\label{thm:axis}
+For real $a,b\in\R^3$,
+\[
+\bigl(s\cdot(a\times b)\bigr)(a+ib)=|b|^2a+i|a|^2b-(a\cdot b)(b+ia).
+\]
+Consequently a nonzero $z=\bB+i\bE$ satisfies $z\cdot z=0$ if and only if $(s\cdot n)z=z$ for some real unit vector $n$, and then
+$n=\bB\times\bE/|\bB\times\bE|$ uniquely.
+\end{theorem}
+
+\begin{proof}
+If $z\cdot z=0$ then $\bB\cdot\bE=0$ and $|\bB|=|\bE|\neq0$; the identity gives $(s\cdot(\bB\times\bE))z=|\bB|^2z$ and
+$|\bB\times\bE|=|\bB|^2$. Conversely $n\cdot((s\cdot n)z)=0$ and $z\cdot((s\cdot n)z)=0$ identically, and the characteristic polynomial
+of $s\cdot n$ is $-\lambda(\lambda^2-|n|^2)$, so the eigenvalue $1$ forces $n\cdot z=0$ and $z\cdot z=0$. For uniqueness,
+$(s\cdot n)z=in\times z=z$ splits into $\bB=-n\times\bE$ and $\bE=n\times\bB$, whence $n\perp\bB$ and $\bB\times\bE=|\bB|^2n$.
+\end{proof}
+
+Since $\bB\times\bE=\bE\times\Btext$ is the Poynting vector, a null field is the $m=+1$ state of the photon spin along its own energy
+flux, the frame form of the classical fact that a null field determines a unique direction of propagation
+\cite{Synge56,Robinson61}. Orthogonality with equal magnitudes therefore singles out the null fields and their axis. It does not
+single out a helicity.
+
+\begin{example}[Three null waves with one axis]
+\label{ex:threewaves}
+The fields
+\[
+z_\pm=(1,i,0)\,e^{\pm ik(x_3-t)},\qquad z_{\rm lin}=(1,i,0)\cos k(x_3-t)
+\]
+all solve \eqref{eq:RS}. In each, $\bB\cdot\bE=0$, $|\bB|=|\bE|$ and $\bB\times\bE$ points along $+\hat e_3$ wherever $z\neq0$, so each is an
+$m=+1$ state along $\hat e_3$. At $x_3=0$ the electric field turns according to $(\bE\times\dot\bE)\cdot\hat e_3=+k,\,-k,\,0$: helicity
+$+1$, helicity $-1$, and a linear superposition. The difference is the sign of the frequency, $z_+\propto e^{-ikt}$ against
+$z_-\propto e^{+ikt}$, which is the Bialynicki-Birula assignment for the Riemann--Silberstein vector \cite{BialynickiBirula96}. Not every
+radiation field is null either: $z=(1,i,0)\cos k(x_3-t)+(0,1,i)\cos k(x_1-t)$ solves the system and has $|\bB|=|\bE|$, but
+$\bB\cdot\bE=\cos k(x_1-t)\cos k(x_3-t)$.
+\end{example}
+
+Orthogonality alone is weaker still. The field $X=(\bB;\bE)=(1,0,0;\,0,2,0)$ has $\eta(X,GX)=0$, so $\bE\perp\bB$, but
+$\eta(X,X)=1-4=-3$; the boost $e^{\theta K_3}$ with $\theta=-\tfrac12\log3$ carries it to $(0,0,0;\,0,\sqrt3,0)$, a purely electric field
+with the same invariant. A field with $\bE\perp\bB$ and $|\bE|\neq|\bB|$ is purely electric or purely magnetic in a suitable frame
+\cite{LandauLifshitz2}. On the null line $\C(1,i,0)$, by contrast, $e^{\theta K_3}$ acts by multiplication by $e^\theta$; with
+$\theta=-\operatorname{artanh}\beta$ for a frame moving with velocity $\beta\hat e_3$ this is the Doppler factor $\sqrt{(1-\beta)/(1+\beta)}$.
+The stabiliser of the axis acts on a null field by the helicity phase and by the Doppler factor.
+
+\subsection{Potentials on the frame, and helicity as a charge}
+\label{sec:potentials}
+
+Place a vector potential on each triple, $\bA$ on $e_1,e_2,e_3$ and $\mathbf C$ on $e_4,e_5,e_6$, write $X_A=(\bA;\mathbf C)$ and
+$X_F=\curl X_A$, the curl acting on each triple, and take
+\begin{equation}
+\label{eq:SSL}
+\mathcal L=\tfrac12\,(\curl X_A)\cdot G\dot X_A-\tfrac12\,|\curl X_A|^2
+\end{equation}
+with the Euclidean dot product of $\R^6$, for which $G$ is orthogonal.
+
+\begin{theorem}[Duality-symmetric Maxwell theory on the frame]
+\label{thm:SS}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item The Euler--Lagrange expression of \eqref{eq:SSL} is $G\curl\bigl(\dot X_A+G\curl X_A\bigr)$. Every solution of the first-order
+equation $\dot X_A=-G\curl X_A$ solves it, and on a contractible region every solution satisfies the first-order equation up to a
+time-dependent gauge transformation.
+\item On solutions, $X_F$ obeys the frame Maxwell system \eqref{eq:RS} with $\bB=\curl\bA$ and $\bE=\curl\mathbf C$.
+\item Under $X_A\mapsto X_A+(\nabla\lambda_1;\nabla\lambda_2)$, $X_F$ is unchanged and $\mathcal L$ changes by a divergence.
+\item The Hamiltonian is $\tfrac12|\curl X_A|^2=\tfrac12(|\bB|^2+|\bE|^2)$, the energy density.
+\item $\mathcal L(e^{\theta G}X_A)=\mathcal L(X_A)$ exactly, and the Noether current of $\delta X_A=GX_A$ has density
+$j^0=-\tfrac12X_A\cdot\curl X_A$. For fields that decay or are periodic the conserved charge is $-\mathcal K$, where
+\[
+\mathcal K=\tfrac12\int X_A\cdot\curl X_A\,d^3x=\tfrac12\int(\bA\cdot\bB+\mathbf C\cdot\bE)\,d^3x
+\]
+is the optical helicity.
+\end{enumerate}
+\end{theorem}
+
+This is the duality-symmetric first-order formulation of Schwarz and Sen \cite{SchwarzSen94}, with two vector potentials in the
+temporal gauge and with the binding root $G$ in the place of their $SO(2)$ generator; the conserved charge of the duality rotation is,
+up to sign, the optical helicity \cite{Calkin65,DeserTeitelboim76,CameronBarnettYao12}.
+
+\begin{example}[The $G$-charge is the helicity]
+\label{ex:Gcharge}
+For waves $e^{i(k x_3-\omega t)}$ the first-order equation reads $\omega a=G(k\times a)$, a $6\times6$ matrix with eigenvalues $\pm k$, each
+twice, and $0$ twice (the longitudinal, pure-gauge pair). The eigenspace $\omega=+k$ is spanned by
+\[
+\begin{aligned}
+a_1&=(1,-i)\otimes(1,i,0), & Ga_1&=ia_1, & s_3a_1&=a_1,\\
+a_2&=(1,i)\otimes(1,-i,0), & Ga_2&=-ia_2, & s_3a_2&=-a_2,
+\end{aligned}
+\]
+with $s_3$ acting on each triple. For the real waves $X_A=\Re(a\,e^{ik(x_3-t)})$ the helicity density $\tfrac12X_A\cdot\curl X_A$ and the
+energy density are $(k,k^2)$ for $a_1$, $(-k,k^2)$ for $a_2$, and $(0,4k^2\sin^2k(x_3-t))$ for $a_1+a_2$. On positive-frequency modes the
+eigenvalue of $G$ is $i$ times the helicity. The ratio of helicity to energy is $\pm1/\omega$, which for a quantised field of energy
+$N\hbar\omega$ is $\pm N\hbar$: one unit of $\hbar$ per photon, the spin-one value.
+\end{example}
+
+The frame potentials are not components of a Lorentz tensor. Neither the constant boost $\delta X_A=K_3X_A$ nor the boost of the
+coordinates is a symmetry of \eqref{eq:SSL}; the boost that is one is the Schwarz--Sen transformation $\delta X_A=t\,\partial_3X_A-x_3\,G\curl
+X_A$, whose curl is, identically,
+\[
+\curl\bigl(t\,\partial_3X_A-x_3\,G\curl X_A\bigr)=t\,\partial_3X_F-x_3\,G\curl X_F-K_3X_F ,
+\]
+which on solutions is the boost of the field strength along $\hat e_3$ with its orbital part and its spin part $K_3$. Boosts reach the
+potentials only through their curl and only on shell \cite{SchwarzSen94}. Duality rotations, for their part, are not Lorentz
+transformations: $e^{\theta G}$ preserves the energy density and rotates $\eta(X,X)$ into $\eta(X,GX)$.
+
+\subsection{The bridge between the readings}
+\label{sec:bridge}
+
+\begin{proposition}[Half-spinors under the two algebras]
+\label{prop:halfspinors}
+Under $\lint$ the Casimir on $S^\pm$ is $\tfrac32$, and $S^+$ carries a two-parameter family of invariant antisymmetric forms and no
+invariant symmetric one: it is a Weyl module. Under $\lG$ the Casimir on all of $S$ is $3$, the invariant symmetric forms on $S^+$ form a
+one-parameter family of Lorentzian forms, and there is no invariant antisymmetric form: $S^+$ is a Minkowski four-vector, and
+$\exp(2\pi L_3)=+\id$ on $S$. On $\C^8$ the two algebras give $2\,(\tfrac12,0)\oplus2\,(0,\tfrac12)$ and $2\,(\tfrac12,\tfrac12)$
+respectively, and they meet in zero.
+\end{proposition}
+
+So under the binding algebra every spinor of $\Cl(3,3)$ has integer spin, in accordance with $\mathrm{Spin}(3,3)\cong SL(4,\R)$, whose
+half-spinor modules are $\R^4$ and its dual \cite{Porteous}. This sharpens \cref{prop:emexclusive}: with $\lG$ as the Lorentz algebra
+one constituent carries no spin one-half at all.
+
+\begin{theorem}[The Klein correspondence]
+\label{thm:klein}
+The $\mathrm{Spin}(3,3)$-invariant bilinear forms on $S$ form a two-dimensional space. For one of them, $\beta$, the map
+$W(X)(\psi,\chi)=\beta(\psi,X\chi)$ on $S^+$ is antisymmetric and equivariant, and
+\[
+\Pf W(X)=\eta(X,X).
+\]
+Hence $V\cong\Lambda^2(S^+)^*$ as $\mathrm{Spin}(3,3)$-modules, and the null cone of $\eta$ is the set of decomposable two-forms.
+\end{theorem}
+
+This is the Klein correspondence between the points of the Klein quadric and the lines of projective three-space
+\cite{WardWells}. It can be compared with the frame reading. Let $T:\R^{1,3}\to S^+$ be the $\lG$-intertwiner, unique up to scale. Then
+\[
+T^*W(X)=-F_X+\star F_X=\sqrt2\,F_{e^{3\pi G/4}X}\qquad\text{for all }X,
+\]
+so the canonical identification of $V$ with two-forms on the half-spinor and the frame reading of the field strength differ by a
+duality rotation of an eighth of a turn, $-\pi/4$ modulo $\pi$. In the Klein frame $\eta(X,X)$ is the Pfaffian, the invariant of
+$\bE\cdot\bB$ type, and $\eta(X,GX)$ the Hodge pairing; in the frame reading the roles are the other way round. For free fields the two
+readings are equivalent, since duality rotations map solutions to solutions; a statement that singles out one invariant, such as which
+of them is the Lagrangian, holds in one reading and not in the other. A plane wave $\kappa\wedge\alpha$ built on $S^+$, with $\kappa$ the
+lowered null momentum $(1,0,0,1)$ and $\alpha$ the polarisation $(0,1,0,0)$, lands on the doubly null vector
+$X=(-\tfrac12,-\tfrac12,0;\,\tfrac12,-\tfrac12,0)$, whose Poynting axis $\bB\times\bE=(0,0,\tfrac12)$ is the spatial momentum; the Klein
+planes of $X$ and of $GX$ meet in the null line $[\kappa]$, as two lines of projective space joined by a line of the quadric must.
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[>=Stealth,font=\small]
+\node[draw=tcol,thick,rounded corners=4pt,fill=tcol!6,text width=6.0cm,align=left,inner sep=6pt] (int) at (0,0) {%
+\textbf{\textcolor{tcol}{interior reading}}, Lorentz algebra $\lint$\\[3pt]
+grade 1: potential $A$, $(\tfrac12,\tfrac12)_0$; surplus pair $(0,0)_{\pm1}$\\
+grade 2: field strength $F$, $(1,0)\oplus(0,1)$; $\Omega=\star$\\
+spinors: Weyl, $2(\tfrac12,0)\oplus2(0,\tfrac12)$\\
+equation: $\nabla F=\mathcal J$ (\cref{thm:nablaF})};
+\node[draw=scol,thick,rounded corners=4pt,fill=scol!6,text width=6.0cm,align=left,inner sep=6pt] (bin) at (7.8,0) {%
+\textbf{\textcolor{scol}{frame reading}}, Lorentz algebra $\lG$\\[3pt]
+grade 1: field strength $X=(\bB;\bE)$; $G=\star$\\
+boosts: spin matrices $s_k=ir_k$\\
+spinors: four-vectors, $2(\tfrac12,\tfrac12)$\\
+equation: $i\partial_tz=(s\cdot p)z$ (\cref{prop:spinmatrices})};
+\draw[<->,thick,gray] (int.east) -- node[below,align=center,font=\scriptsize] {not\\ conj.} (bin.west);
+\node[draw=gcol,thick,rounded corners=4pt,fill=gcol!6,text width=13.6cm,align=left,inner sep=6pt] (mix) at (3.9,-3.25) {%
+\textbf{\textcolor{gcol}{mixed rung $n=2$}}: $\lint$ on constituent 1, $\lG$ on constituent 2. Grade one carries
+$V\oplus\Lambda^2V\oplus2\cdot\mathbf1$; the spinor module has a rank-$16$ Dirac block; one grade-three element identifies the
+frame field of constituent 2 with $dA$ of constituent 1. Cost: the internal algebra shrinks to one dimension
+(\cref{prop:mixedcost}).};
+\draw[->,thick,gray] (int.south) -- (int.south |- mix.north);
+\draw[->,thick,gray] (bin.south) -- (bin.south |- mix.north);
+\node[gray,anchor=south] at (3.9,1.7) {Klein: $V\cong\Lambda^2(S^+)^*$, duality angle $-\pi/4$};
+\end{tikzpicture}
+\caption{Two places for the photon in the arena (\cref{sec:spin}). Each reading gives a free field with the spin content of the photon;
+on one constituent they use non-conjugate Lorentz algebras and do not merge, and at the second rung they can be housed together at
+the price of the internal algebra.}
+\label{fig:tworoutes}
+\end{figure}
+
+\subsection{The tower}
+
+On the tower the two readings multiply in different ways.
+
+\begin{proposition}[Commutants along the tower]
+\label{prop:commutantsn}
+On $V_n=\R^{3n,3n}$ the commutants have the following dimensions:
+\begin{center}
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+commutant of & $n=1$ & $2$ & $3$ & $4$ & $5$\\
+\midrule
+spectator $\lint$ in $\so{3n,3n}$ & $1$ & $28$ & $91$ & $190$ & $325$\\
+diagonal $\lint$ in $\so{3n,3n}$ & $1$ & $7$ & $18$ & $34$ & $55$\\
+diagonal $\lG$ in $\so{3n,3n}$ & $0$ & $2$ & $6$ & $12$ & $20$\\
+diagonal rotations and $G_n$ in $\so{6n}$ & $1$ & $4$ & $9$ & $16$ & $25$\\
+the same inside $\so{3n,3n}$ & $0$ & $1$ & $3$ & $6$ & $10$\\
+\bottomrule
+\end{tabular}
+\end{center}
+These are the dimensions of $\so{3n-1,3n-3}$, $\so n\oplus\so{2n}$, $\so{n,\C}$, $\uu n$ and $\so n$.
+\end{proposition}
+
+Under the diagonal interior action $V_n=n\,(\tfrac12,\tfrac12)\oplus2n\,(0,0)$, so there are $n$ potentials forming the vector of the copy
+algebra $\so n$, and none of them is copy-invariant at grade one for $n\ge2$. A single univectorial potential in the diagonal sector
+therefore needs a choice of direction in copy space, and any such choice breaks $\so n$ to $\so{n-1}$. The obstruction belongs to grade
+one only.
+
+\begin{theorem}[Copy-invariant four-vectors]
+\label{thm:copyparity}
+A copy-invariant four-vector in $\Lambda^g(\R^n\otimes\R^{1,3})$ requires $n$ odd and $g$ odd with $n\le g\le3n$, and for every odd $n$
+there is one at $g=n$,
+\[
+Q^{(n)}_b=\epsilon_{k_1\cdots k_n}\,\eta^{a_1a_2}\cdots\eta^{a_{n-2}a_{n-1}}\,\gamma^{(k_1)}_{a_1}\wedge\cdots\wedge\gamma^{(k_{n-1})}_{a_{n-1}}\wedge\gamma^{(k_n)}_b .
+\]
+At $n=3$ there is exactly one at each of the grades $3,5,7,9$, and at $n=2$ there is none at any grade.
+\end{theorem}
+
+\begin{proof}
+An invariant element of $\Lambda^g(\R^n\otimes\R^{1,3})\otimes\R^{1,3}$ is an invariant tensor of $SO(n)\times SO^+(1,3)$ in
+$(\R^n)^{\otimes g}\otimes(\R^{1,3})^{\otimes(g+1)}$. By the first fundamental theorem for the special orthogonal groups \cite{Weyl39},
+such tensors are spanned by products of metrics and at most one Levi-Civita symbol. On the Lorentz side every factor has an even number
+of indices, so $g+1$ is even. On the copy side $g=2d+ne$ with $e\in\{0,1\}$; $g$ odd forces $e=1$ and $n$ odd, so $g\ge n$. The Hodge
+star of $\R^n\otimes\R^{1,3}$ is an equivariant isomorphism $\Lambda^g\cong\Lambda^{4n-g}$, which gives $g\le3n$. The displayed
+$Q^{(n)}_b$ is invariant because $\epsilon$ is, and nonzero because the terms of $Q^{(n)}_0$ with all Lorentz indices equal to $0$
+add up to $n!\,\gamma^{(1)}_0\wedge\cdots\wedge\gamma^{(n)}_0$.
+\end{proof}
+
+At $n=3$ the invariant four-vector of grade three is, up to a factor, the copy-singlet cubic $Q_\mu$ that builds the gamma matrices of
+the Dirac block in \cref{thm:blockgamma}; the parity theorem explains why such an object exists at three constituents and could not
+exist at two. Under the diagonal $\lG$, finally, $V_n=n\bigl[(1,0)\oplus(0,1)\bigr]$: $n$ field strengths mixed by the complex orthogonal
+flavour algebra $\so{n,\C}$. The energy-preserving duality group of $n$ free Maxwell fields is $U(n)$, the maximal compact subgroup of
+the Gaillard--Zumino group $Sp(2n,\R)$ \cite{GaillardZumino81}; its Lie algebra meets $\so{3n,3n}$ only in $\so n$, and its centre,
+generated by $G_n$ and carrying the total helicity, lies outside $\so{3n,3n}$, as $G$ does at $n=1$. A single photon would be one
+direction in this flavour space, and nothing selects one.
+
+\subsection{The mixed rung}
+\label{sec:mixed}
+
+\Cref{prop:emexclusive} forbids reading one six-dimensional space in two ways. At $n\ge2$ there is more than one constituent, and the
+obvious repair is to let one constituent carry the interior reading and another the frame reading, under one Lorentz action.
+
+\begin{proposition}[The mixed embedding]
+\label{prop:mixed}
+In $\Cl(6,6)$ let $\mathfrak l_{\rm mix}$ be spanned by $S_k\otimes1+1\otimes L_k$ and $T_k\otimes1+1\otimes K_k$: the interior algebra on
+constituent $1$ and $\lG$ on constituent $2$, paired generator by generator. It satisfies the $\so{1,3}$ brackets, and
+\[
+\R^{6,6}=\underbrace{V}_{C=3}\oplus\underbrace{\Lambda^2V}_{C=4}\oplus2\cdot\mathbf1 ,
+\]
+so one Lorentz action carries both a four-vector and a field strength at grade one. On $S_2=\R^{64}$ the Casimir satisfies
+$(C_{\rm mix}-\tfrac32)(C_{\rm mix}-\tfrac{11}2)=0$, with the Dirac value $\tfrac32$ on sixteen dimensions and $\tfrac{11}2$ on $48$.
+\end{proposition}
+
+\begin{proposition}[The cost]
+\label{prop:mixedcost}
+The centraliser of $\mathfrak l_{\rm mix}$ in $\so{6,6}$ is one-dimensional, spanned by the rotation of the surplus pair of
+constituent $1$. At the same rung:
+\begin{center}
+\begin{tabular}{@{}lcl@{}}
+\toprule
+Lorentz action at $n=2$ & centraliser & content of $\R^{6,6}$\\
+\midrule
+interior on one constituent & $28$ & $V\oplus8\cdot\mathbf1$\\
+$\lG$ on one constituent & $15$ & $\Lambda^2V\oplus6\cdot\mathbf1$\\
+mixed, across both & $1$ & $V\oplus\Lambda^2V\oplus2\cdot\mathbf1$\\
+\bottomrule
+\end{tabular}
+\end{center}
+The mixed embedding buys the field-strength module at the price of the whole internal algebra: $\so{5,3}$ collapses to one $\uu1$.
+\end{proposition}
+
+The count is for this pairing of the two Lorentz bases at $n=2$; another pairing or a higher rung could do better and has not been
+examined. Within its scope, however, the mixed rung is an honest place to test whether the two readings can be coupled, and it turns out
+that they can.
+
+\begin{theorem}[The Dirac block of the mixed rung]
+\label{thm:mixeddirac}
+Let $P=\tfrac18(11\,\id-2C_{\rm mix})$ and $\hat\gamma_\mu=2P\gamma^{(1)}_\mu P$, with $J_1=e_2e_3\otimes1$.
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item $P$ is the orthogonal projector of rank $16$ onto the block with the Dirac value, and commutes with the mixed generators.
+\item $\{\hat\gamma_\mu,\hat\gamma_\nu\}=2\eta_{\mu\nu}P$, $[\hat\gamma_\mu,J_1]=0$, $J_1^2=-\id$, and $P\mathcal S_kP=\tfrac12\hat\gamma_i\hat\gamma_j$ (cyclic),
+$P\mathcal T_kP=\tfrac12\hat\gamma_0\hat\gamma_k$: the compressed gammas generate the mixed Lorentz action on the block.
+\item With $J_1$ as the imaginary unit the block is two complex Dirac modules, labelled by the half-spinors of constituent $2$, with
+flavour algebra $\uu2$; $\mathcal H(p)=\hat\gamma^0\hat\gamma^ap_a+m\hat\gamma^0$ is symmetric and $\mathcal H(p)^2=(|p|^2+m^2)P$.
+\item The block is the $\gamma$-trace part $\sum_a\gamma_a\chi\otimes\tau e_a$ of the vector-spinors (Dirac spinor of constituent $1$)
+$\otimes$(four-vector of constituent $2$), and the rank-$48$ block is their $\gamma$-traceless $(1,\tfrac12)\oplus(\tfrac12,1)$ part.
+\end{enumerate}
+\end{theorem}
+
+Item (iv) explains the factor $2$ in $\hat\gamma_\mu$, since $P\gamma^{(1)}_\mu$ acts on the $\gamma$-trace part as $-\tfrac12\gamma_\mu$, and it
+identifies the decomposition with the classical splitting of a vector-spinor into its trace and its traceless part
+\cite{RaritaSchwinger41}.
+
+A covariant identification of the field strength of constituent $1$ with the frame field of constituent $2$ is an invariant element
+of $\Lambda^2(\text{four-plane}_1)\otimes V_2$, that is, a grade-three element of the algebra commuting with the mixed generators. The
+invariant space is two-dimensional, and one invariant is
+\[
+\Theta_F=\gamma^{(1)}_2\gamma^{(1)}_3e'_1+\gamma^{(1)}_3\gamma^{(1)}_1e'_2+\gamma^{(1)}_1\gamma^{(1)}_2e'_3
+-\gamma^{(1)}_0\gamma^{(1)}_1e'_4-\gamma^{(1)}_0\gamma^{(1)}_2e'_5-\gamma^{(1)}_0\gamma^{(1)}_3e'_6 ,
+\]
+with $e'_a$ the generators of constituent $2$; it pairs the spatial bivectors of constituent $1$ with the magnetic directions of
+constituent $2$ and the time--space bivectors with the electric ones. The other invariant is $\Theta_F$ followed by $G$, so up to scale
+the identifications form the family $X=e^{\theta G}X_F$.
+
+\begin{theorem}[A coupled model]
+\label{thm:coupled}
+On the block, in flavour coordinates $\R^8\otimes\R^2$ with $\hat\gamma_\mu=-\gamma_\mu\otimes1$, $J_1=J\otimes1$ and $U^\mu=\hat\gamma^0\hat\gamma^\mu$, take
+for commuting real fields
+\begin{equation}
+\label{eq:coupledL}
+\mathcal L=-\tfrac14F_{\mu\nu}F^{\mu\nu}+\psi^{\!\top}J_1U^\mu D_\mu\psi-m\,\psi^{\!\top}\hat\gamma^0\psi,\qquad D_\mu=\partial_\mu+qA_\mu J_1 ,
+\end{equation}
+the real form of $-\tfrac14F^2+\bar\psi(i\gamma^\mu D_\mu-m)\psi$ with $J_1$ in the place of $i$. Then the field equations are Maxwell's
+equations $\partial_\mu F^{\mu\nu}=q\,j^\nu$ with $j^\nu=\psi^{\!\top}U^\nu\psi$ and $j^0=|\psi|^2$, and the Dirac equation
+$J_1\hat\gamma^\mu D_\mu\psi=m\psi$; the identity $\partial_\mu j^\mu+\psi^{\!\top}J_1\mathcal E_\psi=0$ holds with $\mathcal E_\psi$ the Dirac
+expression; the Lagrangian is exactly invariant under $\psi\mapsto e^{-q\lambda J_1}\psi$, $A\mapsto A+\partial\lambda$; and its flavour
+symmetry is the $\uu2$ spanned by $J\otimes1$, $1\otimes\epsilon$, $J\otimes\sigma_x$, $J\otimes\sigma_z$. The potential carries two
+polarisations of helicity $\pm1$ and no massive mode, and each momentum carries two flavours, two helicities and two signs of frequency.
+\end{theorem}
+
+In the frame reading the source is electric. For the frame field of an arbitrary potential one has, identically,
+$\partial_tz+i\curl z+i\boldsymbol{\mathcal J}=0$ and $\nabla\cdot z=i\rho$ with $(\rho,\boldsymbol{\mathcal J})=\partial_\mu F^{\mu\nu}$, and the
+rotated field $e^{\theta G}X_F$ satisfies the same system with electric source $\cos\theta$ times the current and magnetic source $\sin\theta$
+times it. Since the frame field takes no part in the dynamics of \eqref{eq:coupledL}, which member of the family is called the frame
+field is a choice; requiring it to carry electric sources only fixes $\theta\equiv0$ modulo $\pi$, as in the textbook treatment of duality
+with sources, where the angle is fixed by the convention that all charges are electric \cite{Jackson}. The duality rotation, a symmetry
+of the free system and of \eqref{eq:SSL}, is not a symmetry once electric sources are present.
+
+The coupled model is classical two-flavour spinor electrodynamics with equal charges, written in the algebra of the second rung. It
+is a construction, not a selection, and it has a definite limitation that we record now and use later: the second-rung vacuum of
+\cref{sec:photon} is defined for the spectator action, and under the mixed action it is preserved only by the rotations about one axis,
+so the coupled model lies outside that vacuum sector.
+
+At even rungs, finally, the diagonal interior action places integer-spin modules inside the spinor module itself: at $n=2$ the Casimir
+takes the values $0,3,4$ on $8,32,24$ dimensions, so $S_2$ contains scalars of copy charge $\pm2$, four-vectors of copy charge $\pm1$ and
+copy-neutral field strengths $(1,0)\oplus(0,1)$, and the copy and Lorentz Casimirs add up to $4$, the $n=2$ case of \eqref{eq:casid}. These
+are modules of one spinor space, not bound states, and we do not propose them as the photon.
