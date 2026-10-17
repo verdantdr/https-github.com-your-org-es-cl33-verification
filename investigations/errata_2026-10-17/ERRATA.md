@@ -1,11 +1,12 @@
 # Errata to *The electromagnetic sphere* (17 October 2026)
 
 An external review of the 119-page paper raised five mathematical defects and two points about hidden assumptions and
-normalisations. Each point was re-derived independently before anything was changed. All seven were confirmed, and the
-sources in `tex/` were corrected.
+normalisations (items 1-8 below). The adversarial verifiers of the rest-energy investigation (`investigations/rest_energy/`) found four
+further small defects (items 9-13). Every point was re-derived independently before anything was changed, and the sources in
+`tex/` were corrected.
 
 Every check is in `verify_errata.py` in this folder. It prints one `PASS` line per check and exits 0 only if every check
-passes (19 checks, about 5 s):
+passes (22 checks, about 5 s):
 
 ```
 python3 investigations/errata_2026-10-17/verify_errata.py
@@ -13,7 +14,7 @@ python3 investigations/errata_2026-10-17/verify_errata.py
 
 **No theorem, proposition, section or equation was renumbered.** The `.aux` label tables before and after the corrections
 are identical, so every cross-reference that cites a number (inside the paper, in `investigations/rest_energy/`, or
-elsewhere) stays valid. The corrected build has 120 pages instead of 119.
+elsewhere) stays valid.
 
 | # | Where | Defect | Status | Correction | Check |
 |---|---|---|---|---|---|
@@ -26,6 +27,16 @@ elsewhere) stays valid. The corrected build has 120 pages instead of 119.
 | 7 | §20.4–20.5 (`s20_selection.tex`) | Unstated change of normalisation. §19 uses M_N = \|y\|r, §20.4 uses M_N = yv with v = \|S\|, and §20.5 and §21 use v = \|Φ\|/√2 = √2 r. The two y's differ by √2, which made the translation of x into mass ratios ambiguous. | confirmed | §20.4 now states that S = √2 ι(Φ) is the canonically normalised field (the kinetic term of Assumption 19.4 is Tr(DS)†(DS)), so v = \|S\| = \|Φ\|/√2 throughout, g is the coupling of Thm 21.1, and y(§20.4) = y(eq. (35))/√2. Then x = Σ y⁴/(4g⁴) in §19/§21 couplings, which equals Σ(M_N/M_W_R)⁴. **The physical bounds (M_N < 2.280 M_W_R, etc.) are unchanged.** | E5a, E5c, E5d |
 | 8 | §20.5, after Table 5 (`s20_selection.tex`) | "Radiatively generated masses" are Hessian curvatures of the leading-log potential, not pole masses. | added qualification | One sentence: the masses are curvatures divided by the kinetic norm; pole masses would need wave-function renormalisation and a gauge-consistent expansion. | — |
 
+## Found during the rest-energy investigation
+
+| # | Where | Defect | Correction | Check |
+|---|---|---|---|---|
+| 9 | before Thm 19.2 (`s19_kernels.tex`) and App. A (`sA_realisation.tex`) | τᵢ = −½ ε_ijk w_j w_k, read with summation, is −w_j w_k = 2τᵢ of §8: then τᵢ² = −1 and [τ₁,τ₂] = 2τ₃, and [t^R₃,Φ₀] would be 2JΦ₀. It also leaves open which three of the four w enter. | τᵢ = −½ w_j w_k for (i,j,k) cyclic in (1,2,3), as in §8 (which is the reading that reproduces Thm 19.2(v); rebuilt on R⁵¹² in `investigations/rest_energy/verify/x2_check.py`, check x2-21a) | E6a |
+| 10 | Thm 19.2(v) (`s19_kernels.tex`) | "P_ν, the projector onto Γ = +1, T^R₃ = ½, B−L = −1, ... Φ₀ᵀΦ₀ = P_ν of rank four": on all of S₃ that joint eigenspace has rank 8. Φ₀ᵀΦ₀ = P_ν P_*. | P_ν defined as the projector *of the block V_** onto those eigenvalues (rank 4), with a note on the rank 8 on S₃ | x2-21a |
+| 11 | §5 after Prop 5.5 (`s05_discrete.tex`) | "Ω = −JΓ, the real form of −iγ₅" contradicts Prop 4.6 ("Ω is the real form of iγ₅"). With i = J, Thm 4.1 gives γ₅ = −Γ, so Ω = iγ₅. | sentence aligned with Prop 4.6 and Thm 4.1 | E7a |
+| 12 | end of §17.5 (`s17_closure.tex`) | "(I₀,m) ↦ (sI₀,tm) multiplies ε by 1/(st)": true at fixed initial rate κ₀ only; at fixed h(0) the factor is s/t. | qualifier added | E8a |
+| 13 | Example 17.17 (`s17_closure.tex`) | "displacement per turn" did not say that a turn is θ ↦ θ + 2π, i.e. two periods of the rate of Thm 17.16 (per period the displacement is 4K(−2) − 2E(−2) ≈ 0.3168). | wording made explicit | `investigations/rest_energy/verify/d3_closure_dynamics.py`, `x3_check.py` |
+
 ## What was *not* changed
 
 - **The central constructions and numbers:** rank 64 of P_*, 23 internal bivectors, 272 = 144 + 128 kernels, Φ₀ᵀΦ₀ = P_ν, the 12 + 9 split of the
@@ -35,8 +46,8 @@ elsewhere) stays valid. The corrected build has 120 pages instead of 119.
 
 ## Files changed
 
-- `tex/main.tex`, `tex/s01_intro.tex`, `tex/s14_orth.tex`, `tex/s18_subfields.tex`, `tex/s19_kernels.tex`, `tex/s20_selection.tex`,
-  `tex/s21_matter.tex`, `tex/s31_assessment.tex`.
+- `tex/main.tex`, `tex/s01_intro.tex`, `tex/s05_discrete.tex`, `tex/s14_orth.tex`, `tex/s17_closure.tex`, `tex/s18_subfields.tex`,
+  `tex/s19_kernels.tex`, `tex/s20_selection.tex`, `tex/s21_matter.tex`, `tex/s31_assessment.tex`, `tex/sA_realisation.tex`.
 - `ES_electromagnetic_sphere_2026-10-17.pdf` rebuilt from the corrected sources (TeX Live 2023, three pdflatex passes; the original
   MiKTeX build is in git history and on branch `17-10-unified`).
 - `ES_electromagnetic_sphere_sources_2026-10-17.zip` regenerated from the corrected `tex/` (same `ES_unified_paper_sources/tex/` layout,

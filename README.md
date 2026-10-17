@@ -33,8 +33,8 @@ No `caption`, `subcaption` or `microtype` (not installed in this MiKTeX).
 
 ## Notes
 
-- **Errata (17 October 2026, after an external review).** Five mathematical statements (Theorems 18.1 and 18.7, a benchmark sentence in
-  Section 20, the global-minimum claim, and the Carroll–Field–Jackiw remark in Section 14) and two hidden assumptions (a single Yukawa coupling,
+- **Errata (17 October 2026, after an external review).** Ten statements (Theorems 18.1 and 18.7, a benchmark sentence in
+  Section 20, the global-minimum claim, the Carroll–Field–Jackiw remark in Section 14, the τᵢ convention of Section 19, P_ν, a sign in Section 5, the rescaling remark of Section 17 and the wording of Example 17.17) and two hidden assumptions (a single Yukawa coupling,
   and the normalisation of $y$, $g$, $v$ between Sections 19–21) were corrected in `tex/`. The PDF and source zip were rebuilt from the corrected
   sources. No statement was renumbered. Details and an executable check: `investigations/errata_2026-10-17/`.
 - Status labels and program listings are deliberately absent; qualifications are written into the text, and Appendix B describes the

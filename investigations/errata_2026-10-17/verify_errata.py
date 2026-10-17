@@ -301,6 +301,31 @@ MN, MW = yv * sp.Symbol('r') , gk * sp.sqrt(2) * sp.Symbol('r')
 report(sp.simplify(xk - (MN / MW)**4) == 0, "E5d",
        "Sec. 20.5's x = y^4/(4 g^4) (couplings of eq. Saction and Thm 21.1) equals (M_N/M_WR)^4; Sec. 20.4's x = y'^4/g^4 with y' = y/sqrt2 is the same number")
 
+# ============================================================================= E6  tau_i convention (s08 vs s19 / Appendix A)
+# any three anticommuting generators of square +1 (the weak directions E7, E13, E14 are temporal) model w1, w2, w3
+w1, w2, w3 = e[1], e[2], e[3]
+cyc = [(w2, w3), (w3, w1), (w1, w2)]
+tau08 = [-0.5 * a @ b for a, b in cyc]                       # s08: tau_i = -1/2 w_j w_k, (i,j,k) cyclic, no sum
+tau19 = [-0.5 * (a @ b - b @ a) for a, b in cyc]             # s19/sA read with summation: -1/2 eps_ijk w_j w_k = -w_j w_k
+br = lambda X, Y: X @ Y - Y @ X
+ok08 = all(np.allclose(t @ t, -0.25 * np.eye(8)) for t in tau08) and np.allclose(br(tau08[0], tau08[1]), tau08[2])
+bad19 = all(np.allclose(t @ t, -np.eye(8)) for t in tau19) and np.allclose(br(tau19[0], tau19[1]), 2 * tau19[2])
+report(ok08 and bad19, "E6a", "defect confirmed: s08's tau_i = -1/2 w_j w_k (cyclic) has tau^2 = -1/4 and closes on su(2); the s19/App. A formula "
+       "-1/2 eps_ijk w_j w_k summed equals -w_j w_k = 2 tau_i (tau^2 = -1, [tau1,tau2] = 2 tau3)")
+# ============================================================================= E7  Omega and gamma_5 (Prop 4.6 vs Sec. 5)
+Om = e[1] @ e[4] @ e[5] @ e[6]
+Gam = J @ Om
+gamma5 = -Gam                                                # Theorem 4.1 with i = +J: gamma_5 = -Gamma
+report(np.allclose(Om, J @ gamma5) and np.allclose(Om, -J @ Gam), "E7a",
+       "defect confirmed: with i = J, Theorem 4.1 gives gamma_5 = -Gamma, so Omega = -J Gamma = i gamma_5 (Prop 4.6); Sec. 5's 'real form of -i gamma_5' has the sign of i = -J")
+# ============================================================================= E8  rescaling remark at the end of Sec. 17.5
+s_, t_, R0, m_, I0, k0, h0 = sp.symbols('s t R0 m I0 kappa0 h0', positive=True)
+eps = lambda m, I, k: R0 / (m * I * k**2)
+fixed_k = sp.simplify(eps(t_ * m_, s_ * I0, k0) / eps(m_, I0, k0))
+fixed_h = sp.simplify(eps(t_ * m_, s_ * I0, h0 / (s_ * I0)) / eps(m_, I0, h0 / I0))
+report(fixed_k == 1 / (s_ * t_) and fixed_h == s_ / t_, "E8a",
+       f"defect confirmed: (I0,m) -> (sI0,tm) multiplies eps by {fixed_k} at fixed kappa0 but by {fixed_h} at fixed h0; the paper's 1/(st) needs kappa0 fixed")
+
 print()
 print("ALL CHECKS PASSED" if not FAILS else f"FAILED: {FAILS}")
 sys.exit(1 if FAILS else 0)

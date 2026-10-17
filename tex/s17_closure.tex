@@ -278,7 +278,8 @@ $\lambda=\pi\varepsilon/(4|\kappa_0|)+O(\varepsilon^2)$ over a period $\pi/|\kap
 \begin{example}[A drift in closed form]
 \label{ex:drift}
 Take $p_0=e^1$ and $m=I_0=\kappa_0=1$, so that $w=1$, $\varphi_0=0$, $\varepsilon=1$ and $\dot\theta^2=1+2\sin^2\theta$. Writing
-$(1-2s)/\sqrt{1+2s}=2/\sqrt{1+2s}-\sqrt{1+2s}$ with $s=\sin^2\theta$, the displacement per turn of the rotor is
+$(1-2s)/\sqrt{1+2s}=2/\sqrt{1+2s}-\sqrt{1+2s}$ with $s=\sin^2\theta$, the displacement per full turn of the rotor, $\theta\mapsto\theta+2\pi$, which is two periods of the rate in
+\cref{thm:freedrift}, is
 \[
 \Delta x=\bigl(8K(-2)-4E(-2)\bigr)e_1\approx0.6336081022\,e_1 ,
 \]
@@ -299,8 +300,8 @@ $I_0\ddot\theta=R_{\rm eff}\sin(2\theta+\varphi_{\rm eff})$. The \emph{balance s
 constant although no $w_k$ need vanish, and every frame moves on a bounded orbit. With equal inertias, $p^{(2)}=-Gp^{(1)}$ gives $w_2=-w_1$.
 \end{proposition}
 
-The Clifford data $\eta$, $G$, $G\eta^{-1}$ and $\beta_0$ are integer matrices. The rescaling $(I_0,m)\mapsto(sI_0,tm)$ preserves admissibility and
-multiplies $\varepsilon$ by $1/(st)$, so no value of $\varepsilon$, and no ratio among $I_0$, $m$ and $|a+ib|$, is determined by the Clifford structure:
+The Clifford data $\eta$, $G$, $G\eta^{-1}$ and $\beta_0$ are integer matrices. The rescaling $(I_0,m)\mapsto(sI_0,tm)$ preserves admissibility and,
+at fixed initial rate $\kappa_0$, multiplies $\varepsilon$ by $1/(st)$ (at fixed $h(0)$ it multiplies it by $s/t$), so no value of $\varepsilon$, and no ratio among $I_0$, $m$ and $|a+ib|$, is determined by the Clifford structure:
 the form of the inertia is derived, and \eqref{eq:multiscale} is an input.
 
 \subsection{Three constituents: the closure symmetry and the two projectors}
