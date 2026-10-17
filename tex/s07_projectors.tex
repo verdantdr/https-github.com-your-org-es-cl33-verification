@@ -1,0 +1,137 @@
+\section{Chirality, projectors, and colour}
+\label{sec:projectors}
+
+\subsection{Unprojected matter is vector-like}
+
+With $i=J$ and $\gamma_5=\Gamma$ as in \cref{thm:i}, consider the part of the Lorentz commutant that preserves chirality. It splits
+into a \emph{vector class} $\Cl^0(W)$, the even subalgebra of the internal directions, whose elements commute with the interior gamma
+matrices, and an \emph{axial class} $\Omega\,\Cl^0(W)$, whose elements anticommute with them.
+
+\begin{proposition}[Unprojected matter is vector-like]
+\label{prop:vectorlike}
+Every grade-two internal algebra lies in the vector class. For a gauge algebra in the vector class, $\gamma_\mu$ is an invertible,
+complex-linear, gauge-equivariant map between the two chirality sectors, so the unprojected matter is vector-like at every rung.
+\end{proposition}
+
+\begin{proposition}
+\label{prop:axialtriple}
+The two classes form a symmetric pair, $[\mathrm a,\mathrm a]\subseteq\mathrm v$, so the axial class is a Lie triple system and no
+nonabelian gauge algebra lies entirely inside it.
+\end{proposition}
+
+This does not exclude generators with both parts. If $[\Gamma,t_a]=0$ and $P_L=\tfrac12(\id-\Gamma)$, then
+\[
+[P_Lt_a,P_Lt_b]=P_L^2[t_a,t_b]=\epsilon_{abc}P_Lt_c ,
+\]
+a nonabelian algebra, half vector and half axial. Such \emph{dressing} is available to nonabelian carriers exactly as to abelian ones;
+only the purely axial summand is excluded. For scalar dressings $f(\Gamma)t_a$ with $f=a+b\Gamma$ and unchanged structure constants,
+closure forces $f^2=f$, that is $a^2+b^2=a$ and $2ab=b$, so $f\in\{0,\id,P_L,P_R\}$.
+
+\subsection{A family of projectors at three constituents}
+
+To obtain chiral matter one must project. At $n=3$ write $J^{(k)}=e^{(k)}_2e^{(k)}_3$ for the surplus bivector and
+$\omega^{(k)}=e^{(k)}_1\cdots e^{(k)}_6$ for the volume of constituent $k$, and $K^{(3)}_{14}=e^{(3)}_1e^{(3)}_4$ for the pole bivector
+joining the first temporal and the first spatial direction of constituent three. The three operators
+\[
+X_1=J^{(1)}J^{(2)},\qquad X_2=\omega^{(3)},\qquad X_3=\omega^{(1)}K^{(3)}_{14}
+\]
+are commuting symmetric traceless involutions, and they generate the orthogonal projectors $P_1=\tfrac12(\id+X_1)$ of rank $256$,
+$P_{ij}=\tfrac14(\id+X_i)(\id+X_j)$ of rank $128$, and $\Pfam=\tfrac18\prod_i(\id+X_i)$ of rank $64$.
+
+\begin{definition}[Ambient and faithful algebra]
+\label{def:keff}
+For an orthogonal projector $P$ commuting with the Lorentz action let $\mathfrak g_{\rm phys}(P)$ be the internal bivectors commuting
+with $P$, $\mathfrak k(P)$ its compact part (the $+1$ eigenspace of $\theta(X)=-X^{\!\top}$), and
+\[
+\keff(P)=\mathfrak k(P)\big/\{X\in\mathfrak k(P):XP=0\}.
+\]
+\end{definition}
+
+The quotient is not a technicality: an element can preserve the block and annihilate every state in it.
+
+\begin{example}[An annihilator]
+\label{ex:annihilator}
+With $X_1=J^{(1)}J^{(2)}$, $(J^{(1)})^2=(J^{(2)})^2=-\id$ and $[J^{(1)},J^{(2)}]=0$,
+\[
+(J^{(1)}+J^{(2)})(\id+X_1)=J^{(1)}+J^{(2)}+(J^{(1)})^2J^{(2)}+J^{(2)}J^{(1)}J^{(2)}=J^{(1)}+J^{(2)}-J^{(2)}-J^{(1)}=0 .
+\]
+So $J^{(1)}+J^{(2)}$ is a compact element of $\mathfrak k(\Pfam)$ that annihilates the block of $\Pfam$, although it does not annihilate the
+block of $P_{23}$. A table of gauge algebras that omits the quotient overcounts, here by three dimensions.
+\end{example}
+
+\begin{theorem}[The projector family]
+\label{thm:table}
+Computed on the $512$-dimensional module as the exact nullspace of $X\mapsto[X,P]$ over the $\binom{14}2=91$ internal bivectors, with
+$\keff$ decomposed on the image:
+\begin{center}
+\begin{tabular}{@{}lrrrrrlc@{}}
+\toprule
+$P$ & rank & $\dim\mathfrak g_{\rm phys}$ & $\dim\mathfrak k$ & $\dim\mathfrak p$ & $\dim\ker$ & $\keff$ & axial\\
+\midrule
+$\Pfam$ & $64$ & $17$ & $9$ & $8$ & $3$ & $\uu1^3\oplus\su2$ & yes\\
+$P_{23}$ & $128$ & $23$ & $9$ & $14$ & $0$ & $\uu1^3\oplus\su2\oplus\su2$ & yes\\
+$P_{13}$ & $128$ & $33$ & $17$ & $16$ & $3$ & $\uu1\oplus\su2\oplus\so5$ & yes\\
+$P_{12}$ & $128$ & $27$ & $15$ & $12$ & $3$ & $\su2^{\oplus4}$ & no\\
+$P_1$ & $256$ & $51$ & $27$ & $24$ & $3$ & $\so6\oplus\su2^{\oplus3}$ & no\\
+\bottomrule
+\end{tabular}
+\end{center}
+Here a projector is axial when $P\gamma^\mu P=0$. Factors are identified by dimension and rank: $(3,1)=\su2$, $(10,2)=\so5\cong\spp2$,
+$(15,3)=\so6\cong\su4$; a six-dimensional semisimple compact factor is necessarily $\su2\oplus\su2$. The centres have dimensions
+$3,3,1,0,0$ and the derived algebras $3,6,13,12,24$.
+\end{theorem}
+
+\begin{corollary}[No colour on the axial members]
+\label{cor:nocolour}
+The largest simple factor among the rank-$64$ and rank-$128$ blocks is $\so5$, every proper subalgebra of which has dimension at most
+six. Since $\su3$ is simple of dimension eight, it embeds in none of them. Dimension eight is necessary and not sufficient: $P_{13}$
+carries an $\so5$ of dimension ten and still contains no $\su3$, so the test is an embedding test.
+\end{corollary}
+
+\subsection{Colour at rank 256}
+
+\begin{theorem}[Colour on $P_1$]
+\label{thm:su3}
+Let $f_1,\dots,f_6$ be the six spatial directions of the second and third constituents. The fifteen bivectors $f_af_b$ square to
+$-\id$, are antisymmetric and close on $\so6$; each commutes with $X_1$, because the index sets are disjoint and $2\cdot4$ is even in
+\eqref{eq:bladecomm}, so all fifteen preserve $P_1$ and act faithfully on its image. Let $\Omega_6=f_1f_4+f_2f_5+f_3f_6$ generate the pairing
+$f_k\mapsto f_{k+3}$. Its centraliser in $\so6$ has dimension nine and is $\uu3$; the derived algebra has dimension eight and rank two, is
+compact, closed and simple, hence $\su3$, and its eight generators act faithfully on the block.
+\end{theorem}
+
+\begin{theorem}[$P_1$ is vector-like undressed]
+\label{thm:p1}
+$X_1$ is a product of four generators, none of them interior, so $|I||J|-|I\cap J|=4$ is even for every interior generator and
+$[X_1,\gamma_\mu]=0$. Hence $P_1$ is not axial and its matter is vector-like by \cref{prop:vectorlike}.
+\end{theorem}
+
+The obstruction is to the undressed action only.
+
+\begin{theorem}[Colour with a chiral doublet on $P_1$]
+\label{thm:p1chiral}
+Keep the colour generators in the six negative directions of factors two and three, and in the three positive directions of factor
+three set
+\[
+t_1=\tfrac12e^{(3)}_1e^{(3)}_2,\qquad t_2=\tfrac12e^{(3)}_1e^{(3)}_3,\qquad t_3=-\tfrac12e^{(3)}_2e^{(3)}_3 .
+\]
+With $P_{1,L}=P_1\tfrac12(\id-\Gamma)$ and $L_i=P_{1,L}t_i$,
+\[
+[L_i,L_j]=\epsilon_{ij}{}^kL_k,\qquad [C_A,L_i]=0,\qquad -\sum_iL_i^2=\tfrac34P_{1,L},\qquad L_iP_{1,R}=0
+\]
+for every colour generator $C_A$. Vector colour and a commuting, purely left-handed doublet action therefore coexist on $P_1$.
+\end{theorem}
+
+\begin{proof}
+The $t_i$ are half time--time bivectors of factor three, so each squares to $-\tfrac14\id$ and they close on $\su2$. The colour generators
+carry only negative indices of factors two and three, disjoint from $\{e^{(3)}_1,e^{(3)}_2,e^{(3)}_3\}$, and two even blades with disjoint
+supports commute. $P_{1,L}$ is an idempotent of rank $128$ commuting with each $t_i$, so $L_i=P_{1,L}t_i$ inherits the bracket and
+$-\sum L_i^2=P_{1,L}(-\sum t_i^2)=\tfrac34P_{1,L}$, the Casimir of a doublet. $P_{1,L}P_{1,R}=0$ gives the last identity.
+\end{proof}
+
+Ordering the family by $\dim\keff$ and recording whether the projector is axial,
+\[
+\Pfam\,(6)\ \text{axial},\quad P_{23}\,(9)\ \text{axial},\quad P_{12}\,(12)\ \text{not},\quad P_{13}\,(14)\ \text{axial},\quad P_1\,(24)\ \text{not},
+\]
+the two orderings are not reverses of one another, and what survives is a statement about these five projectors only: no axial one
+carries $\su3$ in its effective bivector algebra, and $\su3$ appears on exactly one of them, the vector-like $P_1$. The pattern is
+not a law of the arena. The next section exhibits a projector outside the family on which colour and chirality coexist.

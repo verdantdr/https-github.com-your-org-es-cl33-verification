@@ -1,0 +1,66 @@
+\section{The question}
+\label{s0:sec:question}
+
+\subsection{The hypothesis in its author's words}
+
+The starting point of this note is a reading of the rest-energy relation proposed by the author of the programme:
+\begin{quote}
+\emph{$E=mc^2$: consider $c^2$ as the symmetrical part of the equation and $m$ as what breaks this symmetry; $m$ is generated from
+a $b$ particle, $b$ standing for the $b$-particle of Yang--Mills.}
+\end{quote}
+Three clarifications fix the intended reading. First, the energy is to be taken as \emph{one undivided entity}, and the mass is to
+emerge through an \emph{internal differentiation} of that unity, before any external interaction is applied. Second, $c^2$ corresponds to
+the variable $X$ of the former momentum--force chapter, whose successor is the interior dynamics of Part~IV of the paper
+\cite{ES17} (Sections~15--17), where the shift operators are $\alpha_\pm=\partial_\tau\pm\kappa G$ with $\kappa=c/\ell$. Third, the energy
+is six-dimensional. The $b$-field is the non-abelian gauge potential of Yang and Mills \cite{YangMills54}, whose quanta carry isotopic
+spin; Yang and Mills left open whether those quanta are massive.
+
+An earlier exploratory session settled several points that we take as given and do not repeat. The scalar $c^2$ is not by itself a
+symmetry, and if $E$ and $c^2$ are invariant under a group then so is $m=E/c^2$, so a mass cannot \emph{be} the breaking of a symmetry
+that $E$ and $c^2$ share. A nonzero invariant mass does not break Lorentz invariance. The free six-dimensional scalar has an energy
+unbounded below (\cite{ES17}, Proposition~27.1), and positive four-dimensional mass cannot be obtained from momentum along the surplus
+times, since $m_4^2=\mu_6^2-(p_u^2+p_v^2)/c^2$. Non-orthogonality of $\bE$ and $\bB$ generates no mass (\cite{ES17}, Section~14). The same
+session was rightly criticised for jumping to Yang--Mills interactions, condensates and gap equations before the unity of the energy and
+its differentiation had been built. This note does the work in the order the hypothesis asks for: the undivided energy first, its
+differentiation second, the dynamics of the differentiation third, and the $b$-field last, where it belongs.
+
+\subsection{The dictionary under test}
+
+All constructions are made inside the arena of \cite{ES17}: $V=\R^{3,3}$ with $\eta=\operatorname{diag}(1,1,1,-1,-1,-1)$, the realisation
+of $\Cl(3,3)$ on $\R^8$, the binding root $G$ ($Ge_i=e_{i+3}$, $Ge_{i+3}=-e_i$), which squares to $-\id$, is self-adjoint for $\eta$ and
+acts as the Hodge star in the field-strength reading $X=\sum_i(B_ie_i+E_ie_{i+3})$, $z=\bB+i\bE$, $q(z)=z\cdot z$
+(\cite{ES17}, Theorem~12.3). The working dictionary is
+\begin{center}
+\small
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{3.4cm}>{\raggedright\arraybackslash}p{11.0cm}@{}}
+\toprule
+hypothesis & candidate object in the arena\\
+\midrule
+$E$, undivided, six-dimensional & the positive, duality-invariant energy $E_6=\tfrac12|z|^2=\tfrac12(|\bB|^2+|\bE|^2)$ of a frame vector; in
+the closure of the force law, the Casimir $|p|^2$\\
+$c^2$, the symmetric part & the conversion $C=c\,\id$ between the temporal and the spatial triple forced by Schur's lemma
+(\cite{ES17}, Theorem~3.2), and the $\eta$-self-adjoint, factorising part $\kappa G$ of the shift, $(\kappa G)^2=-c^2/\ell^2$\\
+$m$, the differentiation & the Lorentz-class invariant $E_0=\tfrac12|q|$, the rest-frame energy density of the field; for Dirac matter the mass
+form $T=e_1e_2e_3$\\
+$b$, the Yang--Mills field & the $\eta$-antisymmetric (transport) part of the shift, $\End(V)=\so{3,3}\oplus\{X=X^\dagger\}$
+(\cite{ES17}, Theorem~17.3); at three constituents the binding-compatible algebra $\so4_\Delta\cong\su2\oplus\su2$ (\cite{ES17},
+Theorem~17.21)\\
+\bottomrule
+\end{tabular}
+\end{center}
+Every entry is a hypothesis to be tested, and several of them turn out to need correction.
+
+\subsection{How claims are classified}
+
+We follow the deflationary principle of \cite{ES17} (Corollary~4.4): a statement about the arena carries information only if it could
+have come out otherwise. Every claim below belongs to one of six classes, named in the text. A claim is \emph{fixed} when it is an identity
+or theorem of the algebra that could have failed; \emph{constructed} when the algebra admits the object and nothing selects it;
+\emph{obstructed} when it is impossible under stated hypotheses; \emph{open} when it is neither established nor refuted. To these four
+classes of the paper we add two that the subject requires: \emph{inherited}, for facts of ordinary relativistic physics that hold in any
+notation and are reproduced only because something else is stated in terms of them, and \emph{interpretive}, for readings and dictionary
+entries, which are not theorems at all. The relation $E=mc^2$ itself is inherited. What can be new is only how the arena realises its
+three ingredients, and which of the realisations are forced.
+
+Every finite-dimensional statement was checked by exact or high-precision computation. Each section has a verification script in
+\texttt{investigations/rest\_energy/verify/}, written independently of a second, adversarial check script by a different author; the
+scripts print one \texttt{PASS} line per claim and exit with status zero only if all pass (\cref{s9:sec:methods}).

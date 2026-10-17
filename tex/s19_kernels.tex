@@ -1,0 +1,196 @@
+\section{The mass kernels of the chiral block}
+\label{sec:kernels}
+
+We now return to three constituents and to the block $V_*=\operatorname{im}P_*$ of \cref{sec:pstar}, which carries one Pati--Salam family
+$(\mathbf4,\mathbf2,\mathbf1)_{\Gamma=-1}\oplus(\mathbf4,\mathbf1,\mathbf2)_{\Gamma=+1}$ with a right-handed neutrino. A vacuum for this matter is
+\emph{dynamically selected} if it solves $\delta\Gamma_{\rm eff}/\delta\Phi=0$ with a second variation that is non-negative apart from the zero modes
+of broken symmetries, the equations being those of a stated theory. It is \emph{compatible with matter} if, over it, the fermions carry a
+well-defined Dirac operator, the unbroken gauge algebra acts consistently on them, anomalies cancel, and the permitted couplings produce
+acceptable masses. This and the next three sections answer both questions inside the arena. Three ingredients are inputs, and we name them
+where they enter: the projector $P_*$, which is the field content; the promotion of the space of mass kernels to a dynamical field; and, for
+the radiative statements, the form of the tree potential at the matching scale.
+
+\subsection{Notation on the block}
+
+The colour algebra $\so6\cong\su4$ is spanned by the fifteen bivectors of the colour directions $C=\{10,11,12,16,17,18\}$; with
+$w=(E_7,E_{13},E_{14},E_{15})$ and $\tau_i=-\tfrac12\epsilon_{ijk}w_jw_k$, the two weak algebras are $t^L_i=\tfrac12(\id-\chi_W)\tau_i$ and
+$t^R_i=\tfrac12(\id+\chi_W)\tau_i$. These $15+3+3=21$ generators and the two central elements $J$ and $J\Gamma$ commute with $P_*$, with the
+Lorentz action and with $J$, and on the block $q_A=E_2E_3$ acts as $J$ and $E_8E_9$ as $J\Gamma$. With $H=-(E_{10}E_{16}+E_{11}E_{17}+E_{12}E_{18})$
+the charges are
+\[
+\hat t=-Jt,\qquad T^L_3=-Jt^L_3,\quad T^R_3=-Jt^R_3,\qquad \BmL=-\tfrac13JH,\qquad Y=T^R_3+\tfrac12(\BmL),
+\]
+and the colour $\su3$ is the part of $\so6$ commuting with $H$. The charge table is that of \cref{prop:PSledger}. Finally $\gamma^0$
+commutes with all $91$ internal bivectors, with $J$ and with the rotations, and anticommutes with $\Gamma$ and the boosts, so it maps $V_*$
+onto an orthogonal rank-$64$ \emph{mirror} on which the same internal algebra acts with $\Gamma$ reversed (\cref{rem:PSsettles}).
+
+\subsection{The kernel space}
+
+\begin{definition}[Mass kernels]
+\label{def:kernel}
+A Lorentz-invariant Grassmann mass kernel on the block is an $M\in\End(V_*)$ with
+\[
+M^{\!\top}=-M,\qquad [M,P_*\Sigma^{ab}P_*]=0,\qquad \{M,P_*K^aP_*\}=0 ,
+\]
+for the interior rotations $\Sigma^{ab}$ and boosts $K^a=\tfrac12\gamma^0\gamma^a$. Their real vector space is $\Kc$, with inner product
+$\langle M,N\rangle=\Tr M^{\!\top}N$.
+\end{definition}
+
+The definition is forced. For a Grassmann-valued $\psi\in V_*\otimes\Lambda$ the form $\psi^{\!\top}M\psi$ sees only the antisymmetric part of
+$M$, and it is invariant under $\delta\psi=X\psi$ iff $X^{\!\top}M+MX=0$; the rotations are antisymmetric and the boosts symmetric, which gives the
+two conditions. A kernel is exactly a Lorentz-invariant mass term of the block.
+
+\begin{theorem}[The kernel space]
+\label{thm:kernelspace}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item $\dim_\R\Kc=272$. A basis is given by the compressions $P_*BP_*$ of the blades $B=\gamma^0e_I$ and $B=\gamma^1\gamma^2\gamma^3e_I$, $e_I$ an
+internal blade, that are antisymmetric and commute with the three involutions defining $P_*$: there are $2176$ such blades and $272$ distinct,
+mutually orthogonal compressions, and they span all solutions of \cref{def:kernel}.
+\item Under $\su4\oplus\su2_L\oplus\su2_R$,
+\[
+\begin{aligned}
+\Kc\cong{}&\underbrace{(\mathbf{10},\mathbf3,\mathbf1)}_{60}\oplus\underbrace{(\mathbf{10},\mathbf1,\mathbf3)}_{60}\oplus\underbrace{(\mathbf{15},\mathbf2,\mathbf2)}_{120}\\
+&\oplus\underbrace{2(\mathbf6,\mathbf1,\mathbf1)}_{24}\oplus\underbrace{(\mathbf1,\mathbf2,\mathbf2)}_{8},
+\end{aligned}
+\]
+the components being identified by their Casimir labels, $(-36,-2,0)$, $(-36,0,-2)$, $(-32,-\tfrac34,-\tfrac34)$, $(-20,0,0)$ and
+$(0,-\tfrac34,-\tfrac34)$ respectively.
+\item Every basis kernel either anticommutes with $J$ and commutes with $\Gamma$ (\emph{Majorana type}, pairing fermions of equal chirality, $144$ of
+them, spanning $(\mathbf{10},\mathbf3,\mathbf1)\oplus(\mathbf{10},\mathbf1,\mathbf3)\oplus2(\mathbf6,\mathbf1,\mathbf1)$), or commutes with $J$ and anticommutes with
+$\Gamma$ (\emph{Dirac type}, pairing opposite chiralities, $128$ of them, spanning $(\mathbf{15},\mathbf2,\mathbf2)\oplus(\mathbf1,\mathbf2,\mathbf2)$).
+\item No nonzero kernel is invariant under the $21$ Pati--Salam generators.
+\item The kernels invariant under the twelve Standard-Model generators form the two-dimensional space spanned by $\Phi_0$ and $J\Phi_0$, where
+\begin{equation}
+\label{eq:Phi0}
+\Phi_0=P_\nu\,P_*\,\gamma^0E_3E_9E_{13}E_{14}E_{16}E_{17}E_{18}\,P_*\,P_\nu ,
+\end{equation}
+$P_\nu$ being the projector onto $\Gamma=+1$, $T^R_3=+\tfrac12$, $\BmL=-1$, the right-handed neutrino. Moreover $\Phi_0^{\!\top}\Phi_0=P_\nu$, of rank
+four, $J$ anticommutes with $\Phi_0$, and
+\[
+[t^R_3,\Phi_0]=J\Phi_0,\qquad [\tfrac13H,\Phi_0]=-2J\Phi_0,\qquad [t_Y,\Phi_0]=0,
+\]
+so $\Phi_0$ carries $T^R_3=1$, $\BmL=-2$ and $Y=0$. It lies in the $(\mathbf{10},\mathbf1,\mathbf3)$ component.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}[Proof of the identification in (iii)]
+A kernel commuting with $\Gamma$ preserves the two chirality halves, which carry $(\mathbf4,\mathbf2,\mathbf1)$ and $(\mathbf4,\mathbf1,\mathbf2)$; one anticommuting with
+$\Gamma$ exchanges them. A bilinear in two $(\mathbf4,\mathbf2,\mathbf1)$ is an $\su2_R$ singlet and one in two $(\mathbf4,\mathbf1,\mathbf2)$ an $\su2_L$ singlet, while a
+bilinear between the halves is a doublet of both. So $(\mathbf{15},\mathbf2,\mathbf2)$ and $(\mathbf1,\mathbf2,\mathbf2)$ are of the second type and the others of
+the first, and $60+60+24=144$ and $120+8=128$ agree with the counts.
+\end{proof}
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[x=0.055cm,y=1cm,font=\footnotesize]
+\def\kbar#1#2#3#4#5{\fill[#4] (#1,0) rectangle (#2,0.9); \draw (#1,0) rectangle (#2,0.9); \node at ({(#1+#2)/2},0.45) {#3}; \node[below,font=\footnotesize] at ({(#1+#2)/2},0) {#5};}
+\kbar{0}{60}{$(\mathbf{10},\mathbf3,\mathbf1)$}{tcol!20}{$60$}
+\kbar{60}{120}{$(\mathbf{10},\mathbf1,\mathbf3)$}{tcol!40}{$60$}
+\kbar{120}{144}{\scriptsize$2(\mathbf6,\mathbf1,\mathbf1)$}{tcol!10}{$24$}
+\kbar{144}{264}{$(\mathbf{15},\mathbf2,\mathbf2)$}{scol!20}{$120$}
+\kbar{264}{272}{}{scol!40}{$8$}
+\node[anchor=south,font=\footnotesize] at (268,0.95) {$(\mathbf1,\mathbf2,\mathbf2)$};
+\draw[decorate,decoration={brace,amplitude=5pt}] (0,1.0) -- node[above=5pt] {Majorana type: anticommute with $J$, $144$} (144,1.0);
+\draw[decorate,decoration={brace,amplitude=5pt,mirror}] (144,-0.45) -- node[below=5pt] {Dirac type: anticommute with $\Gamma$, $128$} (272,-0.45);
+\fill[gcol] (112,0.16) circle (2.2pt);
+\draw[gcol,thick,->] (112,0.16) -- (112,-0.55) node[below,align=center,font=\footnotesize] {$\Phi_0$: the only\\ Standard-Model line};
+\end{tikzpicture}
+\caption{The $272$-dimensional space of Lorentz-invariant mass kernels of the chiral block (\cref{thm:kernelspace}), drawn to scale. The
+Standard-Model invariant kernels form a single complex line, the right-handed neutrino Majorana kernel $\Phi_0$, inside $(\mathbf{10},\mathbf1,\mathbf3)$.}
+\label{fig:kernels}
+\end{figure}
+
+The complex dimension of $\Kc$ is $136=\dim\mathrm{Sym}^2(\C^{16})$: a Lorentz-invariant mass term of sixteen Weyl fermions is a complex
+symmetric $16\times16$ matrix. In the language of $\so{10}$, $\mathrm{Sym}^2(\mathbf{16})=\mathbf{10}\oplus\mathbf{126}$ \cite{Slansky}, and the
+decomposition (ii) is the Pati--Salam branching of $\mathbf{10}\oplus\mathbf{126}$; the $(\mathbf{10},\mathbf1,\mathbf3)\subset\mathbf{126}$ is the field which, in
+minimal left--right and Pati--Salam models, gives the right-handed neutrino a Majorana mass \cite{MohapatraSenjanovic80,MohapatraSenjanovic81}.
+Here this content has been obtained from \cref{def:kernel}, with only the Pati--Salam algebra acting. The only component containing a
+Standard-Model singlet is $(\mathbf{10},\mathbf1,\mathbf3)$: the colour-singlet parts of $(\mathbf{10},\mathbf3,\mathbf1)$, $(\mathbf{15},\mathbf2,\mathbf2)$ and $(\mathbf1,\mathbf2,\mathbf2)$ carry
+$Y=\pm1$ or $\pm\tfrac12$, and $(\mathbf6,\mathbf1,\mathbf1)$ has none.
+
+\begin{theorem}[Symmetric criticality]
+\label{thm:symcrit}
+Let $V:\Kc\to\R$ be smooth and invariant under the Pati--Salam group acting by $M\mapsto gMg^{-1}$. Then for every $r\in\R$
+\[
+\nabla V(r\Phi_0)=\frac1{\langle\Phi_0,\Phi_0\rangle}\,\frac{d}{dr}V(r\Phi_0)\,\Phi_0 ,
+\]
+so $r\Phi_0$ is a critical point of $V$ if and only if $r$ is a critical point of $r\mapsto V(r\Phi_0)$.
+\end{theorem}
+
+\begin{proof}
+The action is orthogonal. If $h$ fixes $x=r\Phi_0$, invariance gives $h\nabla V(x)=\nabla V(x)$, so $\nabla V(x)$ is fixed by the Standard-Model
+group and lies in $\operatorname{span}\{\Phi_0,J\Phi_0\}$. Since $J\Phi_0=[t^R_3,\Phi_0]$ is tangent to the orbit, $\langle\nabla V(x),J\Phi_0\rangle=0$, and
+only the radial component remains.
+\end{proof}
+
+This is Michel's theorem on critical orbits \cite{Michel71}, the principle of symmetric criticality \cite{Palais79}. Its content here is that no
+invariant coupling on the whole kernel space can generate a tadpole for any other component along $\Phi_0$. It says nothing about the second
+variation or about other minima, which are the subject of \cref{sec:selection}.
+
+\subsection{The kernel field and its action}
+
+\begin{assumption}
+\label{ass:field}
+The kernels are the values of a scalar field $\Phi(x)\in\Kc$ with kinetic term $\tfrac12\langle D_\mu\Phi,D^\mu\Phi\rangle$ and a potential $V(\Phi)$
+invariant under the gauge algebra, and a single Yukawa coupling $y$ in \eqref{eq:Saction}. The overall normalisation of the kinetic term is a
+convention; its use of one trace form on all of $\Kc$, the single coupling $y$ and the form of $V$ are choices, restricted below only by symmetry.
+\end{assumption}
+
+With a real Grassmann field $\psi(x)\in V_*$, a gauge field $A_\mu$ with values in an algebra $\mathfrak g$ of antisymmetric operators, the kinetic
+kernels $K^\mu=P_*\gamma^0\gamma^\mu P_*$ (symmetric, $K^0=\id$ on $V_*$) and the module metric $G_{ab}=\Tr(T_a^{\!\top}T_b)/512$, take
+\begin{equation}
+\label{eq:Saction}
+S=\int d^4x\Bigl[\tfrac12\psi^{\!\top}K^\mu D_\mu\psi+\tfrac y2\psi^{\!\top}\Phi\psi+\tfrac12\langle D_\mu\Phi,D^\mu\Phi\rangle-V(\Phi)-\tfrac14G_{ab}F^a_{\mu\nu}F^{b\mu\nu}\Bigr],
+\end{equation}
+with $D_\mu\psi=\partial_\mu\psi+A_\mu\psi$ and $D_\mu\Phi=\partial_\mu\Phi+[A_\mu,\Phi]$. Every term is Lorentz invariant by \cref{def:kernel}, and gauge
+invariant for any $\mathfrak g$ inside the $23$-dimensional faithful algebra of the block. The module metric is $1$ on the colour bivectors and
+$\tfrac18$ on $t^L$ and $t^R$.
+
+\begin{proposition}[Fermion number]
+\label{prop:fermionnumber}
+$J$ commutes with the kinetic kernels and with the $21$ Pati--Salam generators. The transformation $\psi\mapsto e^{\theta J}\psi$,
+$\Phi\mapsto e^{\theta J}\Phi e^{-\theta J}$, $A\mapsto A$ leaves every term of \eqref{eq:Saction} except $V$ invariant; on $\Kc$ it acts as
+$\Phi\mapsto e^{2\theta J}\Phi$ on Majorana-type kernels and trivially on Dirac-type ones. In the complex structure $J$ each of the sixteen Weyl
+fermions has charge $1$, so this is the fermion number $F=3B+L$, and $4B=F+(\BmL)$.
+\end{proposition}
+
+By \cref{prop:PSanom} the two central directions $J$ and $J\Gamma$ are anomalous on this matter, so the gauge algebra can be any anomaly-free
+subalgebra of the $23$, and $\su4\oplus\su2_L\oplus\su2_R$ is the largest one containing Pati--Salam. A gauge field coupled to an anomalous current
+makes the quantum theory inconsistent \cite{GrossJackiw72,BouchiatIliopoulosMeyer72}, which is why the central directions carry no gauge
+field; they remain global symmetries. In the vacuum $r\Phi_0$ the stabiliser among the $23$ generators is fourteen-dimensional: the twelve
+Standard-Model generators together with $J+\tfrac13H$ and $J-J\Gamma$, whose charges are $1+(\BmL)=4B$ and $1-\Gamma$, baryon number and twice
+the left-handed fermion number, both global.
+
+\begin{proposition}[The coupled field equations]
+\label{prop:coupled3}
+The Euler--Lagrange equations of \eqref{eq:Saction} are
+\[
+K^\mu D_\mu\psi+y\Phi\psi=0,\qquad D_\mu D^\mu\Phi+\nabla V(\Phi)-\tfrac y2\Pi_\Kc(\psi\psi^{\!\top})=0,\qquad G_{ab}D_\nu F^{b\nu\mu}=-\bigl(j^\mu_a(\psi)+j^\mu_a(\Phi)\bigr),
+\]
+with $\Pi_\Kc$ the orthogonal projection onto $\Kc$. At constant $\Phi=r\Phi_0$, $\psi=0$, $A=0$ the first and third hold identically and the second
+reduces to $\tfrac{d}{dr}V(r\Phi_0)=0$ by \cref{thm:symcrit}. The same holds with $V$ replaced by the effective potential, which is again
+Pati--Salam invariant; at one loop
+\begin{equation}
+\label{eq:V1}
+V_1=\frac1{64\pi^2}\,\mathrm{STr}\Bigl[\mathcal M^4\Bigl(\ln\frac{\mathcal M^2}{\mu_R^2}-c\Bigr)\Bigr],\qquad
+\mathrm{STr}=\textstyle\sum_{\rm scalars}+3\sum_{\rm vectors}-2\sum_{\rm Weyl},
+\end{equation}
+the fermion term being the determinant of the Dirac operator of the first equation \cite{ColemanWeinberg73,Jackiw74}; at stationary points it
+does not depend on the gauge fixing \cite{Nielsen75}.
+\end{proposition}
+
+The fermions, classically zero, act on the vacuum only through the effective potential, and the matter content enters through the Yukawa
+coupling $y$. That there is one such coupling is part of \cref{ass:field}, not a consequence of calling $\Phi$ one field: $\Phi$ is reducible under the
+Pati--Salam algebra, and symmetry alone allows an independent Yukawa coupling and an independent kinetic normalisation for each of its five irreducible
+components, with a mixing between the two copies of $(\mathbf6,\mathbf1,\mathbf1)$. The same is true of the common gauge coupling of $\su4$ and $\su2_R$ used in
+\cref{sec:selection}. In the vacuum the block Hamiltonian is $H(p)=p_iK^i+iy\,r\,\Phi_0$; since $\{K^i,K^j\}=2\delta^{ij}$,
+$\{K^i,\Phi_0\}=0$ and $-\Phi_0^2=P_\nu$,
+\[
+H(p)^2=|p|^2+y^2r^2P_\nu :
+\]
+one Majorana fermion, the right-handed neutrino, with four real components and mass $|y|r$, and sixty massless real components.
+
+\Cref{thm:symcrit} settles stationarity for the whole coupled quantum system along $\Phi_0$. Which orbit is the \emph{minimum} is decided by the
+couplings, and that is the subject of the next section. A non-negative second variation on the $(\mathbf{10},\mathbf1,\mathbf3)$ directions alone does not
+imply it on all of $\Kc$: fluctuations outside $(\mathbf{10},\mathbf1,\mathbf3)$ with the Standard-Model quantum numbers of $(\mathbf{10},\mathbf1,\mathbf3)$ fluctuations can
+mix with them, and \cref{sec:fullK} exhibits such a mixing.

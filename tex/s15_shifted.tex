@@ -1,0 +1,151 @@
+\section{The shifted Lagrangian in a positive form}
+\label{sec:shifted}
+
+Everything so far has been kinematics. The arena supplies one piece of interior dynamics without further input: a first-order shift
+operator built from the conversion between times and lengths (\cref{sec:clock}). This part asks what motion that operator
+generates. The answer depends on a single choice, whether the quadratic form in the Lagrangian is positive definite or the split form
+$\eta$ of the arena itself, and the two answers are opposite. This section treats the positive form, where the verdict is negative and
+sharp; \cref{sec:neutral} treats the split form, where bound motion appears exactly in neutral signature.
+
+\subsection{Momentum and force}
+
+Let $X(\tau)\in\R^N$ be an interior configuration, $g$ a constant real $N\times N$ matrix, and
+\begin{equation}
+\label{eq:alpha}
+\alpha_\pm:=\partial_\tau\pm\kappa g,\qquad \mathcal L=\frac m2\,\bigl|\alpha_+X\bigr|^2=\frac m2\,\bigl|\dot X+\kappa gX\bigr|^2 .
+\end{equation}
+Only the product $\kappa g$ appears: $\kappa=c/\ell$ carries the conversion of \eqref{eq:kappa} and $g$ its direction. The Lagrangian is the
+square of a single first-order operator, which is what makes it the natural object to ask Clifford questions of.
+
+\begin{proposition}[Momentum and force]
+\label{prop:force}
+The canonical momentum and the Euler--Lagrange equation are
+\begin{equation}
+\label{eq:pdot}
+p=\frac{\partial\mathcal L}{\partial\dot X}=m\,\alpha_+X,\qquad \dot p=\kappa\,g^{\!\top}p ,
+\end{equation}
+and in second-order form, with $a:=\tfrac12(g-g^{\!\top})$,
+\begin{equation}
+\label{eq:Eg}
+\mathcal E_g:=m\bigl(\ddot X+2\kappa a\dot X-\kappa^2g^{\!\top}gX\bigr)=0 .
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+$\partial\mathcal L/\partial\dot X=m(\dot X+\kappa gX)$ and $\partial\mathcal L/\partial X=\kappa g^{\!\top}p$. Substituting $p=m(\dot X+\kappa gX)$ into
+$\dot p=\kappa g^{\!\top}p$ gives $m(\ddot X+\kappa g\dot X)=\kappa mg^{\!\top}\dot X+\kappa^2mg^{\!\top}gX$, which rearranges to \eqref{eq:Eg}.
+\end{proof}
+
+The force law is $\dot p=\kappa g^{\!\top}p$. It takes the symmetric-looking form $\dot p=\kappa gp$ exactly when $g$ is symmetric, and the
+next two results show that this is not a cosmetic condition.
+
+\begin{theorem}[Factorisation]
+\label{thm:factor}
+$\mathcal E_g=m\,\alpha_-\alpha_+X$ identically if and only if $a=0$.
+\end{theorem}
+
+\begin{proof}
+For constant $g$, $\alpha_-\alpha_+X=\ddot X-\kappa^2g^2X$, so $\mathcal E_g-m\alpha_-\alpha_+X=m\bigl(2\kappa a\dot X+\kappa^2(g^2-g^{\!\top}g)X\bigr)$. The two
+terms involve $\dot X$ and $X$ independently, and both vanish for all trajectories if and only if $a=0$, which makes $g$ symmetric and
+$g^2=g^{\!\top}g$.
+\end{proof}
+
+\begin{proposition}[The factorised branch is an inverted oscillator]
+\label{prop:inverted}
+The Noether energy
+\begin{equation}
+\label{eq:energy}
+E=\langle p,\dot X\rangle-\mathcal L=\frac m2|\dot X|^2-\frac{m\kappa^2}{2}\,|gX|^2
+\end{equation}
+is conserved for every $g$. When $a=0$ the motion is $m\ddot X=-\nabla V$ with $V=-\tfrac12m\kappa^2|gX|^2\le0$, and the initial data whose
+solutions stay bounded for $\tau\ge0$ form a linear subspace of dimension exactly $N$ in the $2N$-dimensional phase space; for all real
+$\tau$ only the zero-frequency sector, of dimension $\dim\ker g$, stays bounded.
+\end{proposition}
+
+\begin{proof}
+Writing $u=\alpha_+X$, $E=\tfrac m2|u|^2-m\kappa\langle u,gX\rangle$, and expanding $u$ gives \eqref{eq:energy}. On shell
+$\dot E=\tfrac\kappa m\langle p,(g^{\!\top}-g)p\rangle=-\tfrac{2\kappa}m\langle p,ap\rangle=0$ because $a$ is antisymmetric. With $a=0$ the equation is
+$\ddot X=\kappa^2g^2X$, and on the eigenplane of an eigenvalue $\lambda\neq0$ of $g$ the solutions are $Ae^{\kappa|\lambda|\tau}+Be^{-\kappa|\lambda|\tau}$,
+bounded for $\tau\ge0$ iff $A=0$; on $\lambda=0$ they are $x_0+v_0\tau$, bounded iff $v_0=0$. In each plane one condition is imposed on two
+dimensions.
+\end{proof}
+
+The factorisation condition and the inverted-potential condition are the same condition. Since $g^{\!\top}g\succeq0$, the potential is
+never a well, and the bounded set has measure zero: no open set of initial data stays bounded. Only the velocity-coupled term $2\kappa
+a\dot X$ could bind, and it is exactly the term that obstructs factorisation.
+
+\begin{example}[The conversion operator as the shift]
+\label{ex:convshift}
+Take $g=B_C$, the mixed bivector of \cref{thm:spectrumBC} acting on $S$, which is symmetric. The equation of motion is $\ddot X=\kappa^2B_C^2X$, and
+by \cref{thm:spectrumBC} the growth rates are $\kappa|\eta_1\sigma_1+\eta_2\sigma_2+\eta_3\sigma_3|$ for the four sign patterns $\eta$. For the
+symmetric clock, $C$ has singular values $(1,0,0)$, every rate equals $\kappa$, and the dynamics cannot see the Clifford structure
+(\cref{ex:blindclock}). For $C$ of rank two with $\sigma=(2,1,0)$ the rates are $3\kappa$ and $\kappa$, each on a four-dimensional subspace; for
+$\sigma=(1,1,0)$ they are $2\kappa$ and $0$, and the second is a flat direction. Raising the rank makes the instability anisotropic and can
+create flat directions, never an oscillation.
+\end{example}
+
+\subsection{No recurrence at nonzero momentum}
+
+It is tempting to stop here and blame the tension between factorisation and binding. That would be too generous to the unfactorised
+branch. A single identity settles the question for every $g$.
+
+\begin{theorem}[Virial identity]
+\label{thm:virial}
+With the positive form of \eqref{eq:alpha}, along every solution and for every constant $g$,
+\begin{equation}
+\label{eq:virial}
+\frac{d}{d\tau}\langle X,p\rangle=\frac{|p|^2}{m}\ \ge\ 0 .
+\end{equation}
+Consequently: (i) no solution with $p(0)\neq0$ is periodic or recurrent; (ii) purely imaginary characteristic exponents may occur, but never
+semisimply, so the motion they carry is secular, and the Jordan blocks need not have size two; (iii) a trajectory bounded in phase space has
+$p\in L^2$, so either $p\equiv0$ or $p$ decays exponentially and the orbit is not recurrent.
+\end{theorem}
+
+\begin{proof}
+$\tfrac{d}{d\tau}\langle X,p\rangle=\langle\dot X,p\rangle+\langle X,\kappa g^{\!\top}p\rangle=\langle\dot X+\kappa gX,p\rangle=|p|^2/m$. A recurrent orbit would
+return $\langle X,p\rangle$ to an earlier value, which \eqref{eq:virial} forbids unless $p\equiv0$, and $p=e^{\kappa g^{\!\top}\tau}p(0)$ vanishes
+identically only if $p(0)=0$. A semisimple imaginary exponent would supply a periodic solution with $p\neq0$. For (iii), boundedness makes
+$\langle X,p\rangle$ bounded and monotone, hence convergent, so $\int_0^\infty|p|^2<\infty$, and a bounded square-integrable solution of a
+constant-coefficient linear system is zero or exponentially decaying.
+\end{proof}
+
+\begin{example}[A Jordan block of size four]
+\label{ex:jordan4}
+Let $J_2$ be the standard $2\times2$ rotation generator and $g=\bigl(\begin{smallmatrix}J_2&\id_2\\0&J_2\end{smallmatrix}\bigr)$ on $\R^4$, with
+$\kappa=m=1$. The eight-dimensional phase-space generator $M$ has its spectrum on $\pm i$, and
+$\rank\bigl((M^2+\id)^k\bigr)=6,4,2,0$ for $k=1,2,3,4$. The blocks therefore have size four and the generic solution grows like $\tau^3$, although
+every exponent is purely imaginary.
+\end{example}
+
+The zero-momentum sector is not empty, and it does oscillate. The general solution is
+\begin{equation}
+\label{eq:gensol}
+p(\tau)=e^{\kappa g^{\!\top}\tau}p_0,\qquad X(\tau)=e^{-\kappa g\tau}\Bigl[X_0+\frac1m\int_0^\tau e^{\kappa gs}e^{\kappa g^{\!\top}s}p_0\,ds\Bigr],
+\end{equation}
+and the kernel of $\alpha_+$, $X(\tau)=e^{-\kappa g\tau}X_0$, has $p\equiv0$. The integral collapses to $\tau p_0$ only when $g^{\!\top}=-g$. For
+$g=J$ antisymmetric with $J^2=-\id$, the zero-momentum solutions are bounded rotations of period $2\pi/|\kappa|$, and any nonzero momentum
+adds the secular term $\tau\,e^{-\kappa J\tau}p_0/m$: the orbit becomes an outward spiral (\cref{fig:interior}, left). In that marginal case
+$g^{\!\top}g=\id$, $a=J$, the equation reads $\ddot X+2\kappa J\dot X-\kappa^2X=0$, and in the eigenbasis of $J$ the characteristic polynomial is
+$(\lambda+i\kappa)^2$, a double root on the imaginary axis; the corresponding Jordan block is exactly the instability just described.
+
+So with a positive form, oscillation exists only on a measure-zero sector and is destroyed by any momentum. What is missing is neither
+curvature nor a dependence of $g$ on $\tau$. It is the positive form itself, and the next section removes it.
+
+\subsection{Towards a stress--energy tensor}
+
+The worldline statement lifts to a curved metric in two ways, which together indicate where a stress--energy tensor would come from.
+First, replacing $\partial_\tau$ by $D/D\tau$ along a worldline in $(M,g)$ and promoting $g$ to a section $G$ of $\End(TM)$, the variation of
+$\int\tfrac m2g_{AB}(\alpha_+X)^A(\alpha_+X)^B\,d\tau$ gives $Dp_B/D\tau=\kappa G^A{}_Bp_A$, and the second-order form acquires one new term,
+\[
+\frac{D^2X}{D\tau^2}+2\kappa a\frac{DX}{D\tau}+\kappa(D_\tau G)X-\kappa^2G^{\!\top}GX=0 ;
+\]
+the factorisation computation goes through verbatim, since the extra term appears on both sides, so $a=0$ remains the factorisation
+condition. Second, for a field $X$ in a bundle with fibre metric $h$ and $D_M=\nabla_M+\kappa G_M$, the action
+$\int\sqrt{|g|}\,\tfrac m2h_{AB}g^{MN}(D_MX)^A(D_NX)^B$ has
+\[
+T_{MN}=m\Bigl[h_{AB}(D_MX)^A(D_NX)^B-\tfrac12g_{MN}\,h_{AB}\,g^{PQ}(D_PX)^A(D_QX)^B\Bigr],
+\]
+whose trace $m(1-\tfrac D2)|DX|^2$ vanishes only in $D=2$, the same dimension in which the projector sigma model of \cref{sec:ym} is
+renormalisable. This is the stress tensor of the shifted kinetic term only, with $G$ a background, and \cref{thm:virial} is a warning about
+it: a matter sector whose only oscillations sit at zero momentum, with an energy unbounded below, is not yet a source one can couple to
+gravity.

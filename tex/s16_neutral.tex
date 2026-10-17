@@ -1,0 +1,208 @@
+\section{The split form and binding in neutral signature}
+\label{sec:neutral}
+
+The norm in \eqref{eq:alpha} is positive definite, and that is what makes $g^{\!\top}g\succeq0$ in \cref{prop:inverted} and $|p|^2\ge0$ in
+\cref{thm:virial}. But the arena does not hand us a positive form; it hands us $\eta$, of signature $(3,3)$. Redoing the derivation with
+$\eta$ changes one inequality, and with it the verdict.
+
+\subsection{The split-form Lagrangian}
+
+Write $G^\dagger:=\eta^{-1}G^{\!\top}\eta$ for the $\eta$-adjoint and take
+\begin{equation}
+\label{eq:splitL}
+\mathcal L=\frac m2\,\eta\bigl(\alpha_+X,\alpha_+X\bigr),\qquad p=m\,\eta\,(\alpha_+X),\qquad \pi=\eta^{-1}p,\qquad \dot p=\kappa\,G^{\!\top}p ,
+\end{equation}
+with second-order form and energy
+\begin{equation}
+\label{eq:splitEg}
+\ddot X+2\kappa a\dot X-\kappa^2G^\dagger GX=0,\qquad a=\tfrac12(G-G^\dagger),\qquad E=\frac m2\eta(\dot X,\dot X)-\frac{m\kappa^2}2\eta(GX,GX).
+\end{equation}
+Everything in \cref{sec:shifted} survives with the transpose replaced by the $\eta$-adjoint: factorisation holds exactly when $a=0$, and $E$
+is conserved because $a$ is $\eta$-antisymmetric. What does not survive is the sign of the virial identity.
+
+\begin{theorem}[The split virial identity]
+\label{thm:splitvirial}
+Let $X$ be a section along a path in a manifold with metric of signature $(3,3)$ and let $D/D\tau$ come from any metric-compatible connection,
+torsion included. Then for every $G$,
+\begin{equation}
+\label{eq:splitvirial}
+\frac{d}{d\tau}\,\eta(X,\pi)=\frac{\eta(\pi,\pi)}m .
+\end{equation}
+Consequently every closed orbit satisfies $\oint\eta(\pi,\pi)\,d\tau=0$: a bound orbit has null momentum on average.
+\end{theorem}
+
+\begin{proof}
+Note that $\eta(X,\pi)=\langle p,X\rangle$. Metric compatibility gives $\tfrac{d}{d\tau}\eta(X,\pi)=\eta(DX/D\tau,\pi)+\eta(X,D\pi/D\tau)$, and torsion does
+not enter this Leibniz rule. Substituting $DX/D\tau=\pi/m-\kappa GX$ and $D\pi/D\tau=\kappa G^\dagger\pi$ gives $\eta(\pi,\pi)/m-\kappa\,\eta(GX,\pi)+\kappa\,\eta(X,G^\dagger\pi)$,
+and the last two terms cancel by the definition of the adjoint.
+\end{proof}
+
+Neither curvature nor torsion appears in \eqref{eq:splitvirial}; the identity sees only $\eta$. In definite signature $\eta(\pi,\pi)$ has
+one sign and the identity forbids recurrence, which is \cref{thm:virial}. In split signature it does not, and the question becomes whether
+solutions with null momentum on average exist. They do, and the operator that produces them is one we already have.
+
+\subsection{Binding exactly in neutral signature}
+
+\begin{theorem}[Factorisation and binding coexist exactly in neutral signature]
+\label{thm:neutral}
+Let $\eta$ have signature $(P,Q)$ on $\R^N$. There is a linear map $G$ with
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item $G=G^\dagger$, so that the factorisation of \cref{thm:factor} holds, and
+\item $G^2=-\id$, so that \eqref{eq:splitEg} reads $\ddot X=-\kappa^2X$ and every solution is periodic of period $2\pi/\kappa$,
+\end{enumerate}
+if and only if $P=Q$. Such a $G$ is an anti-isometry, $\eta(GX,GY)=-\eta(X,Y)$, and on $\R^{3,3}$ one of them, maximal in that it uses every
+paired direction, is the binding root of \cref{prop:twoK}:
+\begin{equation}
+\label{eq:Gpair}
+G:\ e_i\longmapsto e_{i+3},\qquad e_{i+3}\longmapsto-e_i\qquad(i=1,2,3).
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+Given (i) and (ii), $\eta(GX,GY)=\eta(X,G^\dagger GY)=\eta(X,G^2Y)=-\eta(X,Y)$, so $G$ carries a maximal positive subspace isometrically onto a
+negative one and back, which forces $P=Q$. Conversely \eqref{eq:Gpair} satisfies $G^2=-\id$, and
+$\eta(Ge_i,e_{i+3})=\eta(e_{i+3},e_{i+3})=-1=\eta(e_i,-e_i)=\eta(e_i,Ge_{i+3})$, so $G=G^\dagger$. With $G^\dagger G=G^2=-\id$, \eqref{eq:splitEg}
+has $a=0$ and becomes $\ddot X=-\kappa^2X$.
+\end{proof}
+
+This reverses the verdict of \cref{sec:shifted} at its root. In definite signature the factorised branch is an inverted oscillator and
+nothing binds; in neutral signature the same factorisation condition $G=G^\dagger$ admits operators of purely imaginary spectrum, and the
+maximal one makes the whole interior a harmonic well of one frequency. The obstruction of \cref{thm:virial} was a theorem about the
+positive form, not about the arena. Two qualifications keep the statement honest. The normalisation $G^2=-\id$ imposes one common
+frequency; any $\eta$-self-adjoint shift built from independent paired blocks $\mu_iJ_2$ with distinct $\mu_i>0$ also factorises and binds, at
+unequal frequencies, so the construction is a family and $G^2=-\id$ picks a member. And no equation of motion for $G$ has been written:
+$G$ is adopted, and calling its consequences a selection would be premature.
+
+\begin{proposition}[How much can bind]
+\label{prop:howmuch}
+For $G=G^\dagger$ an eigenvector $v$ with non-real eigenvalue satisfies $\eta(v,\bar v)=0$, so each conjugate pair $\pm i\mu$ spans an
+$\eta$-neutral two-plane. The oscillating subspace has signature $(k,k)$ with $k\le\min(P,Q)$. On Minkowski space $\R^{1,3}$ at most a
+single two-plane can bind; on $\R^{3,3}$ all six directions can, simultaneously and at one frequency.
+\end{proposition}
+
+\begin{example}[One pairing plane]
+\label{ex:oneplane}
+In the plane $(e_1,e_4)$ write $X=x\,e_1+y\,e_4$, so that $G$ acts as $\bigl(\begin{smallmatrix}0&-1\\1&0\end{smallmatrix}\bigr)$ and $z=x+iy$. The
+general solution of $\ddot X=-\kappa^2X$ is $z(\tau)=c_-e^{-i\kappa\tau}+c_+e^{i\kappa\tau}$, an ellipse with semi-axes $|c_-|+|c_+|$ and
+$\bigl||c_-|-|c_+|\bigr|$. The momentum $\alpha_+X=\dot X+\kappa GX$ corresponds to $\dot z+i\kappa z=2i\kappa\,c_+e^{i\kappa\tau}$, so it is carried
+entirely by the counter-rotating part, and the zero-momentum orbits are the circles $z=c_-e^{-i\kappa\tau}$, traversed at angular velocity
+$-\kappa$. The virial quantity $\eta(\pi,\pi)=m^2\eta(\alpha_+X,\alpha_+X)=m^2\Re\bigl((2i\kappa c_+e^{i\kappa\tau})^2\bigr)$ oscillates with mean
+zero, as \cref{thm:splitvirial} requires of a closed orbit.
+\end{example}
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}
+\begin{axis}[name=left,width=6.8cm,height=6.8cm,axis equal image,xmin=-5.4,xmax=5.4,ymin=-5.4,ymax=5.4,
+  axis lines=middle,xtick=\empty,ytick=\empty,xlabel={$x$},ylabel={$y$},
+  title={\small positive form, $g=J$}]
+\addplot[gray,dashed,thick,domain=0:360,samples=90] ({cos(x)},{sin(x)});
+\addplot[scol,thick,domain=0:5*pi,samples=600,variable=\t] ({cos(deg(\t))+0.3*\t*sin(deg(\t))},{-sin(deg(\t))+0.3*\t*cos(deg(\t))});
+\node[scol,anchor=north west,font=\small] at (axis cs:-5.3,5.3) {$p_0\neq0$: spiral};
+\node[gray,anchor=south west,font=\small] at (axis cs:-5.3,-5.3) {dashed: $p=0$};
+\end{axis}
+\begin{axis}[at={(left.east)},anchor=west,xshift=1.0cm,width=6.8cm,height=6.8cm,axis equal image,xmin=-2.0,xmax=2.0,ymin=-2.0,ymax=2.0,
+  axis lines=middle,xtick=\empty,ytick=\empty,xlabel={$x$},ylabel={$y$},
+  title={\small split form, $G$ the pairing}]
+\addplot[gray,dashed,thick,domain=0:360,samples=90] ({cos(x)},{sin(x)});
+\addplot[tcol,thick,domain=0:360,samples=180] ({1.4*cos(x)},{-0.6*sin(x)});
+\addplot[gcol,very thick,domain=0:360,samples=180] ({0.85*cos(x)-0.85*sin(x)},{0.85*cos(x)-0.85*sin(x)});
+\node[tcol,anchor=north east,font=\small] at (axis cs:1.95,-0.7) {$|c_+|<|c_-|$};
+\node[gcol,anchor=north west,font=\small] at (axis cs:-1.95,-1.45) {$|c_+|=|c_-|$};
+\node[gray,anchor=south east,font=\small] at (axis cs:-0.55,0.95) {$p=0$};
+\end{axis}
+\end{tikzpicture}
+\caption{Interior motion in one pairing plane (\cref{ex:oneplane}). Left: with the positive form and an antisymmetric shift the
+zero-momentum orbits are circles, and any momentum turns them into outward spirals, as \cref{thm:virial} requires. Right: with the split form
+and the binding root $G$ every orbit is closed; the zero-momentum orbits are circles, the momentum-carrying ones ellipses, degenerating to a
+segment when the two rotating parts have equal size.}
+\label{fig:interior}
+\end{figure}
+
+\subsection{The orbits as duality rotations}
+
+Read through the field-strength dictionary of \cref{thm:emfield}, an interior configuration $X$ is a two-form and the binding root is the
+Hodge star. The bound motion then has a transparent meaning.
+
+\begin{proposition}[Bound orbits in field-strength language]
+\label{prop:orbitsEM}
+Let $G$ be the pairing \eqref{eq:Gpair} and $z=\bB+i\bE$.
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item The zero-momentum orbits are $X(\tau)=e^{-\kappa G\tau}X_0$, that is $z(\tau)=e^{-i\kappa\tau}z_0$: continuous duality rotations, along which
+$q(z(\tau))=e^{-2i\kappa\tau}q(z_0)$. A non-null orbit is a single spacetime plane at exactly four instants per period, alternately of magnetic
+and electric type, and a null orbit is a single plane at every instant.
+\item Every solution is $z(\tau)=c_-e^{-i\kappa\tau}+c_+e^{i\kappa\tau}$ with $c_\pm\in\C^3$, the momentum corresponds to $2i\kappa c_+e^{i\kappa\tau}$, and the
+period averages are
+\[
+\langle q\rangle=2\,c_-\cdot c_+,\qquad \langle\bE\cdot\bB\rangle=\Im(c_-\cdot c_+),\qquad \langle|\bB|^2-|\bE|^2\rangle=2\Re(c_-\cdot c_+).
+\]
+\item The energy is $\mathcal E=2m\kappa^2\Re(c_-\cdot c_+)$, and the complex quantity $\tfrac m2\bigl(q(\dot z)+\kappa^2q(z)\bigr)=2m\kappa^2\,c_-\cdot c_+$ is
+conserved; its imaginary part is a second constant of motion.
+\item On the orbits with $c_+=\bar c_-$ the vector $z$ is real at every instant: $\bE=0$ and $\bE\cdot\bB=0$ throughout, while the momentum is not
+zero.
+\end{enumerate}
+\end{proposition}
+
+On a zero-momentum orbit $\bE\cdot\bB(\tau)=\tfrac12|q_0|\sin(\phi_0-2\kappa\tau)$ with $q_0=|q_0|e^{i\phi_0}$, and the rest-frame field of
+\cref{sec:orth} turns from purely magnetic through screws to purely electric and back, at the fixed rest-frame energy density
+$\tfrac12|q_0|$. So the binding flow is what breaks orthogonality on every non-null orbit without momentum, while orbits that carry momentum
+can stay orthogonal throughout. The mean non-orthogonality and the energy of a general orbit are the imaginary and real parts of one conserved
+complex number $c_-\cdot c_+$, and neither determines the other.
+
+\begin{theorem}[The parity-odd term is a total derivative]
+\label{thm:EBsplit}
+For the split-form Lagrangian with the pairing,
+\[
+\mathcal L_\kappa=\frac m2\Bigl(\eta(\dot X,\dot X)-\kappa^2\eta(X,X)\Bigr)-m\kappa\,\frac{d}{d\tau}\bigl(\bE\cdot\bB\bigr).
+\]
+Consequently the cross term has identically vanishing Euler--Lagrange expression, the equation $\ddot X=-\kappa^2X$ comes from the first bracket
+alone, and the momenta of $\mathcal L_\kappa$ and $\mathcal L_{-\kappa}$ differ by $2m\kappa\,\eta GX$. Parity maps $\mathcal L_\kappa$ to $\mathcal L_{-\kappa}$
+and exchanges the orbits without momentum with those carried entirely by the counter-rotating part, while $C$ and $T$ leave $\mathcal L_\kappa$
+invariant.
+\end{theorem}
+
+\begin{proof}
+$G$ is $\eta$-self-adjoint, so $\tfrac{d}{d\tau}\eta(X,GX)=2\eta(\dot X,GX)$, and $\eta(X,GX)=-2\,\bE\cdot\bB$ by \cref{thm:emfield}; $\eta(GX,GX)=-\eta(X,X)$
+because $G$ is an anti-isometry. Expanding $\eta(\dot X+\kappa GX,\dot X+\kappa GX)$ gives the formula. Parity reverses $\bE$ and fixes $\bB$, so
+$PGP^{-1}=-G$ and $P$ acts on $z$ as complex conjugation.
+\end{proof}
+
+The binding term carries the one parity-odd ingredient of the interior, the sign of $\kappa$, and it sits entirely in a total derivative.
+Since $\bE\cdot\bB$ is a single-valued function on the configuration space, the canonical transformation $p\mapsto p+2m\kappa\,\eta GX$ removes it,
+classically and as a phase of wave functions. The structure is that of the $\theta$-term of electrodynamics, a parity-odd coefficient times a
+total derivative, with the difference that here it has no topological sector in which to act. In the positive form the same cross term is
+gyroscopic, with Euler--Lagrange expression $2m\kappa G\dot X$, and the sign of $\kappa$ enters the equations of motion; that is another way of
+seeing why the two forms behave so differently.
+
+\subsection{What the binding root selects, and what tears it}
+
+The binding root is not merely available; it carries structure. By \cref{thm:GLorentz} its centraliser is a Lorentz algebra $\lG$, not
+conjugate to the interior one (\cref{prop:notconj}). The same operator limits what transport can do to the bound sector.
+
+\begin{proposition}[Transport and a homogeneous threshold]
+\label{prop:tear}
+Let a connection along the path take values $\omega$ in $\so{3,3}$. If $\omega$ lies in the compact part of $\lG$, transport and the shift commute
+and the orbit is carried rigidly. If $\omega$ has a boost component of strength $c$ in a pairing plane $(e_a,e_{a+3})$, the homogeneous $2\times2$
+block there has exponents $\pm\sqrt{c^2-\kappa^2}$: oscillatory for $c<\kappa$ and real for $c>\kappa$.
+\end{proposition}
+
+\begin{proof}
+In the basis $(e_a,e_{a+3})$ the boost generator is $\sigma=\bigl(\begin{smallmatrix}0&1\\1&0\end{smallmatrix}\bigr)$ and $G$ is
+$\bigl(\begin{smallmatrix}0&-1\\1&0\end{smallmatrix}\bigr)$, so $-c\sigma+\kappa G=\bigl(\begin{smallmatrix}0&-c-\kappa\\-c+\kappa&0\end{smallmatrix}\bigr)$, whose
+square is $(c^2-\kappa^2)\id$.
+\end{proof}
+
+The threshold classifies exponents of the homogeneous block, not boundedness of the full flow, and the difference is real. With the momentum
+included, the phase-space generator $M=\bigl(\begin{smallmatrix}-c\sigma-\kappa G&\id/m\\0&-c\sigma+\kappa G\end{smallmatrix}\bigr)$ satisfies
+$M^2-(c^2-\kappa^2)\id=\bigl(\begin{smallmatrix}0&-2c\sigma/m\\0&0\end{smallmatrix}\bigr)$, nilpotent and nonzero for $c\neq0$. At $\kappa=m=1$ and
+$c=\tfrac12$ one finds $\det(\lambda\id-M)=(\lambda^2+\tfrac34)^2$ with $\rank(M^2+\tfrac34\id)=2$: Jordan blocks, and generic secular growth strictly
+below the threshold. Along an open path, moreover, a connection coefficient can be changed by a frame rotation, so growth on one worldline
+proves nothing; the invariant is the holonomy around a closed path. \Cref{sec:curved} computes it in an explicit curved model and finds that
+normal curvature converts zero-momentum orbits into momentum-carrying ones, through exactly the failure of the normal rotation to commute with
+$G$.
+
+What this part delivers is a bound sector, a frequency, a centralising Lorentz algebra and an exponent threshold, all from an adopted binding
+operator. It does not deliver a spectrum: $\kappa$ is not fixed, the single frequency is degenerate across the three pairs, and the energy is
+indefinite, so these are bound orbits and not bound states in any quantum sense. Nor does it settle the relation between the two square roots of
+the pairing beyond \cref{lem:Gclifford}: $\cK$ is $\eta$-antisymmetric and grades, $G$ is $\eta$-self-adjoint and binds, and they differ by the
+Cartan involution $\Ad_{e_1e_2e_3}$.

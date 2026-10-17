@@ -1,0 +1,70 @@
+\section{The explicit realisation}
+\label{app:realisation}
+
+Every finite-dimensional statement of this paper is a statement about integer matrices, and this appendix collects the data needed to check any of them by hand.
+
+\paragraph{One constituent.} Label the basis of $S=\R^8=(\R^2)^{\otimes3}$ by bit strings $b=b_1b_2b_3$, ordered as the binary numbers $0,\dots,7$, and write $\delta_i$ for
+the string with a single $1$ in position $i$. The generators \eqref{eq:realisation} act by
+\[
+e_i\,|b\rangle=(-1)^{b_1+\cdots+b_{i-1}}\,|b\oplus\delta_i\rangle,\qquad e_{i+3}\,|b\rangle=(-1)^{b_1+\cdots+b_i}\,|b\oplus\delta_i\rangle\qquad(i=1,2,3):
+\]
+both $e_i$ and $e_{i+3}$ flip the $i$-th bit, and they differ only by the sign carried by that bit. As matrices, with $\bar1=-1$ and dots for zeros,
+\begin{center}
+\scriptsize
+\setlength{\arraycolsep}{2.2pt}
+\[e_1=\begin{pmatrix}\cdot&\cdot&\cdot&\cdot&1&\cdot&\cdot&\cdot\\\cdot&\cdot&\cdot&\cdot&\cdot&1&\cdot&\cdot\\\cdot&\cdot&\cdot&\cdot&\cdot&\cdot&1&\cdot\\\cdot&\cdot&\cdot&\cdot&\cdot&\cdot&\cdot&1\\1&\cdot&\cdot&\cdot&\cdot&\cdot&\cdot&\cdot\\\cdot&1&\cdot&\cdot&\cdot&\cdot&\cdot&\cdot\\\cdot&\cdot&1&\cdot&\cdot&\cdot&\cdot&\cdot\\\cdot&\cdot&\cdot&1&\cdot&\cdot&\cdot&\cdot\end{pmatrix},\quad e_2=\begin{pmatrix}\cdot&\cdot&1&\cdot&\cdot&\cdot&\cdot&\cdot\\\cdot&\cdot&\cdot&1&\cdot&\cdot&\cdot&\cdot\\1&\cdot&\cdot&\cdot&\cdot&\cdot&\cdot&\cdot\\\cdot&1&\cdot&\cdot&\cdot&\cdot&\cdot&\cdot\\\cdot&\cdot&\cdot&\cdot&\cdot&\cdot&\bar1&\cdot\\\cdot&\cdot&\cdot&\cdot&\cdot&\cdot&\cdot&\bar1\\\cdot&\cdot&\cdot&\cdot&\bar1&\cdot&\cdot&\cdot\\\cdot&\cdot&\cdot&\cdot&\cdot&\bar1&\cdot&\cdot\end{pmatrix},\quad e_3=\begin{pmatrix}\cdot&1&\cdot&\cdot&\cdot&\cdot&\cdot&\cdot\\1&\cdot&\cdot&\cdot&\cdot&\cdot&\cdot&\cdot\\\cdot&\cdot&\cdot&\bar1&\cdot&\cdot&\cdot&\cdot\\\cdot&\cdot&\bar1&\cdot&\cdot&\cdot&\cdot&\cdot\\\cdot&\cdot&\cdot&\cdot&\cdot&\bar1&\cdot&\cdot\\\cdot&\cdot&\cdot&\cdot&\bar1&\cdot&\cdot&\cdot\\\cdot&\cdot&\cdot&\cdot&\cdot&\cdot&\cdot&1\\\cdot&\cdot&\cdot&\cdot&\cdot&\cdot&1&\cdot\end{pmatrix},\]
+\[
+e_4=\begin{pmatrix}\cdot&\cdot&\cdot&\cdot&\bar1&\cdot&\cdot&\cdot\\\cdot&\cdot&\cdot&\cdot&\cdot&\bar1&\cdot&\cdot\\\cdot&\cdot&\cdot&\cdot&\cdot&\cdot&\bar1&\cdot\\\cdot&\cdot&\cdot&\cdot&\cdot&\cdot&\cdot&\bar1\\1&\cdot&\cdot&\cdot&\cdot&\cdot&\cdot&\cdot\\\cdot&1&\cdot&\cdot&\cdot&\cdot&\cdot&\cdot\\\cdot&\cdot&1&\cdot&\cdot&\cdot&\cdot&\cdot\\\cdot&\cdot&\cdot&1&\cdot&\cdot&\cdot&\cdot\end{pmatrix},\quad e_5=\begin{pmatrix}\cdot&\cdot&\bar1&\cdot&\cdot&\cdot&\cdot&\cdot\\\cdot&\cdot&\cdot&\bar1&\cdot&\cdot&\cdot&\cdot\\1&\cdot&\cdot&\cdot&\cdot&\cdot&\cdot&\cdot\\\cdot&1&\cdot&\cdot&\cdot&\cdot&\cdot&\cdot\\\cdot&\cdot&\cdot&\cdot&\cdot&\cdot&1&\cdot\\\cdot&\cdot&\cdot&\cdot&\cdot&\cdot&\cdot&1\\\cdot&\cdot&\cdot&\cdot&\bar1&\cdot&\cdot&\cdot\\\cdot&\cdot&\cdot&\cdot&\cdot&\bar1&\cdot&\cdot\end{pmatrix},\quad e_6=\begin{pmatrix}\cdot&\bar1&\cdot&\cdot&\cdot&\cdot&\cdot&\cdot\\1&\cdot&\cdot&\cdot&\cdot&\cdot&\cdot&\cdot\\\cdot&\cdot&\cdot&1&\cdot&\cdot&\cdot&\cdot\\\cdot&\cdot&\bar1&\cdot&\cdot&\cdot&\cdot&\cdot\\\cdot&\cdot&\cdot&\cdot&\cdot&1&\cdot&\cdot\\\cdot&\cdot&\cdot&\cdot&\bar1&\cdot&\cdot&\cdot\\\cdot&\cdot&\cdot&\cdot&\cdot&\cdot&\cdot&\bar1\\\cdot&\cdot&\cdot&\cdot&\cdot&\cdot&1&\cdot\end{pmatrix}.
+\]
+\end{center}
+The first three are symmetric and the last three antisymmetric, as \eqref{eq:transpose} requires, and $e_ae_b+e_be_a=2\eta_{ab}\id$ is checked entry by entry.
+
+\paragraph{Derived operators at one constituent.} The pole operators are diagonal, $\omega_i\,|b\rangle=(-1)^{b_i}|b\rangle$, so their joint eigenlines are the basis lines
+themselves, and the volume element is $\omega=e_1\cdots e_6=\Gamma$ with $\Gamma|b\rangle=-(-1)^{b_1+b_2+b_3}|b\rangle$; the half-spinors $S^+$ and $S^-$ are spanned by the basis
+vectors with an odd, respectively even, number of ones. Further,
+\[
+J=e_2e_3:\ |b\rangle\mapsto(-1)^{b_2}\,|b\oplus\delta_2\oplus\delta_3\rangle,\qquad \Omega=e_1e_4e_5e_6,\qquad T=\gamma^0J=e_1e_2e_3,\qquad \Gamma=J\Omega .
+\]
+On $V=\R^{3,3}$ the two square roots of the pairing are
+\[
+\cK e_i=-e_{i+3},\quad \cK e_{i+3}=-e_i,\qquad G\,e_i=e_{i+3},\quad G\,e_{i+3}=-e_i ,
+\]
+with $\cK=\tfrac12\ad_{\mathsf P}$, $\mathsf P=\sum_ie_ie_{i+3}$, and $G=-\cK\circ\Ad_{e_1e_2e_3}$. The interior four-plane is $E=\langle e_1,e_4,e_5,e_6\rangle$ with
+$\gamma^0=e_1$ and $\gamma^a=e_{a+3}$; the surplus plane is $U=\langle e_2,e_3\rangle$; the paired-mode projector is $\Pi=\tfrac12\id-\tfrac14(\mathsf P+\mathcal V)$, which in
+the basis above is the diagonal projector onto the strings with at least two ones.
+
+\paragraph{The tower.} At $n$ constituents $S_n=(\R^8)^{\otimes n}$ and
+\[
+E_{6(k-1)+a}=\omega\otimes\cdots\otimes\omega\otimes e_a\otimes\id\otimes\cdots\otimes\id ,
+\]
+with $k-1$ factors $\omega$. Since $\omega$ is diagonal and every $e_a$ is a signed permutation, every $E_A$ and every blade is a signed permutation matrix of size $8^n$,
+and products, commutators, traces and ranks reduce to integer arithmetic. At three constituents the indices are grouped as follows:
+\begin{center}
+\small
+\begin{tabular}{@{}ll@{}}
+\toprule
+temporal directions & $\{1,2,3,7,8,9,13,14,15\}$, partners $i+3$\\
+interior four-plane $E$ & $\{1,4,5,6\}$, $\gamma^0=E_1$, $\gamma^a=E_{3+a}$\\
+surplus pair of the first constituent & $\{2,3\}$, $q_A=E_2E_3$\\
+weak directions $W$ & $\{7,13,14,15\}$, $\chi_W=E_7E_{13}E_{14}E_{15}$\\
+colour directions $C$ & $\{10,11,12,16,17,18\}$, $\chi_C=\prod_{i\in C}E_i$\\
+auxiliary directions & $\{2,3,8,9\}$\\
+\bottomrule
+\end{tabular}
+\end{center}
+$J$ is the ordered product of the fourteen generators outside $E$, $J^2=-\id$, and $\Gamma=J\gamma^0\gamma^1\gamma^2\gamma^3$. The projectors used in the text are
+\[
+P_*=\tfrac18(\id+\Gamma\chi_W)(\id-J\chi_C)(\id-Jq_A),\qquad \Pfam=\tfrac18(\id+X_1)(\id+X_2)(\id+X_3),
+\]
+with $X_1=J^{(1)}J^{(2)}$, $X_2=\omega^{(3)}$ and $X_3=\omega^{(1)}e^{(3)}_1e^{(3)}_4$, where $J^{(k)}=e^{(k)}_2e^{(k)}_3$ and $\omega^{(k)}$ is the volume element of constituent
+$k$. The colour Cartan element is $H=-(E_{10}E_{16}+E_{11}E_{17}+E_{12}E_{18})$, the weak generators are $t^{L,R}_i=\tfrac12(\id\mp\chi_W)\tau_i$ with
+$\tau_i=-\tfrac12\epsilon_{ijk}w_jw_k$, $w=(E_7,E_{13},E_{14},E_{15})$, and the Standard-Model line of mass kernels is
+\[
+\Phi_0=P_\nu\,P_*\,\gamma^0E_3E_9E_{13}E_{14}E_{16}E_{17}E_{18}\,P_*\,P_\nu ,
+\]
+with $P_\nu$ the projector onto $\Gamma=+1$, $T^R_3=+\tfrac12$, $\BmL=-1$. The left--right involution is $O=E_1E_7E_8$, and the charge conjugation and $CP$ blades are
+$C=E_2E_7E_{10}E_{11}E_{12}$ and $CP=E_1E_2E_7E_8E_{10}E_{11}E_{12}E_{14}$.
+
+\paragraph{Second rung.} At $n=2$ the twelve generators are $e_a\otimes\id$ and $\omega\otimes e_a$ on $\R^{64}$. The mixed Lorentz action pairs the interior rotations
+$S_k=\tfrac12\gamma^i\gamma^j$ and boosts $T_k=\tfrac12\gamma^0\gamma^k$ of the first factor with the diagonal rotations $L_k$ and boosts $K_k$ of $\lG$ on the second, and the
+second-rung vacuum uses $a,b=e_2\otimes\id,\ e_3\otimes\id$ and $c,d,e=\omega\otimes e_1,\ \omega\otimes e_2,\ \omega\otimes e_3$.

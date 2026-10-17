@@ -1,0 +1,112 @@
+\section{Type selection}
+\label{sec:typesel}
+
+Kinematics identifies the selector with a complex structure. Dynamics would have to explain why the field that plays this role takes a value of the
+complex-structure type at all, rather than an indefinite or degenerate one. The natural test is a potential: take the order parameter to be a bivector field
+$B\in\so{3,3}$, ask that the potential be invariant under $SO(3,3)$, so that nothing is put in by hand, and require that its minimum set be exactly the orbit of $J$,
+over an open set of couplings, with healthy fluctuations. Restriction to $S^+$ is the isomorphism $\so{3,3}\cong\slr{4,\R}$, and the invariant polynomials are the
+polynomials in
+\[
+t_k(B)=\tr\bigl((B|_{S^+})^k\bigr),\qquad k=2,3,4,
+\]
+the coefficients of the characteristic polynomial; a continuous invariant function is constant on orbit closures.
+
+\begin{proposition}[Invariants of the three types]
+\label{prop:types}
+Rotations of a positive plane and of a negative plane both have $(t_2,t_3,t_4)=(-4,0,4)$ and characteristic polynomial $(y^2+1)^2$; boosts of an indefinite plane have
+$(4,0,4)$ and $(y-1)^2(y+1)^2$. The positive and the negative planes induce opposite orientations of $S^+=\R^4$: they are distinct $SL(4,\R)$-orbits with identical
+invariants.
+\end{proposition}
+
+So no invariant potential can prefer $(1,3)$ to $(3,1)$. The two are exchanged by the anti-isometries $\cK$ and $G$ and correspond to the two sign conventions for a
+Lorentzian metric; physically this is harmless, but it means the selection is never unique. The type itself is harder.
+
+\begin{theorem}[No clean selection below degree eight]
+\label{thm:degree}
+Let $V$ be an $SO(3,3)$-invariant polynomial on $\so{3,3}$, bounded below.
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item If $\deg V\le4$, then $V=m\,t_2+\lambda\,t_2^2+\mathrm{const}$.
+\item If $\deg V\le7$, then $V$ restricted to $\{t_3=0\}$ is a polynomial of degree at most two in $t_2$ alone.
+\item Hence if $J$ minimises $V$, so does $B_w=\tfrac35e_2e_3+\tfrac45e_5e_6$, which has $t_2=-4$, $t_3=0$ and $t_4=\tfrac{4804}{625}\neq4$, is not simple, and selects no four-plane.
+\item In degree eight, $f=(t_2+4)^2+t_3^2+(t_4-4)^2$ vanishes exactly on the elements with characteristic polynomial $(y^2+1)^2$, and its Hessian at $J$ has rank one.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Use test elements of $\slr{4,\R}$ with rational entries. $A_0=\operatorname{diag}(1,-1)\oplus\bigl(\begin{smallmatrix}0&-1\\1&0\end{smallmatrix}\bigr)$ and
+$B_0=\bigl(\begin{smallmatrix}1&-1\\1&1\end{smallmatrix}\bigr)\oplus\bigl(\begin{smallmatrix}-1&-1\\1&-1\end{smallmatrix}\bigr)$ have $t_2=t_3=0$ and $t_4=4,-16$;
+$C_0=\operatorname{diag}(-1,-3)\oplus\bigl(\begin{smallmatrix}2&-3\\3&2\end{smallmatrix}\bigr)$ has $t_2=0$ and $t_3=-120$; the complex and para-complex structures have
+$(t_2,t_4)=(\mp4,4)$; $D_0=\operatorname{diag}(1,-1,2,-2)$ and two rotations of speeds $1,2$ have $(t_2,t_4)=(\pm10,34)$, all with $t_3=0$. (i) Along $sA_0$ and $sB_0$ a quartic
+term $\lambda_2t_4$ would give $\lambda_2t_4s^4$ with both signs of $t_4$, so $\lambda_2=0$ for boundedness; along $sC_0$ a cubic term gives $-120\kappa s^3$, so $\kappa=0$. (ii) The top
+homogeneous part must be non-negative, so an odd top degree vanishes, and in degree six the top part $e\,t_2^3+f\,t_3^2+g\,t_2t_4$ takes the values $\mp(64e+16g)$ on the
+complex and para-complex structures and $\pm(1000e+340g)$ on the last two elements; non-negativity forces $g=-4e$ and then $e=g=0$, with $f\ge0$ from $C_0$. The quartic
+coefficient of $t_4$ must again vanish, leaving $a\,t_2+b\,t_3+c\,t_2^2+h\,t_2t_3+f\,t_3^2$, which on $t_3=0$ is $a\,t_2+c\,t_2^2$. (iii) follows. (iv) $f\ge0$ with equality exactly
+when $(t_2,t_3,t_4)=(-4,0,4)$, which fixes the characteristic polynomial by Newton's identities; at $J$ the gradients of $t_3$ vanish and those of $t_2$ and $t_4$ are
+proportional, so the Hessian has rank one.
+\end{proof}
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}
+\begin{axis}[width=12cm,height=7cm,xmin=-13,xmax=8,ymin=0,ymax=10,axis lines=middle,clip=false,
+  xlabel={$t_2$},ylabel={$t_4$},xtick={-4,4},ytick={4},
+  xlabel style={anchor=west},ylabel style={anchor=south}]
+\draw[gray,dashed] (axis cs:-4,0) -- (axis cs:-4,10);
+\draw[gray,dotted] (axis cs:-4,4) -- (axis cs:0,4);
+\draw[gray,dotted] (axis cs:-4,7.6864) -- (axis cs:0,7.6864);
+\addplot[only marks,mark=*,mark size=3pt,tcol] coordinates {(-4,4)};
+\addplot[only marks,mark=*,mark size=3pt,scol] coordinates {(4,4)};
+\addplot[only marks,mark=square*,mark size=2.6pt,ocol] coordinates {(-4,7.6864)};
+\node[tcol,anchor=east,font=\small,align=right] at (axis cs:-4.3,4) {$J$: complex structure,\\ Lorentzian complement};
+\node[scol,anchor=north,font=\small,align=center] at (axis cs:4,3.6) {$\cK$-type boost:\\ $(2,2)$ complement};
+\node[ocol,anchor=east,font=\small,align=right] at (axis cs:-4.3,7.69) {$B_w=\tfrac35e_2e_3+\tfrac45e_5e_6$, $t_4=\tfrac{4804}{625}$:\\ not simple, no four-plane};
+\node[gray,anchor=east,font=\small] at (axis cs:-4.3,1.2) {degree $\le7$: blind along $t_2=-4$};
+\end{axis}
+\end{tikzpicture}
+\caption{Type selection in the plane of the invariants $(t_2,t_4)$ at $t_3=0$ (\cref{thm:degree}). A bounded-below invariant potential of degree at most seven depends on $t_2$
+alone along $t_3=0$, so it cannot distinguish the complex structure $J$ from the non-simple element $B_w$ on the same vertical line. Degree eight is the first that can.}
+\label{fig:typesel}
+\end{figure}
+
+Even where a potential does isolate the type, the minimum cannot be clean, and the reason holds at every degree.
+
+\begin{theorem}[Degeneracy and flat directions at every degree]
+\label{thm:flat}
+Let $V$ be any $SO(3,3)$-invariant function on $\so{3,3}$.
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item Let $n=(e_1+e_4)e_5$, a null rotation of the interior four-plane. Then $[J,n]=0$ and $n^2=0$, so $J+n$ has the invariants of $J$, but its centraliser has dimension three
+and does not contain $\so{1,3}$: it breaks Lorentz invariance. With $K=\tfrac12e_1e_4$, $[K,n]=-n$ and $[K,J]=0$, so conjugation by $e^{tK}$ maps $J+n$ to $J+e^{-t}n$. Hence $J$
+lies in the closure of the orbit of $J+n$, and $V(J+n)=V(J)$ whenever $V$ is continuous.
+\item If $V$ is smooth and has a local minimum at $J$, its Hessian vanishes on the six $\so{1,3}$ directions. The $\Stab(J)$-invariant symmetric forms on $\so{1,3}$ are the real
+and imaginary parts of the complex Killing form of $\slr{2,\C}$, and each nonzero one has signature $(3,3)$, so a positive semidefinite one is zero.
+\end{enumerate}
+At best the fluctuations about $J$ are one massive radial mode, eight Goldstone modes and six massless modes that no symmetry protects.
+\end{theorem}
+
+\begin{proposition}[Kinetic terms]
+\label{prop:kineticB}
+$\so{3,3}$ is simple, so every $SO(3,3)$-invariant quadratic kinetic term is a multiple of the Killing form, which on the fifteen bivectors has signature $(9,6)$, boosts with
+one sign and rotations with the other. At $J$ the radial direction is a rotation, the eight Goldstone directions are two rotations and six boosts, and the six $\so{1,3}$
+directions are three of each. Whatever the overall sign, at least six directions are ghosts, and the induced metric on the eight-dimensional space of choices has
+signature $(6,2)$.
+\end{proposition}
+
+In covariant terms the Goldstone directions form a charged four-vector and the $\so{1,3}$ directions a two-form, and healthy vectors and two-forms owe their positivity to a
+gauge symmetry that removes the wrong-sign components; a scalar order parameter has none. This is \cref{thm:ghost} again, in a new setting. There is a positive
+alternative, and it shows what is missing.
+
+\begin{proposition}[The positive alternative]
+\label{prop:positivealt}
+On the fifteen bivectors the positive form $\langle X,Y\rangle=\tr(XY^{\!\top})/8$ is the identity, and its invariance algebra is the six compact rotations $\so3_T\oplus\so3_S$.
+Split $B=B_T+B_S+B_p$ into these two parts and the nine boosts. The potential
+\[
+V_+=\bigl(|B_T|^2-1\bigr)^2+|B_S|^2+|B_p|^2
+\]
+has as minimum set the unit sphere of $\so3_T$. Every element there is a rotation of a plane $N$ in the temporal triple, the clock is the axis of the rotation, the spacetime is the
+clock line plus the spatial triple, and $J=\gamma^0\omega_T$. The Hessian at $J$ has eigenvalues $8$, $0$, $0$ and $2$ (twelve times): two Goldstone modes and everything else massive
+with positive kinetic energy. But the boosts $e_1e_4,e_1e_5,e_1e_6$ of the selected spacetime are not symmetries of this sector.
+\end{proposition}
+
+The requirement was a clean selection of the Lorentzian type over an open set of couplings, with every mode healthy and accounted for. An $SO(3,3)$-invariant scalar
+order parameter cannot deliver it: below degree eight it does not isolate the type; at every degree the minimum is degenerate with Lorentz-violating configurations and has
+six unprotected massless modes; and its kinetic term has ghosts. The positive route selects cleanly only by giving up the boosts it was meant to produce.

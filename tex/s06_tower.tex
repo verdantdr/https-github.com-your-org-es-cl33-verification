@@ -1,0 +1,109 @@
+\section{The tower: centralisers, nesting, and carriers}
+\label{sec:tower}
+
+Climbing the tower adds six directions per rung and leaves the local structure of each factor unchanged. The interior four-plane
+stays in the first factor; the question is what the added directions do to the internal symmetry.
+
+\begin{theorem}[Internal centraliser]
+\label{thm:centraliser}
+In $\Cl(3n,3n)$ the bivectors commuting with the interior Lorentz action form
+\[
+\gint^{(n)}\cong\so{3n-1,3n-3},\qquad \dim\gint^{(n)}=\tfrac12(6n-4)(6n-5).
+\]
+\end{theorem}
+
+\begin{proof}
+By \eqref{eq:bladecomm} a bivector sharing exactly one index with an interior bivector anticommutes with it, and one sharing none
+or two commutes. A bivector commuting with all six interior bivectors therefore has either both indices in $E$, which gives
+$\lint$ itself and is excluded by commutation with the boosts, or both indices in the Lorentz complement
+\[
+W_n=\langle e^{(1)}_2,e^{(1)}_3\rangle\oplus\bigoplus_{k=2}^n\langle e^{(k)}_1,\dots,e^{(k)}_6\rangle ,
+\]
+which has $3n-1$ positive and $3n-3$ negative directions. All bivectors of $W_n$ commute with $\lint$, and they span $\so{W_n}$.
+\end{proof}
+
+\begin{corollary}[The photon at one constituent]
+\label{cor:photon1}
+At $n=1$, $W_1=U$ and $\gint^{(1)}=\R J$. The electromagnetic $\uu1$ is not a symmetry of the interior structure but the
+symmetry, by exhaustion. In agreement with \cref{prop:gauge1}, no other charge direction gauges at $n=1$.
+\end{corollary}
+
+\begin{proposition}[One frame, and nesting]
+\label{prop:frame}
+The interior four-plane lies in the first tensor factor, so the six interior bivectors have the same index sets at every rung and
+identical structure constants. The tower is one Lorentz frame with an increasing family of modules over it. Moreover
+$W_1\subset W_2\subset\cdots$, hence
+\[
+\gint^{(1)}\subset\gint^{(2)}\subset\gint^{(3)}\subset\cdots,\qquad \dim=1,\ 28,\ 91,\ 190,\ 325,\dots,
+\]
+with direct limit $\so{\infty,\infty}$. A connection valued at one rung is a connection at every higher rung with no matching
+condition. The inclusion runs in the wrong direction to justify a truncation to low rungs, which would be a separate postulate.
+\end{proposition}
+
+A gauge algebra has to be compact, and every compact subalgebra of a reductive real Lie algebra is conjugate into a maximal compact
+one \cite{Knapp,Helgason}, here $\so{3n-1}\oplus\so{3n-3}$. Since $\su2$ needs a faithful real representation of dimension at least
+three and $\su3$ one of dimension at least six \cite{GoodmanWallach}, the rungs can be sorted by what they can carry.
+
+\begin{theorem}[Carrier census]
+\label{thm:census}
+\[
+\begin{array}{c|l|l|r|r|c|c|c}
+\toprule
+n & \gint^{(n)} & \text{maximal compact} & \dim & \text{rank} & \uu1\ \text{alone} & \su2 & \su3\\
+\midrule
+1 & \so{2,0} & \so2 & 1 & 1 & \text{yes} & \text{no} & \text{no}\\
+2 & \so{5,3} & \so5\oplus\so3 & 13 & 3 & \text{no} & \text{yes} & \text{no}\\
+3 & \so{8,6} & \so8\oplus\so6 & 43 & 7 & \text{no} & \text{yes} & \text{yes}\\
+4 & \so{11,9} & \so{11}\oplus\so9 & 91 & 9 & \text{no} & \text{yes} & \text{yes}\\
+\bottomrule
+\end{array}
+\]
+At $n=2$ the projection of a simple $\su3$ to $\so3$ must vanish and $\so5$ has no proper subalgebra of dimension above six; at
+$n=3$ colour enters through $\su3\subset\su4\cong\so6$.
+\end{theorem}
+
+\begin{lemma}[Rank obstruction]
+\label{lem:rank}
+$\rank(\su3\oplus\su2\oplus\uu1)=4$, while the maximal compact subalgebras above have ranks $1,3,7,9$. The full Standard-Model
+algebra therefore embeds at no rung $n\le2$. At $n=2$ the maximal compact subalgebra has dimension $13\ge12$, so dimension counting
+alone would admit it, and rank is the sharp invariant.
+\end{lemma}
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[scale=1.0]
+\foreach \n/\alg/\dimc/\cmp/\cr in {1/{\so{2,0}}/{1}/{\so2}/{\uu1},2/{\so{5,3}}/{28}/{\so5\oplus\so3}/{\uu1,\ \su2},3/{\so{8,6}}/{91}/{\so8\oplus\so6}/{\uu1,\ \su2,\ \su3},4/{\so{11,9}}/{190}/{\so{11}\oplus\so9}/{\uu1,\ \su2,\ \su3}}{
+  \pgfmathsetmacro{\y}{1.35*(\n-1)}
+  \pgfmathsetmacro{\w}{1.6+0.6*\n}
+  \fill[tcol!8] (-\w,\y) rectangle (\w,\y+1.0);
+  \draw[tcol,thick] (-\w,\y) rectangle (\w,\y+1.0);
+  \node at (0,\y+0.68) {\small $\gint^{(\n)}=\alg$, $\dim\dimc$};
+  \node at (0,\y+0.28) {\small compact part $\cmp$};
+  \node[anchor=west] at (4.3,\y+0.5) {\small $n=\n$: carries $\cr$};
+}
+\foreach \n in {1,2,3}{\pgfmathsetmacro{\y}{1.35*\n-0.35}\draw[->,thick,gray] (0,\y-0.0) -- (0,\y+0.35);}
+\node[anchor=north] at (0,-0.15) {\small nested: $\gint^{(1)}\subset\gint^{(2)}\subset\gint^{(3)}\subset\cdots$};
+\end{tikzpicture}
+\caption{The tower of internal centralisers (\cref{thm:centraliser,thm:census}). Each rung contains the previous one; the compact part
+decides which gauge factors can be carried. The electromagnetic $\uu1$ is the whole centraliser only at the first rung, the one rung
+with no room for a nonabelian factor.}
+\label{fig:tower}
+\end{figure}
+
+\begin{corollary}[The tower's trade-off]
+\label{cor:tradeoff}
+The $\uu1$ is the whole internal centraliser only at $n=1$, the one rung with no room for either nonabelian carrier. Inside
+$\gint^{(n)}$ the centraliser of the embedded one-rung charge $e^{(1)}_2e^{(1)}_3$ has dimensions $1,16,67,154,277$ for $n=1,\dots,5$,
+since by \eqref{eq:bladecomm} exactly $12(n-1)$ internal bivectors fail to commute with it. From $n=2$ onwards the photon is one
+direction in a space that grows without bound; its uniqueness is lost to no dynamical process, only to the arrival of room.
+\end{corollary}
+
+At $n\ge2$ the embedded one-rung charge $e^{(1)}_2e^{(1)}_3$ must not be confused with the complex structure $J=\wI$ of
+\cref{thm:i}, which commutes with every internal bivector and has all of $\gint^{(n)}$ as centraliser; they agree only at $n=1$.
+
+\begin{remark}[The gaugeable fraction does not improve]
+Of the $\binom{6n}2=3n(6n-1)$ bivectors of $\Cl(3n,3n)$, $2\binom{3n}2=3n(3n-1)$ pair directions of the same sign: the fractions
+$6/15$, $30/66$, $72/153$ rise only to $1/2$. Climbing adds boosts at essentially the rate at which it adds rotations. The census
+permits the chain $\uu1\subset\uu1\oplus\su2\subset\uu1\oplus\su2\oplus\su3$ at $n=1,2,3$; it permits it, and nothing selects those
+subalgebras among others of the same rank.
+\end{remark}

@@ -1,0 +1,149 @@
+\section{Introduction}
+\label{sec:intro}
+
+\subsection{The question}
+
+Start from a flat real vector space $V=\R^{3,3}$ of split signature, with an orthonormal basis $e_1,\dots,e_6$ in which
+$e_1,e_2,e_3$ have square $+1$ and $e_4,e_5,e_6$ have square $-1$, and with the map $e_i\mapsto e_{i+3}$ that pairs each
+positive direction with a negative one. Read the positive triple as three times and the negative triple as three
+lengths. The space has six directions, the same number as an electromagnetic field strength, and the pairing looks like
+the correspondence between a magnetic and an electric component. This geometric picture, which we call the
+\emph{electromagnetic sphere}, is the starting point of the paper.
+
+The hypothesis we test is that as much of relativistic field theory as possible should be read off the internal
+structure of the Clifford algebra $\Cl(3,3)\cong M_8(\R)$ and of its graded tower $\Cl(3n,3n)\cong M_{2^{3n}}(\R)$,
+rather than added by hand. Split signature is the smallest setting in which three positive directions can be paired with
+three negative ones by an anti-isometry, and the tower is the natural way to enlarge the arena without changing its
+local structure. The classification of real Clifford algebras and their gradings is classical
+\cite{LawsonMichelsohn,Lounesto,Porteous,MosnaMirallesVaz}, and several programmes have tried to extract Standard-Model
+structure from division and Clifford algebras \cite{Furey,Gresnigt,ChamseddineConnes}; the representation-theoretic limits
+of such embeddings are discussed in \cite{DistlerGaribaldi}.
+
+The question we ask is not whether the Standard Model fits inside this arena. It does, in more than one way, and fitting
+proves nothing. The question is which of the free choices of relativistic field theory the algebra removes, and which it
+leaves free. That question has sharp answers, and the answers are the content of this paper.
+
+\subsection{A deflationary principle}
+\label{sec:deflation}
+
+One theorem, proved in \cref{sec:dirac}, governs everything else. Take the four interior gamma matrices
+$\gamma^\mu=(e_1,e_4,e_5,e_6)$ and the operator $J=e_2e_3$, which commutes with all four and squares to $-\id$. Then the
+algebra generated over $\C$, with $J$ playing the role of $i$, by the four gamma matrices is the whole of $M_4(\C)$. The
+real Dirac theory built on $\Cl(3,3)$ is therefore ordinary complex Dirac theory written in real variables, exactly and
+not in a limit. A change of variables predicts nothing, so a statement about the arena carries information only if it
+could have come out otherwise. We apply this test throughout. Facts that are true of Dirac theory in any notation, such as
+$g=2$ at tree level, current conservation or the Ward identity, are \emph{inherited}; they are reproduced here only where
+they are needed to state something else. The statements we report are of a different kind: which bilinears are admissible,
+which generators may be gauged, how large the internal centraliser is at each rung, what the faithful gauge algebra of a
+projected block is, which potentials can select a vacuum, and which constructions are impossible under stated
+hypotheses.
+
+Every claim in this paper belongs to one of four classes, and we say in the text which one. A result is \emph{fixed by the
+algebra} when it is an identity or a theorem that could have failed. It is \emph{constructed} when the algebra admits it
+and we exhibit it, without anything selecting it among alternatives. It is \emph{obstructed} when it is impossible under
+hypotheses that we state, and those hypotheses are part of the result. It is \emph{open} when it is neither established
+nor refuted. The finite-dimensional statements are exact: every blade of the realisation used here is a signed
+permutation matrix, so products, commutators, traces and ranks are integer computations. How the statements were verified
+is described in \cref{app:methods}.
+
+\subsection{Summary of results}
+
+\paragraph{The arena (\cref{sec:arena,sec:clock,sec:dirac,sec:discrete}).} A bivector $e_ae_b$ squares to $-\id$ when its
+two directions have the same sign and to $+\id$ when they have opposite signs; the first kind generates compact rotations
+that can be gauged, the second kind generates boosts that can only grade. The three \emph{pole operators}
+$e_ie_{i+3}$ are commuting involutions grading the algebra by $\Z_2^3$, and they span a maximally split Cartan
+subalgebra of $\so{3,3}$. The pairing has two square roots: a para-complex structure $\cK$ with $\cK^2=+\id$, which grades,
+and a complex structure $G$ with $G^2=-\id$, which is self-adjoint for $\eta$ and, as we show later, binds the interior
+dynamics and acts as a Hodge star. A clock is a unit vector of the positive triple; the symmetric clock
+$\widehat W=(e_1+e_2+e_3)/\sqrt3$ is the unique permutation-invariant point and the entropy maximum of the clock simplex
+under the Fisher--Rao metric, and exactly that clock makes the conversion operator invisible in the equations of motion.
+The imaginary unit is selected rather than adjoined: inside the joint commutant of the interior Lorentz action and the
+internal bivectors, the only square roots of $-\id$ that commute with the gamma matrices are $\pm J$. Charge conjugation is
+the surplus plane $\langle e_2,e_3\rangle$ and coincides with the Majorana structure; time reversal is forced to square to
+$-\id$; the kinetic forms alone fix the massless gauge algebra $\uu1\oplus\su2$, which the mass form cuts to the
+electromagnetic $\uu1$; and the quantum state space must be formed by complexifying from outside.
+
+\paragraph{The tower and its matter (\cref{sec:tower,sec:projectors,sec:pstar,sec:charges,sec:actions}).} The bivectors
+commuting with the interior Lorentz action of $\Cl(3n,3n)$ form $\so{3n-1,3n-3}$, nested along the tower, of dimensions
+$1,28,91,190,\dots$. At one constituent this centraliser is the single bivector $J$, so the photon is not one symmetry of the
+interior structure but the only one. At three constituents we construct an orthogonal projector
+\[
+P_*=\tfrac18\,(\id+\Gamma\chi_W)(\id-J\chi_C)(\id-Jq_A)
+\]
+of rank $64$ which commutes with the Lorentz action and with $J$, is axial in the sense that $P_*\gamma^\mu P_*=0$, keeps the whole of
+$\su4$ acting faithfully, and carries $(\mathbf4,\mathbf2,\mathbf1)_L\oplus(\mathbf4,\mathbf1,\mathbf2)_R$: one Pati--Salam
+family with a right-handed neutrino. Its two central abelian factors cannot be gauged on this matter. Charges built from
+three commuting involutions are conjugately paired whenever they are anomaly free, so hypercharge cannot be read off from
+anomaly cancellation inside that class. When the Lorentz action is instead taken diagonally from all three constituents,
+the internal algebra becomes the entirely compact $\so6\oplus\so3$; the copy algebra and the Lorentz algebra form a
+reductive dual pair satisfying $C_{\rm cop}+C_\Delta=\tfrac{15}2$, and the module is vector-like. A single theorem gives
+the candidate gauge algebra of every Lorentz action on the tower, and with it a rung-by-rung census of the vector bosons
+the tower can carry.
+
+\paragraph{Gauge fields and the electromagnetic reading (\cref{sec:fields,sec:emfield,sec:spin,sec:orth}).} A varying
+projector induces a connection whose available curvature algebra is far too large, so a parent action would have to cut
+the projector's freedom rather than build a gauge field. The centraliser of the complex structure $G$ in $\so{3,3}$ is a
+Lorentz algebra, under which $\R^{3,3}$ \emph{is} $\Lambda^2\R^{1,3}$: boosts act by $\delta\bE=\bv\times\bB$,
+$\delta\bB=-\bv\times\bE$, $G$ is the Hodge star, and the two invariants $|\bB|^2-|\bE|^2$ and $\bE\cdot\bB$ are the real
+and imaginary parts of one holomorphic quadratic form. This reading excludes the interior four-plane on which the matter
+is built. Covariance fixes the form of Maxwell's equations, because the vector module occurs in $\Lambda^2\otimes V$ with
+multiplicity exactly two, and fixes nothing else. The photon's spin one appears in two places, related by the Klein
+correspondence $V\cong\Lambda^2(S^+)^*$, and at the second rung both can be coupled to a Dirac block in a single gauge
+theory. The orthogonality of $\bE$ and $\bB$ is the reality of the invariant $q=z\cdot z$; its failure breaks parity and time
+reversal, is never spontaneous, and does not generate mass.
+
+\paragraph{Interior dynamics (\cref{sec:shifted,sec:neutral,sec:closure}).} The Lagrangian of a single shifted operator
+$\partial_\tau+\kappa g$ factorises exactly when the shift is symmetric, and then it describes an inverted oscillator; for
+every constant shift some solution is unbounded, and with a positive form no solution with nonzero momentum recurs. In the
+split form the same factorisation admits bound motion, and it does so exactly in neutral signature, with the complex
+structure $G$ as the shift. The force law is a dual transport which is a Lie--Poisson equation only on an extension of the
+frame; that extension is unique, its rotor angle is the duality angle of the momentum, and its free motion is a pendulum
+that drifts the frame except on null data.
+
+\paragraph{The vacuum (\cref{sec:subfields,sec:kernels,sec:selection,sec:matter,sec:goldstone}).} At one constituent we
+classify the vacuum of every coordinate three-plane in four senses. At three constituents the space of Lorentz-invariant
+mass kernels of the chiral block has dimension $272$ and decomposes as
+$(\mathbf{10},\mathbf3,\mathbf1)\oplus(\mathbf{10},\mathbf1,\mathbf3)\oplus(\mathbf{15},\mathbf2,\mathbf2)\oplus
+2(\mathbf6,\mathbf1,\mathbf1)\oplus(\mathbf1,\mathbf2,\mathbf2)$; the Standard-Model invariant kernels form one complex
+line, the right-handed neutrino Majorana kernel. We give the complete renormalizable potential of the
+$(\mathbf{10},\mathbf1,\mathbf3)$ component, including a holomorphic quartic that violates baryon number by two units,
+and sufficient conditions, together with separate necessary conditions, under which the Standard-Model orbit is its global minimum (the two
+do not coincide, and numerics locate the transition in the gap between them); we compute the
+radiatively generated spectrum of all $271$ angular modes, the Goldstone content, the discrete symmetries of the vacuum,
+and an electroweak stage with the Georgi--Jarlskog factor and a seesaw.
+
+\paragraph{Curvature and the photon (\cref{sec:curved,sec:curvop,sec:transport,sec:photon}).} In a curved arena the
+pairing becomes an almost para-Hermitian structure. An explicit six-dimensional metric with a normal $U(1)$ has a
+closed-form Einstein tensor whose tangential block on the four-dimensional slice is the Einstein tensor of the slice, while
+the normal field strength gravitates with negative energy, as the signature forces. In the field-strength reading the
+curvature operator of a four-metric lives on the frame, the first Bianchi identity is the single condition
+$\Tr(G\cR)=0$, and the duality rotation of the curvature ends at the double dual, which contracts to the Einstein tensor.
+The projector current sources a massive normal vector, and a massless photon requires a vacuum that commutes with the
+charge; such a vacuum exists at the second rung and not at the first.
+
+\paragraph{Causal structure (\cref{sec:baseline,sec:selector,sec:typesel,sec:constraints}).} A field propagating freely
+in six dimensions of signature $(3,3)$ is ill-posed and has no ground state, and its time-like cone has no past and future.
+Choosing a Lorentzian four-plane inside $\R^{3,3}$ is the same as choosing a complex structure, and at one constituent the
+light cone of that plane is the set of chiral spinors squared with the help of $J$. No bounded-below invariant potential
+of degree below eight isolates that choice, and every invariant kinetic term for it has ghost directions. The surplus-time
+constraints, by contrast, follow from a gauge symmetry of the worldline.
+
+\subsection{Conventions}
+\label{sec:conventions}
+
+Spacetime signature is $(+,-,-,-)$, units are Heaviside--Lorentz with $\hbar=c=1$ unless stated. A \emph{constituent} is
+a tensor factor $\Cl(3,3)$ of the tower; the word never refers to a particle, and three constituents do not describe three
+particles. Anomaly coefficients are chiral traces per Weyl component with every field written left-handed. In the
+field-strength reading of $\R^{3,3}$ the vector $X=\sum_i(B_ie_i+E_ie_{i+3})$ is identified with the two-form $F$ of
+components $F_{0i}=E_i$, $F_{jk}=\epsilon_{ijk}B_i$; with this orientation $\bB$ is minus the textbook magnetic field,
+which we write $\Btext=-\bB$, while $\bE$ is the textbook electric field. Formulas taken from the literature are written in
+textbook variables, and where a sign matters the variables are named. Compact Lie algebras are realised by skew operators
+and the corresponding charges by the symmetric operators $\hat t=-Jt$.
+
+\subsection{Organisation}
+
+\Cref{sec:arena,sec:clock,sec:dirac,sec:discrete} develop one constituent. \Cref{sec:tower,sec:projectors,sec:pstar,sec:charges,sec:actions} climb the tower and build the matter. \Cref{sec:fields,sec:emfield,sec:spin,sec:orth} treat gauge
+fields and the field-strength reading, \cref{sec:shifted,sec:neutral,sec:closure} the interior dynamics, and
+\cref{sec:subfields,sec:kernels,sec:selection,sec:matter,sec:goldstone} the vacuum. \Cref{sec:curved,sec:curvop,sec:transport,sec:photon} pass to a curved arena and to the photon, \cref{sec:baseline,sec:selector,sec:typesel,sec:constraints} to causal structure, and \cref{sec:assessment} collects what is fixed, what is constructed, what is
+obstructed and what is open. \Cref{app:realisation} gives the explicit matrices, so that every finite-dimensional claim
+can be checked by hand, and \cref{app:methods} describes the verification.

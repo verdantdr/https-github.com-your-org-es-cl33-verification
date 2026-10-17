@@ -1,0 +1,201 @@
+\section{A curved arena}
+\label{sec:curved}
+
+Nothing in the algebra requires the ambient metric to be flat. Promoting the metric to a field of signature $(3,3)$, the generators to an
+orthonormal frame with a spin connection, and the pairing to a field of endomorphisms, one obtains a curved arena. This section describes its
+geometry, builds one explicit curved model against which statements can be tested, and computes the six-dimensional Einstein tensor of that
+model exactly. The two readings of $\R^{3,3}$ then each produce the Einstein tensor of a four-metric, in quite different ways, and neither
+determines the metric.
+
+\subsection{The pairing as a para-complex structure}
+
+\begin{proposition}[The arena is almost para-Hermitian]
+\label{prop:parahermitian}
+Let $(M,g)$ have signature $(3,3)$ and let $\cK\in\End(TM)$ satisfy $\cK^2=\id$ and $g(\cK\cdot,\cK\cdot)=-g$. Then $(M,g,\cK)$ is almost
+para-Hermitian: the eigendistributions $T^\pm M$ are isotropic of rank three, since $g(X,Y)=-g(\cK X,\cK Y)=-g(X,Y)$ on $T^+M$. It is
+para-K\"ahler, equivalently bi-Lagrangian, if and only if $\nabla^{\rm LC}\cK=0$ for the Levi-Civita connection \cite{CruceanuFortunyGadea96,EtayoSantamaria06};
+then each eigendistribution is parallel, involutive and totally geodesic, and $\Omega(X,Y)=g(\cK X,Y)$ is skew and closed.
+\end{proposition}
+
+The para-complex structure need not be posited: it is the grading root of \cref{prop:twoK}, $\cK(v)=\tfrac12[\mathsf P,v]$ with $\mathsf P=\sum_ie_ie_{i+3}$,
+whose eigenspaces are the two totally null three-planes spanned by $e_i\mp e_{i+3}$. The null $3{+}3$ splitting it induces is a different
+decomposition from the physical $4{+}2$ splitting into the interior four-plane and the surplus plane, and conflating them is the first thing to avoid. A
+connection with torsion can preserve $\cK$ without making the eigendistributions integrable or $\Omega$ closed, so a $\cK$-preserving connection does not
+deliver the para-K\"ahler conclusion \cite{MarottaSzabo21,LoustauSanders22}. Para-K\"ahler geometry is the world of $\cK^2=+\id$, while chirality is
+comfortable in the world of $J^2=-\id$; this is one way of naming the difficulty that runs through the whole construction.
+
+\subsection{An explicit model with a normal $U(1)$}
+\label{sec:curvedmodel}
+
+Split the tangent space as $TM=E\oplus N$ with $E=\operatorname{span}\{\widehat W,e_4,e_5,e_6\}$ of signature $(1,3)$, the symmetric clock of
+\cref{prop:clock} playing the role of $\gamma^0$, and $N=\operatorname{span}\{u_1,u_2\}$ with
+\[
+u_1=\tfrac1{\sqrt2}(e_1-e_2),\qquad u_2=\tfrac1{\sqrt6}(e_1+e_2-2e_3),
+\]
+which complete the clock inside the positive triple: the relative times of \cref{sec:clocksimplex}. The metric does not select this split; it is extra
+data.
+
+\begin{lemma}[The normal plane carries a commuting rotation]
+\label{lem:JN}
+$J_N:=u_1u_2=\tfrac1{\sqrt3}(e_2e_3+e_3e_1+e_1e_2)$ satisfies $J_N^2=-\id$ and commutes with $\widehat W$, $e_4$, $e_5$ and $e_6$.
+\end{lemma}
+
+\begin{proof}
+$J_N$ is a sum of time--time bivectors and has no spatial index, so it commutes with $e_4,e_5,e_6$ by \eqref{eq:bladecomm}; it is the unit bivector of
+the plane orthogonal to $\widehat W$ inside the positive triple, so it commutes with $\widehat W$; and $u_1,u_2$ are orthonormal of square $+\id$, so
+$(u_1u_2)^2=-u_1^2u_2^2=-\id$.
+\end{proof}
+
+The normal plane therefore carries a compact $\uu1$ commuting with the physical generators. Give it a connection, $\nabla^\perp u_1=-Au_2$,
+$\nabla^\perp u_2=Au_1$, with spin connection $\Omega_N=\tfrac12AJ_N$. The model metric is
+\begin{equation}
+\label{eq:kk}
+ds_6^2=g^{(4)}_{\mu\nu}(x)\,dx^\mu dx^\nu+(du+vA)^2+(dv-uA)^2,\qquad A=A_\mu(x)\,dx^\mu .
+\end{equation}
+
+\begin{proposition}[The model]
+\label{prop:kk}
+The metric \eqref{eq:kk} has signature $(3,3)$; its restriction to $\Sigma=\{u=v=0\}$ is $g^{(4)}$; the induced normal connection is $A$; and
+$R^u{}_{v\mu\nu}|_\Sigma=(dA)_{\mu\nu}$. For $g^{(4)}$ flat and $A=Bx\,dz$ one finds $R^u{}_{vxz}|_\Sigma=B$ while every component $R^\mu{}_{\nu\rho\sigma}|_\Sigma$
+vanishes.
+\end{proposition}
+
+This is the Kaluza--Klein construction for a rank-two real bundle with structure group $SO(2)$, and $R^u{}_{v\mu\nu}=F_{\mu\nu}$ is the standard formula for
+the curvature of a normal bundle \cite{AppelquistChodosFreund87,ONeill83}. Two consequences are easy to misread in either direction: ambient curvature does
+not imply observable curvature, since the last example has a curved six-geometry with a flat induced four-metric; and a four-dimensional distribution is not
+a spacetime until an integral submanifold or a quotient is produced, which here $\Sigma$ supplies.
+
+\begin{proposition}[The surplus constraints are first class]
+\label{prop:constraints}
+For a geodesic test particle in \eqref{eq:kk} put $\ell=vp_u-up_v$, $k_\mu=p_\mu-A_\mu\ell$, so that $H=\tfrac12(g_{(4)}^{\mu\nu}k_\mu k_\nu+p_u^2+p_v^2)$. With
+$\phi_1=p_u$, $\phi_2=p_v$ and $C:=A_\mu g_{(4)}^{\mu\nu}k_\nu$,
+\[
+\{\phi_1,\phi_2\}=0,\qquad \{\phi_1,H\}=-C\phi_2,\qquad \{\phi_2,H\}=+C\phi_1 ,
+\]
+so the constraints are first class for every $A_\mu(x)$ and every $g^{(4)}$. The reduced phase space has dimension $12-2\times2=8$, that of $T^*M^4$, and
+$H_{\rm red}=\tfrac12g_{(4)}^{\mu\nu}p_\mu p_\nu$.
+\end{proposition}
+
+The potential has cancelled from the reduced Hamiltonian, and not by accident: the constraints generate translations in $(u,v)$, so the normal $U(1)$
+acts trivially on the reduced phase space and a spinless test particle cannot see it. Whatever makes the normal connection physical must come from the
+spinor sector, which \cref{sec:transport} examines. This is a first instance of the constraint structure that \cref{sec:constraints} derives from a
+worldline gauge symmetry.
+
+\subsection{The six-dimensional Einstein tensor}
+\label{sec:ambientEin}
+
+In polar normal coordinates $u+iv=re^{i\phi}$ the model reads $ds_6^2=h_{\mu\nu}dx^\mu dx^\nu+dr^2+r^2(d\phi-A)^2$ with $h=g^{(4)}$. Write
+$W_{\mu\nu}=F_{\mu\rho}F_\nu{}^\rho-\tfrac14h_{\mu\nu}F^2$. In signature $(+,-,-,-)$, $-W_{00}=\tfrac12(|\bE|^2+|\bB|^2)$, so a physical Maxwell field enters
+Einstein's equation as $\mathcal G=-2W$ in units where the coupling is absorbed.
+
+\begin{theorem}[The ambient Einstein tensor]
+\label{thm:ein6}
+For every $r>0$, and not as a series in $r$,
+\[
+\mathcal G^{(6)}_{\mu\nu}=\mathcal G_{\mu\nu}[h]-\tfrac{r^2}2W_{\mu\nu},\qquad \mathcal G^{(6)}_{rr}=-\tfrac12R[h]+\tfrac{r^2}8F^2,\qquad
+\mathcal G^{(6)}_{\hat\phi\hat\phi}=-\tfrac12R[h]+\tfrac{3r^2}8F^2,
+\]
+\[
+\mathcal G^{(6)}_{\mu\hat\phi}=\tfrac r2\nabla^\rho F_{\rho\mu},\qquad \mathcal G^{(6)}_{\mu r}=\mathcal G^{(6)}_{r\hat\phi}=0,\qquad R^{(6)}=R[h]-\tfrac{r^2}4F^2,
+\]
+with indices and $\nabla$ referring to $h$. On the slice $\Sigma$ the Einstein tensor is
+\[
+\mathcal G^{(6)}\big|_\Sigma=\operatorname{diag}\bigl(\mathcal G_{\mu\nu}[h],\,-\tfrac12R[h],\,-\tfrac12R[h]\bigr):
+\]
+its tangential block is the four-dimensional Einstein tensor exactly, with no stress term from $F$.
+\end{theorem}
+
+\begin{proof}
+The projection onto $(M,h)$ is a semi-Riemannian submersion with flat, totally geodesic fibres: for $U,V\in\{\partial_r,\partial_\phi\}$ and the horizontal lifts
+$E_\mu=\partial_\mu+A_\mu\partial_\phi$ one has $[U,E_\mu]=0$ and $E_\mu\,g(U,V)=0$, so the Koszul formula gives $g(\nabla_UV,E_\mu)=0$. The integrability tensor is
+$\tfrac12[E_\mu,E_\nu]^{\rm vert}=\tfrac12F_{\mu\nu}\partial_\phi$ with $|\partial_\phi|^2=r^2$. O'Neill's formulas, valid for semi-Riemannian submersions with nondegenerate
+fibres \cite{ONeill66,ONeill83,Besse87}, then give $R^{(6)}_{\mu\nu}=R_{\mu\nu}[h]-\tfrac{r^2}2F_{\mu\rho}F_\nu{}^\rho$, $R^{(6)}_{\mu\hat\phi}=\tfrac r2\nabla^\rho F_{\rho\mu}$,
+$R^{(6)}_{\hat\phi\hat\phi}=\tfrac{r^2}4F^2$ and $R^{(6)}_{rr}=0$, from which the Einstein components follow. They have also been checked symbolically on a Friedmann base
+$h=\operatorname{diag}(1,-t^2,-t^2,-t^2)$ with $A=z\,dt+\tfrac12x^2dy$, which carries both electric and magnetic fields.
+\end{proof}
+
+\begin{corollary}[Sign, reduction and rigidity]
+\label{cor:ein6}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item The tangential equation $\mathcal G[h]=+\tfrac{r^2}2W$ has the opposite sign to $\mathcal G=-2W$: the normal field strength gravitates with negative energy.
+The sign is forced: a Lorentzian four-plane in $\R^{3,3}$ uses one positive and three negative directions, so its normal plane has signature $(2,0)$, the
+sign of time.
+\item Over a normal disc of radius $r_c$, $\int\!\!\int\sqrt{|g_6|}\,R^{(6)}\,d\phi\,dr=\sqrt{|h|}\bigl(\pi r_c^2R[h]-\tfrac{\pi r_c^4}8F^2\bigr)$. The Euler--Lagrange
+equation of $\int\sqrt{|h|}(a_1R+a_2F^2)$ is $a_1\mathcal G+2a_2W=0$, so Einstein--Maxwell theory has $a_2/a_1=+1$ while the reduced action has $a_2/a_1=-r_c^2/8$: the
+wrong relative sign.
+\item The vacuum is rigid: $\mathcal G^{(6)}=0$ if and only if $F=0$ and $h$ is Ricci-flat. The internal equations differ by $\tfrac{r^2}4F^2$, which forces $F^2=0$ and
+then $R[h]=0$; the tangential equation must hold at every $r$ while $\mathcal G[h]$ and $W$ do not depend on $r$, so $\mathcal G[h]=0$ and $W=0$ separately, and $W=0$
+forces $F=0$ because $-W_{00}$ is positive definite.
+\end{enumerate}
+\end{corollary}
+
+Reduction on directions of timelike sign is known to give fields whose kinetic terms have the wrong sign \cite{Hull98}, and the negative-energy vector
+found here is an instance. The two mechanisms of rigidity can be separated by changing the fibre. With a normal fibre of constant size,
+$ds_6^2=h+\ell^2(d\psi-A)^2+m^2d\chi^2$, still of signature $(3,3)$, the internal equations force only $F^2=0$, and null fields survive.
+
+\begin{example}[Negative-energy null radiation]
+\label{ex:nullwave}
+Take $h=2\,dU\,dV-H\,dU^2-dX^2-dY^2$ and $A=a(U)X\,dU$, so $F=a(U)\,dX\wedge dU$ is null. The only nonzero component of the six-dimensional Einstein tensor is
+$\mathcal G^{(6)}_{UU}=-\tfrac12(H_{XX}+H_{YY}-\ell^2a^2)$, so
+\[
+H=\tfrac14\ell^2a(U)^2(X^2+Y^2)
+\]
+solves the six-dimensional vacuum with $F\neq0$. In four-dimensional terms $\mathcal G_{UU}[h]=-\tfrac12\ell^2a^2<0$, whereas a physical null Maxwell wave has
+$\mathcal G_{UU}=-2W_{UU}=+2a^2>0$: the wave is negative-energy radiation. With the fibre size the coordinate $r$, as in \eqref{eq:kk}, the same field gives a
+tangential component graded in $r$ that forces $a=0$.
+\end{example}
+
+More generally, with $ds_6^2=h+e^{2\alpha(x)}(d\psi-A)^2+e^{2\beta(x)}d\chi^2$,
+\[
+\mathcal G^{(6)}_{\hat\psi\hat\psi}-\mathcal G^{(6)}_{\hat\chi\hat\chi}=\tfrac14e^{2\alpha}F^2-\Box(\alpha-\beta)-\nabla(\alpha-\beta)\cdot\nabla(\alpha+\beta).
+\]
+For a breathing mode $\alpha=\beta$ the difference is a pure constraint and only null $F$ survives; for a relative modulus it is a field equation for $\alpha-\beta$,
+and $F^2\neq0$ becomes admissible. Non-null $F$ therefore needs the ratio of the two normal sizes to be a dynamical field. None of these escapes repairs
+the sign.
+
+\subsection{Off the slice}
+
+On $\Sigma$ the $F$-couplings, which all carry $r$, switch off. Taking the four-geometry off the zero section requires care, because the level set
+$\{r=r_0\}$ is five-dimensional. Its quotient by the $U(1)$ is four-dimensional and carries $h$, and the ambient Einstein tensor in the horizontal frame is
+$\mathcal G[h]-\tfrac{r_0^2}2W$, with the sign above. A section $\phi=\chi(x)$ of $\{r=r_0\}$ is a four-dimensional submanifold with induced metric
+\[
+h_\chi=h+r_0^2\,B\otimes B,\qquad B:=d\chi-A ,
+\]
+where $B$ is the St\"uckelberg combination, invariant under $A\mapsto A+d\lambda$, $\chi\mapsto\chi+\lambda$; $\det h_\chi=\det h\,(1+r_0^2|B|^2)$, so $h_\chi$ is Lorentzian
+only where $1+r_0^2|B|^2>0$, and the section is totally geodesic on an open set only where $B=0$, which requires $F=0$.
+
+\begin{example}[A uniform magnetic field]
+\label{ex:landau}
+Take $h=\eta$ and $F=b\,dx\wedge dz$. On a static section the circulation of $B$ around a circle of radius $R_c$ in an $x$--$z$ plane is $-\pi bR_c^2$, whatever $\chi$,
+so $\sum_iB_i^2\ge b^2R_c^2/4$ somewhere on it, and the section metric has signature $(2,2)$ there as soon as $R_c>2/(r_0b)$. In the gauge $A=bx\,dz$ with $\chi=0$,
+\[
+h_\chi=dt^2-dx^2-dy^2-(1-k^2x^2)\,dz^2,\qquad R[h_\chi]=-\frac{2k^2}{(1-k^2x^2)^2},\qquad k=r_0b,
+\]
+which degenerates at $|x|=1/k$, where its curvature diverges, and has signature $(2,2)$ beyond. The Lorentzian region of a static section in a uniform field
+contains no circle of radius larger than $2/(r_0b)$.
+\end{example}
+
+\subsection{Holonomy acting on the bound orbits}
+
+The interior dynamics of \cref{sec:neutral} can now be transported around a loop of the model. A circuit enclosing normal flux $\Phi$ rotates the frame by
+$h=\exp(\Phi R_N)$, with $R_N$ the rotation of the normal plane $N$. $R_N$ preserves $\eta$, but it rotates a temporal plane without its spatial partner, so it is not
+among the diagonal rotations of \cref{thm:GLorentz}, and exactly
+\[
+h=\id+\sin\Phi\,R_N+(1-\cos\Phi)R_N^2,\qquad hGh^{-1}-G=\sin\Phi\,A_1+(1-\cos\Phi)\,A_2
+\]
+with $A_1,A_2$ linearly independent, so $hGh^{-1}=G$ if and only if $\Phi\in2\pi\Z$. The second-order equation $\ddot X=-\kappa^2X$ does not see this, but the momentum
+does: a zero-momentum orbit $X(\tau)=e^{-\kappa G\tau}X_0$ carried once around becomes $hX(\tau)$, and
+\[
+\alpha_+(hX)=\kappa\,(G-hGh^{-1})\,hX ,
+\]
+which vanishes for every $X_0$ only when $\Phi\in2\pi\Z$. Normal curvature therefore converts bound orbits of zero momentum into orbits that carry momentum, through
+exactly the failure of the normal $U(1)$ to centralise the binding root.
+
+\subsection{Flows do not transfer}
+
+In DeTurck gauge Ricci flow reads $\partial_tg_{MN}=\Delta_gg_{MN}+Q(g,\partial g)$, and short-time existence requires the principal symbol $g^{PQ}\xi_P\xi_Q$ to be
+definite \cite{Hamilton82,DeTurck83}. In signature $(3,3)$ it has signature $(3,3)$: the operator is ultrahyperbolic, the gauge-fixed flow is not parabolic, and the
+standard Ricci--DeTurck theory does not apply. In the para-K\"ahler case the metric comes locally from a potential depending on coordinates along both
+foliations, $g_{i\bar\jmath}=\partial^2\Phi/\partial x^i\partial y^j$ \cite{Shima07}, but suppressing one set of variables degenerates the metric rather than producing a Hessian
+one; a real Monge--Amp\`ere flow on a convex locus \cite{Cao85} would need its own domain, data and a proof that it preserves the arena's structures, and is a
+programme rather than a result.

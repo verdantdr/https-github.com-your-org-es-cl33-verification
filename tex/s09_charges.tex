@@ -1,0 +1,153 @@
+\section{Charges and anomalies}
+\label{sec:charges}
+
+The weak and colour algebras of a block are fixed by the projector; the abelian charges are not. This section asks how much the
+algebra says about them, first inside the arena and then in a layer that uses nothing from the arena at all.
+
+\subsection{A pairing obstruction}
+\label{sec:pairing}
+
+The family block of $\Pfam$ carries three abelian charges. The centre of $\keff(\Pfam)$ is spanned by the block images of
+$X_a\in\{\tfrac12J^{(1)},\tfrac12J^{(3)},\tfrac12e^{(3)}_5e^{(3)}_6\}$, and their charges $q_a:=-J(2X_a)\Pfam$ are commuting symmetric
+involutions of the block, with eigenvalues $\pm1$ and $\Tr q_a=0$. The cubic anomaly of $u=aq_1+bq_2+cq_3$ is the chiral trace
+\[
+\mathcal A(u^3)=\tfrac14\bigl[\Tr(u^3P_L)-\Tr(u^3P_R)\bigr],\qquad P_{L,R}=\Pfam\tfrac12(\id\mp\Gamma),
+\]
+per Weyl component, right-handed components entering with conjugated charge when every field is written left-handed. Since
+$q_a^2=\Pfam$ and the linear chiral traces vanish, only the mixed term survives:
+\[
+\mathcal A(u^3)=6abc\,\mathcal A(q_1q_2q_3)=96\,abc ,
+\]
+while the plain trace $\Tr(u^3)$ vanishes for every $u$ and carries no information about anomalies. The anomaly-free locus is the union
+of the three coordinate planes $abc=0$, and on it there is nothing to select.
+
+\begin{theorem}[Conjugate pairing]
+\label{thm:pairing}
+Let a module carry three commuting involutions $q_a$ with eigenvalues $\pm1$ and $\Tr q_a=0$. For every $u=aq_1+bq_2+cq_3$ with
+$abc=0$ the weight multiset of $u$ is symmetric, $\mathrm{mult}(w)=\mathrm{mult}(-w)$.
+\end{theorem}
+
+\begin{proof}
+Take $c=0$; only the joint multiplicities $M_{s_1s_2}$ of $(q_1,q_2)$ matter. The trace conditions give
+$M_{++}+M_{+-}-M_{-+}-M_{--}=0$ and $M_{++}-M_{+-}+M_{-+}-M_{--}=0$; adding and subtracting, $M_{++}=M_{--}$ and $M_{+-}=M_{-+}$. The
+weight of $(s_1,s_2)$ is $as_1+bs_2$, and $(s_1,s_2)\mapsto(-s_1,-s_2)$ negates it while preserving multiplicities.
+\end{proof}
+
+The proof uses only the three linear traces, with no reference to rank, rung or realisation, so within its hypotheses no
+enlargement of the block and no ascent of the tower repairs it. Charge pairing is all that is concluded: calling a full matter
+representation vector-like would also require the chirality convention and the other gauge factors. And the hypotheses are not
+decorative.
+
+\begin{example}[Vanishing traces do not imply pairing]
+\label{ex:multiset}
+The multiset $\{(-3)^{\times5},1^{\times10},5^{\times1}\}$ has $\sum q=-15+10+5=0$ and $\sum q^3=-135+10+125=0$, yet it is not symmetric under
+$q\mapsto-q$. It is realised by three commuting involutions with joint signs and multiplicities $(+,+,+){:}\,1$, $(-,-,+){:}\,10$,
+$(+,-,-){:}\,5$: these have traces $(\Tr q_1,\Tr q_2,\Tr q_3)=(-4,-14,6)$, so the hypotheses of \cref{thm:pairing} fail, while
+$Y=q_1+q_2+3q_3$ has spectrum $\{5^{\times1},1^{\times10},(-3)^{\times5}\}$ with $\Tr Y=\Tr Y^3=0$. Leaving the hypotheses therefore need not
+violate the gravitational condition, which constrains $\Tr Y$ for the gauged combination and not $\Tr q_a$ for each basis charge
+\cite{AlvarezGaumeWitten,Bilal}.
+\end{example}
+
+\subsection{Dressing, and a benchmark}
+\label{sec:benchmark}
+
+The escape from \cref{thm:pairing} is to leave its hypotheses. On the family block let
+\[
+t^1=-J\cdot\tfrac12e^{(2)}_5e^{(2)}_6,\qquad t^2=-J\cdot\tfrac12e^{(2)}_6e^{(2)}_4,\qquad t^3=-J\cdot\tfrac12e^{(2)}_4e^{(2)}_5
+\]
+be the weak charges, whose skew counterparts, the rotations of the spatial directions of constituent two, span the derived $\su2$ of
+$\keff(\Pfam)$; let $\varepsilon=\pm1$ be an orientation sign, and put $t^a_{L,R}=P_{L,R}t^a$,
+\[
+B_0=\frac\varepsilon6\,\Gamma(q_1+q_2+q_3),\qquad Y=B_0+t^3_R,\qquad Q_{\rm em}=t^3_L+Y .
+\]
+The cell sums $\varepsilon\sum_aq_a$ are $\{-1,-1,-1,3\}$ on the $\Gamma=-1$ half and $\{-3,1,1,1\}$ on the other, which gives
+$B_0|_{\Gamma=-1}=\{\tfrac16,\tfrac16,\tfrac16,-\tfrac12\}$ and, after adding $t^3_R=\pm\tfrac12$ on the right-handed cells,
+$Y\in\{0,-1,\tfrac23,-\tfrac13\}$ there. Over the sixteen left-handed Weyl components $\Tr Y=\Tr Y^3=\Tr T_3^2Y=0$ with four doublets, so all
+four anomaly conditions hold, and $\Tr T_3^2/\Tr Q^2=3/8$. This hypercharge is adopted, not derived.
+
+\begin{proposition}[The escape]
+\label{prop:escape}
+\Cref{thm:pairing} constrains undressed elements of $\uu1^3$, which lie in the vector class. The charge $B_0$ carries a factor $\Gamma$ and is
+axial, not an element of $\uu1^3$, so the cubic-trace formula does not apply to it. Once chirality-dressed endomorphisms are admitted,
+which abelian charges can be gauged changes, and no-go results proved in the undressed grade-two setting do not carry across; a well-posed
+search must say which Clifford grades are permitted alongside $Y^\dagger=Y$, $[Y,t_{La}]=0$ and $[Y,C_A]=0$.
+\end{proposition}
+
+Since $P_L+P_R=\id$, $Q_{\rm em}=t^3+B_0$: the chirality dressing cancels identically in the electric charge when the same axis is used in
+both terms and is visible only in the split into $T_3$ and $Y$. The value $3/8$ is arithmetic on a charge table; it becomes $\sin^2\theta_W$
+only after a common normalisation of the gauge kinetic terms and a matching scale, neither of which is supplied. Five choices enter the
+benchmark: the projector, the dressing, which abelian direction is $Y$, which right-handed axis, and the overall sign.
+
+\subsection{A model-independent layer}
+\label{sec:modelindep}
+
+The following uses nothing from the arena. It calibrates how much of the hypercharge problem is generic.
+
+\begin{theorem}[The anomaly variety of one family]
+\label{thm:variety}
+For one family with $N_c$ colours and a right-handed neutrino, with left-handed hypercharges $q,l$ and right-handed $y_u,y_d,y_\nu,y_e$,
+the three linear conditions give $l=-N_cq$, $y_d=2q-y_u$, $y_e=2l-y_\nu$. With $h_q=y_u-q$ and $h_\ell=y_\nu-l$ the cubic condition
+factorises,
+\[
+\mathcal A_{Y^3}=6N_cq\,(h_\ell^2-h_q^2),
+\]
+using $2q^3-y_u^3-(2q-y_u)^3=-6qh_q^2$. The solution set is the union of three planes: $\Pi_A$ ($h_\ell=h_q$), $\Pi_B$ ($h_\ell=-h_q$) and
+$\Pi_C$ ($q=l=0$). On $\Pi_A$ the four Yukawa relations $y_u=q+h$, $y_d=q-h$, $y_\nu=l+h$, $y_e=l-h$ hold, so they are consequences of anomaly
+cancellation rather than assumptions; $\Pi_B$ is the image of $\Pi_A$ under the exchange $\nu_R\leftrightarrow e_R$. At $N_c=3$ and
+$h=\tfrac12$, $\Pi_A$ is the line $Y=Y_{\rm SM}+\lambda(\BmL)$.
+\end{theorem}
+
+Anomaly cancellation does not supply the scalar, its hypercharge, or nonvanishing couplings. Quark Yukawa couplings alone do not exclude
+$\Pi_C$ either: at $N_c=3$ the point $(q,l,y_u,y_d,y_\nu,y_e)=(0,0,\tfrac12,-\tfrac12,1,-1)$ with scalar hypercharge $\tfrac12$ cancels all four
+anomalies and permits both quark Yukawas, yet $h_q=\tfrac12\neq h_\ell=1$. What excludes it is integrality: with $q=0$ the left-handed quarks
+carry $\pm\tfrac12$ and a three-quark singlet has half-integral charge.
+
+\begin{theorem}[Without $\nu_R$ hypercharge is quantised]
+\label{thm:nonu}
+Deleting $\nu_R$ gives $y_e=2l$ and $\mathcal A_{Y^3}=6N_cq(N_c^2q^2-h_q^2)$, so on the generic branch $h_q=\pm N_cq$ is locked and
+hypercharge is fixed up to scale and relabelling: at $N_c=3$, $q=\tfrac16$ gives the Standard-Model values with no residual $\BmL$ direction.
+\end{theorem}
+
+This is the classical charge-quantisation result \cite{FootLewVolkas,GengMarshak}. Its bearing here is that the difficulty of selecting
+hypercharge on a family block exists because the block carries sixteen Weyl components rather than fifteen: the sterile neutrino is both
+the block's virtue and the source of the ambiguity.
+
+\begin{proposition}[Integrality, and what it does not fix]
+\label{prop:integrality}
+On $\Pi_A$ with $Q_{\rm em}=T^3_L+Y$, the leptons carry $Q_\nu=-\lambda$ and $Q_e=-1-\lambda$, so integrality of the charged lepton forces
+$\lambda\in\Z$, and colour triality then gives integral charge to every colour singlet. It does not fix the fractional part of the quark
+charges, since $Q_u=\tfrac23+\lambda/3$, and neutrality does not close the argument for composites: $Q(ddd)=\lambda-1$ and $Q(uuu)=\lambda+2$, so
+neutral colour-singlet operators of odd fermion parity exist at $\lambda=1$ and $\lambda=-2$. A neutral \emph{elementary} colour-singlet
+fermion exists if and only if $\lambda\in\{0,-1\}$, and those two values are exchanged by $\nu\leftrightarrow e$.
+\end{proposition}
+
+Three other routes fail to single out the Standard Model. The kernel of the representation is not a selection principle: its order
+depends on $\lambda$ through the integer normalisation of the weights. Nor is a $\Z_6$ kernel evidence for three colours: with a neutral
+$\nu_R$ the kernel is $\Z_{2N_c}$ for odd $N_c$ and $\Z_{N_c}$ for even $N_c$. And integrality does not select three either: on the standard
+branch every $N_c$-quark colour singlet has integral charge exactly for odd $N_c$, and the number $N_c+1$ of weak doublets per family, which
+the global $SU(2)$ anomaly requires to be even \cite{Witten82}, is even exactly for odd $N_c$. All three facts hold at every odd $N_c$. With
+$N_g$ generations the standard branch has $2N_g$ parameters, and the anomaly-free directions include $L_e-L_\mu$ and $L_\mu-L_\tau$
+\cite{HeJoshiLewVolkas}, so family universality is an input that grows with $N_g$. The global structure of the gauge group is a separate
+datum \cite{Tong,GaiottoKapustinSeibergWillett}.
+
+\subsection{Charge at one constituent}
+
+Complexifying, the spinor module of one constituent is $\Lambda^\bullet\C^3$, and its even half is spanned by
+$|0\rangle,|12\rangle,|13\rangle,|23\rangle$. The diagonal Fock charge $N_1-N_2$ has spectrum $\{0,0,+1,-1\}$ there, the charge skeleton of
+$(\nu,\bar\nu,e^+,e^-)$.
+
+\begin{theorem}[No unique charge at one constituent]
+\label{thm:fock}
+The condition $\spec Q=\{0,0,+1,-1\}$ on the even half, for $Q=\sum_iq_iN_i+c$, has exactly twelve solutions, forming two orbits of
+$S_3\times\{\pm1\}$: $Q=N_i-N_j$ with $c=0$, and $Q=N_i+N_j-1$ with $c=-1$. The antiparticle condition $CQC^{-1}=-Q$, with $C$ the Hodge
+conjugation, holds on both orbits and does not separate them.
+\end{theorem}
+
+\begin{proof}
+Summing the four values gives $4c+2\sum_iq_i=0$. If the neutral pair is $\{|0\rangle,|ij\rangle\}$ then $c=0$ and $q_i+q_j=0$, which forces
+the third coefficient to vanish; if it is $\{|ij\rangle,|ik\rangle\}$ then $q_j=q_k$, $c=-q_j$ and $q_i=0$.
+\end{proof}
+
+The further step, $Q|0\rangle=0$ and hence $c=0$, is the separate assumption that the state identified with the neutrino is the Fock vacuum.
+Choosing between the orbits is an identification, not a derivation, and it has the same shape as the hypercharge problem two rungs up,
+differing in size and not in kind.

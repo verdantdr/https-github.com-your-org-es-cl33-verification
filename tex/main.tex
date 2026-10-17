@@ -1,0 +1,180 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=2.5cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs,longtable,array,enumitem}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,calc,positioning,decorations.pathreplacing,patterns,matrix,fit,backgrounds}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.16}
+\usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
+\usepackage{cleveref}
+\emergencystretch=1.5em
+\AddToHook{env/tabular/begin}{\upshape}
+\setlength{\parskip}{0pt}
+
+% ---------------------------------------------------------------- theorem environments
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newcommand{\sharedthm}[2]{\newtheorem{#1}[theorem]{#2}\crefname{#1}{#2}{#2s}\AddToHook{env/#1/begin}{\crefalias{theorem}{#1}}}
+\sharedthm{proposition}{Proposition}
+\sharedthm{lemma}{Lemma}
+\sharedthm{corollary}{Corollary}
+\sharedthm{conjecture}{Conjecture}
+\theoremstyle{definition}
+\sharedthm{definition}{Definition}
+\sharedthm{example}{Example}
+\sharedthm{remark}{Remark}
+\sharedthm{assumption}{Assumption}
+\crefname{theorem}{Theorem}{Theorems}
+\crefname{section}{Section}{Sections}
+\crefname{appendix}{Appendix}{Appendices}
+\crefname{part}{Part}{Parts}
+\crefname{subsection}{Section}{Sections}
+\crefname{figure}{Figure}{Figures}
+\crefname{table}{Table}{Tables}
+\crefname{equation}{}{}
+\creflabelformat{equation}{(#2#1#3)}
+
+% ---------------------------------------------------------------- notation
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\HH}{\mathbb{H}}
+\newcommand{\Cl}{\mathrm{Cl}}
+\newcommand{\so}[1]{\mathfrak{so}(#1)}
+\newcommand{\su}[1]{\mathfrak{su}(#1)}
+\newcommand{\uu}[1]{\mathfrak{u}(#1)}
+\newcommand{\spp}[1]{\mathfrak{sp}(#1)}
+\newcommand{\slr}[1]{\mathfrak{sl}(#1)}
+\newcommand{\Tr}{\operatorname{Tr}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\id}{\mathbf 1}
+\newcommand{\ad}{\operatorname{ad}}
+\newcommand{\Ad}{\operatorname{Ad}}
+\newcommand{\Pf}{\operatorname{Pf}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\spec}{\operatorname{spec}}
+\newcommand{\Hom}{\operatorname{Hom}}
+\newcommand{\End}{\operatorname{End}}
+\newcommand{\Cent}{\operatorname{Cent}}
+\newcommand{\Stab}{\operatorname{Stab}}
+\newcommand{\Ric}{\operatorname{Ric}}
+\renewcommand{\Re}{\operatorname{Re}}
+\renewcommand{\Im}{\operatorname{Im}}
+\newcommand{\lG}{\mathfrak l_G}
+\newcommand{\lint}{\mathfrak l_{\rm int}}
+\newcommand{\gint}{\mathfrak g_{\rm int}}
+\newcommand{\keff}{\mathfrak k_{\rm eff}}
+\newcommand{\Pfam}{P_{\rm fam}}
+\newcommand{\cK}{\mathcal K}
+\newcommand{\cR}{\mathcal R}
+\newcommand{\cF}{\mathcal F}
+\newcommand{\cL}{\mathcal L}
+\newcommand{\cG}{\mathcal G}
+\newcommand{\Kc}{\mathsf K}
+\newcommand{\bB}{\mathbf B}
+\newcommand{\bE}{\mathbf E}
+\newcommand{\bA}{\mathbf A}
+\newcommand{\bj}{\mathbf j}
+\newcommand{\bk}{\mathbf k}
+\newcommand{\bp}{\mathbf p}
+\newcommand{\bv}{\mathbf v}
+\newcommand{\Btext}{\mathbf B_{\rm t}}
+\newcommand{\BmL}{B\!-\!L}
+\newcommand{\half}{\tfrac12}
+\newcommand{\wL}{\Omega}
+\newcommand{\wI}{\omega_I}
+\newcommand{\curl}{\nabla\times}
+\newcommand{\slashed}[1]{\ensuremath{#1\!\!\!/}}
+
+% ---------------------------------------------------------------- figure colours
+\definecolor{tcol}{RGB}{31,94,163}     % temporal / compact
+\definecolor{scol}{RGB}{189,60,40}     % spatial / boost
+\definecolor{gcol}{RGB}{46,125,50}     % gauge / weak
+\definecolor{ocol}{RGB}{214,130,20}    % colour / auxiliary
+\definecolor{lgray}{RGB}{225,225,225}
+\definecolor{mgray}{RGB}{150,150,150}
+
+\title{\textbf{The electromagnetic sphere}\\[6pt]
+\large Structure, matter, dynamics and causal structure of the split-signature\\
+Clifford algebra $\Cl(3,3)$ and its tower}
+\author{Driss Bencheikh}
+\date{17 October 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent
+We study the real Clifford algebra $\Cl(3,3)\cong M_8(\R)$ of the split space $\R^{3,3}$, read as three temporal
+directions paired with three spatial ones, together with its graded tower $\Cl(3n,3n)$, and ask which ingredients of
+relativistic field theory the algebra fixes and which it merely admits. At one constituent the joint commutant of the
+interior Lorentz action and the internal bivectors determines the imaginary unit up to sign; charge conjugation is the
+surplus temporal plane, time reversal squares to $-\id$, and the kinetic and mass forms reduce the admissible gauge algebra
+to a single $\uu1$, which is also the entire internal centraliser. Along the tower the internal centraliser is
+$\so{3n-1,3n-3}$. At three constituents an explicit axial projector of rank $64$ carries the Pati--Salam algebra and one
+chiral family with a right-handed neutrino, whereas a Lorentz action taken diagonally across the constituents yields a
+compact internal algebra $\so6\oplus\so3$ forming a reductive dual pair with the Lorentz algebra, on a vector-like
+module. The anti-isometry pairing the two triples identifies $\R^{3,3}$ with the field-strength space
+$\Lambda^2\R^{1,3}$, on which it acts as the Hodge star; covariance then fixes the form of Maxwell's equations but not
+their sources. The interior dynamics binds only in neutral signature, and its force law closes in exactly one way, into a
+rotor whose angle is the duality angle of the momentum. On the $272$-dimensional space of Lorentz-invariant mass kernels of
+the chiral block we classify the renormalizable potential of its $(\mathbf{10},\mathbf1,\mathbf3)$ component, give sufficient and,
+separately, necessary conditions for the Standard-Model orbit to be its global minimum, and compute the one-loop spectrum of its angular modes. In a curved
+arena both readings of $\R^{3,3}$ construct the Einstein tensor of a given metric. Finally, choosing a Lorentzian
+four-plane is equivalent to choosing the complex structure, no invariant scalar potential selects that choice cleanly, and
+the surplus-time constraints follow from a worldline gauge symmetry. Throughout, the algebra fixes forms and
+representations; it selects neither the projector, the hypercharge direction, the couplings nor the metric.
+\end{abstract}
+
+\tableofcontents
+
+\input{s01_intro}
+\part{The arena at one constituent}
+\input{s02_arena}
+\input{s03_clock}
+\input{s04_dirac}
+\input{s05_discrete}
+\part{The tower and its matter}
+\input{s06_tower}
+\input{s07_projectors}
+\input{s08_pstar}
+\input{s09_charges}
+\input{s10_actions}
+\part{Gauge fields and the electromagnetic reading}
+\input{s11_fields}
+\input{s12_emfield}
+\input{s13_spin}
+\input{s14_orth}
+\part{Interior dynamics}
+\input{s15_shifted}
+\input{s16_neutral}
+\input{s17_closure}
+\part{The vacuum}
+\input{s18_subfields}
+\input{s19_kernels}
+\input{s20_selection}
+\input{s21_matter}
+\input{s22_goldstone}
+\part{Curvature, transport and the photon}
+\input{s23_curved}
+\input{s24_curvop}
+\input{s25_transport}
+\input{s26_photon}
+\part{Causal structure}
+\input{s27_baseline}
+\input{s28_selector}
+\input{s29_typesel}
+\input{s30_constraints}
+\part{Assessment}
+\input{s31_assessment}
+\appendix
+\crefalias{section}{appendix}
+\input{sA_realisation}
+\input{sB_methods}
+\input{refs}
+\end{document}

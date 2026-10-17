@@ -1,0 +1,384 @@
+\section{Selecting the Standard-Model orbit}
+\label{sec:selection}
+
+The Standard-Model line $\Phi_0$ lies in the $(\mathbf{10},\mathbf1,\mathbf3)$ component, which is small enough to be analysed completely. We first classify
+the renormalizable potential on that component and give sufficient and necessary conditions for $\Phi_0$ to be its global minimum; then we add the gauge
+and matter fluctuations;
+and finally we return to the whole of $\Kc$.
+
+\subsection{The tensor model}
+
+Let $\su4\oplus\su2_R$ act on $\C^8=\C^4\otimes\C^2$ by Hermitian generators normalised by $\Tr T_aT_b=\tfrac12\delta_{ab}$ in the fundamental, and on complex
+symmetric $8\times8$ matrices by $S\mapsto USU^{\!\top}$. The subspace
+\[
+\mathcal T=\mathrm{Sym}^2(\C^4)\otimes\mathrm{Sym}^2(\C^2)\subset\mathrm{Sym}^2(\C^8),\qquad \dim_\C\mathcal T=30,\qquad |S|^2=\Tr S^\dagger S,
+\]
+is invariant and irreducible, isomorphic to $(\mathbf{10},\mathbf1,\mathbf3)$. With $e_1,\dots,e_4$ and $e_\pm$ the standard bases of $\C^4$ and $\C^2$, $\BmL=\operatorname{diag}(\tfrac13,\tfrac13,\tfrac13,-1)$
+and $T^R_3=\operatorname{diag}(\tfrac12,-\tfrac12)$, the vectors $e_i\otimes e_+$, $e_4\otimes e_+$, $e_i\otimes e_-$, $e_4\otimes e_-$ ($i\le3$) carry $Y=\tfrac23,0,-\tfrac13,-1$:
+they are $u_R$, $\nu_R$, $d_R$, $e_R$, and a component of $S$ is a pair of them. Put $u_0=e_4\otimes e_+$ and $S_0=u_0u_0^{\!\top}$.
+
+\begin{proposition}[From kernels to tensors]
+\label{prop:tensor}
+The component $\Kc_{(\mathbf{10},\mathbf1,\mathbf3)}$ is $J$-invariant of real dimension $60$, and with $J$ as complex structure it is isomorphic to $\mathcal T$ by a
+Pati--Salam-equivariant $\iota$ with $\Tr\Phi^{\!\top}\Phi=4|\iota(\Phi)|^2$, unique up to a phase, with $\iota(\Phi_0)=e^{i\varphi}S_0$. For
+$S=\iota(\Phi)$, $\Phi^{\!\top}\Phi$ is supported on the $\Gamma=+1$ half and has the spectrum of $S^\dagger S$, each eigenvalue four times, so
+\[
+N:=\Tr\Phi^{\!\top}\Phi=4|S|^2,\qquad Q:=\Tr(\Phi^{\!\top}\Phi)^2=4\Tr(S^\dagger S)^2,\qquad \frac Q{N^2}=\frac14\,\frac{\Tr(S^\dagger S)^2}{|S|^4}.
+\]
+\end{proposition}
+
+Let $P_1,\dots,P_5$ be the orthogonal projectors of $\mathrm{Sym}^2\mathcal T$ onto its five irreducible components
+\[
+(\mathbf{35},\mathbf5)\oplus(\mathbf{35},\mathbf1)\oplus(\mathbf{20}',\mathbf5)\oplus(\mathbf{20}',\mathbf1)\oplus(\mathbf{45},\mathbf3),\qquad 175+35+100+20+135=465,
+\]
+and put $I_k(S)=\langle S\otimes S,P_k(S\otimes S)\rangle\ge0$, so that $\sum_kI_k=|S|^4$.
+
+\begin{theorem}[The renormalizable potential of $(\mathbf{10},\mathbf1,\mathbf3)$]
+\label{thm:potential}
+The most general renormalizable invariant potential on $\mathcal T$ is
+\begin{equation}
+\label{eq:Vgeneral}
+V(S)=-\mu^2|S|^2+\sum_{k=1}^5\lambda_kI_k(S)+\kappa\,\mathcal D(S)+\bar\kappa\,\overline{\mathcal D(S)},\qquad \lambda_k\in\R,\ \kappa\in\C,
+\end{equation}
+where the holomorphic quartic is
+\[
+\mathcal D(S)=\tfrac1{24}\,\epsilon^{abcd}\epsilon^{efgh}P_{ab,ef}(S)P_{cd,gh}(S),\qquad P_{ab,ef}(S)=\varepsilon_{su}\varepsilon_{tv}S_{as,et}S_{bu,fv},
+\]
+with colour indices $a,\dots,h$ and $\su2_R$ indices $s,t,u,v$. There is no invariant cubic. Moreover:
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item $\mathcal D(e^{i\theta}S)=e^{4i\theta}\mathcal D(S)$, every $I_k$ is phase invariant, and $\mathcal D$ is not a combination of the $I_k$.
+\item $\mathcal D$ depends on $S$ only through the $(\mathbf{20}',\mathbf1)$ component of $S\otimes S$, and $|\mathcal D(S)|\le\tfrac38I_4(S)$, with equality at
+$S=\id_4\otimes\id_2$.
+\item Under fermion number $S\mapsto e^{2i\theta}S$, so the $I_k$ are invariant and $\mathcal D\mapsto e^{8i\theta}\mathcal D$: \eqref{eq:Vgeneral} is invariant
+under fermion number if and only if $\kappa=0$. $\mathcal D$ has $\BmL=0$ and fermion number $8$, hence baryon number $2$.
+\end{enumerate}
+\end{theorem}
+
+The trivial representation occurs in $\mathcal T\otimes\bar{\mathcal T}$, $\mathrm{Sym}^2\mathcal T$, $\mathrm{Sym}^3\mathcal T$, $\mathrm{Sym}^2\mathcal T\otimes\bar{\mathcal T}$,
+$\mathrm{Sym}^4\mathcal T$, $\mathrm{Sym}^3\mathcal T\otimes\bar{\mathcal T}$ and $\mathrm{Sym}^2\mathcal T\otimes\mathrm{Sym}^2\bar{\mathcal T}$ with multiplicities $1,0,0,0,1,0,5$,
+which is the content of the theorem. The phase of $\kappa$ can be removed by $S\mapsto e^{i\alpha}S$, so only $|\kappa|$ matters. The contraction of four
+$(\mathbf{10},\mathbf1,\mathbf3)$ fields with two $SU(4)$ $\epsilon$ tensors is the baryon-number-violating coupling of Pati--Salam models through which diquark
+components mediate neutron--antineutron oscillation \cite{MohapatraMarshak80,ChackoMohapatra99}.
+
+Two lemmas organise the quartics. The first is the recoupling identity $\Tr(S^\dagger S)^2=I_1-\tfrac12I_2-\tfrac12I_3+\tfrac14I_4+0\cdot I_5$, obtained from
+Schur--Weyl duality on $(\C^4)^{\otimes4}\otimes(\C^2)^{\otimes4}$. The second characterises the orbit of $S_0$.
+
+\begin{lemma}[The highest-weight orbit]
+\label{lem:hw}
+For $S\in\mathcal T\setminus0$ the following are equivalent: $S\otimes S$ lies in $(\mathbf{35},\mathbf5)$; $\Tr(S^\dagger S)^2=|S|^4$; $\operatorname{rank}S=1$;
+$S=(a\otimes b)(a\otimes b)^{\!\top}$ with $a\in\C^4$, $b\in\C^2$; $S$ lies on the orbit $\mathcal O_{\rm hw}$ of $\C^\times S_0$.
+\end{lemma}
+
+This is the Kostant--Lichtenstein description of the highest-weight orbit by quadrics \cite{Lichtenstein82}. On $\mathcal O_{\rm hw}$ the colour factor of $S$
+has rank one, so $\mathcal D$ vanishes there; more precisely $\mathcal D$ and its first and second derivatives vanish at $S_0$, and
+\[
+\mathcal D(s_0S_0+\delta)=s_0\Bigl(\tfrac13\epsilon_{ijk}\epsilon_{lmn}U_{il}D_{jm}D_{kn}-\tfrac1{12}\epsilon_{ijk}\epsilon_{lmn}M_{il}M_{jm}D_{kn}\Bigr)+\mathcal D(\delta),
+\]
+with $U$, $M$, $D$ the symmetric $3\times3$ matrices of the colour sextets $u_Ru_R$, $u_Rd_R$, $d_Rd_R$. In the vacuum the holomorphic quartic contributes
+nothing to the masses and produces the cubic couplings $\kappa v\,\epsilon\epsilon\,\Delta_{uu}\Delta_{dd}\Delta_{dd}$ and $\kappa v\,\epsilon\epsilon\,\Delta_{ud}\Delta_{ud}\Delta_{dd}$ of
+diquarks of hypercharges $\tfrac43,\tfrac13,-\tfrac23$, each of baryon number two. With the Yukawa couplings of the diquarks to quark pairs, here the
+single coupling $y$ of \eqref{eq:Saction}, the vertex closes into a six-quark $\Delta B=2$ operator, the Pati--Salam mechanism of neutron--antineutron
+oscillation; the present limits on the oscillation time are $8.6\times10^7$\,s for free neutrons \cite{BaldoCeolin94} and $4.7\times10^8$\,s from
+neutrons bound in oxygen \cite{SuperK21}.
+
+\subsection{Where the Standard-Model orbit is the global minimum}
+
+Number the components $k=1,\dots,5$ as above, put $f_k(S)=I_k(S)/|S|^4$ (so $f_k\ge0$, $\sum f_k=1$), $d(S)=|\mathcal D(S)|/|S|^4$, and
+\[
+\Delta_k=\lambda_k-\lambda_1\ (k\ge2),\qquad \Lambda(S)=\sum_k\lambda_kf_k(S)=\lambda_1+\sum_{k\ge2}\Delta_kf_k(S),\qquad \Lambda_\kappa(S)=\Lambda(S)-2|\kappa|\,d(S).
+\]
+For a unit vector $\hat S$, $\min_\varphi V(re^{i\varphi}\hat S)=-\mu^2r^2+\Lambda_\kappa(\hat S)r^4$, because the $I_k$ do not depend on the phase and
+$2\Re(\kappa e^{4i\varphi}\mathcal D(\hat S))$ reaches $-2|\kappa||\mathcal D(\hat S)|$. With $\mu^2>0$ the potential is bounded below iff $\Lambda_\kappa>0$ on the unit
+sphere, the minimum along a ray is $-\mu^4/(4\Lambda_\kappa)$, and the vacuum is the configuration of smallest $\Lambda_\kappa$.
+
+\begin{theorem}[Selection without the holomorphic quartic]
+\label{thm:select0}
+Let $\kappa=0$, $\mu^2>0$, $\lambda_1>0$ and $\Delta_2,\dots,\Delta_5>0$. The global minima of \eqref{eq:Vgeneral} are exactly the points of $\mathcal O_{\rm hw}$ with
+$|S|^2=\mu^2/(2\lambda_1)$, with $V_{\min}=-\mu^4/(4\lambda_1)$. They form one orbit of real dimension nine, and the stabiliser of each point is conjugate to
+$\su3\oplus\uu1_Y$ inside $\su4\oplus\su2_R$ with $Y=T^R_3+\tfrac12(\BmL)$; together with $\su2_L$, which acts trivially on $(\mathbf{10},\mathbf1,\mathbf3)$, this is the
+Standard-Model algebra.
+\end{theorem}
+
+\begin{proof}
+$\Lambda\ge\lambda_1$, with equality iff $f_2=\dots=f_5=0$, that is iff $S\in\mathcal O_{\rm hw}$ by \cref{lem:hw}; the unit-norm part of $\mathcal O_{\rm hw}$ is a single
+orbit, of dimension $18-9$.
+\end{proof}
+
+The unbroken $\uu1$ is an output, computed as the stabiliser: the weights of the vacuum, not a choice of embedding, fix the hypercharge. This is the
+vacuum of Pati--Salam and left--right models with a $(\mathbf{10},\mathbf1,\mathbf3)$ field \cite{PatiSalam,MohapatraSenjanovic81}; the theorem says for which couplings
+the dynamics chooses it.
+
+\begin{theorem}[Selection with the holomorphic quartic]
+\label{thm:selectk}
+Let $\mu^2>0$ and $\kappa\in\C$.
+\begin{enumerate}[label=(\alph*),leftmargin=2.2em]
+\item If $\lambda_1,\lambda_2,\lambda_3,\lambda_5>0$ and $\lambda_4>\tfrac34|\kappa|$, the potential is bounded below; if it is bounded below then $\lambda_1>0$ and
+$2\lambda_1+\lambda_2+2\lambda_3+\lambda_4>\tfrac34|\kappa|$.
+\item If $\lambda_1>0$, $\Delta_2,\Delta_3,\Delta_5>0$ and $\Delta_4>\tfrac34|\kappa|$, the global minima are exactly the points of $\mathcal O_{\rm hw}$ with
+$|S|^2=\mu^2/(2\lambda_1)$.
+\item If those points are global minima, then $\Delta_2\ge0$, $\Delta_3\ge0$, $2\Delta_2+2\Delta_3+4\Delta_4+9\Delta_5\ge0$ and
+$\Delta_2+2\Delta_3+\Delta_4\ge\tfrac34|\kappa|$.
+\item The second variation at the Standard-Model orbit does not depend on $\kappa$.
+\end{enumerate}
+\end{theorem}
+
+At the benchmark couplings $\lambda=(1,1.7,2.3,3.1,2.9)$ the bounds read: $\tfrac43\Delta_4=2.8$, sufficient for selection; $\tfrac43(\Delta_2+2\Delta_3+\Delta_4)=7.2$,
+necessary for selection and equal to the computed threshold; $\tfrac43\lambda_4=4.13$, sufficient for boundedness; and $\tfrac43(2\lambda_1+\lambda_2+2\lambda_3+\lambda_4)=15.2$,
+necessary for boundedness. Gradient flows confirm the transition at $|\kappa|=7.2$: from random starts the flow reaches the Standard-Model orbit for every
+$|\kappa|$, as it must, since the orbit is always a local minimum, but for $6\le|\kappa|\le7.5$ one of two starts ends on the orbit of $\id_4\otimes\id_2$, which is
+the higher of the two minima for $|\kappa|\le7$ and the lower for $|\kappa|\ge7.5$: at the benchmark,
+$f(\id_4\otimes\id_2)=(\tfrac13,\tfrac16,\tfrac13,\tfrac16,0)$ and $d(\id_4\otimes\id_2)=\tfrac1{16}$, so
+$\Lambda_\kappa(\id_4\otimes\id_2)-\Lambda_\kappa(S_0)=0.9-\tfrac18|\kappa|$, which changes sign at $|\kappa|=7.2$.
+
+\begin{theorem}[Second variation at the Standard-Model orbit]
+\label{thm:secondvar}
+At $S_v=vS_0$ the sixty real fluctuations split into $SU(3)\times U(1)_Y$ multiplets, each with one mass:
+\begin{center}
+\small
+\begin{tabular}{@{}llccl@{}}
+\toprule
+pair & $SU(3)_Y$ & $\dim_\R$ & $m^2/v^2$ & role\\
+\midrule
+$\nu_R\nu_R$ (modulus) & $1_0$ & $1$ & $4\lambda_1$ & radial\\
+$\nu_R\nu_R$ (phase), $\nu_Re_R$, $u_R\nu_R$ & $1_0$, $1_{-1}$, $3_{2/3}$ & $1+2+6$ & $0$ & eaten\\
+$e_Re_R$ & $1_{-2}$ & $2$ & $\tfrac43\Delta_2$ & $\Delta_{ee}$\\
+$u_Re_R+d_R\nu_R$ & $3_{-1/3}$ & $6$ & $\Delta_5$ & $\Delta_{ue}$\\
+$d_Re_R$ & $3_{-4/3}$ & $6$ & $\tfrac23\Delta_2+\Delta_5$ & $\Delta_{de}$\\
+$u_Ru_R$ & $6_{4/3}$ & $12$ & $\tfrac43\Delta_3$ & $\Delta_{uu}$\\
+$u_Rd_R$ & $6_{1/3}$ & $12$ & $\tfrac23\Delta_3+\Delta_5$ & $\Delta_{ud}$\\
+$d_Rd_R$ & $6_{-2/3}$ & $12$ & $\tfrac49\Delta_2+\tfrac29\Delta_3+\tfrac49\Delta_4+\Delta_5$ & $\Delta_{dd}$\\
+\bottomrule
+\end{tabular}
+\end{center}
+Consequently $S_v$ is a non-degenerate local minimum on $\mathcal T$ iff $\lambda_1,\Delta_2,\Delta_3,\Delta_5>0$ and $2\Delta_2+2\Delta_3+4\Delta_4+9\Delta_5>0$, a region that
+strictly contains the cone of \cref{thm:select0}; and, independently of the couplings,
+\begin{equation}
+\label{eq:sumrules}
+m_{de}^2=m_{ue}^2+\tfrac12m_{ee}^2,\qquad m_{ud}^2=m_{ue}^2+\tfrac12m_{uu}^2 .
+\end{equation}
+\end{theorem}
+
+\begin{example}[Checking a sum rule]
+\label{ex:sumrule}
+At the benchmark $\lambda=(1,1.7,2.3,3.1,2.9)$ one has $\Delta=(0.7,1.3,2.1,1.9)$, so in units of $v^2$: $m_{ee}^2=\tfrac43\cdot0.7=0.9\overline3$,
+$m_{ue}^2=1.9$, $m_{de}^2=\tfrac23\cdot0.7+1.9=2.3\overline6$, and indeed $1.9+\tfrac12\cdot0.9\overline3=2.3\overline6$. Likewise $m_{uu}^2=\tfrac43\cdot1.3=1.7\overline3$
+and $m_{ud}^2=\tfrac23\cdot1.3+1.9=2.7\overline6=1.9+\tfrac12\cdot1.7\overline3$. The full $60\times60$ mass matrix at these couplings and $\mu^2=2$ has the
+predicted spectrum to $4\times10^{-15}$.
+\end{example}
+
+The colour-sextet components $\Delta_{uu},\Delta_{ud},\Delta_{dd}$ are the diquarks just met, and $\Delta_{ee}$ is the doubly charged scalar of left--right models.
+The sum rules \eqref{eq:sumrules} hold for the most general renormalizable potential of a single $(\mathbf{10},\mathbf1,\mathbf3)$, with or without $\kappa$. When one of the
+bounds $\Delta_2,\Delta_3,\Delta_5>0$ fails, gradient flows end on configurations of lower energy that break electric charge or colour: the configuration
+$(e_4e_4)(e_+e_-)$, for instance, keeps colour, but its unbroken abelian factor is $T^R_3$ instead of $Y$.
+
+\subsection{The trace potential}
+
+The kernel field carries two quartic invariants that do not refer to the Pati--Salam decomposition at all, $N^2$ and $Q=\Tr(\Phi^{\!\top}\Phi)^2$; they are
+invariant under every orthogonal change of basis of the block that preserves $\Kc$, in particular under fermion number, so the trace potential has
+$\kappa=0$.
+
+\begin{theorem}[The trace potential on $(\mathbf{10},\mathbf1,\mathbf3)$]
+\label{thm:tracepot}
+Let $V_{\rm tr}=-\mu^2N+\alpha N^2+\beta Q$ with $\mu^2>0$. In the variables of \cref{thm:potential}, $\lambda_k=16\alpha+4\beta a_k$ with $a=(1,-\tfrac12,-\tfrac12,\tfrac14,0)$,
+so $(\Delta_2,\Delta_3,\Delta_4,\Delta_5)=-4\beta\,(\tfrac32,\tfrac32,\tfrac34,1)$. If $\beta<0$ and $\alpha+\tfrac14\beta>0$, the global minimum is the Standard-Model orbit; if
+$\beta>0$ and $\alpha+\tfrac1{32}\beta>0$, the minima are the $S$ with $S^\dagger S=\tfrac18|S|^2\id_8$, and every one of them breaks colour; if $\beta=0$ the potential is
+$O(60)$-symmetric and the orbit is chosen by fluctuations.
+\end{theorem}
+
+$Q/N^2$ measures how concentrated the Majorana mass matrix is: it equals $\tfrac14$ when one fermion carries all of it and $\tfrac1{32}$ when the eight
+right-handed fermions share it equally. A negative $\beta$ rewards concentration on a single line, and the only line on which the dynamics can concentrate
+without breaking colour is $\nu_R$. The Standard-Model vacuum is the concentrated phase of the Majorana mass, which is the three-constituent form of
+the Majorana phase of \cref{thm:twophases}.
+
+\subsection{The fluctuations decide: back-reaction on \texorpdfstring{$(\mathbf{10},\mathbf1,\mathbf3)$}{(10,1,3)}}
+
+Take the tree potential degenerate on $(\mathbf{10},\mathbf1,\mathbf3)$, $\lambda_1=\dots=\lambda_5$ and $\kappa=0$, the case $\beta=0$. Every unit direction of $\mathcal T$ is then a
+tree-level minimum, and the orbit is chosen by the one-loop potential \eqref{eq:V1}. Gauge and Yukawa interactions respect fermion number, so they do not
+generate $\kappa$ in perturbation theory. Write $L=\ln(\Lambda_{\rm UV}^2/v^2)$. The orbit-dependent part of the leading logarithm is
+\[
+\delta V=\frac L{64\pi^2}\Bigl[2\sum_{\rm fam}\Tr(M_F^\dagger M_F)^2-3\Tr M_V^4-\Tr M_S^4\Bigr],
+\]
+where for the degenerate tree potential $\Tr M_S^4$ depends on $|S|$ only. Here and in \cref{sec:fullK} the field is normalised canonically. By
+\cref{prop:tensor}, $\Tr\Phi^{\!\top}\Phi=4|\iota(\Phi)|^2$, so the kinetic term of \cref{ass:field} is $\Tr(DS)^\dagger(DS)$ for $S:=\sqrt2\,\iota(\Phi)$, and from
+here on $S$ denotes this field and $v=|S|=|\Phi|/\sqrt2=\sqrt2\,r$, the $v$ of \cref{sec:fullK,sec:matter}. In these variables the right-handed neutrino mass
+$|y|r$ of \cref{sec:kernels} reads $(|y|/\sqrt2)\,v$, so the $y$ of $M_F=yS$ below is the coupling of \eqref{eq:Saction} divided by $\sqrt2$, while the
+coupling $g$ is the same as in \cref{thm:compat}. The vector mass matrix is $(M_V^2)_{ab}=2g^2\Re\Tr(T_aS+ST_a^{\!\top})^\dagger(T_bS+ST_b^{\!\top})$
+with one coupling for $\su4$ and $\su2_R$, and the eight right-handed Weyl fermions get the Majorana matrix $M_F=yS$.
+
+\begin{theorem}[One-loop selection on $(\mathbf{10},\mathbf1,\mathbf3)$]
+\label{thm:oneloop1013}
+At leading logarithm, $\Tr M_V^4=g^4\sum_kc_kI_k$ with $c=(33,3,-3,39,5)$ and $\Tr(M_F^\dagger M_F)^2=y^4\sum_ka_kI_k$, and the fluctuations generate the gaps
+\[
+\Delta_k=\frac L{64\pi^2}\,g^4\bigl(G_k-x\,F_k\bigr),\qquad G=(90,108,-18,84),\quad F=(3,3,\tfrac32,2),\qquad x=\frac{\sum_{\rm fam}y^4}{g^4}.
+\]
+Gauge fluctuations favour the Standard-Model orbit in the directions $k=2,3,5$, and matter fluctuations disfavour it in every direction. The Standard-Model
+orbit is a non-degenerate local minimum on $\mathcal T$ iff $x<30$, the binding conditions being those of $\Delta_{ee}$ and $\Delta_{dd}$. The configuration $\id_4\otimes\id_2$
+has excess $\tfrac L{64\pi^2}g^4(48-\tfrac74x)$ over the Standard-Model orbit, negative for $x>\tfrac{192}7\approx27.43$.
+\end{theorem}
+
+At $x=0$ the radiatively generated masses are, in units of $\tfrac L{64\pi^2}g^4v^2$, $m_{ee}^2=120$, $m_{ue}^2=84$, $m_{de}^2=144$, $m_{uu}^2=144$, $m_{ud}^2=156$ and
+$m_{dd}^2=120$, which satisfy \eqref{eq:sumrules}; the fifty massive scalars are pseudo-Goldstone bosons of the accidental $O(60)$ symmetry of the tree potential
+\cite{Weinberg72,GildenerWeinberg76}. A projected gradient flow on the unit sphere of $\mathcal T$ from random starts finds no configuration below the Standard-Model
+orbit for $x\le27$, finds the orbit of $\id_4\otimes\id_2$ as the only competitor, and confirms that its energy crosses zero at $x=192/7$; between $192/7$ and $30$ the
+Standard-Model vacuum is metastable on $\mathcal T$. We conjecture that on $\mathcal T$ the Standard-Model orbit is the global minimum of the one-loop potential exactly
+for $x<192/7$.
+
+With $M_N=yv$ and $M_{W_R}=gv$, $x=\sum_{\rm fam}(M_N/M_{W_R})^4$; in the couplings of \eqref{eq:Saction} and \cref{thm:compat},
+$x=\sum_{\rm fam}y^4/(4g^4)$. Stated in terms of masses, $x$ does not depend on the normalisation. The content of the bound is structural: the Majorana Yukawa coupling, matter's only handle on the
+vacuum, pushes towards configurations in which the Majorana mass is shared among several fermions, and the gauge fluctuations hold the Standard-Model orbit only
+while the heavy neutrinos are not much heavier than $W_R$.
+
+\subsection{The full kernel space}
+\label{sec:fullK}
+
+The general invariant potential on all of $\Kc$ has too many couplings to be classified usefully: the numbers of linearly independent Pati--Salam-invariant
+real polynomials of degrees $1,2,3,4$ are $0,18,0,686$, and with fermion number imposed $0,12,0,402$. Two structures do not depend on these couplings.
+
+\begin{proposition}[A left--right involution]
+\label{prop:LR}
+Let $O=E_1E_7E_8$ restricted to $V_*$. It commutes with $P_*$ and with the rotations, satisfies $O^{\!\top}K^0O=K^0$, $O^{\!\top}K^iO=-K^i$, $O\Gamma O^{\!\top}=-\Gamma$ and
+$OJO^{\!\top}=J$, and maps $t^L_i$ to $\pm t^R_i$ and each colour bivector to $\pm$ itself. Hence $\psi(t,\mathbf x)\mapsto O\psi(t,-\mathbf x)$, $\Phi\mapsto O\Phi O^{\!\top}$,
+with the corresponding map of the gauge fields, is a symmetry of the kinetic, Yukawa and gauge terms of \eqref{eq:Saction}, and of the trace invariants. The image
+$\Phi_0'=O\Phi_0O^{\!\top}$ is a kernel in $(\mathbf{10},\mathbf3,\mathbf1)$ orthogonal to $\Phi_0$, the mirror vacuum of left--right models, and along the great circle
+$\hat u(\theta)=\cos\theta\,\hat u_0+\sin\theta\,\hat u_0'$, $Q=\tfrac14-\tfrac18\sin^22\theta$.
+\end{proposition}
+
+The Standard-Model vacuum and its mirror are exchanged by a symmetry of the action, so an $O$-invariant potential cannot prefer one of them; the choice between
+breaking $\su2_R$ and breaking $\su2_L$ is spontaneous, as in models of spontaneous parity violation \cite{SenjanovicMohapatra75}.
+
+Now take the tree potential degenerate on all of $\Kc$, $V_0=-\mu^2N+\alpha N^2$, invariant under the accidental $O(272)$. For a unit vector $\hat u\in\Kc$ put
+\[
+\begin{gathered}
+Q(\hat u)=\Tr(\hat u^{\!\top}\hat u)^2,\qquad T(\hat u)=\Tr\bigl(G^{-1}K(\hat u)\bigr)^2,\qquad K(\hat u)_{ab}=\langle[t_a,\hat u],[t_b,\hat u]\rangle,\\
+E_x(\hat u)=8x\,Q(\hat u)-\tfrac3{16}T(\hat u),
+\end{gathered}
+\]
+with the $21$ Pati--Salam generators $t_a$ and the module metric $G$. The orientation-dependent part of the leading logarithm is then
+$\delta V=\tfrac L{64\pi^2}g^4v^4E_x(\Phi/|\Phi|)$ with $v=|\Phi|/\sqrt2$, and at the Standard-Model point $E_x(\hat u_0)=2x-99$.
+
+\begin{theorem}[One-loop second variation on all of $\Kc$]
+\label{thm:fullsecond}
+Let $H(x)$ be the second variation of $E_x$ at $\hat u_0$ on the $271$-dimensional tangent space of the unit sphere.
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item $H(x)=H_G+xH_F$ with $H_F=-8(\id-\Pi_\nu)$, where $\Pi_\nu$ is the orthogonal projector of rank $32$ onto the kernels that pair $\nu_R$ with a Weyl fermion of the
+block. $H_G$ preserves each Pati--Salam component of $\Kc$.
+\item With $m^2=\tfrac12\times$(eigenvalue of $H(x)$) in units of $\tfrac L{64\pi^2}g^4v^2$, the $271$ angular modes have the masses of \cref{tab:271}.
+\item $H(x)$ is non-negative with kernel exactly the nine Goldstone directions if and only if $x<27$. At $x=27$ the six modes of $\ell_L\ell_L$, the left-handed triplet,
+become massless, and for $x>27$ they are tachyonic.
+\end{enumerate}
+\end{theorem}
+
+\begin{table}[t]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}llccl@{}}
+\toprule
+fermion pair & multiplet & $\dim_\R$ & component & $m^2$\\
+\midrule
+$\nu_R\nu_R$ (phase), $\nu_Re_R$, $\nu_Ru_R$ & $(1,1)_0,(1,1)_1,(3,1)_{2/3}$ & $1+2+6$ & $(\mathbf{10},\mathbf1,\mathbf3)$ & $0$ (Goldstone)\\
+$e_Re_R$ & $(1,1)_2$ & $2$ & $(\mathbf{10},\mathbf1,\mathbf3)$ & $120-4x$\\
+$d_Re_R$ & $(3,1)_{4/3}$ & $6$ & $(\mathbf{10},\mathbf1,\mathbf3)$ & $144-4x$\\
+$u_Ru_R$ & $(6,1)_{4/3}$ & $12$ & $(\mathbf{10},\mathbf1,\mathbf3)$ & $144-4x$\\
+$u_Rd_R$ & $(6,1)_{1/3}$ & $12$ & $(\mathbf{10},\mathbf1,\mathbf3)$ & $156-4x$\\
+$d_Rd_R$ & $(6,1)_{2/3}$ & $12$ & $(\mathbf{10},\mathbf1,\mathbf3)$ & $120-4x$\\
+$u_Re_R\pm d_R\nu_R$ & $(3,1)_{1/3}$ & $6+6$ & $(\mathbf{10},\mathbf1,\mathbf3)$, $(\mathbf6,\mathbf1,\mathbf1)_R$ & eigenvalues of $M_3$\\
+$u_Rd_R$ (antisymmetric) & $(3,1)_{1/3}$ & $6$ & $(\mathbf6,\mathbf1,\mathbf1)_R$ & $180-4x$\\
+$u_Le_L-d_L\nu_L$, $u_Ld_L$ & $(3,1)_{1/3}$ & $6+6$ & $(\mathbf6,\mathbf1,\mathbf1)_L$ & $180-4x$\\
+$\ell_L\ell_L$ & $(1,3)_1$ & $6$ & $(\mathbf{10},\mathbf3,\mathbf1)$ & $108-4x$\\
+$q_L\ell_L$ & $(3,3)_{1/3}$ & $18$ & $(\mathbf{10},\mathbf3,\mathbf1)$ & $156-4x$\\
+$q_Lq_L$ & $(6,3)_{1/3}$ & $36$ & $(\mathbf{10},\mathbf3,\mathbf1)$ & $180-4x$\\
+$q_L$--$u_R$, $q_L$--$d_R$ (octet) & $(8,2)_{1/2}$ & $64$ & $(\mathbf{15},\mathbf2,\mathbf2)$ & $174-4x$\\
+$\ell_L$--$u_R$, $q_L$--$e_R$ & $(3,2)_{7/6}$ & $24$ & $(\mathbf{15},\mathbf2,\mathbf2)$ & $162-4x$\\
+$\ell_L$--$d_R$ & $(3,2)_{1/6}$ & $12$ & $(\mathbf{15},\mathbf2,\mathbf2)$ & $114-4x$\\
+$q_L$--$\nu_R$ & $(3,2)_{1/6}$ & $12$ & $(\mathbf{15},\mathbf2,\mathbf2)$ & $114$\\
+$q_L$--$d_R$, $\ell_L$--$e_R$ (singlets) & $(1,2)_{1/2}$ & $4+4$ & $(\mathbf{15},\mathbf2,\mathbf2)$, $(\mathbf1,\mathbf2,\mathbf2)$ & $138-4x$, $186-4x$\\
+$q_L$--$u_R$, $\ell_L$--$\nu_R$ (singlets) & $(1,2)_{1/2}$ & $4+4$ & $(\mathbf{15},\mathbf2,\mathbf2)$, $(\mathbf1,\mathbf2,\mathbf2)$ & eigenvalues of $M_2$\\
+\bottomrule
+\end{tabular}
+\caption{The radiatively generated masses of the $271$ angular modes of the kernel field at the Standard-Model vacuum, in units of $\tfrac L{64\pi^2}g^4v^2$, with
+$x=\sum_{\rm fam}(M_N/M_{W_R})^4$ (\cref{thm:fullsecond}). Pairs written $ff'$ are of Majorana type, pairs written $f$--$f'$ of Dirac type; multiplets are given
+under $SU(3)\times SU(2)_L$ with $|Y|$. The two mixing matrices are
+$M_3=\bigl(\begin{smallmatrix}84-2x&2x\\2x&180-2x\end{smallmatrix}\bigr)$ and $M_2=\bigl(\begin{smallmatrix}138-x&\sqrt3x\\\sqrt3x&186-3x\end{smallmatrix}\bigr)$, with eigenvalues
+$132-2x\mp2\sqrt{x^2+576}$ and $162-2x\mp2\sqrt{x^2-12x+144}$.}
+\label{tab:271}
+\end{table}
+
+Statement (i) is the mechanism by which matter opposes the Standard-Model orbit, now on all of $\Kc$. At fixed $|\Phi|$ the fermion loop $2\sum m_f^4$ is largest when the
+whole Majorana mass sits on $\nu_R$; it decreases quadratically along every direction that moves mass onto pairs not containing $\nu_R$ and is stationary along the
+directions that pair $\nu_R$ with another fermion. Every mode that does not involve $\nu_R$ therefore has slope $-4$, and the first of them to become massless is the one
+with the smallest gauge contribution, the left-handed triplet. The mixing in $M_3$, between the $(\mathbf{10},\mathbf1,\mathbf3)$ mode $u_Re_R+d_R\nu_R$ and the $(\mathbf6,\mathbf1,\mathbf1)_R$
+mode $u_Re_R-d_R\nu_R$, is an instance of the mixing announced at the end of \cref{sec:kernels}: it moves the $\Delta_{ue}$ threshold from $42$ to $315/11$. The
+thresholds are the zeros of the lowest lines,
+\[
+x=27\ (\ell_L\ell_L),\qquad x=28.5\ (\ell_L\text{--}d_R),\qquad x=\tfrac{315}{11}\approx28.64\ (M_3),\qquad x=30\ (e_Re_R,\ d_Rd_R),
+\]
+and \cref{fig:radiative} shows them. Along the great circle of \cref{prop:LR},
+\[
+E_x(\hat u(\theta))=2x-99+(27-x)\sin^22\theta ,
+\]
+so for $x>27$ the Standard-Model vacuum descends towards the left--right symmetric configuration $\theta=\pi/4$, where $\nu_R$ and a left-handed lepton carry equal
+Majorana masses.
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}
+\begin{axis}[width=12.5cm,height=7.6cm,xmin=0,xmax=32,ymin=-15,ymax=200,
+  xlabel={$x=\sum_{\rm fam}(M_N/M_{W_R})^4$},ylabel={$m^2$ in units of $\frac{L}{64\pi^2}g^4v^2$},
+  axis lines=left,clip=true,xtick={0,5,10,15,20,25,30},ytick={0,50,100,150,200},
+  ylabel style={font=\small},xlabel style={font=\small},
+  legend style={at={(0.02,0.03)},anchor=south west,font=\footnotesize,fill=white,draw=mgray},legend cell align=left]
+\fill[lgray!60] (axis cs:24.884,-15) rectangle (axis cs:27,200);
+\addplot[gray!70,thin,forget plot,domain=0:32] {144-4*x};
+\addplot[gray!70,thin,forget plot,domain=0:32] {156-4*x};
+\addplot[gray!70,thin,forget plot,domain=0:32] {162-4*x};
+\addplot[gray!70,thin,forget plot,domain=0:32] {174-4*x};
+\addplot[gray!70,thin,forget plot,domain=0:32] {180-4*x};
+\addplot[gray!70,thin,forget plot,domain=0:32] {186-4*x};
+\addplot[gray!70,thin,forget plot,domain=0:32] {114};
+\addplot[gray!70,thin,forget plot,domain=0:32,samples=60] {162-2*x+2*sqrt(x^2-12*x+144)};
+\addplot[gray!70,thin,forget plot,domain=0:32,samples=60] {162-2*x-2*sqrt(x^2-12*x+144)};
+\addplot[gray!70,thin,forget plot,domain=0:32,samples=60] {132-2*x+2*sqrt(x^2+576)};
+\addplot[scol,very thick,domain=0:32] {108-4*x}; \addlegendentry{$\ell_L\ell_L$: $108-4x$}
+\addplot[ocol,thick,domain=0:32] {114-4*x}; \addlegendentry{$\ell_L$--$d_R$: $114-4x$}
+\addplot[gcol,thick,domain=0:32,samples=80] {132-2*x-2*sqrt(x^2+576)}; \addlegendentry{lower eigenvalue of $M_3$}
+\addplot[tcol,thick,domain=0:32] {120-4*x}; \addlegendentry{$e_Re_R$, $d_Rd_R$: $120-4x$}
+\draw[black,dashed] (axis cs:0,0) -- (axis cs:32,0);
+\draw[gray,densely dotted] (axis cs:27,-15) -- (axis cs:27,200);
+\draw[gray,densely dotted] (axis cs:28.5,-15) -- (axis cs:28.5,200);
+\draw[gray,densely dotted] (axis cs:28.636,-15) -- (axis cs:28.636,200);
+\draw[gray,densely dotted] (axis cs:30,-15) -- (axis cs:30,200);
+\node[anchor=north east,font=\scriptsize,align=right] at (axis cs:24.7,196) {metastable band\\ $x_*\le x\le27$};
+\end{axis}
+\end{tikzpicture}
+\caption{Radiatively generated masses of the angular modes of the kernel field at the Standard-Model vacuum (\cref{thm:fullsecond}, \cref{tab:271}). The coloured lines
+are the four lowest; they cross zero at $x=27$, $28.5$, $315/11$ and $30$ (dotted). The Standard-Model orbit is a non-degenerate local minimum for $x<27$, and numerically
+it is the global minimum for $x<x_*\approx24.884$; in the shaded band it is metastable.}
+\label{fig:radiative}
+\end{figure}
+
+\begin{proposition}[Random-start minimisation]
+\label{prop:randomstart}
+$E_x$ was minimised on the unit sphere of $\Kc$ by a quasi-Newton method from Gaussian random starts, with two independent implementations. For $x=0,20,22$ every run
+ended at the energy $2x-99$ of the Standard-Model orbit or of its mirror. At $x=25$ a third of the runs ended below it, at a configuration with weight $0.968$ on
+$(\mathbf{10},\mathbf1,\mathbf3)$ and $0.032$ on $2(\mathbf6,\mathbf1,\mathbf1)$, whose stabiliser of dimension nine contains $\su2_L$ and projects onto colour with rank six, whereas any
+algebra containing $\su3$ projects with rank at least eight: colour is broken. There four right-handed Weyl fermions carry Majorana masses, one of them about twice as heavy
+as the other three. Followed in $x$, this minimum crosses the energy of the Standard-Model orbit at $x_*=24.88405$.
+\end{proposition}
+
+We conjecture that in the radiative scenario on $\Kc$ the Standard-Model orbit and its mirror are the global minima exactly for $x<x_*$, and that for $x_*<x<27$ the
+Standard-Model vacuum is metastable. The competitor again spreads the Majorana mass, now over four right-handed fermions instead of one, which is what the fermion loop
+rewards, at the price of breaking colour, which the gauge loop penalises. In terms of masses the local condition and the conjectured global one read
+\[
+\begin{aligned}
+&M_N<27^{1/4}M_{W_R}=2.280\,M_{W_R}\quad\text{and}\quad M_N<2.233\,M_{W_R}&&\text{(one family dominating)},\\
+&M_N<9^{1/4}M_{W_R}=1.732\,M_{W_R}\quad\text{and}\quad M_N<1.697\,M_{W_R}&&\text{(three degenerate families)}.
+\end{aligned}
+\]
+They hold under the following restrictions: a tree potential degenerate on $\Kc$ at the matching scale, one loop at leading logarithm, $\kappa=0$, which fermion number
+makes automatic, a common gauge coupling for $\su4$ and $\su2_R$, and a single Yukawa coupling for all components of the kernel field (\cref{ass:field}). The masses of
+\cref{tab:271} are curvatures of the leading-logarithm effective potential divided by the kinetic norm; pole masses would need the wave-function renormalisation and a
+gauge-consistent perturbative expansion, which are not attempted. The bounds are therefore statements about this model and approximation, not bounds on heavy-neutrino
+masses outside it. Within it, the result is that gauge fluctuations make the Standard-Model orientation of the
+Majorana condensate stable in every direction of the kernel space as long as the heavy neutrinos are not much heavier than $W_R$; beyond that, the local instability is
+the condensation of the left-handed triplet, and the configuration that overtakes the Standard-Model orbit globally, at the slightly smaller $x_*$, breaks colour.

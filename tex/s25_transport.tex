@@ -1,0 +1,106 @@
+\section{The projector under transport}
+\label{sec:transport}
+
+In a curved arena an observation projector becomes a field $\Pi(x)=\Pi(x)^2$ that is carried around by the spin connection, $D\Pi=d\Pi+[\Omega,\Pi]$. Two
+curvatures then compete on its image, and their competition decides whether the normal $U(1)$ of the model of \cref{sec:curvedmodel} can be electromagnetism.
+
+\subsection{Two curvatures on the selected bundle}
+
+Differentiating $\Pi^2=\Pi$ gives $\Pi(D\Pi)\Pi=0$ and $(\id-\Pi)(D\Pi)(\id-\Pi)=0$: the covariant derivative of a projector is purely off-diagonal, which is the
+configuration-space statement of \cref{sec:fields} in covariant form. The induced connection $D^{\rm obs}s=\Pi Ds$ on the selected bundle has curvature
+\begin{equation}
+\label{eq:Fobs}
+\mathcal F_{\rm obs}=\Pi\,\mathcal R\,\Pi+\Pi\,(D\Pi\wedge D\Pi)\,\Pi ,
+\end{equation}
+with $\mathcal R_{MN}=\tfrac14R_{MNAB}\gamma^A\gamma^B$ the ambient spin curvature \cite{LawsonMichelsohn}. The two terms have distinct origins: ambient curvature, and the
+motion of the selected subspace relative to ambient transport. The flat case of \cref{sec:fields} keeps only the second.
+
+\begin{proposition}[Transport obstruction]
+\label{prop:obstruct}
+If ambient transport preserves the projector, $D\Pi=0$, then $[\mathcal R_{MN},\Pi]=0$. For the paired-mode projector $\Pi=\tfrac12\id-\tfrac14(\mathsf P+\mathcal V)$ of
+\cref{ex:pairedmode}, $\rank[J_N,\Pi]=4$, and in the model \eqref{eq:kk} with $g^{(4)}$ flat, $\mathcal R_{\mu\nu}=\tfrac12(F_N)_{\mu\nu}J_N$ on $\Sigma$, so
+$[\mathcal R_{\mu\nu},\Pi]=\tfrac12(F_N)_{\mu\nu}[J_N,\Pi]\neq0$ wherever the normal curvature $F_N=dA$ is nonzero.
+\end{proposition}
+
+\begin{proof}
+$D^2\Pi=[\mathcal R,\Pi]$ for any section of the endomorphism bundle, so $D\Pi=0$ forces the condition. The rank is a direct computation in the $8\times8$ realisation.
+\end{proof}
+
+This statement is about the spinor projector and the spin curvature, and the corresponding tangent-level statement is false; the two must not be run together.
+At the tangent level $J_N$ commutes with every generator of $E$ (\cref{lem:JN}), so the rotation it generates fixes $E$ pointwise, and in \eqref{eq:kk} every
+mixed Christoffel symbol vanishes on $\Sigma$: the splitting $TM=E\oplus N$ is Levi-Civita parallel there although $F_N\neq0$. At the spinor level the same rotation is
+not trivial, since $\rank[J_N,\Pi]=4$. Both statements hold simultaneously, and together they are the content of the remark after \cref{prop:constraints}: a
+spinless test particle cannot see the normal connection, and whatever makes it physical has to come from the spinor sector. The general principle that a
+normal-bundle curvature commutes with the projector is a statement about $TM$ and does not transfer to $\End$ of the spinor bundle. Curvature cannot be chosen
+independently of the selection.
+
+\begin{proposition}[The adapted connection]
+\label{prop:adapted}
+Set $\mathcal C:=[\Pi,D\Pi]$ and $\widehat D:=D+\mathcal C$. Then $\widehat D\Pi=0$. For the paired-mode projector, with the Levi-Civita spin connection,
+$D\mathcal V=0$ and $\mathcal V$ commutes with bivectors, so $\mathcal C=\tfrac1{16}[\mathsf P,D\mathsf P]$, again a bivector: the correction stays inside $\mathfrak{spin}(3,3)$. The
+corresponding tangent connection is $\widehat\nabla_XY=\nabla_XY+\tfrac12\cK(\nabla_X\cK)Y$, metric-compatible and $\cK$-preserving, hence generically with torsion.
+\end{proposition}
+
+\begin{proof}
+Write $\delta=D\Pi$, which is off-diagonal. Direct expansion gives $[[\Pi,\delta],\Pi]=-\delta$ for such $\delta$, so $\widehat D\Pi=\delta+[\mathcal C,\Pi]=\delta+[[\Pi,\delta],\Pi]=0$.
+The form of $\mathcal C$ follows from $D\Pi=-\tfrac14D\mathsf P$ and $[\mathcal V,D\mathsf P]=0$. On tangent vectors $\cK^2=\id$ gives $\cK(\nabla\cK)\cK=-\nabla\cK$, so the
+correction $\tfrac12\cK\nabla\cK$ satisfies $\nabla\cK+[\tfrac12\cK\nabla\cK,\cK]=0$, and it is $\eta$-antisymmetric because $\cK$ and $\nabla\cK$ are $\eta$-antisymmetric and
+anticommute. The Levi-Civita connection is the unique torsion-free metric connection, so a metric connection preserving a structure that Levi-Civita transport
+does not preserve carries torsion.
+\end{proof}
+
+The adapted generator is not an internal charge. In the model, with $\Omega=\tfrac12AJ_+$ and $J_+=J_N$, the adapted connection on $\Sigma$ is
+$\widehat\Omega=\tfrac A4(J_+-J_-)$ with $J_-=\tfrac1{\sqrt3}(e_5e_6+e_6e_4+e_4e_5)$, and indeed $[J_+-J_-,\Pi]=0$; but $\bigl[\tfrac12(J_+-J_-),e_4\bigr]=\tfrac1{\sqrt3}(e_6-e_5)\neq0$,
+and likewise for $e_5$ and $e_6$. Preserving the projector has bought commutation with $\Pi$ at the cost of commutation with the physical generators, which is the
+first of the four conditions of \cref{sec:ym}. The identification of the normal $U(1)$ with electromagnetism is not available on this route.
+
+Nor is the observed curvature the field-strength module of \cref{prop:bivectorF}. $\mathcal F_{\rm obs}$ takes values in $\End(\operatorname{im}\Pi)$, and the interior
+bivectors are not elements of that space: all six of them fail to commute with $\Pi$, for instance $[e_4e_5,\Pi]=\tfrac12(e_2e_4-e_1e_5)$. Their compressions $\Pi B\Pi$
+are endomorphisms of the image, but compression is not an algebra map and carries no Lie brackets. The model supplies a direct counterexample: with $\Pi$
+constant and $\Omega=\tfrac12AJ_N$, $\mathcal F_{\rm obs}=\tfrac12\,dA\,\Pi J_N\Pi$, and exact expansion gives
+\[
+\begin{aligned}
+4\sqrt3\;\Pi J_N\Pi=\;&e_1e_2-e_1e_3+e_2e_3-e_4e_5+e_4e_6-e_5e_6\\
+&-\bigl(e_1e_2e_3e_4+e_1e_2e_3e_5+e_1e_2e_3e_6\bigr)+\bigl(e_1e_4e_5e_6+e_2e_4e_5e_6+e_3e_4e_5e_6\bigr),
+\end{aligned}
+\]
+with grade-four terms of the same size as the bivector terms. An electromagnetic two-form and a Lorentz-algebra-valued curvature two-form carry different
+kinds of index, and identifying them needs structure that is not supplied.
+
+\subsection{Projector dynamics is adapted transport}
+
+With the kinetic term $S_\Pi=\tfrac{f^2}2\int\sqrt{|g|}\,\Tr(D_\mu\Pi\,D^\mu\Pi)$ varied along the spin orbit, the Euler--Lagrange equation is \eqref{eq:Pieom} in
+curved form,
+\[
+[\Pi,\Box_D\Pi]=0\qquad\Longleftrightarrow\qquad D_\mu\mathcal C^\mu=0,\qquad \mathcal C_\mu=[\Pi,D_\mu\Pi],
+\]
+so the conserved matrix current of the projector \emph{is} the connection correction of \cref{prop:adapted}: projector dynamics and adapted transport are the same
+data. Built with $\widehat D$ instead of $D$ the functional vanishes identically, which is the same statement read backwards. By \cref{thm:ghost} and
+\cref{ex:ghostPi}, the trace form on the spin orbit of the paired-mode projector has three positive and three negative directions, the compact and the boost
+generators, and on the manifold of orthogonal projectors it is positive definite.
+
+\begin{example}[The angle mode is a St\"uckelberg field]
+\label{ex:stueckelberg}
+The $U(1)$ direction is one of the healthy three: $T=[\tfrac12J_N,\Pi]$ is symmetric with $\Tr(T^2)=+1$. But $T$ is a tangent vector, not a generator, and conjugating by
+$e^{\theta T}$ with $T$ symmetric leaves the orthogonal projectors; the correct one-angle ansatz conjugates by the compact generator itself,
+\[
+\Pi(\theta)=e^{\theta J_N/2}\,\Pi_0\,e^{-\theta J_N/2}.
+\]
+The one-angle geodesic condition $[\Pi,[B,[B,\Pi]]]=0$ with $B=\tfrac12J_N$ holds at $\Pi_0$ and hence along the orbit, so the ansatz is consistent with the
+projector equation, which reduces to an equation for $b_\mu=\partial_\mu\theta+A_\mu$. The action reduces to $\mathcal L_\theta=\tfrac{f^2}2b_\mu b^\mu$, invariant under
+$\theta\mapsto\theta-\lambda$, $A\mapsto A+d\lambda$: the projector angle is a St\"uckelberg field for the normal frame rotation \cite{RueggRuizAltaba04}. Adjoining a
+Maxwell term by hand gives a Proca field with $m_A^2=g_A^2f^2$.
+\end{example}
+
+Read strictly, this is a constraint and not a prediction: neither the Maxwell term nor the scales $g_A$ and $f$ is derived, and a massive normal vector is not the
+photon. Together with the failure of the adapted generator to commute with the physical generators it leaves a dichotomy: either the normal $U(1)$ is not
+electromagnetic, or the paired-mode projector is not the observation projector. The next section resolves it in one direction.
+
+\subsection{Is the flat obstruction a torsion statement?}
+
+The factorisation condition $a=\tfrac12(G-G^{\!\top})=0$ of \cref{thm:factor} survives covariantisation, and requiring transport to preserve the observation projector
+adds to the Levi-Civita connection a frame-antisymmetric correction, which is contorsion. One may conjecture that these are the same object: that in a first-order
+formulation with an independent connection \cite{Peldan94} $G$ is not a background but the connection's own shift. The types do not yet match, and that is part of the
+work: $a$ is an endomorphism while contorsion is a one-form valued in metric-skew endomorphisms, so a relation such as $a=K_\mu\dot x^\mu$ needs a stated contraction and
+normalisation before it is even a proposition. And the flat exclusion cannot be borrowed for it: by \cref{thm:virial} and \cref{thm:neutral}, what repairs binding is
+the split form, not curvature or torsion, so the antisymmetric part $a$ is not what binding was waiting for.
