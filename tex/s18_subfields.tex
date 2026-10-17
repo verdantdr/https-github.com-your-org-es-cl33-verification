@@ -40,7 +40,7 @@ Let $\omega_W$ be the ordered product of the three generators of $W$.
 
 \begin{theorem}[Complex structure or projector]
 \label{thm:subdichotomy}
-For every three-plane $W$ of signature $(p,q)$, $\omega_W$ commutes with the generators in $W$ and anticommutes with those outside it, and
+For every coordinate three-plane $W$ of signature $(p,q)$, $\omega_W$ commutes with the generators in $W$ and anticommutes with those outside it, and
 \[
 \omega_W^2=-(-1)^q\,\id,\qquad \omega_W^{\!\top}=-(-1)^q\,\omega_W .
 \]
@@ -56,6 +56,14 @@ the Dirac mass form, the time-reversal factor of \cref{thm:PT}, and the chiralit
 A generator inside $W$ shares one index with $\omega_W$, so by \eqref{eq:bladecomm} the sign is $(-1)^{3-1}=+1$; one outside shares none, and
 the sign is $(-1)^3=-1$. The square and the transpose follow from \eqref{eq:transpose} with $r=3$: $(-1)^{3}\prod\eta_{aa}=-(-1)^q$.
 \end{proof}
+
+The restriction to coordinate planes matters for the transpose, not for the square. For any nondegenerate three-plane $W$ with an orthonormal basis,
+$\omega_W$ commutes with the vectors of $W$, anticommutes with those of $W^\perp$, and $\omega_W^2=-(-1)^q\id$. The transpose rule, however, refers to the
+positive inner product of $S$, which is adapted to the splitting $V=V^+\oplus V^-$: it holds for every plane spanned by vectors of $V^+$ and vectors of $V^-$,
+since rotations inside the two triples act on $S$ by orthogonal matrices, and it fails for tilted planes. For the plane
+$W_t=\langle\cosh t\,e_4+\sinh t\,e_1,\,e_5,\,e_6\rangle$, of signature $(0,3)$, $\omega_{W_t}=\cosh t\,e_4e_5e_6+\sinh t\,e_1e_5e_6$ is the sum of a symmetric and an
+antisymmetric blade, so it is not symmetric for $t\neq0$, although $\omega_{W_t}^2=\id$. This is the mechanism behind the statement below that boost-generated
+variations leave the orthogonal projectors.
 
 Under $\so{3,3}$ the volume elements $\omega_T$ and $\omega_S$ have six-dimensional stabilisers that contain all six compact rotations, so no
 compact bivector moves them; only the nine boosts do, and by \cref{thm:ghost} boost-generated variations leave the orthogonal projectors.
@@ -176,13 +184,26 @@ A subfield with three anticommuting generators can carry a first-order Hamiltoni
 \begin{theorem}[A universal Fock vacuum]
 \label{thm:subfock}
 Let $A$ be an antisymmetric first-order generator built from three anticommuting generators of a subfield, with $A^2=-E^2$, and let $Q$ be a
-commuting charge, antisymmetric with $Q^2=-\id$. On the sixteen-dimensional Fock space the joint spectrum of energy and charge is
+commuting charge, antisymmetric with $Q^2=-\id$ and balanced against $A$, $\Tr(AQ)=0$. On the sixteen-dimensional Fock space the joint spectrum of
+energy and charge is
 \[
 (-2E,0)^{1},\ (-E,\pm1)^{2+2},\ (0,0)^4,\ (0,\pm2)^{1+1},\ (E,\pm1)^{2+2},\ (2E,0)^1 :
 \]
 a unique charge-zero ground state at $-2E$, the zero-point energy of four modes, and two particles and two antiparticles. The charge is the
 volume element $\omega_W$ for $T$ and the $(1,2)$ planes; for $S$ and the $(2,1)$ planes it must be borrowed from the complementary plane.
 \end{theorem}
+
+\begin{proof}
+Commuting antisymmetric operators with $A^2=-E^2\id$ and $Q^2=-\id$ are simultaneously block diagonal on four orthogonal planes, on the $k$-th of which
+$A=Ea_kJ_2$ and $Q=s_kJ_2$ with $a_k,s_k\in\{\pm1\}$. Each plane is one fermionic mode, and a Fock state is labelled by occupation signs $\epsilon_k=\pm1$, with energy
+$\tfrac E2\sum_k\epsilon_ka_k$ and charge $\tfrac12\sum_k\epsilon_ks_k$. Since $\Tr(AQ)=-2E\sum_ka_ks_k$, the balance condition says that $a_ks_k=+1$ on two planes and
+$-1$ on the other two, and counting the sixteen sign choices gives the table; in particular the ground state $\epsilon_k=-a_k$ has charge
+$-\tfrac12\sum_ka_ks_k=0$.
+\end{proof}
+
+The balance condition cannot be dropped. $A=Ee_4$ and $Q=e_4$ satisfy every other hypothesis, and then the Fock energy and charge are proportional, so the
+ground state at $-2E$ carries charge $\pm2$. The charges named in the theorem are balanced: $\Tr(\omega_T\,p\cdot e\,\omega_T)=-\Tr(p\cdot e)=0$ on $T$, and
+$\Tr(AJ)=0$ for $A=p\cdot(e_4,e_5,e_6)$ on $S$, because a product of distinct generators is traceless.
 
 The subfields differ in the Hamiltonians they carry. $T$ carries a massless Weyl-type Hamiltonian $\omega_T\,p\cdot e$ with an intrinsic charge;
 each $(1,2)$ plane a massive Dirac Hamiltonian in $2{+}1$ dimensions with an intrinsic charge; $S$ a real Majorana Hamiltonian $p\cdot(e_4,e_5,e_6)$

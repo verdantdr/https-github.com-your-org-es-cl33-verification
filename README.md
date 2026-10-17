@@ -33,6 +33,10 @@ No `caption`, `subcaption` or `microtype` (not installed in this MiKTeX).
 
 ## Notes
 
+- **Errata (17 October 2026, after an external review).** Five mathematical statements (Theorems 18.1 and 18.7, a benchmark sentence in
+  Section 20, the global-minimum claim, and the Carroll–Field–Jackiw remark in Section 14) and two hidden assumptions (a single Yukawa coupling,
+  and the normalisation of $y$, $g$, $v$ between Sections 19–21) were corrected in `tex/`. The PDF and source zip were rebuilt from the corrected
+  sources. No statement was renumbered. Details and an executable check: `investigations/errata_2026-10-17/`.
 - Status labels and program listings are deliberately absent; qualifications are written into the text, and Appendix B describes the
   verification (exact computation with a second independent instrument for the central statements; numerical items named explicitly).
 - The appendix matrices were regenerated and checked (Clifford relations entry by entry) by a short exact script during writing.

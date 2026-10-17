@@ -132,8 +132,8 @@ variation or about other minima, which are the subject of \cref{sec:selection}.
 \begin{assumption}
 \label{ass:field}
 The kernels are the values of a scalar field $\Phi(x)\in\Kc$ with kinetic term $\tfrac12\langle D_\mu\Phi,D^\mu\Phi\rangle$ and a potential $V(\Phi)$
-invariant under the gauge algebra. The normalisation of the kinetic term is a convention; the form of $V$ is a choice, restricted below only by
-symmetry.
+invariant under the gauge algebra, and a single Yukawa coupling $y$ in \eqref{eq:Saction}. The overall normalisation of the kinetic term is a
+convention; its use of one trace form on all of $\Kc$, the single coupling $y$ and the form of $V$ are choices, restricted below only by symmetry.
 \end{assumption}
 
 With a real Grassmann field $\psi(x)\in V_*$, a gauge field $A_\mu$ with values in an algebra $\mathfrak g$ of antisymmetric operators, the kinetic
@@ -179,8 +179,11 @@ the fermion term being the determinant of the Dirac operator of the first equati
 does not depend on the gauge fixing \cite{Nielsen75}.
 \end{proposition}
 
-The fermions, classically zero, act on the vacuum only through the effective potential, and the matter content enters through the single
-Yukawa coupling $y$, since $\Phi$ is one field. In the vacuum the block Hamiltonian is $H(p)=p_iK^i+iy\,r\,\Phi_0$; since $\{K^i,K^j\}=2\delta^{ij}$,
+The fermions, classically zero, act on the vacuum only through the effective potential, and the matter content enters through the Yukawa
+coupling $y$. That there is one such coupling is part of \cref{ass:field}, not a consequence of calling $\Phi$ one field: $\Phi$ is reducible under the
+Pati--Salam algebra, and symmetry alone allows an independent Yukawa coupling and an independent kinetic normalisation for each of its five irreducible
+components, with a mixing between the two copies of $(\mathbf6,\mathbf1,\mathbf1)$. The same is true of the common gauge coupling of $\su4$ and $\su2_R$ used in
+\cref{sec:selection}. In the vacuum the block Hamiltonian is $H(p)=p_iK^i+iy\,r\,\Phi_0$; since $\{K^i,K^j\}=2\delta^{ij}$,
 $\{K^i,\Phi_0\}=0$ and $-\Phi_0^2=P_\nu$,
 \[
 H(p)^2=|p|^2+y^2r^2P_\nu :

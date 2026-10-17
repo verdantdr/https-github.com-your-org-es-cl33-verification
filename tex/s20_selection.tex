@@ -2,7 +2,8 @@
 \label{sec:selection}
 
 The Standard-Model line $\Phi_0$ lies in the $(\mathbf{10},\mathbf1,\mathbf3)$ component, which is small enough to be analysed completely. We first classify
-the renormalizable potential on that component and decide where $\Phi_0$ is its global minimum; then we add the gauge and matter fluctuations;
+the renormalizable potential on that component and give sufficient and necessary conditions for $\Phi_0$ to be its global minimum; then we add the gauge
+and matter fluctuations;
 and finally we return to the whole of $\Kc$.
 
 \subsection{The tensor model}
@@ -125,7 +126,9 @@ At the benchmark couplings $\lambda=(1,1.7,2.3,3.1,2.9)$ the bounds read: $\tfra
 necessary for selection and equal to the computed threshold; $\tfrac43\lambda_4=4.13$, sufficient for boundedness; and $\tfrac43(2\lambda_1+\lambda_2+2\lambda_3+\lambda_4)=15.2$,
 necessary for boundedness. Gradient flows confirm the transition at $|\kappa|=7.2$: from random starts the flow reaches the Standard-Model orbit for every
 $|\kappa|$, as it must, since the orbit is always a local minimum, but for $6\le|\kappa|\le7.5$ one of two starts ends on the orbit of $\id_4\otimes\id_2$, which is
-the lower of the two minima for $|\kappa|\le7$ and the higher for $|\kappa|\ge7.5$.
+the higher of the two minima for $|\kappa|\le7$ and the lower for $|\kappa|\ge7.5$: at the benchmark,
+$f(\id_4\otimes\id_2)=(\tfrac13,\tfrac16,\tfrac13,\tfrac16,0)$ and $d(\id_4\otimes\id_2)=\tfrac1{16}$, so
+$\Lambda_\kappa(\id_4\otimes\id_2)-\Lambda_\kappa(S_0)=0.9-\tfrac18|\kappa|$, which changes sign at $|\kappa|=7.2$.
 
 \begin{theorem}[Second variation at the Standard-Model orbit]
 \label{thm:secondvar}
@@ -195,7 +198,11 @@ generate $\kappa$ in perturbation theory. Write $L=\ln(\Lambda_{\rm UV}^2/v^2)$.
 \[
 \delta V=\frac L{64\pi^2}\Bigl[2\sum_{\rm fam}\Tr(M_F^\dagger M_F)^2-3\Tr M_V^4-\Tr M_S^4\Bigr],
 \]
-where for the degenerate tree potential $\Tr M_S^4$ depends on $|S|$ only. The vector mass matrix is $(M_V^2)_{ab}=2g^2\Re\Tr(T_aS+ST_a^{\!\top})^\dagger(T_bS+ST_b^{\!\top})$
+where for the degenerate tree potential $\Tr M_S^4$ depends on $|S|$ only. Here and in \cref{sec:fullK} the field is normalised canonically. By
+\cref{prop:tensor}, $\Tr\Phi^{\!\top}\Phi=4|\iota(\Phi)|^2$, so the kinetic term of \cref{ass:field} is $\Tr(DS)^\dagger(DS)$ for $S:=\sqrt2\,\iota(\Phi)$, and from
+here on $S$ denotes this field and $v=|S|=|\Phi|/\sqrt2=\sqrt2\,r$, the $v$ of \cref{sec:fullK,sec:matter}. In these variables the right-handed neutrino mass
+$|y|r$ of \cref{sec:kernels} reads $(|y|/\sqrt2)\,v$, so the $y$ of $M_F=yS$ below is the coupling of \eqref{eq:Saction} divided by $\sqrt2$, while the
+coupling $g$ is the same as in \cref{thm:compat}. The vector mass matrix is $(M_V^2)_{ab}=2g^2\Re\Tr(T_aS+ST_a^{\!\top})^\dagger(T_bS+ST_b^{\!\top})$
 with one coupling for $\su4$ and $\su2_R$, and the eight right-handed Weyl fermions get the Majorana matrix $M_F=yS$.
 
 \begin{theorem}[One-loop selection on $(\mathbf{10},\mathbf1,\mathbf3)$]
@@ -216,7 +223,8 @@ orbit for $x\le27$, finds the orbit of $\id_4\otimes\id_2$ as the only competito
 Standard-Model vacuum is metastable on $\mathcal T$. We conjecture that on $\mathcal T$ the Standard-Model orbit is the global minimum of the one-loop potential exactly
 for $x<192/7$.
 
-With $M_N=yv$ and $M_{W_R}=gv$, $x=\sum_{\rm fam}(M_N/M_{W_R})^4$. The content of the bound is structural: the Majorana Yukawa coupling, matter's only handle on the
+With $M_N=yv$ and $M_{W_R}=gv$, $x=\sum_{\rm fam}(M_N/M_{W_R})^4$; in the couplings of \eqref{eq:Saction} and \cref{thm:compat},
+$x=\sum_{\rm fam}y^4/(4g^4)$. Stated in terms of masses, $x$ does not depend on the normalisation. The content of the bound is structural: the Majorana Yukawa coupling, matter's only handle on the
 vacuum, pushes towards configurations in which the Majorana mass is shared among several fermions, and the gauge fluctuations hold the Standard-Model orbit only
 while the heavy neutrinos are not much heavier than $W_R$.
 
@@ -367,7 +375,10 @@ rewards, at the price of breaking colour, which the gauge loop penalises. In ter
 &M_N<9^{1/4}M_{W_R}=1.732\,M_{W_R}\quad\text{and}\quad M_N<1.697\,M_{W_R}&&\text{(three degenerate families)}.
 \end{aligned}
 \]
-They hold under three restrictions: a tree potential degenerate on $\Kc$ at the matching scale, one loop at leading logarithm, and $\kappa=0$, which fermion number makes
-automatic. They are not bounds on heavy-neutrino masses outside this setting. Within it, the result is that gauge fluctuations make the Standard-Model orientation of the
+They hold under the following restrictions: a tree potential degenerate on $\Kc$ at the matching scale, one loop at leading logarithm, $\kappa=0$, which fermion number
+makes automatic, a common gauge coupling for $\su4$ and $\su2_R$, and a single Yukawa coupling for all components of the kernel field (\cref{ass:field}). The masses of
+\cref{tab:271} are curvatures of the leading-logarithm effective potential divided by the kinetic norm; pole masses would need the wave-function renormalisation and a
+gauge-consistent perturbative expansion, which are not attempted. The bounds are therefore statements about this model and approximation, not bounds on heavy-neutrino
+masses outside it. Within it, the result is that gauge fluctuations make the Standard-Model orientation of the
 Majorana condensate stable in every direction of the kernel space as long as the heavy neutrinos are not much heavier than $W_R$; beyond that, the local instability is
 the condensation of the left-handed triplet, and the configuration that overtakes the Standard-Model orbit globally, at the slightly smaller $x_*$, breaks colour.
