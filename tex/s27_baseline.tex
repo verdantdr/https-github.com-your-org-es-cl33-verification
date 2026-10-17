@@ -1,0 +1,74 @@
+\section{Causal structure: the six-dimensional baseline}
+\label{sec:baseline}
+
+Every construction so far has used a Lorentzian four-plane chosen inside $\R^{3,3}$: the interior plane $E$ of the Dirac structure, or the slice $\Sigma$
+of the curved model. This part asks whether that choice, and with it the light cone and the distinction between past and future, can be obtained from the
+split geometry rather than postulated. Two levels must be distinguished. \emph{Weak emergence} means that an already selected $3{+}1$ sector carries a
+consistent quantum causal structure. \emph{Strong emergence} means that the dynamics determine why that sector, with that causal structure, arises from the
+six-dimensional theory. The light cone must not be put into the admissibility conditions and then be said to emerge. We fix the failure conditions in advance:
+uncontrolled growing modes in the six-dimensional theory; a projector onto the four-dimensional sector imposed by hand; ghosts or negative spectral weights in
+the effective theory; propagation outside the derived cone; extra modes or imposed equations in the Maxwell sector.
+
+\subsection{The unrestricted scalar}
+
+\begin{proposition}[A free field on $\R^{3,3}$]
+\label{prop:toy}
+For the action $S_6=\tfrac12\int d^6X\,(\eta^{AB}\partial_A\phi\,\partial_B\phi-m^2\phi^2)$ in coordinates $(t,u,v,x,y,z)$, with $t,u,v$ temporal:
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item plane waves $e^{-i\omega t+i(q_1u+q_2v)+i\bk\cdot\mathbf x}$ obey
+\begin{equation}
+\label{eq:toydisp}
+\omega^2=|\bk|^2+m^2-q^2,\qquad q^2=q_1^2+q_2^2 ;
+\end{equation}
+\item for $q^2>|\bk|^2+m^2$ the growth rate is $\gamma=\sqrt{q^2-|\bk|^2-m^2}$, and $(1+q^2)^{-s/2}e^\gamma\to\infty$ for every $s$: data small in any Sobolev norm
+produce arbitrarily large solutions at $t=1$, so the Cauchy problem with respect to $t$ is ill-posed in the sense of Hadamard \cite{Hadamard23};
+\item the canonical energy density $\tfrac12(\pi^2-\phi_u^2-\phi_v^2+|\nabla_{\mathbf x}\phi|^2+m^2\phi^2)$ averages to $\tfrac14a^2(m^2-q^2)$ on $\phi=a\sin qu$: the
+energy is unbounded below.
+\end{enumerate}
+\end{proposition}
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}
+\begin{axis}[width=10.5cm,height=6.6cm,xmin=0,xmax=3.2,ymin=-5.5,ymax=4.5,axis on top,clip=false,
+  axis lines=left,
+  xlabel={surplus momentum $q$},ylabel={$\omega^2$},xtick={1.4142},xticklabels={$\sqrt{|\bk|^2+m^2}$},ytick={0},
+  ylabel style={rotate=-90}]
+\addplot[draw=none,fill=scol!12,forget plot] coordinates {(1.4142,-5.5) (3.2,-5.5) (3.2,4.5) (1.4142,4.5)} -- cycle;
+\draw[gray,dashed] (axis cs:0,0) -- (axis cs:3.2,0);
+\addplot[tcol,very thick,domain=0:2.739,samples=80] {2-x^2};
+\addplot[only marks,mark=*,mark size=2.6pt,gcol] coordinates {(0,2)};
+\node[gcol,anchor=south west,font=\small,align=left] at (axis cs:0.06,2.2) {$q=0$: the four-dimensional\\ mass shell, kept by the constraints};
+\node[scol,anchor=north west,font=\small,align=left] at (axis cs:2.25,4.2) {unstable band:\\ $\omega=\pm i\sqrt{q^2-|\bk|^2-m^2}$};
+\end{axis}
+\end{tikzpicture}
+\caption{The dispersion relation of a free scalar on $\R^{3,3}$ at fixed spatial momentum (\cref{prop:toy}). Every surplus momentum beyond $\sqrt{|\bk|^2+m^2}$ gives
+an exponentially growing mode, with a rate that grows without bound. The constraints of \cref{prop:constraints} keep exactly the point $q=0$.}
+\label{fig:toy}
+\end{figure}
+
+\begin{proposition}[No time orientation in signature $(3,3)$]
+\label{prop:orient}
+The timelike set $\{\eta(X,X)>0\}$ of $\R^{p,q}$ is connected for $p\ge2$: the path $X(s)=(\cos s,\sin s,0;\,0,0,0)$ joins $X$ to $-X$ with $\eta=1$ throughout. Only for $p=1$
+does it split into a past and a future component.
+\end{proposition}
+
+Causal order is therefore not merely unproven in $\R^{3,3}$; it is absent. Anything called a light cone with a future has to come from a reduction to a single
+time. The arena already contains such a reduction, as an input. For the geodesic test particle of \cref{prop:constraints}, $H=\tfrac12(h^{\mu\nu}k_\mu k_\nu+p_u^2+p_v^2)$
+with $h=\operatorname{diag}(1,-1,-1,-1)$, the mass shell $2H=m^2$ is $p_0^2=|\mathbf p|^2+m^2-p_u^2-p_v^2$, the relation \eqref{eq:toydisp} with $q=(p_u,p_v)$. The
+first-class constraints $p_u=p_v=0$ remove exactly the unstable band, as \cref{fig:toy} shows.
+
+\begin{example}[Compact surplus times give tachyons]
+\label{ex:tachyons}
+If instead $u$ and $v$ are made periodic with period $2\pi R$, the surplus momenta become $n/R$ with $n\in\Z^2$, and the four-dimensional masses are
+\[
+m_n^2=m^2-\frac{|n|^2}{R^2}.
+\]
+Every mode with $|n|>mR$ is a tachyon, and there are infinitely many: for $mR=3$ there are $92$, $412$ and $1652$ of them within $|n_i|\le5$, $10$ and $20$.
+Compactification, the usual cure for extra space dimensions, is no cure for extra times.
+\end{example}
+
+An ultrahyperbolic problem can be made well posed by a nonlocal constraint on the data \cite{CraigWeinstein09}, and the dimensionality of spacetime has been
+argued from such considerations \cite{Tegmark97}. The constraints of the arena, $\partial_u\phi=\partial_v\phi=0$, are local and stronger: they keep only the zero modes,
+which is dimensional reduction. Either way the cure is a restriction, and at this stage it is an input. \Cref{sec:constraints} asks where it can come from; the next
+two sections ask whether the four-plane it presupposes can be selected.

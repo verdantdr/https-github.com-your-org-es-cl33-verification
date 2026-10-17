@@ -1,0 +1,222 @@
+\section{The vacuum at one constituent}
+\label{sec:subfields}
+
+The word \emph{vacuum} can mean several things, and the arena gives each of them a precise form. It can mean the structure an algebra
+selects on its module; the value of an order parameter chosen by a potential; the ground state of a classical field; or the Fock
+vacuum of a quantised one. At one constituent all four readings can be computed for every coordinate three-plane of $\R^{3,3}$ and for the
+full algebra. The exercise is worth doing for two reasons: it shows which vacuum properties belong to a part of the arena and which
+need all of it, and it contains, in miniature, the vacuum that will be selected at three constituents.
+
+\subsection{The subfields}
+
+A three-plane $W\subset\R^{3,3}$ generates a subalgebra $\Cl(W)\subset\Cl(3,3)$. Up to $O(3,3)$ only its signature matters, $(3,0)$,
+$(0,3)$, $(2,1)$ or $(1,2)$, but relative to the structures already built (the clock $e_1$, the surplus plane $U$, the interior four-plane
+$E$, and the pairing $e_i\leftrightarrow e_{i+3}$) the coordinate planes fall into the classes of \cref{tab:subfields}.
+
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{@{}llll@{}}
+\toprule
+name & plane & signature & position\\
+\midrule
+$T$ & $\langle e_1,e_2,e_3\rangle$ & $(3,0)$ & temporal triple: clock and surplus plane\\
+$S$ & $\langle e_4,e_5,e_6\rangle$ & $(0,3)$ & spatial triple, inside the interior four-plane\\
+$M_{21a}$ & $\langle e_1,e_2,e_4\rangle$ & $(2,1)$ & clock, one surplus direction, one space; one partner pair\\
+$M_{21b}$ & $\langle e_2,e_3,e_4\rangle$ & $(2,1)$ & surplus plane and one space; no partner pair\\
+$M_{12a}$ & $\langle e_1,e_4,e_5\rangle$ & $(1,2)$ & a $2{+}1$ slice of the interior spacetime; one partner pair\\
+$M_{12b}$ & $\langle e_2,e_4,e_5\rangle$ & $(1,2)$ & a surplus direction and two spaces; one partner pair\\
+$M_{12c}$ & $\langle e_1,e_5,e_6\rangle$ & $(1,2)$ & a $2{+}1$ slice of the interior spacetime; no partner pair\\
+\bottomrule
+\end{tabular}
+\caption{Representatives of the coordinate three-planes of $\R^{3,3}$, classified by signature and by their position relative to the
+clock, the surplus plane, the interior four-plane and the pairing.}
+\label{tab:subfields}
+\end{table}
+
+\subsection{The algebraic vacuum}
+
+Let $\omega_W$ be the ordered product of the three generators of $W$.
+
+\begin{theorem}[Complex structure or projector]
+\label{thm:subdichotomy}
+For every three-plane $W$ of signature $(p,q)$, $\omega_W$ commutes with the generators in $W$ and anticommutes with those outside it, and
+\[
+\omega_W^2=-(-1)^q\,\id,\qquad \omega_W^{\!\top}=-(-1)^q\,\omega_W .
+\]
+So $\omega_W$ is a complex structure for $T$ and for the $(1,2)$ planes, and a symmetric involution, hence a rank-four orthogonal projector
+$\Pi_W=\tfrac12(\id+\omega_W)$, for $S$ and the $(2,1)$ planes. Three of these volume elements are operators met before:
+\[
+\omega_T=e_1e_2e_3=\gamma^0J,\qquad \omega_S=\gamma^1\gamma^2\gamma^3,\qquad \omega_T\,\omega_S=\Gamma ,
+\]
+the Dirac mass form, the time-reversal factor of \cref{thm:PT}, and the chirality, which is also the volume element of the full algebra.
+\end{theorem}
+
+\begin{proof}
+A generator inside $W$ shares one index with $\omega_W$, so by \eqref{eq:bladecomm} the sign is $(-1)^{3-1}=+1$; one outside shares none, and
+the sign is $(-1)^3=-1$. The square and the transpose follow from \eqref{eq:transpose} with $r=3$: $(-1)^{3}\prod\eta_{aa}=-(-1)^q$.
+\end{proof}
+
+Under $\so{3,3}$ the volume elements $\omega_T$ and $\omega_S$ have six-dimensional stabilisers that contain all six compact rotations, so no
+compact bivector moves them; only the nine boosts do, and by \cref{thm:ghost} boost-generated variations leave the orthogonal projectors.
+Each mixed volume element, by contrast, has a two-dimensional compact stabiliser and a four-dimensional compact orbit: the mixed planes are
+the only subfields whose vacuum projector or complex structure admits admissible fluctuations. Charge conjugation $C=e_2$ exchanges $\Pi_S$
+and $\Pi_\Gamma$ with their complements and fixes the $(2,1)$ projectors, and the full volume element $\Gamma$ commutes with all of $\so{3,3}$:
+its projector is the rigid, Lorentz-invariant vacuum $\tfrac12(\id\pm\Gamma)$ that will reappear in \cref{sec:photon}.
+
+\subsection{The order-parameter vacuum}
+
+Let $\so W$ play the role of a Lorentz algebra, its antisymmetric bivectors acting as rotations and its symmetric ones as boosts.
+
+\begin{definition}[Mass kernels of a subfield]
+\label{def:subkernel}
+The kernel space $\Kc_W$ is the space of antisymmetric $M\in\End(S)$ with $[M,\text{rotation}]=0$ and $\{M,\text{boost}\}=0$ for the generators of
+$\so W$, and the internal algebra $\mathfrak g_W$ is the space of antisymmetric operators commuting with $\so W$.
+\end{definition}
+
+Antisymmetry makes $\psi^{\!\top}M\psi$ a nonzero Grassmann bilinear, and the two conditions make it Lorentz invariant, since a rotation is
+antisymmetric and a boost symmetric. Both conditions are diagonal on blades, so both spaces are spanned by blades.
+
+\begin{theorem}[Kernel spaces and invariant kernels]
+\label{thm:subkernels}
+The kernel spaces, the internal algebras and the invariant kernels are:
+\begin{center}
+\small\upshape
+\begin{tabular}{@{}lccll@{}}
+\toprule
+Lorentz algebra & $\dim\Kc_W$ & $\dim\mathfrak g_W$ & $\Kc_W$ under $\mathfrak g_W$ & invariant kernel\\
+\midrule
+$\so T$, $\so S$ & $10$ & $10$ & adjoint of $\spp2$, irreducible & none\\
+each mixed $\so W$ & $10$ & $6$ & $9\oplus1$ & the plane's own $2{+}1$ mass form\\
+full $\so{3,3}$ & $1$ & $0$ & --- & $\gamma^0J=e_1e_2e_3$\\
+interior $\so{1,3}$ & $6$ & $4$ & irreducible & none\\
+\bottomrule
+\end{tabular}
+\end{center}
+The invariant kernel of each mixed plane is $\pm\gamma^0_W\omega_W$, with $\gamma^0_W$ the generator of minority signature. For the interior
+algebra $\mathfrak g_I=\langle J,\Omega,e_2\Omega,e_3\Omega\rangle=\uu1_\Omega\oplus\su2$ is the massless gauge algebra of \cref{prop:gauge1}.
+\end{theorem}
+
+\begin{corollary}[The full algebra has one mass term]
+\label{cor:fullmass}
+The only Grassmann mass kernel invariant under all of $\so{3,3}$ is $\gamma^0J=\omega_T$, and no antisymmetric operator commutes with
+$\so{3,3}$. The order parameter of the full algebra is a single real number $r$ in $r\gamma^0J$; it breaks nothing and has no Goldstone
+direction, and its two signs are exchanged by conjugation with any spatial generator.
+\end{corollary}
+
+The temporal triple therefore supplies more than a clock: its volume element is the Dirac mass form, the unique Lorentz-invariant mass term
+of the whole algebra. To see what a potential selects, take on $\Kc_W$ the trace potential
+\begin{equation}
+\label{eq:tracepot1}
+V=-\mu^2N+\alpha N^2+\beta Q,\qquad N=\Tr M^{\!\top}M,\qquad Q=\Tr(M^{\!\top}M)^2 .
+\end{equation}
+For $\beta>0$ its minima minimise $Q/N^2$, a spread spectrum; for $\beta<0$ they maximise it, a concentrated one. Every blade is a complex
+structure, so $\min Q/N^2=\tfrac18$ is attained on blades.
+
+\begin{theorem}[Two phases of the interior Lorentz algebra]
+\label{thm:twophases}
+For the interior $\so{1,3}$, with $\Kc$ the irreducible six-dimensional module of $\uu1_\Omega\oplus\su2$:
+\begin{enumerate}[label=(\alph*),leftmargin=2.2em]
+\item \emph{Dirac phase} ($\beta>0$). The mass form $\gamma^0J$ is a minimum; its stabiliser in $\mathfrak g_I$ is $\langle J\rangle$, so
+$\uu1_\Omega\oplus\su2$ breaks to $\uu1_J$ with three Goldstone directions. Fermion number is conserved and particle and antiparticle are
+distinct.
+\item \emph{Majorana phase} ($\beta<0$). The kernels supported on the $\Gamma=+1$ half form a complex line; each anticommutes with $J$, has
+rank four, $Q/N^2=\tfrac14$ and $M^{\!\top}M\propto\tfrac12(\id+\Gamma)$, and its stabiliser in $\mathfrak g_I$ is exactly $\langle J-J\Gamma\rangle$,
+the left-handed fermion number, again with three Goldstone directions.
+\end{enumerate}
+\end{theorem}
+
+The Majorana phase is the one-constituent seed of the vacuum selected in \cref{sec:selection}. There, too, a concentrated phase of the
+trace potential selects a Majorana mass on one right-handed line, and the unbroken global charges include $1-\Gamma$. At one constituent there
+is no gauge group and the three Goldstone directions are physical, classically; at three constituents the corresponding directions are gauge
+directions and are eaten.
+
+\subsection{The field-strength vacuum}
+
+Read through \cref{thm:emfield}, a vector $X$ restricted to $W$ is a field strength of restricted type, and the interior dynamics of
+\cref{sec:neutral} restricts to it.
+
+\begin{theorem}[Field strengths on the subfields]
+\label{thm:subfs}
+For the coordinate three-planes and the full space:
+\begin{center}
+\footnotesize\upshape
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+ & Lorentz types & $\bE\cdot\bB\equiv0$ & partner pairs & Lorentz algebra kept & zero-point energy\\
+\midrule
+$T$ & magnetic only & yes & $0$ & $\so3$ & $+\tfrac32\hbar\kappa$\\
+$S$ & electric only & yes & $0$ & $\so3$ & $-\tfrac32\hbar\kappa$\\
+$M_{21b}$ & magnetic, electric, null & yes & $0$ & $\so{1,2}$ & $+\tfrac12\hbar\kappa$\\
+$M_{12c}$ & magnetic, electric, null & yes & $0$ & $\so{1,2}$ & $-\tfrac12\hbar\kappa$\\
+$M_{21a}$ & all four & no & $1$ & none & $+\tfrac12\hbar\kappa$\\
+$M_{12a}$, $M_{12b}$ & all four & no & $1$ & none & $-\tfrac12\hbar\kappa$\\
+full & all four & no & $3$ & $\so{1,3}$ & $0$\\
+\bottomrule
+\end{tabular}
+\end{center}
+On every subfield the cross term of the split-form Lagrangian is a total derivative, the equation of motion is $\ddot X=-\kappa^2X$, and the
+energy is $\tfrac m2\bigl(\eta(\dot X,\dot X)+\kappa^2\eta(X,X)\bigr)$. The zero-momentum flow $\dot X=-\kappa GX$ stays in $W$ exactly on
+$W\cap G^{-1}W$, of dimension $0$ or $2$ for the subfields and $6$ for the full space.
+\end{theorem}
+
+On $T$ the energy is positive definite and $X=0$ is a true ground state: a pure magnetic field oscillates about zero with a positive quantum
+zero-point energy. On $S$ the energy is negative definite: $X=0$ is a maximum, dynamically stable, and its quantum oscillators are ghost-like,
+of negative energy or, if the energy is made positive, negative norm. On the mixed planes the energy is indefinite and there is no ground
+state; the zero-point energy is $\tfrac12\hbar\kappa(p-q)$, and for the full $\R^{3,3}$ it vanishes. Neutral signature cancels the zero-point
+energy exactly. The mixed planes without a partner pair are the field strengths of electrodynamics in $2{+}1$ dimensions, $M_{12c}$ carrying one
+magnetic and two electric components and $M_{21b}$ its dual, closed under an $\so{1,2}$ and orthogonal by construction.
+
+\subsection{The Fock vacuum}
+
+A subfield with three anticommuting generators can carry a first-order Hamiltonian, and quantising it with Majorana operators as in
+\cref{thm:module} gives a Fock space.
+
+\begin{theorem}[A universal Fock vacuum]
+\label{thm:subfock}
+Let $A$ be an antisymmetric first-order generator built from three anticommuting generators of a subfield, with $A^2=-E^2$, and let $Q$ be a
+commuting charge, antisymmetric with $Q^2=-\id$. On the sixteen-dimensional Fock space the joint spectrum of energy and charge is
+\[
+(-2E,0)^{1},\ (-E,\pm1)^{2+2},\ (0,0)^4,\ (0,\pm2)^{1+1},\ (E,\pm1)^{2+2},\ (2E,0)^1 :
+\]
+a unique charge-zero ground state at $-2E$, the zero-point energy of four modes, and two particles and two antiparticles. The charge is the
+volume element $\omega_W$ for $T$ and the $(1,2)$ planes; for $S$ and the $(2,1)$ planes it must be borrowed from the complementary plane.
+\end{theorem}
+
+The subfields differ in the Hamiltonians they carry. $T$ carries a massless Weyl-type Hamiltonian $\omega_T\,p\cdot e$ with an intrinsic charge;
+each $(1,2)$ plane a massive Dirac Hamiltonian in $2{+}1$ dimensions with an intrinsic charge; $S$ a real Majorana Hamiltonian $p\cdot(e_4,e_5,e_6)$
+with no intrinsic charge; and the $(2,1)$ planes only a single antisymmetric generator, a mass term without momentum dependence.
+
+\begin{example}[Charge conjugation needs the whole structure]
+\label{ex:subC}
+Call charge conjugation of a charged subfield any operator anticommuting with its charge and commuting with every term of its Dirac generator,
+the condition of \cref{thm:C}. For the interior $3{+}1$ theory with charge $J$ the solutions are exactly the surplus plane $\langle e_2,e_3\rangle$.
+For $T$, $M_{12a}$, $M_{12b}$ and $M_{12c}$ the solution spaces are eight-dimensional, and for $S$ with charge $J$ four-dimensional. For $T$ the
+space contains $e_4,e_5,e_6$: the charge conjugation of the temporal Weyl theory lives in the spatial triple, as that of the four-dimensional
+theory lives in the surplus plane. Only the full four-dimensional Dirac structure fixes $C$ up to the $U(1)_J$ rotation.
+\end{example}
+
+\Cref{tab:fourreadings} summarises the four readings for the two triples and the full algebra. The temporal triple supplies the mass form and
+an intrinsic charge, the spatial triple the time-reversal factor and, as a field strength, the negative-energy half, and their product is the
+chirality. Charge conjugation, the alternative between a Dirac and a Majorana phase, and the cancellation of the zero-point energy all require
+the full algebra; none of them is settled inside a subfield.
+
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{2.2cm}>{\raggedright\arraybackslash}p{3.6cm}>{\raggedright\arraybackslash}p{3.6cm}>{\raggedright\arraybackslash}p{5.0cm}@{}}
+\toprule
+reading & temporal $T$ & spatial $S$ & full $\Cl(3,3)$\\
+\midrule
+algebraic & $\omega_T=\gamma^0J$: complex structure, rigid under rotations & $\omega_S=\gamma^1\gamma^2\gamma^3$: projector, rigid, swapped by $C$ &
+$\Gamma=\omega_T\omega_S$: projector onto the half-spinors, invariant under $\so{3,3}$\\
+order parameter & adjoint of $\spp2$; every vacuum breaks it, six Goldstone directions & the same & one invariant kernel $\gamma^0J$; with the interior
+$\so{1,3}$, a Dirac phase keeping $J$ or a Majorana phase keeping $J-J\Gamma$\\
+field strength & magnetic, positive energy, ground state & electric, negative energy & every type, indefinite energy, zero-point energy cancels\\
+Fock & charged Weyl, $C$ in the spatial triple & Majorana, charge only from outside & charged Dirac, $C=\langle e_2,e_3\rangle$ up to $U(1)_J$\\
+\bottomrule
+\end{tabular}
+\caption{The vacuum at one constituent in four readings.}
+\label{tab:fourreadings}
+\end{table}

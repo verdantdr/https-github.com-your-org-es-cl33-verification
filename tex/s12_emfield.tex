@@ -1,0 +1,263 @@
+\section{The split space as a space of field strengths}
+\label{sec:emfield}
+
+The arena was introduced with an electromagnetic picture in mind: six directions, three of one sign and three of the other, paired
+one to one like the components of a magnetic and an electric field. This section turns the picture into a theorem and measures its
+price. The binding root $G$ of \cref{prop:twoK} is the key, and its role in the interior dynamics, where it is the operator that
+makes bound motion possible, is established in \cref{sec:neutral}. Here it is used only as a linear map with $G^2=-\id$ and
+$G=G^\dagger$.
+
+\subsection{Arithmetic first}
+
+The space $\Lambda^2\R^{1,3}$ with the induced metric $\langle\theta^a\wedge\theta^b,\theta^a\wedge\theta^b\rangle=\eta^{aa}\eta^{bb}$ is
+negative on the three planes $\theta^0\wedge\theta^i$ and positive on the three planes $\theta^j\wedge\theta^k$. It therefore has
+signature $(3,3)$, the Lorentz group acts on it by the adjoint representation, and the Hodge star satisfies $\star^2=-\id$. This is
+counting, and it must be said before anything is built on it: every six-dimensional space of split signature is isometric to a
+Lorentzian field-strength space, so exhibiting one isometry predicts nothing. What is not arithmetic is which subalgebra
+$\so{1,3}\subset\so{3,3}$ realises the action, and whether the operator playing the Hodge star is one the arena already had.
+
+\subsection{The Lorentz algebra of the binding root}
+
+\begin{theorem}[The centraliser of $G$]
+\label{thm:GLorentz}
+The centraliser $\lG$ of $G$ in $\so{3,3}$ is isomorphic to $\so{3,\C}\cong\slr{2,\C}\cong\so{1,3}$. Its maximal compact
+subalgebra is the $\so3$ of \emph{diagonal} rotations, each acting identically on a temporal plane $(e_i,e_j)$ and on its spatial
+partner $(e_{i+3},e_{j+3})$.
+\end{theorem}
+
+\begin{proof}
+Since $G^2=-\id$, the identification $z_j=x_j+ix_{j+3}$ makes $\R^6$ a complex space $\C^3$ on which $G$ acts as $i$, and
+commuting with $G$ is $\C$-linearity. Under this identification
+\[
+\eta(X,X)=\sum_jx_j^2-\sum_jx_{j+3}^2=\Re q(z),\qquad q(z):=\sum_jz_j^2,
+\]
+with $q$ holomorphic. A $\C$-linear map $A$ preserving $\Re q$ preserves it on every phase rotation $e^{i\vartheta}z$, and
+$q(e^{i\vartheta}z)=e^{2i\vartheta}q(z)$, so $\Re\bigl(e^{2i\vartheta}[q(Az)-q(z)]\bigr)=0$ for all $\vartheta$ forces $q(Az)=q(z)$. The
+group is $O(3,\C)$ and its algebra $\so{3,\C}$, whose underlying real Lie algebra is $\slr{2,\C}\cong\so{1,3}$ with maximal compact
+$\so3$. A rotation of $(e_i,e_j)$ alone does not commute with $G$, because $G$ carries $e_i$ to $e_{i+3}$; only the rotation
+performed identically on the partner plane does.
+\end{proof}
+
+\begin{proposition}[Two Lorentz algebras, not conjugate]
+\label{prop:notconj}
+The interior algebra $\lint$ and $\lG$ are isomorphic as Lie algebras but not as subalgebras of $\so{3,3}$. The interior algebra
+fixes the two-dimensional surplus plane pointwise, while $\lG$ contains simultaneous rotations of both triples and has no nonzero
+common fixed vector. Conjugation preserves the dimension of the common fixed subspace, so the two are not conjugate in $GL(6,\R)$,
+let alone in $O(3,3)$.
+\end{proposition}
+
+Write $L_i$ for the diagonal rotations and put, for cyclic $(i,j,k)$, $K_i=\tfrac12\bigl(e_ke_{j+3}-e_je_{k+3}\bigr)$. The six
+operators $L_i,K_i$ span $\lG$.
+
+\begin{theorem}[The field-strength reading]
+\label{thm:emfield}
+Write a vector of $\R^{3,3}$ as $X=\sum_i\bigl(B_ie_i+E_ie_{i+3}\bigr)$. Then
+\[
+[L_i,L_j]=\epsilon_{ijk}L_k,\qquad [L_i,K_j]=\epsilon_{ijk}K_k,\qquad [K_i,K_j]=-\epsilon_{ijk}L_k,
+\]
+both triples $\bB$ and $\bE$ transform as vectors under the $L_i$, and the $K_i$ act by
+\begin{equation}
+\label{eq:emboost}
+\delta\bE=\bv\times\bB,\qquad \delta\bB=-\bv\times\bE .
+\end{equation}
+Identify $X$ with the two-form $F_X$ of components $(F_X)_{0i}=E_i$ and $(F_X)_{jk}=\epsilon_{ijk}B_i$. Then $G$ is the Hodge star,
+$F_{GX}=\star F_X$ with $(\star F)_{ab}=\tfrac12\varepsilon_{abcd}F^{cd}$ and $\varepsilon_{0123}=+1$, and
+\[
+\eta(X,X)=|\bB|^2-|\bE|^2,\qquad \eta(X,GX)=-2\,\bE\cdot\bB
+\]
+are the only invariant quadratic forms. With $\lG$ as its Lorentz algebra, $\R^{3,3}$ \emph{is} $\Lambda^2\R^{1,3}$.
+\end{theorem}
+
+The orientation matters once, and we fix it here. With $F_{jk}=\epsilon_{ijk}B_i$ the vector $\bB$ is minus the textbook magnetic
+field of the convention $F_{jk}=-\epsilon_{ijk}B_i$ \cite{Jackson}, so we write $\Btext=-\bB$, as announced in \cref{sec:conventions};
+the electric field is the textbook one. Passing to a frame moving with velocity $\mathbf u$ changes the frame variables by
+$\delta\bB=\mathbf u\times\bE$ and $\delta\bE=-\mathbf u\times\bB$, which is \eqref{eq:emboost} with $\bv=-\mathbf u$; in textbook
+variables this is $\bE'=\bE+\mathbf u\times\Btext$ and $\Btext'=\Btext-\mathbf u\times\bE$, the familiar first-order transformation.
+
+\begin{example}[A boost along the third axis]
+\label{ex:emboost}
+Take the pure magnetic field $X=e_1$, that is $\bB=(1,0,0)$ and $\bE=0$, and the boost generator $K_3=\tfrac12(e_2e_4-e_1e_5)$,
+acting on vectors by the commutator. Since $e_1$ anticommutes with $e_2$ and with $e_4$ it commutes with $e_2e_4$, while
+$[e_1e_5,e_1]=-2e_1^2e_5=-2e_5$; hence $[K_3,e_1]=e_5$. Under $\delta X=\delta\,[K_3,X]$ the field acquires $\bE=(0,\delta,0)$, in accordance
+with $\delta\bE=\bv\times\bB$ for $\bv=(0,0,\delta)$. In the same way $[K_3,e_5]=e_1$, so a pure electric field $\bE=(0,1,0)$ acquires
+$\bB=(\delta,0,0)=-\bv\times\bE$. The invariant $\eta(X,X)=|\bB|^2-|\bE|^2$ changes only at
+second order, as it must.
+\end{example}
+
+\begin{corollary}[The invariant complex structure]
+\label{cor:Gselected}
+$\R^6$ is irreducible under $\lG$, and the commutant of $\lG$ in $\End(\R^6)$ is $\operatorname{span}\{\id,G\}\cong\C$. Hence, once
+$\lG$ is taken as the Lorentz algebra, its invariant complex structure is $\pm G$ and nothing else. The interior algebra, by contrast,
+has a commutant of dimension five, $\R$ on the four-plane and all of $M_2(\R)$ on the surplus plane.
+\end{corollary}
+
+The logic of this corollary runs from $G$ to $\lG$ and back to $\pm G$, so the choice of $G$ is recovered, not removed. It is a
+consistency statement, a uniqueness conditional on taking $\lG$ as the Lorentz algebra. Removing the choice would require a
+characterisation of $\lG$ that does not mention $G$, and we know none.
+
+\subsection{The two readings exclude one another}
+
+The price of the field-strength reading is not small.
+
+\begin{proposition}[Exclusion]
+\label{prop:emexclusive}
+Under $\lint$ the six directions decompose as $V\oplus2\cdot\mathbf1$, a four-vector and two scalars; under $\lG$ they are
+irreducible, with no fixed vector. The two representations are not similar, so a single theory cannot use both algebras as the
+Lorentz action on the same six directions. If the vector space $\R^{3,3}$ is read as the electromagnetic field strength, those six
+directions are not a four-plane plus a surplus pair, and the Dirac structure, the projector census, $P_*$ and the diagonal sector
+all lose the arena on which they are built.
+\end{proposition}
+
+What is excluded is reading one six-dimensional space in two ways, not a theory that contains both kinds of module. A theory may
+contain spacetime vectors and field strengths as different representations of one Lorentz algebra, which is the ordinary
+arrangement, and $\Cl(3,3)$ realises it with the vectors at grade one and the field strength at grade two.
+
+\begin{proposition}[The field strength at grade two]
+\label{prop:bivectorF}
+Let $\Lambda^2E$ be the span of the six bivectors of the interior four-plane. It is closed under the adjoint action of $\lint$, on
+which it is the adjoint representation; the trace form $\tfrac18\Tr(XY)$ on it has signature $(3,3)$; and the interior volume
+$\Omega=\gamma^0\gamma^1\gamma^2\gamma^3$, with $\Omega^2=-\id$, commutes with $\lint$, preserves $\Lambda^2E$ by left multiplication,
+exchanges $\gamma^0\gamma^i$ with the spatial bivectors and acts on $\Lambda^2E$ as the Hodge star.
+\end{proposition}
+
+Grade three behaves differently under the two algebras, and the difference sharpens the exclusion. Under $\lG$ one has
+$(\Lambda^3\R^6)_\C=2\,(0,0)\oplus2\,(1,1)$, of dimension $2+18$, so no field-strength module $(1,0)\oplus(0,1)$ occurs at grade three
+at all: trivectors cannot carry the field for this action. Under $\lint$, $\R^6=E\oplus\R^2$ gives $\Lambda^3\R^6\cong2E\oplus2\Lambda^2E$,
+which contains two field-strength modules. The quadratic Casimir distinguishes the cases cleanly, with spectrum $\{0^{(2)},8^{(18)}\}$
+on $\Lambda^3\R^6$ under $\lG$ and $\{3^{(8)},4^{(12)}\}$ under $\lint$, the value $4$ being that of $(1,0)\oplus(0,1)$ and $3$ that of a
+four-vector. An explicit attempt confirms it: the six trivectors $C_i=\sum_{j,k}\epsilon_{ijk}e_jN_k$, $N_j=e_{k+3}e_{l+3}$ cyclically,
+together with $D_i=\mathcal VC_i$, transform as two vectors under the $L_i$, but all eighteen brackets $[K_i,C_j]$, $[K_i,D_j]$ leave
+their span, for instance $\tfrac12[K_1,C_1]=e_2e_3e_4+e_4e_5e_6$, and the Lorentz closure of the span has dimension $18$.
+
+\subsection{How much of Maxwell's theory is forced}
+\label{sec:maxwell}
+
+\Cref{thm:emfield} supplies a field with the right transformation law and nothing that the field satisfies. How much of the
+dynamics does the transformation law fix by itself? The answer is: the form of the equations completely, and nothing else.
+
+\begin{theorem}[Exactly two first-order covariant operators]
+\label{thm:twoops}
+Consider linear first-order differential operators with constant coefficients on Minkowski space, acting on a field $F$ valued in
+$\Lambda^2\R^{1,3}$ and taking values in the vector representation. The derivative $\partial F$ lies in $\Lambda^2\otimes V$, of
+dimension $24$, and under $\so{1,3}$
+\[
+\Lambda^2\otimes V=\underbrace{(\tfrac32,\tfrac12)\oplus(\tfrac12,\tfrac32)}_{16}\ \oplus\ \underbrace{2\,(\tfrac12,\tfrac12)}_{8},
+\]
+so the vector module occurs with multiplicity exactly two, and no other module of dimension four occurs. The two copies are realised
+by
+\[
+(dF)_{\mu\nu\rho}=3\,\partial_{[\mu}F_{\nu\rho]}\quad(\text{through }\Lambda^3\cong V),\qquad (\delta F)_\nu=\partial^\mu F_{\mu\nu},
+\]
+and every covariant operator of the class is $\mathcal DF=a\,\delta F+b\,\delta(\star F)$, since $\delta\star=\pm\star d$.
+\end{theorem}
+
+The Casimir operator confirms the count: on $\Lambda^2\otimes V$ its spectrum is $\{3^{(8)},9^{(16)}\}$, and the value $3$ is the
+vector one. Nothing in the theorem constrains operators of higher order, operators with variable coefficients, or operators valued
+in the remaining $(\tfrac32,\tfrac12)\oplus(\tfrac12,\tfrac32)$.
+
+\begin{corollary}[The form of Maxwell's equations]
+\label{cor:maxwellform}
+Within this class the two available equations are $dF=\mathcal J_m$ and $d\star F=\mathcal J_e$. Covariance does not rule out a
+magnetic current, which is a covariant field exactly as an electric current is; it identifies the two operators and leaves open
+which equations are imposed and which sources are admitted. The source-free system $dF=\delta F=0$ is the only choice that needs no
+external data, and within this linear class it is the only one invariant under duality, because the Hodge star $G$ exchanges the two
+operators. Finally, on a contractible region $dF=0$ gives $F=dA$ by the Poincar\'e lemma, so the gauge potential is a consequence of
+the first equation rather than an assumption.
+\end{corollary}
+
+In the variables of the frame the system takes a compact form, which we use repeatedly below.
+
+\begin{proposition}[Maxwell's equations on the frame]
+\label{prop:RS}
+Read $\R^{3,3}$ as $\C^3$ through $G$, $z_j=B_j+iE_j$. Then $dF=0$ and $d\star F=0$ for the two-form $F_X$ of
+\cref{thm:emfield} are
+\begin{equation}
+\label{eq:RS}
+\partial_tX=-G\,(\curl X),\qquad \nabla\cdot X=0,
+\end{equation}
+that is $\partial_tz=-i\,\curl z$ and $\nabla\cdot z=0$, with the curl built from the rotation generators $L_i$. Splitting into the
+two triples gives $\partial_t\bB=\curl\bE$, $\partial_t\bE=-\curl\bB$ and $\nabla\cdot\bE=\nabla\cdot\bB=0$; in textbook variables these
+are Faraday's law $\partial_t\Btext=-\curl\bE$ and the Amp\`ere--Maxwell law $\partial_t\bE=\curl\Btext$ in vacuum. With a source,
+$\partial_\mu F^{\mu\nu}=(\rho,\bj)$ reads
+\begin{equation}
+\label{eq:RSsource}
+\partial_tz=-i\,\curl z-i\,\bj,\qquad \nabla\cdot z=i\rho ,
+\end{equation}
+and taking the divergence of the first equation gives $\partial_t\rho+\nabla\cdot\bj=0$: continuity is a consequence of the system and
+the compatibility condition that any proposed current must satisfy.
+\end{proposition}
+
+Up to a factor $i$, $z$ is the Riemann--Silberstein vector $\bE+i\Btext$, which obeys
+$i\partial_t(\bE+i\Btext)=\curl(\bE+i\Btext)$ \cite{Silberstein1907,BialynickiBirula13}, and the holomorphic form of the proof of
+\cref{thm:GLorentz} has
+\[
+\Re q(z)=|\bB|^2-|\bE|^2,\qquad \Im q(z)=2\,\bE\cdot\bB ,
+\]
+so the two Maxwell invariants are the real and imaginary parts of one holomorphic quadratic form. Three classical facts fall into
+place. The duality rotation is the phase rotation $z\mapsto e^{i\vartheta}z$ that the proof of \cref{thm:GLorentz} already used, and
+it turns the pair of invariants by $2\vartheta$. The two quadratic forms that will compete in the interior dynamics of
+\cref{sec:shifted,sec:neutral} reappear with physical names: the $\eta$-form $\Re q$ is the Lorentz invariant, while the Hermitian
+form $|z|^2=|\bB|^2+|\bE|^2$ is twice the energy density and depends on the frame. And the remaining sesquilinear covariant is the
+Poynting vector, $\tfrac i2\,\bar z\times z=\bE\times\bB$, so that $\bE\times\Btext=-\tfrac i2\,\bar z\times z$.
+
+\begin{example}[A circularly polarised wave on the frame]
+\label{ex:circular}
+The field $z=(1,i,0)\,e^{ik(x_3-t)}$ solves \eqref{eq:RS}: $\nabla\cdot z=0$ because $z$ has no third component, and
+$\curl z=ik\,(-i,1,0)e^{ik(x_3-t)}=k\,(1,i,0)e^{ik(x_3-t)}$, so $-i\curl z=-ik\,z=\partial_tz$. Its invariant is
+$q(z)=(1+i^2)e^{2ik(x_3-t)}=0$, so $|\bB|=|\bE|$ and $\bE\cdot\bB=0$ at every point: the wave is null. Its Poynting vector
+$\tfrac i2\bar z\times z=\tfrac i2(1,-i,0)\times(1,i,0)=\tfrac i2(0,0,2i)=(0,0,-1)$ is $\bE\times\bB$, so $\bE\times\Btext=(0,0,1)$
+points along the direction of propagation, as it should.
+\end{example}
+
+\subsection{Frame vectors as spacetime planes}
+
+Each pairing plane $(e_i,e_{i+3})$ carries one complex component $z_i=B_i+iE_i$, and a frame vector is at the same time a bivector of
+spacetime. The two descriptions meet in the following way.
+
+\begin{proposition}[Frame vectors as planes]
+\label{prop:planes}
+Let $X=\sum_i(B_ie_i+E_ie_{i+3})$ and $F_X$ as above. Then $\Pf F_X=\bE\cdot\bB$ and $\det F_X=(\bE\cdot\bB)^2$. A nonzero $F_X$ is a
+single plane $u\wedge v$ exactly when $\bE\cdot\bB=0$, that is when $\Im q=0$. Otherwise there is a Lorentz frame in which
+$F_X=a\,\theta^0\wedge\theta^1+b\,\theta^2\wedge\theta^3$ is a pair of orthogonal planes, and the duality rotation $e^{-\vartheta G}$ with
+$\tan\vartheta=a/b$ carries it to the single plane $\sqrt{a^2+b^2}\,\theta^2\wedge\theta^3$, the complexion of Rainich and of Misner
+and Wheeler \cite{Rainich1925,MisnerWheeler57}.
+\end{proposition}
+
+\Cref{fig:qplane} shows the content of this proposition in the plane of the complex invariant. The real axis is the locus of single
+planes, the positive half of magnetic type and the negative half of electric type, the origin is the null cone, and the duality
+rotation moves a field around a circle at twice its own angle. In \cref{sec:neutral} the bound orbits of the interior dynamics will
+turn out to be exactly such rotations.
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[scale=1.15,>=Stealth]
+\draw[->,gray] (-3.0,0) -- (3.2,0) node[right] {\small $\Re q=|\bB|^2-|\bE|^2$};
+\draw[->,gray] (0,-2.6) -- (0,2.8) node[above] {\small $\Im q=2\,\bE\cdot\bB$};
+\draw[scol,line width=2.2pt] (-2.9,0) -- (-0.08,0);
+\draw[tcol,line width=2.2pt] (0.08,0) -- (2.9,0);
+\node[tcol,anchor=north west] at (0.15,-0.08) {\small single plane, magnetic};
+\node[scol,anchor=north east] at (-0.15,-0.08) {\small single plane, electric};
+\fill[black] (0,0) circle (2pt);
+\node[anchor=north west] at (0.05,0.45) {\small null};
+\draw[gcol,thick,dashed] (0,0) circle (1.8);
+\coordinate (q0) at ({1.8*cos(35)},{1.8*sin(35)});
+\fill[gcol] (q0) circle (2.3pt);
+\node[gcol,right=3pt] at (q0) {\small $q_0$};
+\draw[->,gcol,thick] ({2.2*cos(35)},{2.2*sin(35)}) arc (35:95:2.2);
+\node[gcol,align=left,anchor=west] at (1.75,2.05) {\small duality $e^{\vartheta G}$:\\ \small $q\mapsto e^{2i\vartheta}q$};
+\foreach \a in {0,180}{\fill[ocol] ({1.8*cos(\a)},{1.8*sin(\a)}) circle (2.0pt);}
+\node[ocol,anchor=north east,align=right] at (-1.0,-1.55) {\small each crossing of the real axis\\ \small is met twice per turn of $\vartheta$};
+\end{tikzpicture}
+\caption{The plane of the complex invariant $q=z\cdot z$ of a frame vector (\cref{thm:emfield,prop:planes}). The real axis is the
+locus $\bE\cdot\bB=0$ on which the spacetime two-form is a single plane, magnetic on the right and electric on the left; the origin is
+the null cone. A duality rotation $e^{\vartheta G}$ preserves $|q|$ and turns $q$ at twice the rate, so a non-null field becomes a single
+plane four times as $\vartheta$ runs once around.}
+\label{fig:qplane}
+\end{figure}
+
+Everything in this section is a statement about a representation and its invariants. \Cref{thm:twoops} is a multiplicity count that
+fixes the form of the equations and nothing about their content: it does not produce a source, does not say that a source is the
+current of anything, supplies no coupling constant and no Lagrangian. Nor is any of it special to this arena, since the count uses only
+$\so{1,3}$ and $\Lambda^2$. What the arena adds is that the objects the count needs, the module, the duality and the invariants, were
+already present, so that the system can be written in the arena's own variables \eqref{eq:RS}. The deflationary test of
+\cref{sec:deflation} applies to it in full.

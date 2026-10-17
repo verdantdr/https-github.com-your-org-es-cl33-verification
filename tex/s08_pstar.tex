@@ -1,0 +1,202 @@
+\section{A chiral Pati--Salam block}
+\label{sec:pstar}
+
+The five projectors of \cref{sec:projectors} are one family among many. Enlarging the class to all commuting symmetric blade
+involutions produces a projector on which colour and chirality coexist. The idea is to correlate spacetime chirality with an
+\emph{internal} four-dimensional chirality, and to constrain the colour \emph{volume} rather than any colour direction.
+
+\subsection{Construction}
+
+At three constituents take the interior gamma matrices $\gamma^\mu=(e^{(1)}_1,e^{(1)}_4,e^{(1)}_5,e^{(1)}_6)$ and split the remaining
+fourteen directions into three groups:
+\begin{center}
+\begin{tabular}{@{}llcc@{}}
+\toprule
+group & directions & signs & generators $E_A$\\
+\midrule
+weak $W$ & $e^{(2)}_1,\ e^{(3)}_1,\ e^{(3)}_2,\ e^{(3)}_3$ & $++++$ & $7,13,14,15$\\
+colour $C$ & $e^{(2)}_4,e^{(2)}_5,e^{(2)}_6,\ e^{(3)}_4,e^{(3)}_5,e^{(3)}_6$ & $------$ & $10,11,12,16,17,18$\\
+auxiliary $A$ & $e^{(1)}_2,e^{(1)}_3,\ e^{(2)}_2,e^{(2)}_3$ & $++++$ & $2,3,8,9$\\
+\bottomrule
+\end{tabular}
+\end{center}
+With $J=\wI$ the ordered product of the fourteen internal generators and $\Gamma=J\gamma^0\gamma^1\gamma^2\gamma^3$, define the three
+volumes
+\[
+\chi_W=e^{(2)}_1e^{(3)}_1e^{(3)}_2e^{(3)}_3,\qquad
+\chi_C=e^{(2)}_4e^{(2)}_5e^{(2)}_6e^{(3)}_4e^{(3)}_5e^{(3)}_6,\qquad
+q_A=e^{(1)}_2e^{(1)}_3 .
+\]
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[scale=0.95]
+\foreach \k in {1,2,3}{\node at (1.3*\k,6.55) {\small $k=\k$};}
+\node[anchor=south] at (2.6,6.85) {\small constituent};
+\foreach \a in {1,...,6}{\node at (0.35,6.5-\a) {\small $e_{\a}$};}
+% colour code: interior = gray, W = gcol, C = ocol, A = tcol
+\def\pscell#1#2#3{\fill[#3] (1.3*#1-0.5,6.0-#2) rectangle (1.3*#1+0.5,6.0-#2+0.9);\draw[gray] (1.3*#1-0.5,6.0-#2) rectangle (1.3*#1+0.5,6.0-#2+0.9);}
+\pscell{1}{1}{lgray}\pscell{1}{4}{lgray}\pscell{1}{5}{lgray}\pscell{1}{6}{lgray}
+\pscell{1}{2}{tcol!35}\pscell{1}{3}{tcol!35}
+\pscell{2}{1}{gcol!40}\pscell{2}{2}{tcol!35}\pscell{2}{3}{tcol!35}
+\pscell{2}{4}{ocol!45}\pscell{2}{5}{ocol!45}\pscell{2}{6}{ocol!45}
+\pscell{3}{1}{gcol!40}\pscell{3}{2}{gcol!40}\pscell{3}{3}{gcol!40}
+\pscell{3}{4}{ocol!45}\pscell{3}{5}{ocol!45}\pscell{3}{6}{ocol!45}
+\foreach \k in {1,2,3}{\foreach \a in {1,...,6}{\pgfmathtruncatemacro{\A}{6*(\k-1)+\a}\node at (1.3*\k,6.45-\a) {\scriptsize $E_{\A}$};}}
+\draw[thick] (0.75,3.05) -- (4.45,3.05);
+\node[anchor=west,align=left] at (5.0,5.6) {\small \textcolor{mgray}{\rule{8pt}{8pt}} interior $\gamma^\mu$: Lorentz};
+\node[anchor=west,align=left] at (5.0,4.95) {\small \textcolor{gcol!70}{\rule{8pt}{8pt}} weak $W$: volume $\chi_W$, $\su2_L\oplus\su2_R$};
+\node[anchor=west,align=left] at (5.0,4.3) {\small \textcolor{ocol!80}{\rule{8pt}{8pt}} colour $C$: volume $\chi_C$, $\so6\cong\su4$};
+\node[anchor=west,align=left] at (5.0,3.65) {\small \textcolor{tcol!70}{\rule{8pt}{8pt}} auxiliary $A$: $q_A=e^{(1)}_2e^{(1)}_3$};
+\node[anchor=west,align=left] at (5.0,2.6) {\small $X=\Gamma\chi_W,\quad Z=-J\chi_C,\quad U=-Jq_A$};
+\node[anchor=west,align=left] at (5.0,1.9) {\small $P_*=\tfrac18(\id+X)(\id+Z)(\id+U)$, rank $64$};
+\node[anchor=west,align=left] at (5.0,1.2) {\small temporal rows above the line, spatial below};
+\end{tikzpicture}
+\caption{The eighteen generators of $\Cl(9,9)$ arranged by constituent, and the grouping that defines the Pati--Salam block. The
+interior four-plane carries the Lorentz action; the weak, colour and auxiliary groups enter $P_*$ only through their volumes, which
+is why every rotation inside each group survives the projection (\cref{thm:PS,thm:PSalg}).}
+\label{fig:pstar}
+\end{figure}
+
+\begin{theorem}[A chiral projector carrying colour]
+\label{thm:PS}
+$X=\Gamma\chi_W$, $Z=-J\chi_C$ and $U=-Jq_A$ are commuting symmetric traceless involutions, and all seven nonidentity products $X$, $Z$,
+$U$, $XZ$, $XU$, $ZU$, $XZU$ are traceless. Hence
+\begin{equation}
+\label{eq:Pstar}
+P_*=\tfrac18(\id+\Gamma\chi_W)(\id-J\chi_C)(\id-Jq_A)
+\end{equation}
+is an orthogonal projector with $\Tr P_*=512/8=64$. It satisfies $[P_*,\Sigma^{\mu\nu}]=[P_*,J]=0$ for the six Lorentz generators
+$\Sigma^{\mu\nu}=\tfrac12\gamma^\mu\gamma^\nu$, and $P_*\gamma^\mu P_*=0$, so it is axial; its two Weyl blocks have real rank $32$ each, and
+$\chi_WP_*=\Gamma P_*$.
+\end{theorem}
+
+Rank is not automatic from the three factors being individually traceless; it is the products that decide, and here all of them are
+traceless. The statement $\chi_WP_*=\Gamma P_*$ is the correlation of spacetime chirality with the internal chirality of the weak
+directions.
+
+\subsection{The effective algebra}
+
+\begin{theorem}[The effective algebra and its Pati--Salam part]
+\label{thm:PSalg}
+All fifteen colour bivectors $e_ae_b$, $a,b\in C$, commute with $X$, $Z$ and $U$, so the whole compact $\so6_C\cong\su4_C$ survives
+and acts faithfully on the block; the colour volume $\chi_C$ is invariant under those rotations, so constraining it costs no colour
+generator. With $w_1,\dots,w_4$ the weak directions, $\tau_i=-\tfrac12w_jw_k$ for cyclic $(i,j,k)$, $t^{L,R}_i=\tfrac12(\id\mp\chi_W)\tau_i$
+and $T^{L,R}_i=P_*t^{L,R}_i$,
+\[
+[T^L_i,T^L_j]=\epsilon_{ijk}T^L_k,\qquad T^L_iP_R=0,\qquad -\sum_i(T^L_i)^2=\tfrac34P_L,
+\]
+and the mirror identities hold on the right. The $t^{L,R}_i$ are genuine bivectors, for example $t^L_3=-\tfrac14(w_1w_2+w_3w_4)$.
+The full effective compact bivector algebra is
+\[
+\keff(P_*)=\su4\oplus\su2_L\oplus\su2_R\oplus\uu1^2,
+\]
+of dimension $23$, entirely compact, with a derived algebra of dimension $21$ and a two-dimensional centre. All $21$ simple generators
+preserve the kinetic kernels $K^\mu=P_*\gamma^0\gamma^\mu P_*$, and $K^0=P_*$.
+\end{theorem}
+
+\begin{proof}
+Each colour bivector has even overlap with each of the three involution masks, so all fifteen commute with $X,Z,U$ and descend
+faithfully. For the weak part, $\chi_W^2=\id$ and $[\chi_W,\tau_i]=0$ make $\tfrac12(\id\mp\chi_W)$ idempotents commuting with the
+$\tau_i$; the $\tau_i$ close on $\su2$ with $\tau_i^2=-\tfrac14\id$, so $-\sum_i(T^L_i)^2=\tfrac34P_L$, and $\chi_WP_*=\Gamma P_*$ places the
+two ideals on opposite chiralities. The dimension $23$ is the full solution of $[B,P_*]=0$ over the $91$-dimensional space of internal
+bivectors: the nullspace is $23$-dimensional, entirely compact, has trivial annihilator on the block, and has a derived algebra of
+dimension $21$.
+\end{proof}
+
+\begin{corollary}[One Pati--Salam family]
+\label{cor:PSfamily}
+The colour volume is not an involution: $\chi_C$ is a grade-six blade on six negative directions, so $\chi_C^2=-\id$. The
+involution is
+\[
+\Gamma_C:=J\chi_C,\qquad \Gamma_C^2=\id,\qquad \Gamma_CP_*=-P_*,\quad\text{equivalently}\quad \chi_CP_*=JP_*.
+\]
+On the module with $J=+i$ each Weyl block then carries exactly four $\su4$ weights, all of colour chirality $\Gamma_C=-1$, each with
+multiplicity $4=2\times2$, a weak doublet times a Weyl spinor, and the two blocks carry the same colour weights. The content is
+\[
+(\mathbf4,\mathbf2,\mathbf1)_L\oplus(\mathbf4,\mathbf1,\mathbf2)_R ,
+\]
+one Pati--Salam family including a right-handed neutrino \cite{PatiSalam}. Which of the two conjugate four-dimensional representations
+is called $\mathbf4$ is a convention.
+\end{corollary}
+
+\subsection{Charges}
+
+The compact algebra is realised by skew operators; charges are the corresponding symmetric operators $\hat t=-Jt$. On the block the
+centre of $\keff(P_*)$ is spanned by the skew operators $JP_*$ and $J\Gamma P_*$, whose charges are $P_*$ and $\Gamma P_*$. Concretely
+$q_A|_{V_*}=J$ and $E_8E_9|_{V_*}=J\Gamma$ on the image $V_*=\operatorname{im}P_*$.
+
+\begin{proposition}[Colour intertwiner, $\BmL$, and the charge table]
+\label{prop:PSledger}
+$R=P_*\gamma^0e^{(2)}_1e^{(2)}_2$ satisfies $R^2=-P_*$, exchanges the two Weyl blocks and commutes with every colour generator, so the
+colour representations of the two chiralities are equivalent and the content is $(\mathbf4,\mathbf2,\mathbf1)_L\oplus(\mathbf4,\mathbf1,
+\mathbf2)_R$ rather than a $\mathbf4/\bar{\mathbf4}$ pairing. With
+\[
+H=-\bigl(e^{(2)}_4e^{(3)}_4+e^{(2)}_5e^{(3)}_5+e^{(2)}_6e^{(3)}_6\bigr),\qquad Q_c=-JH,
+\]
+the derived centraliser of $H$ inside colour $\so6$ is $\su3$, and $(Q_c-\id)(Q_c+3\id)P_*=0$: $Q_c$ has eigenvalues $+1$ and $-3$ on
+the block, with real multiplicities $48$ and $16$, the triplet and the singlet. Setting $\BmL=Q_c/3$ and using the weak charges
+$-JT^3_{L,R}$,
+\[
+Y=-J\,T^3_R+\tfrac12(\BmL),\qquad Q=-J\,T^3_L+Y ,
+\]
+gives one family:
+\begin{center}
+\begin{tabular}{@{}lccr@{}}
+\toprule
+field & $SU(3)\times SU(2)_L$ & $Y$ & internal Weyl components\\
+\midrule
+$Q_L$ & $(\mathbf3,\mathbf2)$ & $\tfrac16$ & $6$\\
+$L_L$ & $(\mathbf1,\mathbf2)$ & $-\tfrac12$ & $2$\\
+$u_R$ & $(\mathbf3,\mathbf1)$ & $\tfrac23$ & $3$\\
+$d_R$ & $(\mathbf3,\mathbf1)$ & $-\tfrac13$ & $3$\\
+$e_R$ & $(\mathbf1,\mathbf1)$ & $-1$ & $1$\\
+$\nu_R$ & $(\mathbf1,\mathbf1)$ & $0$ & $1$\\
+\bottomrule
+\end{tabular}
+\end{center}
+Four real spinor coordinates make one internal Weyl component, so rank $64$ is sixteen internal Weyl components, eight left and eight
+right, and not sixty-four particles.
+\end{proposition}
+
+The $\su3$ embedding, the right-handed Cartan direction and the hypercharge combination are chosen; what is established is their
+mutual compatibility. In the complex structure $J$ every one of the sixteen Weyl fermions has charge one: $J$ is fermion number,
+$F=3B+L$, and the baryon number appears as $4B=F+(\BmL)$.
+
+\begin{proposition}[The two central factors cannot be gauged]
+\label{prop:PSanom}
+For a central charge $a+b\Gamma$, corresponding to the skew element $aJ+bJ\Gamma$, the anomaly coefficients on the block, per Weyl
+fermion with every field written left-handed, are
+\[
+\begin{gathered}
+SU(2)_L^2:\ 2(a-b),\qquad SU(2)_R^2:\ -2(a+b),\qquad SU(4)^2:\ -2b,\\
+\text{cubic}:\ -16(3a^2b+b^3),\qquad \text{gravitational}:\ -16b ,
+\end{gathered}
+\]
+and the mixed anomalies with two central and one Pati--Salam generator vanish. All vanish only for $a=b=0$. The Pati--Salam algebra itself
+is anomaly free on the block: the $SU(4)^3$ anomaly cancels between two fundamentals and two antifundamentals in the all-left convention,
+and each weak $SU(2)$ sees four doublets, so the global anomaly is absent \cite{Witten82}. Hence, with the block as the matter content,
+$\su4\oplus\su2_L\oplus\su2_R$ is the largest anomaly-free gauge algebra containing Pati--Salam, and the two central directions remain
+global symmetries.
+\end{proposition}
+
+The obstruction is stated for this matter content; additional matter or another cancellation mechanism is not excluded. The two central
+symmetries are fermion number $J$, anomalous only through $SU(2)_L$ and $SU(2)_R$ and hence exact in perturbation theory and violated by
+their instantons \cite{tHooft76}, and the chiral charge $J\Gamma$.
+
+\begin{proposition}[Two rank-64 projectors, two orbits]
+\label{prop:orbits}
+Under the compact group of the connection sector, whose Lie algebra is the maximal compact $\so8\oplus\so6$ of dimension $43$, the orbit
+through $\Pfam$ has dimension $43-9=34$ and the orbit through $P_*$ has dimension $43-23=20$. Equal rank does not put two projectors on
+one orbit.
+\end{proposition}
+
+\begin{remark}[What the construction settles]
+\label{rem:PSsettles}
+It settles an existence question: colour on a chiral block is not obstructed, and no counting argument based on the five-projector family
+can be a theorem. It does not select $P_*$; it does not derive the hypercharge embedding, which is compatible with anomaly cancellation but
+chosen; it gives one family and not three; and by \cref{cor:nopredict} exhibiting a known representation content is a consistency result,
+not evidence. One further fact will matter in \cref{sec:matter}: $\gamma^0$ commutes with all $91$ internal bivectors and with $J$ and the
+rotations, and anticommutes with $\Gamma$ and the boosts. It maps $V_*$ onto an orthogonal rank-$64$ subspace on which the same internal
+algebra acts with $\Gamma$ reversed. The chirality of the block is put in by the choice of $P_*$.
+\end{remark}

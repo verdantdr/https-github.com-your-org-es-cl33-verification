@@ -1,0 +1,181 @@
+\section{Sources, and whether the photon can be massless}
+\label{sec:photon}
+
+\Cref{thm:twoops} fixes the form of Maxwell's equations and leaves the source entirely open. The geometry of the curved arena supplies two candidate
+currents, and testing them gives a sharp negative result about the photon, together with the criterion that repairs it and a vacuum, at the second rung, that
+satisfies the criterion.
+
+\subsection{Two currents}
+
+On the slice $\Sigma$ the oriented normal two-plane bundle of \cref{sec:curvedmodel} has an $SO(2)$ connection $A$ with curvature $F_N=dA$, an ordinary two-form
+on spacetime whose six components sit in the module of \cref{thm:emfield}, and which is distinct from the compressed spinor curvature $\mathcal F_{\rm obs}$.
+Because the structure group is abelian, $dF_N=0$ identically: the homogeneous half of Maxwell's equations is the Bianchi identity of the normal bundle, not an
+assumption. Setting $j^\nu_{\rm geom}:=\lambda\,\nabla_\mu F_N^{\mu\nu}$ gives a current conserved identically, by the antisymmetry of $F_N$. On a flat base the
+connection $A=Bx\,dz$ has constant curvature and zero current, while $A=a(x)\,dz$ gives $F_N=a'(x)\,dx\wedge dz$ and $j^z_{\rm geom}=\lambda\,a''(x)$. This current is
+defined from $F_N$, so it is the current of a geometry that has been specified, not an independent source; its value is to show that continuity can be met by a
+geometric object.
+
+The stronger candidate is independent of $F$. Fix a compact $\uu1$ generator $Q$, let $D_\mu\Pi=\nabla_\mu\Pi+A_\mu[Q,\Pi]$, and add a Maxwell term
+$-F_{\mu\nu}F^{\mu\nu}/4g_A^2$. Varying the kinetic term $\tfrac{f^2}2\Tr(D_\mu\Pi D^\mu\Pi)$ with respect to $A_\mu$ gives
+\begin{equation}
+\label{eq:jPi}
+j^\mu_\Pi=-f^2\Tr\bigl(Q\,[\Pi,D^\mu\Pi]\bigr)=-f^2\Tr\bigl([Q,\Pi]\,D^\mu\Pi\bigr),
+\end{equation}
+the component of projector motion along the chosen charge rotation. It is conserved on the projector equation of motion, $D_\mu\mathcal C^\mu=0$, rather than
+identically.
+
+\begin{theorem}[The paired-mode projector sources a massive vector]
+\label{thm:photonmass}
+For $Q=J_N/2$ and the angle ansatz of \cref{ex:stueckelberg}, $\Tr([Q,\Pi]^2)=1$ exactly, so $j^\mu_\Pi=-f^2(\partial^\mu\theta+A^\mu)$, and coupling it to the Maxwell term
+reproduces the St\"uckelberg mass $m_A^2=g_A^2f^2$. The mass and the current come from the same trace, so no choice of $f$ gives a massless photon with this source.
+\end{theorem}
+
+\begin{corollary}[The massless criterion]
+\label{cor:massless}
+A massless vector requires a vacuum $\Pi_0$ with $[Q,\Pi_0]=0$, so that the kinetic term generates no mass, and fluctuations $\pi$ with $[Q,\pi]\neq0$, so that charged modes
+still carry the current $-f^2\Tr(Q[\pi,D^\mu\pi])+\cdots$. If $[Q,\Pi(x)]=0$ is imposed everywhere, the current vanishes identically and nothing is sourced.
+\end{corollary}
+
+\subsection{The first rung}
+
+\begin{theorem}[The criterion can be met]
+\label{thm:massless1}
+In $\Cl(3,3)$ with $Q=J_N/2$ the rank-four orthogonal projectors commuting with $Q$ form $\mathrm{Gr}_\C(2,4)$, of real dimension eight, since $2Q$ is a complex structure.
+For a generic member $\Pi_0$,
+\[
+\dim\{[B,\Pi_0]:B\in\so{3,3}\}=14,\qquad \dim\{\pi\ \text{in that span with}\ [Q,\pi]\neq0\}=8,
+\]
+so the vacuum is massless and not rigid; the mechanism is the Jacobi identity $[Q,[B,\Pi_0]]=[[Q,B],\Pi_0]$, with $\ad_Q$ of rank eight on $\so{3,3}$. But only two of the eight
+charged directions are admissible: by \cref{thm:ghost} a variation $[B,\Pi_0]$ stays among the orthogonal projectors exactly when $B$ is compact, and of the fourteen orbit
+directions only five are compact-generated, of the eight charged ones only two.
+\end{theorem}
+
+\begin{proposition}[Lorentz invariance makes the first rung rigid]
+\label{prop:rigid}
+The commutant of $\{\lint,Q\}$ in $\End(\R^8)$ has dimension four, with symmetric part spanned by $\id$ and $\mathcal V$. So the only rank-four orthogonal projectors commuting
+with both the interior Lorentz action and $Q$ are $\tfrac12(\id\pm\mathcal V)$, the chirality projectors of \cref{thm:subdichotomy}. Every bivector commutes with $\mathcal V$, so
+these have a spin-orbit tangent space of dimension zero: they are rigid, and by \cref{cor:massless} their current vanishes identically.
+\end{proposition}
+
+The paired-mode projector fails the same Lorentz condition, since all six interior bivectors fail to commute with it; non-invariance of the observation projector
+is a standing feature of the one-constituent construction. What \cref{prop:rigid} adds is that imposing Lorentz invariance together with $[Q,\Pi_0]=0$ forces rigidity
+at the first rung. The tower relaxes this: a surplus rotation commuting with the interior generators of every constituent is unique at $n=1$, while at $n=2$ there are
+six, and $\ad_Q$ has rank $8$ of $15$ at $n=1$ and $20$ of $66$ at $n=2$ on the bivectors, so the higher rungs offer a genuine choice of which $\uu1$ to gauge.
+
+\subsection{A Lorentz-invariant charged vacuum at the second rung}
+\label{sec:towervac}
+
+\begin{definition}[The second-rung vacuum]
+\label{def:towervac}
+In $\Cl(6,6)$ with the spectator interior action, whose internal complement has signature $(5,3)$, let $a,b,c,d,e$ be orthonormal positive internal generators: the
+surplus pair of the first constituent and the three positive directions of the second. Set
+\[
+Q:=\tfrac12ab,\qquad H:=abcd,\qquad \Pi_0:=\tfrac12(\id+H).
+\]
+\end{definition}
+
+\begin{theorem}[Lorentz invariant, uncharged and not rigid]
+\label{thm:towervac}
+$H^2=\id$, $H^{\!\top}=H$ and $\Tr H=0$, so $\Pi_0$ is an orthogonal projector of rank $32$ on $\R^{64}$. Moreover:
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item $[Q,\Pi_0]=0$, so the kinetic term gives the vacuum no gauge-boson mass;
+\item $\Pi_0$ commutes with every interior gamma matrix, hence with the interior Lorentz algebra, and with the internal volume that supplies the complex structure;
+\item it is moved by a compact internal bivector: for $B=\tfrac12be$, $\pi=[B,\Pi_0]=-\tfrac12acde$ and $[Q,\pi]=\tfrac12bcde\neq0$, with $\pi$ symmetric and $\Tr(\pi^2)=16$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+$H$ is a product of four positive generators, so $H^2=(-1)^{4\cdot3/2}\id=\id$ and $H^{\!\top}=H^2H=H$, and it is a traceless blade. $Q=\tfrac12ab$ shares two indices with
+$H$ and commutes with it by \eqref{eq:bladecomm}. Each interior gamma shares no index with $H$, and $4\cdot1$ is even, so it commutes. $B=\tfrac12be$ shares one index with
+$H$ and anticommutes with it, so $[B,\Pi_0]=\tfrac12[B,H]=BH=\tfrac12\,be\,abcd$; since $b\,e\,a\,b=b^2\,e\,a=e\,a$, this is $\tfrac12\,eacd=-\tfrac12\,acde$. The
+blade $acde$ has four positive generators and is symmetric, and $\Tr(\pi^2)=\tfrac14\Tr\id=16$. Finally $Q$ shares one index with $\pi$, so
+$[Q,\pi]=2Q\pi=-\tfrac12\,ab\,acde=\tfrac12\,bcde$.
+\end{proof}
+
+\begin{theorem}[The compact family and its current]
+\label{thm:S4}
+Let $I_5:=abcde$ and $Z_i:=I_5v_i$ for $v_i\in\{a,b,c,d,e\}$. The $Z_i$ are symmetric of grade four with $Z_iZ_j+Z_jZ_i=2\delta_{ij}$, so for every unit $n\in\R^5$
+\[
+\Pi(n):=\tfrac12\bigl(\id+I_5n\bigr)
+\]
+is a rank-$32$ orthogonal projector commuting with every interior gamma matrix. These form a compact family $S^4=\mathrm{Spin}(5)/\mathrm{Spin}(4)$ with $\Pi_0=\Pi(e)$.
+At the vacuum the tangents $T_i=[\tfrac12v_ie,\Pi_0]=\tfrac12I_5v_i$ satisfy $\Tr(T_iT_j)=16\delta_{ij}$ and
+\[
+[Q,T_a]=-T_b,\qquad [Q,T_b]=T_a,\qquad [Q,T_c]=[Q,T_d]=0 :
+\]
+one charged complex scalar $\phi=n_a+in_b$ and two neutral real scalars. With $D_\mu\phi=(\partial_\mu-iA_\mu)\phi$ the kinetic term and its current are
+\[
+\mathcal L_\Pi=8f^2\,D_\mu n\cdot D^\mu n,\qquad j^\mu_\Pi=16f^2\bigl(n_aD^\mu n_b-n_bD^\mu n_a\bigr)=16f^2\Im(\bar\phi D^\mu\phi),
+\]
+the factor $16$ being the real trace on the $64$-dimensional module. At $n=e$, $\phi=0$, so no $A_\mu A^\mu$ term is generated, while charged fluctuations carry current.
+\end{theorem}
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[>=Stealth,font=\small]
+\shade[ball color=tcol!20,opacity=0.9] (0,0) circle (1.9);
+\draw[tcol,thick] (0,0) circle (1.9);
+\draw[tcol!60,dashed] (-1.9,0) arc (180:360:1.9 and 0.5);
+\draw[tcol!60,dotted] (1.9,0) arc (0:180:1.9 and 0.5);
+\coordinate (N) at (0,1.9);
+\fill[black] (N) circle (2.2pt);
+\node[anchor=north,yshift=-4pt] at (N) {$\Pi_0=\Pi(e)$};
+\draw[->,scol,very thick] (N) -- ++(1.5,0.35) node[right] {$T_a$};
+\draw[->,scol,very thick] (N) -- ++(0.75,0.75) node[above right] {$T_b$};
+\draw[scol,->] (0.95,2.35) arc (15:60:0.65);
+\node[scol,anchor=west,align=left] at (2.0,3.05) {$Q$ rotates $(T_a,T_b)$:\\ charged scalar $\phi=n_a+in_b$};
+\draw[->,gcol,very thick] (N) -- ++(-1.5,0.35) node[left] {$T_c$};
+\draw[->,gcol,very thick] (N) -- ++(-0.7,0.8) node[above left] {$T_d$};
+\node[gcol,anchor=east,align=right] at (-2.0,3.05) {$[Q,T_c]=[Q,T_d]=0$:\\ two neutral scalars};
+\node[align=center] at (0,-2.45) {$S^4=\{\Pi(n)=\tfrac12(\id+I_5n):\ |n|=1\}$, rank $32$, Lorentz invariant};
+\end{tikzpicture}
+\caption{The compact family of second-rung vacua (\cref{thm:S4}). Every point is a Lorentz-invariant projector; at the vacuum $\Pi_0$, which commutes with the charge $Q$,
+the four tangent directions are generated by compact bivectors, two of them rotated into each other by $Q$ and two neutral.}
+\label{fig:S4}
+\end{figure}
+
+\begin{theorem}[The curved extension]
+\label{thm:towercurved}
+Reduce the internal connection so that $a,b$ carry the normal $SO(2)$ connection and $c,d,e$ are parallel, $\Omega=\Omega_{\rm Lorentz}+AQ$. Both summands commute with
+$\Pi_0$, so
+\[
+D\Pi_0=0,\qquad [\mathcal R,\Pi_0]=0
+\]
+for arbitrary spacetime curvature and arbitrary normal curvature, the two conditions that the transport obstruction of \cref{prop:obstruct} separates, here satisfied
+together by construction. Throughout the family $\mathcal C_\mu=[\Pi,D_\mu\Pi]=\tfrac14[n,D_\mu n]=\tfrac12\,n\wedge D_\mu n$, a compact internal bivector at every point, so the
+adapted connection stays spin-valued away from the vacuum as well.
+\end{theorem}
+
+For a general projector $[\Pi,D\Pi]$ need not be a bivector: in a normal frame with unit clock $w$ and negative $s,t$, the projector $\Pi=\tfrac12(\id+X)$ with $X=(w+ws)/\sqrt2$
+and $B=st$ gives $[\Pi,[B,\Pi]]=\tfrac12(t-st)$, which has a grade-one part. The $S^4$ family avoids this by construction.
+
+\begin{proposition}[The vacuum and the matter]
+\label{prop:towermatter}
+The stabiliser of $\Pi_0$ in the internal $\so{5,3}$ is $\so4\oplus\so{1,3}$, of dimension $12$ with compact part $\su2\oplus\su2\oplus\su2$, which does not contain $\su3$. The
+construction is therefore incompatible with colour at $n=2$; it is compatible from the third rung on:
+\begin{center}
+\small
+\begin{tabular}{@{}cccc@{}}
+\toprule
+rung & internal algebra & stabiliser of $H$ & compact part\\
+\midrule
+$n=2$ & $\so{5,3}$, $\dim28$ & $\so4\oplus\so{1,3}$, $\dim12$ & $9$, no $\su3$\\
+$n=3$ & $\so{8,6}$, $\dim91$ & $\so4\oplus\so{4,6}$, $\dim51$ & $27$, containing $\so6\supset\su3$\\
+$n=4$ & $\so{11,9}$, $\dim190$ & $\so4\oplus\so{7,9}$, $\dim126$ & $63$\\
+\bottomrule
+\end{tabular}
+\end{center}
+At $n=3$, the rung of $P_*$, the unbroken compact algebra is $\so4\oplus\so4\oplus\so6$ and contains colour.
+\end{proposition}
+
+The second-rung vacuum settles that a vacuum which is simultaneously Lorentz invariant, uncharged, not rigid and moved by a compact generator exists, so the first-rung
+rigidity of \cref{prop:rigid} is a property of that rung and not a law; its fluctuation spectrum is one charged complex scalar and two neutral ones, its current is an
+ordinary charged-scalar current, and its curved extension has $D\Pi_0=0$ with a spin-valued adapted connection across the whole family. It does not settle which point
+of $S^4$ is selected, since a spectrum-only potential is constant on the family; whether $j_\Pi$ is the electric current of a fermion, with which charge normalisation;
+the values of $f$ and $g_A$; stability; or a gravitational action. It must be done at $n\ge3$ to leave room for colour. And it uses the spectator action throughout:
+under the mixed action of \cref{sec:mixed}, $\Pi_0$ is preserved only by the rotations about one axis, its commutators with the six mixed generators span a
+five-dimensional space, and the rank-$16$ Dirac block of the coupled model meets the range of $\Pi_0$ only in zero, with $P\Pi_0P$ having eigenvalues $\tfrac14$ and $\tfrac34$
+on it. What the coupled model and the second-rung vacuum share is the charge: $Q=\tfrac12J_1$.
+
+The dichotomy left at the end of \cref{sec:transport} is thereby resolved in one direction. If the normal $U(1)$ is to be electromagnetism, the paired-mode projector
+must go, and \cref{thm:towervac} shows what can replace it. At one constituent, the paired-mode projector of \cref{ex:pairedmode} fails the photon test.

@@ -1,0 +1,218 @@
+\section{Goldstone bosons, antiparticles, baryon number and topology}
+\label{sec:goldstone}
+
+The selected vacuum can be examined from four further angles: which of its zero modes are Goldstone bosons and which are eaten; how the discrete
+operations that exchange particles and antiparticles act on it; whether the potential protects baryon number; and what topological defects its orbit
+supports. Each answer depends on counting the two global central generators $J$ and $J\Gamma$ alongside the $21$ gauged ones.
+
+\subsection{Goldstone bosons}
+
+\begin{proposition}[Goldstone directions attached to the symmetries]
+\label{prop:global}
+$J$ and $J\Gamma$ are antisymmetric, commute with the kinetic kernels and the $21$ Pati--Salam generators, span the centre of the $23$-dimensional faithful
+algebra, are anomalous, and carry no gauge fields. If $V$ is invariant under all $23$ generators and $\Phi$ is stationary, the tangent space of the $23$-orbit
+lies in the kernel of the Hessian; the gauge bosons eat the tangents of the $21$-orbit, whose dimension is the rank of the vector mass matrix, and
+\[
+\#\{\text{symmetry-generated Goldstone directions not eaten}\}=\dim(23\text{-orbit})-\dim(21\text{-orbit}).
+\]
+\end{proposition}
+
+The count is classical, and it counts the Goldstone directions attached to the $23$ specified generators, not all massless scalars: a potential with an
+accidental symmetry has more zero modes, as the degenerate tree potential of \cref{sec:fullK} has $271$ against a gauge orbit of dimension nine. Since $J$
+and $J\Gamma$ are anomalous, an uneaten direction is a pseudo-Goldstone boson, massive once the anomaly is accounted for.
+
+\begin{theorem}[No Majoron]
+\label{thm:nomajoron}
+At $r\Phi_0$ the $21$-orbit and the $23$-orbit both have dimension nine, so the global symmetries add no Goldstone direction beyond those eaten. The reason is
+\[
+[J,\Phi_0]=[J\Gamma,\Phi_0]=2\,[t^R_3,\Phi_0]:
+\]
+the fermion-number rotation of the $\nu_R\nu_R$ condensate is a gauge rotation, and $J+\tfrac13H$, of charge $4B$, stays unbroken. The nine eaten modes are the
+$\nu_R\nu_R$ phase ($Z'$), $\nu_Re_R$ ($W_R^\pm$) and $u_R\nu_R$ (six leptoquarks), matching the vector masses of \cref{thm:compat}.
+\end{theorem}
+
+The would-be Majoron of a spontaneously broken lepton number is eaten by the $Z'$. At the electroweak stage the situation changes.
+
+\begin{theorem}[One uneaten direction at the electroweak vacuum]
+\label{thm:axion}
+For $\Phi=v_R\Phi_0+\kappa_uK_{1u}+\kappa_dK_{1d}$:
+\begin{center}
+\small
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+vacuum & stabiliser in $21$ & stabiliser in $23$ & massive vectors & $23$-orbit & Goldstone directions\\
+\midrule
+generic, $\kappa_u\kappa_d\neq0$ & $9$ & $10$ & $12$ & $13$ & $\mathbf1$\\
+$\kappa_d=0$ or $\kappa_u=0$ & $9$ & $11$ & $12$ & $12$ & $0$\\
+$v_R=0$ & $16$ & $17$ & $5$ & $6$ & $1$\\
+\bottomrule
+\end{tabular}
+\end{center}
+At the electroweak vacuum the tangents of $J$ and $J+\tfrac13H$ lie in the gauge orbit and those of $J\Gamma$ and $J-J\Gamma$ do not; $J+\tfrac13H$ annihilates $\Phi$
+and $J-J\Gamma$, of charge $1-\Gamma$, does not.
+\end{theorem}
+
+The mechanism is simple. $J\Gamma$ acts on every Dirac-type kernel as the complex structure $2J\Gamma$, so it rotates the up-type and the down-type lines by the
+same phase, while the only Standard-Model generator that moves within these lines, the $Z$ direction, rotates them by opposite phases. When both values are
+nonzero the $J\Gamma$ direction cannot be absorbed. The broken global charge is $1-\Gamma$, whose anomalies per Weyl fermion in the all-left convention are
+\begin{center}
+\small
+\begin{tabular}{@{}lcccccc@{}}
+\toprule
+charge & $SU(3)^2$ & $SU(2)_L^2$ & $Y^2$ & $Q^2$ & gravitational & electroweak vacuum\\
+\midrule
+$1-\Gamma$ & $\mathbf2$ & $4$ & $\tfrac43$ & $\tfrac{16}3$ & $16$ & broken\\
+$4B=1+(\BmL)$ & $0$ & $2$ & $-2$ & --- & $0$ & unbroken\\
+\bottomrule
+\end{tabular}
+\end{center}
+The current of the broken charge has a colour anomaly, so its classical Goldstone direction is a pseudo-Goldstone boson of Peccei--Quinn--Weinberg--Wilczek
+type \cite{PecceiQuinn77,Weinberg78,Wilczek78}: an axion. Since its only order parameter is the bidoublet, its decay constant is of the electroweak scale, and such an
+axion is excluded experimentally \cite{PDG}. Within this field content, leaving $U(1)_{1-\Gamma}$ intact is therefore a phenomenological obstruction, and the
+electroweak-stage potential must break it explicitly. The trace potential and the one-loop gauge and Yukawa potential of \cref{sec:selection} are invariant
+under every orthogonal conjugation commuting with the Pati--Salam algebra, hence under $\exp\theta(J-J\Gamma)$, and the holomorphic quartic lives on the
+$\Gamma=+1$ half, where $J-J\Gamma=0$; none of them lifts the axion.
+
+\begin{proposition}[Bidoublet mass terms and their $CP$ parity]
+\label{prop:bidoublet}
+On $(\mathbf1,\mathbf2,\mathbf2)$ there are three Pati--Salam- and $J$-invariant symmetric forms, one of them $J\Gamma$-invariant. The $CP$ operator of
+\cref{thm:fourclasses} acts on them with eigenvalues $(+1,+1,-1)$: the invariant form $B_{\rm inv}$ is $CP$-even, and the two-dimensional breaking space splits into a
+$CP$-even $B_e$ and a $CP$-odd $B_o$. Along the $J\Gamma$-orbit,
+\[
+B_e\bigl(e^{\theta\ad J\Gamma}\Phi\bigr)=-\kappa_u\kappa_d\cos4\theta,\qquad B_o\bigl(e^{\theta\ad J\Gamma}\Phi\bigr)=-\kappa_u\kappa_d\sin4\theta,\qquad B_{\rm inv}=\text{const},
+\]
+the analogues of $\Re$ and $\Im\Tr\tilde\Phi^\dagger\Phi$ in left--right models.
+\end{proposition}
+
+\begin{theorem}[The kinetic norm of the axion direction]
+\label{thm:mA}
+Let $a=J\Phi_0$, $e_u=J\Gamma K_{1u}$, $e_d=J\Gamma K_{1d}$; these are mutually orthogonal with $|a|^2=4$ and $|e_u|^2=|e_d|^2=n_K=32$, and
+$t=[J\Gamma,\Phi]=2v_Ra+2\kappa_ue_u+2\kappa_de_d$. The gauge tangent space splits orthogonally into its part in $\operatorname{span}\{a,e_u,e_d\}$, spanned by $a$ and
+$z=\kappa_ue_u-\kappa_de_d$, and its part orthogonal to that span, and for all $v_R,\kappa_u,\kappa_d$
+\[
+\bigl|P_\perp t\bigr|^2=|t|^2-\frac{\langle t,a\rangle^2}{|a|^2}-\frac{\langle t,z\rangle^2}{|z|^2}=\frac{16\,n_K\,\kappa_u^2\kappa_d^2}{\kappa_u^2+\kappa_d^2}.
+\]
+\end{theorem}
+
+The heavy-condensate component of $t$ is a gauge direction, which is why $v_R$ drops out. If $\mu_e^2B_e$ is the only term breaking $U(1)_{1-\Gamma}$, with canonical
+amplitudes $h_{u,d}=\sqrt{32}\,\kappa_{u,d}$ and $m_{12}^2=\mu_e^2/32$, then to leading order in the explicit breaking
+\[
+m_A^2=\frac{\partial_\theta^2V}{|P_\perp[J\Gamma,\Phi]|^2}=\frac{m_{12}^2}{\sin\beta\cos\beta},\qquad \tan\beta=\frac{\kappa_u}{\kappa_d},
+\]
+the pseudoscalar mass of the two-Higgs-doublet model with a soft $m_{12}^2$ term \cite{Branco12}. Phase-dependent quartics add to it, and whether this curvature
+is a mass eigenvalue once mixing with the other neutral scalars is included requires the complete Hessian of a specified potential. With $CP$ imposed
+($\mu_o^2=0$) every extremum of the breaking mass terms has $\sin4\theta=0$, so no quadratic term can break $CP$ spontaneously; that needs terms of charge $\pm8$
+under $J\Gamma$, and the potential has $31+31$ of them among its quartics, the analogues of the phase-dependent quartics of left--right models \cite{DGKO91}.
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[>=Stealth,font=\small,
+  stage/.style={draw,thick,rounded corners=4pt,align=center,inner sep=5pt,text width=4.2cm},
+  stp/.style={align=left,text width=5.3cm,font=\footnotesize},
+  stpl/.style={align=right,font=\footnotesize}]
+\node[stage,draw=tcol,fill=tcol!6] (ps) at (0,0) {$\su4\oplus\su2_L\oplus\su2_R$\\ $21$ gauged; global $J$, $J\Gamma$};
+\node[stage,draw=gcol,fill=gcol!6] (sm) at (0,-2.6) {$\su3\oplus\su2_L\oplus\uu1_Y$\\ $12$ gauged; global $4B$, $1-\Gamma$};
+\node[stage,draw=scol,fill=scol!6] (em) at (0,-5.2) {$\su3\oplus\uu1_Q$\\ $9$ gauged; global $4B$};
+\draw[->,thick] (ps) -- (sm); \draw[->,thick] (sm) -- (em);
+\node[stp,anchor=west] at (2.6,-1.3) {$v_R\Phi_0$ ($\nu_R\nu_R$ in $(\mathbf{10},\mathbf1,\mathbf3)$)\\ eaten: $Z'$, $W_R^\pm$, $6\,X$ (nine)\\ no Majoron: $[J,\Phi_0]=2[t^R_3,\Phi_0]$\\ $\Z_2$ strings and monopoles, conditionally};
+\node[stp,anchor=west] at (2.6,-3.9) {$\kappa_uK_{1u}+\kappa_dK_{1d}$ (bidoublet)\\ eaten: $W^\pm$, $Z$ (three more)\\ one axion-like direction ($1-\Gamma$)\\ unless $V$ breaks $U(1)_{1-\Gamma}$};
+\node[stpl,anchor=east] at (-2.6,-1.3) {$\sin^2\theta_W=\tfrac38$\\ $\nu_R$: Majorana, mass $|y|r$};
+\node[stpl,anchor=east] at (-2.6,-3.9) {seesaw pair; $m_d=m_e$, $m_u=m_\nu^D$\\ Georgi--Jarlskog factor $-3$};
+\end{tikzpicture}
+\caption{The two stages of symmetry breaking in the selected vacuum (\cref{sec:matter,sec:goldstone}). Each arrow lists the order parameter, the vectors that
+eat the Goldstone directions, and the uneaten directions attached to the global central charges.}
+\label{fig:breaking}
+\end{figure}
+
+\subsection{Particles and antiparticles}
+
+At one constituent charge conjugation is unique up to a $U(1)_J$ rotation, lies in the surplus plane and is the Majorana real structure (\cref{thm:C}), and the
+Fock space of one momentum has a unique charge-zero ground state of energy $-2E$ (\cref{thm:spectra}). That value is the zero-point energy of two particle and two
+antiparticle modes; summed over momenta it is the fermion term $-2\sum_{\rm Weyl}$ of the one-loop potential \eqref{eq:V1}, the very term through which matter
+opposes the Standard-Model vacuum. At three constituents the discrete operations are classified as follows. A map $\psi\mapsto S\psi$ with $S$ orthogonal on $V_*$
+exchanges particles and antiparticles when $SJ=-JS$; it keeps or reverses chirality according to $S\Gamma S^{-1}=\pm\Gamma$; it goes with $\mathbf x\mapsto-\mathbf x$ when
+$S^{\!\top}K^iS=-K^i$.
+
+\begin{theorem}[Four classes of discrete operators]
+\label{thm:fourclasses}
+The blades of $\Cl(9,9)$ that commute with the three involutions of $P_*$ and with the rotations number $8192$, and they fall into exactly four classes of $2048$:
+internal ($J$-linear, $\Gamma$ kept, boosts kept), $P$ ($J$-linear, $\Gamma$ reversed, boosts reversed), $C$ ($J$-antilinear, $\Gamma$ reversed, boosts kept) and $CP$
+($J$-antilinear, $\Gamma$ kept, boosts reversed). The two missing types are forbidden for every operator, since an antilinear map commuting with the Lorentz action and
+keeping $\Gamma$ would identify $(\tfrac12,0)$ with its conjugate $(0,\tfrac12)$. Representatives are
+\[
+C=E_2E_7E_{10}E_{11}E_{12},\qquad P=O=E_1E_7E_8,\qquad CP=E_1E_2E_7E_8E_{10}E_{11}E_{12}E_{14},
+\]
+and all three normalise the Pati--Salam algebra and preserve the kinetic, gauge and Yukawa terms.
+\end{theorem}
+
+The factors of $C$ are instructive: $E_2$ is the surplus generator of the first constituent, where the one-constituent charge conjugation lives; $E_7$
+exchanges left and right; and $E_{10}E_{11}E_{12}$, an odd number of colour generators, induces the outer automorphism of $\su4$ that exchanges $\mathbf4$ and
+$\bar{\mathbf4}$. $P=O$ is parity composed with an $SU(2)$ Weyl reflection, and $CP=\pm(C\,O)\,E_7E_{14}$ with $E_7E_{14}$ a gauge element.
+
+\begin{theorem}[$CP$ fixes the order parameter; $C$ and $P$ move it]
+\label{thm:vacCP}
+$CP\,\Phi_0\,CP^{\!\top}=\Phi_0$. $C\Phi_0C^{\!\top}$ is the $\nu_L\nu_L$ kernel, which commutes with $\su3$, $\su2_R$ and $Q$ but not with $\su2_L$, and
+$P\Phi_0P^{\!\top}$ is the $e_Le_L$ kernel. Both images lie on the mirror orbit in $(\mathbf{10},\mathbf3,\mathbf1)$: the degeneracy of \cref{prop:LR} is realised by two distinct
+discrete symmetries.
+\end{theorem}
+
+Invariance of the order parameter is not invariance of the theory. The kinetic, gauge and Yukawa terms and the trace invariants are $CP$-invariant; the general
+potential on $\Kc$ is invariant only for couplings satisfying reality conditions; and on $(\mathbf{10},\mathbf1,\mathbf3)$ the holomorphic quartic needs a generalised $CP$,
+composed with a baryon-number rotation $e^{\theta(J+H/3)}$, which is a classical symmetry of the renormalisable theory for every $\kappa$ but is anomalous, since $4B$
+has $SU(2)_L^2$ anomaly $2$. Whether a $CP$ survives in the quantum theory is not settled.
+
+Which fermions are their own antiparticles follows from a pairing rule. If $M$ is a mass kernel and $t$ an unbroken generator with $[t,M]=0$, then a Majorana-type $M$
+satisfies $M\hat t=-\hat tM$, so within one chirality it pairs a representation of the unbroken group with its conjugate, while a Dirac-type $M$ pairs equal
+representations of opposite chirality. A single irreducible multiplet can therefore carry a Majorana mass only if its representation of the unbroken group is
+real: a nonzero charge under an unbroken $U(1)$ excludes this, while a nontrivial real representation of a non-abelian group does not. In the block, every multiplet
+other than $\nu_R$ carries a nonzero hypercharge at the Pati--Salam stage, and every multiplet other than $\nu_L$ and $\nu_R$ is a colour triplet or electrically
+charged at the electroweak stage. So $\nu_R$ is the only Majorana fermion at the first stage, the light $\nu$ and heavy $N$ of \cref{ex:EWspectrum} are the
+Majorana fermions at the second, and the massive $\nu_R$ is mapped to itself by $CP$ with eigenvalues $\pm i$, since $CP^2=-\id$ on the block.
+
+\subsection{Baryon number in the potential}
+
+For a Pati--Salam invariant $\BmL=0$, so $4B=F$ and $\Delta B=F/4$ in terms of the fermion number $F$.
+
+\begin{theorem}[Invariant polynomials by fermion number]
+\label{thm:Bcounts}
+The Pati--Salam-invariant polynomials on $\Kc$ of degrees two and four, graded by $F$, number
+\begin{center}
+\small
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+degree & $F=0$ & $F=\pm4$ ($|\Delta B|=1$) & $F=\pm8$ ($|\Delta B|=2$) & total\\
+\midrule
+$2$ & $12$ & $3+3$, all on $2(\mathbf6,\mathbf1,\mathbf1)$ & --- & $18$\\
+$4$ & $402$ & $127+127$ & $15+15$, including $\mathcal D$ & $686$\\
+\bottomrule
+\end{tabular}
+\end{center}
+With $U(1)_F$ imposed the couplings number $12+402$; with $U(1)_{1-\Gamma}$, $8+228$; with both $F$ and $J\Gamma$-charge, $6+162$.
+\end{theorem}
+
+Pati--Salam gauge invariance alone does not forbid baryon-number violation. The six $F=\pm4$ quadratic invariants are holomorphic bilinears in the complex sextets
+of $2(\mathbf6,\mathbf1,\mathbf1)$; under $\su3\oplus\uu1_{\BmL}$ each sextet is $\bar{\mathbf3}_{2/3}\oplus\mathbf3_{-2/3}$, diquark components coupling to quark pairs and leptoquark
+components coupling to quark--lepton pairs, and $\epsilon^{abcd}\Delta_{ab}\Delta'_{cd}$ pairs one with the other. Through the Yukawa coupling such a mass mixing generates
+tree-level $\Delta B=\Delta L=1$ four-fermion operators, of the type that mediates proton decay. Two protections are available and they are not equivalent: continuous
+$U(1)_F$ forbids every $F\neq0$ term and conserves baryon number perturbatively (it is violated by $SU(2)$ instantons \cite{tHooft76}); the $\Z_4$ generated on $\Kc$ by
+conjugation with $e^{\pi J/4}$ forbids the $|\Delta B|=1$ terms but allows the $|\Delta B|=2$ ones that mediate neutron--antineutron oscillation. $U(1)_F$, which the
+radiative scenario of \cref{sec:selection} has, is sufficient, not necessary.
+
+\subsection{Topology of the vacuum orbit}
+
+\begin{theorem}[$\Z_2$ strings]
+\label{thm:strings}
+On the block $H=3J(\BmL)$, so $e^{\theta H}$ acts on quarks as $\cos\theta+J\sin\theta$ and on leptons as $\cos3\theta-J\sin3\theta$. The colour element $g_*=e^{\pi H/3}$ fixes
+$\Phi_0$, acts as $-1$ on the $\nu_R$ line and on every lepton, and the path $\theta\mapsto e^{\theta H}\Phi_0e^{-\theta H}=\cos6\theta\,\Phi_0-\sin6\theta\,J\Phi_0$,
+$\theta\in[0,\pi/3]$, is a closed loop on which the condensate phase winds once. Every generator of the stabiliser annihilates the $\nu_R$ line, so the identity component
+of the stabiliser acts trivially there and $g_*$ is not in it. Lifting to $SU(4)\times SU(2)_L\times SU(2)_R$, the stabiliser has exactly two components, so the gauge orbit of
+the vacuum has $\pi_1=\Z_2$, and $\pi_2\supseteq\Z$ from $U(1)_Y$.
+\end{theorem}
+
+If the gauge orbit is the complete set of minima of the chosen potential, as it is on $(\mathbf{10},\mathbf1,\mathbf3)$ in the region of \cref{thm:select0}, the vacuum supports
+topologically stable $\Z_2$ strings around which $\nu_R$ changes sign, the Pati--Salam form of the $\Z_2$ strings of $\so{10}$ broken by a $\mathbf{126}$ \cite{KibbleLazaridesShafi82},
+and Pati--Salam monopoles. If the minimum set is larger, as in the degenerate limit with accidental $O(272)$ symmetry, the relevant fundamental group is that of the
+larger manifold, and a string may unwind through flat directions. The Standard-Model orbit and its mirror lie in different Pati--Salam components, so no gauge
+transformation connects them; whether they are disconnected components of the full minimum set, which would give domain walls \cite{ZeldovichKobzarevOkun75},
+depends on paths through configurations outside both orbits. Along the great circle of \cref{prop:LR} the radiative energy has a barrier between them for $x<27$,
+but other paths are not controlled.

@@ -1,0 +1,194 @@
+\section{Discrete symmetries, the massless gauge algebra, and the states}
+\label{sec:discrete}
+
+\subsection{Charge conjugation, parity and time reversal}
+
+At one constituent write $U=\langle e_2,e_3\rangle$ for the surplus plane, $\Omega=\gamma^0\gamma^1\gamma^2\gamma^3$, and
+$\Gamma=J\Omega$. An operator $X$ on $S$ is \emph{linear} when $XJ=JX$ and \emph{antilinear} when $XJ=-JX$. It intertwines the free
+Dirac operator $J\gamma^\mu\partial_\mu-m$ when it commutes with every $J\gamma^\mu$. Parity is required to be linear and time
+reversal antilinear, and each must satisfy $XH(p)X^{-1}=H(-p)$ for every $p$ and $m$.
+
+\begin{theorem}[Charge conjugation is the surplus plane]
+\label{thm:C}
+The antilinear operators that intertwine the Dirac operator form exactly the two-dimensional space $U$. Every unit vector $C\in U$
+satisfies
+\[
+CH(p)C^{-1}=-H(-p),\qquad CJC^{-1}=-J,\qquad C\Gamma C^{-1}=-\Gamma,\qquad C\Lambda_+(p)C^{-1}=\Lambda_-(-p),
+\]
+commutes with every interior Lorentz generator, and preserves the mass form and every kinetic kernel $K^\mu$. Hence $C$ is unique up
+to a gauge rotation $e^{\theta J}$, and the operator known as the Majorana real structure is charge conjugation.
+\end{theorem}
+
+\begin{proof}
+If $XJ=-JX$, then $X(J\gamma^\mu)=(J\gamma^\mu)X$ is equivalent to $X\gamma^\mu=-\gamma^\mu X$. The conditions are linear, and
+conjugation by a blade sends every blade to plus or minus itself, so the solution space is spanned by the blades that anticommute
+with $J$ and with $e_1,e_4,e_5,e_6$. By \eqref{eq:bladecomm} a blade $e_I$ anticommutes with a vector $e_a$ exactly when
+$|I|-[a\in I]$ is odd. For odd $|I|$ this forces $I\subset\{2,3\}$, hence $I=\{2\}$ or $\{3\}$, and both anticommute with $J$. For
+even $|I|$ it forces $\{1,4,5,6\}\subset I$, hence $e_I=\Omega$ or $e_1\cdots e_6$, and both commute with $J$. The solutions are
+therefore $e_2$ and $e_3$. The listed identities follow from the same rule, since $e_2,e_3$ anticommute with every $\gamma^\mu$, with
+$J$ and with $\Gamma$, and commute with every interior bivector.
+\end{proof}
+
+\begin{corollary}[Equal mass, equal spin, opposite charge]
+$C$ commutes with every generator of the interior Lorentz algebra, so it preserves the Casimir $-\sum_aS_a^2=\tfrac34\id$, and
+$(CH(p)C^{-1})^2=E^2\id$. The Majorana condition $\Psi=C\Psi$ makes the current vanish: a particle that is its own antiparticle is
+neutral.
+\end{corollary}
+
+\begin{theorem}[Parity and time reversal]
+\label{thm:PT}
+The admissible parities form the space $\langle\gamma^0,\gamma^0J\rangle$, and $P^2=+\id$ holds only at $P=\pm\gamma^0$, while $P=\pm\gamma^0J$
+gives $P^2=-\id$. The admissible time reversals form $U\cdot\gamma^1\gamma^2\gamma^3$, so $T=C\gamma^1\gamma^2\gamma^3$ with
+\[
+T^2=-\id .
+\]
+The sign is not a convention: $B=\gamma^1\gamma^2\gamma^3$ has $B^2=+\id$ and anticommutes with every vector $C$ of the clock plane, so
+$T^2=CBCB=-C^2B^2=-\|C\|^2\id$ for every choice of clock in the positive triple.
+\end{theorem}
+
+\begin{theorem}[$CPT$ lies on a circle]
+\label{thm:CPT}
+The product of the three operators depends on the parity chosen:
+\[
+P=\gamma^0:\quad CPT=-\Omega,\ (CPT)^2=-\id;\qquad\qquad P=\gamma^0J:\quad CPT=+\Gamma,\ (CPT)^2=+\id .
+\]
+What is convention-free is the orbit of $\Omega$ under $U(1)_J$, $\theta\mapsto\cos\theta\,\Omega+\sin\theta\,J\Omega$, whose four real points
+$\pm\Omega,\pm\Gamma$ are the spacetime pseudoscalar and the chirality.
+\end{theorem}
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[scale=1.25,>=Stealth]
+\draw[thick,gray] (0,0) circle (1.3);
+\foreach \a/\l/\c in {0/{+\Omega}/scol,90/{+\Gamma=J\Omega}/tcol,180/{-\Omega}/scol,270/{-\Gamma}/tcol}{
+  \fill[\c] (\a:1.3) circle (2pt);
+  \node[\c] at (\a:1.85) {$\l$};
+}
+\draw[->,thick] (20:0.75) arc (20:70:0.75);
+\node at (45:0.42) {\small $e^{\theta J}$};
+\node[align=left,anchor=west] at (2.7,0.55) {\small $P=\gamma^0$: \quad $CPT=-\Omega$,\ $(CPT)^2=-\id$};
+\node[align=left,anchor=west] at (2.7,-0.05) {\small $P=\gamma^0J$: \ $CPT=+\Gamma$,\ $(CPT)^2=+\id$};
+\node[align=left,anchor=west] at (2.7,-0.65) {\small both lie on the $U(1)_J$ orbit of $\Omega$};
+\end{tikzpicture}
+\caption{The $CPT$ circle at one constituent (\cref{thm:CPT}). The product of the three discrete operators is the spacetime
+pseudoscalar or the chirality according to the parity chosen; the two lie on one orbit of the gauge rotation $e^{\theta J}$.}
+\label{fig:cpt}
+\end{figure}
+
+These are statements about explicitly constructed operators of the free theory; no $CPT$ theorem is proved, and the interacting
+theory is not constructed.
+
+\subsection{The massless gauge algebra at one constituent}
+
+A gauge generator must leave the kinetic form invariant. Solving that condition over all of $\End_\R(S)$, with no ansatz, gives the
+following.
+
+\begin{proposition}[Gauge algebra from the kinetic forms]
+\label{prop:gauge1}
+The solutions of $X^{\!\top}K^\mu+K^\mu X=0$ for $\mu=0,\dots,3$ form
+\[
+\mathfrak g_{\rm massless}=\R\,\Omega\ \oplus\ \operatorname{span}\{J,\ e_2\Omega,\ e_3\Omega\}\ \cong\ \uu1_\Omega\oplus\su2 .
+\]
+The condition at $\mu=0$ is $X^{\!\top}=-X$, and the conditions at $\mu=a$ then say that $X$ commutes with the three boosts
+$\gamma^0\gamma^a$ and hence with the whole interior Lorentz algebra. The trace form is $-8\,\id$ on this basis, so the algebra is
+compact. Adding invariance of the mass form, $X^{\!\top}(\gamma^0J)+(\gamma^0J)X=0$, leaves exactly $\R J$. The algebra meets the span of the
+pole operators in zero.
+\end{proposition}
+
+The $\su2$ factor contains the fermion-number direction $J$ and two generators that anticommute with $J$; it therefore mixes a field with
+its conjugate and is the Pauli--G\"ursey algebra of a massless Dirac field \cite{Pauli57,Gursey58}. It is a symmetry of the free massless
+theory, not a gauge candidate on this matter: its two Weyl components form a single doublet, and gauging $SU(2)$ on an odd number of
+doublets is forbidden by the global anomaly \cite{Witten82}. The central factor is the axial one. Since $\Gamma=J\Omega$, $\Omega=-J\Gamma$,
+the real form of $-i\gamma_5$; $U(1)_\Omega$ is broken by a Dirac mass and is anomalous on this matter content \cite{Bilal,AlvarezGaumeWitten}.
+The electromagnetic $\uu1$ is therefore singled out twice at one constituent: as the whole internal centraliser
+(\cref{prop:6plus8plus1}) and as what survives of the massless gauge algebra once a mass is admitted.
+
+\subsection{The state space}
+
+\begin{theorem}[The real module is not a state space]
+\label{thm:module}
+Eight $16\times16$ integer matrices $\theta_i$, antisymmetric with $\theta_i^2=-\id$ and pairwise anticommuting, realise the canonical
+anticommutation relations of the eight real field components exactly. Their commutant in $M_{16}(\R)$ is $\R\,\id$, because the $256$
+Clifford monomials span the whole matrix algebra. Hence no internal complex structure commutes with all eight field operators, and the
+quadratic observables built from them are real antisymmetric matrices with imaginary spectra. The quantum state space has to be formed
+from outside, as $\mathcal F=\C\otimes_\R\R^{16}$, with charge $Q=-i\rho(J)$ and Hamiltonian $H=-i\rho(JH(p))$, where
+$\rho(A)=-\tfrac14\sum_{ij}A_{ij}\theta_i\theta_j$ lifts an antisymmetric $8\times8$ matrix to the module.
+\end{theorem}
+
+It is the complex structure, not the reality, that is missing, which is the lesson of \cref{rem:ambient} arriving one level up.
+
+\begin{theorem}[The free spectrum of one momentum]
+\label{thm:spectra}
+The lifted generators have characteristic polynomials
+\[
+\chi_{2\rho(J)}(x)=x^6(x^2+4)^4(x^2+16),\qquad \chi_{2\rho(JH)}(x)=x^6(x^2+4E^2)^4(x^2+16E^2),
+\]
+so $\spec Q=\{0,\pm1,\pm2\}$ and $\spec H=\{0,\pm E,\pm2E\}$, with multiplicities $6,4,4,1,1$. The joint eigenspaces of $(H,Q)$ are
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+$H$ & dimension & charges\\
+\midrule
+$-2E$ & $1$ & $q=0$\\
+$-E$ & $4$ & $q=\pm1$, twice each\\
+$0$ & $6$ & $q=\pm2$ once each, $q=0$ four times\\
+$+E$ & $4$ & $q=\pm1$, twice each\\
+$+2E$ & $1$ & $q=0$\\
+\bottomrule
+\end{tabular}
+\end{center}
+so $H+2E$ has spectrum $0,E,2E,3E,4E$ with multiplicities $1,4,6,4,1$.
+\end{theorem}
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[xscale=1.2,yscale=0.95]
+\foreach \y/\l in {-2/{-2E},-1/{-E},0/{0},1/{+E},2/{+2E}}{
+  \draw[gray!60] (-2.6,\y) -- (2.6,\y);
+  \node[left] at (-2.7,\y) {\small $\l$};
+}
+\node at (0,2.75) {\small charge $q$};
+\foreach \q in {-2,-1,0,1,2}{\node at (\q,-2.7) {\small $\q$};}
+% ground state
+\fill[tcol] (0,-2) circle (2.4pt); \node[above right] at (0,-2) {\scriptsize 1};
+% -E level
+\fill[tcol] (-1,-1) circle (2.4pt); \fill[tcol] (1,-1) circle (2.4pt);
+\node[above] at (-1,-1) {\scriptsize 2}; \node[above] at (1,-1) {\scriptsize 2};
+% 0 level
+\fill[tcol] (-2,0) circle (2.4pt); \fill[tcol] (2,0) circle (2.4pt); \fill[tcol] (0,0) circle (2.4pt);
+\node[above] at (-2,0) {\scriptsize 1}; \node[above] at (2,0) {\scriptsize 1}; \node[above] at (0,0) {\scriptsize 4};
+% +E
+\fill[tcol] (-1,1) circle (2.4pt); \fill[tcol] (1,1) circle (2.4pt);
+\node[above] at (-1,1) {\scriptsize 2}; \node[above] at (1,1) {\scriptsize 2};
+% +2E
+\fill[tcol] (0,2) circle (2.4pt); \node[above right] at (0,2) {\scriptsize 1};
+\node[align=left,anchor=west] at (3.0,-2) {\small vacuum: unique, $q=0$};
+\node[align=left,anchor=west] at (3.0,-1) {\small one particle or antiparticle};
+\node[align=left,anchor=west] at (3.0,0) {\small two excitations};
+\node[align=left,anchor=west] at (3.0,1) {\small three excitations};
+\node[align=left,anchor=west] at (3.0,2) {\small filled};
+\end{tikzpicture}
+\caption{The Fock space of one momentum (\cref{thm:spectra}). Each dot is a joint eigenspace of energy and charge, labelled by its
+dimension. The multiplicities $1,4,6,4,1$ are those of four fermionic modes: two particle and two antiparticle states of one Dirac
+flavour, read off rather than inferred.}
+\label{fig:fock}
+\end{figure}
+
+The multiplicities $1,4,6,4,1$ are the binomial coefficients of a four-mode Fock space, as a single Dirac flavour with two particle and
+two antiparticle states must give. The ground state at $-2E$ is the zero-point energy $-\tfrac12\sum E$ of the four modes; summed over
+momenta it is the familiar fermion term of the one-loop effective potential. A projector built from $\rho(JH)^2$ could not have
+produced the table: squaring loses the sign of the energy and conflates the vacuum with the filled state.
+
+\begin{proposition}[Conjugation on states]
+\label{prop:Cstates}
+$C\in SO(8)$ lifts to $\mathrm{Spin}(8)$ as a product of four integral reflections. The lift is unitary on $\mathcal F$, anticommutes with
+$Q$ and carries $H(p)$ to $H(-p)$, so $\langle\psi|Q|\psi\rangle=0$ for every $C$-eigenstate. The stronger statement $Q|\psi\rangle=0$ is
+false: the $+1$ eigenspace of $C$ has real dimension eight and $Q$ annihilates only a three-dimensional part of it.
+\end{proposition}
+
+\begin{remark}[Many-body chirality is a group lift]
+$\rho$ is a homomorphism of Lie algebras only, so the product $\rho(J)\rho(\Omega)$, of rank eight, is not a $\mathrm{Spin}(8)$ element and
+is not the chirality of the module. The correct object is $\Gamma_{\mathcal F}=\exp[\tfrac\pi2(\rho(J)+\rho(\Omega))]$, an involution of
+$\mathcal F$ whose eigenvalue on a joint eigenvector is $i^{q_J+q_\Omega}$; the sectors are labelled by the parity of
+$\tfrac12(q_J+q_\Omega)$.
+\end{remark}

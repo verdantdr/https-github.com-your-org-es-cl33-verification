@@ -1,0 +1,458 @@
+\section{Closing the force law}
+\label{sec:closure}
+
+The force law $\dot p=\kappa G^{\!\top}p$ carries its rate $\kappa$ as a constant put in by hand. A force law of this shape is familiar from
+rigid bodies and ideal fluids, where the equation of motion is a geodesic equation on a Lie group and the rate is itself dynamical. This
+section asks whether the interior law can be closed in that sense: whether there is a Lie--Poisson system whose bracket and inertia are built
+from the same data that build $G$, and whose solutions contain the force law with $\kappa$ as a dynamical variable. A bracket or an inertia is
+called \emph{derived from the Clifford structure} when it is equivariant under the algebra $\lG$ of \cref{thm:GLorentz} and built from
+$\eta$, $G$ and the bivectors. The answers, in brief: no closure lives on the frame alone; the closure on one extra direction is unique; its
+inertia is constrained by two requirements that exclude each other; and the dynamics it generates is a pendulum in the duality angle that
+drifts the frame except on null data.
+
+Throughout, $V=\R^{3,3}$, a covector $p$ is a column with $\langle p,X\rangle=p^{\!\top}X$, $\pi=\eta^{-1}p$, and $z(X)=x+iy$ for
+$X=\sum_j(x_je_j+y_je_{j+3})$, so that $G$ acts as $i$. For a covector put
+\begin{equation}
+\label{eq:wdef}
+C(p)=p^{\!\top}\eta^{-1}p,\qquad D(p)=p^{\!\top}G\eta^{-1}p,\qquad w(p):=q\bigl(z(\pi)\bigr)=C(p)-iD(p).
+\end{equation}
+In the field-strength reading, with $(\bB;\bE)=\pi$, $w=|\bB|^2-|\bE|^2+2i\,\bB\cdot\bE$ is the complex invariant of the field carried by the
+momentum.
+
+\subsection{The force law as a dual transport}
+
+Euler--Arnold equations are geodesic equations on a Lie group with a one-sided invariant metric \cite{Arnold66,ArnoldKhesin98}; for a
+left-invariant metric they read $\dot\mu=\ad_w^{\!\top}\mu$ with $\mu=Aw$ for an inertia $A$. The rigid body is the case of $SO(3)$, where this is
+$\dot{\mathbf M}=\mathbf M\times\boldsymbol\Omega$, and incompressible Euler flow the case of the volume-preserving diffeomorphisms.
+
+\begin{proposition}[The dictionary]
+\label{prop:EAdict}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item Since $\langle G^{\!\top}p,v\rangle=\langle p,Gv\rangle$, the law $\dot p=\kappa G^{\!\top}p$ transports the covector $p$ by the transpose of $\kappa G$.
+It is the Lie--Poisson equation $\dot p=\ad_w^{\!\top}p$ of a Lie bracket on the frame exactly when $\kappa G=\ad_w$ is an inner derivation.
+\item For a bracket with trivial centre on the $6n$-dimensional frame the inner derivations fill a $6n$-dimensional subspace of $\so{3n,3n}$, of
+dimension $3n(6n-1)$, when $\eta$ is invariant: a fraction $2/(6n-1)$.
+\item When $\kappa G=\ad_u$ and $p=Au$, the shift operators $\alpha_\pm=\partial_\tau\pm\kappa G$ are the constrained variations
+$\delta u=\dot\xi\pm[u,\xi]$ of Euler--Poincar\'e reduction \cite{MarsdenRatiu99,HolmMarsdenRatiu98}, in the body and in the spatial frame.
+\end{enumerate}
+\end{proposition}
+
+\begin{proposition}[The binding root is inner for no bracket]
+\label{prop:EAnotinner}
+For every Lie bracket and every $w$, $\ad_w(w)=0$, so every inner derivation is singular. The binding root satisfies $G^2=-\id$ and is
+invertible, so $\kappa G$ is inner for no Lie bracket on $\R^{3n,3n}$, invariant or not, and the force law with that $G$ is never a
+Lie--Poisson equation on the frame itself. It is one on the extension $\R\hat g\ltimes\R^{3n,3n}$, the frame taken abelian and $\hat g$ acting on
+it by $G$, where it is the Lie--Poisson equation of the fixed element $\kappa\hat g$ restricted to the ideal.
+\end{proposition}
+
+\begin{theorem}[Transport and factorisation are complementary]
+\label{thm:EAdichotomy}
+$\End(\R^{3n,3n})=\so{3n,3n}\oplus\{G:G=G^\dagger\}$, of dimensions $3n(6n-1)+3n(6n+1)=36n^2$. Along $\dot p=\kappa G^{\!\top}p$ the Casimir
+$C=\eta^{-1}(p,p)$ changes at the rate $dC/d\tau=2\kappa\,p^{\!\top}G\eta^{-1}p$, which vanishes for every $p$ exactly when $G$ lies in the first
+summand, while factorisation in the split form requires the second. The binding root lies in the second summand and moves the Casimir at the rate
+$dC/d\tau=-4\kappa\,\bB\cdot\bE$ in the variables $(\bB;\bE)=\eta p$.
+\end{theorem}
+
+At the first rung the frame itself is a Lie algebra. With $L_i=e_i$ and $K_i=e_{i+3}$ obeying the brackets of \cref{thm:emfield}, $\R^{3,3}$
+becomes $\so{1,3}$ with Killing form $-4\eta$; in the variable $z=\bB+i\bE$ the bracket is the complex cross product, $G$ is multiplication by $i$
+and lies in the centroid, $[Gx,y]=G[x,y]$, and $z\cdot z$ is the form $q$. The inner derivations fill six of the fifteen dimensions of
+$\so{3,3}$. Closing the force law into an Euler--Arnold equation on the frame would need a bracket for which the shift is inner, and by
+\cref{prop:EAnotinner} there is none. A closure must leave the frame.
+
+\subsection{No closure on the frame; the rotor is unique}
+
+\begin{proposition}[Equivariant maps and forms]
+\label{prop:lGhoms}
+For $\lG=\operatorname{span}\{L_i,K_i\}$: $\Hom_{\lG}(V,V)=\operatorname{span}\{\id,G\}$ and $\Hom_{\lG}(V,\R)=0$;
+$\Hom_{\lG}(\Lambda^2V,V)=\operatorname{span}\{\beta_0,G\beta_0\}$, where $\beta_0(X,Y)$ is the complex cross product $z(X)\times z(Y)$ returned to
+$V$, and $\Hom_{\lG}(\Lambda^2V,\R)=0$; and the $\lG$-invariant symmetric forms on $V^*$ are $\operatorname{span}\{\eta^{-1},G\eta^{-1}\}$.
+\end{proposition}
+
+\begin{theorem}[The brackets on the frame]
+\label{thm:brackets}
+The $\lG$-equivariant Lie brackets on $V$ are $\beta_L=L\beta_0$ with $L=a+bG$. The bracket $\beta_0$ makes $(V,\beta_0)\cong\lG$, its derivations
+are the six inner ones, its centroid is $\operatorname{span}\{\id,G\}\cong\C$, so $G$ is not a derivation, and $\beta_L$ has Killing form
+$-4\bigl[(a^2-b^2)\eta+2ab\,\eta G\bigr]$.
+\end{theorem}
+
+\begin{proof}
+By \cref{prop:lGhoms} every equivariant antisymmetric bilinear map is $(c_1+c_2G)\beta_0$. Since $L$ lies in the centroid,
+$\beta_L(\beta_L(X,Y),Z)=L^2\beta_0(\beta_0(X,Y),Z)$, and $\beta_L$ inherits the Jacobi identity.
+\end{proof}
+
+\begin{theorem}[No closure on the frame alone]
+\label{thm:noframe}
+Let $L=a+bG\neq0$. For every symmetric $N$, with $\mathfrak g^*$ identified with $\mathfrak g$ through $\eta$, the Euler--Arnold field
+$\beta_0(M,NM)$ conserves $\eta(M,M)$ and $\eta(M,GM)$, whereas along the force law, in the form $\dot M=\kappa GM$,
+$\tfrac{d}{d\tau}\eta(M,M)=2\kappa\,\eta(M,GM)$ and $\tfrac{d}{d\tau}\eta(M,GM)=-2\kappa\,\eta(M,M)$. No Hamiltonian flow on $(V,\beta_L)^*$ coincides
+with the force law on an open set, and this remains true with a state-dependent rate.
+\end{theorem}
+
+\begin{proof}
+The two quadratic forms are the Casimirs of $(V,\beta_L)^*$ and are conserved by every Hamiltonian flow, while the force law rotates them into
+each other. Equality on an open set would make both vanish there, that is $z\cdot z=0$ on an open set, which no nonzero polynomial does. For a
+state-dependent rate, the equations $\beta_0(M_s,NM_s)=f_s\,GM_s$ at twelve rational null vectors already force every $f_s=0$ and
+$N\in\operatorname{span}\{\id,G\}$, for which $\beta_0(M,NM)\equiv0$.
+\end{proof}
+
+A closure therefore needs a direction beyond the frame. Adjoin one generator $\hat g$, the \emph{rotor}, on which $\lG$ acts trivially; the rate
+$\kappa$ is a Lorentz scalar, since $G$ commutes with $\lG$.
+
+\begin{theorem}[Uniqueness of the closure]
+\label{thm:closureunique}
+Let $\mathfrak s=\R\hat g\oplus V$ carry an $\lG$-equivariant Lie bracket for which $\ad_{\hat g}$ does not vanish on $V$. Then
+$[\hat g,X]=(a+bG)X$ and $[X,Y]=0$ for $X,Y\in V$, with $(a,b)\neq(0,0)$. If moreover the rotor rotates the frame covector without dilating it,
+as the force law does, then $a=0$ and, after rescaling $\hat g$, $\mathfrak s\cong\R\ltimes_GV$: $[\hat g,X]=GX$, $[X,Y]=0$.
+\end{theorem}
+
+\begin{proof}
+Equivariance gives $[\hat g,X]=AX+\alpha(X)\hat g$ with $A\in\operatorname{span}\{\id,G\}$ and $\alpha=0$, and $[X,Y]=(c_1+c_2G)\beta_0(X,Y)$, the
+$\hat g$-component vanishing by \cref{prop:lGhoms}. The Jacobi identity for $(\hat g,X,Y)$ reads $(a+bG)(c_1+c_2G)\beta_0(X,Y)=0$, a linear system in
+$(c_1,c_2)$ with determinant $a^2+b^2\neq0$, so $c_1=c_2=0$. On $\mathfrak s^*$ the rotor acts on $p$ through $(a+bG)^{\!\top}$, and
+$\tfrac{d}{d\tau}|p|^2=2a\,(h/I_0)|p|^2$ because $G$ is antisymmetric; a pure rotation needs $a=0$.
+\end{proof}
+
+The extension of \cref{prop:EAnotinner} is therefore not one choice among several: it is the only equivariant closure. The frame is abelian,
+all the dynamics sits in the rotor, and the rotor acts by the binding root itself. With several constituents the argument runs factor by
+factor, since equivariant maps between distinct constituents vanish, and a common rotation rate gives $\mathfrak s_n=\R\ltimes_{G_n}V_n$ with
+$G_n=\bigoplus_kG$.
+
+\subsection{The Lie--Poisson dynamics, and the two interiors as clamped reductions}
+
+\begin{proposition}[Lie--Poisson equations]
+\label{prop:LP}
+On $\mathfrak s^*$ with coordinates $(h,p)$ let $H=h^2/(2I_0)+\tfrac12p^{\!\top}Np$, with $I_0>0$ the rotor inertia and $N$ a symmetric form on
+$V^*$, the inverse frame inertia. The Lie--Poisson equations are
+\begin{equation}
+\label{eq:LProtor}
+\dot p=\frac h{I_0}\,G^{\!\top}p,\qquad \dot h=-\,p^{\!\top}GNp ,
+\end{equation}
+so the force law holds with the dynamical rate $\kappa=h/I_0$, and $|p|^2$ is a Casimir. For $p\neq0$ the coadjoint orbit through $(h,p_0)$ is the
+cylinder $\R\times\{e^{\theta G}p_0\}\cong T^*S^1$, on which $(\theta,h)$ are canonical for $h^2/(2I_0)+U(\theta)$ with
+$U(\theta)=\tfrac12p(\theta)^{\!\top}Np(\theta)$ and $p(\theta)=e^{-\theta G}p_0$: every reduced motion is a motion of the rotor angle alone.
+\end{proposition}
+
+\begin{proposition}[The two interiors are clamped reductions]
+\label{prop:groupred}
+On the group $S$ with product $(\theta,x)(\theta',x')=(\theta+\theta',x+e^{\theta G}x')$ let $L=\tfrac12I_0\dot\theta^2+\tfrac m2\eta(u,u)$ with body velocity
+$u=e^{-\theta G}\dot x$, and put $X=e^{-\theta G}x$. Then $u=\dot X+\dot\theta\,GX$, the Euler--Lagrange equations are \eqref{eq:LProtor} with $N=\eta^{-1}/m$,
+and clamping $\theta=\kappa\tau$ gives
+\[
+L=\tfrac12I_0\kappa^2+\tfrac m2\,\eta\bigl(\dot X+\kappa GX,\ \dot X+\kappa GX\bigr),
+\]
+the split-form interior \eqref{eq:splitL}. With $\tfrac m2|u|^2$ in place of $\tfrac m2\eta(u,u)$ the clamped Lagrangian is the positive-form interior
+\eqref{eq:alpha} with $g=G$.
+\end{proposition}
+
+So the two interiors of \cref{sec:shifted,sec:neutral} are the clamped reductions of one closure, with inverse inertias $N=\eta^{-1}/m$ and
+$N=\id/m$. Which inertias the Clifford data permit is the next question.
+
+\subsection{Two requirements on the inertia}
+
+\begin{definition}[The two requirements]
+\label{def:inertiareq}
+A symmetric $N$ on $V^*$ satisfies the \emph{Lorentz requirement} if it is $\lG$-invariant, $rN+Nr^{\!\top}=0$ for all $r\in\lG$, and the
+\emph{duality requirement} if the rate $h/I_0$ is conserved for all data. Write $N=N_c+N_a$ with $N_c=\tfrac12(N-GNG)$ commuting and
+$N_a=\tfrac12(N+GNG)$ anticommuting with $G$.
+\end{definition}
+
+\begin{theorem}[The two requirements exclude each other]
+\label{thm:inertiareq}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item $N_c$ and $N_a$ are symmetric; the commuting forms have dimension $9$ and the anticommuting ones $12$.
+\item The Lorentz requirement gives $N=(a\eta^{-1}+bG\eta^{-1})/m$, a two-dimensional family inside the anticommuting forms, with frame energy
+$\tfrac12p^{\!\top}Np=\Re\bigl((a+ib)w(p)\bigr)/(2m)$.
+\item The duality requirement holds exactly when $[N,G]=0$. Among the forms invariant under the compact part of $\lG$ the only ones commuting with
+$G$ are the multiples of $\id$: the positive form.
+\item The two requirements meet in $0$, and they do not exhaust the symmetric forms: $N=(2\,\id+\eta^{-1})/m$ is positive definite and satisfies
+neither.
+\end{enumerate}
+\end{theorem}
+
+In the field-strength reading the dichotomy is the classical one. The Lorentz class consists of the two invariants $|\bB|^2-|\bE|^2$ and
+$\bB\cdot\bE$; the duality class contains the energy density $|\bB|^2+|\bE|^2$; and a duality rotation preserves the energy density while it
+rotates the Lagrangian density \cite{Calkin65,DeserTeitelboim76,GaillardZumino81}. The split form lies in the Lorentz class and the positive form
+in the duality class.
+
+\begin{theorem}[The frame under the closure]
+\label{thm:drift}
+Reconstruct the group curve from the body velocity,
+\[
+(\theta,x)^{-1}\tfrac{d}{d\tau}(\theta,x)=(h/I_0,\,Np),\qquad \theta(0)=0 .
+\]
+Then $p=e^{-\theta G}p_0$ and
+\[
+\dot x=\bigl(N_c+e^{2\theta G}N_a\bigr)p_0,\qquad \dot h=-\,p_0^{\!\top}Ge^{2\theta G}N_ap_0 .
+\]
+With the rotor clamped at $\theta=\kappa\tau$, $\kappa\neq0$,
+\[
+x(\tau)=x_0+\tau\,N_cp_0+\bigl(e^{2\kappa\tau G}-\id\bigr)(2\kappa G)^{-1}N_ap_0 ,
+\]
+so the frame stays bounded for all data exactly when $N_c=0$ and drifts at the velocity $N_cp_0$ otherwise, while the rate is constant for all data
+exactly when $N_a=0$.
+\end{theorem}
+
+A clamped rate that is also the dynamical one, and a bounded clamped frame, are therefore exclusive requirements: each is met by one summand of
+$\mathrm{Sym}(V^*)=\mathrm{Sym}_c\oplus\mathrm{Sym}_a$. For $N=\id/m$ the rate is conserved and the frame drifts at $p_0/m$, which is the
+non-recurrence of \cref{thm:virial}, $X=e^{-\kappa\tau G}(X_0+\tau p_0/m)$; for $N=\eta^{-1}/m$ the clamped frame is bounded, as in \cref{thm:neutral},
+but the rate is conserved only on null data.
+
+\subsection{The free rotor: a pendulum in the duality angle}
+
+\begin{theorem}[The duality pendulum]
+\label{thm:pendulum}
+Let $N=(a\eta^{-1}+bG\eta^{-1})/m$ and write $(a+ib)w(p_0)=R_0e^{i\varphi_0}$, $R_0\ge0$. Along the flow $z(\pi)$ turns as $e^{i\theta}$ and
+$w(p)=e^{2i\theta}w(p_0)$, the frame energy is $U(\theta)=\tfrac{R_0}{2m}\cos(2\theta+\varphi_0)$, and
+\[
+I_0\ddot\theta=\frac{R_0}m\sin(2\theta+\varphi_0),\qquad E_\theta=\tfrac12I_0\dot\theta^2+\frac{R_0}{2m}\cos(2\theta+\varphi_0)=H .
+\]
+With $\psi:=2\theta+\varphi_0$ this is the pendulum $\ddot\psi=(2R_0/mI_0)\sin\psi$, stable at $\psi=\pi$. The rotor angle is the duality angle of
+the momentum field, and the potential is its Lorentz-invariant frame energy.
+\end{theorem}
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}
+\begin{axis}[width=12cm,height=6.4cm,xmin=-0.3,xmax=6.6,ymin=-3.0,ymax=3.0,
+  axis lines=middle,xlabel={$\psi=2\theta+\varphi_0$},ylabel={$\dot\psi$},
+  xtick={0,3.14159,6.28318},xticklabels={$0$,$\pi$,$2\pi$},ytick=\empty,
+  xlabel style={anchor=north west},ylabel style={anchor=south west}]
+\foreach \E/\a in {-0.5/2.0944,0/1.5708,0.5/1.0472}{
+  \addplot[tcol,thick,domain=\a:{2*pi-\a},samples=160] {sqrt(max(0,2*(\E-cos(deg(x)))))};
+  \addplot[tcol,thick,domain=\a:{2*pi-\a},samples=160] {-sqrt(max(0,2*(\E-cos(deg(x)))))};
+}
+\addplot[scol,very thick,domain=0:2*pi,samples=200] {2*abs(sin(deg(x/2)))};
+\addplot[scol,very thick,domain=0:2*pi,samples=200] {-2*abs(sin(deg(x/2)))};
+\addplot[gcol,thick,domain=0:2*pi,samples=160] {sqrt(2*(1.9-cos(deg(x))))};
+\addplot[gcol,thick,domain=0:2*pi,samples=160] {-sqrt(2*(1.9-cos(deg(x))))};
+\addplot[only marks,mark=*,mark size=2.2pt,black] coordinates {(3.14159,0)};
+\addplot[only marks,mark=o,mark size=2.6pt,black] coordinates {(0,0) (6.28318,0)};
+\end{axis}
+\end{tikzpicture}
+\caption{Phase portrait of the duality pendulum (\cref{thm:pendulum}), in units with $2R_0/(mI_0)=1$; the filled dot is the stable point
+$\psi=\pi$ and the open dots the unstable one. Blue: librations, in which the rate $\kappa=\dot\theta$ changes sign periodically and the duality
+rotation reverses. Red: the separatrix. Green: rotations, in which the rotor turns for all time with a modulated rate. The constant-rate law of \cref{sec:neutral} is the limit of large rotor energy, far above the
+separatrix (\cref{cor:multiscale}).}
+\label{fig:pendulum}
+\end{figure}
+
+\begin{corollary}[When the rate is constant]
+\label{cor:constrate}
+With Lorentz-class inertia the rate is constant and nonzero along the flow exactly when $R_0=0$ and $h(0)\neq0$; $R_0=0$ means $(a,b)=(0,0)$ or
+$w(p_0)=0$, that is $|\bB|=|\bE|$ and $\bB\cdot\bE=0$ for the field of $\pi_0$: a null field, the class that contains plane waves
+\cite{Synge56,Robinson61}.
+\end{corollary}
+
+\begin{corollary}[The multiscale criterion]
+\label{cor:multiscale}
+Let $R_0>0$, $\kappa_0:=\dot\theta(0)\neq0$, $\psi_0=2\theta(0)+\varphi_0$ and $\varepsilon:=R_0/(mI_0\kappa_0^2)$. Then
+$\kappa^2=\kappa_0^2\bigl[1+\varepsilon(\cos\psi_0-\cos\psi)\bigr]$. The rotor turns for all time exactly when $\varepsilon(1-\cos\psi_0)<1$, and $\varepsilon<\tfrac12$
+suffices for every phase, in which case $|\kappa^2/\kappa_0^2-1|\le2\varepsilon$. At $\varepsilon(1-\cos\psi_0)=1$ the motion is the separatrix, and beyond it
+the rotor librates and the duality rotation reverses. The constant-rate law is the limit $\varepsilon\to0$, and the multiscale requirement is
+\begin{equation}
+\label{eq:multiscale}
+I_0\,\kappa_0^2\ \gg\ R_0/m .
+\end{equation}
+\end{corollary}
+
+A clamped rotor is therefore an idealisation of a heavy one. It is not a harmless idealisation, because the frame feels the modulation.
+
+\begin{theorem}[The free rotor drifts the frame]
+\label{thm:freedrift}
+Let $N$ be of Lorentz class with $R_0>0$ and $\kappa_0\neq0$, in the rotating regime. During one period of the rate, while $\theta$ changes by $\pi$,
+the frame is displaced by
+\[
+\Delta x=\lambda\,e^{-\varphi_0G}Np_0,\qquad \lambda=\tfrac12\int_0^{2\pi}\frac{\cos\psi\,d\psi}{|\kappa_0|\sqrt{1+\varepsilon(\cos\psi_0-\cos\psi)}}>0,
+\]
+and its mean velocity is $\tfrac\varepsilon4e^{-\varphi_0G}Np_0+O(\varepsilon^2)$. Every rotating solution with $R_0\neq0$ therefore has an unbounded frame.
+\end{theorem}
+
+\begin{proof}
+For Lorentz-class $N$, $N=N_a$ and $\dot x=e^{2\theta G}Np_0$. In the rotating regime $\dot\theta$ never vanishes, so $d\tau=|d\theta|/|\dot\theta|$, and
+with $e^{2\theta G}=e^{-\varphi_0G}e^{\psi G}$ and $e^{\psi G}=\cos\psi+G\sin\psi$ the $\sin\psi$ part integrates to zero because $1/|\dot\theta|$ depends on
+$\cos\psi$ only. Since $1/|\dot\theta|$ is a strictly increasing function of $\cos\psi$ when $R_0>0$, the integrand of $\lambda$ exceeds its value at
+$\cos\psi=0$ wherever $\cos\psi>0$ and falls short of it where $\cos\psi<0$, so $\lambda>0$. Expanding to first order gives
+$\lambda=\pi\varepsilon/(4|\kappa_0|)+O(\varepsilon^2)$ over a period $\pi/|\kappa_0|+O(\varepsilon)$.
+\end{proof}
+
+\begin{example}[A drift in closed form]
+\label{ex:drift}
+Take $p_0=e^1$ and $m=I_0=\kappa_0=1$, so that $w=1$, $\varphi_0=0$, $\varepsilon=1$ and $\dot\theta^2=1+2\sin^2\theta$. Writing
+$(1-2s)/\sqrt{1+2s}=2/\sqrt{1+2s}-\sqrt{1+2s}$ with $s=\sin^2\theta$, the displacement per turn of the rotor is
+\[
+\Delta x=\bigl(8K(-2)-4E(-2)\bigr)e_1\approx0.6336081022\,e_1 ,
+\]
+with $K(m)=\int_0^{\pi/2}(1-m\sin^2t)^{-1/2}dt$ and $E(m)=\int_0^{\pi/2}(1-m\sin^2t)^{1/2}dt$ the complete elliptic integrals in the parameter $m$
+\cite{DLMF}. A numerical integration of the full system, frame included, reproduces this value to ten digits and returns $h$ and $p$ to their
+initial values after each turn.
+\end{example}
+
+The clamped frame of \cref{thm:drift} moves on a circle of diameter $|Np_0|/|\kappa_0|$, while the free rotor adds $\tfrac{\pi\varepsilon}{2|\kappa_0|}|Np_0|$
+per turn to first order, so the constant-rate picture tracks the bounded orbit for about $2/(\pi\varepsilon)$ turns. With Lorentz-class inertia and a
+free rotor, a constant rate and a bounded frame coexist exactly on null data.
+
+\begin{proposition}[Several constituents and one rotor]
+\label{prop:several}
+Let one rotor act on $n$ constituents with $N_k=(a_k\eta^{-1}+b_kG\eta^{-1})/m_k$ and $w_k=w(p^{(k)})$. Then $\dot w_k=2i(h/I_0)w_k$ for every $k$, all
+forces carry the common phase $e^{2i\theta}$, and with $R_{\rm eff}e^{i\varphi_{\rm eff}}:=\sum_k(a_k+ib_k)w_k(0)/m_k$ the rotor obeys
+$I_0\ddot\theta=R_{\rm eff}\sin(2\theta+\varphi_{\rm eff})$. The \emph{balance surface} $R_{\rm eff}=0$ is preserved by the flow; on it the rate is exactly
+constant although no $w_k$ need vanish, and every frame moves on a bounded orbit. With equal inertias, $p^{(2)}=-Gp^{(1)}$ gives $w_2=-w_1$.
+\end{proposition}
+
+The Clifford data $\eta$, $G$, $G\eta^{-1}$ and $\beta_0$ are integer matrices. The rescaling $(I_0,m)\mapsto(sI_0,tm)$ preserves admissibility and
+multiplies $\varepsilon$ by $1/(st)$, so no value of $\varepsilon$, and no ratio among $I_0$, $m$ and $|a+ib|$, is determined by the Clifford structure:
+the form of the inertia is derived, and \eqref{eq:multiscale} is an input.
+
+\subsection{Three constituents: the closure symmetry and the two projectors}
+
+At $n=3$ write $e_A=e^{(k)}_i$ with $A=6(k-1)+i$; the temporal indices are $\{1,2,3,7,8,9,13,14,15\}$, each with its partner $i'=i+3$, and for
+temporal $i<j$ put
+\[
+\mathrm{rot}(i,j):=e_{i'}e_{j'}-e_ie_j,\qquad \mathrm{bst}(i,j):=e_je_{i'}-e_ie_{j'} .
+\]
+For one constituent these span $\lG$, with $\mathrm{rot}(2,3)=2L_1$ and $\mathrm{bst}(2,3)=2K_1$ and cyclically up to sign. In this numbering the
+weak directions of $P_*$ are $W=\{7,13,14,15\}$, the colour directions $\{10,11,12,16,17,18\}$, and $E$ denotes the span of the temporal directions
+$\{7,8,9,13,14,15\}$ of constituents two and three; $G_3=G\oplus G\oplus G$.
+
+\begin{theorem}[The closure symmetry is $\so{9,\C}$]
+\label{thm:so9C}
+$G_3$ is an anti-isometry of $\eta_3$ with $G_3^2=-\id$, and its centraliser in $\so{9,9}$ is $72$-dimensional, spanned by the $36$ paired rotations
+and the $36$ paired boosts. In the basis of the nine temporal directions followed by their partners every element is
+$\bigl(\begin{smallmatrix}R&S\\-S&R\end{smallmatrix}\bigr)$ with $R,S$ antisymmetric, and $R-iS$ identifies the centraliser with $\so{9,\C}$, whose
+compact part consists of the paired rotations.
+\end{theorem}
+
+In the field-strength reading $V_3\cong\C^9$ carries three field strengths, and $\so{9,\C}$ consists of the complex orthogonal transformations of
+$\sum_kz^{(k)}\cdot z^{(k)}$.
+
+\begin{theorem}[No common Lorentz algebra]
+\label{thm:nocommon}
+The centraliser of $G_3$ meets the interior $\so{1,3}$ of the first constituent in $0$; the elements commuting with both $G_3$ and that algebra form
+the $30$-dimensional $\so{6,\C}$ of paired elements of constituents two and three. Under $\lG^{(1)}$ the complexified spinor module is
+$128\cdot(\tfrac12,\tfrac12)$, with no Weyl spinor.
+\end{theorem}
+
+No nonzero Lorentz generator leaves both the closure and the spinor structure of matter invariant: the two Lorentz algebras are different
+subalgebras of $\so{9,9}$ with zero intersection, which is \cref{prop:notconj} lifted to three constituents. A Pati--Salam generator acts on the
+closure variables only through its grade-two part, since $\ad_Z$ maps vectors to vectors exactly when $Z$ has grades zero and two. The intersection
+with the Pati--Salam algebra can then be computed in general.
+
+\begin{theorem}[The Pati--Salam algebra and the binding root]
+\label{thm:PSbinding}
+Let $U$ be any four-dimensional subspace of the span of the eight internal temporal directions, and $\mathfrak{ps}_U=\so U\oplus\so6_C$. Then neither
+summand meets the centraliser of $G_3$, and
+\[
+\mathfrak{ps}_U\cap\Cent(G_3)=\bigl\{A+G_3AG_3^{-1}:\ A\in\so{U\cap E}\bigr\}\cong\so{U\cap E},
+\]
+of dimension $\binom d2\in\{1,3,6\}$ with $d=\dim(U\cap E)$. For the Pati--Salam algebra of $P_*$, $U=\operatorname{span}W\subset E$, and the
+binding-compatible part is the diagonal $\so4_\Delta=\operatorname{span}\{\mathrm{rot}(i,j):i<j\in W\}\cong\su2\oplus\su2$, compact and non-abelian.
+\end{theorem}
+
+\begin{proof}
+Let $A\in\so U$ and $B\in\so6_C$ with $[A+B,G_3]=0$, and split the internal temporal span as $E\oplus F$ with $F=\operatorname{span}\{e_2,e_3\}$. $G_3$ maps
+$F$ into the interior plane $\operatorname{span}\{e_5,e_6\}$, where $A$ and $B$ vanish, so $Av=0$ for $v\in F$. For $v\in E$, $G_3v$ is a colour direction
+and $Bv=0$, so $G_3Av=BG_3v$ lies in the colour span and $Av\in E$. Hence $A\in\so{U\cap E}$ and $B=G_3AG_3^{-1}$ on the colour span, and conversely.
+Finally $d\ge4+6-8=2$.
+\end{proof}
+
+Neither Pati--Salam factor contains an element commuting with the binding root; the compatible part pairs every rotated temporal direction with
+its spatial partner, which the colour $\su4$, acting on spatial directions alone, never does.
+
+\begin{theorem}[What survives each projector]
+\label{thm:survive}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item The part of $\Cent(G_3)$ commuting with $\Pfam$ is $\operatorname{span}\{\mathrm{rot}(2,3),\mathrm{rot}(8,9),\mathrm{rot}(14,15),\mathrm{bst}(14,15)\}$,
+abelian of dimension four. The kinetic condition holds for the two internal rotations and fails for $\mathrm{bst}(14,15)$, so the gauge-admissible
+part is $\uu1^2=\operatorname{span}\{\mathrm{rot}(8,9),\mathrm{rot}(14,15)\}$.
+\item The part commuting with $P_*$ is $\operatorname{span}\{\mathrm{rot}(2,3),\mathrm{rot}(8,9)\}\oplus\so4_\Delta$, compact of dimension eight, and its
+internal part $\so4_\Delta\oplus\R\,\mathrm{rot}(8,9)$ acts faithfully and satisfies the kinetic condition.
+\item Under either projector the frame Lorentz algebra $\lG^{(1)}$ keeps only $\mathrm{rot}(2,3)=e_5e_6-e_2e_3$, a rotation of the interior plane
+$(e_5,e_6)$ locked to the rotation of the surplus pair.
+\end{enumerate}
+\end{theorem}
+
+The rotor acts through $G_3$ and commutes with all of $\Cent(G_3)$, so a one-rotor closure is compatible with either projector. What differs is the
+symmetry each leaves: an abelian one for $\Pfam$, and for $P_*$ the non-abelian diagonal of weak isospin and a colour $\so4$.
+
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{@{}lccccccccc@{}}
+\toprule
+$(q_1,q_2)$ & $(-1,-1)$ & $(-1,0)$ & $(-1,1)$ & $(0,-1)$ & $(0,0)$ & $(0,1)$ & $(1,-1)$ & $(1,0)$ & $(1,1)$\\
+\midrule
+left, $\Gamma=-1$ & 1 & 0 & 1 & 1 & 2 & 1 & 0 & 2 & 0\\
+right, $\Gamma=+1$ & 0 & 2 & 0 & 1 & 2 & 1 & 1 & 0 & 1\\
+\bottomrule
+\end{tabular}
+\caption{Weyl content of the block of $\Pfam$ under the two surviving charges $Q_1=-\tfrac12J\,\mathrm{rot}(8,9)$ and $Q_2=-\tfrac12J\,\mathrm{rot}(14,15)$:
+the number of Weyl components with charges $(q_1,q_2)$ on each chirality half.}
+\label{tab:closurecontent}
+\end{table}
+
+\begin{theorem}[Chirality and anomalies of what survives]
+\label{thm:closurechiral}
+With anomaly coefficients $\mathcal A(f)=\tfrac14\bigl[\Tr(fP_L)-\Tr(fP_R)\bigr]$ and charges $-JB$:
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item On $\Pfam$ the content is \cref{tab:closurecontent}; $\mathcal A\bigl((\alpha Q_1+\beta Q_2)^3\bigr)=-12\alpha\beta^2$ and $\mathcal A(\alpha Q_1+\beta Q_2)=0$, and
+the left and right charge multisets coincide exactly when $\alpha\beta=0$. The anomaly-free subalgebras of $\uu1^2$ are $0$, $\R Q_1$ and $\R Q_2$,
+each vector-like.
+\item On $P_*$, with $\so4_\Delta=\su2_+\oplus\su2_-$ and $Q=-\tfrac12J\,\mathrm{rot}(8,9)$, the halves are
+$L=(0,0)_0\oplus(\tfrac12,\tfrac12)_{+1}\oplus(1,0)_0$ and $R=(0,0)_0\oplus(\tfrac12,\tfrac12)_{-1}\oplus(0,1)_0$. For $H=\alpha H^+_3+\beta H^-_3+\gamma Q$,
+$\mathcal A(H^3)=2\gamma(3\alpha^2+3\beta^2+4\gamma^2)$ and $\mathcal A(H)=8\gamma$, so the anomaly-free subalgebras are exactly those of $\so4_\Delta$, which
+has neither a perturbative nor a global anomaly.
+\item The two halves of $P_*$ carry inequivalent representations of $\so4_\Delta$, so it acts chirally; but every summand is a real representation
+of $\su2\oplus\su2$, so the left-handed content is real and gauge-invariant Majorana masses exist \cite{Suzuki2000}. The chirality of $\so4_\Delta$
+on $P_*$ forbids no mass.
+\end{enumerate}
+\end{theorem}
+
+The rotor has no continuous lift to spinors: $(e^{\theta G})^{\!\top}\eta\,e^{\theta G}=\cos2\theta\,\eta+\sin2\theta\,\eta G$, so $e^{\theta G}$ is an isometry of
+$\eta$ only for $\theta\in\pi\Z$, and at $\theta=\pi$, $e^{\pi G_3}=-\id$ is implemented by $\Gamma$. This excludes a coupling of the rotor through the
+spin representation and says nothing about other couplings.
+
+\begin{theorem}[Inertia freedom at three constituents]
+\label{thm:inertia3}
+The real dimensions of the symmetric forms on $V_3^*$ in the Lorentz class, $\{N,G_3\}=0$, and in the duality class, $[N,G_3]=0$, that are invariant
+under a given symmetry are:
+\begin{center}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+symmetry & Lorentz class & duality class\\
+\midrule
+$\Cent(G_3)=\so{9,\C}$ & $2$ & $0$\\
+$\bigoplus_k\lG^{(k)}$ & $6$ & $0$\\
+the $\Pfam$-surviving algebra & $18$ & $13$\\
+the $P_*$-surviving algebra & $8$ & $6$\\
+none & $90$ & $81$\\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{theorem}
+
+The Lorentz-class inertia is fixed up to one complex scale under the full closure symmetry and up to three under the single-constituent Lorentz
+algebras, and imposing only what a projector leaves enlarges the freedom to nine complex scales for $\Pfam$ and four for $P_*$: neither projector
+selects the inertia.
+
+\subsection{Brackets supplied by hand}
+
+The closure above is derived; one may also supply a bracket on the frame by hand and ask what the arena's own inertias do with it. A quadratic Lie
+algebra whose invariant form is $\eta$ must have a maximal compact subalgebra of exactly half its dimension, and such \emph{balanced} simple real forms
+are rare: a complex simple algebra regarded as real, $\su{p,q}$ with $|p-q|=1$, or $\so{p,q}$ with $(p,q)=\bigl(\tfrac{k(k+1)}2,\tfrac{k(k-1)}2\bigr)$, and
+no exceptional form. At the first rung $\R^{3,3}$ admits exactly three semisimple quadratic structures, $\so{1,3}$, $\so4$ and $\so{2,2}$, and only
+$\so{1,3}$ if $\eta$ is to be proportional to the Killing form. For $n\le20$ a simple closure exists exactly at $n=1,4,5,6,7,8,12,15,16,20$.
+
+Two observations about the arena's inertias hold across these closures. With the split-form inertia $A=m\eta$, which is an invariant form, every
+solution of the Euler--Arnold equation is a one-parameter subgroup and $\dot p\equiv0$. With the positive form $A=m\,\id$ on $\so{1,3}$ the system is
+$\dot\bB=0$, $\dot\bE=\tfrac2m\bE\times\bB$: the magnetic half is frozen and the electric half precesses about it. The inertias with
+$G^{\!\top}A^{-1}G=-A^{-1}$ form a twelve-dimensional family of holomorphic Euler tops $\dot Z=Z\times MZ$ with $M$ complex symmetric; they are Liouville
+integrable and never positive definite.
+
+At the rungs $n=(N^2-1)/3$ with $3\nmid N$, that is $(N,n)=(2,1),(4,5),(5,8),\dots$, the compact half of the balanced form $\slr{N,\C}_\R$ is $\su N$,
+which is Zeitlin's finite truncation of two-dimensional incompressible Euler flow \cite{Zeitlin91}. Giving the 't~Hooft clock--shift modes the
+discrete-Laplacian inertia, numerical integration at $N=4$ and $N=5$ conserves energy and enstrophy to $10^{-12}$ and moves up to $37\%$ of the
+energy and $54\%$ of the enstrophy between Laplacian shells: transfer between scales inside the frame. With either of the arena's own inertias the same
+data are exact equilibria, because both $\id$ and $\eta$ restrict to multiples of the invariant form on $\su N$. What the frame lacks for a fluid is
+the inertia. Finally, no closure dissipates: every Euler--Arnold flow stays on a coadjoint orbit and preserves every Casimir, which is exactly what
+viscosity destroys, so no closure of the force law can produce $\nu\Delta u$ on its own; and a constant generator that uniformly decreases the split
+form $C$ has, by the inertia theorem of Ostrowski and Schneider \cite{OstrowskiSchneider62}, exactly $3n$ exponentially unstable directions.

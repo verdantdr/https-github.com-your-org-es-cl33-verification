@@ -1,0 +1,105 @@
+\section{The kinematic selector}
+\label{sec:selector}
+
+Choosing a Lorentzian four-plane inside $\R^{3,3}$ is equivalent to choosing its orthogonal complement, a two-plane, and a two-plane is described by its unit
+bivector. The question is which bivectors describe a Lorentzian complement, and what the arena does with them.
+
+\subsection{One constituent}
+
+\begin{theorem}[The selector is a complex structure]
+\label{thm:selector}
+Let $C=a\wedge b$ be a simple bivector of $\R^{3,3}$ and $N=\langle a,b\rangle$.
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item $C^2=-\det\mathrm{Gram}(a,b)\,\id$.
+\item For a nondegenerate $N$ with $C$ normalised: $C^2=-\id$ exactly when $N$ is definite, that is exactly when $N^\perp$ is Lorentzian, of signature $(1,3)$
+when $N$ is positive and $(3,1)$ when $N$ is negative; $C^2=+\id$ exactly when $N^\perp$ has signature $(2,2)$; and $C^2=0$ exactly when $N$ is degenerate.
+\item The centraliser of $C$ in $\so{3,3}$ is $\so N\oplus\so{N^\perp}$, of dimension seven, so the choices of $N$ of a given type form an eight-dimensional homogeneous
+space.
+\item The surplus plane is such an $N$, with $C=J=e_2e_3$ and $N^\perp$ the interior four-plane.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(i) is the Clifford identity $(a\wedge b)^2=(a\cdot b)^2-a^2b^2$. (ii) For an orthonormal pair, $(ab)^2=-a^2b^2$, which is $-1$ when $a^2=b^2$ and $+1$ otherwise, and the
+signature of $N^\perp$ is the complement of that of $N$ in $(3,3)$. (iii) holds for coordinate planes by \eqref{eq:bladecomm}, and every nondegenerate plane is an
+$SO(3,3)$-image of a coordinate plane of the same signature, by Witt's theorem.
+\end{proof}
+
+For coordinate planes $C$ is moreover antisymmetric on $S$ when $C^2=-\id$, an orthogonal complex structure; for tilted planes it is not. Orthogonality refers to the
+Euclidean structure of $S$, which singles out the temporal triple, while $C^2=-\id$ is invariant. The distinction will matter.
+
+Spinors give the light cone. The volume element $\omega_S=e_4e_5e_6$ satisfies $\omega_Se_A\omega_S^{-1}=-e_A^{\!\top}$ for every generator, so
+$\langle\psi,\varphi\rangle=\psi^{\!\top}\omega_S\varphi$ is a $\mathrm{Spin}(3,3)$-invariant pairing, and it pairs $S^+$ with $S^-$.
+
+\begin{theorem}[The light cone as twisted squares]
+\label{thm:cone}
+Let $\psi$ range over the chiral half $S^+$.
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item The forms $m_A=\omega_Se_A$ are antisymmetric and satisfy $X^{\!\top}m_A+m_AX=-\omega_S[X,e_A]$ for every bivector $X$; their restrictions to $S^+$ span
+$\Lambda^2(S^+)^*$, so $\psi\wedge\varphi\mapsto(\psi^{\!\top}\omega_Se_A\varphi)_A$ is an equivariant isomorphism $\Lambda^2S^+\cong\R^{3,3}$, the Klein correspondence of
+\cref{thm:klein}.
+\item On $S^+$, $J^2=-\id$, so $S^+\cong\C^2$, and the interior $\so{1,3}$ acts $\C$-linearly, as $\slr{2,\C}$.
+\item For a unit simple bivector $C$ with plane $N$ define $v_C(\psi)_A=\psi^{\!\top}\omega_Se_AC\psi$. Then $v_C(\psi)\in N^\perp$ and $\eta(v_C,v_C)=0$ identically,
+and the image has dimension three.
+\item If $C^2=-\id$, the component of $v_C$ along the timelike direction of $N^\perp$ is definite: $v_C$ fills one nappe of the light cone of $N^\perp$. If
+$C^2=+\id$, no component is definite, and $v_C$ fills the null vectors of a $(2,2)$ plane, which has no time orientation.
+\item $v_{-C}=-v_C$; on $S^-$ the $J$-twisted square lies in the other nappe; and on $S^+$, $v_J=-j$, where $j_A=\psi^{\!\top}\gamma^0e_A\psi$ is the Dirac current.
+\end{enumerate}
+\end{theorem}
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[>=Stealth,font=\small]
+\begin{scope}
+\fill[tcol!10] (0,0) -- (1.6,2.2) arc (0:180:1.6 and 0.35) -- cycle;
+\draw[tcol,thick] (-1.6,2.2) -- (0,0) -- (1.6,2.2);
+\draw[tcol,thick] (0,2.2) ellipse (1.6 and 0.35);
+\draw[tcol!60,dashed] (-1.6,-2.2) -- (0,0) -- (1.6,-2.2);
+\draw[tcol!60,dashed] (0,-2.2) ellipse (1.6 and 0.35);
+\draw[->,gray] (0,-2.7) -- (0,2.9) node[above] {$\gamma^0$};
+\node[tcol,align=center] at (0,3.6) {$C=J$, $C^2=-\id$: complement $(1,3)$};
+\node[anchor=west,align=left] at (1.75,1.7) {$v_J(\psi)$, $\psi\in S^+$:\\ one nappe};
+\node[anchor=west,align=left,tcol!70] at (1.75,-1.7) {$S^-$ or $-J$:\\ the other nappe};
+\end{scope}
+\begin{scope}[xshift=8.2cm]
+\draw[scol,thick] (-1.6,-1.6) -- (1.6,1.6); \draw[scol,thick] (-1.6,1.6) -- (1.6,-1.6);
+\draw[scol,thick,dashed] (-2.1,-0.7) -- (2.1,0.7); \draw[scol,thick,dashed] (-2.1,0.7) -- (2.1,-0.7);
+\fill[scol!10] (0,0) circle (0.25);
+\node[scol,align=center] at (0,3.6) {$C^2=+\id$: complement $(2,2)$};
+\node[align=center] at (0,-2.6) {null vectors of a $(2,2)$ plane:\\ connected, no past or future};
+\end{scope}
+\end{tikzpicture}
+\caption{The selector at one constituent (\cref{thm:selector,thm:cone}). A unit bivector $C$ with $C^2=-\id$ selects a Lorentzian complement, and the $C$-twisted squares of
+chiral spinors fill one nappe of its light cone, the other nappe belonging to the other chirality or to $-C$. A bivector with $C^2=+\id$ selects a $(2,2)$ complement,
+whose null set has no time orientation.}
+\label{fig:selector}
+\end{figure}
+
+The selector of the reduction is therefore not a new field. Choosing the spacetime $N^\perp$ and choosing the complex structure $C$ are one choice, and in the arena that
+complex structure is the charge $J$, the same $J$ that is the imaginary unit of the Dirac theory (\cref{thm:i}). Null directions are the squares of Weyl spinors twisted
+by $J$, and the time orientation is fixed by the sign of $J$ together with the chirality. The mathematics is the Klein--Penrose correspondence, in which a null vector is
+$\psi\bar\psi$ \cite{PenroseRindler84,WardWells}; what is specific to the arena is that $J$ already plays this role. All of this is kinematics: nothing yet says why $J$,
+rather than an indefinite or degenerate bivector, is chosen. For degenerate planes $v_C$ is still null with a three-dimensional image, and for the totally null plane
+$\langle e_1+e_4,e_2+e_5\rangle$ it lies in the totally null three-plane $\langle e_i+e_{i+3}\rangle$, an eigenspace of the grading root $\cK$.
+
+\subsection{Three constituents}
+
+At three constituents $J$ is the product of the fourteen generators of the Lorentz complement $W_3$, of signature $(8,6)$, and $\Omega$ is the volume element of $E$.
+
+\begin{theorem}[The selector at three constituents]
+\label{thm:selector3}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item $J^2=\Omega^2=-\id$, $[J,\Omega]=0$ and $\Gamma=J\Omega$ with $\Gamma^2=\id$; $\Omega=-J$ on $\Gamma=+1$. Since $\Gamma^2=\id$ at every rung, any coordinate four-plane $E'$
+with volume element $\Omega_{E'}$ and complementary volume element $J_{E'}$ has $J_{E'}^2=\Omega_{E'}^2=\prod_{i\in E'}e_i^2$: the volume element of the complement is a complex
+structure exactly when $E'$ is Lorentzian, at every $n$.
+\item The centraliser of $J$ among the $153$ bivectors has dimension $97=6+91$, so the choices form a space of dimension $56$.
+\item With either $\mathrm{Spin}(9,9)$-invariant pairing, the product $\beta_{\rm odd}$ of the nine negative generators, which is antisymmetric, or the product $\beta_{\rm even}$
+of the nine positive ones, which is symmetric, $\beta e_AJ$ is symmetric exactly for the fourteen directions of $W_3$: the $J$-twisted square lives on the complement,
+not on $E$. The untwisted $\beta_{\rm odd}e_A$ is symmetric for all eighteen directions, so the vector sits in $\mathrm{Sym}^2S^+$, and at random spinors the untwisted
+square is not null.
+\end{enumerate}
+\end{theorem}
+
+The identification of the selector with $J$ survives at three constituents, but the covariant construction of the cone from spinors is a feature of dimension six. At
+$n=3$ the cone of $E$ is recovered by the Dirac current $j_\mu=\psi^{\!\top}\gamma^0\gamma_\mu\psi$, which is future causal, being a sum of one-constituent currents, and
+null on product states; but it uses the clock $\gamma^0$ and the transpose, that is, the positive inner product of the spinor module.

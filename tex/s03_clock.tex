@@ -1,0 +1,207 @@
+\section{Time, conversion, and the two square roots of the pairing}
+\label{sec:clock}
+
+\subsection{One conversion constant}
+
+The split form is not dimensionally innocent. If $V^+$ carries times and $V^-$ lengths, then
+$\eta(v,v)=\sum_i(t^i)^2-\sum_a(x^a)^2$ adds squared times to squared lengths, and a conversion is needed, a priori one
+constant for each temporal axis.
+
+\begin{proposition}[A pairing alone does not give isotropy]
+\label{prop:KC}
+A map exchanging $V^+$ and $V^-$ cannot carry a single dimension; it converts times to lengths one way and lengths to times
+the other. In block form
+\begin{equation}
+\label{eq:KC}
+\cK_C=\begin{pmatrix}0&C^{-1}\\ C&0\end{pmatrix},\qquad C:V^+\to V^-,\qquad [C]=LT^{-1},
+\end{equation}
+one has $\cK_C^2=\id$ for every invertible $C$, including $C=\operatorname{diag}(c_1,c_2,c_3)$ with distinct entries. An
+involutive pairing therefore does not force $c_1=c_2=c_3$.
+\end{proposition}
+
+\begin{theorem}[One conversion constant]
+\label{thm:onec}
+If a common $SO(3)$ acts on $V^+$ and on $V^-$ by the vector representation and $C$ intertwines the two actions, then
+$C=c\,\id$ with $[c]=LT^{-1}$.
+\end{theorem}
+
+\begin{proof}
+The vector representation of $SO(3)$ is irreducible of real type, so its commutant is $\R$ and Schur's lemma places $C$ in
+$\R\,\id$ \cite{GoodmanWallach}.
+\end{proof}
+
+\subsection{The two square roots of the pairing}
+
+Dimensional analysis fixes $[C]$ and leaves the sign of the lower-left block free. The two choices are different operators,
+and the rest of the paper turns on the difference.
+
+\begin{proposition}[The grading root and the binding root]
+\label{prop:twoK}
+In units with $c=1$, and in block form on $V^+\oplus V^-$, put
+\[
+\cK=\begin{pmatrix}0&-\id\\ -\id&0\end{pmatrix},\qquad
+G=\begin{pmatrix}0&-\id\\ \id&0\end{pmatrix},
+\]
+that is $\cK e_i=-e_{i+3}$, $\cK e_{i+3}=-e_i$, and $Ge_i=e_{i+3}$, $Ge_{i+3}=-e_i$. Then:
+\begin{center}
+\begin{tabular}{@{}lcccl@{}}
+\toprule
+& square & $\eta$-adjoint & $\eta(X\cdot,X\cdot)$ & role\\
+\midrule
+$\cK$ & $+\id$ & $\cK^\dagger=-\cK$ & $-\eta$ & an element of $\so{3,3}$; grades\\
+$G$ & $-\id$ & $G^\dagger=+G$ & $-\eta$ & a complex structure outside $\so{3,3}$; binds\\
+\bottomrule
+\end{tabular}
+\end{center}
+with $X^\dagger:=\eta^{-1}X^{\!\top}\eta$. Both are anti-isometries. The eigenspaces of $\cK$ are the two totally null three-planes
+spanned by $e_i\mp e_{i+3}$.
+\end{proposition}
+
+Both roots can be built inside the algebra, and they are related by a single trivector.
+
+\begin{lemma}[Both roots from Clifford data]
+\label{lem:Gclifford}
+Let $\mathsf P=\sum_i e_ie_{i+3}$ and $T=e_1e_2e_3$, and define $\cK(v)=\tfrac12[\mathsf P,v]$ and $S(v)=TvT^{-1}$ on vectors. Then
+$\cK(e_i)=-e_{i+3}$, $\cK(e_{i+3})=-e_i$, so $\cK^2=\id$; $S$ fixes the temporal and negates the spatial generators, so $S=\eta$ as a
+map of $V$; and
+\[
+G=-\cK\circ S .
+\]
+\end{lemma}
+
+\begin{proof}
+$[e_ie_{i+3},e_i]=e_ie_{i+3}e_i-e_i^2e_{i+3}=-2e_{i+3}$ and $[e_ie_{i+3},e_{i+3}]=e_ie_{i+3}^2-e_{i+3}e_ie_{i+3}=-2e_i$, while the
+other pole operators commute with both by \eqref{eq:bladecomm}. $T$ is a product of the three temporal generators, so it
+commutes with each of them up to the sign $(-1)^{3-1}=+1$ and anticommutes with each spatial generator. Finally
+$-\cK(S e_i)=-\cK(e_i)=e_{i+3}=Ge_i$ and $-\cK(Se_{i+3})=\cK(e_{i+3})=-e_i=Ge_{i+3}$.
+\end{proof}
+
+So the root that grades is $\tfrac12\ad_{\mathsf P}$, the adjoint action of the sum of the pole operators, and the root that binds
+is the same map composed with the Cartan involution $S=\Ad_{e_1e_2e_3}$. That the two roots are distinguished exactly by the
+Cartan involution is the cleanest single statement the flat and the curved analyses below jointly support.
+
+\paragraph{Shift operators.} A clock coordinate $\lambda$ has dimension $T$, the operator $G$ is dimensionless, and their sum
+requires a scale. With a length $\ell$,
+\begin{equation}
+\label{eq:kappa}
+\kappa=\frac c\ell,\qquad \alpha_\pm=\partial_\lambda\pm\kappa G .
+\end{equation}
+The pointwise $\eta$-adjoint of $\kappa G$ is $\kappa G$, while the formal adjoint of the differential operator, after an integration by
+parts with compatible boundary conditions, is $(\partial_\lambda+\kappa G)^*=-\partial_\lambda+\kappa G^\dagger=-\alpha_-$. The two
+adjoints must be kept apart: the factorisations below are insensitive to the overall sign, positivity statements are not.
+
+\subsection{The clock}
+\label{sec:clocksimplex}
+
+A clock is a unit vector of $V^+$. Which one? Let $w=(w_1,w_2,w_3)$ be normalised non-negative weights on the three temporal
+axes, so that $w$ ranges over the two-simplex $\Delta^2$. The map $x_i=2\sqrt{w_i}$ sends $\Delta^2$ onto the part of the sphere
+$\sum_ix_i^2=4$ in the closed positive octant, and since $dx_i=dw_i/\sqrt{w_i}$ the Euclidean metric pulls back to
+\[
+\sum_idx_i^2=\sum_i\frac{dw_i^2}{w_i},
+\]
+the Fisher--Rao metric. That metric is not a modelling choice: by \v{C}encov's theorem it is, up to scale, the only metric on a
+finite simplex invariant under Markov morphisms \cite{Cencov,AmariNagaoka}. The space of clocks is therefore an octant of a round
+sphere of radius two.
+
+\begin{proposition}[The symmetric clock]
+\label{prop:clock}
+The barycentre $w=(\tfrac13,\tfrac13,\tfrac13)$ is the unique point of $\Delta^2$ fixed by the permutations of the three axes, and the
+unique maximum of the entropy $-\sum_iw_i\log w_i$, with value $\log3$ and Hessian eigenvalues $-9$ and $-3$ in the chart
+$(w_1,w_2)$. Its amplitude direction is the unit vector
+\[
+\widehat W=\frac{e_1+e_2+e_3}{\sqrt3},\qquad \widehat W^2=\id,\qquad
+\lambda:=\eta(\widehat W,v)=\frac{t^1+t^2+t^3}{\sqrt3}=\sqrt3\,\bar t .
+\]
+\end{proposition}
+
+The permutation argument carries the weight here; the entropy argument is Jaynes' principle and is a hypothesis, recorded as
+such. What the proposition says is modest: if a clock is to treat the three temporal axes alike, it is $\widehat W$, and the
+physical time it reads is $\sqrt3$ times the mean of the three constituent times. It does not say that $\lambda$ is a proper time,
+that it is invariant under a group, or that the directions orthogonal to $\widehat W$ are unphysical. Those directions,
+$\widehat W^\perp\cap V^+=\{t^1+t^2+t^3=0\}$, spanned by $e_1-e_2$ and $e_1+e_2-2e_3$, are the \emph{relative times}.
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[scale=1.15]
+% simplex
+\begin{scope}
+\coordinate (A) at (0,0); \coordinate (B) at (3,0); \coordinate (Cc) at (1.5,2.6);
+\fill[tcol!8] (A)--(B)--(Cc)--cycle; \draw[tcol,thick] (A)--(B)--(Cc)--cycle;
+\node[below left] at (A) {$e_1$}; \node[below right] at (B) {$e_2$}; \node[above] at (Cc) {$e_3$};
+\coordinate (bar) at (1.5,0.8667);
+\fill[scol] (bar) circle (2.3pt);
+\node at (1.5,0.2) {\footnotesize $w=(\tfrac13,\tfrac13,\tfrac13)$};
+\foreach \r in {0.22,0.42}{\draw[gray!60,thin] (bar) circle (\r);}
+\node at (1.5,-0.6) {\small simplex $\Delta^2$ of clock weights};
+\end{scope}
+\draw[->,thick] (3.5,1.2) -- node[above] {\small $x_i=2\sqrt{w_i}$} (5.3,1.2);
+% octant of sphere, drawn in an oblique projection
+\begin{scope}[shift={(7.3,0)}]
+\coordinate (O) at (0,0);
+\coordinate (X) at (2.6,-0.25); \coordinate (Y) at (-0.9,-0.9); \coordinate (Z) at (0,2.6);
+\draw[->,gray] (O)--($1.25*(X)$) node[right] {\small $x_2$};
+\draw[->,gray] (O)--($1.35*(Y)$) node[left] {\small $x_1$};
+\draw[->,gray] (O)--($1.15*(Z)$) node[above] {\small $x_3$};
+\fill[tcol!12] (X) .. controls ($(X)+(0,1.8)$) and ($(Z)+(1.2,0)$) .. (Z)
+  .. controls ($(Z)+(-0.8,-0.6)$) and ($(Y)+(-0.5,1.3)$) .. (Y)
+  .. controls ($(Y)+(1.1,-0.2)$) and ($(X)+(-1.2,-0.6)$) .. (X);
+\draw[tcol,thick] (X) .. controls ($(X)+(0,1.8)$) and ($(Z)+(1.2,0)$) .. (Z);
+\draw[tcol,thick] (Z) .. controls ($(Z)+(-0.8,-0.6)$) and ($(Y)+(-0.5,1.3)$) .. (Y);
+\draw[tcol,thick] (Y) .. controls ($(Y)+(1.1,-0.2)$) and ($(X)+(-1.2,-0.6)$) .. (X);
+\coordinate (Wp) at (0.72,0.95);
+\fill[scol] (Wp) circle (2.3pt);
+\draw[->,scol,thick] (O) -- (Wp) node[above right] {\small $\widehat W$};
+\node[align=center,anchor=north] at (1.4,-1.45) {\small octant of the sphere $\sum x_i^2=4$\\[-1pt] \small (Fisher--Rao metric)};
+\end{scope}
+\end{tikzpicture}
+\caption{The space of clocks. Normalised weights on the three temporal axes form a simplex; the amplitude map carries it onto an
+octant of a round sphere, whose round metric is the Fisher--Rao metric. The barycentre, the only permutation-invariant point and
+the entropy maximum, corresponds to the symmetric clock $\widehat W=(e_1+e_2+e_3)/\sqrt3$ (\cref{prop:clock}).}
+\label{fig:clock}
+\end{figure}
+
+\subsection{The spectrum of a conversion operator}
+
+An operator that converts times into lengths is a mixed bivector $B_C=\sum_{i,a}C_{ia}\,e_ie_{a+3}$, symmetric by
+\cref{thm:sig}. Its square controls the factorised interior dynamics of \cref{sec:shifted}, where the equation of motion becomes
+$\ddot X=\kappa^2B_C^2X$, so its spectrum is worth knowing exactly.
+
+\begin{theorem}[Spectrum of a conversion operator]
+\label{thm:spectrumBC}
+Write $C=\sum_k\sigma_ku_kv_k^{\!\top}$ in singular-value form and put $U_k=\sum_iu_k^ie_i$, $V_k=\sum_av_k^ae_{a+3}$ and
+$B_k=U_kV_k$. Then $B_k^2=\id$, the $B_k$ commute, and
+\[
+B_C^2=\|C\|_F^2\,\id+2\sum_{k<l}\sigma_k\sigma_l\,\Omega_{kl},\qquad \Omega_{kl}=B_kB_l,\qquad \Omega_{12}\Omega_{13}=\Omega_{23}.
+\]
+Consequently
+\[
+\spec\bigl(B_C^2\bigr)=\bigl\{(\eta_1\sigma_1+\eta_2\sigma_2+\eta_3\sigma_3)^2:\ \eta\in\{\pm1\}^3\bigr\},
+\]
+four values, each of multiplicity two on $\R^8$.
+\end{theorem}
+
+\begin{proof}
+$U_k$ and $V_k$ are orthogonal unit vectors of square $+\id$ and $-\id$, so $B_k^2=-U_k^2V_k^2=\id$; for $k\neq l$ the four vectors
+$U_k,V_k,U_l,V_l$ are mutually orthogonal and $B_k,B_l$ commute by \eqref{eq:bladecomm}. Expanding the square gives the formula. The
+seven nontrivial products of the commuting involutions $B_k$ are, in a rotated orthonormal basis of $V$, blades of grade two, four
+or six, hence traceless; the joint eigenspace with signs $\eta$ therefore has dimension $\tfrac18\Tr\prod_k(\id+\eta_kB_k)=1$, and on it
+$B_C=\eta\cdot\sigma$.
+\end{proof}
+
+\begin{corollary}[Rank counts clocks]
+\label{cor:rankclock}
+$B_C^2$ is a multiple of $\id$ if and only if $\rank C\le1$, and some eigenvalue of $B_C^2$ vanishes if and only if one singular value
+equals the sum of the other two. The rank of $C$ is the number of independent temporal directions the conversion uses.
+\end{corollary}
+
+\begin{example}[The symmetric clock is dynamically blind]
+\label{ex:blindclock}
+The operators $G_a:=\widehat W e_{a+3}$, which convert along the symmetric clock, have $C=\widehat W\hat e_a^{\!\top}$ of rank one and
+singular values $(1,0,0)$. Hence $G_a^2=\id$, the factorised equation of motion is $\ddot X=\kappa^2X$, and the conversion operator does not
+appear in it at all. The clock singled out by the symmetry is exactly the clock whose dynamics cannot see the Clifford structure. This is
+forced by the rank: if every left singular vector of $C$ is proportional to $\widehat W$, then $C$ has rank one. A conversion visible in the
+equations of motion therefore needs a temporal direction transverse to $\widehat W$, that is, a relative time. Raising the rank does not
+produce oscillation either: the eigenvalues $(\eta\cdot\sigma)^2$ are real and non-negative at every rank, so higher rank makes the
+instability anisotropic, with four rates $\kappa|\eta\cdot\sigma|$ instead of one, and can create flat directions, but never a bounded
+oscillation. Bounded motion has to come from elsewhere, and \cref{sec:neutral} shows where.
+\end{example}
