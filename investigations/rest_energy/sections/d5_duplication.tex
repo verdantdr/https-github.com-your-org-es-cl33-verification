@@ -1,0 +1,482 @@
+% Track d5 -- Duplication: the mathematics of Cl(3,3) -> Cl(6,6).
+% Verification: investigations/rest_energy/verify/d5_duplication_math.py (claims d5-1a ... d5-10).
+% New references: sections/bib_d5.tex.
+\section{\texorpdfstring{Duplication: from $\Cl(3,3)$ to $\Cl(6,6)$}{Duplication: from Cl(3,3) to Cl(6,6)}}
+\label{d5:sec:main}
+
+The author's second remark asks which physical and mathematical process makes a unitary energy ``result in a duplication'', from
+$\Cl(3,3)$ to $\Cl(6,6)$. A duplication acts on four levels at once: on the vector space, $V\to V_2:=V\oplus V$; on the algebra,
+$\Cl(V)\to\Cl(V_2)=\Cl(6,6)$; on the spinor module, $S\to S_2=S\otimes S$; and on the energy, $E_6\to E_6\oplus E_6$. This section takes
+the four steps in turn, asks which are forced and which are chosen, and records what the duplicate can do that one copy cannot. The
+answers, with their classes, are these. The step on the algebra is forced: it is the graded tensor product, its Klein factor is the
+Jordan--Wigner sign, and $S_2$ is the Fock space of six fermionic modes (inherited; \cref{d5:sec:algebra}). The step on the energy is a
+choice within a three-sphere of energy-preserving, Lorentz-covariant duplications, which is the algebra of a lossless beam splitter. Only a
+circle in it, the copy rotation, respects $\eta$, and the two notions of rest energy that coincide on one copy separate on two (fixed;
+\cref{d5:sec:energy}). The duplicate carries structures one copy cannot carry: an $\eta$-isometric complex structure, a compact,
+Lorentz-invariant copy charge, the copy algebra $\so{2,\C}$, a closure that runs at constant rate with massive copies, and a non-rigid,
+Lorentz-invariant vacuum (fixed, partly restated from \cite{ES17}; \cref{d5:sec:closure,d5:sec:actions,d5:sec:spin,d5:sec:vacuum}). Finally, the
+copy rotation is the only admissible $b$-field between two binding frames that commutes with the binding root and the rotations. When
+the two rates differ it cannot be removed, and it confines a frame that has no rate of its own; it creates no rate where both frames
+are free (fixed, with the mixing formulas inherited; \cref{d5:sec:bfield}). Every finite-dimensional statement was checked by
+\texttt{verify/d5\_duplication\_math.py}; identifiers d5-$n$ refer to its \texttt{PASS} lines (\cref{d5:tab:claims}).
+
+\paragraph{Notation.} $V_2=V\oplus V$ has the basis $e_1,\dots,e_6$ of copy~$1$ followed by that of copy~$2$, the metric
+$\eta_2=\id_2\otimes\eta$, and the binding root $G_2=\id_2\otimes G$ of both copies (as $G_3$ in Theorem~17.19 of \cite{ES17}).
+$\varepsilon=\bigl(\begin{smallmatrix}0&-1\\1&0\end{smallmatrix}\bigr)$, $\sigma_x$, $\sigma_z$ act on the copy index, and
+$C_v:=\varepsilon\otimes\id_6$ is the copy rotation on vectors. A pair of field strengths is $(z_1,z_2)\in\C^3\oplus\C^3$, with
+$q_2:=q(z_1)+q(z_2)$ and duplicated energy $E_6(z_1)+E_6(z_2)$. On $S_2=\R^8\otimes\R^8$ the tower of equation~(2) of \cite{ES17} gives
+$e^{(1)}_a=e_a\otimes\id$, $e^{(2)}_a=\omega\otimes e_a$, $\omega=e_1\cdots e_6$, and $E_{6(k-1)+a}=e^{(k)}_a$. Statements about $V_2$ are
+pointwise linear algebra and apply to whichever field is placed there. Where the field matters we name it: the frame field $X$, or the
+momentum field $\pi=\eta^{-1}p$ of the closure, to which the Casimirs belong (Section~17 of \cite{ES17}, \cref{d3:sec:main}). Rates
+($\kappa$, $\omega$) are rates, and reading a rate as a rest energy through $mc^2=\hbar\kappa$ is an added identification.
+
+\subsection{The duplicated algebra: graded tensor product and Klein factor}
+\label{d5:sec:algebra}
+
+\begin{proposition}[The duplicated algebra]
+\label{d5:prop:graded}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item $\omega^2=\id$, $\omega^{\!\top}=\omega$, $\Tr\omega=0$, and $\omega$ anticommutes with every $e_a$. The twelve matrices $e^{(k)}_a$ satisfy
+the Clifford relations of $\R^{6,6}$. Their $4096$ blades are signed permutation matrices, and all except $\id$ are traceless, so
+$\Cl(6,6)\cong M_{64}(\R)$.
+\item For blades $e_I,e_J$ of $\Cl(3,3)$, $e^{(1)}_Ie^{(2)}_J=(e_I\,\omega^{|J|})\otimes e_J$ and $e^{(2)}_Je^{(1)}_I=(-1)^{|I||J|}e^{(1)}_Ie^{(2)}_J$.
+Hence $a\,\hat\otimes\,b\mapsto a\,\omega^{|b|}\otimes b$ is an algebra isomorphism $\Cl(3,3)\hat\otimes\Cl(3,3)\to\Cl(6,6)$, where $\hat\otimes$
+is the graded tensor product, $(a\hat\otimes b)(c\hat\otimes d)=(-1)^{|b||c|}ac\,\hat\otimes\,bd$.
+\item The Klein factor is forced. In $M_{64}(\R)$ the elements commuting with every $e_a\otimes\id$ form $\id\otimes M_8(\R)$, and those
+anticommuting with every $e_a\otimes\id$ form $\omega\otimes M_8(\R)$. Any realisation of $\Cl(V_2)$ on $\R^{64}$ that extends
+$e_a\mapsto e_a\otimes\id$ is therefore conjugate to the tower by an element of $\id\otimes GL(8,\R)$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) $\omega^2=(-1)^{15}(-1)^3\id$ by the transpose rule (4) of \cite{ES17}, and $\omega$ has even grade in an even dimension. The relations
+follow from $(\omega\otimes e_a)(\omega\otimes e_b)=\id\otimes e_ae_b$ and $(e_a\otimes\id)(\omega\otimes e_b)=-(\omega\otimes e_b)(e_a\otimes\id)$. A product
+of signed permutation matrices is one, and if $I\neq J$ then $e_I^{\!\top}e_J=\pm e_{I\triangle J}$ is traceless, so the blades are orthogonal
+for the trace form; $4096=64^2$. (ii) $e^{(2)}_J=\omega^{|J|}\otimes e_J$, and moving the $|J|$ copy-2 generators past the $|I|$ copy-1
+generators costs $(-1)^{|I||J|}$. (iii) By (3) of \cite{ES17} a blade $e^{(1)}_Ie^{(2)}_J$ commutes with $e^{(1)}_a$ exactly when
+$|I|+|J|-[a\in I]$ is even. For all six $a$ this forces either $I=\emptyset$ and $|J|$ even, or $I=\{1,\dots,6\}$ and $|J|$ odd: $64$ blades,
+each $\pm\id\otimes e_J$. The anticommuting case is the same with the parities reversed. If $e'_a$ anticommutes with all $e_b\otimes\id$, then
+$e'_a=\omega\otimes f_a$, and $(\omega\otimes f_a)(\omega\otimes f_b)=\id\otimes f_af_b$, so the $f_a$ satisfy the relations of $\Cl(3,3)\cong M_8(\R)$. By the
+Skolem--Noether theorem $f_a=ue_au^{-1}$, and conjugation by $\id\otimes u$ fixes $e_a\otimes\id$ and $\omega\otimes\id$.
+\end{proof}
+
+Everything here is inherited: it is the exponential law $\Cl(V\oplus W)\cong\Cl(V)\hat\otimes\Cl(W)$ \cite{Chevalley54,LawsonMichelsohn89}, and
+(i) restates equation~(2) of \cite{ES17}. The arena contributes only the fixed realisation (d5-1a to d5-1d). The duplication of the
+algebra is not a choice; given copy~$1$, copy~$2$ is determined up to conjugation.
+
+\begin{proposition}[Fock space and Jordan--Wigner strings]
+\label{d5:prop:fock}
+Put $n^\pm_i=\tfrac12(e_i\pm e_{i+3})$, $i=1,2,3$. Then $\{n^\pm_i,n^\pm_j\}=0$ and $\{n^+_i,n^-_j\}=\delta_{ij}$, so $\Cl(3,3)$ is the real
+algebra of canonical anticommutation relations of three fermionic modes and $S=\R^8$ is their Fock space. The occupation numbers are
+$N_i=n^+_in^-_i=\tfrac12(\id-\omega_i)$, with $\omega_i=e_ie_{i+3}$ the pole operators. The eight eigenlines of Proposition~2.5(i) of
+\cite{ES17} are therefore the eight Fock states, and $(-1)^{N_1+N_2+N_3}=-\omega$. At $n=2$ the tower supplies six modes. The modes of copy~$2$ are
+$\omega\otimes n^\pm_i$, each carrying the string $-(-1)^{N^{(1)}}$ of copy~$1$. The total number has spectrum $0,\dots,6$ with multiplicities
+$1,6,15,20,15,6,1$, and $(-1)^N$ is the volume element of $\Cl(6,6)$.
+\end{proposition}
+
+Inherited. In split signature the vectors $e_i\pm e_{i+3}$ span two maximal isotropic subspaces, and the spinor module is the exterior
+algebra of one of them \cite{Chevalley54}. The string is the Jordan--Wigner transformation \cite{JordanWigner28}, and the Klein factor is the
+device that makes the fields of two subsystems anticommute \cite{Klein38}. On the level of states, the mathematical process behind
+``$\Cl(3,3)\to\Cl(6,6)$'' is the second-quantisation rule $\mathrm{Fock}(\mathcal H\oplus\mathcal H)=\mathrm{Fock}(\mathcal H)\otimes\mathrm{Fock}(\mathcal H)$
+(d5-1e).
+
+\subsection{Centre-of-mass and relative halves}
+\label{d5:sec:cm}
+
+\begin{proposition}[Two halves, and the exchange]
+\label{d5:prop:cmrel}
+Let $f_a=(e^{(1)}_a+e^{(2)}_a)/\sqrt2$ and $g_a=(e^{(1)}_a-e^{(2)}_a)/\sqrt2$.
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item $\{f_a,f_b\}=\{g_a,g_b\}=2\eta_{ab}$ and $\{f_a,g_b\}=0$ for all $a,b$, so $\Cl(6,6)=\Cl(f)\hat\otimes\Cl(g)$: two mutually anticommuting
+copies of $\Cl(3,3)$.
+\item The copy rotation $C_b=\tfrac12\sum_a\eta_{aa}e^{(1)}_ae^{(2)}_a$ acts on vectors by $e^{(1)}_a\mapsto-e^{(2)}_a$, $e^{(2)}_a\mapsto e^{(1)}_a$; it is a sum of
+six commuting terms of square $-\tfrac14$, so $\exp(2\pi C_b)=\id$. Conjugation by $\exp(\tfrac\pi4C_b)$ carries $e^{(1)}_a$ to $g_a$ and $e^{(2)}_a$ to
+$f_a$, and $C_b=-\tfrac12\sum_a\eta_{aa}f_ag_a$. The split into halves is the split into constituents turned by an eighth of a turn of the
+copy rotation, which rotates one half into the other.
+\item Let $\omega=(-1)^{\mathsf p}$ on the basis of equation~(1) of \cite{ES17}, in which $\omega$ is diagonal, let $\tau(x\otimes y)=y\otimes x$, and let
+$D=(-1)^{\mathsf p\otimes\mathsf p}$. The Koszul swap $\tau_K=D\tau$ satisfies $\tau_Ke^{(1)}_a\tau_K=e^{(2)}_a$, $\tau_K^2=\id$, $\Tr\tau_K=0$, and
+$\tau_K=g_1g_2\cdots g_6$. So the exchange commutes with every $f_a$ and anticommutes with every $g_a$. The naive swap $\tau$ does not implement
+the exchange.
+\item The summed clock is $e^{(1)}_1+e^{(2)}_1=\sqrt2f_1$. Every diagonal bivector satisfies $\sum_ke^{(k)}_ae^{(k)}_b=f_af_b+g_ag_b$; this covers the
+diagonal interior and binding Lorentz generators and the summed charge $J^{(1)}+J^{(2)}=f_2f_3+g_2g_3$, which act on both halves alike
+with no cross term. $G_2$ preserves both halves. The copy rotations $C_b$ and $M_{12}$ (the copy rotation of the interior four-planes, Section~10.1 of \cite{ES17}) are pure
+cross terms and anticommute with $\tau_K$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) and (iv) are expansions, using $e^{(1)}_ae^{(2)}_a=-f_ag_a$. (ii) By (3) of \cite{ES17}, $[C_b,e^{(1)}_b]=-e^{(2)}_b$. The six terms
+$\tfrac12\eta_{aa}e^{(1)}_ae^{(2)}_a$ share no index, so they commute, and each squares to $-\tfrac14$; hence
+$\exp(\theta C_b)=\prod_a(\cos\tfrac\theta2+\sin\tfrac\theta2\,\eta_{aa}e^{(1)}_ae^{(2)}_a)$, which is $(-1)^6\id$ at $\theta=2\pi$. On vectors $\exp(\theta\ad C_b)$ turns
+$e^{(1)}_a$ into $\cos\theta\,e^{(1)}_a-\sin\theta\,e^{(2)}_a$, which is $g_a$ at $\theta=\tfrac\pi4$. (iii) The swap of the copies is the reflection of $V_2$
+in the span of the $g_a$, and the product $g_1\cdots g_6$ of an even number of unit vectors implements it by conjugation. The Koszul swap implements
+it too, by the sign rule. The commutant of $\Cl(6,6)=M_{64}(\R)$ is $\R$, so the two agree up to a scalar, which is $+1$. $\Tr\tau_K$ counts
+$\pm1$ over the diagonal states $x_i\otimes x_i$ with sign $(-1)^{\mathsf p_i}$, and $\omega$ is traceless.
+\end{proof}
+
+Inherited: centre-of-mass and relative coordinates, and the graded swap, which is the exchange operator of two fermionic subsystems. The
+identity $\tau_K=g_1\cdots g_6$, with its sign, and the list in (iv) are facts of the realisation (d5-1f, d5-2a to d5-2c). Because $\tau_K$
+anticommutes with the copy rotation, exchanging the constituents reverses the copy charge, as exchanging two real vector fields $W^1,W^2$
+exchanges $W^\pm$ (inherited). The halves are not invariant under the copy rotation. Only the exchange selects them, as its two eigenspaces
+on vectors.
+
+\subsection{Duplicating the undivided energy}
+\label{d5:sec:energy}
+
+\begin{proposition}[Symmetry of the duplicated energy]
+\label{d5:prop:energysym}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item The linear maps of $V_2$ that commute with the diagonal rotations and with $G_2$ form $\mathfrak{gl}(2)\otimes\operatorname{span}\{\id,G\}\cong\mathfrak{gl}(2,\C)$.
+The infinitesimal symmetries of $E_6\oplus E_6$ among them form $\uu2=\operatorname{span}\{C_v,\ \id\otimes G,\ \sigma_z\otimes G,\ \sigma_x\otimes G\}$. Those
+in $\so{6,6}$ form $\so{2,\C}=\operatorname{span}\{C_v,\ \varepsilon\otimes G\}$, and those in both form $\so2=\R\,C_v$. The overall duality $\id\otimes G=G_2$, the
+relative duality $\sigma_z\otimes G$ (the binding rotation in opposite senses on the two copies) and $\sigma_x\otimes G$ are $\eta_2$-self-adjoint,
+like $G$.
+\item Inside $\uu6=\so{12}\cap\Cent(G_2)$, of dimension $36$, the diagonal $\uu3$ and $\uu2\otimes\id$ are each other's commutants: $U(3)\times U(2)$ is
+a dual pair in $U(6)$.
+\end{enumerate}
+\end{proposition}
+
+Part (i) restates rows four and five of Proposition~13.14 of \cite{ES17} (fixed there), with the generators named. The four generators are
+those of a lossless beam splitter on two modes \cite{CamposSalehTeich89}: a real splitter $C_v$, an overall phase, a relative phase and a
+symmetric splitter. Their group $U(2)$ is the energy-preserving duality group of two free Maxwell fields \cite{GaillardZumino81}, as
+Section~13.5 of \cite{ES17} notes. Part (ii) is inherited from Howe duality for $\C^3\otimes\C^2$ \cite{Howe89} (d5-3a, d5-3b).
+
+\begin{theorem}[Duplication maps]
+\label{d5:thm:dup}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item The $G$-linear, rotation-equivariant maps $V\to V_2$ are $\iota_{\alpha,\beta}(z)=(\alpha z,\beta z)$ with $\alpha,\beta\in\C$. Such a map preserves
+the energy, $E_6(\alpha z)+E_6(\beta z)=E_6(z)$, if and only if $|\alpha|^2+|\beta|^2=1$, which gives a three-sphere $U(2)/U(1)$: the first column of
+a beam splitter. It is an isometry $(V,\eta)\to(V_2,\eta_2)$ if and only if $\alpha,\beta$ are real with $\alpha^2+\beta^2=1$, which gives a circle,
+the orbit of the copy rotation.
+\item On the image, $q_2=(\alpha^2+\beta^2)\,q$, $E_0^{(1)}+E_0^{(2)}=(|\alpha|^2+|\beta|^2)E_0$, and the summed Maxwell stress tensor is
+$T(\alpha z)+T(\beta z)=(|\alpha|^2+|\beta|^2)\,T(z)$. Every energy-preserving duplication therefore preserves the summed stress tensor, the sum
+of the copies' rest energies, and the pair invariant $E_{\rm pair}^2:=\tfrac14T_{\rm tot}{}^\mu{}_\nu T_{\rm tot}{}^\nu{}_\mu$, which equals $E_0^2$ by
+Rainich's identity $(T\eta)^2=E_0^2\,\id$ \cite{Rainich1925}. By contrast $|q_2|=|\alpha^2+\beta^2|\,|q|$ sweeps $[0,|q|]$. It is preserved exactly on
+the circle; at the equal split with relative duality angle $\theta$ ($\beta=e^{i\theta}\alpha$), $|q_2|=|\cos\theta|\,|q|$, which vanishes at
+$\theta=\pi/2$.
+\item Without equivariance, consider $X\mapsto(\cos\phi\,X,\ \sin\phi\,RX)$ with $R\in U(3)$ and $0<\phi<\pi/2$. It preserves the summed stress tensor
+for all $X$ iff $R=e^{\vartheta G}$ is a duality rotation, preserves $q_2$ iff $R\in O(3)$, and preserves both iff $R=\pm\id$. More generally,
+a $G$-linear embedding $W=U+iV:\C^3\to\C^6$ that preserves both $E_6\oplus E_6$ and $q_2$ is real, since
+$W^*W-W^{\!\top}W=2V^{\!\top}V-2iV^{\!\top}U$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(i) The rotations act on $V=\R^2\otimes\R^3$ through the absolutely irreducible second factor, so by Schur's lemma \cite{Schur} the equivariant maps
+are $(A,B)\otimes\id_3$ with $A,B\in M_2(\R)$, and $G$-linearity puts $A,B$ in $\operatorname{span}\{\id,G\}\cong\C$. With $G^{\!\top}G=\id$,
+$G^{\!\top}\eta G=-\eta$ and $G^{\!\top}\eta=\eta G$, the map $L=\iota_{\alpha,\beta}$ has $L^{\!\top}L=(|\alpha|^2+|\beta|^2)\id$ and
+$L^{\!\top}\eta_2L=\Re(\alpha^2+\beta^2)\,\eta+\Im(\alpha^2+\beta^2)\,\eta G$. Since $|\alpha|^2+|\beta|^2-\Re(\alpha^2+\beta^2)=2[(\Im\alpha)^2+(\Im\beta)^2]$, the two
+conditions together force real coefficients. (ii) $q$ is holomorphic and quadratic. The components of $T$ are $\tfrac12|z|^2$,
+the textbook Poynting vector $-\mathbf S=-\tfrac i2\bar z\times z$, and $\tfrac12\delta_{ij}|z|^2-\Re(\bar z_iz_j)$, all sesquilinear, so $T(\alpha z)=|\alpha|^2T(z)$. Rainich's identity is the
+tensor form of the identity $E_6^2=E_0^2+|\mathbf S|^2$ of \cref{d1:sec:identity}. (iii) $T$ determines the Hermitian matrix $zz^*$, the real part from $T^{ij}$ and
+the imaginary part from $T^{0i}$, and conversely. So $T(Rz)=T(z)$ for all $z$ iff $R$ commutes with every rank-one Hermitian matrix, iff $R$ is a
+phase. $q(Rz)=q(z)$ for all $z$ iff $R^{\!\top}R=\id$, which for unitary $R$ means $\bar R=R$. If $W^*W=W^{\!\top}W=\id$ the identity gives
+$V^{\!\top}V=0$.
+\end{proof}
+
+All three parts are inherited: they are the linear algebra of a beam splitter acting on $\C^3\otimes\C^2$ (d5-3c to d5-3e). What is not
+inherited is the reading.
+
+\begin{remark}[Two rest energies of a duplicate]
+\label{d5:rem:twoE0}
+On one copy $E_0=\tfrac12|q|$ is at once the holomorphic invariant and the stress-energy invariant; this is Rainich's identity, the field-point
+form of $E^2=(pc)^2+(mc^2)^2$ (\cref{d1:sec:identity}). On two copies the two separate. The stress-energy content ($T_{\rm tot}$,
+$\sum_kE_0^{(k)}$, $E_{\rm pair}$) is preserved by the whole three-sphere, the holomorphic invariant $q_2$ only by the circle (fixed: this is the
+point where duplication changes the meaning of ``rest energy''). Which one deserves the name depends on the group. The invariants of a pair
+under the diagonal $\so{3,\C}$ are the entries of the complex Gram matrix $Q_{kl}=z_k\cdot z_l$; the copy algebra $\so{2,\C}$ preserves
+$\Tr Q=q_2$ and $\det Q$ but not $Q_{11}$ (d5-3f); and the closure sees $q_2$ of the momentum field (\cref{d5:prop:balance}). Two
+counter-propagating null fields, $z_1=(1,i,0)$ and $z_2=(1,-i,0)$, have $E_0^{(k)}=0$ and $q_2=0$, yet $E_{\rm pair}^2=2$ (d5-3i). This is the
+field-point analogue of the invariant mass of two photons, which permits $\gamma\gamma\to e^+e^-$ \cite{BreitWheeler34}. A single null field
+duplicated by any $\iota_{\alpha,\beta}$ stays null in each copy, since $q(\alpha z)=\alpha^2q(z)$; that is the analogue of the absence of
+$\gamma\to e^+e^-$ in vacuum (both inherited). No isometric linear map copies the energy, $z\mapsto(z,z)$ has $E_6\oplus E_6=2E_6$, and the
+genuine duplication of a quantum, $z\mapsto z\otimes z$, is quadratic; that is the no-cloning theorem \cite{WoottersZurek82} (inherited). A
+linear duplication divides the undivided energy; it does not multiply it.
+\end{remark}
+
+\begin{proposition}[An isometric complex structure exists only on the duplicate]
+\label{d5:prop:cx}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item No $J\in O(3,3)$ satisfies $J^2=-\id$.
+\item On $\R^{6,6}$, $C_v$ satisfies $C_v^2=-\id$, $C_v^{\!\top}C_v=\id$ and $C_v^{\!\top}\eta_2C_v=\eta_2$, and commutes with $G_2$ and with the diagonal
+$\lG$. It is a compact charge, invariant under the Lorentz group that acts on both frames alike.
+\item $\uu6\cap\so{6,6}=\so6$ has dimension $15$; it consists of the paired rotations and is the compact part of $\Cent(G_2)$. At $n=1$ the
+corresponding algebra is $\uu3\cap\so{3,3}=\so3$. Inside $\so6$ the centraliser of $C_v$ is
+$\uu3'=\{\id\otimes\operatorname{diag}(A,A)+\varepsilon\otimes\operatorname{diag}(B,B):A^{\!\top}=-A,\ B^{\!\top}=B\}$, of dimension $9$, and its part
+commuting with the diagonal boosts is $\R\,C_v$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) If $J^{\!\top}\eta J=\eta$ and $J^2=-\id$, then $h(x,y)=\eta(x,y)+i\,\eta(x,Jy)$ is a Hermitian form on $(\R^6,J)\cong\C^3$ with $\Re h=\eta$. A
+Hermitian form of signature $(p,q)$ has real signature $(2p,2q)$, never $(3,3)$. (ii) and (iii) are computed (d5-3g, d5-3h).
+\end{proof}
+
+Part (i) is inherited, the signature parity of Hermitian forms. It bites because the arena's triples are odd, and that much is fixed. Read
+physically, $w=X^{(1)}+iX^{(2)}$ combines two neutral copies into one field charged under $C_v$, as two real fields form a charged one
+(inherited). The pointwise unitary symmetry $U(3)$ of $E_6$ is cut to $O(3)$ by Lorentz compatibility on one copy
+(\cref{d1:sec:main}). It reappears inside $SO(6,6)$ as $U(3)'$, with the copy index as imaginary unit and not the binding root
+(interpretive), and $U(3)'$ is not Lorentz invariant.
+
+\subsection{The duplicated closure symmetry}
+\label{d5:sec:closure}
+
+\begin{proposition}[$\Cent(G_2)=\so{6,\C}$ and the copy algebra]
+\label{d5:prop:so6C}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item The centraliser of $G_n=G\oplus\cdots\oplus G$ in $\so{3n,3n}$ has dimension $3n(3n-1)$: $6$, $30$ and $72$ at $n=1,2,3$. It is $\so{3n,\C}$, with
+compact part $\so{3n}$ of dimension $3$, $15$ and $36$. At $n=2$ every element is $\bigl(\begin{smallmatrix}R&S\\-S&R\end{smallmatrix}\bigr)$ in the
+basis of the six temporal directions followed by their partners, with $R,S$ antisymmetric.
+\item $\so{6,\C}=\lG^{(1)}\oplus\lG^{(2)}\oplus(\C^3\otimes\C^3)$, of dimensions $6+6+18$. Under the diagonal rotations the cross part is
+$\mathbf1\oplus\mathbf3\oplus\mathbf5$ (complex), with Casimir $0$, $2$, $6$ on $2$, $6$, $10$ real dimensions.
+\item The commutant of the diagonal $\lG$ in $\so{6,6}$ is the singlet of (ii), the copy algebra $\so{2,\C}=\operatorname{span}\{C_v,\varepsilon\otimes G\}$. Here
+$C_v^2=-\id$ is compact, while $(\varepsilon\otimes G)^2=+\id$ is a copy boost, acting on $(z_1,z_2)$ by $\bigl(\begin{smallmatrix}0&-i\\ i&0\end{smallmatrix}\bigr)$; it
+preserves $q_2$ and not $E_6\oplus E_6$.
+\item $\Cent(G_2)$ meets $\lint^{(1)}$ in $0$, and the elements of $\so{6,6}$ commuting with both $G_2$ and $\lint^{(1)}$ form $\lG^{(2)}\cong\so{3,\C}$.
+\end{enumerate}
+\end{proposition}
+
+Part (i) is the $n=2$ member of Theorem~17.19 of \cite{ES17}, with the same proof, and the dimension $72$ at $n=3$ re-verifies that theorem.
+Part (iii) restates row three of Proposition~13.14 and Theorem~10.8 with $k_B=2$ of \cite{ES17} (fixed there). Parts (ii) and (iv) are fixed,
+and (iv) is the $n=2$ analogue of Theorem~17.20 of \cite{ES17} (d5-4a to d5-4c).
+
+\begin{proposition}[Duplicated momentum fields in the closure]
+\label{d5:prop:balance}
+Let one rotor act on two constituents with the same inertia $N=(\nu_1\eta^{-1}+\nu_2G\eta^{-1})/m$, whose momentum fields are a duplication of one
+momentum field: $\pi^{(1)}=\alpha\pi$ and $\pi^{(2)}=\beta\pi$, with $\alpha,\beta$ acting through $\operatorname{span}\{\id,G\}$. Then
+$w_1+w_2=(\alpha^2+\beta^2)\,w(\pi)$ with $w=q(z(\pi))$ (equation~(30) of \cite{ES17}). The effective strength of Proposition~17.18 of \cite{ES17}
+is therefore $R_{\rm eff}=|\nu_1+i\nu_2|\,|q_2(\pi)|/m$: the closure sees the holomorphic invariant of the duplicated momentum field. For the equal
+split with a relative quarter turn of duality, $\pi^{(2)}=G\pi^{(1)}$, equivalently $p^{(2)}=-Gp^{(1)}$, one has $w_2=-w_1$ and $R_{\rm eff}=0$. The
+rate is then exactly constant, and nonzero when $h(0)\neq0$, while each copy keeps $E_0(\pi^{(k)})=\tfrac12E_0(\pi)\neq0$. On one constituent a
+constant nonzero rate requires $E_0(\pi_0)=0$ (Corollary~17.14 of \cite{ES17}).
+\end{proposition}
+
+This restates Proposition~17.18 and Corollary~17.14 of \cite{ES17} (fixed there). The expression of $R_{\rm eff}$ through $q_2$ for duplicates is a
+one-line consequence (fixed; d5-9f). So a duplicate can do what one copy cannot: run at an exactly constant rate while its copies carry nonzero
+rest energy in the momentum field. Calling that rest energy a mass needs $mc^2=\hbar\kappa$.
+
+\subsection{The five Lorentz actions at the second rung}
+\label{d5:sec:actions}
+
+What the duplication does depends on how the Lorentz algebra acts on the two copies. Theorem~10.8 of \cite{ES17} lists the choices, and at $n=2$
+there are five (\cref{d5:tab:actions}).
+
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{@{}lccccll@{}}
+\toprule
+action & $(k_I,k_B,k_S)$ & algebra & dim & compact & content of $\R^{6,6}$ & spin on $S_2$\\
+\midrule
+spectator & $(1,0,1)$ & $\so{5,3}$ & $28$ & $13$ & $V\oplus8\cdot\mathbf1$ & half-integer\\
+binding $+$ spectator & $(0,1,1)$ & $\so{3,3}$ & $15$ & $6$ & $\Lambda^2V\oplus6\cdot\mathbf1$ & integer\\
+diagonal interior & $(2,0,0)$ & $\so2\oplus\so4$ & $7$ & $7$ & $2V\oplus4\cdot\mathbf1$ & integer\\
+mixed & $(1,1,0)$ & $\so2$ & $1$ & $1$ & $V\oplus\Lambda^2V\oplus2\cdot\mathbf1$ & half-integer\\
+binding on both & $(0,2,0)$ & $\so{2,\C}$ & $2$ & $1$ & $2\,\Lambda^2V$ & integer\\
+\bottomrule
+\end{tabular}
+\caption{The Lorentz actions at $n=2$ and the grade-two elements commuting with them (Theorem~10.8 of \cite{ES17}), with their compact parts,
+the content of the vector space (Lorentz Casimir $3$ on a four-vector $V$, $4$ on a field strength $\Lambda^2V$), and the effect of a $2\pi$
+rotation on $S_2$. Every entry was computed in the realisation (d5-5a, d5-5b, d5-6b).}
+\label{d5:tab:actions}
+\end{table}
+
+Read row by row: under the spectator action copy~$2$ is a passenger whose six directions join a non-compact internal algebra. With
+$\lG$ on copy~$1$, copy~$2$'s whole $\so{3,3}$ becomes internal symmetry and no spin one-half survives. The diagonal interior action gives a
+compact algebra containing the copy rotation $M_{12}$, but only integer spin. The mixed action keeps only $J_1=e^{(1)}_2e^{(1)}_3$. With $\lG$ on both
+copies the frames are two field strengths mixed by $\so{2,\C}$. The table restates Theorem~10.8 and Propositions~10.9, 13.16 and 13.17 of
+\cite{ES17} (fixed there), re-verified. For the mixed rung we also re-verified the Casimir identity
+$(C_{\rm mix}-\tfrac32)(C_{\rm mix}-\tfrac{11}2)=0$ with ranks $16$ and $48$ (d5-5b). We checked the grade-three element $\Theta_F$ of Section~13.6 of
+\cite{ES17}, which identifies the frame field of copy~$2$ with $dA$ of copy~$1$. It and $\Theta_F$ followed by $G$ are invariant and span the
+invariants in $\Lambda^2(\text{four-plane}_1)\otimes V_2$, of dimension two as stated there. The full space of invariant grade-three elements has
+dimension four: the other two lie in $\Lambda^3V_2$ of copy~$2$ alone, the two $\lG$-invariant trivectors of
+$(\Lambda^3\R^6)_\C=2\,(0,0)\oplus2\,(1,1)$ (Section~12.3 of \cite{ES17}; d5-5c). This is a precision, not a correction. The mixed rung is the only
+action at $n=2$ that houses both readings, at the price of the whole internal algebra.
+
+\subsection{Spin and statistics of the duplicate}
+\label{d5:sec:spin}
+
+\begin{proposition}[Spin of the duplicate]
+\label{d5:prop:spin}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item The copy rotations $M_{12}$ (four commuting terms of square $-\tfrac14$) and $C_b$ (six) have eigenvalues $i\{-2,\dots,2\}$ and $i\{-3,\dots,3\}$, and
+$\exp(2\pi M_{12})=\exp(2\pi C_b)=\id$. A surplus rotation $\tfrac12e_se_t$ has $\exp(\pi e_se_t)=-\id$.
+\item A rotation through $2\pi$ is $+\id$ on $S_2$ under the diagonal interior action and $-\id$ under the spectator action. Under the mixed action it
+is $-\id$, and under $\lG$ on one or both copies it is $+\id$. The spin Casimir is $0$ on $16$ and $2$ on $48$ dimensions for the diagonal action
+($j=0,1$), and $\tfrac34$ on all of $S_2$ for the spectator action.
+\item Under the diagonal interior action the Lorentz Casimir is $0,3,4$ on $8,32,24$ dimensions and $C_{\rm cop}=-M_{12}^2$ is $0,1,4$ on $24,32,8$, with
+$C_{\rm cop}+C_\Delta=4$. The exchange $\tau_K$ commutes with the diagonal Lorentz action and anticommutes with $M_{12}$, and its $\pm1$ eigenspaces
+carry identical Lorentz content, $0,3,4$ on $4,16,12$ dimensions each.
+\end{enumerate}
+\end{proposition}
+
+This restates Proposition~10.9, Theorem~10.4 at $n=2$ ($\tfrac12n(n+2)=4$) and the last paragraph of Section~13.6 of \cite{ES17} (fixed there),
+with the $2\pi$ eigenvalues computed (d5-6a, d5-6b). That two spin-$\tfrac12$ constituents make an integer-spin composite is inherited
+\cite{EhrenfestOppenheimer31}: under the diagonal action the duplicate of a fermion is a boson, and fermions need an odd number of interior
+constituents. The Lorentz isomorphism of the two exchange sectors in (iii) is fixed (d5-6c). It holds because exchange reverses the copy
+charge, pairing charge $\pm m$, and splits the neutral sector evenly; there is no ``singlet antisymmetric, triplet symmetric'' rule once the
+surplus directions and the Koszul signs are included.
+
+\subsection{What the second rung adds: the vacuum and the imaginary unit}
+\label{d5:sec:vacuum}
+
+\begin{proposition}[The photon vacuum and the imaginary unit, re-verified]
+\label{d5:prop:vacuum}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item (Proposition~26.4 of \cite{ES17}) At $n=1$ the commutant of $\lint$ and $Q=\tfrac12e_2e_3$ in $M_8(\R)$ has dimension four, with symmetric part
+$\operatorname{span}\{\id,\mathcal V\}$, $\mathcal V=e_1\cdots e_6$. The rank-four projectors in it are $\tfrac12(\id\pm\mathcal V)$, and every bivector commutes with
+$\mathcal V$, so they are rigid.
+\item (Theorems~26.6 and~26.7 of \cite{ES17}) With $a,b=e^{(1)}_2,e^{(1)}_3$ and $c,d,e=e^{(2)}_1,e^{(2)}_2,e^{(2)}_3$: $H=abcd$ has $H^2=\id$, $H^{\!\top}=H$
+and $\Tr H=0$, and $\Pi_0=\tfrac12(\id+H)$ commutes with $Q=\tfrac12ab$, with the four interior gammas and with the internal volume. Moreover
+$\pi=[\tfrac12be,\Pi_0]=-\tfrac12acde$ is symmetric with $\Tr\pi^2=16$ and $[Q,\pi]=\tfrac12bcde$. The $Z_i=I_5v_i$ are symmetric of grade four with
+$\{Z_i,Z_j\}=2\delta_{ij}$. $\Pi(n)$ is a rank-$32$ projector commuting with the gammas (checked at $n=(2,3,6,0,0)/7$). The tangents
+$T_i=\tfrac12I_5v_i$ have $\Tr T_iT_j=16\delta_{ij}$, $[Q,T_a]=-T_b$, $[Q,T_b]=T_a$ and $[Q,T_c]=[Q,T_d]=0$.
+\item The grade-four blades in the five positive internal generators that commute with $Q$ are exactly $abcd$, $abce$ and $abde$. Every
+such vacuum straddles the two copies.
+\item (Theorem~4.1 of \cite{ES17} at $n=2$) The product of the eight internal generators is $J=(e_2e_3)\otimes\omega$, with $J^2=-\id$. The joint commutant
+of $\lint^{(1)}$ and the $28$ internal bivectors in $M_{64}(\R)$ is spanned by the blades $\id,\Omega,J,\Omega J$. The solutions of $x^2=-\id$ in it are
+exactly $\pm\Omega$ and $\pm J$, and only $\pm J$ commute with the gammas.
+\end{enumerate}
+\end{proposition}
+
+Parts (i), (ii) and (iv) restate results of \cite{ES17} (fixed there), re-verified in the realisation of $\Cl(6,6)$ (d5-7a to d5-7c, d5-8).
+Part (iii) is fixed but elementary (d5-7d). The Lorentz-invariant, uncharged, non-rigid vacuum needs four positive internal directions that
+commute with $Q$ in pairs, and one copy offers only the surplus pair; it exists because there are two copies. Part (iv) adds one
+identity: the imaginary unit of the duplicate is the imaginary unit of copy~$1$ times the volume element of copy~$2$, which is that copy's
+fermion parity up to sign (\cref{d5:prop:fock}). It is neither the embedded one-rung charge $J_1\otimes\id$ nor $J^{(1)}+J^{(2)}$.
+
+\subsection{\texorpdfstring{The copy rotation as a $b$-field between two manifolds}{The copy rotation as a b-field between two manifolds}}
+\label{d5:sec:bfield}
+
+On one copy a $b$-field commuting with $G$ is removable along a worldline, and an anticommuting one tears the binding
+(\cref{d4:sec:bfield}, \cref{d4:thm:screen}). On two copies the binding term is $K\otimes G$ with $K=\operatorname{diag}(\kappa_1,\kappa_2)$. That is a
+multiple of $G_2$ only when the rates agree, and the following theorem measures what changes. The interior Lagrangian of each copy is that
+of \cref{d4:sec:bfield}, with $S=K\otimes G+b$; the frame field obeys $\dot X=-SX+\pi/m$ and the momentum field $\dot\pi=S^\dagger\pi$.
+
+\begin{theorem}[The inter-copy $b$-field]
+\label{d5:thm:bfield2}
+Let $\kappa_1,\kappa_2\ge0$, $\beta\in\R$, $b=\beta\,C_v$, and $M=\bigl(\begin{smallmatrix}-S&\id/m\\0&S^\dagger\end{smallmatrix}\bigr)$ on $(X,\pi)$.
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item Up to scale, $b$ is the only element of $\so{6,6}\cap\so{12}$ commuting with $G_2$ and the diagonal rotations. It is compact, and
+$S^\dagger=K\otimes G-b$.
+\item $\det(\lambda-S)=\bigl(\lambda^4+(\kappa_1^2+\kappa_2^2+2\beta^2)\lambda^2+(\kappa_1\kappa_2-\beta^2)^2\bigr)^3$, so $\spec S=\{\pm i\omega_\pm\}$ with
+$\omega_\pm=\tfrac12(\kappa_1+\kappa_2)\pm\sqrt{\tfrac14(\kappa_1-\kappa_2)^2+\beta^2}$; equivalently, $\omega_\pm$ are the eigenvalues of
+$\bigl(\begin{smallmatrix}\kappa_1&i\beta\\-i\beta&\kappa_2\end{smallmatrix}\bigr)$.
+\item $[K\otimes G,b]=\beta(\kappa_2-\kappa_1)\,\sigma_x\otimes G$, so $b$ is removable along the worldline (Larmor \cite{Larmor1897}) iff $\kappa_1=\kappa_2$. The
+centraliser of $K\otimes G$ in $\so{6,6}$ has dimension $30$ if $\kappa_1=\kappa_2\neq0$, $12$ if $\kappa_1\neq\kappa_2$ are both nonzero, and $21$ if
+exactly one vanishes.
+\item $(M^2+\omega_+^2)(M^2+\omega_-^2)=0$ identically in $\kappa_1,\kappa_2,\beta,m$.
+\item Every orbit is bounded iff either $\kappa_1=\kappa_2>0$, or $\kappa_1\neq\kappa_2$ and $\kappa_1\kappa_2\neq\beta^2$. In particular, for $\kappa_1=0<\kappa_2$
+the orbits are bounded iff $\beta\neq0$: the inter-copy field confines a frame with no rate of its own. For $\kappa_1=\kappa_2=0$ they are unbounded
+for every $\beta$.
+\item For $\kappa_1=0<\kappa_2$, $\omega_+\omega_-=-\beta^2$ and $\omega_++\omega_-=\kappa_2$. For $\beta\ll\kappa_2$ the slow line is
+$|\omega_-|=\beta^2/\kappa_2-\beta^4/\kappa_2^3+\cdots$, the seesaw. For $\beta\gg\kappa_2$ both lines approach $\pm\beta$, and the orbit size grows like
+$2/(m\kappa_2)$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(i) is \cref{d5:prop:energysym}(i), and $C_v$ is $\eta_2$-antisymmetric while $K\otimes G$ is self-adjoint. (ii) On the sector $G_2=i$,
+$S=(iK+\beta\varepsilon)\otimes\id_3$, whose characteristic polynomial is $\lambda^2-i(\kappa_1+\kappa_2)\lambda-\kappa_1\kappa_2+\beta^2$; the sector $G_2=-i$ is
+its conjugate. (iii) $K\varepsilon-\varepsilon K=(\kappa_2-\kappa_1)\sigma_x$. If $\kappa_1=\kappa_2=\kappa$, then $X=e^{-b\tau}Y$ and $\pi=e^{-b\tau}\varpi$ turn
+the system into $b=0$ with rate $\kappa$; otherwise this substitution makes the binding $e^{b\tau}(K\otimes G)e^{-b\tau}$ time-dependent. The
+centraliser dimensions are computed. (iv) is a symbolic identity (d5-9c). (v) If $\kappa_1\neq\kappa_2$ and $\kappa_1\kappa_2\neq\beta^2$, then $\omega_+\neq\omega_-$,
+$\omega_-\neq0$ and $\omega_++\omega_-=\kappa_1+\kappa_2>0$, so the polynomial of (iv) has four simple imaginary roots and $M$ is semisimple with imaginary
+spectrum. If $\kappa_1=\kappa_2=\kappa>0$, use (iii) and the boundedness of the $b=0$ system (Theorem~16.2 of \cite{ES17}); if $\kappa=0$ the substituted
+system is free drift. If $\kappa_1\neq\kappa_2$ and $\kappa_1\kappa_2=\beta^2$, then $\omega_-=0$, and $M$ is semisimple at $0$ iff $\ker S^\dagger\subset\operatorname{im}S$.
+Because $S^{\!\top}=-S$ and $S^\dagger=-\eta_2S\eta_2$, this says that $\ker S$ is $\eta_2$-totally isotropic. Complexifying, $\ker S$ is spanned by
+the real parts of $v\otimes c$ in the $G_2=i$ sector, with $c\in\C^3$ in the basis $e_j-ie_{j+3}$ and $v=(\beta,i\kappa_1)$ (or $v=(1,0)$ when $\beta=\kappa_1=0$), and
+$\eta_2(\Re(v\otimes c),\Re(v\otimes c'))=\Re\bigl[(v\cdot v)(c\cdot c')\bigr]$. This vanishes for all $c,c'$ iff $v\cdot v=\beta^2-\kappa_1^2=0$, which together
+with $\kappa_1\kappa_2=\beta^2$ means $\kappa_1=\kappa_2$ or $\beta=\kappa_1=0$, and in the second case $v=(1,0)$ is not isotropic; so there is a Jordan block.
+(vi) Vieta and expansion. The orbit sizes are numerical (d5-9e, d5-9g).
+\end{proof}
+
+Parts (ii) and the seesaw in (vi) are inherited: two-level mixing with detuning $\tfrac12(\kappa_1-\kappa_2)$ and coupling $\beta$, the generalised Rabi
+splitting, and the seesaw formula \cite{Minkowski77}. Part (i) restates Proposition~13.14 of \cite{ES17} (fixed there). Parts (iii)--(v) are fixed
+(d5-9a to d5-9d). The exact checks are: bounded at $(\kappa_1,\kappa_2,\beta)=(1,3,\tfrac25),(0,5,\tfrac12),(2,2,\tfrac13),(1,1,1),(2,2,0)$ and
+$(0,\tfrac1{100},1)$; unbounded at $(0,0,\tfrac12),(1,4,2),(1,9,3),(0,3,0)$. At $(0,5,\tfrac12)$, $\omega_-=-0.04951$ against $\beta^2/\kappa_2=0.05$, and
+$\sup_{t\le600}\|e^{Mt}\|=19.86$ against $1/|\omega_-|=20.2$. At $(0,\tfrac1{100},1)$ the lines are $1.00501$ and $-0.99501$, and the supremum over a beat
+period is $200.0=2/(m\kappa_2)$. This confirms the coordinator's preliminary computation and decides its open point: the seesaw orbit is bounded,
+with amplitude of order $1/(m|\omega_-|)$.
+
+\begin{remark}[The author's first remark, as far as this track reaches]
+\label{d5:rem:dealbreaker}
+On one manifold the no-go of \cref{d4:sec:bfield} stands. Between two manifolds with different rates it does not: the compact inter-copy field is
+not removable, it changes the spectrum, and it confines a frame with $\kappa_1=0$. In that sense the $b$-field is a ``deal breaker'' at $n\ge2$
+(fixed). Three qualifications remain. The confinement needs a second frame with $\kappa_2\neq\kappa_1$: for $\kappa_1=\kappa_2=0$, $b$ produces only a
+removable rotation (obstructed). The field can set the rates, which approach $\pm\beta$ when $\beta\gg\kappa_2$, but the size of the orbit is set by
+$\kappa_2$ and diverges as $\kappa_2\to0$. And reading a rate as a rest energy still needs $mc^2=\hbar\kappa$ (an added identification).
+\end{remark}
+
+\subsection{Assessment}
+\label{d5:sec:assess}
+
+\paragraph{What is forced, what is chosen, what is added.} \emph{Forced} (inherited): the algebra step, $\Cl(V\oplus V)=\Cl(V)\hat\otimes\Cl(V)$, with the
+Klein factor determined up to conjugation; $S_2=S\otimes S$ as the Fock space of six modes; and the exchange as the Koszul swap.
+\emph{Chosen} (constructed): the Lorentz action, one of five; the energy duplication, a point of the three-sphere, or of the circle if $\eta$ is
+to be respected, with the angle $\phi$ free; and the vacuum point on $S^4$. \emph{Added} at $n=2$ (fixed): the copy algebra $\so{2,\C}$ on two
+binding frames (dimension $0$ at $n=1$); an $\eta$-isometric complex structure and a compact, Lorentz-invariant copy charge (none at $n=1$); a
+Lorentz-compatible energy symmetry $\so6\supset\uu3'$, against $\so3$; a closure with constant rate and massive copies; a non-rigid,
+Lorentz-invariant vacuum; the mixed rung, which houses both readings; and an inter-copy $b$-field that confines (d5-10 collects the
+dimensions). \emph{Lost}: spin one-half under the diagonal interior action, and the uniqueness of the photon direction (Corollary~6.6 of
+\cite{ES17}).
+
+\paragraph{Processes.} \Cref{d5:tab:processes} lists the physical processes that take one copy to two, and what each preserves.
+
+\begin{table}[t]
+\centering
+\footnotesize
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{3.3cm}>{\raggedright\arraybackslash}p{4.7cm}>{\raggedright\arraybackslash}p{4.3cm}>{\raggedright\arraybackslash}p{2.4cm}@{}}
+\toprule
+process & mathematics & preserves & class\\
+\midrule
+splitting one field into two (beam splitter) & $\iota_{\alpha,\beta}$, $S^3=U(2)/U(1)$; circle if $\eta$-isometric & $E_6$, $T$, $\sum E_0^{(k)}$; $q_2$ only on the circle & inherited; reading fixed\\
+second quantisation & $\Cl(V\oplus V)=\Cl(V)\hat\otimes\Cl(V)$; Fock space; Jordan--Wigner strings & Clifford relations & inherited (forced)\\
+two neutral copies into one charged field & $C_v$ as $i$, $w=X^{(1)}+iX^{(2)}$ & $\eta_2$, $E_6\oplus E_6$ & inherited; exists only at $n\ge2$: fixed\\
+two-body composite & diagonal interior action; exchange $\tau_K$ & integer spin & inherited; restated\\
+pair creation from null energy & linear covariant duplication keeps null copies; two non-collinear null fields have $E_{\rm pair}>0$ & $T$ & inherited\\
+cloning, $z\mapsto z\otimes z$ & quadratic, not isometric and linear & --- & obstructed (inherited)\\
+closure balance & $\pi^{(2)}=G\pi^{(1)}$, $R_{\rm eff}\propto|q_2(\pi)|=0$ & constant rate, $E_0^{(k)}\neq0$ & restated (Prop.~17.18)\\
+inter-copy $b$-field & $S=K\otimes G+\beta C_v$ & bounded iff \cref{d5:thm:bfield2}(v) & fixed; mixing inherited\\
+\bottomrule
+\end{tabular}
+\caption{Processes that take one copy of the arena to two.}
+\label{d5:tab:processes}
+\end{table}
+
+\paragraph{The precise sense of ``a unitary energy results in a duplication''.} Three statements, in increasing order of what the arena adds.
+First, the undivided energy $(\C^3,E_6,U(3))$ embeds isometrically in $(\C^3\otimes\C^2,E_6\oplus E_6,U(6))$. The Lorentz-covariant embeddings
+form the three-sphere of a beam splitter, and the diagonal $U(3)$ and the copy $U(2)$ are a dual pair (inherited). Second, compatibility with
+$\eta$ cuts the copy $U(2)$ to the copy rotation $SO(2)$ and $U(6)$ to $SO(6)$. The copy rotation is the one structure that preserves the energy,
+the metric, the binding root and the diagonal Lorentz group at once, and it does not exist on one copy (fixed). Third, the duplicate's rest
+energy splits into a stress-energy part, preserved by every duplication, and a holomorphic part, $|q_2|$, preserved only by the copy rotation
+and seen by the closure (fixed). Read literally as a multiplication of the energy, the phrase fails: a linear duplication divides the
+undivided energy, and copying it is impossible (no-cloning, inherited).
+
+\begin{table}[t]
+\centering
+\footnotesize
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{8.1cm}>{\raggedright\arraybackslash}p{5.0cm}>{\raggedright\arraybackslash}p{2.0cm}@{}}
+\toprule
+statement & class & checks\\
+\midrule
+\cref{d5:prop:graded}: graded tensor product, $\Cl(6,6)=M_{64}(\R)$, Klein factor forced & inherited (restated: eq.~(2)) & d5-1a to d5-1d\\
+\cref{d5:prop:fock}: Fock space, Jordan--Wigner strings, pole operators $=\id-2N_i$ & inherited (reading of Prop.~2.5) & d5-1e\\
+\cref{d5:prop:cmrel}: halves, $\pi/4$ copy rotation, $\tau_K=g_1\cdots g_6$, what each half carries & inherited; identities fixed & d5-1f, d5-2a to d5-2c\\
+\cref{d5:prop:energysym}: $\uu2$, $\so{2,\C}$, $\so2$; dual pair & fixed (restated: Prop.~13.14); inherited & d5-3a, d5-3b\\
+\cref{d5:thm:dup}: duplication maps, $S^3$ and circle, $q_2$ versus $T$ & inherited; reading fixed & d5-3c to d5-3e\\
+\cref{d5:rem:twoE0}: two rest energies; Gram invariants; pair invariant; no cloning & fixed; inherited & d5-3f, d5-3i\\
+\cref{d5:prop:cx}: isometric complex structure only at $n\ge2$; $\so6\supset\uu3'$ & inherited (parity); fixed & d5-3g, d5-3h\\
+\cref{d5:prop:so6C}: $\Cent(G_n)=\so{3n,\C}$; $\mathbf1\oplus\mathbf3\oplus\mathbf5$; copy algebra; analogue of Thm~17.20 & fixed (restated: Thm~17.19, Prop.~13.14) & d5-4a to d5-4c\\
+\cref{d5:prop:balance}: closure sees $q_2(\pi)$; balance with massive copies & fixed (restated: Prop.~17.18, Cor.~17.14) & d5-9f\\
+\cref{d5:tab:actions}: five Lorentz actions; mixed rung; $\Theta_F$ (dimension $2$ within $\Lambda^2E_1\otimes V_2$, $4$ in all) & fixed (restated: Thm~10.8, Props.~13.16--13.17) & d5-5a to d5-5c\\
+\cref{d5:prop:spin}: spin and statistics, Casimirs, exchange sectors & fixed (restated: Prop.~10.9, Thm~10.4); inherited & d5-6a to d5-6c\\
+\cref{d5:prop:vacuum}: rigid first rung, $S^4$ vacuum, straddling, $J=J_1\otimes\omega$ & fixed (restated: Prop.~26.4, Thms~26.6, 26.7, 4.1) & d5-7a to d5-7d, d5-8\\
+\cref{d5:thm:bfield2}: inter-copy $b$-field: uniqueness, spectrum, removability, boundedness criterion, seesaw & fixed; mixing and seesaw inherited & d5-9a to d5-9e, d5-9g\\
+\cref{d5:rem:dealbreaker}: the deal-breaker reading & fixed; obstructed for $\kappa_1=\kappa_2=0$; $mc^2=\hbar\kappa$ an identification & ---\\
+\cref{d5:sec:assess}: comparison $n=1$ against $n=2$ & fixed & d5-10\\
+\bottomrule
+\end{tabular}
+\caption{Claims of \cref{d5:sec:main}, their classes, and the checks printed by \texttt{d5\_duplication\_math.py}. ``Restated'': fixed in
+\cite{ES17}, restated and re-verified here.}
+\label{d5:tab:claims}
+\end{table}
