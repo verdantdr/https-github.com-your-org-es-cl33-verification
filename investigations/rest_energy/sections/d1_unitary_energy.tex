@@ -1,16 +1,16 @@
 % Track d1 -- The undivided energy and its differentiation.
-% Verification: investigations/rest_energy/verify/d1_unitary_energy.py (claims d1-0 ... d1-11).
+% Verification: investigations/rest_energy/verify/d1_unitary_energy.py (claims d1-0 ... d1-11b);
+% independent check: investigations/rest_energy/verify/x1_check.py.
 \section{The undivided energy and its differentiation}
 \label{d1:sec:main}
 
-The hypothesis reads $E=mc^2$ with $c^2$ as the symmetric part of the equation and $m$ as what breaks that symmetry; the agreed
-clarification asks that energy first be one undivided, six-dimensional entity, and that mass appear through an internal differentiation
-of that unity before any interaction is applied. We follow that order: the undivided energy is built from the arena alone and
-differentiated with no other field and no coupling, $c$ is restored, and the Yang--Mills field $b$ \cite{YangMills54} enters only in
-\cref{d1:sec:b}, where it belongs. Results already established are used without repetition: $c^2$ by itself is not a symmetry, a nonzero mass
-breaks no Lorentz invariance, the unrestricted six-dimensional scalar has energy unbounded below, surplus temporal momentum lowers
-four-dimensional mass, and non-orthogonality of $\bE$ and $\bB$ generates no mass (Section~14.4 of \cite{ES17}). The verdicts are collected in
-\cref{d1:sec:assess}.
+The hypothesis reads $E=mc^2$ \cite{Einstein1905} with $c^2$ as the symmetric part of the equation and $m$ as what breaks that symmetry; the
+agreed clarification asks that energy first be one undivided, six-dimensional entity, and that mass appear through an internal differentiation
+of that unity before any interaction is applied. We follow that order: the undivided energy is built from the arena alone and differentiated with
+no other field and no coupling, $c$ is restored, and the Yang--Mills field $b$ \cite{YangMills54} enters only in \cref{d1:sec:b}. The points settled in
+\cref{s0:sec:question} ($c^2$ alone is no symmetry; a mass breaks no Lorentz invariance; Proposition~27.1, Example~27.3 and Section~14.4 of
+\cite{ES17}) are used without repetition. Most of what follows is
+inherited electrodynamics or restates results of \cite{ES17}, and is labelled so; the verdicts are in \cref{d1:sec:assess}.
 
 \paragraph{Conventions.} We use the field-strength reading of Theorem~12.3 of \cite{ES17}: $X=\sum_i(B_ie_i+E_ie_{i+3})$, $z=\bB+i\bE\in\C^3$,
 the binding root $G$ ($Ge_i=e_{i+3}$, $Ge_{i+3}=-e_i$) acts as $i$, $q(z)=z\cdot z=|\bB|^2-|\bE|^2+2i\,\bE\cdot\bB$, $\eta(X,X)=\Re q$ and
@@ -18,20 +18,20 @@ $\eta(X,GX)=-2\,\bE\cdot\bB$. The frame variable is minus the textbook field, $\
 $h(z,w)=\sum_j\bar z_jw_j$ we put
 \begin{equation}
 \label{d1:eq:defs}
-\begin{gathered}
-E_6:=\tfrac12|z|^2=\tfrac12\bigl(|\bB|^2+|\bE|^2\bigr),\qquad E_0:=\tfrac12|q(z)|,\\
-\mathbf S:=\bE\times\bB=\tfrac i2\,\bar z\times z\ \ \text{(frame Poynting vector, Section~12 of \cite{ES17})},\qquad
-\mathbf S_{\rm t}:=\bE\times\Btext=-\mathbf S .
-\end{gathered}
+E_6:=\tfrac12|z|^2=\tfrac12\bigl(|\bB|^2+|\bE|^2\bigr),\qquad E_0:=\tfrac12|q(z)|,\qquad
+\mathbf S:=\bE\times\bB=\tfrac i2\,\bar z\times z=-\mathbf S_{\rm t},\quad \mathbf S_{\rm t}:=\bE\times\Btext .
 \end{equation}
-$\mathbf S_{\rm t}$ is the physical Poynting vector and $|\mathbf S|=|\mathbf S_{\rm t}|$. Units are Heaviside--Lorentz with $c=1$ until
-\cref{d1:sec:c}. For cyclic $(i,j,k)$ the diagonal rotations and boosts of $\lG$ are $L_i=\tfrac12(e_{j+3}e_{k+3}-e_je_k)$ and
-$K_i=\tfrac12(e_ke_{j+3}-e_je_{k+3})$, acting on vectors by the commutator: $L_i$ by $\delta\bB=e_i\times\bB$, $\delta\bE=e_i\times\bE$, and $K_i$
-by $\delta\bE=e_i\times\bB$, $\delta\bB=-e_i\times\bE$. These laws, the brackets of Theorem~12.3, Example~12.4 and Lemma~3.4 of \cite{ES17}
-($\Ad_{e_1e_2e_3}|_V=\eta$, $G=-\mathcal K\circ\Ad_{e_1e_2e_3}$) were checked in the realisation of Section~2 of \cite{ES17} (claim d1-0); identifiers
-d1-$n$ refer to the accompanying verification script.
+$\mathbf S$ is the frame Poynting vector of Section~12 of \cite{ES17}, $\mathbf S_{\rm t}$ the textbook one. Applied to the frame field $X$ these are
+the frame field's energies; for the momentum field $\pi=\eta^{-1}p$ of the closure we write $E_6(\pi)$, $E_0(\pi)$, $\mathbf S(\pi)$. Units are
+Heaviside--Lorentz with $c=1$ until \cref{d1:sec:c}. For cyclic $(i,j,k)$ the diagonal
+rotations and boosts of $\lG$ are $L_i=\tfrac12(e_{j+3}e_{k+3}-e_je_k)$ and $K_i=\tfrac12(e_ke_{j+3}-e_je_{k+3})$, acting on vectors by the
+commutator: $L_i$ by $\delta\bB=e_i\times\bB$, $\delta\bE=e_i\times\bE$, and $K_i$ by $\delta\bE=e_i\times\bB$, $\delta\bB=-e_i\times\bE$; $\mathfrak p_G$ is
+the part of $\so{3,3}$ anticommuting with $G$, so $\so{3,3}=\lG\oplus\mathfrak p_G$. We write the Lorentz-class inertia of
+Theorem~17.11 of \cite{ES17} as $N=(\nu_1\eta^{-1}+\nu_2G\eta^{-1})/m$, the paper's $(a,b)$ renamed, so that $b$ denotes only the
+Yang--Mills field. These laws, Theorem~12.3, Example~12.4 and Lemma~3.4 of \cite{ES17} ($\Ad_{e_1e_2e_3}|_V=\eta$, $G=-\mathcal K\circ\Ad_{e_1e_2e_3}$) were
+checked in the realisation of Section~2 of \cite{ES17} (d1-0); identifiers d1-$n$ refer to the verification script.
 
-\subsection{One undivided energy, with symmetry $U(3)$}
+\subsection{\texorpdfstring{One undivided energy, with pointwise symmetry $U(3)$}{One undivided energy, with pointwise symmetry U(3)}}
 \label{d1:sec:unique}
 
 \begin{theorem}[Uniqueness of the undivided energy]
@@ -45,21 +45,22 @@ $\R\,\id\oplus\operatorname{span}\{\eta,\eta G\}$, the first summand commuting a
 \end{theorem}
 
 \begin{proof}
-The diagonal rotations act on $V^+\oplus V^-$ as $\R^3\otimes\R^2$ with $SO(3)$ on the first factor, which is absolutely irreducible, so by
-Schur's lemma \cite{GoodmanWallach} the invariant forms are $N=\bigl(\begin{smallmatrix}\alpha&\gamma\\ \gamma&\beta\end{smallmatrix}\bigr)\otimes\id$.
+The diagonal rotations act on $V=V^+\oplus V^-$ as $\R^2\otimes\R^3$ with $SO(3)$ on the second factor, which is absolutely irreducible, so by
+Schur's lemma \cite{Schur} the invariant forms are $N=\bigl(\begin{smallmatrix}\alpha&\gamma\\ \gamma&\beta\end{smallmatrix}\bigr)\otimes\id$.
 With $G=\bigl(\begin{smallmatrix}0&-1\\1&0\end{smallmatrix}\bigr)\otimes\id$, $\tfrac12(N-GNG)=\tfrac12(\alpha+\beta)\id$ and
 $\tfrac12(N+GNG)=\tfrac12(\alpha-\beta)\eta-\gamma\,\eta G$. Since $G^{\!\top}G=\id$ and $G^{\!\top}=-G$, $N$ is $e^{\vartheta G}$-invariant iff
 $G^{\!\top}N+NG=0$ iff $[N,G]=0$, which gives (2). For (3) the boost law gives
 $\delta(\alpha|\bB|^2+\beta|\bE|^2+2\gamma\,\bB\cdot\bE)=-2(\alpha+\beta)\,\bv\cdot(\bE\times\bB)$, the $\gamma$ term being unchanged, so $\beta=-\alpha$.
 \end{proof}
 
-This is Theorem~17.11(iii) of \cite{ES17} for forms on $V$, with the Lorentz class of Proposition~17.4. It is fixed: it could have failed, since
-an $\eta$-self-adjoint complex structure need not be orthogonal for a positive form (conjugating $G$ by a boost outside $\lG$ destroys this), and
-then no positive duality-invariant energy would be rotation invariant (d1-1a). The rotation-invariant forms carry duality weights $0$ and
-$\pm2$: $E_6$ has weight $0$, while $e^{\vartheta G}$ turns $(\Re q,\Im q)$ through $2\vartheta$. In this precise sense $E_6$ is undivided: it does
-not distinguish the magnetic triple from the electric one, nor, as we now show, rest from motion.
+This restates Theorem~17.11(iii) and Proposition~17.4 of \cite{ES17} on $V$, and is inherited: for any binding root $G'=bGb^{-1}$, $b\in SO(3,3)$,
+the forms invariant under the compact part of $\mathfrak l_{G'}$ and under $G'$ are the multiples of the positive $b^{-\top}b^{-1}$, so the statement
+could not have failed; it is the uniqueness of the energy density among rotation- and duality-invariant forms. The arena adds only that this form
+is the Euclidean one of its basis: $G$ is $\eta$-self-adjoint and anticommutes with $\Ad_{e_1e_2e_3}|_V=\eta$, so $G^{\!\top}G=\eta G\eta G=\id$
+(Lemma~3.4 of \cite{ES17}; d1-1a, with an exact conjugated root). $E_6$ has duality weight $0$, while $e^{\vartheta G}$ turns $(\Re q,\Im q)$ through
+$2\vartheta$: $E_6$ is undivided, distinguishing neither the magnetic triple from the electric one nor, as we now show, rest from motion.
 
-\begin{proposition}[The symmetry of the undivided energy is $U(3)$]
+\begin{proposition}[The pointwise symmetry of the undivided energy is $U(3)$]
 \label{d1:prop:u3}
 (1) The maps of $V$ preserving $E_6$ and commuting with $G$ form $\uu3$, of dimension $9$: $A=\bigl(\begin{smallmatrix}P&Q\\-Q&P\end{smallmatrix}\bigr)$
 acts on $z$ by the anti-Hermitian matrix $P-iQ$. (2) The Lie algebra of $O(3,\C)\times U(1)_G$, the $G$-linear maps preserving $q$ up to a phase, is
@@ -76,11 +77,14 @@ form $z^{\!\top}U^{\!\top}Uz$ vanishes on the cone $q=0$; $q$ is irreducible, so
 orthogonal, hence real.
 \end{proof}
 
-Parts (1)--(3) are inherited Hermitian linear algebra (the arena contributes the orthogonality of $G$), and they make ``unitary'' literally true:
-the symmetry group of the undivided energy, compatible with the binding root, is $U(3)$. Part (4) is fixed and is the exact sense in which the rest
-energy ``breaks'' something: $U(3)$ (dimension $9$) is reduced to $U(1)\cdot O(3)$ (dimension $4$), and the five-dimensional orbit
-$U(3)/U(1)\cdot O(3)$ parametrises the real structures $z\mapsto\bar z$ up to phase, of which the arena has already chosen one
-(\cref{d1:prop:Tparity}). Verified exactly (d1-1b, d1-8b).
+Parts (1)--(3) are inherited Hermitian linear algebra, which makes ``unitary'' literally true of the pointwise form. Part (4) is inherited as well,
+the stabiliser of $|z\cdot z|$ among unitary maps of the Riemann--Silberstein vector; read as a statement about the rest energy, it is the exact
+sense in which $E_0$ ``breaks'' something: $U(3)$ is reduced to $U(1)\cdot O(3)$, and the five-dimensional orbit $U(3)/U(1)\cdot O(3)$ parametrises
+the real structures $z\mapsto\bar z$ up to phase, of which the arena has chosen one (\cref{d1:prop:Tparity}; d1-1b, d1-8b). But $U(3)$ is the symmetry
+of the pointwise form $E_6$ only. It is not a symmetry of Maxwell's equations on the frame, $\partial_tz=-i\curl z$ (Proposition~12.10 of \cite{ES17}):
+the unitary of (4) carries the wave $(1,i,0)e^{ik(x_3-t)}$ of Example~12.11 to $\tfrac{1+i}{\sqrt2}(1,1,0)e^{ik(x_3-t)}$, which does not solve them. Nor
+is it one of the split-form interior, since $G=i\,\id\in U(3)$ reverses $\eta$ and $U(3)\cap O(\eta)=O(3)$; of the closures it is a symmetry only for
+$N=\id/m$, the $U(3)$-invariant forms being the multiples of $\id$.
 
 \subsection{The rest energy is the complete invariant of Lorentz and duality}
 \label{d1:sec:orbits}
@@ -94,21 +98,16 @@ complete invariant of $U(3)$, whose orbits are the spheres.
 \end{theorem}
 
 \begin{proof}
-(1) Write $q(z)=r^2e^{i\varphi}$ and $w=e^{-i\varphi/2}z/r$, so $q(w)=1$; the factor is the duality rotation $e^{-\varphi G/2}$. As $q(w)\neq0$, $q$ is
-nondegenerate on $w^\perp=\{f:f\cdot w=0\}$, so some $f\in w^\perp$ has $f\cdot f\neq0$. Put $f_2=f/\sqrt{f\cdot f}$ and $f_3=w\times f_2$; the bilinear
-identity $(a\times b)\cdot(a\times b)=(a\cdot a)(b\cdot b)-(a\cdot b)^2$ gives $f_3\cdot f_3=1$. Then $M=(w\,f_2\,f_3)$ has $M^{\!\top}M=\id$ and
-$\det M=(w\times f_2)\cdot f_3=1$, and $A=M^{\!\top}\in SO(3,\C)$ satisfies $Ae^{-i\varphi/2}z=re_1$. An element $M_0+\tfrac{i\varphi}2$ fixes $e_1$ iff
-$\varphi=0$ and $M_0$ is a complex rotation about $e_1$, since $M_0e_1\in\operatorname{span}_\C\{e_2,e_3\}$: the stabiliser is $\so{2,\C}$ and the orbit
-has dimension $7-2=5$. (2) A null $z=\mathbf a+i\mathbf b$ has $|\mathbf a|=|\mathbf b|>0$, $\mathbf a\cdot\mathbf b=0$; a diagonal rotation carries it to
-$|\mathbf a|(1,i,0)$. The boost $K_3$ acts by $\delta z=i\,e_3\times z$ and $i\,e_3\times(1,i,0)=(1,i,0)$, so $e^{\chi K_3}$ with $\chi=-\log|\mathbf a|$ (the
-Doppler factor) finishes. The Lorentz tangent space $\{\mathbf a\times z\}$ at a null $z$ is its $q$-orthogonal complement, which contains $z$ and $iz$;
-at $(1,i,0)$, $iz=-e_3\times z$ is the rotation $L_3$, the helicity of Example~13.11 of \cite{ES17}. (3) follows.
+(1) Write $q(z)=r^2e^{i\varphi}$ and $w=e^{-i\varphi/2}z/r$ (a duality rotation), so $q(w)=1$. Since $q$ is nondegenerate on $w^\perp=\{f:f\cdot w=0\}$,
+some $f\in w^\perp$ has $f\cdot f=1$; with $f_3=w\times f$, $(a\times b)\cdot(a\times b)=(a\cdot a)(b\cdot b)-(a\cdot b)^2$ gives $f_3\cdot f_3=1$, so
+$A=(w\,f\,f_3)^{\!\top}\in SO(3,\C)$ and $Ae^{-i\varphi/2}z=re_1$. An element $M_0+\tfrac{i\varphi}2$ fixes $e_1$ iff $\varphi=0$ and $M_0$ is a complex
+rotation about $e_1$: the stabiliser is $\so{2,\C}$ and the orbit has dimension $7-2=5$. (2) A rotation carries a null $z$ to $\lambda(1,i,0)$, $\lambda>0$; $K_3$ acts by $\delta z=i\,e_3\times z$ and $i\,e_3\times(1,i,0)=(1,i,0)$, so the
+Doppler boost $e^{\chi K_3}$, $\chi=-\log\lambda$, finishes. The Lorentz tangent space at a null $z$ is its $q$-orthogonal complement, which contains
+$iz$; at $(1,i,0)$, $iz=-e_3\times z$ is the rotation $L_3$, the helicity of Example~13.11 of \cite{ES17}. (3) follows.
 \end{proof}
 
-Inherited: the classification of a field strength at a point \cite{Synge56,LandauLifshitz2}, resting on Theorem~12.1 of \cite{ES17}; checked
-constructively at $2000$ random points and by exact tangent ranks (d1-2a, d1-2b). $U(3)$ sees only $E_6$, Lorentz with duality only $E_0$, and the two
-share the maximal compact $U(1)\cdot O(3)$; without duality the complete invariant is $q$, whose phase (twice the complexion of Proposition~12.12 of
-\cite{ES17}) duality removes.
+Inherited: the classification of a field strength at a point \cite{Synge56,LandauLifshitz2} (d1-2a, d1-2b). Without duality the complete
+invariant is $q$, whose phase (twice the complexion of Proposition~12.12 of \cite{ES17}) duality removes.
 
 \subsection{The differentiation identity}
 \label{d1:sec:identity}
@@ -125,14 +124,15 @@ Hence $E_0\le E_6$, with equality iff $\mathbf S=0$, iff $\bar z\parallel z$, if
 \end{proposition}
 
 \begin{proof}
-$\bar z\times z=-2i\,\bE\times\bB$. The identity $(a\times b)\cdot(c\times d)=(a\cdot c)(b\cdot d)-(a\cdot d)(b\cdot c)$ at $(\bar z,z,z,\bar z)$ gives
-$(\bar z\times z)\cdot(z\times\bar z)=|z|^4-|q|^2$, and $z\times\bar z$ is the conjugate of $\bar z\times z$. Next
-$H_{jk}=B_jB_k+E_jE_k+i(E_jB_k-B_jE_k)$ with $E_jB_k-B_jE_k=\epsilon_{jkl}(\bE\times\bB)_l$, and $\tr(H\bar H)=|\sum_jz_j^2|^2$. The equality case is
+$\bar z\times z=-2i\,\bE\times\bB$, and $(a\times b)\cdot(c\times d)=(a\cdot c)(b\cdot d)-(a\cdot d)(b\cdot c)$ at $(\bar z,z,z,\bar z)$ gives
+$|\bar z\times z|^2=|z|^4-|q|^2$. Next $H_{jk}=B_jB_k+E_jE_k+i\epsilon_{jkl}(\bE\times\bB)_l$ and $\tr(H\bar H)=|\sum_jz_j^2|^2$. The equality case is
 Cauchy--Schwarz for $|h(\bar z,z)|\le|z|^2$.
 \end{proof}
 
-Inherited, a complex Lagrange identity (d1-3a). In the user's terms it is exact: the undivided $E_6$ is the hypotenuse of a hyperbolic triangle
-whose legs are a Lorentz-invariant rest part $E_0$ and a motion part $|\mathbf S|$, and the split needs no interaction and no second field.
+Inherited, a complex Lagrange identity; the relation $u^2-|\mathbf S|^2=\tfrac14|q|^2$ is stated in Section~14.3 of \cite{ES17} (d1-3a). In the user's
+terms it is exact: the undivided $E_6$ is the hypotenuse of a right triangle whose legs are a Lorentz-invariant rest part $E_0$ and a motion part
+$|\mathbf S|$, and the split needs no interaction and no second field; in Minkowski terms $E_0$ is the Lorentz length of $(E_6,\mathbf S)$, although
+$(E_6,\mathbf S_{\rm t})$ is not a four-vector (\cref{d1:prop:rainich}).
 
 \begin{proposition}[Rainich identity]
 \label{d1:prop:rainich}
@@ -147,13 +147,13 @@ $\eta(P(t),P(t))=E_0^2$.
 \end{proposition}
 
 \begin{proof}
-Duality invariance is a polynomial identity, and both sides of \eqref{d1:eq:rainich} are Lorentz covariant, so by \cref{d1:thm:orbits} it suffices to take
-$z=(r,0,0)$, where $T^\mu{}_\nu=\tfrac{r^2}2\operatorname{diag}(1,1,-1,-1)$ and $E_0=\tfrac{r^2}2$; null fields follow by continuity. Then
-$\eta(Tt,Tt)=E_0^2\eta(t,t)$, and causality of $P(t)$ is the dominant energy condition \cite{HawkingEllis73}.
+Duality invariance is a polynomial identity; both sides of \eqref{d1:eq:rainich} are covariant, so by \cref{d1:thm:orbits} it suffices to take
+$z=(r,0,0)$, where $T^\mu{}_\nu=\tfrac{r^2}2\operatorname{diag}(1,1,-1,-1)$, and null fields follow by continuity. Causality of $P(t)$ is the dominant
+energy condition \cite{HawkingEllis73}.
 \end{proof}
 
-Inherited \cite{Rainich1925,Synge56}; verified symbolically (d1-3b). The mass of a field point is the Lorentz scalar of the same tensor whose $00$
-component is the undivided energy. But $(u,\mathbf S_{\rm t})$ is not a four-vector: each observer sees a different density $P(t)$, all of length $E_0$.
+Inherited \cite{Rainich1925,Synge56} (d1-3b). The mass of a field point is the Lorentz scalar of the tensor whose $00$ component is the undivided
+energy, but $(u,\mathbf S_{\rm t})$ is not a four-vector: each observer sees a different density $P(t)$, all of length $E_0$.
 
 \subsection{The rest energy as a minimum, and two boost factors}
 \label{d1:sec:min}
@@ -171,24 +171,23 @@ $|\mathbf S|=E_0\sinh2\chi$ and $v_E=\tanh2\chi=2\beta/(1+\beta^2)$, $\beta=\tan
 
 \begin{proof}
 (1) By \eqref{d1:eq:split} $E_6\ge E_0$ with equality iff $\mathbf S=0$, and \cref{d1:thm:orbits} supplies points with $\mathbf S=0$ in both orbits; for
-null $z$ the Doppler boost drives $E_6$ to $0$. Divide \eqref{d1:eq:split} by $E_6^2$. (2) Take $\mathbf n=e_1$, $X=ae_1+be_4$. By Example~12.4 of
-\cite{ES17} and the boost law $[K_3,e_1]=e_5$, $[K_3,e_5]=e_1$, $[K_3,e_4]=-e_2$, $[K_3,e_2]=-e_4$, so $\ad_{K_3}^3=\ad_{K_3}$ and
-$e^{\chi\ad_{K_3}}=\id+\sinh\chi\,\ad_{K_3}+(\cosh\chi-1)\ad_{K_3}^2$. Hence $\bB=(a\cosh\chi,-b\sinh\chi,0)$, $\bE=(b\cosh\chi,a\sinh\chi,0)$,
-$E_6=\tfrac12(a^2+b^2)\cosh2\chi$, $\mathbf S=-\tfrac12(a^2+b^2)\sinh2\chi\,e_3$, $E_0=\tfrac12(a^2+b^2)$; likewise for $K_2$, while $K_1$ fixes $e_1$ and
-$e_4$. (3) $|\mathbf S|/(E_6+E_0)=\sinh2\chi/(\cosh2\chi+1)=\tanh\chi$. For the direction: $e^{\chi K_3}$ is the passage to a frame moving with
+null $z$ the Doppler boost drives $E_6$ to $0$. Divide \eqref{d1:eq:split} by $E_6^2$. (2) Take $\mathbf n=e_1$, $X=\sigma_1e_1+\sigma_2e_4$. By Example~12.4 of
+\cite{ES17}, $[K_3,e_1]=e_5$, $[K_3,e_5]=e_1$, $[K_3,e_4]=-e_2$, $[K_3,e_2]=-e_4$, so $\ad_{K_3}^3=\ad_{K_3}$,
+$e^{\chi\ad_{K_3}}=\id+\sinh\chi\,\ad_{K_3}+(\cosh\chi-1)\ad_{K_3}^2$, $\bB=(\sigma_1\cosh\chi,-\sigma_2\sinh\chi,0)$, $\bE=(\sigma_2\cosh\chi,\sigma_1\sinh\chi,0)$,
+and $\mathbf S=-E_0\sinh2\chi\,e_3$; likewise for $K_2$, while $K_1$ fixes $e_1$ and $e_4$. (3) $|\mathbf S|/(E_6+E_0)=\sinh2\chi/(\cosh2\chi+1)=\tanh\chi$. For the direction: $e^{\chi K_3}$ is the passage to a frame moving with
 $-\tanh\chi\,e_3$ (Section~12 of \cite{ES17}), in which the rest frame moves along $+e_3$, and so does $\mathbf S_{\rm t}=-\mathbf S$.
 \end{proof}
 
-Inherited \cite{LandauLifshitz2}; verified with the paper's own $K_i$ symbolically, by minimisation at $25$ random fields, and at $100$ random fields
-for (3), where the boost with $\mathbf S_{\rm t}/(E_6+E_0)$ leaves a Poynting vector below $10^{-13}E_0$ and the one built from $\bE\times\bB$ leaves at
-least $0.2\,E_0$ (d1-4a--d1-4c). So the rest-frame velocity $\mathbf S/(u+\tfrac12|q|)$ and the relation $\tfrac12|q|=u\sqrt{1-v_E^2}$ of
-Section~14.4 of \cite{ES17} are correct provided $\mathbf S$ is the textbook $\bE\times\Btext$; with the frame vector $\bE\times\bB$, which Section~12
-also calls the Poynting vector, the direction is reversed. And a field point carries two boost factors, $E_6=E_0\cosh2\chi$ against $E=mc^2\cosh\chi$
-for a particle, because $T^{\mu\nu}$ has rank two: the rest frame moves with $\beta$, the energy with $\beta\oplus\beta$, and an observer riding with
-the energy velocity sees the same $E_6$ and the reversed Poynting vector (d1-4b). $E_0$ is a rest-energy density of a field point, not the rest energy
-of a particle carried by the flux.
+Inherited \cite{LandauLifshitz2}; verified with the paper's own $K_i$, symbolically and numerically; the boost built from $\bE\times\bB$ instead
+of $\mathbf S_{\rm t}$ leaves a Poynting vector of at least $0.2\,E_0$ (d1-4a--d1-4c). This is the rest-frame velocity $\mathbf S/(u+\tfrac12|q|)$, with $\tfrac12|q|=u\sqrt{1-v_E^2}$, of Section~14.4 of
+\cite{ES17}, where $\mathbf S$ is the textbook $\mathbf S_{\rm t}$, as Section~1.4 of \cite{ES17} stipulates for formulas from the literature; with the
+frame vector $\mathbf S=\bE\times\bB$, which Section~12 also calls the Poynting vector, the direction would be reversed. A field point carries two boost
+factors, $E_6=E_0\cosh2\chi$ against $E=mc^2\cosh\chi$ for a particle, because the energy density is a component of a second-order tensor and is
+quadratic in the boost (the standard behaviour of $T^{00}$): the rest frame moves with $\beta$, the energy with $\beta\oplus\beta$, and an observer
+riding with the energy velocity sees the same $E_6$ and the reversed Poynting vector. $E_0$ is a rest-energy density of a field point, not the rest
+energy of a particle carried by the flux.
 
-\subsection{Restoring $c$: where $c^2$ enters}
+\subsection{\texorpdfstring{Restoring $c$: where $c^2$ enters}{Restoring c: where c squared enters}}
 \label{d1:sec:c}
 
 Adding the dimensionless $G$ to a derivative along a clock coordinate needs a length $\ell$ (Section~3 of \cite{ES17}):
@@ -212,28 +211,25 @@ $G_c^{\!\top}N+NG_c=\bigl(\begin{smallmatrix}2c\gamma&c\beta-\alpha/c\\ c\beta-\
 $\gamma=0$ and $\alpha=c^2\beta$. (3) $G^2=-\id$.
 \end{proof}
 
-Fixed by Theorem~3.2 of \cite{ES17}, and verified exactly, including the failure for $C=\operatorname{diag}(c_1,c_2,c_3)$ with distinct entries (d1-5b).
+Part (1) is Theorem~3.2 of \cite{ES17}, fixed there; part (2) is inherited; verified exactly, including the failure for
+$C=\operatorname{diag}(c_1,c_2,c_3)$ with distinct entries (d1-5b). Even the weight is a unit convention: $\Phi=\operatorname{diag}(c,c,c,1,1,1)$
+conjugates $G_c$ to $G$ and turns $c^2|\bB|^2+|\bE|^2$ into $|\Phi X|^2$, so with $\bB$ measured as $c\bB$ (Heaviside--Lorentz units) $c$ disappears from
+$E_6$ and appears only in $\rho_0=u_0/c^2$ below.
 
 \begin{proposition}[SI form]
 \label{d1:prop:SI}
-With $\varepsilon_0\mu_0c^2=1$, $z_c:=c\bB+i\bE=-c\Btext+i\bE$, $u=\tfrac{\varepsilon_0}2(|\bE|^2+c^2|\Btext|^2)=\tfrac{\varepsilon_0}2|z_c|^2$,
-$\mathbf g=\mathbf S_{\rm t}/c^2$ with $\mathbf S_{\rm t}=\bE\times\Btext/\mu_0$, $q_c:=z_c\cdot z_c=c^2|\Btext|^2-|\bE|^2-2ic\,\Btext\cdot\bE$
-$(=c^2|\bB|^2-|\bE|^2+2ic\,\bB\cdot\bE)$ and $u_0:=\tfrac{\varepsilon_0}2|q_c|$,
+With $\varepsilon_0\mu_0c^2=1$, $z_c:=c\bB+i\bE$, $u=\tfrac{\varepsilon_0}2|z_c|^2$, $\mathbf g=\mathbf S_{\rm t}/c^2$ with $\mathbf S_{\rm t}=\bE\times\Btext/\mu_0$,
+$q_c:=z_c\cdot z_c=c^2|\Btext|^2-|\bE|^2-2ic\,\Btext\cdot\bE$ and $u_0:=\tfrac{\varepsilon_0}2|q_c|$, \cref{d1:prop:lagrange} applied to $z_c$ gives
 \begin{equation}
 \label{d1:eq:SI}
-u^2=c^2|\mathbf g|^2+u_0^2,\qquad \rho_0:=u_0/c^2,
+u^2=c^2|\mathbf g|^2+u_0^2,\qquad \rho_0:=u_0/c^2,\qquad [u]=[c\,\mathbf g]=[u_0]=\mathrm{J\,m^{-3}},\quad [\rho_0]=\mathrm{kg\,m^{-3}} .
 \end{equation}
-with $[u]=[c\,\mathbf g]=[u_0]=\mathrm{J\,m^{-3}}$, $[\rho_0]=\mathrm{kg\,m^{-3}}$, $[q_c]=\mathrm{V^2\,m^{-2}}$.
 \end{proposition}
 
-\begin{proof}
-$c^2|\mathbf g|^2=\varepsilon_0^2c^2(|\bE|^2|\Btext|^2-(\bE\cdot\Btext)^2)$ and $\tfrac{\varepsilon_0^2}4|q_c|^2=\tfrac{\varepsilon_0^2}4[(c^2|\Btext|^2-|\bE|^2)^2+4c^2(\bE\cdot\Btext)^2]$
-add up to $\tfrac{\varepsilon_0^2}4(|\bE|^2+c^2|\Btext|^2)^2$.
-\end{proof}
-
-Inherited (d1-5a). This is the exact content of ``$c^2$ is the symmetric part'': $c$ is the unique conversion between the triples that commutes with
-their common rotations, the residual symmetry of both $E_6$ and $E_0$, and it enters the undivided energy only as the isotropic weight $c^2$ of
-$|\bB|^2$. It is a unit conversion, not a symmetry, and nothing breaks it: $u_0$ uses the same $c$, and $\rho_0=u_0/c^2$ only converts units.
+Inherited (d1-5a); calling $\rho_0$ a rest-mass density is a reading, since $(u,c\,\mathbf g)$ is not a four-vector. This is the exact content of
+``$c^2$ is the symmetric part'': $c$ is the unique conversion between the triples that commutes with their common rotations, the residual symmetry of
+both $E_6$ and $E_0$; in SI units it enters $E_6$ as the isotropic weight $c^2$ of $|\bB|^2$, which a choice of units removes. It is a unit conversion,
+not a symmetry, and nothing breaks it: $u_0$ uses the same $c$, and $\rho_0=u_0/c^2$ only converts units.
 
 \subsection{Finite configurations: the mass of a whole}
 \label{d1:sec:whole}
@@ -248,8 +244,9 @@ $M^2:=U^2-|\mathbf P|^2\ge U\int(u-|\mathbf S|)\,d^3x\ge0$, so $M>0$ whenever $q
 $cB_{{\rm t}y}=2a\sin kz\sin\omega t$; per cell (unit area, length $2\pi/k$) $U=2\pi\varepsilon_0a^2/k$ and $\mathbf P=0$, so $Mc^2=U$, although each
 constituent has $q_c=0$ and $U_\pm=|\mathbf P_\pm|c$. The total has $q_c=-2a^2(\cos2kz+\cos2\omega t)$, $\int_{\rm cell}T^{zz}=U$,
 $\int_{\rm cell}T^{xx}=-U\cos2\omega t$, and the integrated rest energy $\int_{\rm cell}u_0$ oscillates between $\tfrac2\pi U$ and $U$.
-\item With $c=1$ and $f(s)=(1-s^2)^2$ on $|s|\le1$, $0$ elsewhere, $E_x=f(z-t)+f(z+t)$, $B_{{\rm t}y}=f(z-t)-f(z+t)$ has $U=\tfrac{512}{315}$ per unit
-area and $\mathbf P=0$ at all times, so $M=U$; for $|t|\ge1$ the pulses are disjoint, $q\equiv0$ and $\int E_0=0$.
+\item With $c=1$ and $f(s)=(1-s^2)^2$ on $|s|\le1$, $0$ elsewhere, $E_x=f(z-t)+f(z+t)$, $B_{{\rm t}y}=f(z-t)-f(z+t)$ has, per unit transverse area,
+$U=\tfrac{512}{315}$ and $\mathbf P=0$ at all times, so $M=U$, with $(U,P_z)$ a two-vector under boosts along $z$ only; for $|t|\ge1$ the pulses are
+disjoint, $q\equiv0$ and $\int E_0=0$.
 \end{enumerate}
 \end{proposition}
 
@@ -257,52 +254,51 @@ area and $\mathbf P=0$ at all times, so $M=U$; for $|t|\ge1$ the pulses are disj
 (1) Conservation and finite propagation speed make $\int_\Sigma T^{\mu\nu}d\Sigma_\nu$ independent of the spacelike hyperplane $\Sigma$
 \cite{Laue1911}; $u-|\mathbf S|=E_0^2/(u+|\mathbf S|)\ge0$, and $M^2=(U-|\mathbf P|)(U+|\mathbf P|)$. (2) Each $(u,\mathbf S_{\rm t})(x)$ is future causal of
 length $E_0(x)$ (\cref{d1:prop:rainich}), and future causal vectors obey $|P_1+P_2|\ge|P_1|+|P_2|$, with equality iff proportional. (3) Elementary
-cell integrals; for the last statement, with $s=\sin^2\omega t$ one has $q_c=4a^2(s-\cos^2kz)$, so the integrand is $u_0=2\varepsilon_0a^2|s-\cos^2kz|$, whose mean is least at the median $s=\tfrac12$ of the
-arcsine law, giving $\tfrac2\pi U$. (4) $u=f(z-t)^2+f(z+t)^2$ and $S_z=f(z-t)^2-f(z+t)^2$, the cross terms cancelling, and $q=-4f(z-t)f(z+t)$.
+cell integrals; for the last statement, with $s=\sin^2\omega t$ one has $q_c=4a^2(s-\cos^2kz)$, so $u_0=2\varepsilon_0a^2|s-\cos^2kz|$, whose mean is
+least at the median $s=\tfrac12$ of the arcsine law, giving $\tfrac2\pi U$. (4) $u=f(z-t)^2+f(z+t)^2$ and $S_z=f(z-t)^2-f(z+t)^2$, the cross terms
+cancelling, and $q=-4f(z-t)f(z+t)$.
 \end{proof}
 
 Items (1) and (3) are inherited, (1) being the statement of Section~14.4 of \cite{ES17}. The cell in (3) is not isolated: $\int T^{zz}=U$ is the
-radiation pressure on whatever confines it, so its $(U,\mathbf P)$ is a four-vector only with the walls included \cite{Laue1911}, as in Einstein's box
-of light \cite{Einstein1905}. Items (2) and (4) refute the dictionary's reading that the mass of a whole ``emerges from the interference that makes
-$q\neq0$'': interference suffices for $M>0$ but is not necessary, since disjoint counter-propagating null pulses have $q\equiv0$ and $M=U>0$. A whole
-gets its mass from the non-collinearity of its constituents' energy--momenta, as two photons do, and $M$ dominates the integrated rest energy of its
-points; the interference reading is obstructed. $M$ is also blind to orthogonality: the data $(\bE,\Btext)=(0,\mathbf b)$ and
-$(\mathbf b\sin\vartheta,\mathbf b\cos\vartheta)$ have the same $T^{\mu\nu}$ while $\bE\cdot\Btext$ is $0$ and $\tfrac12\sin2\vartheta|\mathbf b|^2$
-(d1-6a--d1-6c).
+pressure on whatever confines it, so its $(U,\mathbf P)$ is a four-vector only with the walls included, as for radiation in a box \cite{Laue1911}.
+Items (2) and (4) refute the reading, proposed in the working dictionary of this investigation, that the mass of a whole ``emerges from the
+interference that makes $q\neq0$'': interference suffices for $M>0$ but is not necessary. A whole gets its mass from the non-collinearity of its
+constituents' energy--momenta, as two photons do; the interference reading is obstructed. $M$ is also blind to orthogonality, by the example of
+Section~14.4 of \cite{ES17}: $(\bE,\Btext)=(0,\mathbf F)$ and $(\mathbf F\sin\vartheta,\mathbf F\cos\vartheta)$ have the same $T^{\mu\nu}$ (d1-6a--d1-6c).
 
-\subsection{The momentum reading of ``$E$ is six-dimensional''}
+\subsection{\texorpdfstring{The momentum reading of ``$E$ is six-dimensional''}{The momentum reading of "E is six-dimensional"}}
 \label{d1:sec:momentum}
 
 \begin{proposition}[Splitting the temporal energy lowers the mass]
 \label{d1:prop:momentum}
-Let $P=\sum_i(E_i/c)e_i+\sum_ap_ae_{a+3}$ with $\eta(P,P)=\mu^2c^2$, $\widehat W$ the symmetric clock of Proposition~3.5 of \cite{ES17},
-$E_W:=(E_1+E_2+E_3)/\sqrt3$ and $\mathbf E_\perp$ the part of $(E_1,E_2,E_3)$ orthogonal to $(1,1,1)$, the relative-time energies. The mass read by the
-clock, $m_4^2c^4:=E_W^2-|\bp|^2c^2$, is
+Let $P=\sum_i(\mathsf E_i/c)e_i+\sum_ap_ae_{a+3}$ with $\eta(P,P)=\mu^2c^2$, $\widehat W$ the symmetric clock of Proposition~3.5 of \cite{ES17},
+$\mathsf E_W:=(\mathsf E_1+\mathsf E_2+\mathsf E_3)/\sqrt3$ and $\mathsf E_\perp$ the part of $(\mathsf E_1,\mathsf E_2,\mathsf E_3)$ orthogonal to
+$(1,1,1)$, the relative-time energies. The mass read by the clock, $m_4^2c^4:=\mathsf E_W^2-|\bp|^2c^2$, is
 \[
-m_4^2c^4=\mu^2c^4-|\mathbf E_\perp|^2\le\mu^2c^4 ;
+m_4^2c^4=\mu^2c^4-|\mathsf E_\perp|^2\le\mu^2c^4 ;
 \]
-for the clock $e_1$, $m_4^2c^4=\mu^2c^4-E_2^2-E_3^2$, and $E=(3,4,0)$, $\bp=(5,0,0)$, $c=1$ give $\mu=0$, $m_4^2=-16$.
+for the clock $e_1$, $m_4^2c^4=\mu^2c^4-\mathsf E_2^2-\mathsf E_3^2$, and $\mathsf E=(3,4,0)$, $\bp=(5,0,0)$, $c=1$ give $\mu=0$, $m_4^2=-16$.
 \end{proposition}
 
 \begin{proof}
-$|(E_1,E_2,E_3)|^2=E_W^2+|\mathbf E_\perp|^2$ and $\mu^2c^4=c^2\eta(P,P)=|(E_1,E_2,E_3)|^2-|\bp|^2c^2$.
+$|(\mathsf E_1,\mathsf E_2,\mathsf E_3)|^2=\mathsf E_W^2+|\mathsf E_\perp|^2$ and $\mu^2c^4=c^2\eta(P,P)=|(\mathsf E_1,\mathsf E_2,\mathsf E_3)|^2-|\bp|^2c^2$.
 \end{proof}
 
-Obstructed, the clock-covariant form of Proposition~27.1 and Example~27.3 of \cite{ES17} (d1-7). In the momentum reading the differentiation of the
-temporal energy subtracts from the mass and can make it tachyonic, and under the surplus constraints of Theorem~30.1 of \cite{ES17},
-$\mathbf E_\perp=0$, nothing is left to differentiate; in the field-strength reading the frame-dependent part adds, $E_6\ge E_0$, as momentum should.
-Only the field-strength reading of ``$E$ is six-dimensional'' carries the structure the user describes.
+Obstructed; this restates Proposition~27.1 and Example~27.3 of \cite{ES17} in clock-covariant form (d1-7). In the momentum reading the
+differentiation of the temporal energy subtracts from the mass and can make it tachyonic, and under the surplus constraints of Theorem~30.1 of
+\cite{ES17}, $\mathsf E_\perp=0$, nothing is left to differentiate; in the field-strength reading the motion part adds, $E_6\ge E_0$. Only the latter
+carries the structure the user describes.
 
-\subsection{Three candidates for $m$ in the arena's own structures}
+\subsection{\texorpdfstring{Three candidates for $m$ in the arena's own structures}{Three candidates for m in the arena's own structures}}
 \label{d1:sec:m}
 
 \begin{proposition}[The mass form acts on the frame as parity]
 \label{d1:prop:Tparity}
 Let $T=e_1e_2e_3$ and $P:=\Ad_T|_V$. (1) $P=\eta$ fixes $\bB$ and reverses $\bE$: it is parity on the frame; it commutes with the $L_i$ and
 anticommutes with $G$ and the $K_i$, so it normalises $\lG$ without being $\lG$-invariant. (2) $PX$ corresponds to $\bar z$ and $q(z)=h(Pz,z)$, so
-$E_6=\tfrac12h(z,z)$ and $E_0=\tfrac12|h(Pz,z)|=\tfrac12\max_\vartheta\eta(e^{\vartheta G}X,e^{\vartheta G}X)$. (3) As a Grassmann mass kernel $T$ is
-invariant under all of $\so{3,3}$ in the sense of Definition~18.2 of \cite{ES17} and breaks nothing; only its sign changes, under conjugation by a
-spatial generator.
+$E_6=\tfrac12h(z,z)$ and $E_0=\tfrac12|h(Pz,z)|=\tfrac12\max_\vartheta\eta(e^{\vartheta G}X,e^{\vartheta G}X)$. (3) As a Grassmann mass kernel on spinors $T$ is
+invariant under all of $\so{3,3}$, $\lG$ included, in the sense of Definition~18.2 of \cite{ES17}, and breaks nothing; only its sign changes, under
+conjugation by a spatial generator $e_4,e_5,e_6$.
 \end{proposition}
 
 \begin{proof}
@@ -311,79 +307,119 @@ $h(\bar z,z)=\sum_jz_j^2$, and $\eta(e^{\vartheta G}X,e^{\vartheta G}X)=\Re(e^{2
 $e_1e_2e_3$ when $a,b$ have the same sign and anticommutes otherwise, and $T^{\!\top}=-T$; this is Corollary~18.4 of \cite{ES17}.
 \end{proof}
 
-The identities are fixed (d1-8a); their consequence for the dictionary is negative. ``$m\leftrightarrow T$'' fails on the frame, where $T$ is parity;
-the Dirac mass lives on the interior reading, which Proposition~12.6 of \cite{ES17} excludes on the same six directions, and even there the mass term
-of the full algebra breaks nothing. What survives is a reading: the rest energy is the overlap of a field with its mirror image, zero for a null field
-and maximal for a field at rest; and $P$, the arena's splitting into triples, is what reduces $U(3)$ to $U(1)\cdot O(3)$ (\cref{d1:prop:u3}(4)).
+The identities are inherited or restate \cite{ES17} (d1-8a); their consequence for the dictionary is negative, but as a type mismatch:
+``$m\leftrightarrow T$'' fails on frame vectors, where the adjoint action of $T$ is parity, while as a kernel on spinors $T$ is $\lG$-invariant, (3).
+The Dirac mass lives on the interior reading, which Proposition~12.6 of \cite{ES17} excludes on the same six directions, and even there it breaks
+nothing. What survives is a reading: the rest energy is the overlap of a field with its mirror image, and $P$, the arena's splitting into triples, is
+the real structure whose stabiliser in $U(3)$ is $U(1)\cdot O(3)$ (\cref{d1:prop:u3}(4)).
 
 \begin{proposition}[The interior energy is not a rest energy]
 \label{d1:prop:interior}
 For the split-form interior with the binding root (Theorem~16.2 of \cite{ES17}) every solution is $z(\tau)=c_-e^{-i\kappa\tau}+c_+e^{i\kappa\tau}$, and
-$\ddot X=-\kappa^2X$ does not involve $m$. The Noether energy $\mathcal E=2m\kappa^2\Re(c_-\cdot c_+)$ is indefinite and vanishes identically on the
-orbits without momentum, $c_+=0$, the duality rotations of Proposition~16.5, along which $E_6=\tfrac12|c_-|^2$ and $E_0=\tfrac12|c_-\cdot c_-|$ are
-constant; in general $|z|^2=|c_-|^2+|c_+|^2+2\Re\bigl(h(c_-,c_+)e^{2i\kappa\tau}\bigr)$.
+$\ddot X=-\kappa^2X$ does not involve $m$. The Noether energy $\mathcal E=2m\kappa^2\Re(c_-\cdot c_+)$ (Proposition~16.5(iii) of \cite{ES17}) is indefinite
+and vanishes identically on the duality rotations of both senses, $z=e^{-i\kappa\tau}c_-$ (the orbits without momentum, $c_+=0$, of
+Proposition~16.5(i)) and $z=e^{i\kappa\tau}c_+$ (which carry the momentum $2i\kappa c_+e^{i\kappa\tau}\neq0$); on both, the frame field's $E_6$ and $E_0$ are
+constant. In general
+\[
+|z|^2=|c_-|^2+|c_+|^2+2\Re\bigl(h(c_-,c_+)e^{2i\kappa\tau}\bigr),\qquad q(z)=e^{-2i\kappa\tau}c_-\cdot c_-+2c_-\cdot c_++e^{2i\kappa\tau}c_+\cdot c_+,
+\]
+so the frame field's $E_6$ is constant iff $h(c_-,c_+)=0$, and its $E_0$ oscillates: $c_-=e_1$, $c_+=e_2$ give $\mathcal E=0$, $E_6=1$ and
+$E_0=|\cos2\kappa\tau|$.
 \end{proposition}
 
 \begin{proof}
-With $\eta(X,X)=\Re q$ and $\eta(GX,GX)=-\eta(X,X)$, $\mathcal E=\tfrac m2\Re(\dot z\cdot\dot z+\kappa^2z\cdot z)$ and
-$\dot z\cdot\dot z+\kappa^2z\cdot z=4\kappa^2c_-\cdot c_+$; the momentum corresponds to $\dot z+i\kappa z=2i\kappa c_+e^{i\kappa\tau}$.
+With $\eta(GX,GX)=-\eta(X,X)=-\Re q$, $\mathcal E=\tfrac m2\Re(\dot z\cdot\dot z+\kappa^2z\cdot z)=2m\kappa^2\Re(c_-\cdot c_+)$; the momentum is
+$\dot z+i\kappa z=2i\kappa c_+e^{i\kappa\tau}$; expand $\bar z\cdot z$ and $z\cdot z$.
 \end{proof}
 
-Obstructed as an identification, verified symbolically (d1-9): in the interior $m$ is an overall factor, the purely internal motion carries zero energy,
-and $c^2$ appears only in $(\kappa G)^2=-c^2/\ell^2$ with a free length. The entry ``$c^2\leftrightarrow\kappa G$'' is right that $\kappa G$ lies in the
-factorising summand of Theorem~17.3 of \cite{ES17}, but nothing in the interior turns $\kappa^2$ into a rest energy. The closure does better.
+Obstructed as an identification, verified symbolically (d1-9): in the interior $m$ is an overall factor and an input independent of $\kappa$, the
+pure duality motion of either sense carries zero energy, and, with $X$ a length and $\kappa=c/\ell$, $\mathcal E=mc^2\cdot2\Re(c_-\cdot c_+)/\ell^2$ has the
+form $mc^2$ times a dimensionless amplitude, but the amplitude is indefinite, vanishes on the pure duality orbits, and is selected by nothing, since
+$\ell$ is free. The entry ``$c^2\leftrightarrow\kappa G$'' is right that $\kappa G$ lies in the factorising summand of Theorem~17.3 of \cite{ES17}, but
+nothing in the interior turns $\kappa^2$ into a rest energy.
 
-\begin{theorem}[In the closure the rest energy breaks the duality translation]
+\begin{theorem}[In the closure the rest energy of the momentum field breaks the duality translation]
 \label{d1:thm:closure}
-In the Lie--Poisson closure of Proposition~17.8 of \cite{ES17}, $H=h^2/(2I_0)+\tfrac12p^{\!\top}Np$, with momentum field $\pi=\eta^{-1}p$: (1) for
-every $N$ the Casimir $|p|^2$ equals $2E_6(\pi)$, and $E_0(\pi)=\tfrac12|w(p)|$ and $\mathbf S(\pi)$ are constants of motion; (2) for Lorentz-class
-$N=(a\eta^{-1}+bG\eta^{-1})/m$ the reduced Hamiltonian is
+In the Lie--Poisson closure of Proposition~17.8 of \cite{ES17}, $H=h^2/(2I_0)+\tfrac12p^{\!\top}Np$, with momentum field $\pi=\eta^{-1}p$:
+\begin{enumerate}
+\item for every $N$, $E_6(\pi)=\tfrac12|p|^2$, $E_0(\pi)=\tfrac12|w(p)|$ and $\mathbf S(\pi)$ are Casimirs of the momentum field (constant already in the
+clamped interior, where $p=e^{-\kappa\tau G}p_0$);
+\item for Lorentz-class $N=(\nu_1\eta^{-1}+\nu_2G\eta^{-1})/m$ the reduced Hamiltonian is
 \[
-H=\frac{h^2}{2I_0}+\frac{|a+ib|\,E_0(\pi_0)}m\cos(2\theta+\varphi_0),
+H=\frac{h^2}{2I_0}+\frac{|\nu_1+i\nu_2|\,E_0(\pi_0)}m\cos(2\theta+\varphi_0),\qquad R_0e^{i\varphi_0}:=(\nu_1+i\nu_2)\,w(p_0),
 \]
-so the rotor's translation $\theta\mapsto\theta+{\rm const}$, the duality rotation of the momentum, is broken with amplitude $|a+ib|E_0(\pi_0)/m$, and
-the rate $\kappa=h/I_0$ is constant iff $E_0(\pi_0)=0$; (3) for the duality-class $N=\id/m$ the frame energy is $E_6(\pi)/m$ and the rate is conserved
-for all data.
+so the rotor's translation $\theta\mapsto\theta+{\rm const}$, the duality rotation of the momentum field, is broken with amplitude
+$|\nu_1+i\nu_2|E_0(\pi_0)/m$; for $(\nu_1,\nu_2)\neq(0,0)$ the rate $\kappa=h/I_0$ is constant and nonzero iff $E_0(\pi_0)=0$ and $h(0)\neq0$
+(Corollary~17.14 of \cite{ES17}); for $E_0(\pi_0)>0$ and $(\nu_1,\nu_2)\neq(0,0)$ it is constant only at the equilibria $h(0)=0$, $2\theta(0)+\varphi_0\in\pi\Z$, where it vanishes;
+for $(\nu_1,\nu_2)=(0,0)$ it is constant for all data;
+\item for the duality-class $N=\id/m$ the potential $\tfrac12p^{\!\top}Np$ (the ``frame energy'' of \cite{ES17}) is $E_6(\pi)/m$, the undivided energy of
+the momentum field, and the rate is conserved for all data;
+\item the frame field is not conserved: with a free rotor in the rotating regime, Lorentz-class $N$, $(\nu_1,\nu_2)\neq(0,0)$ and $E_0(\pi_0)>0$, the
+frame field's $E_6$ and $E_0$ grow without bound.
+\end{enumerate}
 \end{theorem}
 
 \begin{proof}
-Along the flow $p=e^{-\theta G}p_0$, so $\pi=e^{\theta G}\eta p_0$ and $z(\pi)=e^{i\theta}z(\pi_0)$, a duality rotation, which preserves $E_6$, $E_0$, $\mathbf S$;
-and $|p|=|\pi|$ as $\eta$ is orthogonal. (2) is Theorem~17.13 of \cite{ES17} with $R_0=|a+ib|\,|w(p_0)|=2|a+ib|E_0(\pi_0)$, the last clause Corollary~17.14.
-(3) $N=\id/m$ commutes with $G$, so $\dot h=-p^{\!\top}GNp=0$.
+(1) Along the flow $p=e^{-\theta G}p_0$, so $\pi=e^{\theta G}\pi_0$ and $z(\pi)=e^{i\theta}z(\pi_0)$, a duality rotation, which preserves $E_6$, $E_0$,
+$\mathbf S$; and $|p|=|\pi|$ as $\eta$ is orthogonal. (2) is Theorem~17.13 of \cite{ES17}, $R_0=|\nu_1+i\nu_2|\,|w(p_0)|=2|\nu_1+i\nu_2|E_0(\pi_0)$,
+and $\dot h=(R_0/m)\sin(2\theta+\varphi_0)$: if $R_0>0$ and $h$ is constant, $\sin(2\theta+\varphi_0)\equiv0$, so $\theta$ is constant and $h=I_0\dot\theta=0$;
+conversely these points are equilibria; the rest is Corollary~17.14. (3) $N=\id/m$ commutes with $G$, so $\dot h=-p^{\!\top}GNp=0$. (4) By
+Theorem~17.16 of \cite{ES17} the frame $x$ (with $X=e^{-\theta G}x$, so $E_6(X)=E_6(x)$, $E_0(X)=E_0(x)$) is displaced by $\Delta x=\lambda e^{-\varphi_0G}Np_0$,
+$\lambda>0$, in each period of the rate, and $x=x_0+n\Delta x$ after $n$ periods, since $\dot\theta$ and $\dot x=e^{\theta G}Ne^{-\theta G}p_0$ depend on
+$\theta$ with period $\pi$. Since $G$ acts as $i$, $z(Np_0)=(\nu_1+i\nu_2)z(\pi_0)/m$
+and $q(\Delta x)=\lambda^2e^{-2i\varphi_0}(\nu_1+i\nu_2)^2q(\pi_0)/m^2\neq0$, so $|q(x)|$ and $|x|^2$ grow like $n^2$.
 \end{proof}
 
-Fixed, as a consequence of Theorem~17.13 and Corollary~17.14 of \cite{ES17}; it could have failed, and does for the duality class. Verified by
-integrating the full system at four random momenta (relative conservation errors below $10^{-9}$; rate constant to $10^{-10}$ on null data and for
-$N=\id/m$; d1-10). Here the user's sentence becomes a theorem: reading the clamped rate $\kappa=c/\ell$ as the ``$c$'' of the interior, that rate keeps
-its symmetry (constancy, invariance under the rotor's duality translation) exactly when the momentum field is null, the rest energy $E_0(\pi)$ is the
-amplitude that breaks it, and the undivided $E_6(\pi)$ is a Casimir and breaks nothing. But the breaking is explicit, from an inertia that
-Theorem~17.11 of \cite{ES17} forbids from also conserving the rate; it breaks duality, not Lorentz invariance; and with the undivided energy as
-Hamiltonian ($N=\id/m$) the rate is constant at the price of the frame drift of Theorem~17.12.
+Parts (1)--(3) restate Proposition~17.8, Theorem~17.13 and Corollary~17.14 of \cite{ES17}, fixed there, with $\tfrac12|w|$ renamed $E_0(\pi)$; part (4)
+is a direct consequence of Theorem~17.16. Nothing in the theorem is new. Verified by integrating the full system (conservation to $10^{-9}$), at
+the exact equilibria $\pi_0=e_1$, $h(0)=0$, $(\nu_1,\nu_2)=(\pm1,0)$, where the rate is constant with $E_0(\pi_0)=\tfrac12$, and with the frame
+included, where the frame field's $E_0$ grows as $n^2$ (d1-10a, d1-10b). Read through a dictionary that is interpretive, not a theorem (the
+clamped rate $\kappa=c/\ell$, with $\ell$ free, for the user's $c$, and $E_0(\pi)$, which has the dimension of a momentum squared, for a rest energy), the momentum field's rate keeps its symmetry
+(constancy, invariance under the rotor's duality translation) when the momentum field is null, its rest part $E_0(\pi)$ is the amplitude that breaks
+it, and $E_6(\pi)$ is a Casimir and breaks nothing. But the breaking is explicit, from an inertia that Theorem~17.11 of \cite{ES17} forbids from also
+conserving the rate; what is broken is the constancy of the rotor rate, a duality property, not Lorentz invariance and nothing carried by $c$; and with
+the undivided energy as Hamiltonian ($N=\id/m$) the rate is constant at the price of the frame drift of Theorem~17.12.
 
-\subsection{Where the $b$-field belongs}
+\subsection{\texorpdfstring{What transport by $b$ does to the two energies}{What transport by b does to the two energies}}
 \label{d1:sec:b}
 
-\begin{proposition}[Transport preserves the totals]
+An admissible Yang--Mills generator is compact: Theorem~2.3 and Corollary~2.4 of \cite{ES17} restrict gauge generators to
+$\so3_T\oplus\so3_S\subset\so{3,3}$, the rotations of the two triples. Write such a $b$ as $(A+D,A-D)$, $A+D$ acting on the temporal triple and $A-D$ on the
+spatial one; the diagonal part $(A,A)$ lies in $\lG$ and the anti-diagonal part $(D,-D)$ in $\mathfrak p_G$. Boost-valued connections are legitimate
+metric connections (Proposition~16.7 of \cite{ES17}) but not admissible Yang--Mills potentials.
+
+\begin{proposition}[What transport preserves]
 \label{d1:prop:bfield}
-(1) $A\in\so{3,3}$ preserves $\bE\cdot\bB$ for all $X$, equivalently $q$, equivalently $E_0$, iff $[A,G]=0$, that is $A\in\lG$. (2) At three
-constituents the binding-compatible $\so{4}_\Delta\cong\su{2}\oplus\su{2}$ of Theorem~17.21 of \cite{ES17} is compact and lies in
-$\Cent(G_3)\cong\so{9,\C}$, so it preserves the total undivided energy $\tfrac12|Z|^2=\tfrac12\sum_k|z^{(k)}|^2$ and the total invariant
-$q_3(Z)=\sum_kz^{(k)}\cdot z^{(k)}$. (3) It does not preserve the separate constituents' invariants: the rotation through $\pi/4$ generated by
-$\tfrac12\mathrm{rot}(7,13)$ maps $(z^{(2)},z^{(3)})=((1,i,0),(1,0,0))$ to $((0,i,0),(\sqrt2,0,0))$, keeping $\sum_kE_6^{(k)}=\tfrac32$ and $q_3=1$, while
-$\sum_kE_0^{(k)}$ goes from $\tfrac12$ to $\tfrac32$.
+(1) $Y\in\so{3,3}$ preserves $\bE\cdot\bB$ for all $X$, equivalently $q$, equivalently $E_0$, iff $[Y,G]=0$, that is $Y\in\lG$. (2) A compact
+$b=(A+D,A-D)$ preserves $E_6$ and $\Re q=|\bB|^2-|\bE|^2$; it preserves $E_0$ for all $X$ iff $D=0$; the anti-diagonal rotation through $\tfrac\pi4$
+about $e_3$ carries the null field $(1,i,0)$ to the field $\tfrac{1+i}{\sqrt2}(1,1,0)$ at rest, $E_0$ going from $0$ to $1$ at $E_6=1$. (3) At three
+constituents the part of $\mathfrak{ps}_W$ commuting with $G_3$, $\so{4}_\Delta\cong\su{2}\oplus\su{2}$ of Theorem~17.21 of \cite{ES17}, consists of paired
+rotations, so it preserves the $\so{9,\C}$ invariants $\tfrac12|Z|^2=\tfrac12\sum_k|z^{(k)}|^2$ and $q_3(Z)=\sum_kz^{(k)}\cdot z^{(k)}$, hence $\tfrac12|q_3|$.
+(4) It preserves neither the constituents' rest energies nor that of their summed density: the rotation through $\pi/4$ generated by
+$\tfrac12\mathrm{rot}(7,13)$ maps $(z^{(2)},z^{(3)})=((1,i,0),(1,0,0))$ to $((0,i,0),(\sqrt2,0,0))$, keeping $\tfrac12|Z|^2=\tfrac32$ and $q_3=1$, while
+$\sum_kE_0^{(k)}$ goes from $\tfrac12$ to $\tfrac32$ and $(\sum_kE_6^{(k)};\sum_k\mathbf S_{\rm t}^{(k)})$ from $(\tfrac32;0,0,1)$ to $(\tfrac32;0,0,0)$, its
+Lorentz length from $\tfrac{\sqrt5}2$ to $\tfrac32$.
 \end{proposition}
 
 \begin{proof}
-(1) For $A\in\so{3,3}$, $A^{\!\top}\eta G+\eta GA=\eta[G,A]$. If $A$ preserves $\Re q$ and $|q|$, then $\Im q\cdot\delta(\Im q)=0$, so $\delta(\Im q)=0$ since
-polynomials form an integral domain. (2) Theorems~17.19 and 17.21 of \cite{ES17}; compact elements of $\so{9,\C}$ are real antisymmetric. (3) Direct,
-with $[e_Ae_B,e_C]=2\eta_{BC}e_A-2\eta_{AC}e_B$, checked against the realisation.
+(1) For $Y\in\so{3,3}$, $Y^{\!\top}\eta G+\eta GY=\eta[G,Y]$. If $Y$ preserves $\Re q$ and $|q|$, then $\Im q\cdot\delta(\Im q)=0$, so $\delta(\Im q)=0$ since
+polynomials form an integral domain. (2) $b$ rotates each triple orthogonally, so it preserves $|\bB|^2$ and $|\bE|^2$; $(A,A)$ commutes with $G$ and
+$G(D,-D)G^{-1}=(-D,D)$, so by (1) $E_0$ is preserved for all $X$ iff $D=0$; the example is $\bB=(1,0,0)\mapsto\tfrac1{\sqrt2}(1,1,0)$,
+$\bE=(0,1,0)\mapsto\tfrac1{\sqrt2}(1,1,0)$. (3) By Theorem~17.19 of \cite{ES17} the elements of $\so4_\Delta$ are paired rotations, with $S=0$ and $R$ real
+antisymmetric, hence they preserve $|Z|^2$ and $q_3$. (4) Direct, with $[e_Ae_B,e_C]=2\eta_{BC}e_A-2\eta_{AC}e_B$, checked against the realisation.
 \end{proof}
 
-Verified exactly (d1-11); its content is an obstruction: no transport valued in the compact part of $\Cent(G_n)$, the binding-compatible $b$-field
-included, creates or destroys total rest energy; it moves rest energy between constituents, and can turn one constituent's motion into another's rest
-energy at fixed totals. That is where the Yang--Mills field belongs here: redistribution among constituents, once the structure of Theorem~17.21 is in
-place, not the undivided energy of one constituent, whose differentiation needed no connection. On one constituent a connection changes $E_0$ only
-through its component outside $\lG$, which is not a Lorentz transformation of the field.
+Verified exactly (d1-11a, d1-11b). Parts (1) and (2) are inherited linear algebra, and they cut both ways. Pointwise, the anti-diagonal part of an
+admissible $b$ does turn a null field into one at rest at fixed undivided energy, while the diagonal part, a rotation in $\lG$, changes no invariant.
+But the anti-diagonal part is the part that fails to commute with $G$: along a worldline it cannot be gauged away, unlike the diagonal part
+(Larmor's theorem \cite{Larmor1897}), and in the interior it produces Jordan blocks and secular growth unless screened by a diagonal part at equal rates, outside one
+exceptional ratio (\cref{d4:thm:screen});
+nothing here selects an amount of rest energy. Parts (3)--(4) are an obstruction for the $\so{9,\C}$ invariants only: no
+transport valued in the paired rotations changes $\tfrac12|Z|^2$ or $q_3$. They are not one for the rest energy of the whole in the diagonal Lorentz
+reading, which the example changes, and $\mathrm{rot}(7,13)$ does not commute with the diagonal rotations; which is physical depends on the Lorentz
+action at three constituents, which is open (Theorem~17.20 of \cite{ES17}); and $\so4_\Delta$ is the part of $\mathfrak{ps}_W$ commuting with $G_3$,
+not the only part with bounded orbits (\cref{d4:sec:bfield}). Here $b$ appears only as a constant transport element or a holonomy, with no field
+strength or $b$-field energy, so ``where the $b$-field belongs'' is, at this level, interpretive.
 
 \subsection{Assessment}
 \label{d1:sec:assess}
@@ -391,25 +427,27 @@ through its component outside $\lG$, which is not a Lorentz transformation of th
 \begin{table}[t]
 \centering
 \small
-\begin{tabular}{@{}lll@{}}
+\begin{tabular}{@{}l>{\raggedright\arraybackslash}p{7.4cm}>{\raggedright\arraybackslash}p{5.6cm}@{}}
 \toprule
 claim & statement & class\\
 \midrule
-d1-1a & $E_6$ is the unique rotation- and duality-invariant energy & fixed\\
-d1-1b & its symmetry is $U(3)$; $\uu3\cap(\lG\oplus\R G)=\so3\oplus\R G$ & inherited\\
+d1-1a & $E_6$ is the unique rotation- and duality-invariant energy & inherited (Thm.~17.11(iii) of \cite{ES17})\\
+d1-1b & pointwise symmetry $U(3)$; $\uu3\cap(\lG\oplus\R G)=\so3\oplus\R G$ & inherited\\
 d1-2a,b & $E_0$ complete invariant of Lorentz $\times$ duality, $E_6$ of $U(3)$ & inherited\\
 d1-3a,b & $E_6^2=E_0^2+|\mathbf S|^2$; Rainich identity & inherited\\
 d1-4a--c & $E_0=\min E_6$; $E_6=E_0\cosh2\chi$; rest-frame velocity with $\mathbf S_{\rm t}$ & inherited\\
 d1-5a & $u^2=c^2|\mathbf g|^2+u_0^2$ & inherited\\
-d1-5b & $c$ enters only as the isotropic weight $c^2$ (Theorem~3.2) & fixed\\
+d1-5b & $C=c\,\id$; the weight $c^2$ of $|\bB|^2$ & fixed in \cite{ES17} (Thm.~3.2); weight conventional\\
 d1-6a,c & standing wave $Mc^2=U$; $M$ blind to orthogonality & inherited\\
 d1-6b & the mass of a whole is not interference; $M\ge\int E_0$ & obstructed\\
-d1-7 & the momentum reading lowers the mass & obstructed\\
-d1-8a & $T$ acts on the frame as parity; ``$m\leftrightarrow T$'' fails there & obstructed\\
-d1-8b & $\Stab_{U(3)}(E_0)=U(1)\cdot O(3)$ & fixed\\
+d1-7 & the momentum reading lowers the mass & obstructed (restates Prop.~27.1)\\
+d1-8a & $T$ acts on the frame as parity; ``$m\leftrightarrow T$'' fails there & obstructed (type mismatch)\\
+d1-8b & $\Stab_{U(3)}(E_0)=U(1)\cdot O(3)$ & inherited; reduction reading interpretive\\
 d1-9 & the interior Noether energy is not a rest energy & obstructed\\
-d1-10 & closure: $E_0(\pi)$ is the duality-breaking amplitude & fixed\\
-d1-11 & binding-compatible $b$ redistributes, cannot create, rest energy & obstructed\\
+d1-10a & closure: $E_0(\pi)$ is the duality-breaking amplitude & restates \cite{ES17} Thm.~17.13; reading interpretive\\
+d1-10b & the frame field's $E_6$, $E_0$ grow under the free-rotor drift & restates \cite{ES17} Thm.~17.16 (consequence)\\
+d1-11a & compact $b$ changes $E_0$ only through its anti-diagonal part & inherited\\
+d1-11b & $\so4_\Delta$ preserves $|Z|^2$, $q_3$; changes $\sum_kE_0^{(k)}$ and the summed density's length & obstructed (for $q_3$, $|Z|^2$ only)\\
 d1-8c & ``$E$ undivided, $m$ differentiated, $c^2$ symmetric'' & interpretive\\
 \bottomrule
 \end{tabular}
@@ -417,17 +455,21 @@ d1-8c & ``$E$ undivided, $m$ differentiated, $c^2$ symmetric'' & interpretive\\
 \label{d1:tab:claims}
 \end{table}
 
-Most of what was asked is inherited (\cref{d1:tab:claims}), ordinary electrodynamics in the arena's variables, which by Corollary~4.4 of
-\cite{ES17} predicts nothing. The arena fixes four things that could have failed: the orthogonality of its binding root, hence a unique undivided
-energy; a single conversion entering as $c^2|\bB|^2$; the stabiliser $U(1)\cdot O(3)$ of the rest energy in $U(3)$, cut out by its own splitting
-$P=\Ad_{e_1e_2e_3}$; and, in the closure, the rest energy of the momentum as the exact amplitude of duality breaking. Five readings are obstructed.
+Most of what was asked is inherited (\cref{d1:tab:claims}), ordinary electrodynamics in the arena's variables, which by Corollary~4.4 of \cite{ES17}
+predicts nothing. Nothing in this section is fixed beyond what \cite{ES17} already fixes: one conversion constant (Theorem~3.2), the relation
+$G=-\mathcal K\circ\Ad_{e_1e_2e_3}$ that makes the binding root orthogonal for the arena's Euclidean form (Lemma~3.4), and the duality pendulum with
+$R_0=2|\nu_1+i\nu_2|E_0(\pi_0)$ (Theorem~17.13). The uniqueness of $E_6$ and the stabiliser $U(1)\cdot O(3)$ are inherited. Five readings are
+obstructed. The $c^2$ clause gets less support than its wording suggests: in $E_6$ the weight $c^2$ is removed by the unit choice $\bB\to c\bB$; in the
+interior $c^2$ enters as $\kappa^2=c^2/\ell^2$ and the Noether energy is $mc^2$ times an indefinite, unselected amplitude; and in the closure what $E_0(\pi)$
+breaks is the constancy of the rotor rate, not anything carried by $c$.
 
-Corrected so that it is true, the user's sentence becomes the following interpretive statement (d1-8c), resting on the results above. The undivided
-energy is $E_6=\tfrac12|z|^2$, the one quadratic energy of a six-component frame vector invariant under rotations and duality, with symmetry $U(3)$. It
-differentiates internally, with no interaction, as $E_6^2=E_0^2+|\mathbf S|^2$, into a Lorentz-invariant rest energy $E_0=\tfrac12|z\cdot z|$ and a
-motion part $|\mathbf S|$. What differentiates is the splitting of the six directions into a temporal and a spatial triple, the real structure
-$\Ad_{e_1e_2e_3}$; what it breaks is the compact $U(3)$ of the undivided energy, down to $U(1)\cdot O(3)$; nothing Lorentzian is broken. $c$ is the unique
-conversion between the triples compatible with that residual symmetry and enters only as the weight $c^2$; it is not a symmetry, and $m=E_0/c^2$ is a
-rest-mass density of a field point. The reading fails in two respects as first stated: a field point is not a particle (it carries two boost factors,
-and the mass of a composite is not interference), and $b$ does not generate $m$ from the undivided energy; at three constituents it moves rest energy
-between constituents at fixed totals. Whether some dynamics selects the rest frame or the value of $E_0$ is open; nothing here does.
+Corrected so that it is true, the user's sentence becomes the following interpretive statement (d1-8c). The undivided energy is $E_6=\tfrac12|z|^2$,
+the one rotation- and duality-invariant quadratic energy of a six-component frame vector, with pointwise symmetry $U(3)$. It differentiates internally,
+with no interaction, as $E_6^2=E_0^2+|\mathbf S|^2$, into a Lorentz-invariant rest energy $E_0=\tfrac12|z\cdot z|$ and a motion part $|\mathbf S|$. What
+differentiates is the arena's splitting into a temporal and a spatial triple, the real structure $\Ad_{e_1e_2e_3}$, which reduces $U(3)$ to
+$U(1)\cdot O(3)$ (a symmetry of the pointwise form, not of any dynamics); nothing Lorentzian is broken. $c$ is a conversion, not a symmetry, its weight
+in $E_6$ is a unit convention, and $m=E_0/c^2$ is a rest-mass density of a field point. The reading fails in three respects: a field point is not a
+particle (two boost factors; the mass of a composite is not interference); in the closure only the momentum field's energies are conserved, while the
+frame field's oscillate or grow; and $b$ generates no selected amount of $m$: pointwise its anti-diagonal part moves a field between null and rest at
+fixed $E_6$, and at three constituents $\so4_\Delta$ moves rest energy between constituents at fixed $\tfrac12|Z|^2$ and $q_3$ while changing the Lorentz
+length of the summed density. Whether some dynamics selects the rest frame or the value of $E_0$ is open; nothing here does.

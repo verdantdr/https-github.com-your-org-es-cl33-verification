@@ -6,6 +6,9 @@ Conventions follow the unified paper of 17 October 2026 (tex/s02, s03, s12, s14,
   V = R^{3,3}, eta = diag(1,1,1,-1,-1,-1), realisation of tex/s02_arena.tex eq. (realisation);
   X = sum_i (B_i e_i + E_i e_{i+3}),  z = B + iE in C^3,  G e_i = e_{i+3}, G e_{i+3} = -e_i (G acts as i);
   q(z) = z.z, E6 = |z|^2/2, E0 = |q|/2, frame Poynting vector S = E x B, textbook S_t = E x B_t = -E x B.
+Claims (ids as in the section): d1-0, d1-1a, d1-1b, d1-2a, d1-2b, d1-3a, d1-3b, d1-4a, d1-4b, d1-4c, d1-5a, d1-5b,
+d1-6a, d1-6b, d1-6c, d1-7, d1-8a, d1-8b, d1-9, d1-10a, d1-10b, d1-11a, d1-11b (d1-8c is interpretive: no PASS line).
+Lorentz-class inertia is written N = (nu1 eta^-1 + nu2 G eta^-1)/m (the paper's (a,b)).
 Exact statements use sympy (integer/rational arithmetic); numerical ones state their tolerances.
 Run:  python3 d1_unitary_energy.py     (exit 0 and one PASS line per claim if everything holds)
 """
@@ -212,10 +215,31 @@ ok1 = (len(rot_inv) == 3 and len(dual_cls) == 1 and span_rank(dual_cls + [I6]) =
        and G.T * G == I6 and ETAG.T == ETAG)
 E6form = sp.expand((Xs.T * Xs)[0] / 2)
 ok1 &= sp.expand(E6form - sum(x**2 for x in Bs + Es) / 2) == 0
+# the arena-specific fact: G is delta-orthogonal because it is eta-self-adjoint and anticommutes with Ad_T|V = eta
+ok1 &= G.T == ETA * G * ETA and ETA * G == -G * ETA and ETA * G * ETA * G == I6
+# class test (inherited, could not have failed): conjugate G by an exact rational b in SO(3,3) outside l_G.
+# b = exp(chi M) with M = ad(e1e4)/2 (a pairing-plane boost, M^3 = M), cosh chi = 5/4, sinh chi = 3/4.
+Mb = ad6(e[0] @ e[3], half=True)
+ok1 &= Mb**3 == Mb and comm(Mb, G) != sp.zeros(6, 6) and span_rank(ell + kap + [Mb]) == 7
+bR = sp.eye(6) + sp.Rational(3, 4) * Mb + (sp.Rational(5, 4) - 1) * Mb * Mb
+ok1 &= bR.T * ETA * bR == ETA and bR.det() == 1
+bRi = bR.inv()
+Gp = bR * G * bRi
+ok1 &= Gp * Gp == -I6 and ETA * Gp.T * ETA == Gp and Gp.T * Gp != I6          # a binding root, not delta-orthogonal
+Lp = [bR * M * bRi for M in ell]                                                # compact part of l_G'
+ok1 &= all(comm(M, Gp) == sp.zeros(6, 6) for M in Lp)
+forms_p = solve_space(SB, [lambda N, M=M: M.T * N + N * M for M in Lp] + [lambda N: Gp.T * N + N * Gp])
+Npos = bRi.T * bRi
+ok1 &= len(forms_p) == 1 and span_rank(forms_p + [Npos]) == 1
+ok1 &= all(ev > 0 for ev in Npos.eigenvals())
 info(f"rotation-invariant symmetric forms: dim {len(rot_inv)}; commuting with G: dim {len(dual_cls)} (=R*id); "
-     f"l_G-invariant: dim {len(lG_inv)} (=span{{eta, eta G}})")
+     f"l_G-invariant: dim {len(lG_inv)} (=span{{eta, eta G}}); G^T G = eta G eta G = 1 since G anticommutes with "
+     f"Ad_T = eta; conjugated root G' = bGb^-1 (b = exp(chi ad(e1e4)/2), cosh chi = 5/4, exact): invariant forms "
+     f"dim {len(forms_p)} = R b^-T b^-1, positive definite")
 report("d1-1a", ok1, "rotation-invariant quadratic forms = R*id (+) span{eta, eta G}; the only rotation- and "
-       "duality-invariant one is E6 = (|B|^2+|E|^2)/2 (positive); l_G-invariant forms = span{eta, eta G}")
+       "duality-invariant one is E6 = (|B|^2+|E|^2)/2 (positive); l_G-invariant forms = span{eta, eta G}; inherited: "
+       "for every conjugated binding root G' = bGb^-1 the same holds with b^-T b^-1, and the arena adds only that the "
+       "form is the Euclidean one because G anticommutes with Ad_T")
 
 # ============================================================================= d1-1b u(3), Lorentz x duality, intersection
 FB = full_basis(6)
@@ -267,11 +291,35 @@ z2 = U * z1
 E6a, E6b = (z1.H * z1)[0] / 2, sp.simplify((z2.H * z2)[0] / 2)
 E0a, E0b = sp.Abs((z1.T * z1)[0]) / 2, sp.Abs(sp.simplify((z2.T * z2)[0])) / 2
 ok2 &= (E6a == E6b == sp.Rational(1, 2)) and E0a == sp.Rational(1, 2) and E0b == 0
+# scope of U(3): (i) not a symmetry of Maxwell's equations on the frame (prop:RS: dz/dt = -i curl z)
+x1s, x2s, x3s, ts_, ks_ = sp.symbols('x1 x2 x3 t k', real=True)
+zwave = sp.Matrix([1, sp.I, 0]) * sp.exp(sp.I * ks_ * (x3s - ts_))
+
+
+def curl3(F):
+    return sp.Matrix([sp.diff(F[2], x2s) - sp.diff(F[1], x3s), sp.diff(F[0], x3s) - sp.diff(F[2], x1s),
+                      sp.diff(F[1], x1s) - sp.diff(F[0], x2s)])
+
+
+def maxwell_res(F):
+    return sp.simplify(sp.diff(F, ts_) + sp.I * curl3(F))
+
+
+ok2 &= maxwell_res(zwave) == sp.zeros(3, 1) and maxwell_res(U * zwave) != sp.zeros(3, 1)
+# (ii) not a symmetry of the split-form interior: G = i*1 lies in U(3) and reverses eta; U(3) cap O(eta) = O(3)
+ok2 &= G.T * ETA * G == -ETA and span_rank(u3 + [G]) == len(u3)
+ok2 &= len(lint_cpt) == 3
+# (iii) the U(3)-invariant symmetric forms on V* are the multiples of 1: of the closures only N = 1/m is U(3)-invariant
+u3_forms = solve_space(SB, [lambda N, A=A: A.T * N + N * A for A in u3])
+ok2 &= len(u3_forms) == 1 and span_rank(u3_forms + [I6]) == 1
 info(f"dim u(3)-type algebra = {len(u3)}, dim Lie(O(3,C)xU(1)_G) = {len(g7)}, intersection dim = "
      f"{len(int_basis)} = span{{L_i, G}}, u(3) cap l_G = so(3) (dim {len(lint_cpt)}); "
-     f"U(3) moves E0 from 1/2 to 0 at E6 = 1/2")
+     f"U(3) moves E0 from 1/2 to 0 at E6 = 1/2; U maps the wave (1,i,0)e^(ik(x3-t)) to a non-solution of "
+     f"dz/dt = -i curl z; G = i*1 reverses eta; U(3)-invariant forms on V*: dim {len(u3_forms)} = R*1")
 report("d1-1b", ok2, "maps preserving E6 and commuting with G form u(3) (dim 9); Lie(O(3,C)xU(1)_G) = l_G + R G "
-       "(dim 7); intersection = so(3) + u(1) (dim 4); U(3) does not preserve E0")
+       "(dim 7); intersection = so(3) + u(1) (dim 4); U(3) does not preserve E0; U(3) is a symmetry of the pointwise "
+       "form E6 (and of the closure only for N = 1/m), not of Maxwell's equations on the frame nor of the split-form "
+       "interior")
 
 # ============================================================================= d1-2a orbits off the null cone
 rng = np.random.default_rng(20261017)
@@ -283,6 +331,11 @@ etaf = np.diag(eta_d).astype(float)
 
 def cdot(a, b):
     return np.sum(a * b)
+
+
+def eG(t):
+    """exp(t G) on V in closed form (G^2 = -1)."""
+    return np.cos(t) * np.eye(6) + np.sin(t) * Gf
 
 
 def ccross(a, b):
@@ -577,7 +630,8 @@ ok9 = worst_t < 1e-9 and worst_f > 1e-3
 info(f"observer at v = S_text/(u+|q|/2) sees S = 0 and u = |q|/2 (worst rel. {worst_t:.1e}, tol 1e-9); with the "
      f"frame vector E x B instead the residual Poynting vector stays >= {worst_f:.2f} E0")
 report("d1-4c", ok9, "s14's rest-frame velocity S/(u+|q|/2) is confirmed with S the textbook Poynting vector "
-       "E x B_t (= -E x B); the energy velocity S/u is beta (+) beta, not beta")
+       "S_t = E x B_t (= -E x B, as s01 stipulates for formulas from the literature); with the frame vector E x B the "
+       "direction would be reversed; the energy velocity S/u is beta (+) beta, not beta")
 
 # ============================================================================= d1-5a SI units
 eps0, cc = sp.symbols('epsilon0 c', positive=True)
@@ -628,11 +682,17 @@ formsc = solve_space(SB, [lambda N, M=M: M.T * N + N * M for M in ell] + [lambda
 ok11 &= len(formsc) == 1 and span_rank(formsc + [sp.diag(cs**2, cs**2, cs**2, 1, 1, 1)]) == 1
 kap_ell = sp.Symbol('ell', positive=True)
 ok11 &= ((cs / kap_ell) * G)**2 == -(cs**2 / kap_ell**2) * I6
+# the weight is a unit convention: Phi = diag(c,c,c,1,1,1) conjugates G_c to G and c^2|B|^2+|E|^2 = |Phi X|^2
+Phi = sp.diag(cs, cs, cs, 1, 1, 1)
+ok11 &= sp.simplify(Phi * Gc * Phi.inv() - G) == sp.zeros(6, 6)
+ok11 &= Phi.T * Phi == sp.diag(cs**2, cs**2, cs**2, 1, 1, 1)
 info("Schur: SO(3)-intertwiners V+ -> V- are c*1; with C = c*1 the duality root G_c = [[0,-1/c],[c,0]] commutes "
      "with the diagonal rotations (distinct c_i would not), and the rotation- and duality-invariant energy is "
-     "c^2|B|^2 + |E|^2 up to scale; (kappa G)^2 = -c^2/ell^2")
-report("d1-5b", ok11, "c enters the undivided energy only as the isotropic weight c^2 of |B|^2, forced by "
-       "Theorem 3.2 (one conversion constant); it is a unit conversion, not a symmetry")
+     "c^2|B|^2 + |E|^2 up to scale; (kappa G)^2 = -c^2/ell^2; Phi = diag(c,c,c,1,1,1): Phi G_c Phi^-1 = G and "
+     "Phi^T Phi = diag(c^2,c^2,c^2,1,1,1)")
+report("d1-5b", ok11, "(1) G_C commutes with the diagonal rotations iff C = c*1 (restates Theorem 3.2); (2) the "
+       "rotation- and duality-invariant energies are the multiples of c^2|B|^2 + |E|^2; the weight c^2 is a unit "
+       "convention, removed by Phi = diag(c,c,c,1,1,1) (B measured as cB); (3) (kappa G)^2 = -c^2/ell^2, ell free")
 
 # ============================================================================= d1-6a standing wave in a periodic cell
 zz, tt_, kk, aa = sp.symbols('z t k a', positive=True)
@@ -718,7 +778,8 @@ for _ in range(300):
     rti &= M >= m_sum - 1e-9
 ok13 &= rti
 report("d1-6b", ok13, "M >= int E0 d^3x with equality only when all T^{0mu} are parallel; two separated "
-       "counter-propagating null pulses have q = 0 everywhere and M = U > 0: the mass of the whole is not interference")
+       "counter-propagating null pulses have q = 0 everywhere and, per unit transverse area, M = U = 512/315 > 0 "
+       "((U,P_z) a two-vector under z-boosts): the mass of the whole is not interference")
 
 # ============================================================================= d1-6c orthogonality blind
 bb = sp.symbols('beta1:4', real=True)
@@ -728,8 +789,9 @@ TB = Tmunu([x * sp.sin(th) for x in bb], [x * sp.cos(th) for x in bb])
 ok14 = (TB - TA).applyfunc(lambda x: sp.simplify(x)) == sp.zeros(4, 4)
 EBB = sp.simplify(dot([x * sp.sin(th) for x in bb], [x * sp.cos(th) for x in bb]))
 ok14 &= sp.simplify(EBB - sp.sin(2 * th) / 2 * dot(bb, bb)) == 0
-report("d1-6c", ok14, "Cauchy data (0, b) and (b sin th, b cos th) have the same T^{mu nu} at every point, hence the "
-       "same U, P, M, while E.B_t = 0 versus (1/2) sin 2th |b|^2: M does not detect orthogonality")
+report("d1-6c", ok14, "(the example of Section 14.4 of ES17) Cauchy data (0, F) and (F sin th, F cos th) have the same "
+       "T^{mu nu} at every point, hence the same U, P, M, while E.B_t = 0 versus (1/2) sin 2th |F|^2: M does not detect "
+       "orthogonality")
 
 # ============================================================================= d1-7 the momentum reading
 E1, E2, E3, p1, p2, p3, mu = sp.symbols('E1 E2 E3 p1 p2 p3 mu', real=True)
@@ -772,7 +834,7 @@ for _ in range(50):
     X0 = rng.normal(size=6)
     zc = X0[:3] + 1j * X0[3:]
     ths = np.linspace(0, np.pi, 20001)
-    vals = [0.5 * (expm(t * Gf) @ X0) @ etaf @ (expm(t * Gf) @ X0) for t in ths[::200]]
+    vals = [0.5 * (eG(t) @ X0) @ etaf @ (eG(t) @ X0) for t in ths[::200]]
     # analytic: (1/2) Re(e^{2i th} q)
     vals2 = 0.5 * np.real(np.exp(2j * ths) * cdot(zc, zc))
     Re_rot.append(abs(vals2.max() - abs(cdot(zc, zc)) / 2) < 1e-6 and
@@ -790,12 +852,16 @@ for a, b in itertools.combinations(range(6), 2):
         kern &= np.array_equal(Tk @ Bv, -Bv @ Tk)
 signs = [np.array_equal(e[a] @ Tk @ np.linalg.inv(e[a]).round().astype(np.int64), Tk) for a in range(6)]
 kern &= signs == [True, True, True, False, False, False]
+# in particular T is an l_G-invariant spinor kernel: X^T T + T X = 0 for X = L_i, K_i (8x8)
+Tsym = sp.Matrix(Tk)
+kern &= all(X.T * Tsym + Tsym * X == sp.zeros(8, 8) for X in Lh + Kh)
 ok16 &= kern
 info("Ad_T|V = eta = parity P (B -> B, E -> -E): anticommutes with G and with the boosts K_i, commutes with L_i; "
      "q(z) = h(Pz, z); E0 = max over duality of (1/2) eta(X,X); T is an so(3,3)-invariant mass kernel whose sign "
      "is flipped by the spatial generators only")
-report("d1-8a", ok16, "on the frame the Dirac mass form acts as parity, not as an l_G-invariant; the rest energy is "
-       "the modulus of the overlap of the field with its mirror image, E0 = |h(Pz,z)|/2, while E6 = h(z,z)/2")
+report("d1-8a", ok16, "on the frame the Dirac mass form acts as parity (it normalises l_G, anticommutes with G and "
+       "the K_i); as a spinor kernel it is invariant under all of so(3,3), l_G included, so 'm <-> T' fails on the frame "
+       "by a type mismatch; E0 = |h(Pz,z)|/2, E6 = h(z,z)/2")
 
 # ============================================================================= d1-8b the stabiliser of E0 in U(3)
 # M = P - iQ in u(3) (P antisymmetric, Q symmetric) preserves |q|^2 iff Re(conj(q) z^T M z) = 0 identically
@@ -826,9 +892,9 @@ ok16b = len(stab_basis) == 4
 ok16b &= sp.Matrix.hstack(*[cvec(M) for M in stab_basis + expected]).rank() == 4
 info(f"u(3) elements preserving |q|: dim {len(stab_basis)} = so(3) + u(1); the U(3)-orbit of the rest-energy "
      f"function |q|/2 has dimension 9 - 4 = 5 (real structures up to phase)")
-report("d1-8b", ok16b, "the stabiliser of the rest energy E0 inside the symmetry U(3) of the undivided energy is "
-       "U(1).O(3) (Lie algebra so(3)+u(1), dim 4): the differentiation E6 -> (E0, |S|) is the reduction U(3) -> "
-       "U(1).O(3) effected by the real structure P = Ad_T")
+report("d1-8b", ok16b, "(inherited) the stabiliser of |z.z| among unitary maps of the Riemann-Silberstein vector is "
+       "U(1).O(3) (Lie algebra so(3)+u(1), dim 4); the orbit U(3)/U(1).O(3) of real structures up to phase has "
+       "dimension 5, and the arena's real structure is P = Ad_T")
 
 # ============================================================================= d1-9 interior dynamics
 kp, mm, tau = sp.symbols('kappa m tau', positive=True)
@@ -857,10 +923,31 @@ target = 2 * sp.re(sp.expand((cm.H * cpl)[0] * sp.exp(2 * sp.I * kp * tau)))
 ok17 &= sp.simplify(sp.expand(osc - target, complex=True)) == 0
 # the equation of motion is independent of m: Xddot = -kappa^2 X (check on the general solution)
 ok17 &= sp.simplify(zt.diff(tau, 2) + kp**2 * zt) == sp.zeros(3, 1)
-info("Noether energy = 2 m kappa^2 Re(c_-.c_+): zero on every zero-momentum orbit, indefinite otherwise; on those "
-     "orbits E6 and E0 are constant; |z|^2 = |c_-|^2 + |c_+|^2 + 2 Re(h(c_-,c_+) e^{2i kappa tau})")
-report("d1-9", ok17, "interior dynamics: m is an overall factor, the Noether energy vanishes on the zero-momentum "
-       "(duality-rotation) orbits that carry constant E6 and E0, so the interior energy is not a rest energy")
+# the other pure sense c_- = 0 (a duality rotation that carries momentum 2i kappa c_+ e^{i kappa tau} != 0): E_N = 0 too
+EN0p = sp.simplify(EN.subs({s_: 0 for s_ in cm.free_symbols}))
+ok17 &= EN0p == 0
+zp_ = zt.subs({s_: 0 for s_ in cm.free_symbols})
+ok17 &= sp.diff(sp.simplify(sp.expand((zp_.H * zp_)[0], complex=True)), tau) == 0
+# q of the frame field: q(z) = e^{-2i kappa tau} c_-.c_- + 2 c_-.c_+ + e^{2i kappa tau} c_+.c_+
+qz = sp.expand((zt.T * zt)[0])
+qform = sp.expand(sp.exp(-2 * sp.I * kp * tau) * (cm.T * cm)[0] + 2 * (cm.T * cpl)[0]
+                  + sp.exp(2 * sp.I * kp * tau) * (cpl.T * cpl)[0])
+ok17 &= sp.simplify(qz - qform) == 0
+# example c_- = e1, c_+ = e2: h(c_-,c_+) = 0 so E6 = 1 constant, Noether energy 0, but E0 = |cos 2 kappa tau| oscillates
+zex = sp.Matrix([sp.exp(-sp.I * kp * tau), sp.exp(sp.I * kp * tau), 0])
+E6ex = sp.simplify(sp.expand((zex.H * zex)[0], complex=True) / 2)
+qex = sp.simplify(sp.expand((zex.T * zex)[0]).rewrite(sp.cos))
+ok17 &= E6ex == 1 and sp.simplify(qex - 2 * sp.cos(2 * kp * tau)) == 0
+# with X a length and kappa = c/ell the energy is m c^2 times a dimensionless amplitude 2 Re(c_-.c_+)/ell^2
+cl, ellq = sp.symbols('c_light ell', positive=True)
+ok17 &= sp.simplify(ENexp.subs(kp, cl / ellq) - mm * cl**2 * 2 * sp.re(sp.expand((cm.T * cpl)[0])) / ellq**2) == 0
+info("Noether energy = 2 m kappa^2 Re(c_-.c_+) (Prop. 16.5(iii)): zero on both pure duality senses (c_+ = 0, no momentum; "
+     "c_- = 0, momentum nonzero), indefinite otherwise; |z|^2 = |c_-|^2 + |c_+|^2 + 2 Re(h(c_-,c_+) e^{2i kappa tau}); "
+     "q(z) = e^{-2ik tau} c_-.c_- + 2 c_-.c_+ + e^{2ik tau} c_+.c_+; example c_- = e1, c_+ = e2: E6 = 1, E0 = |cos 2 kappa tau|")
+report("d1-9", ok17, "interior dynamics: m is an overall factor of the Lagrangian; the Noether energy 2 m kappa^2 "
+       "Re(c_-.c_+) = m c^2 2Re(c_-.c_+)/ell^2 is indefinite and vanishes on the duality rotations of both senses; the "
+       "frame field's E6 is constant iff h(c_-,c_+) = 0 and its E0 oscillates in general, so the interior energy is "
+       "not a rest energy")
 
 # ============================================================================= d1-10 the closure
 mval, I0 = 1.0, 1.3
@@ -914,16 +1001,109 @@ for trial in range(4):
     sol2 = run(p0, Ndual)
     ok18 &= np.ptp(sol2.y[0]) < 1e-10
     ok18 &= abs(0.5 * p0 @ Ndual @ p0 - 0.5 * (p0 @ p0) / mval) < 1e-12
-# null momentum data: the rate is constant for Lorentz-class inertia
+# null momentum data: the rate is constant (and nonzero, h(0) = 2) for Lorentz-class inertia
 pnull = etaf @ np.array([1.0, 0, 0, 0, 1.0, 0]) * 0.8          # pi = (1,0,0;0,1,0)*0.8, z(pi) ~ (1,i,0)
 soln = run(pnull, Nlor)
-ok18 &= abs(w_of(pnull)[0]) < 1e-14 and np.ptp(soln.y[0]) < 1e-10
+ok18 &= abs(w_of(pnull)[0]) < 1e-14 and np.ptp(soln.y[0]) < 1e-10 and abs(soln.y[0][0]) > 1
+# Corollary 17.14 qualifiers.  (i) E0(pi0) > 0 with h(0) = 0 at a phase 2theta(0)+phi0 not in pi Z: h varies
+p0 = rng.normal(size=6)
+w0, _ = w_of(p0)
+psi0 = np.angle(ab * w0)
+ok18 &= abs(np.sin(psi0)) > 1e-2 and np.ptp(run(p0, Nlor, h0=0.0, T=5.0).y[0]) > 1e-3
+# (ii) the equilibria h(0) = 0, 2theta(0)+phi0 in pi Z: pi0 = e1 (E0 = 1/2), (nu1,nu2) = (+-1,0): exact fixed points,
+#      so the rate is constant (zero) although E0(pi0) != 0
+peq = etaf @ np.array([1.0, 0, 0, 0, 0, 0])
+for sgn in (1.0, -1.0):
+    Neq = sgn * etaf / mval
+    vf = rhs(0.0, np.concatenate([[0.0], peq, [0.0]]), Neq)
+    ok18 &= np.all(vf[:7] == 0.0) and abs(w_of(peq)[0]) == 1.0
+    ok18 &= np.ptp(run(peq, Neq, h0=0.0, T=10.0).y[0]) == 0.0
+# (iii) (nu1,nu2) = (0,0): rate constant for all data
+ok18 &= np.ptp(run(rng.normal(size=6), 0 * etaf, h0=0.8).y[0]) < 1e-14
+# exact reasoning behind the corrected statement: hdot = (R0/m) sin(2theta+phi0), so h constant forces sin = 0 along the
+# flow, hence theta constant, hence h = I0 thetadot = 0 (checked: hdot formula along the flow)
+sol = run(p0, Nlor, h0=1.1, T=6.0)
+R0e = ab * w0
+hd = np.array([-sol.y[1:7, k] @ Gf @ Nlor @ sol.y[1:7, k] for k in range(sol.y.shape[1])])
+ok18 &= np.max(np.abs(hd - abs(R0e) / mval * np.sin(2 * sol.y[7] + np.angle(R0e)))) < 1e-9
 info("Lie-Poisson flow (DOP853, rtol=atol=1e-12, 4 random momenta): |p|^2 = 2 E6(pi), |w| = 2 E0(pi), S(pi) and H "
-     "conserved to 1e-9; w = e^{2i theta} w0; pendulum energy matches H; R0/(2m) = |a+ib| E0(pi)/m; h varies; "
-     "null data or N = 1/m: h constant to 1e-10")
-report("d1-10", ok18, "in the closure the undivided energy of the momentum is the Casimir |p|^2/2, and its rest part "
-       "E0(pi) is exactly the amplitude that breaks the rotor's duality translation: the rate kappa = h/I0 is constant "
-       "iff E0(pi) = 0")
+     "conserved to 1e-9; w = e^{2i theta} w0; pendulum energy matches H; R0/(2m) = |nu1+i nu2| E0(pi)/m; h varies; "
+     "null data or N = 1/m: h constant to 1e-10; equilibria pi0 = e1, h(0) = 0, (nu1,nu2) = (+-1,0): exact fixed "
+     "points with E0(pi0) = 1/2; (nu1,nu2) = (0,0): h constant")
+report("d1-10a", ok18, "closure (restates Prop. 17.8, Thm 17.13, Cor 17.14): E6(pi) = |p|^2/2, E0(pi) and S(pi) of the "
+       "momentum field are Casimirs; for Lorentz-class N, (nu1,nu2) != (0,0), the duality pendulum has amplitude "
+       "|nu1+i nu2| E0(pi0)/m and the rate is constant and nonzero iff E0(pi0) = 0 and h(0) != 0, constant for "
+       "E0(pi0) > 0 only at the equilibria h(0) = 0, 2theta(0)+phi0 in pi Z, where it vanishes; N = 1/m: rate constant")
+
+# ============================================================================= d1-10b the frame field is not conserved
+from scipy.special import ellipk, ellipe
+
+
+def rhs_frame(t, y, N):
+    h, p, th = y[0], y[1:7], y[7]
+    dp = (h / I0f) * (Gf.T @ p)
+    dh = -p @ Gf @ N @ p
+    dx = eG(th) @ (N @ p)              # (theta,x)^{-1} d/dtau (theta,x) = (h/I0, N p)  (Theorem 17.12)
+    return np.concatenate([[dh], dp, [h / I0f], dx])
+
+
+def frame_run(p0, N, h0, nper):
+    evs = [(lambda t, y, *args, n=n: y[7] - n * np.pi) for n in range(1, nper + 1)]
+    for ev in evs:
+        ev.direction = 1
+    y0 = np.concatenate([[h0], p0, [0.0], np.zeros(6)])
+    Tmax = 4 * nper * np.pi * I0f / abs(h0) + 50
+    return solve_ivp(rhs_frame, (0, Tmax), y0, args=(N,), method='DOP853', rtol=1e-12, atol=1e-13, events=evs)
+
+
+def qX(x):
+    zx = x[:3] + 1j * x[3:]
+    return cdot(zx, zx)
+
+
+ok19b = True
+# (a) Example 17.17 data: p0 = e^1, m = I0 = kappa0 = 1, (nu1,nu2) = (1,0): Delta x per period = (4K(-2) - 2E(-2)) e1
+I0f = 1.0
+Dx = 4 * ellipk(-2.0) - 2 * ellipe(-2.0)
+solf = frame_run(etaf @ np.array([1.0, 0, 0, 0, 0, 0]), etaf / 1.0, 1.0, 6)
+xs = [solf.y_events[n][0][8:14] for n in range(6)]
+ok19b &= all(np.max(np.abs(xs[n] - (n + 1) * Dx * np.array([1.0, 0, 0, 0, 0, 0]))) < 1e-9 for n in range(6))
+E0fr = [abs(qX(x)) / 2 for x in xs]
+E6fr = [0.5 * x @ x for x in xs]
+ok19b &= all(abs(E0fr[n] - ((n + 1) * Dx)**2 / 2) < 1e-8 for n in range(6)) and all(np.diff(E0fr) > 0)
+ok19b &= all(abs(E6fr[n] - E0fr[n]) < 1e-8 for n in range(6))
+# (b) random data in the rotating regime: Delta x = lambda e^{-phi0 G} N p0 with lambda > 0 (Theorem 17.16), and
+#     q(Delta x) = lambda^2 e^{-2i phi0} (nu1+i nu2)^2 q(pi0)/m^2 != 0, so q(x0 + n Delta x) grows like n^2
+I0f = 3.0
+nu = 0.6 - 0.5j
+Nr = (nu.real * etaf + nu.imag * (Gf @ etaf)) / mval
+pr = rng.normal(size=6)
+wr, zr = w_of(pr)
+phi0r = np.angle(nu * wr)
+h0r = 2.5
+eps_r = abs(nu * wr) / (mval * I0f * (h0r / I0f)**2)
+ok19b &= eps_r * 2 < 1                      # rotating for every phase
+solr = frame_run(pr, Nr, h0r, 3)
+xr = [solr.y_events[n][0][8:14] for n in range(3)]
+dxr = xr[0]
+vdir = eG(-phi0r) @ (Nr @ pr)
+lam = (dxr @ vdir) / (vdir @ vdir)
+ok19b &= lam > 0 and np.linalg.norm(dxr - lam * vdir) < 1e-8 * np.linalg.norm(dxr)
+ok19b &= all(np.linalg.norm(xr[n] - (n + 1) * dxr) < 1e-8 for n in range(3))
+qpi0 = cdot(zr, zr)
+ok19b &= abs(qX(dxr) - lam**2 * np.exp(-2j * phi0r) * nu**2 * qpi0 / mval**2) < 1e-8 * abs(qX(dxr))
+from scipy.integrate import quad
+k0 = h0r / I0f
+psi0r = phi0r                               # theta(0) = 0
+lam_formula = 0.5 * quad(lambda ps: np.cos(ps) / (abs(k0) * np.sqrt(1 + eps_r * (np.cos(psi0r) - np.cos(ps)))),
+                         0, 2 * np.pi, epsabs=1e-13, epsrel=1e-13)[0]
+ok19b &= abs(lam - lam_formula) < 1e-7 * abs(lam_formula)
+info(f"frame under the free rotor: Example 17.17 data, x(theta = n pi) = n (4K(-2)-2E(-2)) e1 = n * {Dx:.10f} e1 "
+     f"(n = 1..6, tol 1e-9); frame-field E0 = E6 = {', '.join(f'{v:.4f}' for v in E0fr)}; random rotating datum: "
+     f"Delta x = lambda e^(-phi0 G) N p0, lambda = {lam:.6f} (Thm 17.16 integral {lam_formula:.6f}), q(Delta x) != 0")
+report("d1-10b", ok19b, "the frame field is not conserved: in the clamped interior its E6 and E0 oscillate (d1-9), and "
+       "under the free-rotor drift (Thm 17.16) x(n periods) = x0 + n Delta x with q(Delta x) != 0 when E0(pi0) > 0, so "
+       "the frame field's E6 and E0 grow without bound")
 
 # ============================================================================= d1-11 where the b-field belongs
 # one constituent: elements of so(3,3) preserving E.B (equivalently q, equivalently |q|) are exactly l_G
@@ -950,6 +1130,42 @@ def ad_abstract(A, Bi, etad):
 
 
 ok19 &= all(ad_abstract(a, b, eta_d) == ad6(e[a] @ e[b]) for a, b in itertools.combinations(range(6), 2))
+# admissible (compact) Yang-Mills generators: the same-sign bivectors, so(3)_T + so(3)_S (Theorem 2.3, Corollary 2.4)
+cpt = [ad6(e[a] @ e[b]) for a, b in itertools.combinations(range(6), 2) if eta_d[a] == eta_d[b]]
+ok19 &= len(cpt) == 6 and span_rank(cpt) == 6 and all(M.T == -M for M in cpt)          # preserve E6 = |X|^2/2
+cv2 = sp.symbols('y0:15')
+Ay = sum((cv2[k] * so33[k] for k in range(15)), sp.zeros(6, 6))
+sol_anti = sp.solve(list(Ay * G + G * Ay), cv2, dict=True)
+Aanti = Ay.subs(sol_anti[0])
+bas_p = [Aanti.diff(s_) for s_ in sorted(Aanti.free_symbols, key=lambda s_: s_.name)]
+ok19 &= len(bas_p) == 9                                                                 # so(3,3) = l_G + p_G, 6 + 9
+# compact cap l_G = diagonal rotations (dim 3); compact cap p_G = anti-diagonal rotations (dim 3)
+ok19 &= span_rank(cpt + ell) == 6 and span_rank(cpt + ell + kap) == 6 + 6 - 3 and span_rank(cpt + bas_p) == 6 + 9 - 3
+R3 = sp.Matrix([[0, -1, 0], [1, 0, 0], [0, 0, 0]])
+Dg = sp.diag(R3, R3)
+Da = sp.diag(R3, -R3)                                   # rotate B by +theta, E by -theta about e3
+ok19 &= span_rank(cpt + [Dg]) == 6 and span_rank(cpt + [Da]) == 6
+ok19 &= comm(Dg, G) == sp.zeros(6, 6) and Da * G + G * Da == sp.zeros(6, 6)
+# the anti-diagonal part preserves Re q = |B|^2-|E|^2 and E6 but not E.B; pi/4 carries the null (1,i,0) to rest
+dReq = sp.expand((Xs.T * (Da.T * ETA + ETA * Da) * Xs)[0])
+dImq = sp.expand((Xs.T * (Da.T * ETAG + ETAG * Da) * Xs)[0])
+ok19 &= dReq == 0 and dImq != 0
+th4 = sp.pi / 4
+expDa = sp.eye(6) + sp.sin(th4) * Da + (1 - sp.cos(th4)) * Da * Da                    # Da^3 = -Da
+ok19 &= Da**3 == -Da
+Xn = sp.Matrix([1, 0, 0, 0, 1, 0])                     # z = (1, i, 0): null, E6 = 1
+Yn = sp.simplify(expDa * Xn)
+zY = zfromX(list(Yn))
+ok19 &= list(Yn) == [sp.sqrt(2) / 2, sp.sqrt(2) / 2, 0, sp.sqrt(2) / 2, sp.sqrt(2) / 2, 0]
+ok19 &= sp.simplify(sp.Abs(sp.expand(dot(zY, zY))) / 2) == 1 and sp.simplify((Yn.T * Yn)[0] / 2) == 1
+info(f"so(3,3) elements preserving E.B: dim {len(bas_q)} = l_G; anticommuting part p_G: dim {len(bas_p)}; compact "
+     f"so(3)_T + so(3)_S (dim 6, antisymmetric) meets l_G in the diagonal rotations and p_G in the anti-diagonal ones "
+     f"(dim 3 each); the anti-diagonal pi/4 rotation about e3 maps the null (1,i,0) to ((1+i)/sqrt2)(1,1,0): E0 0 -> 1 "
+     f"at E6 = 1, preserving Re q but not E.B")
+report("d1-11a", ok19, "one constituent: Y in so(3,3) preserves E.B (equivalently q, E0) for all X iff Y in l_G; an "
+       "admissible (compact) generator b = (A+D, A-D) preserves E6 and preserves E0 for all X iff D = 0 (a diagonal "
+       "rotation); its anti-diagonal part (D,-D) in p_G changes E0 at fixed E6 (null (1,i,0) -> rest, E0 0 -> 1)")
+ok19 = True
 # three constituents
 eta3 = eta_d * 3
 ETA3 = sp.diag(*eta3)
@@ -994,12 +1210,42 @@ sE0_b = sum(sp.Abs(x[1]) / 2 for x in before)
 sE0_a = sum(sp.Abs(x[1]) / 2 for x in after)
 ok19 &= sp.simplify(tot6_b - tot6_a) == 0 and sp.simplify(totq_b - totq_a) == 0
 ok19 &= sp.simplify(sE0_b - sp.Rational(1, 2)) == 0 and sp.simplify(sE0_a - sp.Rational(3, 2)) == 0
-info(f"so(3,3) elements preserving E.B: dim {len(bas_q)} = l_G; so(4)_Delta (dim 6) commutes with G_3, is compact and "
-     f"preserves q_3 = sum_k z^(k).z^(k); example: per-constituent (E6, q) {before} -> {after}: total E6 "
-     f"{tot6_b} and total q {totq_b} fixed, sum of E0^(k) {sE0_b} -> {sE0_a}")
-report("d1-11", ok19, "a transport generator of so(3,3) preserves E0 for all fields iff it lies in l_G; the "
-       "binding-compatible so(4)_Delta = su(2)+su(2) preserves the total E6 and total q at three constituents, so it "
-       "redistributes rest energy between constituents but cannot create it")
+# so(4)_Delta consists of paired rotations: in the basis (temporal; partners) every element is [[R,0],[0,R]], R antisym.
+perm = [6 * k + j for k in range(3) for j in range(3)] + [6 * k + 3 + j for k in range(3) for j in range(3)]
+Pm = sp.zeros(18, 18)
+for r_, c_ in enumerate(perm):
+    Pm[r_, c_] = 1
+for M in so4D:
+    Mp = Pm * M * Pm.T
+    ok19 &= Mp[:9, 9:] == sp.zeros(9, 9) and Mp[9:, :9] == sp.zeros(9, 9) and Mp[:9, :9] == Mp[9:, 9:]
+    ok19 &= Mp[:9, :9].T == -Mp[:9, :9]
+# the Lorentz length of the summed density (sum_k E6; sum_k S_t) is NOT preserved: sqrt5/2 -> 3/2
+def summed(Y):
+    u_, St = 0, [0, 0, 0]
+    for k in range(3):
+        Bk = [Y[6 * k + j] for j in range(3)]
+        Ek = [Y[6 * k + 3 + j] for j in range(3)]
+        u_ += (dot(Bk, Bk) + dot(Ek, Ek)) / 2
+        Sk = cross(Ek, [-x for x in Bk])               # textbook S_t = E x B_t
+        St = [St[j] + Sk[j] for j in range(3)]
+    return sp.simplify(u_), [sp.simplify(x) for x in St]
+
+
+u_b, S_b = summed(X3)
+u_a, S_a = summed(Y3)
+L_b = sp.sqrt(u_b**2 - dot(S_b, S_b))
+L_a = sp.sqrt(u_a**2 - dot(S_a, S_a))
+ok19 &= u_b == u_a == sp.Rational(3, 2) and S_b == [0, 0, 1] and S_a == [0, 0, 0]
+ok19 &= sp.simplify(L_b - sp.sqrt(5) / 2) == 0 and sp.simplify(L_a - sp.Rational(3, 2)) == 0
+ell3 = [sp.diag(M, M, M) for M in ell]
+ok19 &= any(comm(Rg, M) != sp.zeros(18, 18) for M in ell3)
+info(f"so(4)_Delta (dim 6) commutes with G_3, consists of paired rotations [[R,0],[0,R]] and preserves |Z|^2 and "
+     f"q_3 = sum_k z^(k).z^(k); example: per-constituent (E6, q) {before} -> {after}: total E6 {tot6_b} and q_3 "
+     f"{totq_b} fixed, sum of E0^(k) {sE0_b} -> {sE0_a}; summed density ({u_b}; {S_b}) -> ({u_a}; {S_a}), Lorentz "
+     f"length {L_b} -> {L_a}; rot(7,13) does not commute with the diagonal rotations")
+report("d1-11b", ok19, "three constituents: so(4)_Delta = ps_W cap Cent(G_3) consists of paired rotations, so it "
+       "preserves the so(9,C) invariants |Z|^2/2 and q_3 (hence |q_3|/2); it changes the sum of constituent rest "
+       "energies (1/2 -> 3/2) and the Lorentz length of the summed density (sqrt5/2 -> 3/2)")
 
 # ============================================================================= done
 if FAILED:

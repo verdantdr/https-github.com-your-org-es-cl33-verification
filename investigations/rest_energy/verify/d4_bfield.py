@@ -17,8 +17,16 @@ Exactness: one-constituent statements are checked in exact rational / Gaussian-r
 (characteristic polynomials, ranks, null spaces, symbolic identities in kappa, beta, m).  Semisimplicity is tested
 exactly: M is semisimple iff the square-free part of its characteristic polynomial annihilates M.  The
 three-constituent Clifford computations use integer sparse matrices (exact).  Numerical checks (Krein signatures,
-integration of the split virial identity, dimension of the bounded set, mpmath root of the gap equation) state
+integration of the split virial identity, Jacobian ranks of the bounded set, mpmath root of the gap equation) state
 their tolerances where they are made.  Runtime is well under a minute.
+
+Gauge admissibility (Theorem 2.3 / Corollary 2.4 of the paper): a Yang-Mills b-field takes values in the compact part
+so(3) + so(3) of so(3,3), written b = diag(A + C, A - C) on the two triples (rotation vectors a +- c); the diagonal part
+(A, A) lies in l_G, the anti-diagonal part (C, -C) in p_G.  Boost-valued b (K_i, the pairing boosts sigma_j, the grading
+root, the gyroscopic b_Sigma) are metric connections in the sense of Proposition 16.7, not gauge fields.  Revised after
+the adversarial check x4_check.py (claims d4-26 compact screening and d4-27 unlocked Pati-Salam example are new; d4-19 no
+longer asserts that only so(4)_Delta is bounded).  Interpretive and open claims of the section (d4-21r, d4-S-*, d4-I*)
+have no PASS line.
 """
 import itertools
 import sys
@@ -173,6 +181,17 @@ def cross_mat(i):
     return M
 
 
+def so3m(v):
+    """Matrix of x -> v x x on R^3."""
+    x, y, z = v
+    return sp.Matrix([[0, -z, y], [z, 0, -x], [-y, x, 0]])
+
+
+def b_compact(a, c):
+    """Compact (gauge-admissible) connection diag(A + C, A - C): rotation vectors a + c (first triple), a - c (second)."""
+    return sp.diag(so3m([a[i] + c[i] for i in range(3)]), so3m([a[i] - c[i] for i in range(3)]))
+
+
 def zmatrix(A):
     """For A commuting with G: complex 3x3 matrix of its action on z = B + iE."""
     P = A[:3, :3]
@@ -209,9 +228,10 @@ def _c0():
 
 
 # ============================================================================================= d4-1, d4-2, d4-3
-@claim("d4-1", "End(V) = so(3,3) (+) Sym_eta, dims 15 + 21 = 36; G in Sym_eta, K in so(3,3); for S = b + kappa G "
-               "(b in so(3,3) generic, 15 symbols) the eta-antisymmetric part of S is b and the self-adjoint part kappa G; "
-               "the Euler-Lagrange operator is (D - kappa G)(D + kappa G) with D = d/dtau + b, i.e. D^2 X + kappa^2 X + kappa[b,G] X = 0")
+@claim("d4-1", "End(V) = so(3,3) (+) Sym_eta, dims 15 + 21 = 36 (Theorem 17.3 at n = 1, restated); G in Sym_eta, K in so(3,3) "
+               "(Prop. 3.3, restated); for S = b + kappa G (b in so(3,3) generic, 15 symbols) the eta-antisymmetric part of S is b and the "
+               "self-adjoint part kappa G; the Euler-Lagrange operator is (D - kappa G)(D + kappa G) with D = d/dtau + b, i.e. "
+               "D^2 X + kappa^2 X + kappa[b,G] X = 0 (fixed)")
 def _c1():
     sym_basis = []
     for a in range(6):
@@ -251,9 +271,9 @@ def cayley(A, t):
     return (sp.eye(A.shape[0]) - t * A).inv() * (sp.eye(A.shape[0]) + t * A)
 
 
-@claim("d4-2", "gauge covariance: for g(tau) = Cayley(tau A) in SO(3,3), alpha_+(gY) = g(d/dtau + b' + kappa G')Y with "
-               "b' = g^-1 b g + g^-1 gdot in so(3,3) (inhomogeneous: a connection) and G' = g^-1 G g in Sym_eta (homogeneous: a tensor); "
-               "D_tau G = [b,G] transforms covariantly")
+@claim("d4-2", "gauge covariance (inherited transformation law): for g(tau) = Cayley(tau A) in SO(3,3), alpha_+(gY) = "
+               "g(d/dtau + b^g + kappa g^-1 G g)Y with b^g = g^-1 b g + g^-1 gdot in so(3,3) (inhomogeneous: a connection) and "
+               "g^-1 G g in Sym_eta (homogeneous: a tensor); D_tau G = [b,G] transforms covariantly")
 def _c2():
     t = sp.Symbol('t')
     A = R(1, 4) + 2 * R(2, 3) - R(3, 5) + sp.Rational(1, 2) * R(4, 6)
@@ -279,7 +299,9 @@ def projections(b):
 
 @claim("d4-3", "so(3,3) = l_G (+) p_G (commuting / anticommuting with G), dims 6 + 9; Ad_G preserves so(3,3) and is an involution; "
                "Killing form = 4 tr: signature (3+,3-) on l_G and (6+,3-) on p_G (3 compact, 6 boost directions); "
-               "l_G = {z -> (P+iQ)z}, p_G = {z -> A conj(z), A anti-Hermitian}; K and the pairing-plane boosts lie in p_G")
+               "l_G = {z -> (P+iQ)z}, p_G = {z -> (C+i Sigma) conj(z), C antisymmetric, Sigma symmetric}; K and the pairing-plane boosts "
+               "lie in p_G; the compact (gauge-admissible) part so(3)+so(3) = {diag(A+C, A-C)} splits as (A,A) in l_G (z -> a x z, w = a "
+               "real) plus (C,-C) in p_G (z -> c x conj z, Sigma = 0)")
 def _c3():
     ok = True
     xs = sp.symbols('x0:15')
@@ -324,6 +346,22 @@ def _c3():
         sig_[a - 1, a + 2] = 1
         sig_[a + 2, a - 1] = 1
         ok &= dag(sig_) == -sig_ and sig_ * G + G * sig_ == Z6
+    # compact part: span of R(a,b) with a,b in the same triple = {diag(U, V)}, U, V antisymmetric (Thm 2.3)
+    av = sp.symbols('a1:4', real=True)
+    cv = sp.symbols('c1:4', real=True)
+    Am, Cm = so3m(av), so3m(cv)
+    bc = sp.diag(Am + Cm, Am - Cm)
+    comp = [R(a, b) for (a, b) in PAIRS if (a <= 3) == (b <= 3)]
+    ok &= len(comp) == 6 and all(x.T == -x for x in comp) and dag(bc) == -bc
+    ok &= rank_q(sp.Matrix([list(x) for x in comp])) == 6
+    bl, bp = projections(bc)
+    ok &= zero_mat(bl - sp.diag(Am, Am)) and zero_mat(bp - sp.diag(Cm, -Cm))
+    ok &= zero_mat(zmatrix(bl) - Am)                     # z -> a x z with w = a real
+    # (C,-C) acts as z -> c x conj(z): B + iE -> c x B - i c x E
+    Bv = sp.Matrix(sp.symbols('B1:4', real=True))
+    Ev = sp.Matrix(sp.symbols('E1:4', real=True))
+    out = bp * Bv.col_join(Ev)
+    ok &= zero_mat(out[:3, 0] + sp.I * out[3:, 0] - Cm * (Bv - sp.I * Ev))
     return ok
 
 
@@ -361,8 +399,8 @@ b_rot = beta * (R(1, 2) - R(4, 5))
 
 
 @claim("d4-5", "(i) b = beta(R12 - R45) in l_G (= -beta L_3, rotation): spec M = +-i kappa, +-i(kappa+beta), +-i(kappa-beta), each double; "
-               "Y = -G/(2 kappa m) solves A Y - Y D = -1/m for EVERY b in l_G (6 symbols), so M ~ diag(A,D) is semisimple and all motion "
-               "is bounded; the three-pair degeneracy is lifted (exact semisimplicity at kappa=1, beta=3/7 and kappa=1, beta=3/2)")
+               "Xi = -G/(2 kappa m) solves -S Xi - Xi S^dag = -1/m for EVERY b in l_G (6 symbols), so M ~ diag(-S, S^dag) is semisimple "
+               "and all motion is bounded; the three-pair degeneracy is lifted (exact semisimplicity at kappa=1, beta=3/7 and kappa=1, beta=3/2)")
 def _c5():
     ok = (R(1, 2) - R(4, 5)) * G == G * (R(1, 2) - R(4, 5)) and (R(1, 2) + R(4, 5)) * G == -G * (R(1, 2) + R(4, 5))
     ok &= (R(1, 2) - R(4, 5)) == -L3
@@ -385,8 +423,10 @@ def _c5():
 
 
 @claim("d4-6", "general b = sum(w_r L + w_b K) in l_G, w = w_r + i w_b in C^3: chi_S = (lam^2+kappa^2) |(lam - i kappa)^2 + w.w|^2; "
-               "all motion bounded iff w = 0 or w.w > 0 (a 'magnetic-type' connection), frequencies kappa, |kappa +- sqrt(w.w)|; "
-               "null w (w.w = 0, w != 0) gives a non-semisimple S already at zero momentum")
+               "in the frame where b is constant all motion is bounded iff exp(-b tau) is bounded iff w = 0 or w.w > 0 (b elliptic), "
+               "frequencies kappa, |kappa +- sqrt(w.w)|; null w (w.w = 0, w != 0) gives a non-semisimple S already at zero momentum; "
+               "for a gauge-admissible (compact) b in l_G, w is real and this always holds; the co-moving variable exp(b tau)X obeys "
+               "the b = 0 binding for every b in l_G")
 def _c6():
     br = sp.symbols('br1:4', real=True)
     bb = sp.symbols('bb1:4', real=True)
@@ -409,29 +449,67 @@ def _c6():
     hyp = bw([0, 0, 0], [0, 0, sp.Rational(1, 2)])    # w = (0,0,i/2): w.w = -1/4
     ev = list(sp.Matrix(hyp + G).eigenvals().keys())
     ok &= any(sp.re(sp.nsimplify(e_)) != 0 for e_ in ev)
+    # lab-frame boundedness <=> exp(-b tau) bounded (b semisimple with imaginary spectrum), on elliptic (w.w = 3, 1),
+    # real (compact), hyperbolic (w.w = -3), loxodromic (w.w = -1 + 2i) and null examples; the exact test of 'imaginary spectrum' counts the real roots of chi_b(i w)
+    om_ = sp.Symbol('om', real=True)
+
+    def b_elliptic(bm):
+        # all roots of chi(i w) real  <=>  all roots of |chi(i w)|^2 = qr^2 + qi^2 (real coefficients) real
+        q = sp.expand(bm.charpoly(lam).as_expr().subs(lam, sp.I * om_))
+        qr, qi = sp.re(q), sp.im(q)
+        rpoly = sp.Poly(sp.expand(qr ** 2 + qi ** 2), om_)
+        imag = len(sp.real_roots(rpoly)) == 2 * bm.shape[0]
+        return imag and is_semisimple(bm)
+
+    cases = [([2, 0, 0], [0, 1, 0], True), ([sp.Rational(1, 3), sp.Rational(-1, 2), 1], [0, 0, 0], True),
+             ([1, 0, 0], [0, 2, 0], False), ([1, 1, 0], [0, 0, 1], True), ([1, 0, 0], [1, 1, 0], False),
+             ([1, 0, 0], [0, 1, 0], False)]
+    for wr, wb, expect in cases:
+        bm = bw(wr, wb)
+        bdd = is_semisimple(phase_M(bm, 1, 1)) and b_elliptic(-(bm + G))
+        ok &= (bdd == b_elliptic(bm) == expect)
+    # compact b in l_G <=> w real: then w.w = |w|^2 >= 0, so every compact commuting connection keeps the motion bounded
+    wre = sp.symbols('u1:4', real=True)
+    bre = sum((wre[i] * Lg[i + 1] for i in range(3)), Z6)
+    ok &= bre.T == -bre and zero_mat(zmatrix(bre) - so3m(wre))
+    # co-moving frame: exp(-b tau) commutes with G, so (d/dtau + b + kappa G)(exp(-b tau) Y) = exp(-b tau)(Ydot + kappa G Y)
+    # (every power of b commutes with G); checked numerically with expm at a complex elliptic w
+    bnum = np.array(bw([2, 0, 0], [0, 1, 0]), dtype=float)
+    Gnum = np.array(G, dtype=float)
+    Eb = sla.expm(-0.77 * bnum)
+    Yn, Ydn = np.arange(1., 7.), np.arange(6., 0., -1.)
+    lhs = -bnum @ Eb @ Yn + Eb @ Ydn + (bnum + Gnum) @ Eb @ Yn
+    ok &= np.allclose(lhs, Eb @ (Ydn + Gnum @ Yn), atol=1e-12) and zero_mat(b * G - G * b)
     return ok
 
 
-@claim("d4-7", "(ii) b = beta K_3 (l_G boost): chi_M = (lam^2+kappa^2)^2 ((lam -+ beta)^2 + kappa^2)^2: exponents +-beta +- i kappa, "
-               "complex with real part +-beta (not real): growing spirals at the rest frequency")
+@claim("d4-7", "b = beta K_3 (l_G boost, a metric connection, not a gauge generator): chi_M = (lam^2+kappa^2)^2 ((lam -+ beta)^2 + "
+               "kappa^2)^2: exponents +-beta +- i kappa, complex with real part +-beta (not real): spirals at the binding frequency; "
+               "the growth is the boost factor exp(-beta K_3 tau) (K_3 symmetric with eigenvalues +-1, 0), the co-moving motion "
+               "being the bounded b = 0 binding")
 def _c7():
     chi = charM(beta * Kg[3])
     pred = (lam ** 2 + kap ** 2) ** 2 * ((lam - beta) ** 2 + kap ** 2) ** 2 * ((lam + beta) ** 2 + kap ** 2) ** 2
     ok = poly_eq(chi, pred)
     roots = sp.roots(sp.Poly(sp.expand((lam - beta) ** 2 + kap ** 2), lam))
     ok &= set(roots) == {beta + sp.I * kap, beta - sp.I * kap}
+    # K_3 is a boost (matrix-symmetric, real eigenvalues), L_3 a rotation (antisymmetric): exp(-beta K_3 tau) grows like cosh
+    ok &= Kg[3].T == Kg[3] and Lg[3].T == -Lg[3] and Kg[3].eigenvals() == {1: 2, -1: 2, 0: 2}
+    ok &= Kg[3] * G == G * Kg[3]           # so the co-moving variable obeys the b = 0 binding (as in d4-6)
     return ok
 
 
 b_pc = beta * (R(1, 2) + R(4, 5))
 
 
-@claim("d4-8", "(iii) b = beta(R12 + R45) in p_G (compact): (b + kappa G)^2 = b^2 - kappa^2; chi_M = (lam^2+kappa^2)^2 (lam^2+kappa^2+beta^2)^4; "
+@claim("d4-8", "compact anti-diagonal b = beta(R12 + R45) = (C,-C), c = -beta e_3, in p_G (gauge-admissible): (b + kappa G)^2 = b^2 - kappa^2; "
+               "chi_M = (lam^2+kappa^2)^2 (lam^2+kappa^2+beta^2)^4; "
                "at kappa=4, beta=3: +-5i have algebraic multiplicity 4 and geometric 2 (Jordan blocks of size 2), +-4i are semisimple; "
                "the bounded initial data are exactly {pi_1 = pi_2 = pi_4 = pi_5 = 0} (dim 8): no momentum on the support of b")
 def _c8():
     S = b_pc + kap * G
     ok = zero_mat(S * S - (b_pc * b_pc - kap ** 2 * I6))
+    ok &= zero_mat(b_pc - b_compact([0, 0, 0], [0, 0, -beta])) and zero_mat(R(1, 2) - R(4, 5) - b_compact([0, 0, -1], [0, 0, 0]))
     ok &= poly_eq(charM(b_pc), (lam ** 2 + kap ** 2) ** 2 * (lam ** 2 + kap ** 2 + beta ** 2) ** 4)
     Mv = phase_M(b_pc.subs(beta, 3), 4, 1)
     I12 = sp.eye(12)
@@ -451,9 +529,10 @@ def _c8():
     return ok
 
 
-@claim("d4-9", "(iv) pairing-plane boost b = c sigma on (e3,e6) (in p_G): exponents +-sqrt(c^2 - kappa^2) (Prop. 16.7), "
-               "M^2 - (c^2 - kappa^2) = [[0, -2c sigma/m],[0,0]] on the plane; Jordan blocks below (c=1/2), above (c=2) and at the "
-               "threshold (c=kappa, where S is nilpotent); the grading root as a connection: (cK + kappa G)^2 = (c^2 - kappa^2) 1 on all of V")
+@claim("d4-9", "pairing-plane boost b = nu sigma_3 on (e3,e6) (in p_G; a metric connection, not a gauge field): exponents "
+               "+-sqrt(nu^2 - kappa^2) and M^2 - (nu^2 - kappa^2) = [[0, -2 nu sigma/m],[0,0]] on the plane, with Jordan blocks below "
+               "(nu=1/2, rank(M^2+3/4) = 2), above (nu=2) and at the threshold (nu=kappa, S nilpotent): re-verifies Prop. 16.7 and the "
+               "computation after it; the grading root as a connection: (nu K + kappa G)^2 = (nu^2 - kappa^2) 1 on all of V")
 def _c9():
     sig = sp.zeros(6, 6)
     sig[2, 5] = 1
@@ -558,9 +637,11 @@ def b_gyro(a, c, d):
     return a * L3 + bp_of(sp.Matrix([[c, d, 0], [d, -c, 0], [0, 0, 0]]))
 
 
-@claim("d4-11", "criterion (v): M semisimple <=> A, D semisimple and A Y - Y D = -1/m solvable (Roth) <=> E_mu(S^dag) and E_-mu(S^dag) "
-                 "eta-orthogonal for all mu (for imaginary spectra: every momentum normal mode eta-null, <eta(pi,pi)> = 0); "
-                 "checked exactly (semisimplicity, Sylvester rank over Q) and numerically (isotropy, tol 1e-8) on 7 test connections")
+@claim("d4-11", "criterion: M semisimple <=> -S, S^dag semisimple and -S Xi - Xi S^dag = -1/m solvable (Roth) <=> E_mu(S^dag) and E_-mu(S^dag) "
+                 "eta-orthogonal for all mu (for imaginary spectra: every momentum normal mode eta-null, <eta(pi,pi)> = 0 "
+                 "for omega != 0); checked exactly (semisimplicity, Sylvester rank over Q) and numerically (isotropy, tol 1e-8) on 10 test "
+                 "connections, including a compact screened one (bounded), the exceptional compact case |a|^2 = kappa^2 + |c|^2 and an "
+                 "unequal-rate compact one (both unbounded)")
 def _c11():
     tests = [(sp.Rational(3, 7) * (R(1, 2) - R(4, 5)), 1, True),           # l_G rotation
              (3 * (R(1, 2) + R(4, 5)), 4, False),                          # p_G compact
@@ -568,7 +649,10 @@ def _c11():
              (b_gyro(sp.Rational(1, 2), sp.Rational(1, 4), 0), 1, True),   # gyroscopic screening
              (sp.Rational(1, 2) * (R(3, 6)), 1, False),                    # pairing boost below threshold
              (R(1, 2) + sp.Rational(1, 3) * R(1, 4) - sp.Rational(2, 3) * R(2, 6) + R(3, 5), 1, None),   # generic
-             (sp.Rational(1, 4) * R(1, 5) - sp.Rational(1, 2) * R(4, 6) + R(2, 3), sp.Rational(2, 3), None)]
+             (sp.Rational(1, 4) * R(1, 5) - sp.Rational(1, 2) * R(4, 6) + R(2, 3), sp.Rational(2, 3), None),
+             (b_compact([0, 0, 1], [sp.Rational(1, 5), 0, 0]), 1, True),             # compact screening
+             (b_compact([0, 0, 5], [4, 0, 0]), 3, False),                            # exceptional |a|^2 = kappa^2 + |c|^2
+             (b_compact([0, 0, 1], [0, sp.Rational(1, 2), sp.Rational(1, 3)]), 1, False)]   # a.c != 0: unequal rates
     ok = True
     for (b, k, expect) in tests:
         Mv = phase_M(b, k, 1)
@@ -582,25 +666,32 @@ def _c11():
     return ok
 
 
-@claim("d4-12", "gyroscopic screening: b = a L_3 + b_p, b_p the p_G boost z -> iY conj(z) with Y traceless symmetric in the (1,2) plane, "
-                 "has chi_S = (lam^2+kappa^2)(lam^2+(kappa-a)^2-r^2)(lam^2+(kappa+a)^2-r^2), r^2 = c^2+d^2, and M is semisimple "
-                 "(exact at (a,c,d) = (1/2,1/4,0), (1/3,1/5,1/7)) although [b,G] != 0; at a = 0 it is not; mechanism: K_3 = G L_3 splits the "
-                 "support into two eta-null planes with S = (kappa -+ a)G + b_Y on them; numerically the bounded "
-                 "set is locally a 10-dimensional subset of so(3,3) (5 independent conditions, Jacobian rank 5 at random solutions)")
+@claim("d4-12", "gyroscopic screening (boost-valued, a metric connection): b = alpha L_3 + b_Sigma, b_Sigma: z -> i Sigma conj(z) with Sigma "
+                 "traceless symmetric in the (1,2) plane, r^2 = y1^2 + y2^2, has [b,G] != 0 and chi_S = (lam^2+kappa^2)(lam^2+(kappa-alpha)^2-r^2)"
+                 "(lam^2+(kappa+alpha)^2-r^2); M is semisimple for alpha != 0 and r < min(|kappa-alpha|,|kappa+alpha|) (exact at "
+                 "(alpha,y1,y2) = (1/2,1/4,0), (1/3,1/5,1/7)), not at alpha = 0 nor at |kappa-alpha| < r < |kappa+alpha|; one mechanism: "
+                 "K_3 = G L_3 splits the support into two eta-null planes with S = (kappa -+ alpha)G + b_Sigma on them; numerically the "
+                 "bounded set is a 10-dimensional submanifold near regular points (Jacobian rank 5 of the 6 conditions at random solutions "
+                 "and at an exact compact screened point), while at gyroscopic points and at elliptic l_G points the Jacobian has rank 4 "
+                 "and the conditions fail at second order along kernel directions (singular locus)")
 def _c12():
     a, c_, d_ = sp.symbols('a c d', real=True)
     b = b_gyro(a, c_, d_)
     ok = zero_mat(dag(b) + b) and not zero_mat(b * G - G * b)
     bl, bp = projections(b)
     ok &= zero_mat(bl - a * L3) and zero_mat(bp - bp_of(sp.Matrix([[c_, d_, 0], [d_, -c_, 0], [0, 0, 0]])))
+    ok &= bp.T == bp                                      # b_Sigma is a boost (matrix-symmetric): not gauge-admissible
     chi = sp.expand((b + kap * G).charpoly(lam).as_expr())
     r2 = c_ ** 2 + d_ ** 2
     ok &= poly_eq(chi, (lam ** 2 + kap ** 2) * (lam ** 2 + (kap - a) ** 2 - r2) * (lam ** 2 + (kap + a) ** 2 - r2))
     for (av, cv, dv) in [(sp.Rational(1, 2), sp.Rational(1, 4), 0), (sp.Rational(1, 3), sp.Rational(1, 5), sp.Rational(1, 7))]:
         ok &= is_semisimple(phase_M(b_gyro(av, cv, dv), 1, 1))
     ok &= not is_semisimple(phase_M(b_gyro(0, sp.Rational(1, 4), 0), 1, 1))
-    # mechanism: K_3 = G L_3 is an involution on the support span(e1,e2,e4,e5), commutes with G, L_3 and b_Y; its two
-    # eigenplanes are totally eta-null, and on the (+-1)-plane S = (kappa -+ a) G + b_Y, S^dag = (kappa +- a) G - b_Y
+    # min condition: |kappa - alpha| < r < |kappa + alpha| is NOT bounded (real exponents on one plane)
+    Mmid = phase_M(b_gyro(sp.Rational(1, 2), sp.Rational(3, 4), 0), 1, 1)
+    ok &= any(sp.re(e_) != 0 for e_ in Mmid.eigenvals())
+    # mechanism: K_3 = G L_3 is an involution on the support span(e1,e2,e4,e5), commutes with G, L_3 and b_Sigma; its two
+    # eigenplanes are totally eta-null, and on the (+-1)-plane S = (kappa -+ alpha) G + b_Sigma, S^dag = (kappa +- alpha) G - b_Sigma
     K3 = Kg[3]
     bY = bp_of(sp.Matrix([[c_, d_, 0], [d_, -c_, 0], [0, 0, 0]]))
     supp = sp.diag(1, 1, 0, 1, 1, 0)
@@ -610,7 +701,8 @@ def _c12():
         ok &= rank_q(Pn) == 2 and zero_mat(Pn.T * eta * Pn)
         ok &= zero_mat((b + kap * G) * Pn - ((kap - sgn * a) * G + bY) * Pn)
         ok &= zero_mat(dag(b + kap * G) * Pn - ((kap + sgn * a) * G - bY) * Pn)
-    # numerical dimension count of the bounded set near random solutions
+    # numerical structure of the bounded set: six conditions (isotropy and real part for the three upper eigenvalues of
+    # S^dag), one trace relation, so rank 5 at regular points
     so33n = [np.array(x, dtype=float) for x in SO33]
     Gn = np.array(G, dtype=float)
     etan = np.diag([1., 1, 1, -1, -1, -1])
@@ -628,6 +720,17 @@ def _c12():
             r.append(np.linalg.norm(bpn) - target)
         return np.array(r)
 
+    def jac(x, h=1e-6):
+        return np.array([(resid(x + h * np.eye(15)[i]) - resid(x - h * np.eye(15)[i])) / (2 * h) for i in range(15)]).T
+
+    def coords(bm):
+        return np.array([float(v) for v in so_coords(bm)], dtype=float)
+
+    def rank_at(bm):
+        x = coords(bm)
+        sv = np.linalg.svd(jac(x), compute_uv=False)
+        return float(np.abs(resid(x)).max()), int(np.sum(sv > 1e-6 * sv[0]))
+
     rng = np.random.default_rng(11)
     ranks = []
     for _ in range(40):
@@ -639,7 +742,6 @@ def _c12():
         Jac = np.array([(resid(x + 1e-7 * np.eye(15)[i]) - resid(x - 1e-7 * np.eye(15)[i])) / 2e-7 for i in range(15)]).T
         sv = np.linalg.svd(Jac, compute_uv=False)
         ranks.append(int(np.sum(sv > 1e-4 * sv[0])))
-        # boundedness check of this solution: geometric multiplicity 2 for each double eigenvalue of M
         bn = sum(x[i] * so33n[i] for i in range(15))
         Mn = np.block([[-(bn + Gn), np.eye(6)], [np.zeros((6, 6)), -bn + Gn]])
         z0 = rng.normal(size=12)
@@ -648,14 +750,40 @@ def _c12():
         if len(ranks) >= 4:
             break
     ok &= len(ranks) >= 4 and all(r_ == 5 for r_ in ranks)
+    # regular: an exact compact screened point; singular: gyroscopic points and elliptic l_G points
+    F0, rk = rank_at(b_compact([0, 0, 1], [sp.Rational(1, 5), 0, 0]))
+    ok &= F0 < 1e-12 and rk == 5
+    def bw(wr, wb):
+        return sum((sp.Rational(wr[i]) * Lg[i + 1] + sp.Rational(wb[i]) * Kg[i + 1] for i in range(3)), Z6)
+    sing = [b_gyro(sp.Rational(1, 2), sp.Rational(1, 4), 0), b_gyro(sp.Rational(1, 3), sp.Rational(1, 5), sp.Rational(1, 7)),
+            b_gyro(sp.Rational(-2, 5), sp.Rational(1, 6), sp.Rational(1, 9)), bw([2, 0, 0], [0, 1, 0]), bw([sp.Rational(1, 3), 0, 0], [0, 0, 0])]
+    for bm in sing:
+        F0, rk = rank_at(bm)
+        ok &= F0 < 1e-12 and rk == 4
+    # second-order failure along kernel directions at the gyroscopic point (1/2,1/4,0): least-squares residual ~ t^2
+    x0 = coords(sing[0])
+    U_, s_, Vt = np.linalg.svd(jac(x0))
+    rr_ = int(np.sum(s_ > 1e-6 * s_[0]))
+    Kn, Rw = Vt[rr_:].T, Vt[:rr_].T
+    ratios = []
+    for _ in range(3):
+        v = Kn @ rng.normal(size=Kn.shape[1])
+        v /= np.linalg.norm(v)
+        res = []
+        for tt in (1e-2, 5e-3):
+            sl = so.least_squares(lambda s0: resid(x0 + tt * v + Rw @ s0), np.zeros(rr_), xtol=1e-15, ftol=1e-15, gtol=1e-15)
+            res.append(np.linalg.norm(sl.fun))
+        ratios.append(res[0] / res[1])
+    ok &= all(3.0 < q < 5.0 for q in ratios)
     return ok
 
 
 # ============================================================================================= d4-13 gauge
 @claim("d4-13", "gauge: (a) kappa = 0: X = exp(-b tau) Y gives alpha X = exp(-b tau) Ydot, Yddot = 0 (free drift, M has Jordan blocks); "
-                 "(b) [b,G] = 0: alpha_+ X = exp(-b tau)(Ydot + kappa G Y), lab exponents = rotating-frame +-i kappa shifted by eig(b), "
-                 "H_lab = H_rot - p^T b Y (Larmor / chemical potential); (c) {b,G} = 0: exp(b tau) G exp(-b tau) = exp(2b tau) G = G exp(-2b tau), "
-                 "not constant; b is removable keeping G constant iff [b,G] = 0, and the gauge-invariant remainder is D_tau G = [b,G] = 2 b_p G")
+                 "(b) [b,G] = 0: alpha_+ X = exp(-b tau)(Ydot + kappa G Y), lab exponents = co-moving +-i kappa shifted by eig(-b), "
+                 "H_lab = H_co - p^T b Y (for compact b Larmor's rotating frame, inherited; for an l_G boost a uniformly boosted frame); "
+                 "(c) {b,G} = 0: exp(b tau) G exp(-b tau) = exp(2b tau) G = G exp(-2b tau), not constant; b is removable keeping G constant "
+                 "iff [b,G] = 0, and the gauge-invariant remainder is D_tau G = [b,G] = 2 b_p G (fixed)")
 def _c13():
     t = sp.Symbol('tau', real=True)
     Y = sp.Matrix([sp.Function(f'Y{i}')(t) for i in range(1, 7)])
@@ -694,12 +822,18 @@ def _c13():
     shifts = set(sp.Matrix(-b_).eigenvals().keys())          # 0, +- 3i/7
     ok &= rot_ == {sp.I, -sp.I} and shifts == {0, 3 * sp.I / 7, -3 * sp.I / 7}
     ok &= lab == {sp.expand(r_ + s_) for r_ in rot_ for s_ in shifts} and len(lab) == 6
+    # the co-moving frame exp(-b tau) is a rotation (orthogonal) for compact b in l_G and a boost (symmetric, unbounded) for K_3
+    bn_rot = np.array(R(1, 2) - R(4, 5), dtype=float)
+    bn_bst = np.array(Kg[3], dtype=float)
+    g_rot, g_bst = sla.expm(-0.9 * bn_rot), sla.expm(-0.9 * bn_bst)
+    ok &= np.allclose(g_rot.T @ g_rot, np.eye(6)) and np.allclose(g_bst, g_bst.T) and np.linalg.norm(g_bst, 2) > 2.0
     return ok
 
 
 # ============================================================================================= d4-14 split virial
 @claim("d4-14", "split virial d/dtau eta(X,pi) = eta(pi,pi)/m holds for every constant S (36 symbols, exact identity) and along numerical "
-                 "solutions with b in l_G, p_G and mixed (integral form, |error| < 1e-8)")
+                 "solutions with b in l_G, p_G, mixed, a pairing boost and a compact screened b (integral form, |error| < 1e-8): "
+                 "re-verifies Theorem 16.1")
 def _c14():
     s = sp.symbols('s0:36')
     S = sp.Matrix(6, 6, s)
@@ -711,7 +845,8 @@ def _c14():
     ok = sp.expand(lhs - (P.T * eta * P)[0] / mm) == 0
     etan = np.diag([1., 1, 1, -1, -1, -1])
     rng = np.random.default_rng(5)
-    for b in [sp.Rational(3, 7) * (R(1, 2) - R(4, 5)), 3 * (R(1, 2) + R(4, 5)) / 4, b_mix, R(3, 6) / 2 + R(1, 4) / 3]:
+    for b in [sp.Rational(3, 7) * (R(1, 2) - R(4, 5)), 3 * (R(1, 2) + R(4, 5)) / 4, b_mix, R(3, 6) / 2 + R(1, 4) / 3,
+              b_compact([0, 0, 1], [sp.Rational(1, 5), 0, 0])]:
         Mn = np.array(phase_M(b, 1, 1), dtype=float)
 
         def rhs(_t, y):
@@ -751,15 +886,15 @@ def krein(b, k, m=1.0, Gm=None):
 
 @claim("d4-15", "vacuum with a b-field: whenever all motion is bounded, every frequency w carries energy signature (k,k) "
                  "(the zero-momentum half is energy-null), so the zero-point energy sum_j (+-) hbar w_j / 2 cancels frequency by "
-                 "frequency: checked for the Zeeman triplet (kappa=1, beta=3/7 and beta=3/2), an elliptic complex w, the gyroscopic family; "
-                 "tolerance 1e-9 on eigenvalues of the energy form")
+                 "frequency: checked for the Zeeman triplet (kappa=1, beta=3/7 and beta=3/2), an elliptic complex w, the gyroscopic family, "
+                 "a compact screened connection; tolerance 1e-9 on eigenvalues of the energy form")
 def _c15():
     ok = True
     def bw(wr, wb):
         return sum((sp.Rational(wr[i]) * Lg[i + 1] + sp.Rational(wb[i]) * Kg[i + 1] for i in range(3)), Z6)
     cases = [(sp.Rational(3, 7) * (R(1, 2) - R(4, 5)), 1, 3), (sp.Rational(3, 2) * (R(1, 2) - R(4, 5)), 1, 3),
              (bw([2, 0, 0], [0, 1, 0]), 1, 3), (b_gyro(sp.Rational(1, 2), sp.Rational(1, 4), 0), 1, 3),
-             (Z6, 1, 1)]
+             (Z6, 1, 1), (b_compact([0, 0, 1], [sp.Rational(1, 5), 0, 0]), 1, 3)]
     for (b, k, nfreq) in cases:
         res = krein(b, k)
         ok &= len(res) == nfreq
@@ -875,8 +1010,8 @@ def cent_dim(basis):
     return len(basis) - rank_q(Mx)
 
 
-@claim("d4-17", "three constituents: E_{6(k-1)+a} = omega^(k-1) (x) e_a (x) 1 satisfy Cl(9,9); G3 = G+G+G is an anti-isometry with G3^2 = -1; "
-                 "Cent(G3) in so(9,9) has dim 72; Thm 17.21: so(U) and so(6)_C each meet Cent(G3) in 0 and ps_U meets it in dim C(d,2) "
+@claim("d4-17", "three constituents: E_{6(k-1)+a} = omega_6^(k-1) (x) e_a (x) 1 satisfy Cl(9,9); G3 = G+G+G is an anti-isometry with "
+                 "G3^2 = -1; Cent(G3) in so(9,9) has dim 72; re-verifies Thm 17.21: so(U) and so(6)_C each meet Cent(G3) in 0 and ps_U meets it in dim C(d,2) "
                  "with d = dim(U cap E): 6 for U = W = {7,13,14,15} (spanned by rot(i,j), i<j in W), 3 for U = {3,7,8,9}, 1 for U = {2,3,7,8}")
 def _c17():
     ok = True
@@ -936,8 +1071,9 @@ def _c18():
 
 @claim("d4-19", "spectrum on the 18-dim frame (kappa=5): b = 2 T^+_3 gives chi_S = (lam^2+25)^5 (lam^2+16)^2 (lam^2+36)^2, i.e. "
                  "frequencies kappa (5 singlet pairs) and kappa -+ beta/2 (su(2) weights +-1/2, twice each); b = 2T^+_3 + 4T^-_3 gives four lines "
-                 "kappa +- (beta_+ +- beta_-)/2 = 8, 6, 4, 2; M semisimple (Y = -G3/(2 kappa m)), Krein (k,k) per frequency, zero-point 0; "
-                 "a weak-only rotation R(7,13) or a colour-only rotation R(10,16) is NOT semisimple (secular growth)")
+                 "kappa +- (beta_+ +- beta_-)/2 = 8, 6, 4, 2; M semisimple (Xi = -G3/(2 kappa m)), Krein (k,k) per frequency, zero-point 0; "
+                 "a weak-only rotation R(7,13) or a colour-only rotation R(10,16) is NOT semisimple (secular growth: single-factor "
+                 "rotations tear the binding)")
 def _c19():
     ok = True
     k = 5
@@ -988,7 +1124,8 @@ T4 = su_gens(4)
 T2 = su_gens(2)
 
 
-@claim("d4-20", "SU(4), tr(T^A T^B) = delta/2: sum_A T^A X T^A = (1/2)[tr(X) 1 - X/4] for all X (eigenvalue 15/8 = C_F on 1, -1/8 on traceless X)")
+@claim("d4-20", "SU(4), tr(T^A T^B) = delta/2: sum_A T^A Z T^A = (1/2)[tr(Z) 1 - Z/4] for all 4x4 Z (eigenvalue 15/8 = C_F on 1, -1/8 on "
+                 "traceless Z); inherited")
 def _c20():
     ok = len(T4) == 15
     for A in range(15):
@@ -1009,8 +1146,8 @@ def tdot(Ts1, Ts2):
 
 @claim("d4-21", "channel factors T1.T2 = (1/2)[C2(pair) - C2(R1) - C2(R2)]: SU(4) 4x4 -> 10: +3/8, 6: -5/8; 4bar x 4 -> 1: -15/8, 15: +1/8; "
                  "SU(2) 2x2 -> 3: +1/4, 1: -3/4; C2 = 15/8, 9/2, 5/2, 4; PS bilinears: Dirac (4,2,1)bar x (4,1,2) = (1+15,2,2); a Lorentz-scalar "
-                 "Majorana bilinear of (4,1,2) lies in Sym^2(C^8) = (10,1,3) (+) (6,1,1) (dims 30 + 6 = 36): (1,2,2) and (6,1,1) attractive, "
-                 "(15,2,2) and (10,1,3) repulsive in one-boson exchange")
+                 "Majorana bilinear of (4,1,2) lies in Sym^2(C^8) = (10,1,3) (+) (6,1,1) (dims 30 + 6 = 36); inherited (the attractive/"
+                 "repulsive reading d4-21r, one-boson exchange with a common coupling, is interpretive and has no PASS line)")
 def _c21():
     ok = True
     n = 4
@@ -1066,8 +1203,9 @@ def _c21():
     return ok
 
 
-@claim("d4-22", "contact gap equation: int_{k^2<=L^2} d^4k/(2pi)^4 1/(k^2+M^2) = [L^2 - M^2 ln(1+L^2/M^2)]/(16 pi^2); f(x) = 1 - x^2 ln(1+1/x^2) "
-                 "decreases strictly from 1 to 0, so 1 = lambda f(x) has a solution x > 0 iff lambda > 1; at lambda = 7/4, x = 0.5330235 (mpmath, 25 digits)")
+@claim("d4-22", "contact gap equation: int_{k^2<=k_max^2} d^4k/(2pi)^4 1/(k^2+M_dyn^2) = [k_max^2 - M_dyn^2 ln(1+k_max^2/M_dyn^2)]/(16 pi^2); "
+                 "f(x) = 1 - x^2 ln(1+1/x^2) decreases strictly from 1 to 0, so 1 = lambda_c f(x) has a solution x = M_dyn/k_max > 0 iff "
+                 "lambda_c > 1; at lambda_c = 7/4, x = 0.5330235 (mpmath, 25 digits); inherited")
 def _c22():
     k, L, M = sp.symbols('k L M', positive=True)
     I_ = sp.integrate(2 * sp.pi ** 2 * k ** 3 / (k ** 2 + M ** 2), (k, 0, L)) / (2 * sp.pi) ** 4
@@ -1088,7 +1226,8 @@ def _c22():
 
 
 @claim("d4-23", "ladder critical coupling alpha_c = pi/(3 C_F) = 8 pi/45 = 0.5585 for C_F = 15/8; one-loop beta0 = (11/3) C_A - (4/3) T_F N_f "
-                 "= (22 - 2 N_f)/3 for SU(2) with N_f Dirac doublets (beta0 = 6 at N_f = 2); Lambda = mu exp(-8 pi^2/(beta0 g^2)) is RG invariant")
+                 "= (22 - 2 N_f)/3 for SU(2) with N_f Dirac doublets (beta0 = 6 at N_f = 2); Lambda = mu exp(-8 pi^2/(beta0 g^2)) is RG "
+                 "invariant; inherited")
 def _c23():
     CF = sp.Rational(15, 8)
     ac = sp.pi / (3 * CF)
@@ -1105,7 +1244,8 @@ def _c23():
     return ok
 
 
-@claim("d4-24", "SU(2N_f) -> Sp(2N_f) at N_f = 2: dim su(4) = 15, dim sp(4) = 10 (anti-Hermitian X with X^T Omega + Omega X = 0), 5 Goldstones")
+@claim("d4-24", "SU(2N_f) -> Sp(2N_f) at N_f = 2: dim su(4) = 15, dim sp(4) = 10 (anti-Hermitian Z with Z^T J4 + J4 Z = 0), 5 Goldstones; "
+                 "inherited")
 def _c24():
     Om = sp.Matrix([[0, 0, 1, 0], [0, 0, 0, 1], [-1, 0, 0, 0], [0, -1, 0, 0]])
     # real basis of su(4): i T^A ; solve for the subspace preserving Omega
@@ -1120,17 +1260,154 @@ def _c24():
     return dim_sp == 10 and 15 - dim_sp == 5
 
 
-@claim("d4-25", "no scale from the algebra: (tau, kappa, b, m) -> (s tau, kappa/s, b/s, s m) maps M to M/s and solutions to solutions, "
-                 "and every Clifford datum (eta, G, l_G, p_G, so(4)_Delta) is invariant, so no value of kappa (or ell = c/kappa) is selected, "
-                 "with or without a constant b; at kappa = 0 the spectrum of M is that of -b doubled (no rest frequency)")
+@claim("d4-25", "a connection alone does not bind, and no scale: (i) at kappa = 0 chi_M = chi_{-b}^2 and M is not semisimple (free drift); "
+                 "(ii) (tau, kappa, b, m) -> (theta tau, kappa/theta, b/theta, theta m) maps M to M/theta, solutions to solutions and the action to itself, and "
+                 "fixes every Clifford datum (eta, G, l_G, p_G, so(4)_Delta), so no value of kappa (or ell = c/kappa) is selected (dimensional "
+                 "analysis, inherited; restates 'kappa is not fixed', end of Sec. 16); (iii) M(m) = T M(1) T^-1 with T = diag(1, m): the "
+                 "spectrum of M does not involve m, and the rescaling keeps m*kappa (not m/kappa) fixed, so nothing in the interior "
+                 "dynamics ties m to kappa (mc^2 = hbar kappa is an added identification)")
 def _c25():
-    s = sp.Symbol('s', positive=True)
+    t_ = sp.Symbol('t', positive=True)
     b = beta * (R(1, 2) - R(4, 5)) + sp.Rational(1, 3) * beta * (R(1, 2) + R(4, 5))
-    ok = zero_mat(phase_M(b / s, kap / s, s * mm) - phase_M(b, kap, mm) / s)
+    ok = zero_mat(phase_M(b / t_, kap / t_, t_ * mm) - phase_M(b, kap, mm) / t_)
+    # the action: L dtau with u -> u/t, dtau -> t dtau, m -> t m is invariant
+    uu = sp.Symbol('u2', positive=True)          # stands for eta(u,u)
+    ok &= sp.simplify((t_ * mm / 2) * (uu / t_ ** 2) * t_ - (mm / 2) * uu) == 0
+    ok &= sp.simplify((t_ * mm) * (kap / t_) - mm * kap) == 0
     b0 = sp.Rational(1, 2) * (R(1, 2) - R(4, 5)) + R(3, 6) / 3
     chi = phase_M(b0, 0, 1).charpoly(lam).as_expr()
     chib = (-b0).charpoly(lam).as_expr()
-    ok &= poly_eq(chi, chib ** 2)
+    ok &= poly_eq(chi, chib ** 2) and not is_semisimple(phase_M(b0, 0, 1))
+    # (iii) m drops out of the spectrum: similarity by diag(1, m)
+    xs = sp.symbols('x0:15')
+    bg = sum((xs[i] * SO33[i] for i in range(15)), Z6)
+    T = sp.diag(I6, mm * I6)
+    ok &= zero_mat(T * phase_M(bg, kap, 1) * T.inv() - phase_M(bg, kap, mm))
+    return ok
+
+
+# ============================================================================================= d4-26 compact screening
+@claim("d4-26", "compact screening: for a gauge-admissible b = diag(A+C, A-C) (rotation vectors a +- c of the two triples), S = b + kappa G "
+                 "is real antisymmetric; (i) tr(eta (S^dag)^2) = -8 a.c, so all motion bounded => a.c = 0 (equal rates |a+c| = |a-c|); "
+                 "(ii) for a.c = 0, a != 0, the half-turn rho about a gives G' = G rho with G'^2 = -1, G'^dag = G', [G',b] = [G',G] = 0, "
+                 "so the +-i eigenspaces of G' are h-null; on V_+ = {(x, -i rho x)} S acts as x -> (a+c) x x + i kappa rho x, so the "
+                 "eigenvalues are i omega_j on V_+ and -i omega_j on V_-, omega_j the roots of "
+                 "f = w^3 + kappa w^2 - (kappa^2+|a|^2+|c|^2) w - kappa(kappa^2+|c|^2-|a|^2) (chi_S(i w) = f(w) f(-w)); they overlap only "
+                 "at w = 0, iff |a|^2 = kappa^2 + |c|^2; hence every orbit is bounded for a.c = 0, a != 0, |a|^2 != kappa^2 + |c|^2 although "
+                 "[b,G] = 2 b_p G != 0 (exact at 4 rational points); (iii) in the exceptional case with c != 0 the static mode "
+                 "(n, (a+c) x n/kappa), n = a x c, has eta-norm -2|c|^2|n|^2/kappa^2 != 0: Jordan block at 0 (exact at (kappa,|c|,|a|) = "
+                 "(3,4,5)); c = 0 is the l_G case, bounded; a = 0 is Theorem pG; unequal rates are unbounded")
+def _c26():
+    av = sp.symbols('a1:4', real=True)
+    cv = sp.symbols('c1:4', real=True)
+    b = b_compact(av, cv)
+    S = b + kap * G
+    D = dag(S)
+    ok = zero_mat(S.T + S) and zero_mat(D - (-b + kap * G)) and zero_mat(D.T + D)
+    ok &= sp.expand((eta * D * D).trace() + 8 * sum(x * y for x, y in zip(av, cv))) == 0
+    ok &= zero_mat(b * G - G * b - 2 * projections(b)[1] * G)
+    # normal form a = alpha e3, c = gamma e1 (a simultaneous rotation of both triples commutes with G and eta)
+    al, ga = sp.symbols('alpha gamma', real=True)
+    om = sp.Symbol('om')
+    bn = b_compact([0, 0, al], [ga, 0, 0])
+    Rg = sp.Matrix([[0, -1, 0], [1, 0, 0], [0, 0, 1]])                  # a rotation of R^3
+    Rh = sp.diag(Rg, Rg)
+    ok &= Rh * G == G * Rh and Rh.T * eta * Rh == eta
+    ok &= zero_mat(Rh * b_compact(av, cv) * Rh.T - b_compact(list(Rg * sp.Matrix(av)), list(Rg * sp.Matrix(cv))))
+    rho = sp.diag(-1, -1, 1)
+    Gp = G * sp.diag(rho, rho)
+    ok &= Gp * Gp == -I6 and dag(Gp) == Gp and zero_mat(Gp * bn - bn * Gp) and Gp * G == G * Gp
+    f = om ** 3 + kap * om ** 2 - (kap ** 2 + al ** 2 + ga ** 2) * om - kap * (kap ** 2 + ga ** 2 - al ** 2)
+    chi = (bn + kap * G).charpoly(lam).as_expr()
+    ok &= sp.expand(chi.subs(lam, sp.I * om) - f * f.subs(om, -om)) == 0
+    # spectrum of S on the +i eigenspace of G' is {i w : f(w) = 0}
+    Sn = bn + kap * G
+    Pp = (I6 - sp.I * Gp) / 2
+    Bp = sp.Matrix.hstack(*Pp.columnspace())
+    Xr = (Bp.H * Bp).inv() * Bp.H * Sn * Bp
+    ok &= zero_mat(Sn * Bp - Bp * Xr)
+    ok &= sp.expand(Xr.charpoly(lam).as_expr().subs(lam, sp.I * om) + sp.I * f) == 0
+    # the eigenspaces of G' are h-null: Bp^H eta Bp = 0
+    ok &= zero_mat(Bp.H * eta * Bp)
+    # V_+ = {(x, -i rho x)}, on which S acts as x -> (a + c) x x + i kappa rho x: det(i w - [a+c]_x - i kappa rho) = -i f(w)
+    xs3 = sp.Matrix(sp.symbols('x1:4'))
+    yv = xs3.col_join(-sp.I * rho * xs3)
+    ok &= zero_mat(Gp * yv - sp.I * yv)
+    xp = so3m([ga, 0, al]) * xs3 + sp.I * kap * rho * xs3
+    ok &= zero_mat(Sn * yv - xp.col_join(-sp.I * rho * xp))
+    ok &= sp.expand((sp.I * om * sp.eye(3) - so3m([ga, 0, al]) - sp.I * kap * rho).det() + sp.I * f) == 0
+    # f(w) = f(-w) = 0 forces w = 0 and |a|^2 = kappa^2 + |c|^2 (resultant), or a = 0
+    fm = f.subs(om, -om)
+    ok &= sp.expand((f + fm) / 2 - (kap * om ** 2 - kap * (kap ** 2 + ga ** 2 - al ** 2))) == 0
+    ok &= sp.expand((f - fm) / 2 - om * (om ** 2 - (kap ** 2 + al ** 2 + ga ** 2))) == 0
+    # exact boundedness at rational points with a.c = 0 (general directions included), and [b,G] != 0
+    pts = [([0, 0, 1], [sp.Rational(1, 5), 0, 0], 1), ([1, 2, 2], [2, -1, 0], sp.Rational(3, 2)),
+           ([0, 0, 3], [sp.Rational(1, 7), 0, 0], 1), ([1, 1, 0], [sp.Rational(1, 3), -sp.Rational(1, 3), sp.Rational(1, 2)], 1)]
+    for a_, c_, k_ in pts:
+        assert sum(x * y for x, y in zip(a_, c_)) == 0
+        bb = b_compact(a_, c_)
+        ok &= is_semisimple(phase_M(bb, k_, 1)) and bb * G != G * bb
+        A2, C2 = sum(x * x for x in a_), sum(x * x for x in c_)
+        fk = om ** 3 + k_ * om ** 2 - (k_ ** 2 + A2 + C2) * om - k_ * (k_ ** 2 + C2 - A2)
+        ok &= sp.expand((bb + k_ * G).charpoly(lam).as_expr().subs(lam, sp.I * om) - fk * fk.subs(om, -om)) == 0
+        ok &= A2 != k_ ** 2 + C2
+    # (iii) exceptional case: static mode with nonzero eta-norm, not semisimple; c = 0 is bounded
+    for k_, ga_, al_ in [(3, 4, 5), (sp.Rational(3, 5), sp.Rational(4, 5), 1)]:
+        a_, c_ = [0, 0, al_], [ga_, 0, 0]
+        bb = b_compact(a_, c_)
+        Sx = bb + k_ * G
+        n_ = sp.Matrix(a_).cross(sp.Matrix(c_))
+        u_ = sp.Matrix([a_[i] + c_[i] for i in range(3)])
+        X0 = n_.col_join(u_.cross(n_) / k_)
+        ok &= zero_mat(Sx * X0) and sp.simplify((X0.T * eta * X0)[0] + 2 * ga_ ** 2 * n_.dot(n_) / k_ ** 2) == 0
+        ok &= not is_semisimple(phase_M(bb, k_, 1))
+    ok &= is_semisimple(phase_M(b_compact([0, 0, 1], [0, 0, 0]), 1, 1))
+    # unequal rates (a.c != 0) and pure counter-rotation (a = 0) are unbounded
+    ok &= not is_semisimple(phase_M(b_compact([0, 0, 1], [0, sp.Rational(1, 2), sp.Rational(1, 3)]), 1, 1))
+    ok &= not is_semisimple(phase_M(sp.diag(so3m([0, 0, 1]), so3m([0, 0, 2])), 1, 1))
+    ok &= not is_semisimple(phase_M(b_compact([0, 0, 0], [0, 0, 1]), 1, 1))
+    return ok
+
+
+# ============================================================================================= d4-27 unlocked Pati-Salam
+@claim("d4-27", "boundedness does not single out so(4)_Delta: b = R(7,13) +- R(10,11) lies in ps_W = so(W) (+) so(6)_C, has [b,G3] != 0, "
+                 "and keeps every orbit bounded (exact at kappa = 5: M semisimple, chi_S = (lam^2+25)^6 f(i lam) f(-i lam) with f = "
+                 "w^3 + 5w^2 - 26w - 125); proof: on the invariant six-plane <e7,e8,e13; e10,e11,e16> G3 acts as G and b is the compact "
+                 "screening of d4-26 with perpendicular unit rotation vectors (|a|^2 = |c|^2 = 1/2), and b = 0 on the complement; controls: "
+                 "the locked R(7,13) - R(10,16) commutes with G3 and is bounded, the anti-locked R(7,13) + R(10,16) is not")
+def _c27():
+    k = 5
+    ok = True
+    sixplane = [7, 8, 13, 10, 11, 16]
+    rest = [i for i in range(1, 19) if i not in sixplane]
+    om = sp.Symbol('om')
+    for sgn in (1, -1):
+        b = R18(7, 13) + sgn * R18(10, 11)
+        ok &= b * G3 != G3 * b
+        ok &= all(b[i - 1, j - 1] == 0 for i in range(1, 19) for j in range(1, 19)
+                  if (i not in W + COLOUR or j not in W + COLOUR))          # supported in W and the colour directions
+        ok &= is_semisimple(phase_M(b, k, 1, Gm=G3))
+        S = b + k * G3
+        f = om ** 3 + 5 * om ** 2 - 26 * om - 125
+        ok &= sp.expand(S.charpoly(lam).as_expr().subs(lam, sp.I * om)
+                        - (25 - om ** 2) ** 6 * f * f.subs(om, -om)) == 0
+        # reduction: restriction to the six-plane, in the ordered basis (e7,e8,e13; e10,e11,e16)
+        idx = [i - 1 for i in sixplane]
+        rdx = [i - 1 for i in rest]
+        ok &= S[idx, rdx] == sp.zeros(6, 12) and S[rdx, idx] == sp.zeros(12, 6)
+        ok &= G3[idx, idx] == G and b[rdx, rdx] == sp.zeros(12, 12) and eta18[idx, idx] == eta
+        b6 = b[idx, idx]
+        U6, V6 = b6[:3, :3], b6[3:, 3:]
+        ok &= b6[:3, 3:] == sp.zeros(3, 3) and U6.T == -U6 and V6.T == -V6
+        uvec = sp.Matrix([U6[2, 1], U6[0, 2], U6[1, 0]])
+        vvec = sp.Matrix([V6[2, 1], V6[0, 2], V6[1, 0]])
+        ok &= uvec.dot(uvec) == 1 and vvec.dot(vvec) == 1 and uvec.dot(vvec) == 0
+        a_, c_ = (uvec + vvec) / 2, (uvec - vvec) / 2
+        ok &= zero_mat(b6 - b_compact(list(a_), list(c_))) and a_.dot(c_) == 0
+        ok &= a_.dot(a_) != k ** 2 + c_.dot(c_)
+    lock = R18(7, 13) - R18(10, 16)
+    ok &= lock * G3 == G3 * lock and is_semisimple(phase_M(lock, k, 1, Gm=G3))
+    ok &= not is_semisimple(phase_M(R18(7, 13) + R18(10, 16), k, 1, Gm=G3))
     return ok
 
 
