@@ -4,7 +4,7 @@
     python3 investigations/rest_energy/verify/run_all.py
 
 Each script prints one 'PASS <id>: ...' line per verified claim and exits 0 only if all of its checks pass.
-The derivation scripts are d1-d4; x1-x4 are the independent adversarial re-checks written by a second author.
+The derivation scripts are d1-d7; x1-x7 are the independent adversarial re-checks written by a second author.
 A summary is written to investigations/rest_energy/verify/RESULTS.md.  Exit status 0 iff every script passes.
 """
 import pathlib
