@@ -1071,7 +1071,7 @@ scal = [sup_norm(0, k2, 1.0, m, 2 * np.pi / k2, 40001) * m * k2 / 2 for (k2, m) 
 ok &= all(abs(x - 1) < 0.03 for x in scal)
 report("12g", ok, f"numbers: w_-(0,5,1/2)={wmn:.5f}, sup_(t<=600)||e^Mt||={s1:.2f} vs 1/|w_-|={1/abs(wmn):.1f}; "
        f"(0,1/100,1): lines {wp_:.5f}, {wm_:.5f}, sup over a beat period {s2_:.1f}=2/(m k2); "
-       f"sup*m*k2/2 = {[round(x, 3) for x in scal]} at (k2,m)=(0.02,1),(0.05,1),(0.01,2)")
+       f"sup*m*k2/2 = {[round(float(x), 3) for x in scal]} at (k2,m)=(0.02,1),(0.05,1),(0.01,2)")
 
 # ---------------------------------------------------------------------------------------------
 # 13  context for rem:dealbreaker: what one manifold already does (d4 conventions)
