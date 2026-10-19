@@ -7,14 +7,14 @@
 The author's first remark is that the $b$-particle is a deal breaker when two manifolds or more are in question. \Cref{d5:thm:bfield2}
 tested it for two binding frames and one field, the copy rotation. This section asks the question for any number of manifolds and any
 field that can act between them, and answers it in five steps. First, which fields exist depends on how the Lorentz algebra acts: a common
-action admits the complex orthogonal copy algebra $\so{n,\C}$, a spectator action decouples the Lorentz-carrying manifold from every
+binding action admits the complex orthogonal copy algebra $\so{n,\C}$, a common interior action only its compact part, the copy rotations $\so n$, and a spectator action decouples the Lorentz-carrying manifold from every
 binding-compatible field (fixed, partly restated from \cite{ES17}; \cref{d7:sec:exist}). Second, the closure itself admits such a field: with a
-common Lorentz action the rotor may act by any element of $\uu n$, which is a copy rotation plus a matrix of rates (constructed;
+common binding action the rotor may act by any element of $\uu n$, which is a copy rotation plus a matrix of rates (constructed;
 \cref{d7:sec:rotor}). Third, every binding-compatible field turns the frame flow into a Schr\"odinger flow on $\C^{3n}$, unitary for the
 undivided energy exactly when the field is compact. The rates are gauge invariants, the field redistributes the frequencies at fixed sum, and
 it is removable exactly when it preserves the rate eigenspaces (fixed; \cref{d7:sec:schr,d7:sec:boost}). Fourth, three manifolds carry an
 invariant that two do not: the sign of $B_{12}B_{23}B_{31}$, odd under interior time reversal, the analogue of Jarlskog's invariant (fixed;
-\cref{d7:sec:three}). Fifth, on two and three manifolds the copy isospin is integral: frames carry isospin one, never one-half. The Yang--Mills doublet acting on two copies
+\cref{d7:sec:three}). Fifth, on two and three manifolds under a common Lorentz action the copy isospin is integral: frames carry isospin one, never one-half. The Yang--Mills doublet acting on two copies
 of the undivided energy is a connection in one of its three directions and a rate term in the other two, and on three manifolds doublets exist only under the
 spectator action, where unequal internal rates break $\so4_\Delta$ of \cite{ES17} to a diagonal $\so3$ (fixed; \cref{d7:sec:isospin}). The verdict
 is in \cref{d7:sec:assess}. Identifiers d7-$n$ refer to the \texttt{PASS} lines of \texttt{verify/d7\_bfield\_between.py} (\cref{d7:tab:claims}).
@@ -138,8 +138,8 @@ a corollary of \cref{d4:thm:criterion}. On five cases at $n=3$, exact semisimpli
 (d7-3f). Bounded: rates $(1,2,4)$ with $(B_{12},B_{23},B_{31})=(\tfrac12,\tfrac13,\tfrac15)$; the seesaw $(0,3,5)$ with $(1,\tfrac12,\tfrac13)$, a
 frame without rate confined by two couplings; equal rates $(1,1,1)$ with $B_{12}=1$. Unbounded: $(1,2,3)$ with $(1,1,1)$, where $\spec H=\{0,2,4\}$ and the
 zero mode has $v\cdot v\neq0$, a resonance created by the field between manifolds with different rates; and zero rates with $(1,1,1)$, where
-the field produces only drift. Part (vi) generalises \cref{d5:thm:bfield2}(v): at $n=2$, $\lambda_++\lambda_-=\kappa_1+\kappa_2$, so for $\kappa_1+\kappa_2>0$ the only coincidence
-is $\lambda_-=0$, at $\beta^2=\kappa_1\kappa_2$. At $\kappa_1=\kappa_2=0$ and $\beta\neq0$ it is $\lambda_+=-\lambda_-=|\beta|$, with eigenspaces that are not
+the field produces only drift. Part (vi) generalises \cref{d5:thm:bfield2}(v): at $n=2$, for the field of \cref{d5:thm:bfield2}, $\spec H$ is the pair of lines $\omega_\pm$ of \cref{d5:thm:bfield2}(ii), with $\omega_++\omega_-=\kappa_1+\kappa_2$, so for $\kappa_1+\kappa_2>0$ the only coincidence
+is $\omega_-=0$, at $\beta^2=\kappa_1\kappa_2$. At $\kappa_1=\kappa_2=0$ and $\beta\neq0$ it is $\omega_+=-\omega_-=|\beta|$, with eigenspaces that are not
 orthogonal for the bilinear form, so at zero rates the orbits are unbounded for every $\beta$, as in \cref{d5:thm:bfield2}(v).
 
 \subsection{Copy boosts: metric connections, not gauge fields}
@@ -272,7 +272,7 @@ sector \cite{SikivieEtAl80}. That is an interpretive parallel only: here the bre
 \begin{remark}[The deal breaker, settled]
 \label{d7:rem:verdict}
 \begin{enumerate}[label=(\alph*),leftmargin=2.2em]
-\item \emph{True, in this sense} (fixed). Between manifolds with unequal rates, a compact binding-compatible field cannot be removed. It shifts and
+\item \emph{True, in this sense} (fixed). A compact binding-compatible field that couples manifolds of different rates cannot be removed: by \cref{d7:thm:schr}(v) it is removable exactly when it preserves every rate eigenspace. It shifts and
 splits the lines, it can confine a frame that has no rate of its own, it can create a resonance, and from three manifolds on it is non-abelian and
 carries a time-odd invariant. What does not extend from one manifold is the removability of a field that commutes with the binding root
 (\cref{d4:prop:larmor}). What does extend is the no-go of \cref{d4:prop:alone}: a connection alone does not bind, and at zero rates it produces
@@ -281,7 +281,7 @@ only drift (\cref{d5:thm:bfield2,d7:thm:schr,d7:thm:three}).
 every change of frame. The field only redistributes the frequencies, the lines of $\spec H$, at fixed sum. With equal rates every binding-compatible field, abelian or
 the paper's $\so4_\Delta$, is removable along a worldline. With zero rates it produces only drift (\cref{d7:thm:schr}(iii)--(vi)).
 \item \emph{Where unequal rates come from.} Not from the paper's closure: it imposes a common rate, so its single rotor acts through $G_n$ at one rate, and within \cite{ES17} as it stands
-the inter-manifold field is removable (fixed for that closure). Under a common Lorentz action the closure admits a rotor acting by a non-central element
+the inter-manifold field is removable (fixed for that closure). Under a common binding action the closure admits a rotor acting by a non-central element
 of $\uu n$. The copy field and the rate differences can then both enter, as two independent parts of one generator, and either can occur
 without the other (constructed: admitted, not selected; \cref{d7:prop:rotor}).
 \item \emph{Isospin one-half} (fixed). On two and three manifolds under a common Lorentz action the copy isospin is integral, and the doublet field on two copies is a connection
@@ -304,7 +304,7 @@ constant connection without kinetic term, and the rates are inputs. Read instead
 \toprule
 statement & class & checks\\
 \midrule
-\cref{d7:prop:exist}(i), (iii): $\so{n,\C}$ under a common action; copy~$1$ decoupled under the spectator action & fixed (restated: Prop.~13.14; Thm~17.20 for $\lint^{(1)}$) & d7-1a, d7-1d\\
+\cref{d7:prop:exist}(i), (iii): $\so{n,\C}$ under a common binding action; copy~$1$ decoupled under the spectator action & fixed (restated: Prop.~13.14; Thm~17.20 for $\lint^{(1)}$) & d7-1a, d7-1d\\
 \cref{d7:prop:exist}(ii): $\so n$ under the interior action; $C^{12}=-M_{12}+C_{\rm surp}$ & fixed & d7-1b, d7-1c\\
 \cref{d7:prop:rotor}: rotor generators $\uu n=\so n\oplus\operatorname{Sym}(n)\otimes G$; abelian frame only for non-resonant $A$ & fixed (restated: Prop.~13.14); non-central rotor constructed & d7-2a, d7-2b\\
 \cref{d7:thm:schr}(i), (ii), (iv), (v): Schr\"odinger form, unitarity iff compact, sum rules, removability & fixed (elementary) & d7-3a, d7-3b, d7-3d, d7-3e\\
