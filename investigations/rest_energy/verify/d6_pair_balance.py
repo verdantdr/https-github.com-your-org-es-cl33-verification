@@ -734,7 +734,7 @@ def claim_7():
            "pure electric (0,sqrt2 i,0) and pure magnetic (sqrt2,0,0), both at rest, q=-2,+2: E0^(1)+E0^(2) = M_pair = E6_tot = 2")
 
 
-# ============================================================================ d6-8 the rotation of one direction (the task's example)
+# ============================================================================ d6-8 the rotation of one direction 
 def claim_8():
     phi = sp.symbols('phi', real=True)
     # generator: rotate (e^(1)_1, e^(2)_1) and (e^(1)_4, e^(2)_4), indices 0,6 and 3,9 of V_2

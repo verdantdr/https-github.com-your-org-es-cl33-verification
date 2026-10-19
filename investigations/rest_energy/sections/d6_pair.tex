@@ -75,9 +75,10 @@ $\mathcal B$ is its $n$-fold product. Points with $w(p^{(1)})=1$, $w(p^{(2)})=-c
 
 Items (i) and (ii) restate Proposition~17.18 and Corollary~17.14 of \cite{ES17} (fixed there); (iii) is fixed, the dimension count being added.
 Checks: $\half p^{\!\top}Np=\Re(\nu w(p))/(2m)$ exactly, and the rank of $dF$ at random balanced points for $n=1,2,3$ (d6-1a,b); integrations of
-the full two-constituent closure, rotor, momenta and frames (d6-2a--d). With equal inertias and $p^{(2)}=-Gp^{(1)}$ ($E_0(\pi^{(k)})=4.95$) the
+the full two-constituent closure, rotor, momenta and frames (d6-2a--d; $I_0=1$, momenta drawn at random from the script's seeded generator, so
+the values quoted are those of that sample). With equal inertias and $p^{(2)}=-Gp^{(1)}$ ($E_0(\pi^{(k)})=4.95$) the
 rate stays constant to $1.6\times10^{-14}$ over $\tau\in[0,60]$ and the frames lie on the circles of (i) to $4\times10^{-12}$; a generic balanced
-pair, and unequal inertias ($m=1,2.5$; $\nu=1+0.3i,\,0.4-0.7i$), give the same to $10^{-13}$. Off the surface ($R_{\rm eff}=0.0752$, rotating) the
+pair, and unequal inertias ($m=1,2.5$; $\nu=1+0.3i,\,0.4-0.7i$), give the same to $10^{-13}$. Off the surface (the unequal-inertia pair with $p^{(2)}$ perturbed at random, $R_{\rm eff}=0.0752$, rotating) the
 rotor follows $I_0\ddot\theta=R_{\rm eff}\sin(2\theta+\varphi_{\rm eff})$ to $2\times10^{-10}$ and frame~1 drifts by $0.1795$ per half turn, exactly
 additively (Theorem~17.16 of \cite{ES17} for several constituents).
 
@@ -212,7 +213,7 @@ for $w=0$, $|P(t)|=\half\sigma_1$ for all $t$. (iii) Each $P_k(t)$ is future cau
 vectors obey $|P_1+P_2|\ge|P_1|+|P_2|$ and $|P|\le P^0$, and $\sigma_1+\sigma_2\ge|\tr Q|$. (iv) Write $q_{1,2}(\varphi)=t\pm d(\varphi)$ and
 $Q_{12}(\varphi)=r(\varphi)$ with $t=\half q_{\rm tot}$. The pair $(d,r)$ turns by $2\varphi$, $d^2+r^2=t^2-\det Q$ is fixed, and
 $(|q_1|+|q_2|)^2=2|t|^2+2|d|^2+2|t^2-d^2|\le2|t|^2+2|d|^2+2|r|^2+2|\det Q|=(\sigma_1+\sigma_2)^2$, by $|t^2-d^2|=|\det Q+r^2|\le|\det Q|+|r|^2$.
-Equality needs $r(\varphi)^2$ to be a non-negative multiple of $\det Q$; as $\varphi$ varies, $r(\varphi)$ runs over an ellipse centred at $0$ or a
+Equality holds exactly when $\overline{\det Q}\,r(\varphi)^2\ge0$, hence for every $\varphi$ when $\det Q=0$; as $\varphi$ varies, $r(\varphi)$ runs over an ellipse centred at $0$ or a
 segment through $0$, so such $\varphi$ exists. (v) $Q=\bigl(\begin{smallmatrix}0&r\\r&0\end{smallmatrix}\bigr)$, $r=z_1\cdot z_2$; and
 $T(z_k)=k_k\otimes k_k$ with $k_k$ future null, $k_k^0=(E_6^{(k)})^{1/2}$, so $|r|=k_1\cdot k_2$ by (i), and $|\mathbf S^{(k)}|=E_6^{(k)}$.
 \end{proof}
@@ -380,9 +381,9 @@ in $\tau$.
 (i) \Cref{d2:prop:framevac} per copy, or \cref{d4:thm:krein}. (ii) On the $G_2=i$ sector $S$ acts on the copy index as
 $i\operatorname{diag}(\kappa_1,\kappa_2)+\beta\epsilon=i(K-i\beta\epsilon)$ with $K-i\beta\epsilon$ Hermitian. $S^\dagger=K\otimes G-\beta E$ commutes with
 $G_2$, so for $\mu\neq0$ its eigenspaces lie in the $G_2=\pm i$ sectors, which are totally isotropic for $h$ (a vector with $GY=iY$ has
-$\bE=-i\bB$); \cref{d4:thm:criterion}(ii) then gives boundedness except at $\mu_-=0$, and \cref{d4:thm:krein} the signatures. (iii) At
-$\beta^2=\kappa_1\kappa_2$ the kernel of $S^\dagger$ consists of the $(v_1c,v_2c)$, $c\in\C^3$, with $v_2=-i\kappa_1v_1/\beta$, on which
-$\eta_2=\Re\bigl((v_1^2+v_2^2)\,c\cdot c\bigr)$ and $v_1^2+v_2^2=v_1^2(1-\kappa_1/\kappa_2)\neq0$; so the kernel is not $\eta_2$-null and
+$\bE=-i\bB$); \cref{d4:thm:criterion}(ii) then gives boundedness except possibly at $\mu_-=0$, that is at $\beta^2=\kappa_1\kappa_2$; there the kernel of $S^\dagger$ computed in (iii) is $\eta_2$-null exactly when $\kappa_1=\kappa_2$, so the case $\kappa_1=\kappa_2=|\beta|$ is bounded as well. \Cref{d4:thm:krein} gives the signatures. (iii) At
+$\beta^2=\kappa_1\kappa_2$ the kernel of $S^\dagger$ consists of the $(v_1c,v_2c)$, $c\in\C^3$, with $(v_1,v_2)$ a nonzero multiple of $(i\kappa_2,\beta)$ if $\kappa_2>0$ and of $(0,1)$ if $\kappa_2=0$ (then $\beta=0$ and copy~$2$ is free), on which
+$\eta_2=\Re\bigl((v_1^2+v_2^2)\,c\cdot c\bigr)$ and $v_1^2+v_2^2$ is a nonzero multiple of $\kappa_2(\kappa_1-\kappa_2)$, respectively of $1$, hence $\neq0$; so the kernel is not $\eta_2$-null and
 \cref{d4:thm:criterion}(i) fails.
 \end{proof}
 

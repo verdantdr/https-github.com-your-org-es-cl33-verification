@@ -91,7 +91,7 @@ Let $f_a=(e^{(1)}_a+e^{(2)}_a)/\sqrt2$ and $g_a=(e^{(1)}_a-e^{(2)}_a)/\sqrt2$.
 \begin{enumerate}[label=(\roman*),leftmargin=2.2em]
 \item $\{f_a,f_b\}=\{g_a,g_b\}=2\eta_{ab}$ and $\{f_a,g_b\}=0$ for all $a,b$, so $\Cl(6,6)=\Cl(f)\hat\otimes\Cl(g)$: two mutually anticommuting
 copies of $\Cl(3,3)$.
-\item The copy rotation $C_b=\tfrac12\sum_a\eta_{aa}e^{(1)}_ae^{(2)}_a$ acts on vectors by $e^{(1)}_a\mapsto-e^{(2)}_a$, $e^{(2)}_a\mapsto e^{(1)}_a$; it is a sum of
+\item The copy rotation $C_b=\tfrac12\sum_a\eta_{aa}e^{(1)}_ae^{(2)}_a$ acts on vectors by $e^{(1)}_a\mapsto-e^{(2)}_a$, $e^{(2)}_a\mapsto e^{(1)}_a$, that is by $-C_v$, so it lifts the copy rotation with the opposite orientation; it is a sum of
 six commuting terms of square $-\tfrac14$, so $\exp(2\pi C_b)=\id$. Conjugation by $\exp(\tfrac\pi4C_b)$ carries $e^{(1)}_a$ to $g_a$ and $e^{(2)}_a$ to
 $f_a$, and $C_b=-\tfrac12\sum_a\eta_{aa}f_ag_a$. The split into halves is the split into constituents turned by an eighth of a turn of the
 copy rotation, which rotates one half into the other.
@@ -110,8 +110,8 @@ cross terms and anticommute with $\tau_K$.
 (i) and (iv) are expansions, using $e^{(1)}_ae^{(2)}_a=-f_ag_a$. (ii) By (3) of \cite{ES17}, $[C_b,e^{(1)}_b]=-e^{(2)}_b$. The six terms
 $\tfrac12\eta_{aa}e^{(1)}_ae^{(2)}_a$ share no index, so they commute, and each squares to $-\tfrac14$; hence
 $\exp(\theta C_b)=\prod_a(\cos\tfrac\theta2+\sin\tfrac\theta2\,\eta_{aa}e^{(1)}_ae^{(2)}_a)$, which is $(-1)^6\id$ at $\theta=2\pi$. On vectors $\exp(\theta\ad C_b)$ turns
-$e^{(1)}_a$ into $\cos\theta\,e^{(1)}_a-\sin\theta\,e^{(2)}_a$, which is $g_a$ at $\theta=\tfrac\pi4$. (iii) The swap of the copies is the reflection of $V_2$
-in the span of the $g_a$, and the product $g_1\cdots g_6$ of an even number of unit vectors implements it by conjugation. The Koszul swap implements
+$e^{(1)}_a$ into $\cos\theta\,e^{(1)}_a-\sin\theta\,e^{(2)}_a$, which is $g_a$ at $\theta=\tfrac\pi4$. (iii) The swap of the copies fixes every $f_a$ and negates every $g_a$: it is the reflection of $V_2$
+in the span of the $f_a$ along the span of the $g_a$, and the product $g_1\cdots g_6$ of an even number of unit vectors implements it by conjugation. The Koszul swap implements
 it too, by the sign rule. The commutant of $\Cl(6,6)=M_{64}(\R)$ is $\R$, so the two agree up to a scalar, which is $+1$. $\Tr\tau_K$ counts
 $\pm1$ over the diagonal states $x_i\otimes x_i$ with sign $(-1)^{\mathsf p_i}$, and $\omega$ is traceless.
 \end{proof}
@@ -138,7 +138,7 @@ a dual pair in $U(6)$.
 \end{enumerate}
 \end{proposition}
 
-Part (i) restates rows four and five of Proposition~13.14 of \cite{ES17} (fixed there), with the generators named. The four generators are
+Part (i) restates rows three to five of Proposition~13.14 of \cite{ES17} (fixed there), with the generators named. Row three is stated there for the diagonal $\lG$, whose commutant in $\so{6,6}$ is the same $\so{2,\C}$ (\cref{d5:prop:so6C}(iii)). The four generators are
 those of a lossless beam splitter on two modes \cite{CamposSalehTeich89}: a real splitter $C_v$, an overall phase, a relative phase and a
 symmetric splitter. Their group $U(2)$ is the energy-preserving duality group of two free Maxwell fields \cite{GaillardZumino81}, as
 Section~13.5 of \cite{ES17} notes. Part (ii) is inherited from Howe duality for $\C^3\otimes\C^2$ \cite{Howe89} (d5-3a, d5-3b).
@@ -293,8 +293,8 @@ copies the frames are two field strengths mixed by $\so{2,\C}$. The table restat
 \cite{ES17} (fixed there), re-verified. For the mixed rung we also re-verified the Casimir identity
 $(C_{\rm mix}-\tfrac32)(C_{\rm mix}-\tfrac{11}2)=0$ with ranks $16$ and $48$ (d5-5b). We checked the grade-three element $\Theta_F$ of Section~13.6 of
 \cite{ES17}, which identifies the frame field of copy~$2$ with $dA$ of copy~$1$. It and $\Theta_F$ followed by $G$ are invariant and span the
-invariants in $\Lambda^2(\text{four-plane}_1)\otimes V_2$, of dimension two as stated there. The full space of invariant grade-three elements has
-dimension four: the other two lie in $\Lambda^3V_2$ of copy~$2$ alone, the two $\lG$-invariant trivectors of
+invariants in $\Lambda^2(\text{four-plane}_1)\otimes V^{(2)}$, of dimension two as stated there. Here $\text{four-plane}_1=\langle e^{(1)}_1,e^{(1)}_4,e^{(1)}_5,e^{(1)}_6\rangle$ is the interior four-plane of copy~$1$ and $V^{(2)}$ is the span of the $e^{(2)}_a$, the space of copy~$2$ alone, which Section~13.6 of \cite{ES17} writes $V_2$. The full space of invariant grade-three elements has
+dimension four: the other two lie in $\Lambda^3V^{(2)}$, among the trivectors of copy~$2$ alone, the two $\lG$-invariant trivectors of
 $(\Lambda^3\R^6)_\C=2\,(0,0)\oplus2\,(1,1)$ (Section~12.3 of \cite{ES17}; d5-5c). This is a precision, not a correction. The mixed rung is the only
 action at $n=2$ that houses both readings, at the price of the whole internal algebra.
 
@@ -345,8 +345,10 @@ exactly $\pm\Omega$ and $\pm J$, and only $\pm J$ commute with the gammas.
 \end{proposition}
 
 Parts (i), (ii) and (iv) restate results of \cite{ES17} (fixed there), re-verified in the realisation of $\Cl(6,6)$ (d5-7a to d5-7c, d5-8).
-Part (iii) is fixed but elementary (d5-7d). The Lorentz-invariant, uncharged, non-rigid vacuum needs four positive internal directions that
-commute with $Q$ in pairs, and one copy offers only the surplus pair; it exists because there are two copies. Part (iv) adds one
+Part (iii) is fixed but elementary (d5-7d). The vacuum of Theorem~26.6 of \cite{ES17} is built on four positive internal directions, two of them the surplus pair $a,b$ of copy~$1$. A
+grade-four blade in the five positive internal generators commutes with $Q$ exactly when it contains both $a$ and $b$, so it straddles the copies.
+Part (iii) covers only these positive blades, not blades that also use the negative internal directions of copy~$2$. At one copy the first rung is
+rigid by the commutant argument of Proposition~26.4 of \cite{ES17}, without reference to blades, so the vacuum exists because there are two copies. Part (iv) adds one
 identity: the imaginary unit of the duplicate is the imaginary unit of copy~$1$ times the volume element of copy~$2$, which is that copy's
 fermion parity up to sign (\cref{d5:prop:fock}). It is neither the embedded one-rung charge $J_1\otimes\id$ nor $J^{(1)}+J^{(2)}$.
 
@@ -480,7 +482,7 @@ statement & class & checks\\
 \cref{d5:prop:cx}: isometric complex structure only at $n\ge2$; $\so6\supset\uu3'$ & inherited (parity); fixed & d5-3g, d5-3h\\
 \cref{d5:prop:so6C}: $\Cent(G_n)=\so{3n,\C}$; $\mathbf1\oplus\mathbf3\oplus\mathbf5$; copy algebra; analogue of Thm~17.20 & fixed (restated: Thm~17.19, Prop.~13.14) & d5-4a to d5-4c\\
 \cref{d5:prop:balance}: closure sees $|q_2(\pi)|$; balance with non-null copies & fixed (restated: Prop.~17.18, Cor.~17.14) & d5-9f\\
-\cref{d5:tab:actions}: five Lorentz actions; mixed rung; $\Theta_F$ (dimension $2$ within $\Lambda^2E_1\otimes V_2$, $4$ in all) & fixed (restated: Thm~10.8, Props.~13.16--13.17) & d5-5a to d5-5c\\
+\cref{d5:tab:actions}: five Lorentz actions; mixed rung; $\Theta_F$ (dimension $2$ within $\Lambda^2(\text{four-plane}_1)\otimes V^{(2)}$, $4$ in all) & fixed (restated: Thm~10.8, Props.~13.16--13.17) & d5-5a to d5-5c\\
 \cref{d5:prop:spin}: spin and statistics, Casimirs, exchange sectors & fixed (restated: Prop.~10.9, Thm~10.4); inherited & d5-6a to d5-6c\\
 \cref{d5:prop:vacuum}: rigid first rung, $S^4$ vacuum, straddling, $J=J_1\otimes\omega$ & fixed (restated: Prop.~26.4, Thms~26.6, 26.7, 4.1) & d5-7a to d5-7d, d5-8\\
 \cref{d5:thm:bfield2}: inter-copy $b$-field: uniqueness, spectrum, removability, boundedness criterion, seesaw & fixed; mixing and seesaw inherited & d5-9a to d5-9e, d5-9g\\

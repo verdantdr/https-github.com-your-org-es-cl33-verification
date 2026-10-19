@@ -685,7 +685,8 @@ def _():
 
 @claim("d5-3c", "duplication maps: the G-linear, rotation-equivariant maps V -> V_2 form the 4-dim space "
                 "z -> (alpha z, beta z), alpha, beta in C; such a map is E6-isometric iff |alpha|^2 + |beta|^2 = 1 "
-                "(an S^3) and eta-isometric iff alpha, beta are real with alpha^2 + beta^2 = 1 (a circle)")
+                "(an S^3); eta-isometric alone means alpha^2 + beta^2 = 1 over C, and together with E6-isometry it forces "
+                "alpha, beta real (a circle)")
 def _():
     # unknown 12x6 matrix L, vec column-major
     blocks = []

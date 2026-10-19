@@ -33,15 +33,15 @@ Investigation note to *The electromagnetic sphere* (17 October 2026, `tex/`), te
 |---|---|---|
 | the algebra is duplicated | $\mathrm{Cl}(6,6)=\mathrm{Cl}(3,3)\hat\otimes\mathrm{Cl}(3,3)$, Klein factor = Jordan–Wigner sign, spinors = Fock space of six modes | forced (inherited) |
 | the energy is duplicated | isometric embeddings of $(\mathbb C^3,E_6)$: a beam-splitter $S^3$, cut to one circle (the copy rotation) by $\eta$; literal copying excluded | chosen; cloning obstructed |
-| the duplicate adds structure | $\eta$-isometric complex structure, copy charge, $\mathfrak{so}(2,\mathbb C)$, non-rigid $S^4$ vacuum, balance surface (constant rate with massive constituents) | fixed (partly restates the paper) |
+| the duplicate adds structure | $\eta$-isometric complex structure, copy charge, $\mathfrak{so}(2,\mathbb C)$, non-rigid $S^4$ vacuum, balance surface (constant rate with non-null, "massive" constituents) | fixed (partly restates the paper) |
 | a massive pair from one null field | impossible for any Lorentz-covariant duplication; needs a second null field ($\gamma\gamma\to e^+e^-$) or a non-covariant third body | obstructed; kinematics inherited |
-| the mass of one copy | gauge dependent unless the copies are distinguished | fixed; the distinguishing structure is open |
+| the mass of one copy | not invariant under the copy rotation, so gauge dependent if it is gauged; physical only where the copies are distinguished | fixed; the distinguishing structure is open |
 | a $b$-field between manifolds | $\mathfrak{so}(n,\mathbb C)$ under a common Lorentz action, compact part $\mathfrak{so}(n)$; a spectator Lorentz manifold is decoupled | fixed |
-| it is a deal breaker | at unequal rates: not removable, level repulsion, seesaw confinement of a rate-less frame, resonances; from three manifolds a time-odd invariant $B_{12}B_{23}B_{31}$ (Jarlskog analogue) | holds (fixed) |
+| it is a deal breaker | at unequal rates a binding-compatible field is not removable, shifts the lines, confines a rate-less frame (seesaw), can create resonances; from three manifolds a time-odd invariant $B_{12}B_{23}B_{31}$ (Jarlskog analogue) | holds (fixed) |
 | it generates a rate (a mass) | rates are the spectrum of the self-adjoint part, a gauge tensor: never changed; equal rates ⇒ removable | fails (obstructed) |
-| where unequal rates come from | not the paper's one-rotor closure; a rotor acting by a non-central element of $\mathfrak u(n)$ | constructed; origin open |
-| isospin ½ between manifolds | copy isospin is integral; the Yang–Mills doublet is one connection plus two rate terms | fails under a common Lorentz action |
-| the arrow of the hypothesis | the non-removable part $[K,B]_{kl}=(\kappa_k-\kappa_l)B_{kl}$: rate differences make $b$ physical (Higgs–Kibble-like) | reversed (interpretive) |
+| where unequal rates come from | not the paper's one-rotor closure (it imposes a common rate); under a common Lorentz action a rotor acting by a non-central element of $\mathfrak u(n)$ | constructed; origin open |
+| isospin ½ between manifolds | on two and three manifolds copy isospin is integral; the Yang–Mills doublet is one connection plus two rate terms; from four manifolds the copy rotations contain $\mathfrak{su}(2)\oplus\mathfrak{su}(2)$ with doublets | fails at $n=2,3$ under a common Lorentz action |
+| the arrow of the hypothesis | the non-removable part $[K,B]_{kl}=(\kappa_k-\kappa_l)B_{kl}$: rate differences make $b$ physical (Higgs–Kibble-like) | reversed under $mc^2=\hbar\kappa$ (interpretive) |
 
 ## Running the checks
 
