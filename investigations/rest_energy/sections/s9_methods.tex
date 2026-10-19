@@ -12,8 +12,13 @@ from its definition and print one \texttt{PASS} line per claim of their section,
 \item \emph{Adversarial scripts} \texttt{x1\_check.py} to \texttt{x7\_check.py} were written afterwards by separate authors whose task was to
 refute the claims. They import nothing from the derivation scripts, rebuild every convention from the paper's sources, and wherever possible
 use a different method: symbolic where the first pass was numerical, random tests where it used special cases, a different integrator for
-the dynamics. Their findings were applied before the note was assembled: for the first part one refuted claim and several reclassifications, for the
-second part the corrections listed in the commit history of \texttt{investigations/rest\_energy/}.
+the dynamics. Their findings were applied before the note was assembled. For the first part they were one refuted claim and several reclassifications.
+For the second part each of the fifty findings of \texttt{x5}--\texttt{x7} was first re-examined by an independent second referee, who tried
+to refute it; forty were confirmed, ten in part, and none rejected. No theorem of the second part was refuted. The corrections concern
+two false statements about which duplications preserve $|q_2|$, the sum of the per-copy rest energies, which is bounded but not conserved,
+the distinction between the pair invariant and the invariant mass of a pair, the abelian-frame assumption of the closure under a common
+Lorentz action (new check d7-2b), copy doublets at four manifolds (new check d7-6d), and the wording of several assessments, classes and
+citations.
 \item \texttt{run\_all.py} runs all fourteen scripts and writes \texttt{RESULTS.md}; it exits with status zero only if every script does.
 \end{enumerate}
 
