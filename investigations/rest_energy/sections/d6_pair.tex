@@ -14,13 +14,14 @@ codimension-two balance surface carries massive constituents at an exactly const
 restating Proposition~17.18 of \cite{ES17} with the dimension count added). This is the precise sense in which a duplicate does what one copy
 cannot, and it needs no $b$-field. (2) The closure never creates a pair (\cref{d6:cor:nopair}). (3) The admissible $b$-field between the
 manifolds, the copy rotation, duplicates a field literally, and no Lorentz-covariant operation makes a massive pair out of a single null
-field (\cref{d6:prop:covariant}); the rotation used in the task's example is a different, non-covariant element (\cref{d6:ex:R1}).
+field (\cref{d6:prop:covariant}); a natural candidate that rotates a single direction between the copies is a different, non-covariant
+element (\cref{d6:ex:R1}).
 (4) The rest energy of a duplicated field point is $M_{\rm pair}=\half(\sigma_1+\sigma_2)$, and the copy rotation can move all of it into the two
 copies (\cref{d6:thm:pair,d6:ex:bw}): the kinematics of $\gamma\gamma\to e^+e^-$, inherited. (5) The rest energy of each copy separately is
-not gauge invariant, and with equal inertias the closure's own symmetry maps every balanced pair to one null constituent
+not invariant under the copy rotation, hence gauge dependent if that rotation is gauged, and with equal inertias the closure's own symmetry maps every balanced pair to one null constituent
 (\cref{d6:prop:gauge}): pair creation is physical only where the copies are distinguished. (6) On the Dirac side the graded duplication adds
 Dirac masses in quadrature (\cref{d6:prop:dirac}). (7) The zero-point energy stays zero, but an inter-manifold $b$ at unequal rates can
-cancel one rate exactly, and there the motion is unbounded (\cref{d6:prop:zpe}).
+bring one line of the motion to zero exactly, and there the motion is unbounded (\cref{d6:prop:zpe}).
 
 \paragraph{Conventions.} As in \cref{d3:sec:main} for one constituent. For two, $V_2=V\oplus V$ with coordinates $(X^{(1)};X^{(2)})$,
 $\eta_2=\id_2\otimes\eta$, $G_2=\id_2\otimes G$; in the tower $e^{(1)}_a=e_a\otimes\id$, $e^{(2)}_a=\omega\otimes e_a$, $\omega=e_1\cdots e_6$,
@@ -37,7 +38,8 @@ M_{\rm pair}:=\inf_t|P_{\rm sum}(t)|,
 the rest energy of the duplicated field point. In the closure the per-copy quantities are those of the momentum fields
 $\pi^{(k)}=\eta^{-1}p^{(k)}$, $w_k=q(z(\pi^{(k)}))$; inertias are of Lorentz class, $N_k=(\nu_{k,1}\eta^{-1}+\nu_{k,2}G\eta^{-1})/m_k$, with
 $c_k:=\nu_k/m_k\in\C$ and $R_{\rm eff}e^{i\varphi_{\rm eff}}:=\sum_kc_kw_k(0)$ (Proposition~17.18 of \cite{ES17}). Two Lorentz actions occur: the
-per-copy algebras $\lG^{(1)}\oplus\lG^{(2)}$, and the diagonal $\mathfrak l_{G,\Delta}$ ($k_B=2$ in Theorem~10.8 of \cite{ES17}). Rates are rates:
+per-copy algebras $\lG^{(1)}\oplus\lG^{(2)}$, and the diagonal $\mathfrak l_{G,\Delta}$ ($k_B=2$ in Theorem~10.8 of \cite{ES17}). Each $E_0^{(k)}$ is invariant under both; $M_{\rm pair}$, defined with one observer for both copies, is invariant under the diagonal action but not under the per-copy one, since a boost of one copy alone changes it. A constituent is called \emph{massive} when its momentum field is not null, $E_0(\pi^{(k)})\neq0$:
+massive in the sense of the dictionary of \cref{s0:sec:question}, an interpretive reading that does not involve $mc^2=\hbar\kappa$. Rates are rates:
 $mc^2=\hbar\kappa$ is an added identification (\cref{d3:sec:main}). Identifiers d6-$n$ refer to \texttt{verify/d6\_pair\_balance.py}
 (integrations DOP853, relative tolerance $10^{-12}$; d6-0 checks the conventions).
 
@@ -83,8 +85,11 @@ additively (Theorem~17.16 of \cite{ES17} for several constituents).
 \label{d6:rem:lorentzreq}
 $N=\operatorname{diag}(1,-1,0,-1,1,0)/m$ anticommutes with $G$ but is not $\lG$-invariant. For $p_0=e^1+e^2$, $z(\pi_0)=(1,1,0)$ and
 $E_0(\pi_0)=1$, while $U(\theta)=\half p_0^{\!\top}e^{2\theta G}Np_0\equiv0$: the rate is exactly constant and the frame moves on a circle (d6-1c). One
-constituent can thus combine a constant rate with a massive momentum field only through a cancellation between directions that breaks Lorentz
-invariance; the balance surface is the Lorentz-invariant form of the same cancellation, between constituents. Fixed, as a counterexample to
+constituent can thus combine a constant rate, a massive momentum field and a bounded, moving frame only through a cancellation between directions
+that breaks Lorentz invariance: a bounded clamped frame needs $N_cp_0=0$, and a nonzero Lorentz-class $N_a$ then keeps $U$ constant only on null
+data. The balance surface is the Lorentz-invariant form of the same cancellation, between constituents. Without the bounded frame no cancellation
+is needed: a duality-class inertia, $[N,G]=0$, gives a constant rate for every datum, massive ones included, with $U=\half p_0^{\!\top}Np_0$ constant,
+and the frame drifts at the velocity $Np_0$ (\cref{d3:cor:flat}(iii) and Theorem~17.12 of \cite{ES17}; restated). Fixed, as a counterexample to
 (ii) without the hypothesis.
 \end{remark}
 
@@ -176,8 +181,8 @@ $z\times v=0$, i.e.\ $v\in\C z$.
 \end{proof}
 
 Item (i) restates Proposition~13.14 and Theorem~10.8 of \cite{ES17} (fixed there), (ii) is inherited linear algebra and restates the remark
-on $U(n)$ at the end of Section~13.5 of \cite{ES17}, and (iii) is an obstruction; all checked exactly (d6-5a--c). This settles the task's
-reading in the negative. The copy rotation acting identically in all six directions is the admissible $b$-field between the two manifolds,
+on $U(n)$ at the end of Section~13.5 of \cite{ES17}, and (iii) is an obstruction; all checked exactly (d6-5a--c). This settles in the negative the reading of the copy rotation
+as a pair-creating operation. The copy rotation acting identically in all six directions is the admissible $b$-field between the two manifolds,
 and it duplicates a field literally: the undivided energy and the rest energy of $(z,0)$ are shared in the same ratio
 $\cos^2\varphi:\sin^2\varphi$, a null field becomes two null fields and a massive one two massive replicas. It cannot produce a balanced massive
 pair from a single null field, and no other Lorentz-covariant operation can.
@@ -212,16 +217,22 @@ segment through $0$, so such $\varphi$ exists. (v) $Q=\bigl(\begin{smallmatrix}0
 $T(z_k)=k_k\otimes k_k$ with $k_k$ future null, $k_k^0=(E_6^{(k)})^{1/2}$, so $|r|=k_1\cdot k_2$ by (i), and $|\mathbf S^{(k)}|=E_6^{(k)}$.
 \end{proof}
 
-Inherited: ordinary electrodynamics of two field strengths, with the reverse triangle inequality as the kinematics of invariant mass; (i), (ii)
-and (iv) are not stated in \cite{ES17}. Checked symbolically (i), at the rest frames of $z_1\times z_2$ to $10^{-10}$ against $300$ random
+Items (i), (iii) and (v) are inherited: ordinary electrodynamics of two field strengths, with the reverse triangle inequality as the kinematics
+of invariant mass. The closed form of $M_{\rm pair}$ in (ii) and its saturation by the copy rotation in (iv) are fixed and new; (i), (ii) and
+(iv) are not stated in \cite{ES17}. Checked symbolically (i), at the rest frames of $z_1\times z_2$ to $10^{-10}$ against $300$ random
 observers (ii), by maximising over $\varphi$ (relative deviation $5\times10^{-16}$) (iv), and on random and null pairs (iii), (v) (d6-6a--d).
+Since $T(z_1\times z_2)$ is traceless, the trace of (i) gives the pair invariant of \cref{d5:rem:twoE0},
+$E_{\rm pair}=(\tfrac14\tr T_{\rm tot}^2)^{1/2}=\half\|Q\|_F$, and (ii) gives $M_{\rm pair}^2=E_{\rm pair}^2+\half|\det Q|$. The two agree exactly when
+$\det Q=0$, which holds on every duplicate $(\alpha z,\beta z)$ of a single field (\cref{d5:thm:dup}); for the counter-propagating null pair of
+\cref{d6:ex:bw}, $E_{\rm pair}=\sqrt2$ while $M_{\rm pair}=2$. The invariant mass of the pair is $M_{\rm pair}$, not $E_{\rm pair}$ (inherited).
 
 \begin{example}[Two counter-propagating null fields]
 \label{d6:ex:bw}
 $z_1=(1,i,0)$ and $z_2=(1,-i,0)$ are null with $\mathbf S^{(1)}=-e_3=-\mathbf S^{(2)}$, so $\mathbf S_{\rm sum}=0$, $E_6^{\rm tot}=2$,
 $Q=\bigl(\begin{smallmatrix}0&2\\2&0\end{smallmatrix}\bigr)$ and $M_{\rm pair}=2$. The rotation $R_{\pi/4}$ gives $z_1'=(0,\sqrt2\,i,0)$ and
-$z_2'=(\sqrt2,0,0)$: a pure electric and a pure magnetic field, both at rest, with $q=-2,+2$ and $E_0=1$ each. Every inequality of
-\cref{d6:thm:pair}(iii) is an equality: the balanced pair is produced at rest in the centre-of-momentum frame and takes the whole invariant mass
+$z_2'=(\sqrt2,0,0)$: a pure electric and a pure magnetic field, both at rest, with $q=-2,+2$ and $E_0=1$ each. In this frame, the centre-of-momentum frame, the chain of
+\cref{d6:thm:pair}(iii) holds with equality for the rotated pair, $E_0^{(1)}+E_0^{(2)}=M_{\rm pair}=|P_{\rm sum}|=E_6^{\rm tot}=2$, while
+$M_{\rm pair}=2>\half|q_{\rm tot}|=0$: the balanced pair is produced at rest in the centre-of-momentum frame and takes the whole invariant mass
 (d6-7). Inherited: the kinematics of $\gamma\gamma\to e^+e^-$ \cite{BreitWheeler34}; the same superposition is the standing wave of
 \cref{d1:prop:whole}(3).
 \end{example}
@@ -235,14 +246,18 @@ are conserved, $\mathbf S_{\rm sum}$ goes from $-e_3$ to $-\cos\varphi\,e_3$ and
 $E_6^{\rm tot}=1\ge M_{\rm pair}=\sin\varphi\ge\sum_kE_0^{(k)}=\sin^2\varphi$, with equality throughout at $\varphi=\pi/2$ (a magnetic field along $e_1$ and
 an electric one along $e_2$, at rest). $R^{(1)}$ does not commute with $\mathfrak l_{G,\Delta}$, and lies neither in $\mathfrak g(0,2,0)$ nor in
 $\mathfrak g(0,1,1)=\so{3,3}$ (Lorentz algebra on copy~1, copy~2 a spectator): it is a candidate gauge transformation under no Lorentz action of
-Theorem~10.8 of \cite{ES17} with $k_I=0$ (d6-8). Read kinematically it is an infinitely heavy third body, absorbing momentum and no energy, and
+Theorem~10.8 of \cite{ES17} with $k_I=0$ (d6-8), and under none with $k_I>0$ either: it lies outside $\mathfrak g(2,0,0)$ and
+$\mathfrak g(1,0,1)=\so{5,3}$ (x6-8a), and it has components from the interior four-plane of one copy into the binding frame of the other,
+which the proof of Theorem~10.8 excludes from $\mathfrak g(1,1,0)$. It is therefore non-covariant under all five Lorentz actions at $n=2$. Read kinematically it is an infinitely heavy third body, absorbing momentum and no energy, and
 $E_6\ge E_0^{(1)}+E_0^{(2)}$ is the field-point form of the threshold $E_\gamma\ge2mc^2$ for pair production in the field of a nucleus
-\cite{BetheHeitler34}; the kinematics is inherited, and the agent is constructed: it exists, and nothing in the arena supplies it.
+\cite{BetheHeitler34}. The numbers and the non-covariance are fixed (d6-8; x6-8a,b), the third-body reading is interpretive, the threshold
+kinematics is inherited, and the agent is constructed: it exists, and nothing in the arena supplies it.
 \end{example}
 
-The rotation in the task's example is $R^{(1)}_\varphi$, not the copy rotation $R_\varphi$: the conservation of $E_6^{\rm tot}$ and $q_{\rm tot}$ and the
-non-conservation of $\mathbf S_{\rm sum}$ hold for it as stated, but it is not ``identical in all six directions'', and the copy rotation that is
-conserves $\mathbf S_{\rm sum}$ and the whole summed stress tensor.
+A tempting reading of pair creation applies to $((1,i,0),0)$ a rotation said to mix the copies ``identically in all six directions''. The rotation
+that produces the balanced pair above is $R^{(1)}_\varphi$, which rotates two directions only, not the copy rotation $R_\varphi$. For $R^{(1)}_\varphi$ the
+conservation of $E_6^{\rm tot}$ and $q_{\rm tot}$ and the non-conservation of $\mathbf S_{\rm sum}$ hold, while the copy rotation, which does act identically
+in all six directions, conserves $\mathbf S_{\rm sum}$ and the whole summed stress tensor.
 
 \subsection{Is the rest energy of one copy observable?}
 \label{d6:sec:gauge}
@@ -277,9 +292,9 @@ Item (i) restates Theorem~10.8 and Proposition~10.9 of \cite{ES17} (fixed there)
 arithmetic (d6-9, d6-10). This decides whether ``mass creation in pairs'' is physical. \emph{If the copy rotation is gauged}, the rest energy of
 each copy is not an observable: \cref{d6:ex:bw} is a change of gauge, not a process, and two counter-propagating null fields and an
 electric--magnetic pair at rest are one physical state, whose gauge-invariant content $M_{\rm pair}=2$ was there before. \emph{In the
-equal-inertia closure alone}, its own compact symmetry identifies every balanced pair with one null constituent, and the rotor sees only
-$\half|q_{\rm tot}|=0$; the mass of the pair is invisible to the rate and becomes meaningful only through a per-copy or diagonal Lorentz action,
-which the closure does not select (the Lorentz action at several constituents is open, Theorem~17.20 of \cite{ES17}). \emph{If the copies are
+equal-inertia closure alone}, its own compact symmetry maps every balanced pair to one null constituent, changing $M_{\rm pair}$ as it does so (by (iii)), and the rotor sees only
+$\half|q_{\rm tot}|=0$; the mass of the pair is invisible to the rate. $M_{\rm pair}$ becomes an invariant only through the diagonal Lorentz action, and the per-copy rest energies only through a per-copy one,
+neither of which the closure selects (the paper leaves the Lorentz action at several constituents open, Table~7 of \cite{ES17}; at $n=3$ the closure symmetry meets the interior Lorentz algebra of the first constituent in $0$, Theorem~17.20 there, and \cref{d5:prop:so6C}(iv) is the $n=2$ analogue). \emph{If the copies are
 distinguished} --- by unequal inertias, which by (iv) break $\mathfrak g(0,2,0)$, by unequal binding rates, by a projector, or by a Lorentz
 action on one copy only, whose algebra $\mathfrak g(0,1,1)$ contains no copy mixing --- the per-copy rest energies are observables, but then the
 closure creates no pair (\cref{d6:cor:nopair}). In the interior with $S=\operatorname{diag}(\kappa_1,\kappa_2)\otimes G+\beta E$ the momentum field
@@ -288,8 +303,10 @@ copy index. For $\kappa_1=\kappa_2$ this is $e^{i\kappa\tau}R_{-\beta\tau}$, and
 (Larmor \cite{Larmor1897}; \cref{d4:sec:bfield}). For $\kappa_1\neq\kappa_2$ they change physically: for the pair of \cref{d6:ex:bw},
 $E_0(\pi^{(1)})(\tau)=|z_1\cdot z_2|\,|U_{11}U_{12}|$, $U=e^{ih\tau}$, which for $\kappa=(1,3)$, $\beta=0.4$ peaks at $0.6897$, the Rabi value
 $2\sqrt{s(1-s)}$ with $s=4\beta^2/((\kappa_2-\kappa_1)^2+4\beta^2)$, at fixed $E_6^{\rm tot}$; from $(z,0)$ with $z$ null both copies stay null for all
-$\tau$ (d6-11). This is two-level mixing \cite{Rabi37}, inherited, and it moves rest energy between the manifolds only where a second,
-non-collinear field supplies it.
+$\tau$ (d6-11). This is two-level mixing \cite{Rabi37}, inherited. It changes the per-copy rest energies but not $M_{\rm pair}$, so their sum stays at most
+$M_{\rm pair}$ (\cref{d6:thm:pair}(iii)) without being conserved in general: for the pair of \cref{d6:ex:bw} both copies gain the same rest
+energy, so none passes from one copy to the other, and from two null fields rest energy appears only where the second is non-collinear and
+supplies a nonzero $M_{\rm pair}$.
 
 \begin{remark}[A copy rotor]
 \label{d6:rem:copyrotor}
@@ -298,8 +315,10 @@ $\lG^{(1)}\oplus\lG^{(2)}$ but not for $\mathfrak l_{G,\Delta}$: $E$ is $\mathfr
 second rotor $\hat c$ with $[\hat c,X]=EX$, $[\hat c,\hat g]=0$ gives an equivariant closure $\R^2\ltimes V_2$, with Lie--Poisson equations
 $\dot p=(H_hG_2^{\!\top}+H_{h_c}E^{\!\top})p$, $\dot h=-p^{\!\top}G_2\nabla H$, $\dot h_c=-p^{\!\top}E\nabla H$. With equal Lorentz-class inertias
 $\dot h_c=0$, the copy angle turns uniformly, and the per-copy $E_0(\pi^{(k)})$ oscillate while the summed momentum tensor, $M_{\rm pair}(\pi)$ and
-$|q_{\rm tot}(\pi)|$ stay constant; $((1,i,0),0)$ stays null--null (d6-12). The inter-manifold $b$-field made dynamical moves rest energy between
-the manifolds at fixed pair invariants and creates none. Constructed.
+$|q_{\rm tot}(\pi)|$ stay constant; $((1,i,0),0)$ stays null--null (d6-12). The inter-manifold $b$-field made dynamical changes
+the rest energies of the two manifolds at fixed pair invariants. Their sum is not conserved in general (for the data of \cref{d6:ex:bw} the copy
+rotation takes it from $0$ to $2$) and never exceeds $M_{\rm pair}$ (\cref{d6:thm:pair}(iii)), so the rotor creates per-copy rest energy but no
+pair invariant. Constructed.
 \end{remark}
 
 \subsection{The Dirac side}
@@ -347,7 +366,7 @@ ungraded operators: duplication in the tower's sense is not pair creation.
 \label{d6:prop:zpe}
 \begin{enumerate}[label=(\roman*),leftmargin=2.2em]
 \item For $\mathcal L=\sum_k\frac{m_k}2\eta\bigl(\dot X^{(k)}+\kappa_kGX^{(k)},\dot X^{(k)}+\kappa_kGX^{(k)}\bigr)$ each rate $\kappa_k$ carries Krein
-signature $(3,3)$; with positive-norm quantisation the zero-point energy is $\sum_k\frac{\hbar\kappa_k}2(3-3)=0$ for all $\kappa_1,\kappa_2,m_1,m_2$.
+signature $(3,3)$; with positive-norm quantisation the zero-point energy is $\sum_k\frac{\hbar\kappa_k}2(3-3)=0$ for all $\kappa_1,\kappa_2>0$ and $m_1,m_2\neq0$. At $\kappa_k=0$ the copy is free, its phase-space generator is not semisimple, and no zero-point energy is defined.
 \item With an inter-manifold $b=\beta E$ ($m_1=m_2$, $\kappa_k\ge0$ not both zero), $S=\operatorname{diag}(\kappa_1,\kappa_2)\otimes G+\beta E$ has spectrum
 $\pm i\mu_\pm$, $\mu_\pm=\half(\kappa_1+\kappa_2)\pm\bigl(\tfrac14(\kappa_1-\kappa_2)^2+\beta^2\bigr)^{1/2}$, each three times. Every solution is
 bounded unless $\beta^2=\kappa_1\kappa_2$ and $\kappa_1\neq\kappa_2$; when bounded, each line has Krein signature $(3,3)$ and the zero-point energy
@@ -368,12 +387,15 @@ $\eta_2=\Re\bigl((v_1^2+v_2^2)\,c\cdot c\bigr)$ and $v_1^2+v_2^2=v_1^2(1-\kappa_
 \end{proof}
 
 Item (i) restates Theorem~18.6 of \cite{ES17} (fixed there) for each copy: duplication preserves the neutral signature, and the cancellation
-survives unequal rates and masses. The lines in (ii) are inherited two-level mixing, with the seesaw value $0.0495097568$ at
-$(\kappa_1,\kappa_2,\beta)=(0,5,\half)$ against $\beta^2/\kappa_2=0.05$; the Krein statement is \cref{d4:thm:krein}, fixed; (iii) is fixed and new, the
-inter-manifold analogue of the exceptional ratio of \cref{d4:thm:screen}. Checked numerically for the signatures (d6-14a,b) and with rational
+survives unequal rates and masses. Since $E=C_v$, (ii) and (iii) specialise \cref{d5:thm:bfield2} to $m_1=m_2$. The lines in (ii) are inherited two-level mixing and restate
+\cref{d5:thm:bfield2}(ii); the boundedness criterion restates \cref{d5:thm:bfield2}(v); the seesaw value $0.0495097568$ at
+$(\kappa_1,\kappa_2,\beta)=(0,5,\half)$ against $\beta^2/\kappa_2=0.05$ restates \cref{d5:thm:bfield2}(vi). What is new here is the Krein signature
+$(3,3)$ of each line and the vanishing zero-point energy at $n=2$, fixed by \cref{d4:thm:krein}. (iii) restates the Jordan block in the proof
+of \cref{d5:thm:bfield2}(v) (fixed there); it is the inter-manifold analogue of the exceptional ratio of \cref{d4:thm:screen}. Checked numerically for the signatures (d6-14a,b) and with rational
 data for semisimplicity: not semisimple at $(1,4,2)$, semisimple at $(1,4,1)$, $(2,2,2)$ and $(1,3,\tfrac25)$ (d6-14c). Read with the added
-identification $mc^2=\hbar\kappa$: an inter-manifold $b$ can give an unbound manifold the rate $\beta^2/\kappa_2$ borrowed from the binding of the
-other, or cancel a rate exactly at the price of unbounded motion; it never produces a rate without an existing binding, since at
+identification $mc^2=\hbar\kappa$ applied to the lines: an inter-manifold $b$ can give an unbound manifold the line $\beta^2/\kappa_2$ borrowed from the
+binding of the other, or bring a line to zero exactly at the price of unbounded motion; it never changes a rate, the spectrum of the
+self-adjoint part of the shift (\cref{d7:thm:schr}(iii)), and never produces a line without an existing binding, since at
 $\kappa_1=\kappa_2=0$ the lines $\pm\beta$ are removed by $X\mapsto e^{-\beta E\tau}X$.
 
 \subsection{Assessment}
@@ -394,35 +416,36 @@ Cor.~\ref{d6:cor:nopair} & no closure Hamiltonian creates or moves a pair & obst
 Prop.~\ref{d6:prop:pairs} & $a\cdot b=0$; $V_\pm$ null, $E=\mp G_2$; magnetic--electric pair, $M_{\rm pair}=2E_0$, $q_{\rm tot}=0$ & fixed (part restated); readings interpretive & d6-4a--e\\
 Prop.~\ref{d6:prop:covariant}(i,ii) & commutant $M_2(\C)$, $\mathfrak g(0,2,0)$, invariants of $R_\varphi$ and $U(2)$ & restated / inherited & d6-5a,b\\
 Prop.~\ref{d6:prop:covariant}(iii) & no covariant map makes a pair from one null field & obstructed & d6-5c\\
-Thm.~\ref{d6:thm:pair} & $M_{\rm pair}=\half(\sigma_1+\sigma_2)$, the chain, $\max_\varphi$ & inherited & d6-6a--d\\
+Thm.~\ref{d6:thm:pair} & $M_{\rm pair}=\half(\sigma_1+\sigma_2)$, the chain, $\max_\varphi$ & (i), (iii), (v) inherited; (ii), (iv) fixed (new) & d6-6a--d\\
 Ex.~\ref{d6:ex:bw} & two null fields $\to$ electric and magnetic at rest & inherited & d6-7\\
-Ex.~\ref{d6:ex:R1} & the task's rotation: non-covariant third body & constructed & d6-8\\
+Ex.~\ref{d6:ex:R1} & rotation of one direction: balanced pair from a null field, covariant under none of the five Lorentz actions at $n=2$; third body & fixed (numbers, non-covariance); agent constructed; reading interpretive & d6-8; x6-8a,b\\
 Prop.~\ref{d6:prop:gauge} & $R_\varphi$ admissible; per-copy $E_0$ not invariant; $O(6,\C)$ maps pairs to null fields & fixed (part restated) & d6-9, 10\\
-interior & distinguished copies: rest energy moved by two-level mixing & inherited & d6-11\\
-Rem.~\ref{d6:rem:copyrotor} & a dynamical copy rotor moves $E_0^{(k)}$ at fixed pair invariants & constructed & d6-12\\
+interior & distinguished copies: per-copy rest energy changed by two-level mixing, sum $\le M_{\rm pair}$ & inherited & d6-11\\
+Rem.~\ref{d6:rem:copyrotor} & a dynamical copy rotor changes $E_0^{(k)}$ and their sum at fixed pair invariants & constructed & d6-12\\
 Prop.~\ref{d6:prop:dirac} & Klein signs, $C$-parity, masses in quadrature & inherited & d6-13a--e\\
-Prop.~\ref{d6:prop:zpe} & zero-point energy $0$; exceptional ratio $\beta^2=\kappa_1\kappa_2$ & fixed ((i) restated) & d6-14a--c\\
+Prop.~\ref{d6:prop:zpe} & zero-point energy $0$; exceptional ratio $\beta^2=\kappa_1\kappa_2$ & fixed ((i) restated; lines, boundedness and (iii) restate \cref{d5:thm:bfield2}) & d6-14a--c\\
 answers & duplication as copy rotation, pair creation and balance & interpretive & ---\\
 \bottomrule
 \end{tabular}
-\caption{The claims of \cref{d6:sec:main}, their classes and the checks of \texttt{d6\_pair\_balance.py} (d6-0 verifies the conventions).}
+\caption{The claims of \cref{d6:sec:main}, their classes and the checks of \texttt{d6\_pair\_balance.py} (d6-0 verifies the conventions; x6-8a,b are printed by \texttt{x6\_check.py}).}
 \label{d6:tab:claims}
 \end{table}
 
 \emph{On the $b$-particle with two manifolds.} The remark is partly borne out. With two manifolds there is an admissible $b$-field between
-them, the copy rotation, the compact part of $\mathfrak g(0,2,0)$; it commutes with the binding, keeps every orbit bounded except at
-$\beta^2=\kappa_1\kappa_2\neq\kappa_1^2$, and moves rest energy from one manifold to the other, which on one manifold only the anti-diagonal part of $b$
-can do, and only by tearing or by screening (\cref{d1:prop:bfield,d4:thm:screen}); with unequal rates it mixes them, lending a rate to an unbound
-manifold or cancelling one. It does not generate an invariant mass: $M_{\rm pair}$, the summed stress tensor and $q_{\rm tot}$ are
-invariant under it; with equal rates it is removable; the rest energy of each copy is gauge dependent; and the one thing two constituents do in
+them, the copy rotation, the compact part of $\mathfrak g(0,2,0)$; it commutes with the binding root $G_2$, and with the binding $K\otimes G$ only at equal rates (\cref{d5:thm:bfield2}(iii)), keeps every orbit bounded except when
+$\beta^2=\kappa_1\kappa_2$ with $\kappa_1\neq\kappa_2$, or when $\kappa_1=\kappa_2=0$ and nothing binds (\cref{d5:thm:bfield2}(v)), and changes the rest energy of each manifold, their sum bounded by $M_{\rm pair}$ but not conserved in general, which on one manifold only the anti-diagonal part of $b$
+can do, and only by tearing or by screening (\cref{d1:prop:bfield,d4:thm:screen}); with unequal rates it mixes them, lending a line to an unbound
+manifold or bringing one to zero, while the rates themselves never change (\cref{d7:thm:schr}(iii)). It does not generate an invariant mass: the copy rotation preserves $M_{\rm pair}$, the summed stress tensor and $q_{\rm tot}$, and the
+interior flow $e^{ih\tau}$, unitary on the copy index, preserves $M_{\rm pair}$, the summed stress tensor and $E_6^{\rm tot}$ at any rates but
+$|q_{\rm tot}|$ only at equal rates (for the pair of \cref{d6:ex:bw} at $\kappa=(1,3)$, $\beta=0.4$ it leaves $0$); with equal rates it is removable; the rest energy of each copy is not invariant under it, hence gauge dependent if it is gauged; and the one thing two constituents do in
 the closure that one cannot, carrying rest energy at a constant rate, needs no $b$-field at all: it is the balance surface.
 
 \emph{On how a unitary energy results in a duplication.} The mathematical process is the graded tensor product (inherited), under which the
 undivided energy becomes $E_6^{\rm tot}=\half|Z|^2$; the Lorentz-covariant, energy--momentum-preserving duplications form $U(2)\otimes\id_3$, of
-which only the copy rotation $SO(2)$ is a metric, hence admissible, transformation (\cref{d6:prop:covariant}). The physical process it
-describes shares the energy of one copy between two as literal replicas, preserving the type; a balanced magnetic--electric pair requires either
+which the metric ones form $O(2)\otimes\id_3$ (the real orthogonal $A$); its identity component, the copy rotation $SO(2)$, is the part generated by an admissible $b$-field, and the other component contains the swap of the copies and $\operatorname{diag}(1,-1)$, which are metric but not copy rotations (\cref{d6:prop:covariant}). The physical process it
+describes shares the energy of one copy between two as literal replicas, preserving the type. From one null field, a balanced magnetic--electric pair requires either
 a second, non-collinear null field, with the inherited kinematics of $\gamma\gamma\to e^+e^-$ ($\sum_kE_0^{(k)}\le M_{\rm pair}$, saturated), or a
-non-covariant agent that takes the momentum, with the kinematics of pair production on a nucleus ($\sum_kE_0^{(k)}\le E_6^{\rm tot}$). In motion
+non-covariant agent that takes the momentum, with the kinematics of pair production on a nucleus ($\sum_kE_0^{(k)}\le E_6^{\rm tot}$). From one massive field $z$ the copy rotation never balances $(z,0)$, since it preserves $q_{\rm tot}=q(z)\neq0$; the non-metric equal split with a relative quarter turn of duality, $z\mapsto(z,iz)/\sqrt2$ (\cref{d5:thm:dup}(ii) at $\theta=\pi/2$), is covariant and energy-preserving, lands on $V_+$ and gives the balanced pair of \cref{d6:prop:pairs}(iii), with $E_0^{(k)}=\half E_0(z)$ each and $M_{\rm pair}=E_0(z)$ unchanged (\cref{d5:prop:balance}). In motion
 the closure conserves the content of each copy and carries the pair, on the balance surface, at a constant rate. The decisive caveat is
 \cref{d6:prop:gauge}: every statement that a mass has been created in one copy needs a structure that distinguishes the copies, and the
 symmetric closure and the gauged copy rotation provide none. Whether such a structure is physical is open.

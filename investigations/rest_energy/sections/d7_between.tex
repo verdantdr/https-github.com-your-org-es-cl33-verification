@@ -14,8 +14,8 @@ common Lorentz action the rotor may act by any element of $\uu n$, which is a co
 undivided energy exactly when the field is compact. The rates are gauge invariants, the field redistributes the frequencies at fixed sum, and
 it is removable exactly when it preserves the rate eigenspaces (fixed; \cref{d7:sec:schr,d7:sec:boost}). Fourth, three manifolds carry an
 invariant that two do not: the sign of $B_{12}B_{23}B_{31}$, odd under interior time reversal, the analogue of Jarlskog's invariant (fixed;
-\cref{d7:sec:three}). Fifth, the copy isospin is integral: frames carry isospin one, never one-half. The Yang--Mills doublet acting on two copies
-of the undivided energy is a connection in one of its three directions and a rate term in the other two, and doublets exist only under the
+\cref{d7:sec:three}). Fifth, on two and three manifolds the copy isospin is integral: frames carry isospin one, never one-half. The Yang--Mills doublet acting on two copies
+of the undivided energy is a connection in one of its three directions and a rate term in the other two, and on three manifolds doublets exist only under the
 spectator action, where unequal internal rates break $\so4_\Delta$ of \cite{ES17} to a diagonal $\so3$ (fixed; \cref{d7:sec:isospin}). The verdict
 is in \cref{d7:sec:assess}. Identifiers d7-$n$ refer to the \texttt{PASS} lines of \texttt{verify/d7\_bfield\_between.py} (\cref{d7:tab:claims}).
 
@@ -38,7 +38,7 @@ $\{B\otimes\id_6+B'\otimes G:\ B,B'\in\so n\}\cong\so{n,\C}$, of dimension $0,2,
 rotations, of dimension $0,1,3,6$; the copy boosts $B'\otimes G$ are noncompact.
 \item \emph{Common interior action} (the diagonal $\lint$, the action $\Delta$ of Section~10 of \cite{ES17}). The elements of
 $\so{3n,3n}$ commuting with it and with $G_n$ are the copy rotations alone, of dimension $0,1,3$ for $n=1,2,3$; no copy boost commutes with $\lint$.
-At $n=2$ the copy rotation is $C^{12}=M_{12}+C_{\rm surp}$, where $M_{12}=\varepsilon\otimes P_{\rm int}$ is the copy rotation of the interior
+At $n=2$ the copy rotation is $C^{12}=-M_{12}+C_{\rm surp}$, where $M_{12}$ of Section~10.1 of \cite{ES17}, the spin lift of $E_{12}-E_{21}$, acts on vectors as $-\varepsilon\otimes P_{\rm int}$. It is the copy rotation of the interior
 four-planes, the copy algebra of Theorem~10.2 of \cite{ES17}, and $C_{\rm surp}=\varepsilon\otimes P_{\rm surp}$ that of the surplus pairs. Both
 commute with the diagonal $\lint$, and neither commutes with $G_2$.
 \item \emph{Spectator action} ($\lG^{(1)}$ or $\lint^{(1)}$ on copy~$1$ alone). The elements of $\so{3n,3n}$ commuting with it and with $G_n$ form
@@ -46,20 +46,23 @@ $\so{3n-3,\C}$ of copies $2,\dots,n$, of dimension $6$ and $30$ at $n=2,3$. Ever
 \end{enumerate}
 \end{proposition}
 
-Part (i) restates the third row of Proposition~13.14 of \cite{ES17} (fixed there) and \cref{d5:prop:so6C}(iii) at $n=2$. Part (iii) restates
-Theorem~17.20 of \cite{ES17} at $n=3$ (fixed there), and \cref{d5:prop:so6C}(iv) at $n=2$. Its proof is Schur's lemma: $V$ is an irreducible,
-nontrivial module of the Lorentz algebra of copy~$1$, and the other copies are trivial modules of it. Part (ii) and the decomposition of
+Part (i) restates the third row of Proposition~13.14 of \cite{ES17} (fixed there) and \cref{d5:prop:so6C}(iii) at $n=2$. For $\lint^{(1)}$, part (iii) restates
+Theorem~17.20 of \cite{ES17} at $n=3$ (fixed there) and \cref{d5:prop:so6C}(iv) at $n=2$. For $\lG^{(1)}$ it is fixed here (d7-1d), and its proof is Schur's lemma: $V$ is an irreducible,
+nontrivial module of $\lG$, and the other copies are trivial modules of it. For $\lint^{(1)}$ Schur's lemma alone does not suffice. $V$ splits into the interior four-plane
+$\langle e_1,e_4,e_5,e_6\rangle$, which is irreducible and nontrivial, and the surplus pair $\langle e_2,e_3\rangle$, on which $\lint$ acts trivially. The commutant of $\lint^{(1)}$ alone, of
+dimension $28$ and $91$ at $n=2,3$ (the first row of Proposition~13.14 of \cite{ES17}), therefore acts on the surplus pair of copy~$1$. Commutation with $G_n$ removes
+these elements, because $G$ maps the surplus pair into the interior four-plane, as in the proof of Theorem~17.21 of \cite{ES17}. Part (ii) and the decomposition of
 $C^{12}$ are fixed (d7-1a to d7-1d). Two consequences matter below. A binding-compatible, Lorentz-invariant field can couple the manifold that
 carries the Lorentz algebra to the others only when that algebra acts on all of them in the same way. Under the spectator action copy~$1$ is out
 of reach, and the inter-manifold fields act among the internal manifolds only. And the paper's copy algebra $\mathfrak k_{\rm cop}$ does not respect
-the binding: the binding-compatible copy rotation is $M_{kl}$ plus the surplus copy rotation.
+the binding: the binding-compatible copy rotation $C^{kl}$ is $-M_{kl}$ plus the surplus copy rotation.
 
 \subsection{The closure admits an inter-manifold field}
 \label{d7:sec:rotor}
 
 Theorem~17.7 of \cite{ES17} shows that, on one constituent, the only equivariant closure is $\R\ltimes_GV$: the rotor acts by $G$. After it the
 paper extends the result to several constituents ``factor by factor, since equivariant maps between distinct constituents vanish'', with a common
-rate. That is correct for a Lorentz algebra acting on each constituent separately. For a common action it is not the only possibility.
+rate. That is correct for a Lorentz algebra acting on each constituent separately, once the common rate is imposed. A common action admits more.
 
 \begin{proposition}[Rotor generators on $n$ binding frames]
 \label{d7:prop:rotor}
@@ -73,13 +76,26 @@ rotor $G_n$ spans the centre. For $\mathfrak s_n=\R\ltimes_AV_n$ with $A=K\otime
 substitution $X=e^{-\theta A}x$ of Section~17.3 of \cite{ES17} gives $e^{-\theta A}\dot x=\dot X+\Omega AX$, so the shift is $S=\Omega A$.
 \end{proposition}
 
-At $n=2$ the algebra is the energy symmetry $\uu2$ of \cref{d5:prop:energysym}(i). The dimensions and the decomposition are fixed (d7-2a); the
-reading as rotor generators is new. The semidirect product is a Lie algebra for every $A$, so the closure exists. That a
-non-central $A$ is admissible is constructed: nothing in the algebra selects it, and Theorem~17.7 of \cite{ES17} selects $G_n$ only once the
-action is taken per constituent, or a common rate is imposed. With a non-central $A$ the copy field and unequal rates enter the closure
-together, as the two halves of one generator. Their ratios are fixed by $A$ and their scale by the rotor. This is the one place found where the
-arena itself supplies the unequal rates that \cref{d5:thm:bfield2} needs. The paper's one-rotor closure, with $A=G_n$, gives every constituent the
-same rate (Proposition~17.18 of \cite{ES17}).
+At $n=2$ the algebra is the energy symmetry $\uu2$ of \cref{d5:prop:energysym}(i). The algebra $\uu n$, its dimension $n^2$ and its centre $G_n$
+restate row four of Proposition~13.14 of \cite{ES17} and the remark after it (fixed there). The commutant $\mathfrak{gl}(n,\C)$ and the
+decomposition into copy rotations and rate matrices are fixed (d7-2a); the reading as rotor generators is new.
+
+The semidirect product $\R\ltimes_AV_n$ is a Lie algebra for every $A$, so the closure exists. It is not the only closure with rotor $A$, because
+the half of Theorem~17.7 of \cite{ES17} that makes the frame abelian does not carry over to a common action. An equivariant bracket on $V_n$ is
+$[X,Y]_k=\sum_{i,j}\Gamma^k_{ij}\,\beta_0(X_i,Y_j)$ with complex $\Gamma^k_{ij}=\Gamma^k_{ji}$ ($G$ acting as $i$), a space of real dimension $12$ at $n=2$. In a
+copy basis in which $A$ acts as $i\operatorname{diag}(\omega_1,\dots,\omega_n)$, the Jacobi identity with the rotor reads $\Gamma^k_{ij}(\omega_k-\omega_i-\omega_j)=0$. The
+frame is therefore abelian for $A=G_n$ and whenever no $\omega_k$ equals $\omega_i+\omega_j$. For a resonant $A$ it need not be: for
+$A=\operatorname{diag}(1,2)\otimes G$ the bracket $[X,Y]=(0,c\,\beta_0(X_1,Y_1))$, $c\in\C$, satisfies every Jacobi identity (fixed; d7-2b). The note uses
+only the abelian-frame closure, to which the shift $S=\Omega A$ refers.
+
+Which rotor acts is a choice. Theorem~17.7 of \cite{ES17} selects $G_n$ only when the action is taken per constituent and a common rate is
+imposed. Per constituent alone it admits $K\otimes G$ with any real diagonal $K$: unequal rates, but no copy field, since equivariant maps between
+distinct constituents vanish. Under the common action a common rate alone still admits $\kappa G_n+B\otimes\id_6$: a copy field, but one that commutes
+with the binding and is removable (\cref{d7:thm:schr}(v)). The two parts of a non-central $A$, the $\eta_n$-antisymmetric copy field
+$B\otimes\id_6$ and the $\eta_n$-self-adjoint rate matrix $K\otimes G$, are independent; their ratios are fixed by $A$ and their scale by the rotor.
+The common action is the one place found where the closure admits unequal rates together with a copy field, the combination that
+\cref{d5:thm:bfield2} needs. That such an $A$ is admissible is constructed: nothing in the algebra selects it. The paper's one-rotor closure, with
+$A=G_n$, gives every constituent the same rate (Proposition~17.18 of \cite{ES17}).
 
 \subsection{The frame flow is a Schr\"odinger flow}
 \label{d7:sec:schr}
@@ -122,8 +138,9 @@ a corollary of \cref{d4:thm:criterion}. On five cases at $n=3$, exact semisimpli
 (d7-3f). Bounded: rates $(1,2,4)$ with $(B_{12},B_{23},B_{31})=(\tfrac12,\tfrac13,\tfrac15)$; the seesaw $(0,3,5)$ with $(1,\tfrac12,\tfrac13)$, a
 frame without rate confined by two couplings; equal rates $(1,1,1)$ with $B_{12}=1$. Unbounded: $(1,2,3)$ with $(1,1,1)$, where $\spec H=\{0,2,4\}$ and the
 zero mode has $v\cdot v\neq0$, a resonance created by the field between manifolds with different rates; and zero rates with $(1,1,1)$, where
-the field produces only drift. Part (vi) generalises \cref{d5:thm:bfield2}(v): at $n=2$, $\lambda_++\lambda_-=\kappa_1+\kappa_2$, so the only coincidence
-is $\lambda_-=0$, at $\beta^2=\kappa_1\kappa_2$.
+the field produces only drift. Part (vi) generalises \cref{d5:thm:bfield2}(v): at $n=2$, $\lambda_++\lambda_-=\kappa_1+\kappa_2$, so for $\kappa_1+\kappa_2>0$ the only coincidence
+is $\lambda_-=0$, at $\beta^2=\kappa_1\kappa_2$. At $\kappa_1=\kappa_2=0$ and $\beta\neq0$ it is $\lambda_+=-\lambda_-=|\beta|$, with eigenspaces that are not
+orthogonal for the bilinear form, so at zero rates the orbits are unbounded for every $\beta$, as in \cref{d5:thm:bfield2}(v).
 
 \subsection{Copy boosts: metric connections, not gauge fields}
 \label{d7:sec:boost}
@@ -141,8 +158,12 @@ boosted frame $e^{-b\tau}$ that is itself unbounded.
 \end{enumerate}
 \end{proposition}
 
-This is fixed, checked exactly at rates $(1,4)$ with $\beta'=\tfrac12,1,\tfrac32,2$, and at $(2,2)$ with $\beta'=\tfrac13$ (d7-4a, d7-4b). It is the
-copy analogue of the pairing boosts of Proposition~16.7 of \cite{ES17} and of \cref{d4:sec:pG}. The spectral pattern is inherited: the
+This is fixed, checked exactly at rates $(1,4)$ with $\beta'=\tfrac12,1,\tfrac32,2$, and at $(2,2)$ with $\beta'=\tfrac13$ (d7-4a, d7-4b). Its threshold is the
+copy analogue of the homogeneous threshold of the pairing boosts of Proposition~16.7 of \cite{ES17}, with the rate difference
+$\tfrac12|\kappa_1-\kappa_2|$ in the place of $\kappa$. The analogy stops there. A pairing boost anticommutes with $G$ and gives Jordan blocks for
+every $\nu\neq0$, below the threshold as well (\cref{d4:thm:pG}(iii)), whereas the copy boost commutes with $G_2$ and keeps every orbit bounded
+below its threshold. At equal rates it is the copy analogue of the commuting boosts $K_i$ of \cref{d4:thm:lG}(iv), with exponents
+$\pm\beta'\pm i\kappa$, removed by a boosted frame that is itself unbounded. The spectral pattern is inherited: the
 non-Hermitian dimer with an exceptional point \cite{Kato66,BenderBoettcher98}, and the conserved metric of a pseudo-Hermitian Hamiltonian
 \cite{Mostafazadeh02}. A copy boost is a metric connection, legitimate in the interior Lagrangian, but not a gauge field (Corollary~2.4 of
 \cite{ES17}). Where it keeps the motion bounded it does so at the price of the undivided energy, which it replaces by another positive form.
@@ -182,7 +203,7 @@ there is one, the Kobayashi--Maskawa phase \cite{KobayashiMaskawa73}, whose inva
 \cite{Jarlskog85}, the form of (ii). A purely imaginary hopping around a triangle is a flux $\pm\pi/2$ through the plaquette, the Peierls phase
 \cite{Peierls33} of a lattice gauge field. And time-reversal-odd hopping makes a quantum walk chiral \cite{Zimboras13}. What the arena adds is
 the identification. The copy field is an $\eta$-compatible gauge field on the three-site ``lattice'' of manifolds, with $J$ its Wilson loop. Its
-phase is fixed at $\pm\pi/2$ because the field is real: per-copy duality rotations, which would move it, are not $\eta$-isometries
+phase is fixed at $\pm\pi/2$ because the field is real, $H_{kl}=-iB_{kl}$. Like any Wilson loop it is unchanged by per-copy duality rotations, which multiply each $H_{kl}$ by a phase and are in any case not $\eta$-isometries
 (Proposition~\ref{d3:prop:norel}(ii)). On one manifold the binding is odd under parity and even under interior time reversal. At two manifolds the
 copy field is even under both, up to relabelling. From three on, a field whose couplings close a triangle is odd under interior time reversal,
 and no relabelling removes it.
@@ -210,9 +231,9 @@ $\kappa\pm(\beta_x^2+\beta_z^2)^{1/2}$.
 \end{enumerate}
 \end{proposition}
 
-This is fixed (d7-6a to d7-6c). Part (i) restates Proposition~10.9 of \cite{ES17} (``copy rotations act through orthogonal groups'') and
-\cref{d5:prop:spin}(i), and adds that the binding is what makes the lift single-valued. Under a common Lorentz action the inter-manifold field
-is therefore an $SO(n)$ gauge field. At $n=3$ it acts on triplets, as in the model of Georgi and Glashow \cite{GeorgiGlashow72}, and never on
+This is fixed (d7-6a to d7-6c). Part (i) restates Proposition~10.9 of \cite{ES17} (``the copy algebras act through orthogonal groups'') and
+\cref{d5:prop:spin}(i), and adds that binding-compatibility forces $|D|$ to be even, so every binding-compatible copy rotation lifts single-valuedly. The criterion is the parity of $|D|$, not the binding: $M_{12}$ is not binding-compatible and also lifts single-valuedly. Under a common Lorentz action the inter-manifold field
+is therefore an $SO(n)$ gauge field. At $n=3$ it acts with integer isospin only: the frames are triplets, as in the model of Georgi and Glashow \cite{GeorgiGlashow72}, the tower module carries $j=0,\dots,3$, and it never acts on
 doublets. Part (iii) restates \cref{d5:prop:energysym}(i) in the Yang--Mills reading and adds the spectra; it is the precise form of
 ``Yang--Mills between two copies''. The doublet group exists as a symmetry of the undivided energy
 (the copy $\uu2$), but $\eta_2$ cuts it to its circle. The two directions it removes are not connections at all:
@@ -239,7 +260,7 @@ of \cref{d4:prop:so4spec}(i).
 \end{proposition}
 
 This is fixed (d7-7a, d7-7b). It completes \cref{d4:prop:so4spec}, which used equal rates. The paper's binding-compatible non-abelian algebra is
-itself an inter-manifold field: four of its six generators join constituent two to constituent three. It carries doublets ($(\tfrac12,\tfrac12)$ on
+itself an inter-manifold field: three of its six directions, $\mathrm{rot}(7,13)$, $\mathrm{rot}(7,14)$ and $\mathrm{rot}(7,15)$, join constituent two to constituent three, and the other three rotate constituent three alone. It carries doublets ($(\tfrac12,\tfrac12)$ on
 $W$) because the spectator action leaves constituents two and three free of the Lorentz algebra (\cref{d7:prop:exist}(iii)). With equal rates it is
 removable along a worldline, as \cref{d4:sec:three} found. With unequal rates it breaks to a diagonal $\so3$, and its three remaining directions
 become physical. The pattern $\su2\oplus\su2\to\su2_{\rm diag}$ is that of chiral symmetry breaking and of the custodial symmetry of the Higgs
@@ -253,24 +274,26 @@ sector \cite{SikivieEtAl80}. That is an interpretive parallel only: here the bre
 \begin{enumerate}[label=(\alph*),leftmargin=2.2em]
 \item \emph{True, in this sense} (fixed). Between manifolds with unequal rates, a compact binding-compatible field cannot be removed. It shifts and
 splits the lines, it can confine a frame that has no rate of its own, it can create a resonance, and from three manifolds on it is non-abelian and
-carries a time-odd invariant. The one-manifold no-go of \cref{d4:sec:bfield} does not extend to $n\ge2$
-(\cref{d5:thm:bfield2,d7:thm:schr,d7:thm:three}).
+carries a time-odd invariant. What does not extend from one manifold is the removability of a field that commutes with the binding root
+(\cref{d4:prop:larmor}). What does extend is the no-go of \cref{d4:prop:alone}: a connection alone does not bind, and at zero rates it produces
+only drift (\cref{d5:thm:bfield2,d7:thm:schr,d7:thm:three}).
 \item \emph{False, in this sense} (fixed). The field never creates or changes a rate. Rates are the spectrum of the self-adjoint part, a tensor under
-every change of frame. The field only redistributes the frequencies, at fixed sum. With equal rates every binding-compatible field, abelian or
+every change of frame. The field only redistributes the frequencies, the lines of $\spec H$, at fixed sum. With equal rates every binding-compatible field, abelian or
 the paper's $\so4_\Delta$, is removable along a worldline. With zero rates it produces only drift (\cref{d7:thm:schr}(iii)--(vi)).
-\item \emph{Where unequal rates come from.} Not from the paper's closure: its single rotor acts through $G_n$ at one rate, so within \cite{ES17} as it stands
+\item \emph{Where unequal rates come from.} Not from the paper's closure: it imposes a common rate, so its single rotor acts through $G_n$ at one rate, and within \cite{ES17} as it stands
 the inter-manifold field is removable (fixed for that closure). Under a common Lorentz action the closure admits a rotor acting by a non-central element
-of $\uu n$. The copy field and the rate differences then arrive together, as two halves of one generator (constructed: admitted, not
-selected; \cref{d7:prop:rotor}).
-\item \emph{Isospin one-half} (fixed). Under a common Lorentz action the copy isospin is integral, and the doublet field on two copies is a connection
-in one of its three directions only. Doublets need the spectator action, where the Lorentz-carrying manifold is decoupled
-(\cref{d7:prop:exist,d7:prop:isospin,d7:prop:so4unequal}).
+of $\uu n$. The copy field and the rate differences can then both enter, as two independent parts of one generator, and either can occur
+without the other (constructed: admitted, not selected; \cref{d7:prop:rotor}).
+\item \emph{Isospin one-half} (fixed). On two and three manifolds under a common Lorentz action the copy isospin is integral, and the doublet field on two copies is a connection
+in one of its three directions only. On three manifolds doublets need the spectator action, where the Lorentz-carrying manifold is decoupled
+(\cref{d7:prop:exist,d7:prop:isospin,d7:prop:so4unequal}). This does not extend to four manifolds. There the binding-compatible copy rotations under a common
+action form $\so4\cong\su2\oplus\su2$, the copy index is its vector $(\tfrac12,\tfrac12)$, and doublets exist without a spectator (d7-6d).
 \item \emph{The arrow reversed} (interpretive). The non-removable part of the copy field is $[K\otimes G,B\otimes\id_6]=[K,B]\otimes G$, with
 $[K,B]_{kl}=(\kappa_k-\kappa_l)B_{kl}$ and $\|[K\otimes G,b]\|^2=6\sum_{k\neq l}(\kappa_k-\kappa_l)^2B_{kl}^2$ (d7-8, fixed). Formally this is the gauge-boson
 mass term $g^2\|[T,\langle\Phi\rangle]\|^2$ of the Englert--Brout--Higgs--Kibble mechanism \cite{EnglertBrout64,Higgs64,Kibble67}, with the rate matrix
-in the role of an adjoint vacuum value. The arena thus reverses the arrow of the hypothesis. It is not the $b$-field that differentiates the rates;
+in the role of an adjoint vacuum value. Read with $mc^2=\hbar\kappa$, so that a mass is a rate, the arena reverses the arrow of the hypothesis. It is not the $b$-field that differentiates the rates;
 the differentiation of the rates, which breaks the copy symmetry, is what gives the $b$-field an effect. The parallel is not dynamical: here $b$ is a
-constant connection without kinetic term, and the rates are inputs.
+constant connection without kinetic term, and the rates are inputs. Read instead from the lines, the spectrum of $H$, a mass is shifted and split by the field, and a frame without rate of its own is confined at a nonzero line, the seesaw (\cref{d5:thm:bfield2}(vi)). That effect is non-removable only when the rates differ (\cref{d7:thm:schr}(v)), so in this reading too the field acts through the rate differences and does not create them. In the closure of \cref{d7:prop:rotor} the copy field and the rate differences are independent parts of one generator, so the order is logical, not causal.
 \end{enumerate}
 \end{remark}
 
@@ -281,15 +304,15 @@ constant connection without kinetic term, and the rates are inputs.
 \toprule
 statement & class & checks\\
 \midrule
-\cref{d7:prop:exist}(i), (iii): $\so{n,\C}$ under a common action; copy~$1$ decoupled under the spectator action & fixed (restated: Prop.~13.14, Thm~17.20) & d7-1a, d7-1d\\
-\cref{d7:prop:exist}(ii): $\so n$ under the interior action; $C^{12}=M_{12}+C_{\rm surp}$ & fixed & d7-1b, d7-1c\\
-\cref{d7:prop:rotor}: rotor generators $\uu n=\so n\oplus\operatorname{Sym}(n)\otimes G$ & fixed; non-central rotor constructed & d7-2a\\
+\cref{d7:prop:exist}(i), (iii): $\so{n,\C}$ under a common action; copy~$1$ decoupled under the spectator action & fixed (restated: Prop.~13.14; Thm~17.20 for $\lint^{(1)}$) & d7-1a, d7-1d\\
+\cref{d7:prop:exist}(ii): $\so n$ under the interior action; $C^{12}=-M_{12}+C_{\rm surp}$ & fixed & d7-1b, d7-1c\\
+\cref{d7:prop:rotor}: rotor generators $\uu n=\so n\oplus\operatorname{Sym}(n)\otimes G$; abelian frame only for non-resonant $A$ & fixed (restated: Prop.~13.14); non-central rotor constructed & d7-2a, d7-2b\\
 \cref{d7:thm:schr}(i), (ii), (iv), (v): Schr\"odinger form, unitarity iff compact, sum rules, removability & fixed (elementary) & d7-3a, d7-3b, d7-3d, d7-3e\\
 \cref{d7:thm:schr}(iii): rates are gauge invariants & fixed (restated: \cref{d4:thm:covariant}) & d7-3c\\
 \cref{d7:thm:schr}(vi): bilinear boundedness criterion; five cases at $n=3$ & fixed (corollary of \cref{d4:thm:criterion}) & d7-3f\\
 \cref{d7:prop:boost}: copy boost, exceptional point, conserved positive form & fixed; pattern inherited & d7-4a, d7-4b\\
 \cref{d7:thm:three}: spectrum, plaquette, Jarlskog determinant, reflections, $P$ and $T$, bipartite criterion, circulation & fixed; parallels inherited & d7-5a to d7-5f\\
-\cref{d7:prop:isospin}: integral copy isospin; the doublet is one connection and two rate terms & fixed (restated: Prop.~10.9, \cref{d5:prop:energysym}) & d7-6a to d7-6c\\
+\cref{d7:prop:isospin}: integral copy isospin at $n=2,3$; the doublet is one connection and two rate terms; doublets at $n=4$ & fixed (restated: Prop.~10.9, \cref{d5:prop:energysym}) & d7-6a to d7-6d\\
 \cref{d7:prop:so4unequal}: $\so4_\Delta\to$ diagonal $\so3$ at unequal rates & fixed; custodial parallel interpretive & d7-7a, d7-7b\\
 \cref{d7:rem:verdict}: the deal breaker; the commutator; the arrow reversed & fixed; (c) constructed; (e) interpretive & d7-8\\
 \bottomrule

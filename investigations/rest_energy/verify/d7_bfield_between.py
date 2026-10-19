@@ -304,18 +304,18 @@ def _():
     return ok
 
 
-@claim("d7-1c", "at n = 2 the binding copy rotation is the paper's interior copy rotation M_12 plus the surplus copy "
-                "rotation: C_v = eps(x)P_int + eps(x)P_surp; both summands commute with the diagonal l_int, neither "
-                "commutes with G_2, their sum does")
+@claim("d7-1c", "at n = 2 the binding copy rotation is minus the paper's interior copy rotation M_12 plus the surplus "
+                "copy rotation: C_v = eps(x)P_int + eps(x)P_surp, with M_12 acting on vectors as -eps(x)P_int (checked in "
+                "d7-6a); both summands commute with the diagonal l_int, neither commutes with G_2, their sum does")
 def _():
     n = 2
     C = copy_rot(0, 1, n)
-    M12 = copy_rot(0, 1, n, P_INT)
+    Mint = copy_rot(0, 1, n, P_INT)          # = -(vector action of the paper's M_12)
     Cs = copy_rot(0, 1, n, P_SURP)
     G2 = Gn(2)
-    ok = (C - M12 - Cs).is_zero_matrix
-    ok &= all((g * M12 - M12 * g).is_zero_matrix and (g * Cs - Cs * g).is_zero_matrix for g in diag_n(LINT, 2))
-    ok &= not (M12 * G2 - G2 * M12).is_zero_matrix and not (Cs * G2 - G2 * Cs).is_zero_matrix
+    ok = (C - Mint - Cs).is_zero_matrix
+    ok &= all((g * Mint - Mint * g).is_zero_matrix and (g * Cs - Cs * g).is_zero_matrix for g in diag_n(LINT, 2))
+    ok &= not (Mint * G2 - G2 * Mint).is_zero_matrix and not (Cs * G2 - G2 * Cs).is_zero_matrix
     ok &= (C * G2 - G2 * C).is_zero_matrix
     return ok
 
@@ -359,6 +359,70 @@ def _():
     t0, h, Om = 0.37, 1e-6, 1.3
     U = lambda t: sla.expm(-Om * t * An)
     ok &= np.allclose((U(t0 + h) - U(t0 - h)) / (2 * h), -Om * An @ U(t0), atol=1e-6)
+    return ok
+
+
+def _cross_real(x, y):
+    """beta_0 in the field-strength reading: z(x) x z(y) (complex cross product), returned as a real 6-vector."""
+    zx = x[:3] + 1j * x[3:]
+    zy = y[:3] + 1j * y[3:]
+    w = np.cross(zx, zy)
+    return np.concatenate([w.real, w.imag])
+
+
+def _equivariant_brackets(gens, N, scalar=False):
+    """numerical basis of antisymmetric bilinear maps R^N x R^N -> R^N (or R) equivariant under gens."""
+    pairs = [(b, c) for b in range(N) for c in range(b + 1, N)]
+    outs = 1 if scalar else N
+    basis = []
+    for a in range(outs):
+        for (b, c) in pairs:
+            T = np.zeros((outs, N, N))
+            T[a, b, c], T[a, c, b] = 1.0, -1.0
+            basis.append(T)
+    rows = []
+    for L in gens:
+        cols = []
+        for T in basis:
+            r = -np.einsum('adc,db->abc', T, L) - np.einsum('abd,dc->abc', T, L)
+            if not scalar:
+                r = r + np.einsum('ad,dbc->abc', L, T)
+            cols.append(r.ravel())
+        rows.append(np.array(cols).T)
+    ns = sla.null_space(np.vstack(rows))
+    return [sum(c * T for c, T in zip(v, basis)) for v in ns.T]
+
+
+@claim("d7-2b", "frame brackets under the common action (n = 2, numerical): the equivariant antisymmetric brackets "
+                "V_2 x V_2 -> V_2 form a 12-dimensional space, and those into R a 2-dimensional one; the Jacobi identity "
+                "with the rotor, A[X,Y] = [AX,Y] + [X,AY], leaves none for A = G_2 and A = diag(1,3)(x)G, and a "
+                "2-dimensional family for the resonant A = diag(1,2)(x)G, which contains [X,Y] = (0, beta_0(X_1,Y_1)) and "
+                "satisfies the full Jacobi identity on V_2")
+def _():
+    N = 12
+    gens = [np.array(g, dtype=float) for g in diag_n(LG, 2)]
+    Vb = _equivariant_brackets(gens, N)
+    Sb = _equivariant_brackets(gens, N, scalar=True)
+    ok = len(Vb) == 12 and len(Sb) == 2
+
+    def rotor_solutions(A):
+        cols = [(np.einsum('ad,dbc->abc', A, T) - np.einsum('adc,db->abc', T, A) - np.einsum('abd,dc->abc', T, A)).ravel()
+                for T in Vb]
+        return sla.null_space(np.array(cols).T)
+    G1n = np.array(G1, dtype=float)
+    dims = [rotor_solutions(np.kron(np.diag(d), G1n)).shape[1] for d in ((1, 1), (1, 3), (1, 2))]
+    ok &= dims == [0, 0, 2]
+
+    def br(x, y):
+        return np.concatenate([np.zeros(6), _cross_real(x[:6], y[:6])])
+    A = np.kron(np.diag((1, 2)), G1n)
+    rng = np.random.default_rng(11)
+    for _ in range(5):
+        x, y, z = rng.normal(size=(3, N))
+        ok &= np.allclose(A @ br(x, y), br(A @ x, y) + br(x, A @ y), atol=1e-12)
+        ok &= np.allclose(br(br(x, y), z) + br(br(y, z), x) + br(br(z, x), y), 0, atol=1e-12)
+        for g in gens:
+            ok &= np.allclose(g @ br(x, y), br(g @ x, y) + br(x, g @ y), atol=1e-12)
     return ok
 
 
@@ -712,7 +776,7 @@ def spin_copy(E, k, l, dirs):
     return sum(-0.5 * ETA[a] * (E[(k, a)] @ E[(l, a)]) for a in dirs)
 
 
-@claim("d7-6a", "spin lifts at n = 2: the copy rotation of the six binding directions has eigenvalues i{-3..3} and "
+@claim("d7-6a", "spin lifts at n = 2 (the paper's M_12 acts on vectors as -eps(x)P_int): the copy rotation of the six binding directions has eigenvalues i{-3..3} and "
                 "exp(2 pi C) = +1; that of the four interior directions (M_12) i{-2..2}, +1; that of the three temporal "
                 "directions i{+-1/2, +-3/2}, exp(2 pi C) = -1; on vectors each lift acts as the copy rotation of its "
                 "directions, and only the six-direction one commutes with G_2")
@@ -725,6 +789,17 @@ def _():
                 for l in (1, 2):
                     ok &= (E[(k, a)] @ E[(l, b)] + E[(l, b)] @ E[(k, a)] ==
                            2 * ETA[a] * (a == b) * (k == l) * np.eye(64, dtype=np.int64)).all()
+    # the paper's M_12 = (1/2) sum_mu eta^{mu mu} gamma^(1)_mu gamma^(2)_mu over the interior four-plane acts on vectors
+    # as -eps(x)P_int, i.e. minus the copy rotation of the interior directions
+    M12 = sum(0.5 * ETA[a] * (E[(1, a)] @ E[(2, a)]) for a in (1, 4, 5, 6))
+    vec = np.zeros((12, 12))
+    for k in (1, 2):
+        for a in range(1, 7):
+            Y = M12 @ E[(k, a)] - E[(k, a)] @ M12
+            for l in (1, 2):
+                for b in range(1, 7):
+                    vec[6 * (l - 1) + b - 1, 6 * (k - 1) + a - 1] = np.trace(Y @ E[(l, b)]) / (64 * ETA[b])
+    ok &= np.allclose(vec, -np.array(copy_rot(0, 1, 2, P_INT), dtype=float))
     for dirs, spec, sign, P in (((1, 2, 3, 4, 5, 6), {-3, -2, -1, 0, 1, 2, 3}, 1, sp.eye(6)),
                                 ((1, 4, 5, 6), {-2, -1, 0, 1, 2}, 1, P_INT),
                                 ((1, 2, 3), {-1.5, -0.5, 0.5, 1.5}, -1, P_TEMP)):
@@ -794,6 +869,20 @@ def _():
     Ssym = (S + adj(S, eta2)) / 2
     br = sp.sqrt(bx ** 2 + bz ** 2)
     ok &= sp.expand(charpoly_q(Ssym).as_expr() - ((lam ** 2 + (kap + br) ** 2) * (lam ** 2 + (kap - br) ** 2)) ** 3) == 0
+    return ok
+
+
+@claim("d7-6d", "four manifolds under the common action: the copy rotations so(4) lie in the binding-compatible algebra, "
+                "and T = (C^12 + C^34)/2, in one su(2) factor, has eigenvalues +-i/2 on V_4 and exp(2 pi T) = -1: the copy "
+                "index carries doublets without a spectator")
+def _():
+    n = 4
+    T = (copy_rot(0, 1, n) + copy_rot(2, 3, n)) / 2
+    ok = (T * Gn(n) - Gn(n) * T).is_zero_matrix and all((g * T - T * g).is_zero_matrix for g in diag_n(LG, n))
+    Tn = np.array(T, dtype=float)
+    w = np.linalg.eigvals(Tn)
+    ok &= np.allclose(np.sort(np.abs(w.imag)), 0.5) and np.allclose(w.real, 0)
+    ok &= np.allclose(sla.expm(2 * np.pi * Tn), -np.eye(24), atol=1e-9)
     return ok
 
 
