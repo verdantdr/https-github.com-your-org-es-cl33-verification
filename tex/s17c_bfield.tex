@@ -1,0 +1,546 @@
+\section{The connection part of the shift}
+\label{sec:bfield}
+
+A constant shift of the interior Lagrangian has two summands (\cref{thm:EAdichotomy}): an $\eta$-antisymmetric one, in $\so{3,3}$, and an
+$\eta$-self-adjoint one. \Cref{sec:neutral,sec:closure,sec:restclosure} used only the second, the binding term $\kappa G$. This section adds the
+first, a constant $b\in\so{3,3}$, and asks what it does to the binding. Only $b$ is a connection, and where it is gauged it is the value of a
+Yang--Mills potential along the worldline, the ``$b$-field'' in the notation of Yang and Mills \cite{YangMills54}. The answers, in brief. For
+every $b$ the field equation factorises covariantly and the binding term transforms as a tensor, so no gauge transformation creates it
+(\cref{bf:covariant}). An admissible gauge potential is compact. Its part commuting with $G$ splits the binding frequency into Zeeman lines that a
+moving frame removes (\cref{bf:larmor,bf:lG}); a purely anticommuting part tears the binding (\cref{bf:pG}); a mixed one keeps every orbit bounded
+exactly when the two triples rotate at equal rates about axes that are not opposite, outside one exceptional ratio (\cref{bf:screen}). On its own
+a connection does not bind, and nothing in the interior dynamics ties the mass $m$ to the rate $\kappa$ (\cref{bf:alone}). Wherever the motion is
+bounded the zero-point energy cancels frequency by frequency (\cref{bf:krein}). At three constituents the part of the Pati--Salam algebra
+compatible with the binding splits the frequency by $\su2$ weights (\cref{bf:so4spec}). None of this supplies a scale. That the scale of a quantum
+Yang--Mills theory is the binding length is stated as a conjecture (\cref{bf:transmute}).
+
+Units are $\hbar=c=1$ unless a symbol is shown. The parameter $\tau$ has the dimension of a time, $\kappa=c/\ell$ of \eqref{eq:kappa} and every
+eigenvalue of $b$ are rates, and $\hbar\kappa$ is a quantum of interior energy.
+
+\paragraph{Notation.} $V=\R^{3,3}$, $F^\dagger:=\eta^{-1}F^{\!\top}\eta$ is the $\eta$-adjoint, $G$ is the binding root \eqref{eq:Gpair} and $\cK$
+the grading root of \cref{prop:twoK}; on vectors $\cK=\tfrac12\ad\bigl(\sum_ie_ie_{i+3}\bigr)$ and $G=-\cK\eta$ (\cref{lem:Gclifford}). For $a<b$ the
+element $R_{ab}\in\so{3,3}$ is defined by $R_{ab}e_b=\eta_{bb}e_a$, $R_{ab}e_a=-\eta_{aa}e_b$, and zero on the other basis vectors; it is
+$\tfrac12\ad(e_ae_b)$ on vectors. The generators $L_i,K_i$ of $\lG$ (\cref{thm:emfield}) act on $z=\bB+i\bE$ as $z\mapsto\mathbf e_i\times z$ and
+$z\mapsto i\,\mathbf e_i\times z$, so $K_i=GL_i$, the $L_i$ are rotations and the $K_i$ boosts, and
+\begin{equation}
+\label{bf:eq:w}
+b=\textstyle\sum_i\bigl(w^{\rm r}_iL_i+w^{\rm b}_iK_i\bigr)\in\lG\quad\text{acts as}\quad z\mapsto w\times z,\qquad w=w^{\rm r}+i\,w^{\rm b}\in\C^3 .
+\end{equation}
+In particular $R_{12}-R_{45}=-L_3$. We write $\sigma_j$ for the boost exchanging $e_j$ and $e_{j+3}$, $[\mathbf v]_\times$ for the matrix of
+$\mathbf x\mapsto\mathbf v\times\mathbf x$ on $\R^3$, $\mathcal E_\mu(T)=\ker(T-\mu)$ for the eigenspaces of an operator on $V\otimes\C$, and
+$h_\eta(y,y')=\bar y^{\!\top}\eta\,y'$ for the Hermitian extension of $\eta$. The interior Lagrangian with a constant shift is
+\begin{equation}
+\label{bf:eq:L}
+\mathcal L=\frac m2\,\eta(u,u),\qquad u=\dot X+SX,\qquad S=b+\kappa G,\qquad b\in\so{3,3},
+\end{equation}
+with $p=m\,\eta u$ and $\pi=\eta^{-1}p=mu$. For $b=0$ it is the split-form Lagrangian \eqref{eq:splitL}.
+
+\subsection{Two summands, and which one is a connection}
+\label{sec:bf-split}
+
+By \cref{thm:EAdichotomy} at $n=1$, $\End(V)=\so{3,3}\oplus\{F:F=F^\dagger\}$, of dimensions $15+21$, and by \cref{prop:twoK} the binding root
+lies in the second summand and the grading root in the first. The $\eta$-antisymmetric part of $S$ is therefore $b$, and its self-adjoint part
+is $\kappa G$. The decomposition is linear algebra, valid for any nondegenerate form; the next theorem gives it a dynamical meaning.
+
+\begin{theorem}[Covariant factorisation]
+\label{bf:covariant}
+Let $b\in\so{3,3}$ be constant and $\nabla:=\frac{d}{d\tau}+b$.
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item The Euler--Lagrange equations of \eqref{bf:eq:L} are $(\nabla-\kappa G)\pi=0$ with $\pi=m(\nabla+\kappa G)X$, that is
+\begin{equation}
+\label{bf:eq:covEL}
+(\nabla-\kappa G)(\nabla+\kappa G)X=0\qquad\Longleftrightarrow\qquad \nabla^2X+\kappa^2X+\kappa\,(\nabla_{\!\tau}G)\,X=0,\qquad \nabla_{\!\tau}G:=[b,G].
+\end{equation}
+\item Let $X=g(\tau)Y$ with $g(\tau)\in O(3,3)$. Then $\bigl(\tfrac d{d\tau}+S\bigr)(gY)=g\bigl(\tfrac d{d\tau}+S^g\bigr)Y$ with
+$S^g=g^{-1}Sg+g^{-1}\dot g$. The $\so{3,3}$ part $b^g=g^{-1}bg+g^{-1}\dot g$ of $S^g$ transforms as a connection, its self-adjoint part
+$\kappa\,g^{-1}Gg$ as a tensor, and $\tfrac d{d\tau}(g^{-1}Gg)+[b^g,g^{-1}Gg]=g^{-1}(\nabla_{\!\tau}G)g$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(i) $\partial\mathcal L/\partial\dot X=p$ and $\partial\mathcal L/\partial X=S^{\!\top}p$, so $\dot p=S^{\!\top}p$, that is
+$\dot\pi=S^\dagger\pi=(-b+\kappa G)\pi$, which is $(\nabla-\kappa G)\pi=0$. Moreover $\pi=m(\nabla+\kappa G)X$, $\nabla(GX)-G\nabla X=[b,G]X$ and
+$G^2=-\id$. (ii) Differentiating $g^{\!\top}\eta g=\eta$ gives $(g^{-1}\dot g)^\dagger=-g^{-1}\dot g$, and $F\mapsto g^{-1}Fg$ commutes with the
+$\eta$-adjoint, so it preserves both summands; the last identity is a direct differentiation.
+\end{proof}
+
+Part~(ii) is inherited: it is the transformation law of a connection and of an endomorphism field in any gauge theory. Part~(i) is fixed. It is
+the internal-connection, split-form version of the curved second-order equation at the end of \cref{sec:shifted}, with the single new term
+$\kappa(\nabla_{\!\tau}G)X$. That the binding part transforms as a tensor restates $G=G^\dagger$: no gauge transformation creates, removes or
+rescales it. The connection is the transport part of the shift, and no other part of the shift can be one.
+
+\begin{proposition}[Commuting and anticommuting parts]
+\label{bf:lp}
+$\Ad_G:b\mapsto GbG^{-1}$ is an involution of $\so{3,3}$, so $\so{3,3}=\lG\oplus\mathfrak p_G$, where $\lG=\{b:[b,G]=0\}$ has dimension $6$ and
+$\mathfrak p_G=\{b:bG=-Gb\}$ has dimension $9$. In the variable $z$,
+\[
+\lG=\{z\mapsto(P+iQ)z\}\cong\so{3,\C},\qquad \mathfrak p_G=\{z\mapsto(C+i\Sigma)\bar z\},
+\]
+with $P,Q,C$ real antisymmetric and $\Sigma$ real symmetric. The Killing form $4\Tr$ has signature $(3,3)$ on $\lG$. On $\mathfrak p_G$ it is
+negative on the three directions $\Sigma=0$, compact counter-rotations of the two triples such as $R_{12}+R_{45}$, and positive on the six boosts
+$C=0$. Both $\cK$, which acts as $z\mapsto-i\bar z$, and the pairing boosts $\sigma_j$ lie in $\mathfrak p_G$.
+\end{proposition}
+
+\begin{proof}
+$G^{-1}=-G$ and $G^\dagger=G$ give $(GbG^{-1})^\dagger=-GbG^{-1}$, and $\Ad_G^2=\id$. In $(\bB,\bE)$ blocks, commuting with $G$ means the form
+$\bigl(\begin{smallmatrix}P&-Q\\Q&P\end{smallmatrix}\bigr)$ and anticommuting means $\bigl(\begin{smallmatrix}C&\Sigma\\\Sigma&-C\end{smallmatrix}\bigr)$;
+$b^\dagger=-b$ gives the symmetry types. The Killing form is the trace form of the adjoint representation, evaluated on these blocks.
+\end{proof}
+
+This is fixed; the description of $\lG$ restates \cref{thm:GLorentz}. The pairing boosts that tear the binding at a threshold in \cref{prop:tear}
+are anticommuting, and so is the grading root.
+
+\paragraph{Gauge admissibility.} By \cref{thm:sig} and \cref{cor:noboost}, a Yang--Mills potential with a positive kinetic term takes values in
+the compact part $\so3\oplus\so3$ of $\so{3,3}$, spanned by the $R_{ab}$ with $a,b$ in the same triple. On the two triples,
+\begin{equation}
+\label{bf:eq:compact}
+b=\operatorname{diag}(A+D,\,A-D),\qquad A=[\mathbf a]_\times,\quad D=[\mathbf d]_\times,
+\end{equation}
+so the temporal triple rotates about $\mathbf a+\mathbf d$ and the spatial triple about $\mathbf a-\mathbf d$. The diagonal part $(A,A)$ lies in
+$\lG$, with $w=\mathbf a$ real in \eqref{bf:eq:w}; the anti-diagonal part $(D,-D)$ lies in $\mathfrak p_G$, with $\Sigma=0$ (it acts as
+$z\mapsto\mathbf d\times\bar z$). The boost-valued connections used below ($K_i$, $\sigma_j$, $\cK$, the $\Sigma$-part of $\mathfrak p_G$) are metric
+connections in the sense of \cref{prop:tear}, legitimate in \eqref{bf:eq:L}, but they are not gauge fields. What a compact $b$ does pointwise to
+the undivided energy and to the rest energy is \cref{en:transport}; here it acts through the interior dynamics.
+
+\subsection{The phase-space generator and a criterion for boundedness}
+\label{sec:bf-criterion}
+
+\begin{lemma}[The phase-space generator]
+\label{bf:M}
+On $(X,\pi)$ the flow of \eqref{bf:eq:L} is generated by
+\[
+M=\begin{pmatrix}-S&\id/m\\0&S^\dagger\end{pmatrix},\qquad S^\dagger=-b+\kappa G,
+\]
+since $\dot X=\pi/m-SX$ and $\dot\pi=S^\dagger\pi$. It is the Hamiltonian flow of the Noether energy $H(X,p)=\tfrac1{2m}p^{\!\top}\eta^{-1}p-p^{\!\top}SX$:
+in the canonical variables $(X,p)$ the generator is $\mathbb J\mathcal H$, with $\mathcal H$ the Hessian of $H$ and
+$\mathbb J=\bigl(\begin{smallmatrix}0&\id\\-\id&0\end{smallmatrix}\bigr)$, and it is similar to $M$. $H$ vanishes on the invariant Lagrangian subspace
+$p=0$, and $\det(\lambda-M)=\chi_S(\lambda)\chi_S(-\lambda)$ with $\chi_S(\lambda)=\det(\lambda-S)$, because $S^\dagger$ is similar to $S^{\!\top}$.
+\end{lemma}
+
+This is Hamiltonian bookkeeping, inherited. The classification below rests on the following criterion.
+
+\begin{theorem}[When the interior motion stays bounded]
+\label{bf:criterion}
+Let $S$ be any constant real $6\times6$ matrix.
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item $M$ is semisimple if and only if $S$ is semisimple and, for every $\mu\in\C$, $\mathcal E_\mu(S^\dagger)$ and $\mathcal E_{-\mu}(S^\dagger)$ are
+orthogonal for the bilinear extension of $\eta$.
+\item Every solution is bounded on $\R$ if and only if, in addition, $\spec S\subset i\R$. Then (i) says that every eigenspace of $S^\dagger$ is
+totally isotropic for $h_\eta$. Equivalently, every momentum normal mode $\pi=\Re(y\,e^{i\omega\tau})$ with $\omega\neq0$, superpositions within a
+degenerate frequency included, has period mean $\langle\eta(\pi,\pi)\rangle=\half h_\eta(y,y)=0$, and the static momenta ($\omega=0$) span a totally
+$\eta$-null space.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+$M$ is semisimple if and only if $-S$ (its restriction to $\pi=0$) and $S^\dagger$ (the induced map on the quotient) are semisimple and $M$ is
+similar to $\operatorname{diag}(-S,S^\dagger)$, which by Roth's theorem \cite{Roth52} means that $-S\Xi-\Xi S^\dagger=-\id/m$ is solvable. With
+$-S=F_1\Lambda_1F_1^{-1}$ and $S^\dagger=F_2\Lambda_2F_2^{-1}$ diagonal, this holds if and only if $(F_1^{-1}F_2)_{ij}=0$ whenever
+$(\Lambda_1)_i=(\Lambda_2)_j=:\mu$. A row $r^{\!\top}$ of $F_1^{-1}$ with eigenvalue $\mu$ has $S^{\!\top}r=-\mu r$, and $S^{\!\top}=\eta S^\dagger\eta^{-1}$
+puts $\eta^{-1}r$ in $\mathcal E_{-\mu}(S^\dagger)$; the condition is $r^{\!\top}y=\eta(\eta^{-1}r,y)=0$ for $y\in\mathcal E_\mu(S^\dagger)$. (ii) A linear
+flow is bounded on $\R$ exactly when its generator is semisimple with imaginary spectrum, and then $\mathcal E_{-\mu}(S^\dagger)=\overline{\mathcal E_\mu(S^\dagger)}$.
+\end{proof}
+
+The theorem is fixed, although it holds for any nondegenerate $\eta$ and any $S$. Its necessity half is the split virial identity
+(\cref{thm:splitvirial}: a bound orbit has null momentum on average); what it adds is that the averaged virial condition, imposed mode by mode, is
+also sufficient. For $S=\kappa G$ it is the isotropy of \cref{prop:howmuch}.
+
+\subsection{\texorpdfstring{Connections commuting with $G$: a Zeeman pattern without a scale}{Connections commuting with G: a Zeeman pattern without a scale}}
+\label{sec:bf-commuting}
+
+\begin{proposition}[The commuting part is a moving frame]
+\label{bf:larmor}
+Let $b\in\lG$. Then $\bigl(\tfrac d{d\tau}+b+\kappa G\bigr)(e^{-b\tau}Y)=e^{-b\tau}(\dot Y+\kappa GY)$. The exponents are therefore those of the
+binding, $\pm i\kappa$, shifted by the eigenvalues of $-b$, and with $p_X=e^{b^{\!\top}\tau}p_Y$ the energies in the two frames are related by
+\[
+H_{\rm lab}=H_{\rm co}-p_Y^{\!\top}bY.
+\]
+\end{proposition}
+
+\begin{proof}
+$e^{-b\tau}$ is an isometry that commutes with $b$ and $G$; moreover $e^{b\tau}\eta^{-1}e^{b^{\!\top}\tau}=\eta^{-1}$ and
+$e^{b\tau}(b+\kappa G)e^{-b\tau}=b+\kappa G$.
+\end{proof}
+
+For compact $b$ this is Larmor's theorem \cite{Larmor1897}, inherited: a rotating frame trades the field for an angular velocity. It is also the
+first statement of \cref{prop:tear}. For a boost in $\lG$, $e^{-b\tau}$ is a uniformly boosted frame instead. $Q_b=p_Y^{\!\top}bY$ is the Noether
+charge of the $\lG$ generator, so $H_{\rm lab}$ carries a chemical potential for it.
+
+\begin{theorem}[Connections commuting with $G$]
+\label{bf:lG}
+Let $b\in\lG$ act as in \eqref{bf:eq:w}.
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item $\Xi=-G/(2\kappa m)$ solves $-S\Xi-\Xi S^\dagger=-\id/m$, so $M$ is semisimple if and only if $S$ is. The argument uses only $G^2=-\id$,
+$G^\dagger=G$ and $[b,G]=0$.
+\item $\chi_S(\lambda)=(\lambda^2+\kappa^2)\bigl((\lambda-i\kappa)^2+w\cdot w\bigr)\bigl((\lambda+i\kappa)^2+\overline{w\cdot w}\bigr)$.
+\item In the frame in which $b$ is constant, every solution is bounded if and only if $e^{-b\tau}$ is bounded, that is, if and only if $w=0$ or
+$w\cdot w>0$. The frequencies are then $\kappa$ and $|\kappa\pm s|$ with $s=\sqrt{w\cdot w}$. For $w\cdot w=0\neq w$ the zero-momentum flow grows
+like $\tau^2$; for $w\cdot w\notin[0,\infty)$ it grows exponentially. For a gauge-admissible $b$, $w=\mathbf a$ is real and every solution is bounded.
+\item For the rotation $b=\beta(R_{12}-R_{45})=-\beta L_3$ the spectrum of $M$ is $\pm i\kappa$, $\pm i(\kappa+\beta)$, $\pm i(\kappa-\beta)$, each
+double. For the boost $b=\beta K_3$ the exponents are $\pm\beta\pm i\kappa$: complex rather than real, so the orbits spiral outward at the binding
+frequency. The growth is the boost factor $e^{-\beta K_3\tau}$ of \cref{bf:larmor}, and $K_3$ is not a gauge generator (\cref{cor:noboost}).
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(i) With $[b,G]=0$: $-(b+\kappa G)\Xi-\Xi(-b+\kappa G)=\frac1{2\kappa m}(bG-Gb+2\kappa G^2)=-\frac1m$. (ii) On $(V,G)\cong\C^3$, $S$ is
+$z\mapsto i\kappa z+w\times z$, and $(w\times)^3=-(w\cdot w)(w\times)$ gives $w\times$ the eigenvalues $0,\pm is$; the real characteristic polynomial
+of a complex-linear map is its complex one times the conjugate. (iii) By \cref{bf:larmor}, $X=e^{-b\tau}Y$ with $Y$ a solution at $b=0$, bounded by
+(i) and (ii); conversely the zero-momentum solutions are $e^{-b\tau}e^{-\kappa G\tau}X_0$ with $e^{\kappa G\tau}$ bounded. And $e^{-b\tau}$ is bounded
+exactly when $w\times$ is semisimple with imaginary eigenvalues: $s$ real, and not $w\cdot w=0\neq w$, where $N=w\times$ has
+$N^2\bar w=|w|^2w\neq0=N^3$. For real $w$, $w\times$ is real antisymmetric. (iv) Here $s=\pm\beta$, respectively $\pm i\beta$; in the first case $S$ is
+semisimple and (i) applies.
+\end{proof}
+
+The theorem is fixed, but its content deflates. Criterion~(iii) is a property of the frame in which $b$ is constant, not of the binding. In the
+co-moving frame of \cref{bf:larmor} the binding survives every commuting connection, as the remark after \cref{prop:tear} anticipates (growth on
+one worldline proves nothing), and for admissible $b$ it holds automatically. In that frame a rotation lifts the degeneracy of the single
+frequency across the three pairs, noted at the end of \cref{sec:neutral}, into the triplet $\kappa-\beta$, $\kappa$, $\kappa+\beta$. Read as a
+frame vector through the identification of the frame with $\lG$ (\cref{thm:brackets}, with $L_i=e_i$ and $K_i=e_{i+3}$), the connection
+has the invariant $q=w\cdot w$; on this reading the lab-frame motion stays bounded exactly for a connection of magnetic type, $\bE_b\cdot\bB_b=0$ and
+$|\bB_b|>|\bE_b|$, while the binding itself survives every commuting connection, and an admissible one has $\bE_b=0$. The Zeeman pattern labels the
+levels of the binding frequency by their $\lG$ charge. On one worldline it has no gauge-invariant content, and it is observable only against a
+reference that $b$ does not rotate, as the Zeeman effect is observed against the laboratory; that is a reading, but a sharp one. A commuting $b$
+supplies a spectrum and no invariant scale, since $\beta/\kappa$ is free.
+
+\subsection{\texorpdfstring{Connections anticommuting with $G$, and screening}{Connections anticommuting with G, and screening}}
+\label{sec:bf-anticommuting}
+
+\begin{theorem}[Connections anticommuting with $G$]
+\label{bf:pG}
+Let $b\in\mathfrak p_G$ with $b\neq0$.
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item $(\pm b+\kappa G)^2=b^2-\kappa^2$, and $M^2=\operatorname{diag}(b^2-\kappa^2,\,b^2-\kappa^2)+N$ with
+$N=\bigl(\begin{smallmatrix}0&-2b/m\\0&0\end{smallmatrix}\bigr)\neq0$. Hence $M$ is never semisimple, and some solutions grow at least linearly.
+\item For the admissible counter-rotation $b=\beta(R_{12}+R_{45})$, which is $(D,-D)$ with $\mathbf d=-\beta\mathbf e_3$,
+$\det(\lambda-M)=(\lambda^2+\kappa^2)^2(\lambda^2+\kappa^2+\beta^2)^4$. The exponents $\pm i\sqrt{\kappa^2+\beta^2}$ have algebraic multiplicity four and
+geometric multiplicity two, and $\pm i\kappa$ are semisimple. The bounded solutions are exactly those with $\pi_1=\pi_2=\pi_4=\pi_5=0$, that is, with
+no momentum on the support of $b$. The zero-momentum orbits are bounded and turn at the rate $\sqrt{\kappa^2+\beta^2}$ on the support.
+\item The grading root as a connection satisfies $(\nu\cK+\kappa G)^2=(\nu^2-\kappa^2)\id$ on all of $V$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(i) $\{b,G\}=0$ gives both squares, and $M^2$ has off-diagonal block $(S^\dagger-S)/m=-2b/m$. With $b^2-\kappa^2=Q_s+Q_n$ (Jordan--Chevalley),
+$M^2=\operatorname{diag}(Q_s,Q_s)+\bigl(\operatorname{diag}(Q_n,Q_n)+N\bigr)$ with commuting summands ($Q_n$ is a polynomial in $b$), so by uniqueness of the
+decomposition $M^2$, and hence $M$, is semisimple only if $\operatorname{diag}(Q_n,Q_n)+N=0$, which is impossible for an off-diagonal $N\neq0$. A
+non-semisimple generator of a Hamiltonian flow has a Jordan block at some exponent with non-negative real part. (ii) On the plane
+$\langle e_3,e_6\rangle$, $b$ vanishes and $S=\kappa G$, semisimple with exponents $\pm i\kappa$, each double, by \cref{bf:lG}(i). On the support
+$\langle e_1,e_2,e_4,e_5\rangle$, $b^2=-\beta^2$, so by (i) $S^2=(S^\dagger)^2=-\omega^2$ with $\omega^2=\kappa^2+\beta^2$ and, on the corresponding
+eight-dimensional block of phase space, $M^2+\omega^2=N$ with $N^2=0$ and $\rank N=\rank b=4$. Hence the exponents there are $\pm i\omega$, each of
+algebraic multiplicity four, $\ker(M^2+\omega^2)=\ker N$ has dimension four and splits into $\ker(M\mp i\omega)$ of dimension two each, and the bounded
+data on the block are $\ker N=\{b\pi=0\}$. The zero-momentum flow is $e^{-S\tau}$ with $S^2=-\omega^2$ on the support. (iii) $\cK^2=\id$ and
+$\{\cK,G\}=0$.
+\end{proof}
+
+Part~(i) is an obstruction: no purely anticommuting connection, admissible or not, is compatible with bounded normal modes. In particular the
+Jordan blocks found after \cref{prop:tear} for a pairing-plane boost $\nu\sigma_j$ below the threshold occur for every $\nu\neq0$, below, at and above
+it. Parts~(ii) and~(iii) are fixed. The rate changes to $\sqrt{\kappa^2+|\mathbf d|^2}$ for an admissible element and to $\sqrt{\kappa^2-\nu^2}$ for a
+pairing boost (a metric connection, not a gauge field), and the momentum sector behaves as under the positive form of \cref{thm:virial}:
+exponents carried by Jordan blocks, imaginary for a compact element and for a boost below the threshold.
+
+\begin{proposition}[What a gauge transformation removes]
+\label{bf:remove}
+Let $b=b_l+b_p\in\lG\oplus\mathfrak p_G$ be constant. Some $g(\tau)\in O(3,3)$ carries $(b,G)$ to $(0,G')$ with $G'$ constant if and only if $[b,G]=0$.
+For $b\in\mathfrak p_G$, $e^{b\tau}Ge^{-b\tau}=e^{2b\tau}G$. The gauge-covariant remainder is $\nabla_{\!\tau}G=[b,G]=2b_pG$: along a worldline $b_l$ is
+pure gauge and $b_p$ is not.
+\end{proposition}
+
+\begin{proof}
+$b^g=0$ forces $g=e^{-b\tau}g_0$, and then $G'=g_0^{-1}e^{b\tau}Ge^{-b\tau}g_0$ has derivative $g_0^{-1}e^{b\tau}[b,G]e^{-b\tau}g_0$. If $b$ anticommutes
+with $G$, then $Gf(b)=f(-b)G$ for every power series $f$.
+\end{proof}
+
+This is fixed. A connection on a line has no curvature, since the non-abelian term $[b_\mu,b_\nu]$ needs two directions (inherited); once the
+binding root is present, the invariant is $\nabla_{\!\tau}G$, which is exactly the anticommuting part. One might expect boundedness to force
+$b\in\lG$. It does not, and the admissible case shows it.
+
+\begin{theorem}[Compact screening]
+\label{bf:screen}
+Let $b$ be admissible, as in \eqref{bf:eq:compact}, and $\kappa>0$.
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item If every solution is bounded, then $\mathbf a\cdot\mathbf d=0$: the two triples rotate at equal rates, $|\mathbf a+\mathbf d|=|\mathbf a-\mathbf d|$.
+\item Let $\mathbf a\cdot\mathbf d=0$ and $\mathbf a\neq0$. Then $\spec S=\{\pm i\omega_1,\pm i\omega_2,\pm i\omega_3\}$, where the $\omega_j$ are the
+roots of
+\[
+f(\omega)=\omega^3+\kappa\omega^2-\bigl(\kappa^2+|\mathbf a|^2+|\mathbf d|^2\bigr)\,\omega-\kappa\bigl(\kappa^2+|\mathbf d|^2-|\mathbf a|^2\bigr),
+\]
+and if $|\mathbf a|^2\neq\kappa^2+|\mathbf d|^2$ every solution is bounded, although $[b,G]=2b_pG\neq0$ when $\mathbf d\neq0$.
+\item If $\mathbf a\cdot\mathbf d=0$, $\mathbf d\neq0$ and $|\mathbf a|^2=\kappa^2+|\mathbf d|^2$, the vector
+$X_0=\bigl(\mathbf n,(\mathbf a+\mathbf d)\times\mathbf n/\kappa\bigr)$ with $\mathbf n=\mathbf a\times\mathbf d$ is static, $SX_0=0$, with
+$\eta(X_0,X_0)=-2|\mathbf d|^2|\mathbf n|^2/\kappa^2\neq0$, and some solutions drift linearly.
+\end{enumerate}
+For $\mathbf a=0$ and $\mathbf d\neq0$, \cref{bf:pG} applies.
+\end{theorem}
+
+\begin{proof}
+$S=b+\kappa G$ is real antisymmetric, since $b$ and $G$ are; so $S$ and $S^\dagger=-\eta S\eta=-b+\kappa G$ are normal with imaginary spectrum, and
+by \cref{bf:criterion} the motion is bounded if and only if $P_\mu\eta P_\mu=0$ for the orthogonal spectral projectors $P_\mu$ of $S^\dagger$.
+(i) Then $\Tr\bigl(\eta(S^\dagger)^2\bigr)=\sum_\mu\mu^2\Tr(P_\mu\eta P_\mu)=0$. But $\{b,G\}$ is block-off-diagonal, $\Tr\eta=0$ and
+$\Tr[\mathbf v]_\times^2=-2|\mathbf v|^2$, so $\Tr\bigl(\eta(S^\dagger)^2\bigr)=\Tr(A+D)^2-\Tr(A-D)^2=-8\,\mathbf a\cdot\mathbf d$.
+(ii) Let $\rho$ be the half-turn about $\mathbf a$ and $\hat\rho=\operatorname{diag}(\rho,\rho)$. Since $\rho\mathbf a=\mathbf a$ and $\rho\mathbf d=-\mathbf d$,
+$\hat\rho b\hat\rho=\operatorname{diag}(A-D,A+D)=G^{-1}bG$, so $G':=G\hat\rho$ commutes with $b$ and $G$, hence with $S$ and $S^\dagger$. Moreover
+$G'^2=-\id$ and $G'^\dagger=G'$, so, as for $G$ in \cref{prop:howmuch}, each eigenspace $\mathcal V_\pm$ of $G'$ (eigenvalue $\pm i$) is totally
+$h_\eta$-isotropic: $-i\,h_\eta(y,y')=h_\eta(G'y,y')=h_\eta(y,G'y')=i\,h_\eta(y,y')$ on $\mathcal V_+$. In the $(\bB,\bE)$ blocks
+$\mathcal V_+=\{(\mathbf x,-i\rho\mathbf x)\}$, and $S$ acts there as $\mathbf x\mapsto(\mathbf a+\mathbf d)\times\mathbf x+i\kappa\rho\mathbf x$. After a
+common rotation of both triples, which commutes with $G$ and $\eta$, to $\mathbf a=|\mathbf a|\mathbf e_3$ and $\mathbf d=|\mathbf d|\mathbf e_1$, one finds
+$\det\bigl(i\omega-[\mathbf a+\mathbf d]_\times-i\kappa\rho\bigr)=-i f(\omega)$. So $S$ has the eigenvalues $i\omega_j$ on $\mathcal V_+$ and $-i\omega_j$ on
+$\mathcal V_-=\overline{\mathcal V_+}$; since $\eta$ exchanges $\mathcal V_\pm$, $S^\dagger$ has the same eigenvalues there. Every eigenspace of $S^\dagger$
+splits along $\mathcal V_\pm$, and lies in one of them unless $f(\omega)=f(-\omega)=0$ for some $\omega$. But
+$\half[f(\omega)+f(-\omega)]=\kappa\bigl(\omega^2-\kappa^2-|\mathbf d|^2+|\mathbf a|^2\bigr)$ and
+$\half[f(\omega)-f(-\omega)]=\omega\bigl(\omega^2-\kappa^2-|\mathbf a|^2-|\mathbf d|^2\bigr)$, so a common root forces $\mathbf a=0$, or $\omega=0$ and
+$|\mathbf a|^2=\kappa^2+|\mathbf d|^2$. (iii) With $\mathbf u=\mathbf a+\mathbf d$ and $\mathbf v=\mathbf a-\mathbf d$,
+$SX_0=\bigl(\mathbf u\times\mathbf n-\mathbf u\times\mathbf n,\ \mathbf v\times(\mathbf u\times\mathbf n)/\kappa+\kappa\mathbf n\bigr)=0$, because
+$\mathbf v\cdot\mathbf n=0$ and $\mathbf u\cdot\mathbf v=|\mathbf a|^2-|\mathbf d|^2=\kappa^2$; and $\eta(X_0,X_0)=|\mathbf n|^2-|\mathbf u|^2|\mathbf n|^2/\kappa^2$.
+So $\mathcal E_0(S^\dagger)=\eta\,\mathcal E_0(S)$ is not $\eta$-null, and \cref{bf:criterion} fails at $\mu=0$.
+\end{proof}
+
+The theorem is fixed, and it is the case that matters for a gauge field. Its mechanism is a second binding root $G'=G\hat\rho$ commuting with $S$. The exceptional ratio $|\mathbf a|^2=\kappa^2+|\mathbf d|^2$ has
+measure zero. At $\mathbf d=0$ the theorem gives the Zeeman lines of \cref{bf:lG}. For $\mathbf d\neq0$ the screened frequencies cannot be removed
+along a worldline (\cref{bf:remove}), but they are $\kappa$ times functions of $|\mathbf a|/\kappa$ and $|\mathbf d|/\kappa$: screening supplies no
+scale.
+
+\begin{proposition}[Gyroscopic screening by a boost]
+\label{bf:gyro}
+Let $b=\alpha L_3+b_\Sigma$, where $b_\Sigma\in\mathfrak p_G$ is the boost $z\mapsto i\Sigma\bar z$ with
+$\Sigma=\bigl(\begin{smallmatrix}y_1&y_2&0\\y_2&-y_1&0\\0&0&0\end{smallmatrix}\bigr)$, and let $r^2=y_1^2+y_2^2>0$. Then $[b,G]\neq0$ and
+\[
+\chi_S(\lambda)=(\lambda^2+\kappa^2)\bigl(\lambda^2+(\kappa-\alpha)^2-r^2\bigr)\bigl(\lambda^2+(\kappa+\alpha)^2-r^2\bigr).
+\]
+If $\alpha\neq0$ and $r<\min(|\kappa-\alpha|,|\kappa+\alpha|)$, every solution is bounded; for $\alpha=0$ and for $|\kappa-\alpha|<r<|\kappa+\alpha|$ some
+are not. Numerically, near bounded points at which the five conditions of the proof are independent, the set of $b\in\so{3,3}$ with all motion
+bounded is a $10$-dimensional submanifold; at the tested points of $\lG$ and of this family the conditions are degenerate, so these points lie on
+its singular locus.
+\end{proposition}
+
+\begin{proof}
+On $\langle e_1,e_2,e_4,e_5\rangle$, $K_3=GL_3$ is an $\eta$-antisymmetric involution commuting with $G$, $L_3$ and $b_\Sigma$, so its eigenplanes
+$\mathcal U_\pm$ are totally $\eta$-null and invariant. There $L_3=\mp G$, so $S=(\kappa\mp\alpha)G+b_\Sigma$ and $S^\dagger=(\kappa\pm\alpha)G-b_\Sigma$, each
+squaring to a multiple of $\id$ ($b_\Sigma^2=r^2$, $\{b_\Sigma,G\}=0$), negative under the stated bound on $r$. For $\alpha\neq0$ the restrictions of
+$S^\dagger$ to $\mathcal U_+$ and to $\mathcal U_-$ have no common eigenvalue, so every eigenspace of $S^\dagger$ lies in $\mathcal U_+\oplus\langle e_3,e_6\rangle$ or in
+$\mathcal U_-\oplus\langle e_3,e_6\rangle$ (complexified). Since $\mathcal U_\pm$ are totally $\eta$-null and $\eta$-orthogonal to the $b$-free plane
+$\langle e_3,e_6\rangle$, on which the eigenspaces of $\kappa G$ are isotropic lines, $h_\eta$ vanishes on every eigenspace, and \cref{bf:criterion}
+applies. For $\alpha=0$, $b\in\mathfrak p_G$ and
+\cref{bf:pG} applies; for $|\kappa-\alpha|<r<|\kappa+\alpha|$, $\chi_S$ has a real root. For the dimension statement: at simple frequencies
+\cref{bf:criterion}(ii) imposes five real conditions on $b$ (two for imaginary spectrum after the trace relation, three for isotropy). Their
+finite-difference Jacobian has rank five at four least-squares solutions and at an exact compact screened point, and rank four, with residuals of
+second order along the kernel directions, at three points of this family and at two elliptic points of $\lG$.
+\end{proof}
+
+The family is fixed; the dimension statements are numerical. This is the gyroscopic stabilisation of a saddle
+\cite{ThomsonTait1879,Kirillov2013}: the rotation detunes the two light-like planes of $K_3$ in which the boost acts, so that
+$\eta(\pi,\pi)=2\eta(\pi_+,\pi_-)$ averages to zero. Since $b_\Sigma$ is a boost, the family is not a gauge field. Together with \cref{bf:screen} it
+shows that an anticommuting part need not cause secular growth, and that boundedness does not single out $\lG$; gauge removability does
+(\cref{bf:remove}).
+
+\begin{proposition}[A connection alone does not bind]
+\label{bf:alone}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item Let $\kappa=0$ and let $b\in\so{3,3}$ be any constant connection, $b=\nu\cK$ included. Then $X=e^{-b\tau}Y$ gives
+$\mathcal L=\tfrac m2\eta(\dot Y,\dot Y)$ and $\ddot Y=0$. The generator $M=\bigl(\begin{smallmatrix}-b&\id/m\\0&-b\end{smallmatrix}\bigr)$ has
+$\det(\lambda-M)=\chi_{-b}(\lambda)^2$ and is never semisimple: the motion is free drift, and there is no binding frequency.
+\item The rescaling $(\tau,\kappa,b,m)\mapsto(\vartheta\tau,\kappa/\vartheta,b/\vartheta,\vartheta m)$ maps $M$ to $M/\vartheta$, solutions to solutions and
+the action $\int\mathcal L\,d\tau$ to itself, and leaves $\eta$, $G$, $\lG$, $\mathfrak p_G$ and $\so4_\Delta$ unchanged. No value of $\kappa$, hence of
+$\ell=c/\kappa$, is selected, with or without a constant $b$.
+\item $M(m)=TM(1)T^{-1}$ with $T=\operatorname{diag}(\id,m\id)$: the spectrum of $M$ does not involve $m$, and the rescaling of (ii) keeps $m\kappa$,
+not $m/\kappa$, fixed.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) $\dot X+bX=e^{-b\tau}\dot Y$. Write $-\operatorname{diag}(b,b)=S'+N'$ (Jordan--Chevalley). Then $M=S'+(N'+N)$ with
+$N=\bigl(\begin{smallmatrix}0&\id/m\\0&0\end{smallmatrix}\bigr)$, and $N'+N\neq0$ because $N$ is off-diagonal and $N'$ is block-diagonal. (ii) and (iii) are
+direct.
+\end{proof}
+
+Part~(i) is inherited, since every connection on a line is pure gauge, and its consequence is an obstruction: a Yang--Mills potential on a
+worldline, with no self-adjoint shift, produces free motion. Part~(ii) is dimensional analysis, inherited; it restates that $\kappa$ is not
+fixed (end of \cref{sec:neutral}) and that no ratio among the inertia constants and $m$ is fixed by the Clifford structure (after
+\cref{prop:several}). Part~(iii) is fixed and elementary: nothing in the interior dynamics ties $m$ to $\kappa$, and $mc^2=\hbar\kappa$, that is
+$\ell=\hbar/(mc)$, is a matching added from outside, never a result.
+
+\subsection{The split virial identity and the vacuum}
+\label{sec:bf-vacuum}
+
+The split virial identity of \cref{thm:splitvirial} holds unchanged with the connection: for every constant $S$, and so for every
+$b\in\so{3,3}$, $\tfrac d{d\tau}\eta(X,\pi)=\eta(\pi/m-SX,\pi)+\eta(X,S^\dagger\pi)=\eta(\pi,\pi)/m$ along every solution. The quantum statement
+needs the signature of the energy on each frequency.
+
+\begin{theorem}[Krein signatures and the zero-point energy]
+\label{bf:krein}
+Suppose every solution is bounded, and let $\omega>0$ have multiplicity $k_\omega$ in $\spec(-iS)$. On the eigenspace $\mathcal E_{i\omega}$ of the
+generator, the energy form $v\mapsto\bar v^{\!\top}\mathcal Hv$ has signature $(k_\omega,k_\omega)$. Hence, with positive-norm quantisation of the normal
+modes, the zero-point energy $\sum_j(\pm)\half\hbar\omega_j$ cancels frequency by frequency, and every level has a lower one.
+\end{theorem}
+
+\begin{proof}
+Work in the canonical variables of \cref{bf:M}. On $\mathcal E_{i\omega}$, $\mathcal Hv=-i\omega\mathbb Jv$, so the energy form equals $\omega$ times the
+Krein form $-i\bar v^{\!\top}\mathbb Jv$, which is nondegenerate there because eigenspaces of distinct imaginary eigenvalues are orthogonal for it
+\cite{YakubovichStarzhinskii75}. The zero-momentum part of $\mathcal E_{i\omega}$ is $\mathcal E_{i\omega}(-S)$, of dimension $k_\omega$, and $H$ vanishes on
+it (\cref{bf:M}). Since the generator is semisimple, $\dim\mathcal E_{i\omega}=2k_\omega$ by \cref{bf:M}. A nondegenerate Hermitian form with a
+half-dimensional isotropic subspace has signature $(k,k)$, and a mode of energy sign $\pm$ quantises to $\pm\hbar\omega(n+\half)$.
+\end{proof}
+
+The theorem is fixed, although structural: it holds for any nondegenerate $\eta$. It extends the vanishing of the zero-point energy on
+$\R^{3,3}$ at $b=0$ (\cref{thm:subfs}) and the absence of a ground state (\cref{mb:noground}) to every connection that keeps the motion bounded: the
+cancellation, forced by the perfect-square form \eqref{bf:eq:L}, survives the splitting line by line, and so does the absence of a ground state.
+On the coordinate subfields of \cref{thm:subfs}, where the zero-point energy is $\pm\tfrac32\hbar\kappa$ or $\pm\half\hbar\kappa$, the theorem does not
+apply: $G$ does not preserve the subfield, and the zero-momentum flow stays in it only on its intersection with its preimage under $G$, of
+dimension $0$ or $2$.
+
+\begin{corollary}[No Fock vacuum with Jordan blocks]
+\label{bf:nofock}
+Suppose $M$ is not semisimple at a frequency $\omega\neq0$, as for every nonzero $b\in\mathfrak p_G$. Then no linear symplectic change of
+variables writes the Hamiltonian on that block as a sum of signed oscillators, and there is no Fock vacuum annihilated by normal-mode lowering
+operators.
+\end{corollary}
+
+\begin{proof}
+A sum of signed oscillators generates a semisimple flow, and symplectic changes of variables act on the generator by similarity.
+\end{proof}
+
+This is an obstruction. A model block with the same Jordan structure is $H=\omega(q_1p_2-q_2p_1)+\half(q_1^2+q_2^2)$, whose two terms
+Poisson-commute \cite{Williamson36}; that its quantisation has continuous spectrum is inherited and is not re-derived here.
+
+\subsection{\texorpdfstring{Three constituents: the binding-compatible algebra $\so4_\Delta$}{Three constituents: the binding-compatible algebra so(4)Delta}}
+\label{sec:bf-three}
+
+At three constituents we use the generators $E_A$ of \eqref{eq:tower}, the numbering of \cref{sec:closure} (the temporal directions, their
+partners $i'=i+3$, the weak directions $W=\{7,13,14,15\}$, the colour directions $\{10,11,12,16,17,18\}$ and the span $E$), $G_3=G\oplus G\oplus G$,
+and $\mathrm{rot}(i,j)$ acting by $\tfrac12\ad$; $R_{AB}$ is defined as at one constituent. By \cref{thm:PSbinding}, the part of the Pati--Salam
+algebra of $P_*$ that commutes with $G_3$ is $\so4_\Delta=\operatorname{span}\{\mathrm{rot}(i,j):i<j\in W\}\cong\su2\oplus\su2$, compact, and neither
+Pati--Salam factor meets $\Cent(G_3)$. The spectra below use an explicit splitting.
+
+\begin{lemma}[The two factors of $\so4_\Delta$]
+\label{bf:su2}
+The elements $T^\pm_1=\half\bigl(\mathrm{rot}(13,14)\pm\mathrm{rot}(7,15)\bigr)$, $T^\pm_2=\half\bigl(\mathrm{rot}(7,14)\mp\mathrm{rot}(13,15)\bigr)$ and
+$T^\pm_3=\half\bigl(\mathrm{rot}(7,13)\pm\mathrm{rot}(14,15)\bigr)$ satisfy $[T^+_i,T^-_j]=0$ and $[T^\pm_1,T^\pm_2]=-T^\pm_3$ cyclically, and the trace
+form is negative definite on their span, so $\so4_\Delta=\su2_+\oplus\su2_-$. On the eighteen vectors each $T^\pm_3$ has the eigenvalues $\pm\tfrac i2$,
+four times each, and $0$, ten times.
+\end{lemma}
+
+\begin{proof}
+Each $\mathrm{rot}(i,j)$ with $i,j\in W$ rotates the plane $(e_i,e_j)$ and its partner plane $(e_{i'},e_{j'})$ alike, so on $\operatorname{span}W$, and
+identically on the partner span $\{10,16,17,18\}$, the six elements act as the standard generators of $\so4$, and the $T^\pm_i$ are their
+self-dual and anti-self-dual combinations; the brackets follow by direct computation. Each $T^\pm_3$ is half a sum of two commuting plane rotations
+on each of the two four-dimensional spans and vanishes on the remaining ten directions.
+\end{proof}
+
+Each $\su2$ factor locks a weak rotation of $W$ to the colour rotation of the partners $\{10,16,17,18\}$. Reading $\so4_\Delta$ as Yang and Mills'
+isospin algebra, doubled, is a reading, as is the description after \cref{thm:survive}.
+
+\begin{proposition}[Spectra on the eighteen-dimensional frame]
+\label{bf:so4spec}
+Let $\kappa=5$ and $m=1$.
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item For $b=\beta T^+_3$ with $\beta=2$, $\chi_S=(\lambda^2+25)^5(\lambda^2+16)^2(\lambda^2+36)^2$: the frequency $\kappa$ on the five complex singlet
+directions, and $\kappa\mp\beta/2$ on the two $\su2_+$ doublets, of weights $\pm\half$.
+\item For $b=\beta_+T^+_3+\beta_-T^-_3$ with $(\beta_+,\beta_-)=(2,4)$, the lines are $\kappa\pm\half(\beta_+\pm\beta_-)=8,6,4,2$, together with $\kappa$.
+\item In both cases $\Xi=-G_3/(2\kappa m)$ solves the Sylvester equation, $M$ is semisimple, the Krein signatures are $(k,k)$, and the zero-point
+energy vanishes.
+\item The weak-only rotation $R_{7,13}$ and the colour-only rotation $R_{10,16}$ give a non-semisimple $M$, hence secular growth.
+\item $b=R_{7,13}\pm R_{10,11}\in\mathfrak{ps}_W$ has $[b,G_3]\neq0$, and every solution is bounded, for every $\kappa>0$. At $\kappa=5$ the frequencies
+are $\kappa$ (six pairs) and $|\omega_j|\approx4.319,\,5.050,\,5.731$, with $\omega_j$ the roots of $\omega^3+5\omega^2-26\omega-125$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i)--(iii) The connection lies in $\so4_\Delta\subset\Cent(G_3)$ and is real antisymmetric, so \cref{bf:lG}(i), whose argument uses only
+$G_3^2=-\id$, $G_3^\dagger=G_3$ and $[b,G_3]=0$, gives semisimplicity and boundedness, and \cref{bf:krein} gives the signatures and the zero-point
+energy. The characteristic polynomials are exact computations with the integer $36\times36$ generators, and follow the joint eigenvalues of the
+commuting operators $b$ and $G_3$ given by \cref{bf:su2}. (iv) and (v) $G_3$ maps the six-plane $\langle e_7,e_8,e_{13};e_{10},e_{11},e_{16}\rangle$ as
+$G$ maps $\langle e_1,e_2,e_3;e_4,e_5,e_6\rangle$, and each $b$ named preserves that six-plane and vanishes on its $\eta$-orthogonal complement, where
+the motion is the binding at $b=0$. On the six-plane $b$ is admissible. $R_{7,13}$ rotates the temporal triple alone and $R_{10,16}$ the spatial
+triple alone, so $\mathbf a\cdot\mathbf d=\pm|\mathbf a|^2\neq0$, and \cref{bf:screen}(i) applies; since $S$ is real antisymmetric, the unbounded
+solutions grow polynomially. For $R_{7,13}\pm R_{10,11}$ the rotation vectors of the two triples are the unit vectors $\mathbf e_2$ and $\pm\mathbf e_3$:
+equal rates and perpendicular axes, so $\mathbf a=\half(\mathbf e_2\pm\mathbf e_3)\perp\mathbf d=\half(\mathbf e_2\mp\mathbf e_3)$ and
+$|\mathbf a|^2=|\mathbf d|^2=\half\neq\kappa^2+\half$. \Cref{bf:screen}(ii) applies, with $f$ as stated at $\kappa=5$; the three frequencies are its
+roots, evaluated numerically.
+\end{proof}
+
+This is fixed. Every constant $\so4_\Delta$-valued connection is compact and commutes with $G_3$, so it keeps the interior bounded; the splitting
+follows the $\su2$ weights, $\beta/\kappa$ is free, and by \cref{bf:larmor} the pattern can be removed along one worldline. The single-factor
+rotations tear the binding, but boundedness does not single out the locked diagonal: the connection of part~(v) is bounded with $[b,G_3]\neq0$,
+while the anti-locked $R_{7,13}+R_{10,16}$, which has $\mathbf a=0$ on its six-plane, is not. What singles out $\so4_\Delta$ is commutation with
+$G_3$ (\cref{thm:PSbinding}), that is, removability along a worldline (\cref{bf:remove}).
+
+\subsection{Quantum Yang--Mills facts, and the channels of the vacuum}
+\label{sec:bf-quantum}
+
+Classically the connection splits, screens or tears the binding but supplies no scale. The only place left for it to generate one is the
+quantum theory, and the following inherited facts are needed to say what that would involve.
+
+\begin{proposition}[Inherited facts]
+\label{bf:qym}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item For $\su4$ with $\tr(T^AT^B)=\half\delta^{AB}$, $\sum_AT^AZT^A=\half\bigl(\tr(Z)\id-\tfrac14Z\bigr)$ for every $4\times4$ matrix $Z$: the factor is
+$\tfrac{15}8=C_F$ on $\id$ and $-\tfrac18$ on traceless $Z$.
+\item The channel factors $T_1\cdot T_2=\half[C_2(\text{pair})-C_2(R_1)-C_2(R_2)]$ are $+\tfrac38,-\tfrac58$ on $\mathbf{10},\mathbf6\subset\mathbf4\otimes\mathbf4$,
+$-\tfrac{15}8,+\tfrac18$ on $\mathbf1,\mathbf{15}\subset\bar{\mathbf4}\otimes\mathbf4$, and $+\tfrac14,-\tfrac34$ on $\mathbf3,\mathbf1\subset\mathbf2\otimes\mathbf2$ of
+$\su2$, with $C_2=\tfrac{15}8,\tfrac92,\tfrac52,4$ on $\mathbf4,\mathbf{10},\mathbf6,\mathbf{15}$. Hence the Dirac bilinear
+$\overline{(\mathbf4,\mathbf2,\mathbf1)}\otimes(\mathbf4,\mathbf1,\mathbf2)=(\mathbf1,\mathbf2,\mathbf2)\oplus(\mathbf{15},\mathbf2,\mathbf2)$ has $\su4$ factors
+$-\tfrac{15}8$ and $+\tfrac18$, and a Lorentz-scalar Majorana bilinear of $(\mathbf4,\mathbf1,\mathbf2)$, symmetric in its internal indices, lies in
+$\mathrm{Sym}^2(\C^4\otimes\C^2)=(\mathbf{10},\mathbf1,\mathbf3)\oplus(\mathbf6,\mathbf1,\mathbf1)$, of dimensions $30+6$, with factors
+$(+\tfrac38,+\tfrac14)$ and $(-\tfrac58,-\tfrac34)$.
+\item In Euclidean momentum space
+$\int_{k^2\le k_{\max}^2}\frac{d^4k}{(2\pi)^4}\frac1{k^2+M^2}=\frac1{16\pi^2}\bigl[k_{\max}^2-M^2\ln(1+k_{\max}^2/M^2)\bigr]$. The function
+$f_{\rm gap}(x)=1-x^2\ln(1+x^{-2})$ decreases strictly from $1$ to $0$, so the contact gap equation $1=\lambda_{\rm c}f_{\rm gap}(x)$ has a root
+$x=M/k_{\max}>0$ if and only if $\lambda_{\rm c}>1$.
+\item The ladder critical coupling $\pi/(3C_F)$ \cite{FukudaKugo76,Miransky93} is $8\pi/45\approx0.5585$ at $C_F=\tfrac{15}8$. For $SU(2)$ with $N_f$
+Dirac doublets the one-loop coefficient is $\beta_0=(22-2N_f)/3$, equal to $6$ at $N_f=2$ \cite{GrossWilczek73,Politzer73}, and
+$\Lambda=\mu\,e^{-8\pi^2/(\beta_0g^2(\mu))}$ is independent of $\mu$. The breaking $SU(4)\to Sp(4)$ of $N_f=2$ leaves $15-10=5$ Goldstone
+directions \cite{Peskin80}.
+\end{enumerate}
+\end{proposition}
+
+All of this is inherited \cite{NambuJonaLasinio61,Slansky}; the strict decrease in (iii) follows from $\ln(1+u)>u/(1+u)$. The use of (ii) is a reading.
+Under the most-attractive-channel heuristic of one-boson exchange \cite{RabyDimopoulosSusskind80}, in which a negative factor means attraction, and
+with a common coupling for $\su4$ and $\su2_R$, which the paper adopts only as an assumption (\cref{ass:field} and the remark after
+\cref{prop:coupled3}), the exchange favours the Dirac singlet channel $(\mathbf1,\mathbf2,\mathbf2)$ and the colour-breaking $(\mathbf6,\mathbf1,\mathbf1)$.
+It disfavours the $(\mathbf{15},\mathbf2,\mathbf2)$ that the Georgi--Jarlskog factor $-3$ needs (\cref{prop:EW}; \cite{GeorgiJarlskog79}), and the
+$(\mathbf{10},\mathbf1,\mathbf3)$ that carries the Standard-Model vacuum of \cref{sec:selection}. That vacuum is a minimum of a scalar potential, not a
+gauge-exchange condensate, so the heuristic addresses a different, dynamical scenario, in which a gauge-generated vacuum would point away from the
+one selected there. In the selected vacuum the order is moreover the reverse of a mass generated by the gauge field: the Pati--Salam vector bosons
+outside the Standard Model acquire their masses by eating nine Goldstone directions (\cref{thm:nomajoron}).
+
+\subsection{What the connection part supplies}
+\label{sec:bf-synthesis}
+
+The results of this section combine as follows.
+\begin{enumerate}[label=(\alph*),leftmargin=2.2em]
+\item The binding frequency comes from the self-adjoint part of the shift, never from a connection. The rate $\kappa$, with
+$(\kappa G)^2=-c^2/\ell^2$, sits in the tensor part (\cref{bf:covariant}, fixed), and a connection alone gives free drift (\cref{bf:alone}, an
+obstruction).
+\item A commuting connection splits the binding frequency without supplying a scale: the lines $\kappa$ and $\kappa\pm\sqrt{w\cdot w}$ are bounded for
+admissible $b$ and removable along any worldline, with $\beta/\kappa$ free (\cref{bf:lG,bf:larmor}, fixed; the Zeeman description is a reading). At
+three constituents $\so4_\Delta$ gives lines labelled by $\su2$ weights and is not the only bounded part of the Pati--Salam algebra
+(\cref{bf:so4spec}), and the zero-point cancellation survives line by line (\cref{bf:krein}).
+\item A purely anticommuting connection tears the binding (\cref{bf:pG,bf:nofock}, obstructions), with rates $\sqrt{\kappa^2+|\mathbf d|^2}$ for an
+admissible element or $\sqrt{\kappa^2-\nu^2}$ for a pairing boost, carried by Jordan blocks. A mixed admissible connection keeps every orbit bounded
+exactly at equal rates of the two triples about axes that are not opposite, outside the ratio $|\mathbf a|^2=\kappa^2+|\mathbf d|^2$
+(\cref{bf:screen}); a boost can be screened gyroscopically (\cref{bf:gyro}); neither gives a scale.
+\item The only role left for the connection in generating a scale is quantum, and it is open. The arena leaves $\ell$ free (\cref{bf:alone}, and
+\cref{sec:restclosure} for a dynamical rate), and classical four-dimensional Yang--Mills theory has no dimensionful parameter; a scale arises only
+by dimensional transmutation, $\Lambda_b=\mu\,e^{-8\pi^2/(\beta_0g^2(\mu))}$ \cite{ColemanWeinberg73,GrossWilczek73}, for a Yang--Mills theory whose
+potential is $b$.
+\end{enumerate}
+
+\begin{conjecture}[A transmuted binding length]
+\label{bf:transmute}
+$\ell=\hbar c/\Lambda_b$ for the scale $\Lambda_b$ of a Yang--Mills theory whose potential is the connection part of the shift; that is,
+$\hbar\kappa=\Lambda_b$.
+\end{conjecture}
+
+The conjecture is open: nothing in the arena derives it. Reading the rest energy $mc^2$ as $\hbar\kappa$ is a separate identification and not part of
+the conjecture, since the spectrum of $M$ does not involve $m$ and the rescaling of \cref{bf:alone} keeps $m\kappa$, not $m/\kappa$, fixed. A
+mechanism would need $\kappa$ to be dynamical, as the rotor rate of \cref{sec:closure} is, and coupled to a quantum gauge sector with a fixed
+$\beta_0$ and a matching coupling; even then, by \cref{bf:qym}(ii), the most attractive channels are not those of the vacuum selected in
+\cref{sec:selection}. A classification of the compact connections that keep the binding bounded at three constituents, beyond the commuting ones and the equal-rate
+family embedded as in \cref{bf:so4spec}(v), is also open, as is a description of the bounded set in $\so{3,3}$ beyond the numerical statement of
+\cref{bf:gyro}.
+
+Read in the variables of $E=mc^2$, and only through the added identification $mc^2=\hbar\kappa$, the decomposition of the shift says the
+following. The conversion constant $c$ enters the interior through the self-adjoint summand $\kappa G$, whose square is $-c^2/\ell^2$, and only this
+summand binds. The Yang--Mills potential is the antisymmetric, transport summand of the same shift, and it is compact. Classically it generates neither $m$ nor $\kappa$: when it commutes with $G$ it splits the interior rate $\kappa$
+into charge-labelled lines, a purely anticommuting potential tears the binding, and a mixed one may or may not (\cref{bf:screen,bf:gyro}). Whether
+its quantum scale is the length $\ell$ that the arena leaves free is open.
