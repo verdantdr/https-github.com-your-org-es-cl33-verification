@@ -408,6 +408,12 @@ for (m1, m2, p, q) in [(1, 2, (0, 0, 0), (0, 0, 0)), (1, 2, (1, -2, 0), (0, 1, 3
     b = m1 ** 2 * qq + m2 ** 2 * pp + pp * qq
     X = H @ H - a * I64
     ok &= np.array_equal(X @ X, 4 * b * I64) and np.array_equal(H, H.T)
+    W = g2[0] @ g2[6]                                     # E_(1,1) E_(2,1) anticommutes with H_g
+    ok &= np.array_equal(W @ H, -(H @ W)) and np.array_equal(W @ W, -I64) and int(np.trace(X)) == 0
+    if b > 0:
+        Ep, Em = np.sqrt(a + 2 * np.sqrt(b)), np.sqrt(a - 2 * np.sqrt(b))
+        evs = np.linalg.eigvalsh(H.astype(float))
+        ok &= all(int(np.sum(np.abs(evs - s * E) < 1e-9)) == 16 for s in (1, -1) for E in (Ep, Em))
 evr = np.linalg.eigvalsh(Hg(1, 2, [0] * 3, [0] * 3).astype(float))
 ok &= np.allclose(np.abs(evr), np.sqrt(5), atol=1e-12) and int(np.sum(evr > 0)) == 32
 below = True
@@ -423,7 +429,8 @@ for _ in range(200):
 B11 = 2 - np.sqrt(2)
 ok &= below and abs(B11 / 2 - (1 - 1 / np.sqrt(2))) < 1e-15
 report("e2-8", ok, "graded composite H_g = H^(1)(p) + H^(2)(q) in tower generators: (H_g^2 - a)^2 = 4b exactly with "
-       "a = m1^2+m2^2+p^2+q^2, b = m1^2 q^2 + m2^2 p^2 + p^2 q^2 (four integer data); at rest spectrum +-sqrt(m1^2+m2^2), 32 each "
+       "a = m1^2+m2^2+p^2+q^2, b = m1^2 q^2 + m2^2 p^2 + p^2 q^2, X = H_g^2 - a traceless, E_(1,1)E_(2,1) anticommuting with H_g "
+       "(four integer data, exact), and +-E_+, +-E_- on 16 dimensions each when b > 0 (tol 1e-9); at rest spectrum +-sqrt(m1^2+m2^2), 32 each "
        "((1,2): +-sqrt5, tol 1e-12); top branch sqrt(a+2 sqrt b) satisfies max(E1,E2) <= E_+ < E1+E2 in 200 random samples "
        "(tol 1e-9); relative binding 1-1/sqrt2 = 0.2929 at m1=m2")
 
@@ -592,6 +599,12 @@ CG4 = lift4(CGv, g2, ET2)
 ok &= np.array_equal(advec(CG4, g2, ET2), 4 * CGv) and np.array_equal(CG4, CG4.T)
 sCG = CG4 / 4.0
 twoN1_2, twoN2_2 = twoNk2
+# sigma(eps(x)G) = sum_i s_i (a+_(1,i) a+_(2,i) + transpose): pure pairs, one quantum in each constituent, mode by mode
+Qp = [ap2(0, i) @ ap2(1, i) for i in range(3)]          # 4 a+_(1,i) a+_(2,i)
+sgn_found = [s for s in itertools.product((1, -1), repeat=3)
+             if np.array_equal(CG4, sum(s[i] * (Qp[i] + Qp[i].T) for i in range(3)))]
+ok &= len(sgn_found) == 1
+sgn_txt = str(sgn_found[0]) if sgn_found else "none"
 for zeta in (0.3, 1.0, 2.0):
     v = expm(zeta * sCG) @ vac2
     ok &= abs(v[0] - np.cosh(zeta) ** 3) < 1e-10 * np.cosh(zeta) ** 3
@@ -600,9 +613,10 @@ for zeta in (0.3, 1.0, 2.0):
         ok &= abs(Pk - comb(3, k) * np.cosh(zeta) ** (2 * (3 - k)) * np.sinh(zeta) ** (2 * k)) < 1e-9 * np.cosh(2 * zeta) ** 3
         ok &= np.sum(v[Ndiag2 == 2 * k + 1] ** 2) < 1e-20
     ok &= np.allclose((twoN1_2 - twoN2_2) @ v, 0, atol=1e-9)
-report("e2-17", ok, "copy boost eps(x)G (lift checked, rapidity zeta): <0|U|0> = cosh^3 zeta, weight in N = 2k equal to "
-       "C(3,k) cosh^{2(3-k)} zeta sinh^{2k} zeta (total cosh^3 2zeta), and N^(1) = N^(2) on U|0>: every emerging pair has one quantum on "
-       "each rung (zeta = 0.3, 1, 2; relative tol 1e-9)")
+report("e2-17", ok, "copy boost eps(x)G (lift checked, rapidity zeta): sigma(eps(x)G) = sum_i s_i (a+_(1,i)a+_(2,i) + transpose) with "
+       f"signs s = {sgn_txt} (exact); <0|U|0> = cosh^3 zeta, weight in N = 2k equal to "
+       "C(3,k) cosh^{2(3-k)} zeta sinh^{2k} zeta (total cosh^3 2zeta), and N^(1) = N^(2) on U|0>: every emerging pair has one quantum in "
+       "each constituent (zeta = 0.3, 1, 2; relative tol 1e-9)")
 
 # ----------------------------------------------------------------------------------------------- e2-18 invariant states
 ok = True
@@ -814,8 +828,8 @@ twoNk3, twoN3 = number_ops(g3, 3)
 L12 = lift4(C12v, g3, ETn[3])
 L23 = lift4(C23v, g3, ETn[3])
 ok &= np.array_equal(L12 @ twoN3, twoN3 @ L12) and np.array_equal(L23 @ twoN3, twoN3 @ L23)
-report("e2-24", ok, "up the ladder: at n=3 the copy rotations commute with K_3 and their lifts with N (hopping among three rungs); "
-       "the copy boosts anticommute with K_3 (pure pair creation across rungs), exact")
+report("e2-24", ok, "up the ladder: at n=3 the copy rotations commute with K_3 and their lifts with N (hopping among three constituents); "
+       "the copy boosts anticommute with K_3 (pure pair creation across constituents), exact")
 
 ok = True
 k1, k2, beta = 1.0, 3.0, 0.4
@@ -836,11 +850,53 @@ HFe = 2.0 * (twoN2 / 2) + 1j * beta * Cb
 psi = expm(-1j * HFe * (np.pi / (2 * beta))) @ psi0
 full = sum(abs(np.vdot(one[3 + i], psi)) ** 2 for i in range(3))
 ok &= err < 1e-12 and leak < 1e-24 and abs(Pmax - s_rabi) < 1e-12 and abs(full - 1) < 1e-12
-sector10 = int(np.sum((np.diag(twoN1_2) == 2) & (np.diag(twoN2_2) == 0)))
-ok &= sector10 == 3
-report("e2-25", ok, f"Rabi transfer of one quantum (external i): H = k1 N^(1) + k2 N^(2) + i beta C_b is Hermitian and commutes with N; from "
-       f"a+_(1,1)|0> the rung-2 probability is s sin^2(Omega t/2), s = 4beta^2/((k2-k1)^2+4beta^2) = {s_rabi:.5f} at (1,3,0.4) "
-       f"(error {err:.1e}), the weight outside N=1 stays below 1e-24, and at equal rates the transfer is complete at t = pi/(2 beta); the sector N^(1)=1, N^(2)=0 has odd real dimension 3, so no real complex structure preserves it and the i is external")
+B1 = np.array(one, dtype=float).T                       # columns a+_(1,1..3)|0>, a+_(2,1..3)|0> (orthonormal)
+ok &= np.allclose(B1.T @ B1, np.eye(6), atol=1e-15)
+H1q = B1.T @ HF @ B1
+h2 = np.array([[k1, -1j * beta], [1j * beta, k2]])
+ok &= np.allclose(H1q, np.kron(h2, np.eye(3)), atol=1e-14)
+lines = np.sort(np.linalg.eigvalsh(h2))
+wpm = 0.5 * (k1 + k2) + np.array([-1, 1]) * np.sqrt(0.25 * (k1 - k2) ** 2 + beta ** 2)
+ok &= np.allclose(lines, wpm, atol=1e-14)
+report("e2-25", ok, f"Rabi transfer of one quantum (external i): H = k1 N^(1) + k2 N^(2) + i beta C_b is Hermitian and commutes with N; on the "
+       f"one-quantum sector it is [[k1,-i beta],[i beta,k2]] (x) 1_3, with eigenvalues the lines omega_pm of RE Thm 7.12(ii) ({wpm[0]:.5f}, "
+       f"{wpm[1]:.5f}); from a+_(1,1)|0> the constituent-2 probability is s sin^2(Omega t/2), s = 4beta^2/((k2-k1)^2+4beta^2) = {s_rabi:.5f} "
+       f"at (1,3,0.4) (error {err:.1e}), the weight outside N=1 stays below 1e-24, and at equal rates the transfer is complete at "
+       f"t = pi/(2 beta) (tol 1e-12)")
+
+# ----------------------------------------------------------------------------------------------- e2-26 pair from the vacuum
+ok = True
+counts = {}
+rng26 = np.random.default_rng(26)
+for n, gens, Nd in ((1, g1, Ndiag1), (2, g2, Ndiag2)):
+    etas = ETn[n]
+    basis = so_basis(etas)
+    comp = [B for B in basis if np.array_equal(B.T, -B)]
+    symm = [B for B in basis if np.array_equal(B.T, B)]
+    assert len(comp) + len(symm) == len(basis)
+    sel2 = np.where(Nd == 2)[0]
+    tested = 0
+    for fam in (comp, symm):
+        samples = list(fam)
+        for _ in range(12):
+            c = rng26.integers(-2, 3, size=len(fam))
+            samples.append(sum(int(x) * B for x, B in zip(c, fam)))
+            # its commuting part alone (2x, integer): must give no pair
+            A = samples[-1]
+            samples.append(A + Kn[n] @ A @ Kn[n])
+        for A in samples:
+            if not A.any():
+                continue
+            L = lift4(A, gens, etas)
+            pair = L[sel2, 0].any()
+            anti = (A - Kn[n] @ A @ Kn[n]).any()
+            sym_ok = np.array_equal(L.T, L) if fam is symm else np.array_equal(L.T, -L)
+            ok &= (pair == anti) and sym_ok
+            tested += 1
+    counts[n] = tested
+report("e2-26", ok, f"for compact and for Euclidean-symmetric X in so(3n,3n) (all basis elements, 12 random integer combinations of each kind "
+       f"and their K-commuting parts; {counts[1]} elements at n=1, {counts[2]} at n=2): sigma(X) is antisymmetric resp. symmetric, and "
+       "sigma(X)|0> has a nonzero N=2 component iff X does not commute with K_n (exact)")
 
 print()
 if FAILED:

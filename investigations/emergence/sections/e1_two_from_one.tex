@@ -166,8 +166,8 @@ cuts it to $\operatorname{span}\{\id,J^{(1)},J^{(2)},\omega_S\}\cong\C\otimes_\R
 $\pm J^{(1)}$ and $\pm J^{(2)}$, four isolated points, none of which acts as $J$ on both factors of $S_2$.
 \item The spectator action, $k_I=1$. The selected unit of Theorem~4.1 of \cite{ES17} at $n=2$, the product of the eight internal generators, is
 $J_{\rm sel}=J\otimes\omega=J^{(1)}\Gamma^{(2)}$ (Proposition~7.11(iv) of \cite{RE}). It commutes with $J^{(1)}$ and $J^{(2)}$ and so preserves
-$W$. It equals $J^{(1)}$ on $\{\Gamma^{(2)}=1\}$ and $-J^{(1)}$ on $\{\Gamma^{(2)}=-1\}$, $32$ dimensions each; on $W$ it is $J$ on $16$ and $-J$
-on $16$ dimensions. It anticommutes with every generator of copy~2, graded or ungraded. So no gamma matrix of copy~2 is $J_{\rm sel}$-linear,
+$W$. It equals $J^{(1)}$ on $\{\Gamma^{(2)}=1\}$ and $-J^{(1)}$ on $\{\Gamma^{(2)}=-1\}$, and $J^{(2)}$ on $\{\Gamma^{(2)}\omega_S=-1\}$ and
+$-J^{(2)}$ on $\{\Gamma^{(2)}\omega_S=1\}$, $32$ dimensions each; on $W$ it is $J$ on $16$ and $-J$ on $16$ dimensions. It anticommutes with every generator of copy~2, graded or ungraded. So no gamma matrix of copy~2 is $J_{\rm sel}$-linear,
 and neither $H_g$ nor $H_u$ is for $m_2\neq0$; $m_1E_{(1,1)}$ is.
 \item The diagonal action, $k_I=2$. The commutant of the eight graded interior gammas $E_{(k,\mu)}$ is spanned by $16$ blades ($M_2(\HH)$). Adding
 the six surplus bivectors cuts it to $\operatorname{span}\{\id,\omega_S\}\cong\R\oplus\R$, with $\omega_S^2=+\id$. No complex structure commutes with
@@ -186,7 +186,8 @@ of \cite{ES17}, and that of $\{\gamma^\mu,T\}$ is $\R\oplus\R J$. For $x=a+bJ^{(
 $x^2=(a^2-b^2-c^2+d^2)+2(ab-cd)J^{(1)}+2(ac-bd)J^{(2)}+2(ad+bc)\omega_S$, and $x^2=-\id$ has exactly the four solutions listed. (ii) $J_{\rm sel}$ is a blade of
 grade $8$ containing every copy-2 index, so it anticommutes with each $E_{(2,a)}$; it commutes with $\Gamma^{(1)}$, so it also
 anticommutes with each $u_a=\Gamma^{(1)}E_{(2,a)}$. $\Gamma^{(2)}$ commutes with
-$J^{(1)}$ and $J^{(2)}$, and $\Tr\Gamma^{(2)}=0$, also on $W$. (iii) A blade commuting with all eight interior generators meets them in all or none
+$J^{(1)}$ and $J^{(2)}$, and $\Tr\Gamma^{(2)}=0$, also on $W$. Finally $J_{\rm sel}\mp J^{(2)}=J^{(1)}(\Gamma^{(2)}\pm\omega_S)$ with $J^{(1)}$
+invertible, and $\Gamma^{(2)}\omega_S$ is a traceless involution. (iii) A blade commuting with all eight interior generators meets them in all or none
 of them. Meeting all of them requires odd grade, and meeting none requires even grade. Commuting with every surplus bivector forces it to meet
 the four surplus directions in all or none. Both conditions together leave $\id$ and $\omega_S$. The algebra generated contains the
 central idempotent $\half(\id-\omega_S)$, so its commutant on $W$ is the compression of $\operatorname{span}\{\id,\omega_S\}$, which is $\R$.
@@ -278,9 +279,14 @@ e1-4d). At $n=4$, $S_4$ has dimension $4096$, and the generators were handled as
 
 \begin{proposition}[The quanta and the Lorentz algebras]
 \label{e1:prop:Nlorentz}
+The number $N$ behaves as follows under the copy algebra and under the two Lorentz algebras of one constituent.
 \begin{enumerate}[label=(\roman*),leftmargin=2.2em]
-\item The copy rotation $C_b$ commutes with $N$ and not with $N^{(1)}$. The quarter turn $U=e^{\pi C_b/2}=\tfrac18\prod_a(\id+\eta_{aa}E_{(1,a)}E_{(2,a)})$ satisfies
-$UN^{(1)}U^{-1}=N^{(2)}$. The spin lift of the copy boost $\varepsilon\otimes G$ changes $N$ by $\pm2$ only, with both signs.
+\item The copy rotation $C_b$ commutes with the total number $N$, but it does not commute with the number $N^{(1)}$ of the first
+constituent. The quarter turn
+\[
+U=e^{\pi C_b/2}=\tfrac18\textstyle\prod_a(\id+\eta_{aa}E_{(1,a)}E_{(2,a)})
+\]
+satisfies $UN^{(1)}U^{-1}=N^{(2)}$. The spin lift of the copy boost $\varepsilon\otimes G$ changes $N$ by $\pm2$ only, with both signs.
 \item In $\lint$ the elements commuting with $N$ form $\R\,e_1e_4$, a boost (the pole operator $\id-2N_1$). The rotations $e_4e_5,e_4e_6,e_5e_6$, the
 boosts $e_1e_5,e_1e_6$ and the charge $J=e_2e_3$ do not commute with $N$.
 \item In $\lG$ the elements commuting with $N$ form its compact $\so3$, the paired rotations. No nonzero boost of $\lG$ commutes with $N$.
@@ -452,6 +458,7 @@ statement & class & checks\\
 \cref{e1:sec:answer}: which process; up the ladder; dynamical selection of $W$ & constructed; fixed; open & see text\\
 \bottomrule
 \end{tabular}
-\caption{Claims of \cref{e1:sec:main}, their classes and the checks printed by \texttt{verify/e1\_two\_from\_one.py}.}
+\caption{Claims of \cref{e1:sec:main} and their classes. The checks are the \texttt{PASS} lines printed by the script
+\texttt{verify/e1\_two\_from\_one.py}.}
 \label{e1:tab:claims}
 \end{table}

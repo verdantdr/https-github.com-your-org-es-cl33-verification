@@ -519,7 +519,8 @@ Jsel = blade_mat(bit(1, 2) | bit(1, 3) | sum(bit(2, a) for a in range(1, 7)), ge
 
 
 @claim("e1-3c", "the selected unit of ES17 Thm 4.1 at n=2 (spectator action) is Jsel = (e2e3)(x)omega = J^(1) Gamma^(2), Gamma^(2) = 1(x)omega; "
-       "it preserves W, equals J^(1) on {Gamma^(2)=+1} and -J^(1) on {Gamma^(2)=-1} (32 each), and on W equals J on 16 and -J on 16 "
+       "it preserves W, equals J^(1) on {Gamma^(2)=+1} and -J^(1) on {Gamma^(2)=-1} (32 each), J^(2) on {Gamma^(2) omega_S = -1} and "
+       "-J^(2) on {Gamma^(2) omega_S = +1} (32 each; Jsel -+ J^(2) = J^(1)(Gamma^(2) +- omega_S)), and on W equals J on 16 and -J on 16 "
        "dimensions; it anticommutes with every copy-2 generator, graded or ungraded, so neither H_g nor H_u nor any copy-2 gamma "
        "is Jsel-linear, while m1 E_(1,1) is")
 def _():
@@ -527,6 +528,10 @@ def _():
     ok &= eq(comm(Jsel, J1), 0 * I64) and eq(comm(Jsel, J2), 0 * I64)
     ok &= 64 - rank_int(Jsel - J1) == 32 and 64 - rank_int(Jsel + J1) == 32
     ok &= eq((Jsel - J1) @ (I64 + OM2u), 0 * I64)
+    # Jsel - J2 = J1 (Gamma2 + omega_S): Jsel = +-J^(2) on {Gamma^(2) omega_S = -+1}, 32 dimensions each
+    ok &= eq(Jsel - J2, J1 @ (OM2u + P12)) and eq(Jsel + J2, J1 @ (OM2u - P12))
+    ok &= 64 - rank_int(Jsel - J2) == 32 and 64 - rank_int(Jsel + J2) == 32
+    ok &= eq((Jsel - J2) @ (I64 - OM2u @ P12), 0 * I64) and eq((Jsel + J2) @ (I64 + OM2u @ P12), 0 * I64)
     # on W: dims where Jsel = J (= J1 = J2) and Jsel = -J
     WJp = (I64 - P12) @ (I64 + OM2u)
     WJm = (I64 - P12) @ (I64 - OM2u)

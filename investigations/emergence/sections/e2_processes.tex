@@ -1,0 +1,469 @@
+% Track e2 -- How one becomes two: vertices, thresholds and pair emergence.
+% Verification: investigations/emergence/verify/e2_processes.py (claims e2-1 ... e2-26).
+% New references: sections/bib_e2.tex (WeinbergQFT and Chevalley54 are defined in sections/bib_e1.tex).
+\section{How one becomes two: processes}
+\label{e2:sec:main}
+
+\Cref{e1:sec:main} asked which structures make a rung carry several particles. This section asks which processes take one to two. The word
+``particle'' has four precise senses in the arena, and each has its own process. A particle can be a spin module of a Lorentz algebra, and
+then the process is a vertex, an equivariant map. It can be a mass shell, and then the process is a decay above a threshold. It can be a
+field, as in the field-strength reading of \cite{RE}, and then the process is a duplication of fields. And it can be a quantum of the Fock
+structure of the tower, and then the process is a change of the number $N$. The answers, in order, are these.
+(1) Under the common interior Lorentz action no equivariant map takes a spin-$\half$ module into the space of two constituents, in either
+direction. Maps from a fermion to a fermion and a boson exist, and Clifford multiplication provides them (the selection rule inherited, the
+counts in the realisation fixed; \cref{e2:sec:vertex}). (2) The graded composite of two masses lies below the threshold of the free pair at every
+momentum, and the deficit is proportional to the product of the masses (fixed; its reading as a binding energy interpretive;
+\cref{e2:sec:threshold}). (3) One null field never becomes a massive pair covariantly, and two non-collinear null fields always form one
+(restated from \cite{RE}; \cref{e2:sec:field}). (4) Boosts create pairs of Fock quanta, with the amplitudes of a fermionic Bogoliubov
+transformation, and so do the compact generators that do not commute with the binding root, among them the spatial rotations of the interior
+four-plane and the charge $J$. The compact generators that commute with the binding root never do (fixed; \cref{e2:sec:quanta}). Under the
+common binding action a Lorentz-invariant number of quanta exists exactly at even rungs, and its quanta are shared equally by two constituents
+(fixed; \cref{e2:sec:invnumber}). (5) The copy rotation moves one quantum from one constituent to another and never doubles it; at unequal
+rates it does so by Rabi mixing (fixed; \cref{e2:sec:hop}). \Cref{e2:sec:answer} collects the processes with their classes. Identifiers
+e2-$n$ refer to the \texttt{PASS} lines of \texttt{verify/e2\_processes.py} (\cref{e2:tab:claims}).
+
+\paragraph{Notation.} As in \cref{e1:sec:main}: $S=\R^8$ with the realisation of equation~(1) of \cite{ES17}, the tower generators
+$E_{(k,a)}=\omega^{\otimes(k-1)}\otimes e_a\otimes\id^{\otimes(n-k)}$ on $S_n=S^{\otimes n}$ (equation~(2) of \cite{ES17}), $V=\R^{3,3}$,
+$V_n=\R^n\otimes V$, $\eta_n=\id_n\otimes\eta$, $G_n=\id_n\otimes G$ and $K_n=\id_n\otimes K$ with $Ke_i=e_{i+3}$, $Ke_{i+3}=e_i$. The spin lift of
+$A\in\so{\eta_n}$ is $\sigma(A)=\tfrac14\sum_{a,b}A_{ab}\eta_{bb}E_aE_b$, so that $[\sigma(A),E_c]=\sum_aA_{ac}E_a$. The interior Lorentz algebra
+$\lint$ has the rotations $S_1=\half e_5e_6$, $S_2=\half e_6e_4$, $S_3=\half e_4e_5$ and the boosts $T_a=\half e_1e_{a+3}$; it acts on the
+interior four-plane $E=\langle e_1,e_4,e_5,e_6\rangle$ with $\gamma^\mu=(e_1,e_4,e_5,e_6)$, and trivially on the surplus pair $\langle e_2,e_3\rangle$
+(Section~4 of \cite{ES17}). The field-strength algebra $\lG$, the commutant of $G$ in $\so{3,3}$ (Theorem~12.1 of \cite{ES17}), has the boosts
+$K_i=\half(e_ke_{j+3}-e_je_{k+3})$ and the rotations $L_k=-[K_i,K_j]$, for $(i,j,k)$ cyclic. $J=e_2e_3$. The Fock modes are
+$a^\pm_{k,i}=\half(E_{(k,i)}\pm E_{(k,i+3)})$, $N^{(k)}=\sum_ia^+_{k,i}a^-_{k,i}$ and $N=\sum_kN^{(k)}$ (Proposition~7.2 of \cite{RE}); $a^-_{k,i}$ is the
+transpose of $a^+_{k,i}$. On $S$ the basis vectors of the realisation are the Fock states, and $|n_1n_2n_3\rangle$ denotes the one with
+$N_i=n_i$; the Fock vacuum $|000\rangle$ is the first basis vector, and $|0\rangle$ is the first basis vector of $S_n$ (e2-1). $\varepsilon=\bigl(\begin{smallmatrix}0&-1\\1&0\end{smallmatrix}\bigr)$
+acts on the copy index. The copy rotation on vectors is $\varepsilon\otimes\id_6$ and the copy boost is $\varepsilon\otimes G$ (Section~7 of
+\cite{RE}). We write
+\[
+\hat C:=\sigma(\varepsilon\otimes\id_6)=-\half\textstyle\sum_a\eta_{aa}E_{(1,a)}E_{(2,a)} ,
+\]
+the negative of $C_b$ of Proposition~7.3(ii) of \cite{RE}, which lifts the copy rotation with the opposite orientation. Dimensions of
+spaces of equivariant maps are real dimensions.
+
+\subsection{Vertices}
+\label{e2:sec:vertex}
+
+A vertex that takes one particle into two is an equivariant linear map from the module of the one into the module of the two. The
+ungraded and graded copies of $\Cl(3,3)$ in $\Cl(6,6)$ have the same bivectors, $E_{(2,a)}E_{(2,b)}=\id\otimes e_ae_b$ (e2-1;
+\cref{e1:prop:copies}), so every Lorentz action built from bivectors is the same operator on $S_2=S\otimes S$ in both readings, and the
+statements below hold for both.
+
+\begin{proposition}[Vertices]
+\label{e2:prop:vertex}
+Let $\lint$ act on $S_n$ diagonally, on every constituent, unless stated otherwise.
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item $\dim\Hom_{\lint}(S,S_2)=\dim\Hom_{\lint}(S_2,S)=0$. The rotation $e^{2\pi S_3}$ is $-\id$ on $S$ and $(-1)^n\id$ on $S_n$, so
+$\Hom_{\lint}(S,S_n)=0$ for every even $n$. At $n=3$, $\dim\Hom_{\lint}(S,S_3)=160$.
+\item The spaces of $\lint$-equivariant maps have the dimensions
+\[
+\dim\End_{\lint}(S)=8,\quad\dim\Hom_{\lint}(S,S\otimes E)=8,\quad\dim\Hom_{\lint}(S,S\otimes V)=24,
+\]
+\[
+\dim\Hom_{\lint}(S,S\otimes\Lambda^2E)=8,\qquad\dim\Hom_{\lint}(S,S\otimes\Lambda^2V)=32.
+\]
+\item The Clifford multiplications $c_1(\psi)=\sum_\mu\eta_{\mu\mu}\gamma_\mu\psi\otimes e_\mu$ and
+$c_2(\psi)=\sum_{\mu<\nu}\eta_{\mu\mu}\eta_{\nu\nu}\gamma_\mu\gamma_\nu\psi\otimes e_\mu\wedge e_\nu$ are $\lint$-equivariant, and
+$\Hom_{\lint}(S,S\otimes E)=c_1\circ\End_{\lint}(S)$, $\Hom_{\lint}(S,S\otimes\Lambda^2E)=c_2\circ\End_{\lint}(S)$. Without the factors $\eta_{\mu\mu}$, $c_1$ is not
+equivariant.
+\item Under the spectator action, $\lint$ on constituent~$1$ alone, $\dim\Hom(S,S_2)=64$. Under the mixed action, $\lint$ on constituent~$1$ and
+$\lG$ on constituent~$2$, $\dim\Hom(S,S_2)=16$ and $\dim\Hom(S,S\otimes V^{(2)})=8$, where $V^{(2)}$ is the vector space of constituent~$2$. On $S$
+the $\lG$ Casimir $\sum_iK_i^2-\sum_kL_k^2$ equals $3\,\id$, and $e^{2\pi L_3}=\id$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) $e^{2\pi S_3}=e^{\pi e_4e_5}=\cos\pi+\sin\pi\,e_4e_5=-\id$ since $(e_4e_5)^2=-\id$. The diagonal lift is a product of $n$ commuting copies,
+one per constituent. An equivariant $T$ intertwines the group elements, so $T(-\psi)=(-1)^nT\psi$, and $T=0$ for even $n$; the same holds for
+$\Hom(S_n,S)$. For $n=3$, $S\otimes\C=2(\half,0)\oplus2(0,\half)$ by (ii), and the joint weights of the commuting pair $(S_3,T_3)$ on $S_3\otimes\C$
+contain $(\half,0)$ and $(0,\half)$ forty times each, so $\dim_\C\Hom=2\cdot40+2\cdot40$. (ii) Over $\C$, $\lint\cong\slr{2,\C}$ and
+$S\otimes\C=2(\half,0)\oplus2(0,\half)$, $E\otimes\C=(\half,\half)$, $\Lambda^2E\otimes\C=(1,0)\oplus(0,1)$, while $V=E\oplus2\cdot\mathbf1$ and
+$\Lambda^2V=\Lambda^2E\oplus2E\oplus\mathbf1$. The Clebsch--Gordan rule gives $2^2+2^2=8$ for each of $\End(S)$, $S\to S\otimes E$ and $S\to S\otimes\Lambda^2E$,
+hence $8+2\cdot8$ and $8+2\cdot8+8$. (iii) $\sum_\mu\eta_{\mu\mu}\gamma_\mu\otimes e_\mu$ is the invariant element of $\Cl(E)\otimes E$ defined by $\eta$; the
+equivariance, its failure without $\eta$, and the ranks $8$ of the composites are computed exactly. (iv) Constituent~$2$ is a trivial
+module under the spectator action, so $S_2\cong8S$ and the count is $8\cdot8$. On $S$ the $\lG$ Casimir is $3\,\id$, the value on a
+four-vector, so $S\otimes\C$ is two copies of $(\half,\half)$, and $\dim\Hom(S,S\otimes2E)=2\cdot8$. $V$ is the field-strength module of $\lG$
+(Theorem~12.3 of \cite{ES17}), $V\otimes\C=(1,0)\oplus(0,1)$, so $\Hom(S,S\otimes V^{(2)})\cong\Hom(S,S\otimes\Lambda^2E)$.
+\end{proof}
+
+Part (i) is the angular-momentum selection rule: a spin-$\half$ state cannot become a state of integer spin, and two spin-$\half$
+constituents have integer spin \cite{EhrenfestOppenheimer31,WeinbergQFT}. It restates Proposition~10.9 of \cite{ES17} and
+Proposition~8.11(v) of \cite{RE} as a statement about vertices (inherited; verified in the realisation, e2-2, e2-6). Parts (ii) and (iii) are
+inherited Clebsch--Gordan counts, fixed in the realisation (e2-3, e2-4). The vertex $c_1$ is the structure of the coupling
+$\bar\psi\gamma^\mu\psi A_\mu$, and $c_2$ that of the Pauli coupling $\bar\psi\gamma^\mu\gamma^\nu\psi F_{\mu\nu}$. In both the boson is an
+added tensor factor $E$ or $\Lambda^2E$, not a second constituent. Part (iv) is fixed (e2-5). Under the mixed action the second constituent
+itself is the boson. A fermion of constituent~$1$ has an equivariant vertex into $S\otimes V^{(2)}$, where $V^{(2)}$ is read through $\lG$ as a
+field strength, the frame field of constituent~$2$ in the field-strength reading. The mixed action is one of the five Lorentz actions at
+$n=2$ (Theorem~10.8 of \cite{ES17}; Section~7.5 of \cite{RE}), and nothing selects it, so this vertex is constructed. Under the diagonal action a
+fermion has vertices into the odd rungs only, and the first is $n=3$.
+
+\subsection{Thresholds}
+\label{e2:sec:threshold}
+
+The free Dirac Hamiltonian of one constituent is $H(\bp)=me_1+\sum_ap_ae_1e_{a+3}$, with $H(\bp)^2=E^2\id$, $E=(m^2+|\bp|^2)^{1/2}$ (equation~(8) of
+\cite{ES17}). For two constituents with masses $m_1,m_2\ge0$ and momenta $\bp,\mathbf q$ put $E_1=(m_1^2+|\bp|^2)^{1/2}$, $E_2=(m_2^2+|\mathbf q|^2)^{1/2}$,
+\[
+a=E_1^2+E_2^2,\qquad b=E_1^2E_2^2-m_1^2m_2^2=m_1^2|\mathbf q|^2+m_2^2|\bp|^2+|\bp|^2|\mathbf q|^2 .
+\]
+The ungraded two-particle operator is $H_u=H(\bp)\otimes\id+\id\otimes H(\mathbf q)$. The graded composite is
+$H_g=H^{(1)}(\bp)+H^{(2)}(\mathbf q)$, with $H^{(k)}(\bp)=m_kE_{(k,1)}+\sum_ap_aE_{(k,1)}E_{(k,a+3)}$ built from the tower's vectors.
+
+\begin{proposition}[Thresholds]
+\label{e2:prop:threshold}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item $\spec H_u=\{\pm E_1\pm E_2\}$, the four sign choices on $16$ dimensions each, and $E_1+E_2\ge m_1+m_2$, with equality iff $\bp=\mathbf q=0$.
+\item $H_g^2=a\,\id+X$ with $X$ traceless and $X^2=4b\,\id$, and $E_{(1,1)}E_{(2,1)}$ anticommutes with $H_g$. Hence $\spec H_g=\{\pm E_+,\pm E_-\}$ with
+\[
+E_\pm^2=E_1^2+E_2^2\pm2\bigl(E_1^2E_2^2-m_1^2m_2^2\bigr)^{1/2},
+\]
+each on $16$ dimensions when $b>0$, and $E_+$ is the largest eigenvalue. At rest $\spec H_g=\{\pm M\}$, $M=(m_1^2+m_2^2)^{1/2}$, each on $32$
+dimensions.
+\item $\max(E_1,E_2)\le E_+\le E_1+E_2$, and $(E_1+E_2)^2-E_+^2=2\bigl((b+m_1^2m_2^2)^{1/2}-b^{1/2}\bigr)$, which is positive iff $m_1m_2\neq0$. If
+$m_1m_2=0$, then $E_\pm=|E_1\pm E_2|$: the graded composite has the additive spectrum.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) $H(\bp)\otimes\id$ and $\id\otimes H(\mathbf q)$ commute, are diagonalisable with eigenvalues $\pm E_1$ and $\pm E_2$ on four dimensions each,
+and the joint eigenspaces have dimension $4\cdot4$. $E_k\ge m_k$. (ii) Write $H^{(1)}=m_1A+P$ and $H^{(2)}=m_2B+Q$ with $A=E_{(1,1)}$, $B=E_{(2,1)}$,
+and $P$, $Q$ the momentum terms. Each $H^{(k)}$ squares to $E_k^2$, as on one constituent. $A$ anticommutes with $P$ and $B$, and commutes with $Q$;
+$B$ anticommutes with $Q$ and commutes with $P$; $P$ and $Q$ commute. Hence $X=\{H^{(1)},H^{(2)}\}=2(m_1AQ+m_2PB+PQ)$. The squares of the three
+terms are $m_1^2|\mathbf q|^2$, $m_2^2|\bp|^2$ and $|\bp|^2|\mathbf q|^2$, and the three mutual anticommutators vanish by the same rules, so
+$X^2=4b$. Each term is a product of distinct blades, so $X$ is traceless, and $H_g^2$ has the eigenvalues $a\pm2b^{1/2}$ on $32$ dimensions
+each. $W=E_{(1,1)}E_{(2,1)}$ anticommutes with $A$, $B$ and every term of $P$ and $Q$ by the blade rule (equation~(3) of \cite{ES17}), and
+$W^2=-\id$, so $WH_gW^{-1}=-H_g$; $W$ commutes with $X$, so each eigenspace of $H_g^2$ carries $\pm E_\pm$ on equal halves. (iii) $E_+^2-E_1^2=E_2^2+2b^{1/2}\ge0$, and $(E_1+E_2)^2=a+2E_1E_2=a+2(b+m_1^2m_2^2)^{1/2}$.
+\end{proof}
+
+Part (i) is the threshold of two free particles, inherited: a particle of mass $M$ at rest decays into two of masses $m_1,m_2$ only if
+$M\ge m_1+m_2$, since the final energy at zero total momentum is $E_1(\bp)+E_2(-\bp)\ge m_1+m_2$ (e2-7). Part (ii) extends
+Proposition~8.11(iv) of \cite{RE} and \cref{e1:prop:rest}(i) from rest to all momenta. The closed form and (iii) are fixed and
+elementary (e2-8: $(H_g^2-a)^2=4b$ exactly at four integer data, the inequalities in $200$ random samples to $10^{-9}$). Two consequences.
+First, the graded composite of mass $M=(m_1^2+m_2^2)^{1/2}$ lies below the threshold $m_1+m_2$ of the free pair with the same masses, and it
+stays below it at every momentum. The deficit is controlled by the product $m_1m_2$ and disappears when one constituent is massless. Second,
+the graded composite therefore cannot dissociate into the free pair of the ungraded reading, as a bound state cannot dissociate below its
+threshold \cite{BetheSalpeter51} (inherited). Reading $m_1+m_2-M$ as a binding energy, $(2-\sqrt2)\,m$ at equal masses, a fraction
+$1-1/\sqrt2\approx0.293$ of the free pair, is interpretive. Both operators act on the same space $S_2$. Nothing in the tower turns one into the
+other, so ``dissociation'' here compares two readings and is not a dynamical process.
+
+\subsection{Fields: one null field and two}
+\label{e2:sec:field}
+
+At the level of fields three results of \cite{RE} answer the question directly. We restate them as statements about one and two.
+
+\begin{corollary}[One field into two]
+\label{e2:cor:field}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item One null field does not become a massive pair. Every map commuting with the diagonal $SO(3,\C)$ sends $(z,0)$, $z$ null, to
+$(\alpha z,\beta z)$, whose Gram matrix $Q$ vanishes, so $M_{\rm pair}=\half(\sigma_1+\sigma_2)=0$ (Proposition~8.5(iii) and Theorem~8.6(ii) of \cite{RE}).
+\item Two null fields that are not collinear do: $M_{\rm pair}=|z_1\cdot z_2|>0$, and the copy rotation can move the whole of it into rest
+energy of the two constituents, as in $\gamma\gamma\to e^+e^-$ (Theorem~8.6(iv),(v) and Example~8.7 of \cite{RE}; \cite{BreitWheeler34}).
+\item The closure moves nothing between constituents: for every Hamiltonian the per-constituent invariants of the momentum fields are
+constant, so no closure dynamics fills an empty constituent or makes a null one massive (Corollary~8.3 of \cite{RE}).
+\end{enumerate}
+\end{corollary}
+
+All three are restated (fixed there; re-verified for the Gram matrices, e2-9). Read as one and two: at the field level ``one becomes two''
+covariantly only as ``two become two''. A single null field is shared between the constituents as literal replicas, and a massive pair
+needs a second, non-collinear field or a non-covariant third body that takes the momentum (Example~8.8 of \cite{RE}).
+
+\subsection{Quanta: pairs emerge under boosts}
+\label{e2:sec:quanta}
+
+The tower carries a particle number of its own, the Fock number $N$. We now ask which Lie-algebra elements change it, and with which
+amplitudes. The first lemma refines \cref{e1:prop:Nbiv} and \cref{e1:thm:Nrule}.
+
+\begin{lemma}[The number and the split structure]
+\label{e2:lem:N}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item $N=\tfrac{3n}2\id+\sigma(K_n)$, and $\ad N=K_n$ on $V_n$. $(-1)^N=-\omega$ at $n=1$ and is the volume element of $\Cl(6,6)$ at $n=2$; it commutes with
+every bivector.
+\item $\so{3n,3n}=\Cent(K_n)\oplus\mathrm{Anti}(K_n)$, the parts commuting and anticommuting with $K_n$, of dimensions $9n^2$ and $9n^2-3n$. The lift of an
+element of $\Cent(K_n)$ commutes with $N$. The lift of an element of $\mathrm{Anti}(K_n)$ maps each eigenspace $\{N=k\}$ into $\{N=k-2\}\oplus\{N=k+2\}$:
+it changes $N$ by exactly $\pm2$.
+\item A compact element of $\so{3n,3n}$ commutes with $N$ iff it commutes with $G_n$, iff it is a paired rotation
+$\bigl(\begin{smallmatrix}R&0\\0&R\end{smallmatrix}\bigr)$, $R\in\so{3n}$, in the basis of the temporal directions followed by their partners.
+\item Let $X\in\so{3n,3n}$ be compact or Euclidean-symmetric (a pure boost). If $X\notin\Cent(K_n)$, then $\sigma(X)|0\rangle$ has a nonzero
+component with $N=2$: $e^{t\sigma(X)}|0\rangle$ contains a pair at first order in $t$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(i) and (ii) restate \cref{e1:prop:Nbiv}: $N_i=\half(\id-e_ie_{i+3})$ and $\sigma(K)=-\half\sum_ie_ie_{i+3}$, $K$ is an $\eta$-antisymmetric involution,
+and $\ad K$ has eigenvalues $0,\pm2$ on $\Lambda^2V_n$. (iii) A compact element is $X=\operatorname{diag}(A,D)$ with $A,D\in\so{3n}$. In the same
+basis $K_n=\bigl(\begin{smallmatrix}0&\id\\\id&0\end{smallmatrix}\bigr)$ and $G_n=\bigl(\begin{smallmatrix}0&-\id\\\id&0\end{smallmatrix}\bigr)$, and
+both $K_nXK_n^{-1}$ and $G_nXG_n^{-1}$ equal $\operatorname{diag}(D,A)$. So each commutation is $A=D$. By (ii) commuting with $K_n$ is
+commuting with $N$, because the spin representation is faithful on bivectors. (iv) A compact $X$ is a combination of blades $e_ae_b$ with
+$\eta_{aa}=\eta_{bb}$, which are antisymmetric matrices, and a Euclidean-symmetric one of blades with $\eta_{aa}=-\eta_{bb}$, which are symmetric. So
+$\sigma(X)^{\!\top}=\mp\sigma(X)$. Write $\sigma(X)=R+Z+L$ with $[N,R]=2R$, $[N,Z]=0$, $[N,L]=-2L$, by (ii). Transposition exchanges raising and
+lowering parts ($a^-=(a^+)^{\!\top}$), so $L=\mp R^{\!\top}$, and $X\notin\Cent(K_n)$ gives $R\neq0$. $R=\sum_{i<j}c_{ij}a^+_ia^+_j$ in the $3n$ modes,
+and the states $a^+_ia^+_j|0\rangle$, $i<j$, are linearly independent, so $R|0\rangle\neq0$; it is the $N=2$ component of $\sigma(X)|0\rangle$.
+\end{proof}
+
+(i) and (ii) are inherited, the spin representation on the exterior algebra of a maximal isotropic subspace \cite{Chevalley54}, and fixed
+in the realisation at $n=1,2,3$ (e2-10, e2-11). (iii) and (iv) are fixed (e2-12, e2-26). Part (iii) sharpens \cref{e1:thm:Nrule}, which works
+inside $\Cent(G_n)$: among all compact elements, the number-conserving ones are exactly the compact binding-compatible ones. By (iv) a
+compact element that does not commute with $G_n$ creates a pair from the vacuum. \Cref{e2:prop:bogo} gives the examples, and
+e2-13 records which generators of $\lint$, $\lG$ and the copy algebras lie where: $\lint\cap\Cent(K)=\R\,T_1$, the pole boost; every
+other generator of $\lint$, and $J$, has a pair part; $\lG\cap\Cent(K)$ is spanned by the $L_k$, and the $K_i$ lie in $\mathrm{Anti}(K)$; the copy
+rotation $\varepsilon\otimes\id_6$ lies in $\Cent(K_2)$ and the copy boost $\varepsilon\otimes G$ in $\mathrm{Anti}(K_2)$.
+
+\begin{proposition}[Pair amplitudes on one constituent]
+\label{e2:prop:bogo}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item Interior boost. $\ad T_2$ has eigenvalues $\pm1$ and $0$, so $U_\zeta=e^{\zeta T_2}$ is the boost of rapidity $\zeta$ in the plane
+$(e_1,e_5)$. $U_\zeta|000\rangle=\cosh\tfrac\zeta2\,|000\rangle+\sinh\tfrac\zeta2\,|110\rangle$ and $\|U_\zeta|000\rangle\|^2=\cosh\zeta$. $U_\zeta$ is symmetric and not
+orthogonal.
+\item Field-strength boost. $\ad K_1$ has eigenvalues $\pm1$ (twice) and $0$ (twice), and
+$e^{\zeta K_1}|000\rangle=\cosh\zeta\,|000\rangle-\sinh\zeta\,|011\rangle$. The rotations $L_k$ commute with $N$.
+\item Compact generators outside $\Cent(G)$. $e^{\theta S_1}|000\rangle=\cos\tfrac\theta2\,|000\rangle+\sin\tfrac\theta2\,|011\rangle$ and
+$e^{\theta J}|000\rangle=\cos\theta\,|000\rangle+\sin\theta\,|011\rangle$. A spatial rotation through $\pi$ about the axis of $S_1$ carries the vacuum to a state
+of two quanta.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Each generator is a sum of commuting blades $B$ with $B^2=\pm\id$, so its exponential is a product of factors $\cos t+\sin t\,B$ or
+$\cosh t+\sinh t\,B$. In the realisation, with $\varepsilon=\sigma_x\sigma_z$ the matrix used on the copy index,
+$e_1e_5=\varepsilon\otimes\varepsilon\otimes\id$, $e_5e_6=\id\otimes\sigma_x\otimes\varepsilon$ and $e_2e_3=\id\otimes\varepsilon\otimes\sigma_x$. Each maps
+$|000\rangle$ to the basis vector with two occupation numbers flipped, $|110\rangle$, $|011\rangle$ and $|011\rangle$, and $(e_1e_5)^2=\id$,
+$(e_5e_6)^2=(e_2e_3)^2=-\id$. The terms $\half e_3e_5$ and $-\half e_2e_6$ of $K_1$ commute, square to $\tfrac14\id$ and both flip modes $2$ and $3$, so
+$e^{\zeta K_1}|000\rangle=(\cosh^2\tfrac\zeta2+\sinh^2\tfrac\zeta2\,s)|000\rangle+\cosh\tfrac\zeta2\sinh\tfrac\zeta2\,(e_3e_5-e_2e_6)|000\rangle$ with $s=-e_3e_5e_2e_6$ on
+$|000\rangle$; the signs, $s=1$ and $(e_3e_5-e_2e_6)|000\rangle=-2|011\rangle$, are computed (e2-14 to e2-16).
+\end{proof}
+
+All three parts are fixed (e2-14 to e2-16, at $\zeta=0.3,1,2.5$ and $\theta=0.4,1.3,\pi$, to $10^{-11}$). The amplitudes have the form of a
+fermionic Bogoliubov transformation \cite{Bogoliubov58,Berezin66}, inherited. A boost of rapidity $\zeta$ turns the vacuum into
+$\cos\vartheta\,|0\rangle+\sin\vartheta\,|\text{pair}\rangle$ after normalisation, with $\tan\vartheta=\tanh\tfrac\zeta2$ for $T_2$ and $\tan\vartheta=\tanh\zeta$ for
+$K_1$. The normalised persistence $\cos^2\vartheta$ is $\cosh^2\tfrac\zeta2/\cosh\zeta$ and $\cosh^2\zeta/\cosh2\zeta$, and it decreases to $\half$ as
+$\zeta\to\infty$. The pair probability is bounded by $\half$ per pair of modes, the Pauli bound of a fermionic Bogoliubov
+transformation, whereas the bosonic one is unbounded. The normalisation is needed because a boost does not preserve the Euclidean inner
+product of the realisation, which is the Fock inner product ($a^-_i=(a^+_i)^{\!\top}$): in the split realisation boosts are symmetric and rotations
+antisymmetric, and the Lorentz group, being non-compact, has no finite-dimensional unitary representation other than the trivial one
+\cite{WeinbergQFT} (inherited). In ordinary field theory the free-particle number is Poincar\'e invariant, and a vacuum turns into
+pairs only for an observer whose modes are not related to the inertial ones by a Poincar\'e transformation, as in the Unruh effect
+\cite{Unruh76}. Here the inertial boosts of the interior four-plane already mix the modes, because $N$ is built from the split structure
+$K$ and not from the Lorentz algebra. The parallel with the Unruh effect is interpretive.
+
+Part (iii) corrects an easy expectation. Compactness does not protect the number of quanta. A spatial rotation of the interior four-plane
+and the charge $J$, both compact, create pairs unitarily, and at $\theta=\pi$, resp.\ $\theta=\tfrac\pi2$, the vacuum is turned wholly into a pair.
+What protects $N$ is commutation with the binding root (\cref{e2:lem:N}(iii)).
+
+\begin{proposition}[Pairs across constituents]
+\label{e2:prop:copyboost}
+At $n=2$, let $U_\zeta=e^{\zeta\sigma(\varepsilon\otimes G)}$, the copy boost of rapidity $\zeta$.
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item $\sigma(\varepsilon\otimes G)=-\sum_{i=1}^3\bigl(a^+_{1,i}a^+_{2,i}+a^-_{2,i}a^-_{1,i}\bigr)$. Hence
+$U_\zeta|0\rangle=\prod_i\bigl(\cosh\zeta-\sinh\zeta\,a^+_{1,i}a^+_{2,i}\bigr)|0\rangle$.
+\item $\langle0|U_\zeta|0\rangle=\cosh^3\zeta$; the weight of $U_\zeta|0\rangle$ in $\{N=2k\}$ is $\binom3k\cosh^{2(3-k)}\zeta\,\sinh^{2k}\zeta$, of total $\cosh^32\zeta$, and
+there is none in odd $N$.
+\item $N^{(1)}=N^{(2)}$ on $U_\zeta|0\rangle$: every pair that emerges has one quantum in each constituent.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) $\varepsilon\otimes G$ anticommutes with $K_2$, so its lift lies in $\Lambda^2L_+\oplus\Lambda^2L_-$ (\cref{e1:prop:Nbiv}(ii)), and it pairs the modes
+$(1,i)$ and $(2,i)$ because $\varepsilon\otimes G$ maps the plane $(e^{(1)}_i,e^{(1)}_{i+3})$ to $(e^{(2)}_i,e^{(2)}_{i+3})$. The coefficients are
+computed exactly, with $\sigma(\varepsilon\otimes G)$ symmetric. The three terms commute. On the two-dimensional span of $|0\rangle$ and
+$a^+_{1,i}a^+_{2,i}|0\rangle$ the $i$-th term acts as $-\sigma_x$ and it annihilates the states with one quantum in the pair $(1,i),(2,i)$. (ii)
+and (iii) follow by expanding the product.
+\end{proof}
+
+Fixed (e2-17, exact for (i), and for (ii), (iii) at $\zeta=0.3,1,2$ to relative $10^{-9}$); the lift of the copy boost is checked against
+$\varepsilon\otimes G$ on all twelve generators. This is pair emergence across the constituents. The copy boost is a metric connection
+between two binding frames but not a gauge field (Proposition~9.4 of \cite{RE}; Corollary~2.4 of \cite{ES17}). Each emerging pair has
+one quantum in each constituent, with normalised persistence $\cosh^6\zeta/\cosh^32\zeta=(1+\tanh^2\zeta)^{-3}$.
+
+\begin{proposition}[Lorentz-invariant states]
+\label{e2:prop:invstates}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item At $n=1$ no nonzero state is $\lint$-invariant. The two projectors $\half(\id\pm\omega)$ of Proposition~26.4 of \cite{ES17} are the projectors
+onto odd and even $N$. The paired-mode projector of Example~2.6 of \cite{ES17} is the projector onto $N\ge2$.
+\item At $n=2$ the states invariant under the diagonal $\lint$ form a space of dimension $8$. Its weights in the sectors $N=0,\dots,6$ (the
+traces of the invariant projector restricted to them) are $0,\half,2,3,2,\half,0$. It contains no state with $N=0$ or $N=6$, and its states of
+definite $N$ form a space of dimension $2$, at $N=3$, on which $N^{(1)}_i+N^{(2)}_i=1$ for $i=1,2,3$.
+\item Under the spectator action no nonzero state of $S_2$ is invariant. The projector $\Pi_0=\half(\id+H)$ of Theorem~26.6 of \cite{ES17}
+commutes with $(-1)^N$ and not with $N$, and its compression to every sector $\{N=k\}$ has trace equal to half the dimension of that sector.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) $S\otimes\C$ contains only spin $\half$. $\omega$ is $-(-1)^N$ (\cref{e2:lem:N}(i)). With $\mathsf P=\sum_ie_ie_{i+3}=\sum_i(1-2N_i)$ and
+$\mathcal V=\omega$, the projector $\half\id-\tfrac14(\mathsf P+\mathcal V)$ of Example~2.6 vanishes exactly where at most one mode is occupied, by the
+table of signs given there. (ii) and (iii) are exact kernel computations; the weights are traces of the orthogonal projector onto the
+kernel. $H=E_{(1,2)}E_{(1,3)}E_{(2,1)}E_{(2,2)}$ is a blade of even grade, so it commutes with the volume element $(-1)^N$. It shares one
+index with each of the pole operators of the modes $(1,2)$, $(1,3)$, $(2,1)$, $(2,2)$ and none with the other two, so it anticommutes with
+those four and is a signed permutation of the Fock basis that flips exactly those four occupation numbers. Hence $H|0\rangle$ has $N=4$, so
+$H$ and $\Pi_0$ do not commute with $N$, and $H$ has zero diagonal, so the compression of $\Pi_0$ to every sector has trace half its
+dimension.
+\end{proof}
+
+Fixed (e2-18). At one constituent the number of quanta is not Lorentz invariant (\cref{e1:prop:Nlorentz}), while its parity is: the
+Lorentz-invariant projectors of Proposition~26.4 of \cite{ES17} are the parity projectors, and the paired-mode projector, a function of $N$
+that is not a function of the parity, is not Lorentz invariant. The Fock vacuum is not Lorentz invariant at either rung. At the second rung the Lorentz scalars of the diagonal action are spread
+over all numbers from $1$ to $5$; the two scalars of definite number carry one quantum in each mode pair $i$, shared between the
+constituents. The Lorentz-invariant vacuum of Theorem~26.6 of \cite{ES17} is not a function of $N$. It selects half of every number sector,
+and so it is not a Fock vacuum.
+
+\subsection{\texorpdfstring{A Lorentz-invariant number at even rungs}{A Lorentz-invariant number at even rungs}}
+\label{e2:sec:invnumber}
+
+The Fock number is the lift of the involution $K_n$ (\cref{e2:lem:N}(i)), and $K_n$ commutes with no Lorentz algebra of the tower except
+through the pole boost. Any other $\eta_n$-antisymmetric involution defines a number in the same way. The question is whether one commutes
+with a Lorentz action.
+
+\begin{theorem}[An invariant number of quanta]
+\label{e2:thm:invnumber}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item Let $X\in\so{3n,3n}$ with $X^2=\id$. Its eigenspaces $V_\pm$ are totally null of dimension $3n$, and $N_X:=\tfrac{3n}2\id+\sigma(X)$ has spectrum
+$0,\dots,3n$ with multiplicities $\binom{3n}k$. If $X$ commutes with a Lie algebra $\mathfrak l\subset\so{3n,3n}$, then $N_X$ commutes with $\sigma(\mathfrak l)$.
+\item Under the common binding action (the diagonal $\lG$, $(k_I,k_B,k_S)=(0,n,0)$ in Theorem~10.8 of \cite{ES17}) such an $X$ exists iff $n$ is even.
+At $n=2$ the only ones are $\pm\varepsilon\otimes G$, with $V_\pm=\{X^{(2)}=\pm GX^{(1)}\}$, the null subspaces of Proposition~8.4(ii) of \cite{RE}. At
+$n=4$, $(\varepsilon\oplus\varepsilon)\otimes G$ is one; it is not unique, since each of the three pairings of the four constituents gives one.
+\item At $n=2$ none exists under the other four actions: the commutants, of dimensions $7$, $1$, $28$ and $15$ for $(2,0,0)$, $(1,1,0)$, $(1,0,1)$ and
+$(0,1,1)$, consist of compact elements for the first two and of elements vanishing on the Lorentz-carrying subspace of constituent~$1$ for the
+last two. At $n=3$ the action $(0,2,1)$ admits $(\varepsilon\otimes G)\oplus K$.
+\item At $n=2$, with $N_K:=N_{\varepsilon\otimes G}$: the diagonal-$\lG$-invariant states form a space of dimension $4$, with weights $1,2,1$ at
+$N_K=0,3,6$. The vacuum $|0_K\rangle$ of $N_K$ is $\lG$-invariant, has weights $\tfrac18,\tfrac38,\tfrac38,\tfrac18$ at $N=0,2,4,6$, and equals the
+limit of $U_\zeta|0\rangle/\|U_\zeta|0\rangle\|$ as $\zeta\to-\infty$. Every vector of $V_\pm$ has components of equal length in the two constituents.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(i) For $v,w\in V_+$, $\eta(v,w)=\eta(Xv,w)=-\eta(v,Xw)=-\eta(v,w)$, so $V_+$ is totally null, and likewise $V_-$; as $V_n=V_+\oplus V_-$ and
+null subspaces of $\R^{3n,3n}$ have dimension at most $3n$, both have dimension $3n$. Two pairs of complementary maximal null subspaces are
+conjugate under $O(\eta_n)$ (Witt's theorem), so $X=gK_ng^{-1}$, and a lift $\hat g$ of $g$ to the Pin group gives
+$\sigma(X)=\hat g\sigma(K_n)\hat g^{-1}$. The spectrum of $\sigma(K_n)=N-\tfrac{3n}2$ is that of \cref{e2:lem:N}. Finally $\sigma$ is a Lie algebra
+homomorphism. (ii) The commutant of the diagonal $\lG$ in $\so{3n,3n}$ is $\{A\otimes\id_6+B\otimes G:A,B\in\so n\}$, which acts on $z\in\C^n\otimes\C^3$
+as $(A+iB)\otimes\id_3$ (Proposition~9.1(i) of \cite{RE}). $X^2=\id$ requires $(A+iB)^2=\id$, so $A+iB$ is invertible; but a complex antisymmetric
+matrix of odd size has $\det(A+iB)=\det(A+iB)^{\!\top}=-\det(A+iB)=0$. For even $n$, $A+iB=i\varepsilon\oplus\cdots\oplus i\varepsilon$ squares to $\id$. At
+$n=2$ the solutions of $(a\,\varepsilon\otimes\id_6+b\,\varepsilon\otimes G)^2=\id$ are $a=0$, $b=\pm1$. (iii) and (iv) are computed. For the limit, $|0_K\rangle$ is the
+eigenvector of $\sigma(\varepsilon\otimes G)$ for its lowest eigenvalue $-3$, and $\langle0|0_K\rangle\neq0$. On $V_\pm$, $|X^{(2)}|=|GX^{(1)}|=|X^{(1)}|$.
+\end{proof}
+
+Part (i) is inherited, the correspondence between polarisations and Fock structures \cite{Chevalley54,Berezin66}; the spectrum and the
+commutation are fixed in the realisation at $n=2$ (e2-19) and on $S_4$, of dimension $4096$, where $\sigma((\varepsilon\oplus\varepsilon)\otimes G)$ was
+checked to lift its vector and to commute with the six lifted diagonal $\lG$ generators in sparse integer arithmetic (e2-22). Part (ii) is
+fixed; the parity argument is general, and the exact checks cover $n=2,3,4$ (e2-19, e2-21). Part (iii) is fixed and re-verifies the
+dimensions of Theorem~10.8 of \cite{ES17} (e2-21). Part (iv) is fixed (e2-20; the limit to $10^{-9}$ at $\zeta=-12$).
+
+So a Lorentz-invariant number of quanta exists, under the common binding action, exactly at even rungs. At the second rung it is unique up
+to $N_K\mapsto6-N_K$. Its quanta are not quanta of one constituent: $V_\pm$ is the graph of $\pm G$ from constituent~$1$ to constituent~$2$, and
+$N_K$ does not commute with $N^{(1)}$, since $\sigma(\varepsilon\otimes G)$ changes $N^{(1)}$ and $N^{(2)}$ by one each (\cref{e2:prop:copyboost}). Its
+vacuum, read in the Fock structure of the constituents, is a condensate of pairs with one quantum in each constituent, the infinite
+copy boost of the Fock vacuum (fixed). Read as a particle number, $N_K$ counts quanta that are Lorentz invariant under the binding action
+and belong to two constituents at once (interpretive). The parity pattern can be set beside \cref{e1:prop:select}(iv): under the diagonal
+interior action an imaginary unit is selected exactly at odd rungs, and under the diagonal binding action an invariant number exists
+exactly at even rungs. The two statements concern different Lorentz actions, and the juxtaposition is a reading.
+
+\begin{table}[!htbp]
+\centering
+\footnotesize
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{4.0cm}>{\raggedright\arraybackslash}p{1.8cm}>{\raggedright\arraybackslash}p{5.3cm}>{\raggedright\arraybackslash}p{3.6cm}@{}}
+\toprule
+process & sense & result & class\\
+\midrule
+$S\to S_n$, common interior action & module & none for even $n$; $160$ maps at $n=3$ & inherited (selection rule); fixed\\
+$S\to S\otimes E$, $S\otimes\Lambda^2E$; $S\to S\otimes V^{(2)}$ (mixed) & module & Clifford multiplication, $8$ maps each & inherited counts; fixed; mixed action constructed\\
+free particle of mass $M$ $\to$ two & mass shell & only if $M\ge m_1+m_2$ & inherited\\
+graded composite $\to$ free pair & mass shell & $E_+<E_1+E_2$ iff $m_1m_2\neq0$ & fixed; binding interpretive\\
+one null field $\to$ massive pair & field & no covariant map; closure moves nothing & obstructed (restated)\\
+two null fields $\to$ massive pair & field & $M_{\rm pair}=|z_1\cdot z_2|$ & inherited (restated)\\
+boosts ($\lint$, $\lG$, copy) & quanta & pairs, fermionic Bogoliubov amplitudes & fixed; form inherited\\
+compact, outside $\Cent(G_n)$ ($S_k$, $J$) & quanta & pairs, unitarily & fixed\\
+compact, inside $\Cent(G_n)$ (paired rotations) & quanta & $N$ conserved & fixed\\
+copy rotation & quanta & one quantum hops; Rabi at unequal rates & fixed; two-level inherited; $i$ constructed\\
+$N_X$ under $(0,n,0)$ & quanta & exists iff $n$ even; vacuum a pair condensate & fixed; particle reading interpretive\\
+dynamical pair-creating agent & --- & --- & open\\
+\bottomrule
+\end{tabular}
+\caption{Processes that take one to two, by sense of ``particle''.}
+\label{e2:tab:processes}
+\end{table}
+
+\begin{table}[!htbp]
+\centering
+\footnotesize
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{8.3cm}>{\raggedright\arraybackslash}p{4.4cm}>{\raggedright\arraybackslash}p{2.2cm}@{}}
+\toprule
+statement & class & checks\\
+\midrule
+conventions: tower, ungraded copy, common bivectors, CAR, Fock vacuum & restated (RE Props.~7.1, 7.2) & e2-1\\
+\cref{e2:prop:vertex}(i): no vertex $S\leftrightarrow S_2$; $(-1)^n$; $160$ at $n=3$ & inherited; fixed in realisation & e2-2, e2-6\\
+\cref{e2:prop:vertex}(ii), (iii): counts $8,8,24,8,32$; Clifford multiplication & inherited counts; fixed & e2-3, e2-4\\
+\cref{e2:prop:vertex}(iv): spectator $64$; mixed $16$ and $8$; $\lG$ Casimir $3$ & fixed; mixed action constructed & e2-5\\
+\cref{e2:prop:threshold}(i): free-pair threshold & inherited & e2-7\\
+\cref{e2:prop:threshold}(ii), (iii): $(H_g^2-a)^2=4b$; $E_+<E_1+E_2$ iff $m_1m_2\neq0$ & fixed; binding energy interpretive & e2-8\\
+\cref{e2:cor:field}: one null field, two null fields, closure & restated (RE Prop.~8.5, Thm~8.6, Cor.~8.3) & e2-9\\
+\cref{e2:lem:N}(i), (ii): $N=\tfrac{3n}2+\sigma(K_n)$; $\Cent(K_n)\oplus\mathrm{Anti}(K_n)$ & restated (\cref{e1:prop:Nbiv}); inherited & e2-10, e2-11\\
+\cref{e2:lem:N}(iii), (iv): compact and number-conserving $=$ paired rotations; outside $\Cent(K_n)$ the vacuum acquires a pair & fixed & e2-12, e2-13, e2-26\\
+\cref{e2:prop:bogo}: Bogoliubov amplitudes; pairs from $S_1$ and $J$ & fixed; form inherited; Unruh analogy interpretive & e2-14 to e2-16\\
+\cref{e2:prop:copyboost}: copy boost, pairs across constituents & fixed & e2-17\\
+\cref{e2:prop:invstates}: invariant states at $n=1,2$; Prop.~26.4, Thm~26.6 & fixed (comparison with ES17) & e2-18\\
+\cref{e2:thm:invnumber}: invariant number iff $n$ even; $N_K$ at $n=2$ & fixed; (i) inherited; reading interpretive & e2-19 to e2-22\\
+\cref{e2:prop:hop}: hopping, ladder, Rabi transfer & fixed; Rabi inherited; external $i$ constructed & e2-23 to e2-25\\
+\cref{e2:sec:answer}: dynamical agent of pair creation & open & ---\\
+\bottomrule
+\end{tabular}
+\caption{Claims of \cref{e2:sec:main}, their classes and the checks printed by \texttt{verify/e2\_processes.py}.}
+\label{e2:tab:claims}
+\end{table}
+
+\subsection{The copy rotation moves one quantum}
+\label{e2:sec:hop}
+
+\begin{proposition}[Hopping and Rabi transfer]
+\label{e2:prop:hop}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item $\hat C=\sigma(\varepsilon\otimes\id_6)=\sum_i\bigl(a^+_{2,i}a^-_{1,i}-a^+_{1,i}a^-_{2,i}\bigr)$. It commutes with $N$ and not with $N^{(1)}$;
+$\hat Ca^+_{1,i}|0\rangle=a^+_{2,i}|0\rangle$ and $\hat Ca^+_{2,i}|0\rangle=-a^+_{1,i}|0\rangle$, and
+$e^{\theta\hat C}a^+_{1,1}|0\rangle=\cos\theta\,a^+_{1,1}|0\rangle+\sin\theta\,a^+_{2,1}|0\rangle$. $e^{\theta\hat C}$ has no matrix element between different values
+of $N$, and $e^{2\pi\hat C}=\id$.
+\item At $n=3$ the copy rotations commute with $K_3$, and their lifts with $N$; the copy boosts anticommute with $K_3$.
+\item With rates $\kappa_1,\kappa_2$ and coupling $\beta$, let $\mathsf H=\kappa_1N^{(1)}+\kappa_2N^{(2)}+i\beta\hat C$, with an external $i$. $\mathsf H$ is
+Hermitian and commutes with $N$. On the sector $N=1$, in the basis $a^+_{1,i}|0\rangle$, $a^+_{2,i}|0\rangle$, it is
+$\bigl(\begin{smallmatrix}\kappa_1&-i\beta\\ i\beta&\kappa_2\end{smallmatrix}\bigr)\otimes\id_3$, whose eigenvalues are the lines $\omega_\pm$ of
+Theorem~7.12(ii) of \cite{RE}. From $a^+_{1,1}|0\rangle$ the probability of finding the quantum in constituent~$2$ is
+$s\sin^2(\Omega t/2)$, with $s=4\beta^2/((\kappa_2-\kappa_1)^2+4\beta^2)$ and $\Omega=((\kappa_2-\kappa_1)^2+4\beta^2)^{1/2}$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) $\varepsilon\otimes\id_6$ commutes with $K_2$ and maps the vector of each mode of constituent~$1$ to the same mode of constituent~$2$, so its
+lift lies in $L_+\otimes L_-$ and is a hopping term; the coefficients are computed. The rest follows from $[\hat C,a^\pm_{1,i}]=a^\pm_{2,i}$ and
+$[\hat C,a^\pm_{2,i}]=-a^\pm_{1,i}$, and from $\hat C$ being a sum of six commuting terms of square $-\tfrac14$ (Proposition~7.3(ii) of \cite{RE}). (ii)
+$GK=-KG$. (iii) $\hat C$ is real antisymmetric, so $i\beta\hat C$ is Hermitian. On the sector $N=1$, $\hat C$ acts as $\varepsilon\otimes\id_3$, and the
+two-level formula follows.
+\end{proof}
+
+Fixed (e2-23 to e2-25; the transfer probability at $(\kappa_1,\kappa_2,\beta)=(1,3,0.4)$ to $2\times10^{-16}$, with weight below $10^{-24}$
+outside $N=1$, and complete transfer at equal rates at $t=\pi/(2\beta)$). The two-level formula is inherited \cite{Rabi37}. The external $i$ is
+constructed, as in Proposition~8.11(i) of \cite{RE}; on fields the same matrix acts with $G_2$ as the imaginary unit and gives the per-copy
+rest energies of Section~8.4 of \cite{RE}. Read as one and two: one quantum can be shared between constituents, in any proportion at equal
+rates and up to the fraction $s$ at unequal rates, but it is never doubled, because $\hat C$ commutes with $N$. At equal rates the
+coupling is removable (Theorem~7.12(iii) of \cite{RE}), so which constituent carries the quantum is gauge dependent if the copy rotation is
+gauged, as the per-copy rest energy is (Proposition~8.9 of \cite{RE}). At unequal rates the partial transfer is physical. Up the ladder the
+copy rotations $\so n$ hop quanta among $n$ constituents and the copy boosts create pairs across them (e2-24).
+
+\subsection{Answer: which processes take one to two}
+\label{e2:sec:answer}
+
+\Cref{e2:tab:processes} lists the processes. Read together they say the following.
+In the sense of Lorentz modules, one fermion never becomes two under the common interior action. It becomes a fermion and a boson, by Clifford
+multiplication, and under the mixed action the boson can be the second constituent read as a field strength (fixed; the mixed action
+constructed). In the sense of mass shells, the graded composite of two masses lies below the free-pair threshold at every momentum, by an
+amount controlled by $m_1m_2$, so the tower's own composite is the bound side of the threshold (fixed; binding reading interpretive). In the
+sense of fields, one null field becomes a massive pair only together with a second field (restated). In the sense of quanta, no element of
+$\so{3n,3n}$ changes $N$ by an odd number, so one quantum never becomes two. The vacuum becomes partly a pair under every compact or
+Euclidean-symmetric element outside $\Cent(K_n)$: the boosts of $\lint$ other than the pole boost, the boosts of $\lG$, the copy boost, and the
+compact generators outside $\Cent(G_n)$, including the spatial rotations of the interior four-plane and the charge $J$ (fixed). The compact binding-compatible generators, and the copy rotation among them, never create quanta; the copy rotation
+moves one (fixed). The number of Fock quanta is therefore not Lorentz invariant under any action of the tower, since every action
+contains, on some constituent, the boosts of $\lint$ or of $\lG$, and a Lorentz-invariant
+number exists only for the common binding action at even rungs, where its quanta belong to two constituents at once (fixed). Whether a
+dynamical mechanism of the arena supplies the non-binding-compatible or non-compact generator that creates a pair is open.
+
+\paragraph{Up the ladder.} Rung by rung the following changes, each fixed. Under the common interior action $e^{2\pi S_3}=(-1)^n$, so a fermion
+has vertices into odd rungs only. $\so{3n,3n}$ splits into $9n^2$ number-conserving and $9n^2-3n$ pair-creating directions, and the compact
+number-conserving ones are the $\tfrac32n(3n-1)$ paired rotations. The copy rotations $\so n$ hop quanta among the constituents and the copy
+boosts create pairs across them. An invariant number under the common binding action exists exactly at even $n$, uniquely up to
+$N_K\mapsto6-N_K$ at $n=2$ and in several ways at $n=4$.
+
