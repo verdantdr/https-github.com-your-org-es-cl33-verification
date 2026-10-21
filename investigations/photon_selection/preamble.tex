@@ -1,0 +1,83 @@
+% Shared preamble: the macros of the 17 October 2026 paper (tex/main.tex), so that sections can be
+% moved between the note and the paper without change.
+\usepackage[a4paper,margin=2.5cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs,longtable,array,enumitem}
+\usepackage{xcolor}
+\usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
+\usepackage{cleveref}
+\emergencystretch=1.5em
+\setlength{\parskip}{0pt}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newcommand{\sharedthm}[2]{\newtheorem{#1}[theorem]{#2}\crefname{#1}{#2}{#2s}\AddToHook{env/#1/begin}{\crefalias{theorem}{#1}}}
+\sharedthm{proposition}{Proposition}
+\sharedthm{lemma}{Lemma}
+\sharedthm{corollary}{Corollary}
+\sharedthm{conjecture}{Conjecture}
+\theoremstyle{definition}
+\sharedthm{definition}{Definition}
+\sharedthm{example}{Example}
+\sharedthm{remark}{Remark}
+\sharedthm{assumption}{Assumption}
+\crefname{theorem}{Theorem}{Theorems}
+\crefname{section}{Section}{Sections}
+\crefname{appendix}{Appendix}{Appendices}
+\crefname{subsection}{Section}{Sections}
+\crefname{table}{Table}{Tables}
+\crefname{equation}{}{}
+\creflabelformat{equation}{(#2#1#3)}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\HH}{\mathbb{H}}
+\newcommand{\Cl}{\mathrm{Cl}}
+\newcommand{\so}[1]{\mathfrak{so}(#1)}
+\newcommand{\su}[1]{\mathfrak{su}(#1)}
+\newcommand{\uu}[1]{\mathfrak{u}(#1)}
+\newcommand{\spp}[1]{\mathfrak{sp}(#1)}
+\newcommand{\slr}[1]{\mathfrak{sl}(#1)}
+\newcommand{\Tr}{\operatorname{Tr}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\id}{\mathbf 1}
+\newcommand{\ad}{\operatorname{ad}}
+\newcommand{\Ad}{\operatorname{Ad}}
+\newcommand{\Pf}{\operatorname{Pf}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\spec}{\operatorname{spec}}
+\newcommand{\Hom}{\operatorname{Hom}}
+\newcommand{\End}{\operatorname{End}}
+\newcommand{\Cent}{\operatorname{Cent}}
+\newcommand{\Stab}{\operatorname{Stab}}
+\newcommand{\Ric}{\operatorname{Ric}}
+\renewcommand{\Re}{\operatorname{Re}}
+\renewcommand{\Im}{\operatorname{Im}}
+\newcommand{\lG}{\mathfrak l_G}
+\newcommand{\lint}{\mathfrak l_{\rm int}}
+\newcommand{\gint}{\mathfrak g_{\rm int}}
+\newcommand{\Pfam}{P_{\rm fam}}
+\newcommand{\cK}{\mathcal K}
+\newcommand{\cR}{\mathcal R}
+\newcommand{\cF}{\mathcal F}
+\newcommand{\cL}{\mathcal L}
+\newcommand{\cG}{\mathcal G}
+\newcommand{\Kc}{\mathsf K}
+\newcommand{\bB}{\mathbf B}
+\newcommand{\bE}{\mathbf E}
+\newcommand{\bA}{\mathbf A}
+\newcommand{\bj}{\mathbf j}
+\newcommand{\bk}{\mathbf k}
+\newcommand{\bp}{\mathbf p}
+\newcommand{\bv}{\mathbf v}
+\newcommand{\Btext}{\mathbf B_{\rm t}}
+\newcommand{\BmL}{B\!-\!L}
+\newcommand{\half}{\tfrac12}
+\newcommand{\wL}{\Omega}
+\newcommand{\wI}{\omega_I}
+\newcommand{\curl}{\nabla\times}
+\newcommand{\slashed}[1]{\ensuremath{#1\!\!\!/}}

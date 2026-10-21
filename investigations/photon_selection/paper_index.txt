@@ -1,0 +1,225 @@
+Index of numbered statements in ES_electromagnetic_sphere_2026-10-17.pdf (kind number | title | tex label | file)
+Lemma 2.1 | Blade rules | lem:blade | tex/s02_arena.tex
+Theorem 2.3 | Gauging versus grading | thm:sig | tex/s02_arena.tex
+Corollary 2.4 | No gauge boson is a boost | cor:noboost | tex/s02_arena.tex
+Proposition 2.5 | A Z32 grading of Cl(3, 3 | ? | 
+Example 2.6 | The paired-mode projector | ex:pairedmode | tex/s02_arena.tex
+Proposition 2.7 | The interior charge is unique | prop:6plus8plus1 | tex/s02_arena.tex
+Proposition 3.1 | A pairing alone does not give isotropy | prop:KC | tex/s03_clock.tex
+Theorem 3.2 | One conversion constant | thm:onec | tex/s03_clock.tex
+Proposition 3.3 | The grading root and the binding root | prop:twoK | tex/s03_clock.tex
+Lemma 3.4 | Both roots from Clifford data | lem:Gclifford | tex/s03_clock.tex
+Proposition 3.5 | The symmetric clock | prop:clock | tex/s03_clock.tex
+Theorem 3.6 | Spectrum of a conversion operator | thm:spectrumBC | tex/s03_clock.tex
+Corollary 3.7 | Rank counts clocks | cor:rankclock | tex/s03_clock.tex
+Example 3.8 | The symmetric clock is dynamically blind | ex:blindclock | tex/s03_clock.tex
+Theorem 4.1 | Selection of the imaginary unit | thm:i | tex/s04_dirac.tex
+Remark 4.2 | The ambient algebra is part of the statement | rem:ambient | tex/s04_dirac.tex
+Theorem 4.3 | Exactness of the realification | thm:realification | tex/s04_dirac.tex
+Proposition 4.5 | Kernels of fixed symmetry | prop:kernels1 | tex/s04_dirac.tex
+Proposition 4.6 | Scalar and pseudoscalar mass | prop:massangle | tex/s04_dirac.tex
+Theorem 5.1 | Charge conjugation is the surplus plane | thm:C | tex/s05_discrete.tex
+Corollary 5.2 | Equal mass, equal spin, opposite charge | ? | 
+Theorem 5.3 | Parity and time reversal | thm:PT | tex/s05_discrete.tex
+Theorem 5.4 | CP T lies on a circle | thm:CPT | tex/s05_discrete.tex
+Proposition 5.5 | Gauge algebra from the kinetic forms | prop:gauge1 | tex/s05_discrete.tex
+Theorem 5.6 | The real module is not a state space | thm:module | tex/s05_discrete.tex
+Theorem 5.7 | The free spectrum of one momentum | thm:spectra | tex/s05_discrete.tex
+Proposition 5.8 | Conjugation on states | prop:Cstates | tex/s05_discrete.tex
+Remark 5.9 | Many-body chirality is a group lift | ? | 
+Theorem 6.1 | Internal centraliser | thm:centraliser | tex/s06_tower.tex
+Corollary 6.2 | The photon at one constituent | cor:photon1 | tex/s06_tower.tex
+Proposition 6.3 | One frame, and nesting | prop:frame | tex/s06_tower.tex
+Theorem 6.4 | Carrier census | thm:census | tex/s06_tower.tex
+Lemma 6.5 | Rank obstruction | lem:rank | tex/s06_tower.tex
+Corollary 6.6 | The tower’s trade-off | cor:tradeoff | tex/s06_tower.tex
+Remark 6.7 | The gaugeable fraction does not improve | ? | 
+Proposition 7.1 | Unprojected matter is vector-like | prop:vectorlike | tex/s07_projectors.tex
+Definition 7.3 | Ambient and faithful algebra | def:keff | tex/s07_projectors.tex
+Example 7.4 | An annihilator | ex:annihilator | tex/s07_projectors.tex
+Theorem 7.5 | The projector family | thm:table | tex/s07_projectors.tex
+Corollary 7.6 | No colour on the axial members | cor:nocolour | tex/s07_projectors.tex
+Theorem 7.7 | Colour on P1  | thm:su3 | tex/s07_projectors.tex
+Theorem 7.8 | P1 is vector-like undressed | thm:p1 | tex/s07_projectors.tex
+Theorem 7.9 | Colour with a chiral doublet on P1  | thm:p1chiral | tex/s07_projectors.tex
+Theorem 8.1 | A chiral projector carrying colour | thm:PS | tex/s08_pstar.tex
+Theorem 8.2 | The effective algebra and its Pati–Salam part | thm:PSalg | tex/s08_pstar.tex
+Corollary 8.3 | One Pati–Salam family | cor:PSfamily | tex/s08_pstar.tex
+Proposition 8.4 | Colour intertwiner, B −L, and the charge table | ? | 
+Proposition 8.5 | The two central factors cannot be gauged | prop:PSanom | tex/s08_pstar.tex
+Proposition 8.6 | Two rank-64 projectors, two orbits | prop:orbits | tex/s08_pstar.tex
+Remark 8.7 | What the construction settles | rem:PSsettles | tex/s08_pstar.tex
+Theorem 9.1 | Conjugate pairing | thm:pairing | tex/s09_charges.tex
+Example 9.2 | Vanishing traces do not imply pairing | ex:multiset | tex/s09_charges.tex
+Proposition 9.3 | The escape | prop:escape | tex/s09_charges.tex
+Theorem 9.4 | The anomaly variety of one family | thm:variety | tex/s09_charges.tex
+Theorem 9.5 | Without νR hypercharge is quantised | ? | 
+Proposition 9.6 | Integrality, and what it does not fix | prop:integrality | tex/s09_charges.tex
+Theorem 9.7 | No unique charge at one constituent | thm:fock | tex/s09_charges.tex
+Theorem 10.2 | The diagonal centraliser is compact | thm:diagcent | tex/s10_actions.tex
+Theorem 10.3 | Spectrum of the diagonal Casimir | thm:diagCspec | tex/s10_actions.tex
+Theorem 10.4 | A Casimir identity | thm:casid | tex/s10_actions.tex
+Corollary 10.5 | A dual pair | cor:howe | tex/s10_actions.tex
+Theorem 10.6 | A gauge-invariant Cl(1, 3 | ? | 
+Theorem 10.7 | Vector-likeness | thm:diagvectorlike | tex/s10_actions.tex
+Theorem 10.8 | Candidate algebras | thm:algebra | tex/s10_actions.tex
+Proposition 10.9 | Orthogonal against spin actions | prop:orthospin | tex/s10_actions.tex
+Proposition 10.10 | The diagonal tower | prop:diagtower | tex/s10_actions.tex
+Lemma 10.11 | No grade-two generator is chiral by itself | lem:nochiral | tex/s10_actions.tex
+Proposition 10.12 | What the spectator gauge algebra acts on | prop:spectator | tex/s10_actions.tex
+Proposition 11.1 | Configuration space | prop:config | tex/s11_fields.tex
+Remark 11.2 | No blade is tangent | rem:noblade | tex/s11_fields.tex
+Theorem 11.3 | The trace form splits by the Cartan involution | thm:ghost | tex/s11_fields.tex
+Example 11.4 | The paired-mode projector at one constituent | ex:ghostPi | tex/s11_fields.tex
+Theorem 11.5 | Over-generation | thm:holonomy | tex/s11_fields.tex
+Proposition 11.6 | Chirality must be imposed, and costs nothing | prop:chiralpreserved | tex/s11_fields.tex
+Theorem 12.1 | The centraliser of G | thm:GLorentz | tex/s12_emfield.tex
+Proposition 12.2 | Two Lorentz algebras, not conjugate | prop:notconj | tex/s12_emfield.tex
+Theorem 12.3 | The field-strength reading | thm:emfield | tex/s12_emfield.tex
+Example 12.4 | A boost along the third axis | ex:emboost | tex/s12_emfield.tex
+Corollary 12.5 | The invariant complex structure | cor:Gselected | tex/s12_emfield.tex
+Proposition 12.6 | Exclusion | prop:emexclusive | tex/s12_emfield.tex
+Proposition 12.7 | The field strength at grade two | prop:bivectorF | tex/s12_emfield.tex
+Theorem 12.8 | Exactly two first-order covariant operators | thm:twoops | tex/s12_emfield.tex
+Corollary 12.9 | The form of Maxwell’s equations | cor:maxwellform | tex/s12_emfield.tex
+Proposition 12.10 | Maxwell’s equations on the frame | prop:RS | tex/s12_emfield.tex
+Example 12.11 | A circularly polarised wave on the frame | ex:circular | tex/s12_emfield.tex
+Proposition 12.12 | Frame vectors as planes | prop:planes | tex/s12_emfield.tex
+Proposition 13.1 | Grade one under the interior action | prop:gradeone | tex/s13_spin.tex
+Proposition 13.2 | Spin one and spin one-half from the same rotors | prop:samerotors | tex/s13_spin.tex
+Theorem 13.3 | Maxwell’s equations as one Clifford equation | thm:nablaF | tex/s13_spin.tex
+Example 13.4 | A plane wave of the univectorial photon | ex:univectorwave | tex/s13_spin.tex
+Proposition 13.5 | Every field-strength module under the interior action | prop:censusint | tex/s13_spin.tex
+Proposition 13.6 | Spin matrices on the frame | prop:spinmatrices | tex/s13_spin.tex
+Proposition 13.7 | Orthogonality on the frame | prop:orthframe | tex/s13_spin.tex
+Theorem 13.8 | The axis of a null field | thm:axis | tex/s13_spin.tex
+Example 13.9 | Three null waves with one axis | ex:threewaves | tex/s13_spin.tex
+Example 13.11 | The G-charge is the helicity | ex:Gcharge | tex/s13_spin.tex
+Proposition 13.12 | Half-spinors under the two algebras | prop:halfspinors | tex/s13_spin.tex
+Theorem 13.13 | The Klein correspondence | thm:klein | tex/s13_spin.tex
+Proposition 13.14 | Commutants along the tower | prop:commutantsn | tex/s13_spin.tex
+Theorem 13.15 | Copy-invariant four-vectors | thm:copyparity | tex/s13_spin.tex
+Proposition 13.16 | The mixed embedding | prop:mixed | tex/s13_spin.tex
+Proposition 13.17 | The cost | prop:mixedcost | tex/s13_spin.tex
+Theorem 13.18 | The Dirac block of the mixed rung | thm:mixeddirac | tex/s13_spin.tex
+Theorem 13.19 | A coupled model | thm:coupled | tex/s13_spin.tex
+Proposition 14.1 | Single modes are orthogonal | prop:modes | tex/s14_orth.tex
+Proposition 14.2 | Superposition breaks it | prop:twomodes | tex/s14_orth.tex
+Example 14.3 | Counter-propagating waves | ex:counter | tex/s14_orth.tex
+Proposition 14.4 | The local law | prop:EBlocal | tex/s14_orth.tex
+Theorem 14.5 | Orthogonality is achirality | thm:achiral | tex/s14_orth.tex
+Proposition 15.1 | Momentum and force | prop:force | tex/s15_shifted.tex
+Theorem 15.2 | Factorisation | thm:factor | tex/s15_shifted.tex
+Proposition 15.3 | The factorised branch is an inverted oscillator | prop:inverted | tex/s15_shifted.tex
+Example 15.4 | The conversion operator as the shift | ex:convshift | tex/s15_shifted.tex
+Theorem 15.5 | Virial identity | thm:virial | tex/s15_shifted.tex
+Theorem 16.1 | The split virial identity | thm:splitvirial | tex/s16_neutral.tex
+Theorem 16.2 | Factorisation and binding coexist exactly in neutral signature | thm:neutral | tex/s16_neutral.tex
+Proposition 16.3 | How much can bind | prop:howmuch | tex/s16_neutral.tex
+Proposition 16.5 | Bound orbits in field-strength language | prop:orbitsEM | tex/s16_neutral.tex
+Theorem 16.6 | The parity-odd term is a total derivative | thm:EBsplit | tex/s16_neutral.tex
+Proposition 16.7 | Transport and a homogeneous threshold | prop:tear | tex/s16_neutral.tex
+Proposition 17.1 | The dictionary | prop:EAdict | tex/s17_closure.tex
+Proposition 17.2 | The binding root is inner for no bracket | prop:EAnotinner | tex/s17_closure.tex
+Theorem 17.3 | Transport and factorisation are complementary | thm:EAdichotomy | tex/s17_closure.tex
+Proposition 17.4 | Equivariant maps and forms | prop:lGhoms | tex/s17_closure.tex
+Theorem 17.5 | The brackets on the frame | thm:brackets | tex/s17_closure.tex
+Theorem 17.6 | No closure on the frame alone | thm:noframe | tex/s17_closure.tex
+Theorem 17.7 | Uniqueness of the closure | thm:closureunique | tex/s17_closure.tex
+Proposition 17.8 | Lie–Poisson equations | prop:LP | tex/s17_closure.tex
+Proposition 17.9 | The two interiors are clamped reductions | prop:groupred | tex/s17_closure.tex
+Definition 17.10 | The two requirements | def:inertiareq | tex/s17_closure.tex
+Theorem 17.11 | The two requirements exclude each other | thm:inertiareq | tex/s17_closure.tex
+Theorem 17.12 | The frame under the closure | thm:drift | tex/s17_closure.tex
+Theorem 17.13 | The duality pendulum | thm:pendulum | tex/s17_closure.tex
+Corollary 17.14 | When the rate is constant | cor:constrate | tex/s17_closure.tex
+Corollary 17.15 | The multiscale criterion | cor:multiscale | tex/s17_closure.tex
+Theorem 17.16 | The free rotor drifts the frame | thm:freedrift | tex/s17_closure.tex
+Example 17.17 | A drift in closed form | ex:drift | tex/s17_closure.tex
+Proposition 17.18 | Several constituents and one rotor | prop:several | tex/s17_closure.tex
+Theorem 17.19 | The closure symmetry is so(9, C | thm:so9C | tex/s17_closure.tex
+Theorem 17.20 | No common Lorentz algebra | thm:nocommon | tex/s17_closure.tex
+Theorem 17.21 | The Pati–Salam algebra and the binding root | thm:PSbinding | tex/s17_closure.tex
+Theorem 17.22 | What survives each projector | thm:survive | tex/s17_closure.tex
+Theorem 17.24 | Inertia freedom at three constituents | thm:inertia3 | tex/s17_closure.tex
+Theorem 18.1 | Complex structure or projector | thm:subdichotomy | tex/s18_subfields.tex
+Definition 18.2 | Mass kernels of a subfield | def:subkernel | tex/s18_subfields.tex
+Theorem 18.3 | Kernel spaces and invariant kernels | thm:subkernels | tex/s18_subfields.tex
+Corollary 18.4 | The full algebra has one mass term | cor:fullmass | tex/s18_subfields.tex
+Theorem 18.5 | Two phases of the interior Lorentz algebra | thm:twophases | tex/s18_subfields.tex
+Theorem 18.6 | Field strengths on the subfields | thm:subfs | tex/s18_subfields.tex
+Theorem 18.7 | A universal Fock vacuum | thm:subfock | tex/s18_subfields.tex
+Example 18.8 | Charge conjugation needs the whole structure | ex:subC | tex/s18_subfields.tex
+Definition 19.1 | Mass kernels | def:kernel | tex/s19_kernels.tex
+Theorem 19.2 | The kernel space | thm:kernelspace | tex/s19_kernels.tex
+Theorem 19.3 | Symmetric criticality | thm:symcrit | tex/s19_kernels.tex
+Proposition 19.5 | Fermion number | prop:fermionnumber | tex/s19_kernels.tex
+Proposition 19.6 | The coupled field equations | prop:coupled3 | tex/s19_kernels.tex
+Proposition 20.1 | From kernels to tensors | prop:tensor | tex/s20_selection.tex
+Theorem 20.2 | The renormalizable potential of (10, 1, 3 | ? | 
+Lemma 20.3 | The highest-weight orbit | lem:hw | tex/s20_selection.tex
+Theorem 20.4 | Selection without the holomorphic quartic | thm:select0 | tex/s20_selection.tex
+Theorem 20.5 | Selection with the holomorphic quartic | thm:selectk | tex/s20_selection.tex
+Theorem 20.6 | Second variation at the Standard-Model orbit | thm:secondvar | tex/s20_selection.tex
+Example 20.7 | Checking a sum rule | ex:sumrule | tex/s20_selection.tex
+Theorem 20.8 | The trace potential on (10, 1, 3 | ? | 
+Theorem 20.9 | One-loop selection on (10, 1, 3 | ? | 
+Proposition 20.10 | A left–right involution | prop:LR | tex/s20_selection.tex
+Theorem 20.11 | One-loop second variation on all of K | ? | 
+Proposition 20.12 | Random-start minimisation | prop:randomstart | tex/s20_selection.tex
+Theorem 21.1 | Compatibility with matter | thm:compat | tex/s21_matter.tex
+Proposition 21.2 | Electroweak stage | prop:EW | tex/s21_matter.tex
+Example 21.3 | An electroweak spectrum | ex:EWspectrum | tex/s21_matter.tex
+Proposition 21.4 | Chirality is field content | prop:mirror | tex/s21_matter.tex
+Proposition 21.5 | Hermitian order parameters keep rank five | prop:rankfive | tex/s21_matter.tex
+Proposition 21.6 | Gauge alignment does not see chirality | prop:alignment | tex/s21_matter.tex
+Proposition 22.1 | Goldstone directions attached to the symmetries | prop:global | tex/s22_goldstone.tex
+Theorem 22.2 | No Majoron | thm:nomajoron | tex/s22_goldstone.tex
+Theorem 22.3 | One uneaten direction at the electroweak vacuum | thm:axion | tex/s22_goldstone.tex
+Proposition 22.4 | Bidoublet mass terms and their CP parity | prop:bidoublet | tex/s22_goldstone.tex
+Theorem 22.5 | The kinetic norm of the axion direction | thm:mA | tex/s22_goldstone.tex
+Theorem 22.6 | Four classes of discrete operators | thm:fourclasses | tex/s22_goldstone.tex
+Theorem 22.7 | CP fixes the order parameter; C and P move it | thm:vacCP | tex/s22_goldstone.tex
+Theorem 22.8 | Invariant polynomials by fermion number | thm:Bcounts | tex/s22_goldstone.tex
+Theorem 22.9 | Z2 strings | thm:strings | tex/s22_goldstone.tex
+Proposition 23.1 | The arena is almost para-Hermitian | prop:parahermitian | tex/s23_curved.tex
+Lemma 23.2 | The normal plane carries a commuting rotation | lem:JN | tex/s23_curved.tex
+Proposition 23.3 | The model | prop:kk | tex/s23_curved.tex
+Proposition 23.4 | The surplus constraints are first class | prop:constraints | tex/s23_curved.tex
+Theorem 23.5 | The ambient Einstein tensor | thm:ein6 | tex/s23_curved.tex
+Corollary 23.6 | Sign, reduction and rigidity | cor:ein6 | tex/s23_curved.tex
+Example 23.7 | Negative-energy null radiation | ex:nullwave | tex/s23_curved.tex
+Example 23.8 | A uniform magnetic field | ex:landau | tex/s23_curved.tex
+Proposition 24.1 | The curvature operator lives on the frame | prop:curvop | tex/s24_curvop.tex
+Theorem 24.2 | The phase family | thm:phase | tex/s24_curvop.tex
+Example 24.3 | A maximally symmetric curvature | ex:dS | tex/s24_curvop.tex
+Corollary 24.4 | What selects the endpoint | cor:phasesel | tex/s24_curvop.tex
+Theorem 24.5 | Only the Einstein phase is variational | thm:helmholtz | tex/s24_curvop.tex
+Proposition 24.6 | Palatini and Holst on the frame | prop:holst | tex/s24_curvop.tex
+Proposition 25.1 | Transport obstruction | prop:obstruct | tex/s25_transport.tex
+Proposition 25.2 | The adapted connection | prop:adapted | tex/s25_transport.tex
+Example 25.3 | The angle mode is a Stückelberg field | ? | 
+Theorem 26.1 | The paired-mode projector sources a massive vector | thm:photonmass | tex/s26_photon.tex
+Corollary 26.2 | The massless criterion | cor:massless | tex/s26_photon.tex
+Theorem 26.3 | The criterion can be met | thm:massless1 | tex/s26_photon.tex
+Proposition 26.4 | Lorentz invariance makes the first rung rigid | prop:rigid | tex/s26_photon.tex
+Definition 26.5 | The second-rung vacuum | def:towervac | tex/s26_photon.tex
+Theorem 26.6 | Lorentz invariant, uncharged and not rigid | thm:towervac | tex/s26_photon.tex
+Theorem 26.7 | The compact family and its current | thm:S4 | tex/s26_photon.tex
+Theorem 26.8 | The curved extension | thm:towercurved | tex/s26_photon.tex
+Proposition 26.9 | The vacuum and the matter | prop:towermatter | tex/s26_photon.tex
+Proposition 27.1 | A free field on R3,3  | prop:toy | tex/s27_baseline.tex
+Proposition 27.2 | No time orientation in signature (3, 3 | prop:orient | tex/s27_baseline.tex
+Example 27.3 | Compact surplus times give tachyons | ex:tachyons | tex/s27_baseline.tex
+Theorem 28.1 | The selector is a complex structure | thm:selector | tex/s28_selector.tex
+Theorem 28.2 | The light cone as twisted squares | thm:cone | tex/s28_selector.tex
+Theorem 28.3 | The selector at three constituents | thm:selector3 | tex/s28_selector.tex
+Proposition 29.1 | Invariants of the three types | prop:types | tex/s29_typesel.tex
+Theorem 29.2 | No clean selection below degree eight | thm:degree | tex/s29_typesel.tex
+Theorem 29.3 | Degeneracy and flat directions at every degree | thm:flat | tex/s29_typesel.tex
+Proposition 29.4 | Kinetic terms | prop:kineticB | tex/s29_typesel.tex
+Proposition 29.5 | The positive alternative | prop:positivealt | tex/s29_typesel.tex
+Theorem 30.1 | A worldline gauge symmetry | thm:wlgauge | tex/s30_constraints.tex
+Proposition 30.2 | Gauging the isometry is not enough | prop:isometryonly | tex/s30_constraints.tex
+Corollary 30.3 | Weak emergence for scalar matter | cor:weak | tex/s30_constraints.tex
+Theorem 30.4 | Every normal-plane vector is a ghost | thm:ghostvec | tex/s30_constraints.tex
