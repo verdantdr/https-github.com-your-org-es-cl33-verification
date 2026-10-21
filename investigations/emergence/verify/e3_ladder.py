@@ -23,6 +23,9 @@ ranks over Q (sympy DomainMatrix).  Floating point proper is used only for spect
 1e-6, stated with each check), for matrix exponentials (tolerance 1e-9) and for one nullity (gap stated).
 Runtime: about a minute.
 """
+import os
+for _v in ("OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS"):
+    os.environ.setdefault(_v, "1")          # dense BLAS on small matrices: threads only add contention
 import itertools
 import math
 import sys
@@ -51,6 +54,7 @@ def report(cid, ok, text):
 
 def claim(cid, text):
     def deco(fn):
+        t0 = time.time()
         try:
             ok = bool(fn())
         except Exception as exc:  # reported as a failure
@@ -59,6 +63,8 @@ def claim(cid, text):
             print(f"   exception in {cid}: {exc!r}")
             ok = False
         report(cid, ok, text)
+        if os.environ.get("E3_TIMING"):
+            print(f"   [{cid}: {time.time() - t0:.1f}s]")
         return fn
     return deco
 
@@ -156,7 +162,7 @@ def number_diag(n):
     for k in range(1, n + 1):
         for i in (1, 2, 3):
             P = E[(k, i)] @ E[(k, i + 3)]
-            assert seq(P, ss.diags(P.diagonal()).tocsr())
+            assert seq(P, ss.diags(P.diagonal(), dtype=np.int64).tocsr())
             Nd += (1 - P.diagonal()) // 2
     return Nd
 
@@ -362,7 +368,7 @@ def _():
         Vn = vol(n)
         ok &= seq(Vn, skron(*([S(om)] * n)))
         Nd = number_diag(n)
-        ok &= seq(ss.diags((-1) ** Nd).tocsr(), (-1) ** n * Vn)
+        ok &= seq(ss.diags((-1) ** Nd, dtype=np.int64).tocsr(), (-1) ** n * Vn)
     return ok
 
 
@@ -416,10 +422,19 @@ def _():
     return ok
 
 
-@claim("e3-1c", "Fock modes up the ladder (n = 1..4): N_(n+1) = N_n (x) 1 + 1 (x) N_1, so each step adds three modes; "
-       "spec N = {0,...,3n} with multiplicities binom(3n,j); [N, E_(k,i)] = E_(k,i+3), [N, E_(k,i+3)] = E_(k,i)")
+@claim("e3-1c", "Fock modes up the ladder (n = 1..4; spectrum also at n = 5): N_(n+1) = N_n (x) 1 + 1 (x) N_1, so each step adds "
+       "three modes; spec N = {0,...,3n} with multiplicities binom(3n,j); [N, E_(k,i)] = E_(k,i+3), [N, E_(k,i+3)] = E_(k,i)")
 def _():
     ok = True
+    Eg5, _ = tower_sp(5)
+    N5 = np.zeros(8 ** 5, dtype=np.int64)
+    for k in range(1, 6):
+        for i in (1, 2, 3):
+            P = Eg5[(k, i)] @ Eg5[(k, i + 3)]
+            ok &= np.array_equal(P.p, np.arange(8 ** 5))       # pole operators are diagonal
+            N5 += (1 - P.s) // 2
+    cnt5 = Counter(N5.tolist())
+    ok &= all(cnt5[j] == math.comb(15, j) for j in range(16))
     for n in (1, 2, 3, 4):
         Nd = number_diag(n)
         cnt = Counter(Nd.tolist())
@@ -427,7 +442,7 @@ def _():
         if n < 4:
             ok &= np.array_equal(number_diag(n + 1), np.add.outer(Nd, number_diag(1)).ravel())
         E, _ = tower(n)
-        Nm = ss.diags(Nd).tocsr()
+        Nm = ss.diags(Nd, dtype=np.int64).tocsr()
         for k in range(1, n + 1):
             for i in (1, 2, 3):
                 ok &= seq(Nm @ E[(k, i)] - E[(k, i)] @ Nm, E[(k, i + 3)])
@@ -522,11 +537,21 @@ def lG_rot(n):
     return [E[(k, 1)] @ E[(k, 2)] for k in range(1, n + 1)] + [-(E[(k, 4)] @ E[(k, 5)]) for k in range(1, n + 1)]
 
 
-@claim("e3-3a", "spin parity under the diagonal interior algebra (n = 1..4): the rotation R = (1/2) sum_k E_(k,4)E_(k,5) is a sum of n "
+def sp_commuting_minus_one(n, pairs, signs=None):
+    """exact, signed permutations: the blades E_(k,a)E_(k,b) for (k,a,b) in pairs square to -1 and commute pairwise"""
+    Eg, _ = tower_sp(n)
+    Iden = SP.ident(8 ** n)
+    bs = [Eg[(k, a)] @ Eg[(k, b)] for k, a, b in pairs]
+    ok = all((b @ b) == Iden.neg() for b in bs)
+    ok &= all((x @ y) == (y @ x) for x, y in itertools.combinations(bs, 2))
+    return ok
+
+
+@claim("e3-3a", "spin parity under the diagonal interior algebra (n = 1..5): the rotation R = (1/2) sum_k E_(k,4)E_(k,5) is a sum of n "
        "commuting terms (1/2)b_k with b_k^2 = -1, so exp(2 pi R) = (-1)^n; float check exp(2 pi R) = (-1)^n and spec(2R) = "
        "i x {integers = n mod 2} at n = 1..3 (tol 1e-9); the diagonal interior composite is a fermion exactly at odd n")
 def _():
-    ok = True
+    ok = sp_commuting_minus_one(5, [(k, 4, 5) for k in range(1, 6)])
     for n in (1, 2, 3, 4):
         bs = lint_rot(n)
         ok &= all(seq(b @ b, -Id(n)) for b in bs)
@@ -539,12 +564,12 @@ def _():
     return ok
 
 
-@claim("e3-3b", "spin parity under the diagonal field-strength algebra lG (n = 1..4): the rotation L = (1/2) sum_k (E_(k,1)E_(k,2) - "
+@claim("e3-3b", "spin parity under the diagonal field-strength algebra lG (n = 1..5): the rotation L = (1/2) sum_k (E_(k,1)E_(k,2) - "
        "E_(k,4)E_(k,5)) commutes with G_n on vectors and is a sum of 2n commuting terms (1/2)b with b^2 = -1, so "
        "exp(2 pi L) = +1 at every rung (float check n = 1..3, tol 1e-9; spec(L) in i Z); exp(2 pi (1/2)e4e5) = exp(2 pi (1/2)e1e2) "
        "= -1 on S is the central element of Spin(3,3), which acts on S_n as (-1)^n")
 def _():
-    ok = True
+    ok = sp_commuting_minus_one(5, [(k, 1, 2) for k in range(1, 6)] + [(k, 4, 5) for k in range(1, 6)])
     for n in (1, 2, 3, 4):
         ok &= np.array_equal(biv_vec(n, [(1, k, 1, 2) for k in range(1, n + 1)] + [(-1, k, 4, 5) for k in range(1, n + 1)]) @ G_vec(n),
                              G_vec(n) @ biv_vec(n, [(1, k, 1, 2) for k in range(1, n + 1)] + [(-1, k, 4, 5) for k in range(1, n + 1)]))
@@ -652,9 +677,10 @@ def _():
     return ok
 
 
-@claim("e3-4b", "spin level (exact, n = 2, 3, 4): every C^{kl} commutes with the fifteen diagonal so(3,3) generators; the C^{kl} close on "
-       "so(n), [2C^{12}, 2C^{23}] = 2 (2C^{13}) up to the sign fixed by the convention, and each is a sum of six commuting terms of "
-       "square -1/4, so exp(2 pi C^{kl}) = +1 (single-valued copy rotations)")
+@claim("e3-4b", "spin level (exact, n = 2, 3, 4): every C^{kl} commutes with the fifteen diagonal so(3,3) generators; "
+       "[C^{kl}, E_(l,a)] = E_(k,a) and [C^{kl}, E_(k,a)] = -E_(l,a) (C^{kl} lifts the copy matrix e_k e_l^T - e_l e_k^T), so the "
+       "C^{kl} close on so(n) with [C^{kl}, C^{lm}] = C^{km} (n = 3, 4); each is a sum of six commuting terms of square -1/4, so "
+       "exp(2 pi C^{kl}) = +1 (single-valued copy rotations)")
 def _():
     ok = True
     for n in (2, 3, 4):
@@ -665,17 +691,93 @@ def _():
         for (k, l) in C:
             terms = [ETA[a] * E[(k, a)] @ E[(l, a)] for a in range(1, 7)]
             ok &= all(seq(t @ t, -Id(n)) for t in terms) and all(seq(x @ y, y @ x) for x, y in itertools.combinations(terms, 2))
-        if n >= 3:
-            br = C[(1, 2)] @ C[(2, 3)] - C[(2, 3)] @ C[(1, 2)]
-            ok &= seq(br, 2 * C[(1, 3)]) or seq(br, -2 * C[(1, 3)])
+        for (k, l), X in C.items():                       # X = 2 C^{kl}
+            for a in range(1, 7):
+                ok &= seq(X @ E[(l, a)] - E[(l, a)] @ X, 2 * E[(k, a)])
+                ok &= seq(X @ E[(k, a)] - E[(k, a)] @ X, -2 * E[(l, a)])
+        for k, l, m in itertools.permutations(range(1, n + 1), 3):
+            if k < l and l < m:                               # [C^{kl}, C^{lm}] = C^{km}: [2C, 2C] = 2 (2C)
+                ok &= seq(C[(k, l)] @ C[(l, m)] - C[(l, m)] @ C[(k, l)], 2 * C[(k, m)])
     return ok
 
 
-@claim("e3-4c", "Casimir identity (exact, n = 1..4): C_cop + C_diag = (3/4) n (n+4) on S_n, i.e. 15/4, 9, 63/4, 24, with "
-       "C_diag = -sum_{a<b} eta^aa eta^bb Delta_ab^2 over all six directions and C_cop = -sum_{k<l} (C^{kl})^2; the interior "
-       "version of ES17 Thm 10.4, C_cop^int + C_Delta = n(n+2)/2, re-verified (n = 1..4); both are nd(d+n-2)/8 at d = 6, 4")
+def blade_mul(A, B, eta):
+    """product of the blades with generator bitmasks A, B in the abstract Clifford algebra of diag(eta): (sign, mask)"""
+    swaps = 0                                  # transpositions needed to bring the generators of B past those of A
+    for b in range(len(eta)):
+        if B >> b & 1:
+            swaps += bin(A >> (b + 1)).count('1')
+    sgn = -1 if swaps % 2 else 1
+    common = A & B
+    for g in range(len(eta)):
+        if common >> g & 1:
+            sgn *= eta[g]
+    return sgn, A ^ B
+
+
+def cl_mul(X, Y, eta):
+    out = {}
+    for A, x in X.items():
+        for B, y in Y.items():
+            s_, M = blade_mul(A, B, eta)
+            out[M] = out.get(M, 0) + s_ * x * y
+    return {M: c for M, c in out.items() if c}
+
+
+def cl_add(X, Y, c=1):
+    out = dict(X)
+    for M, y in Y.items():
+        out[M] = out.get(M, 0) + c * y
+    return {M: v for M, v in out.items() if v}
+
+
+def casimir_sum_abstract(n, dirs=range(1, 7)):
+    """4 (C_cop + C_diag) in the abstract Clifford algebra Cl(3n,3n), for the copy rotations and the diagonal algebra of the
+    directions dirs (all six, or the interior four)"""
+    eta = ETA[1:] * n
+    gen = lambda k, a: 1 << (6 * (k - 1) + a - 1)
+    tot = {}
+    for a, b in itertools.combinations(dirs, 2):
+        D = {}
+        for k in range(1, n + 1):
+            s_, M = blade_mul(gen(k, a), gen(k, b), eta)
+            D[M] = D.get(M, 0) + s_
+        tot = cl_add(tot, cl_mul(D, D, eta), -ETA[a] * ETA[b])
+    for k, l in itertools.combinations(range(1, n + 1), 2):
+        Cm = {}
+        for a in dirs:
+            s_, M = blade_mul(gen(k, a), gen(l, a), eta)
+            Cm[M] = Cm.get(M, 0) + ETA[a] * s_
+        tot = cl_add(tot, cl_mul(Cm, Cm, eta), -1)
+    return tot
+
+
+@claim("e3-4c", "Casimir identity: C_cop + C_diag = (3/4) n (n+4) on S_n, i.e. 15/4, 9, 63/4, 24, 135/4, 81/2, with "
+       "C_diag = -sum_{a<b} eta^aa eta^bb Delta_ab^2 over all six directions and C_cop = -sum_{k<l} (C^{kl})^2 (exact: as matrices "
+       "on S_n for n = 1..4, and in the abstract Clifford algebra Cl(3n,3n), blade by blade, for n = 1..6, the abstract product "
+       "checked against the matrices at n = 2); the interior version of ES17 Thm 10.4, C_cop^int + C_Delta = n(n+2)/2, re-verified "
+       "in the same two ways; both are nd(d+n-2)/8 at d = 6, 4")
 def _():
     ok = True
+    for n in range(1, 7):
+        ok &= casimir_sum_abstract(n) == {0: 3 * n * (n + 4)}
+        ok &= casimir_sum_abstract(n, INT) == {0: 2 * n * (n + 2)}
+    # the abstract blade product agrees with the realisation (n = 2, all pairs of single generators and a sample of blades)
+    E, _ = tower(2)
+    gens = [E[(k, a)] for k in (1, 2) for a in range(1, 7)]
+    eta2 = ETA[1:] * 2
+
+    def realise(M):
+        R = Id(2)
+        for i in range(12):
+            if M >> i & 1:
+                R = R @ gens[i]
+        return R
+    rng = np.random.default_rng(5)
+    for A, B in [(1 << i, 1 << j) for i in range(12) for j in range(12)] + \
+            [tuple(rng.integers(0, 4096, size=2).tolist()) for _ in range(40)]:
+        s_, M = blade_mul(A, B, eta2)
+        ok &= seq(realise(A) @ realise(B), s_ * realise(M))
     for n in (1, 2, 3, 4):
         ok &= seq(casimir_diag4(n) + casimir_cop4(n), 3 * n * (n + 4) * Id(n))
         E, _ = tower(n)
@@ -857,7 +959,7 @@ def _():
                 prod = prod @ (E[(k, a)] - E[(k + 1, a)])
             ok &= seq(prod, 8 * t[k])
             ok &= all(seq(t[k] @ X, X @ t[k]) for X in diag_so33_2(n).values())
-            Nm = ss.diags(number_diag(n)).tocsr()
+            Nm = ss.diags(number_diag(n), dtype=np.int64).tocsr()
             H = sum(E[(j, 1)] for j in range(1, n + 1))
             ok &= seq(t[k] @ Nm, Nm @ t[k]) and seq(t[k] @ H, H @ t[k])
             ok &= seq(t[k] @ casimir_cop4(n), casimir_cop4(n) @ t[k])
