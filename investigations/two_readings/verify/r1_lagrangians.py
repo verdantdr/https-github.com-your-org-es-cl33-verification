@@ -830,7 +830,7 @@ def block_F():
     F_low_up = F * ETA4                                           # F_{l}^{nu} = F_{l b} eta^{b nu}
     T = sp.Matrix(4, 4, lambda mu, nu: sum(Fl_up[mu, l] * F_low_up[l, nu] for l in range(4)) + ETA4[mu, nu] * F2 / 4)
     Svec = Ev.cross(Bv)                                           # paper Poynting S = E x B = -S_text
-    ok = T == T.T and is_zero(sum(T[mu, mu] * ETA4[mu, mu] for mu in range(4)))
+    ok = mat_zero(T - T.T) and is_zero(sum(T[mu, mu] * ETA4[mu, mu] for mu in range(4)))
     ok &= is_zero(T[0, 0] - ((Ev.T * Ev)[0] + (Bv.T * Bv)[0]) / 2)
     ok &= all(is_zero(T[0, i + 1] + Svec[i]) for i in range(3))
     # d_mu T^{mu nu} = -F^nu_lambda d_mu F^{mu lambda}  (identity for F = dA)
