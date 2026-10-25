@@ -1,0 +1,564 @@
+% Track r3 -- X = E + B on the octants.
+% Verification: investigations/two_readings/verify/r3_octants.py (claims r3-1 ... r3-26).
+\section{\texorpdfstring{$X=\bE+\bB$ on the octants}{X = E + B on the octants}}
+\label{r3:sec:main}
+
+The question asked in the introduction about the octants reads: $X=(\bE+\bB)$, where each of $E_x,E_y,E_z$ and $B_x,B_y,B_z$ is an
+octant. A construction of this kind was proposed in an earlier, superseded version of the programme: the eight octants are the joint
+eigenspaces of the pole operators $\omega_i$; the six mixed octants are field octants, those of weight one carrying the electric
+components (as boosts) and those of weight two the magnetic components (as rotations); the two poles carry ``mass'' and
+``statistics''; and Maxwell's equations are ``pooled'' across the octants. This section establishes in the conventions of \cite{ES17}
+what of this is true. In brief: the octants are the eight lines of a Fock basis of the spinor module $S=\R^8$, which is the exterior
+algebra of a null three-plane; there is a field-octant map $\Phi$ placing $\bE$ on weight one and $\bB$ on weight two, unique up to a
+scale and a quarter turn of duality once rotations and Maxwell's equations are required; it carries the rotations, a parity and the
+premetric $\mathfrak{gl}(3)$, but no even element of $\Cl(3,3)$ carries the boosts or the duality rotation; the Spin$(3,3)$-invariant mass
+form pairs each octant with its antipode and $\bE$ with $\bB$; and Maxwell's four equations are one first-order equation on $S$, with the
+two Gauss laws on the poles. In textbook variables the whole construction is Hestenes' Pauli-algebra electrodynamics, written with
+the three temporal generators acting on the vacuum pole.
+
+\paragraph{Conventions.} $V=\R^{3,3}$, $\eta=\operatorname{diag}(1,1,1,-1,-1,-1)$, the generators $e_1,\dots,e_6$ are those of eq.~(1) of
+\cite{ES17}, $\omega:=e_1\cdots e_6=\Gamma$, $T:=e_1e_2e_3$ (the mass form, Corollary~18.4 of \cite{ES17}), and $\mathsf P=\sum_i\omega_i$,
+$\omega_i:=e_ie_{i+3}$. The field point is $X=\sum_i(B_ie_i+E_ie_{i+3})$ (Theorem~12.3 of \cite{ES17}), with $\bB$ minus the textbook magnetic
+field, $\Btext=-\bB$; $z=\bB+i\bE$, $q=z\cdot z$, $E_6=\tfrac12|z|^2$, $E_0=\tfrac12|q|$ (eq.~(1) of \cite{RE}). The binding root is
+$Ge_i=e_{i+3}$, $Ge_{i+3}=-e_i$; the grading root of \cite{ES17} is $\cK=\tfrac12\ad_{\mathsf P}$, $\cK e_i=-e_{i+3}$, $\cK e_{i+3}=-e_i$
+(Proposition~3.3 and Lemma~3.4 of \cite{ES17}; the para-complex structure of the earlier version is $-\cK$). On $V$ we use coordinates
+$(\bB;\bE)\in\R^6$. Units are Heaviside--Lorentz with $c=1$ unless SI is stated. Dimensions: in SI $[\bE]=\mathrm{V\,m^{-1}}$,
+$[\bB]=\mathrm T$, so that $\bE$ and $c\bB$ share a unit; $[t]=\mathrm s$, $[x^a]=\mathrm m$, $[\partial_a]=\mathrm m^{-1}$; $[\rho]=\mathrm{C\,m^{-3}}$,
+$[\bj]=\mathrm{A\,m^{-2}}$, $[\varepsilon_0]=\mathrm{F\,m^{-1}}$; the generators, the Fock operators, the octant basis vectors and $T$ are
+dimensionless, and $\psi=\Phi(X)$ carries the dimension of a field strength. Identifiers r3-$n$ refer to the script
+\texttt{verify/r3\_octants.py}, which checks every finite-dimensional and symbolic claim below exactly.
+
+\subsection{The octants and the octant group}
+\label{r3:sec:octants}
+
+\begin{proposition}[Octants and Fock grading]
+\label{r3:prop:octants}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item The pole operators are $\omega_i|b\rangle=(-1)^{b_i}|b\rangle$ on the basis $|b_1b_2b_3\rangle$ of $S$; their joint eigenlines, the
+\emph{octants}, are the eight basis lines, labelled by the sign triples $\sigma=(\sigma_1,\sigma_2,\sigma_3)$, $\sigma_i=(-1)^{b_i}$.
+\item $a^\pm_i:=\tfrac12(e_i\pm e_{i+3})$ satisfy $\{a^+_i,a^+_j\}=\{a^-_i,a^-_j\}=0$, $\{a^+_i,a^-_j\}=\delta_{ij}$, and
+$\omega_i=\id-2a^+_ia^-_i$. Hence $N:=\sum_ia^+_ia^-_i$ is diagonal and counts the minus signs of $\sigma$.
+\item $|\mathrm{vac}\rangle:=|000\rangle$, of signs $(+,+,+)$, spans the common kernel of the $a^-_i$ (the Fock vacuum, $N=0$), and
+$a^+_{i_1}\cdots a^+_{i_r}|\mathrm{vac}\rangle=|b_I\rangle$ for $i_1<\dots<i_r$, where $b_I$ has ones exactly at $I$. The filled pole is
+$|\mathrm{full}\rangle:=|111\rangle$, of signs $(-,-,-)$ and $N=3$.
+\item The octant $\sigma$ is the pure spinor line of the maximal isotropic plane $N_\sigma:=\operatorname{span}\{e_i-\sigma_ie_{i+3}\}$: the
+vectors $v\in V$ with $v|b\rangle=0$ are exactly those of $N_\sigma$.
+\item $\Gamma=-\omega_1\omega_2\omega_3$, so $(-1)^N=\omega_1\omega_2\omega_3=-\Gamma$, which is the chirality $\gamma_5$ of Section~5 of
+\cite{ES17}; on the octant with $w=3-N$ plus signs $\Gamma=(-1)^w$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) is in Proposition~2.5 and Appendix~A of \cite{ES17}: $e_i|b\rangle=(-1)^{b_1+\dots+b_{i-1}}|b\oplus\delta_i\rangle$ and
+$e_{i+3}|b\rangle=(-1)^{b_1+\dots+b_i}|b\oplus\delta_i\rangle$. (ii) The Clifford relations give $\{e_i\pm e_{i+3},e_j\pm e_{j+3}\}=2(\delta_{ij}-\delta_{ij})=0$
+and $\{e_i+e_{i+3},e_j-e_{j+3}\}=4\delta_{ij}$; then $\omega_i=(a^+_i+a^-_i)(a^+_i-a^-_i)=a^-_ia^+_i-a^+_ia^-_i=\id-2a^+_ia^-_i$. (iii)/(iv) By the two
+formulas of (i), $(e_i-s\,e_{i+3})|b\rangle=(-1)^{b_1+\dots+b_{i-1}}(1-s(-1)^{b_i})|b\oplus\delta_i\rangle$, which vanishes iff $s=\sigma_i$. So $N_\sigma$
+annihilates the octant $\sigma$; an annihilator is isotropic, since $2\eta(u,v)\phi=(uv+vu)\phi=0$, hence of dimension at most three, and it equals
+$N_\sigma$. For $\sigma=(+,+,+)$ this is the statement $a^-_i|000\rangle=0$. The sign of $a^+_{i_1}\cdots a^+_{i_r}|\mathrm{vac}\rangle$ is a product of
+factors $(-1)^{b_1+\dots+b_{i-1}}$ taken while all bits before $i$ are still zero. (v) Reordering $e_1e_4e_2e_5e_3e_6$ into $e_1\cdots e_6$
+costs three transpositions (Example~2.6 of \cite{ES17}).
+\end{proof}
+
+All five items are restated from \cite{ES17} or fixed here (r3-1, r3-2, r3-3). Item (v) confirms the earlier version's statement
+$I=-\omega_1\omega_2\omega_3$ with eigenvalue $(-1)^w$; note only that its ``temporal weight'' $w$ counts plus signs, so $w=3-N$.
+
+\begin{proposition}[The octant group]
+\label{r3:prop:octgroup}
+For each axis $a$, the automorphisms of $\Cl(3,3)$ extending the reflection $R_a:e_a\mapsto-e_a$, $e_b\mapsto e_b$ $(b\neq a)$ are the
+conjugations by the multiples of $g_a:=e_a\omega$. Each $g_a$ is a signed permutation matrix; it conjugates $\omega_i$ to $-\omega_i$ for
+$a\in\{i,i+3\}$ and fixes the other two, so it carries the octant $\sigma$ to the octant with $\sigma_i$ reversed. The reflections of a
+temporal axis and of its spatial partner act alike on the octants, and $g_ig_{i+3}=\pm\omega_i$ fixes every octant. The lifts $g_1,g_2,g_3$
+satisfy $g_i^2=-\id$, anticommute pairwise and generate a group of order $16$ with centre $\{\pm\id\}$, which acts on the eight octants
+through $\Z_2^3$, simply transitively.
+\end{proposition}
+
+\begin{proof}
+$\Cl(3,3)\cong M_8(\R)$ is central simple, so every automorphism is inner and its implementing element is unique up to a real factor
+(Skolem--Noether). Since $\omega$ anticommutes with every generator, $g_ae_bg_a^{-1}=-e_ae_be_a^{-1}$, which is $-e_b$ for $b=a$ and $e_b$
+otherwise. Hence $g_a\omega_ig_a^{-1}=R_a(e_i)R_a(e_{i+3})$. Further $g_i^2=-e_i^2\omega^2=-\id$, and $g_ig_j=-e_ie_j$ anticommutes with
+$g_jg_i=-e_je_i$. The images of $|\mathrm{vac}\rangle$ under the eight sign classes are the eight octants (r3-4, r3-5).
+\end{proof}
+
+Fixed. The earlier version defined the octant group as the reflections of the temporal $\R^3$ acting on its eight \emph{sign sectors}
+$\{x\in V^+:\sigma_ix_i>0\}$, and identified them with the spinor octants. Both sets are $\Z_2^3$-torsors, so equivariant bijections
+between them exist, eight of them, one for each choice of the octant assigned to the positive sector. One of them is singled out by an
+operator of \cite{ES17}:
+
+\begin{proposition}[Clock octant and vacuum]
+\label{r3:prop:clock}
+For a dimensionless $x\in V^+$ the conversion operator of Theorem~3.6 of \cite{ES17} with $C=\operatorname{diag}(x)$ is
+$B_x=\sum_ix_ie_ie_{i+3}=\sum_ix_i\omega_i$. It has eigenvalue $\sum_i\sigma_ix_i$ on the octant $\sigma$; if no $x_i$ vanishes, its unique top
+eigenline is the octant $\operatorname{sign}(x)$; and $g_iB_xg_i^{-1}=B_{R_ix}$. The Fisher--Rao octant of clocks of Section~3.3 of \cite{ES17},
+the closed positive octant $x_i=2\sqrt{w_i}\ge0$ of the sphere of radius two, therefore corresponds to the Fock vacuum: for $x$ in its
+interior the top eigenline of $B_x$ is $|\mathrm{vac}\rangle$, and for the symmetric clock $B_{\widehat W}=\mathsf P/\sqrt3$ with top eigenvalue
+$\sqrt3$ on $|\mathrm{vac}\rangle$. The weights $w_i=x_i^2/4$ do not see the signs of the amplitudes: the eight octants of the clock sphere are
+the eight lifts of the clock simplex, which is their quotient by the octant group.
+\end{proposition}
+
+\begin{proof}
+$B_x$ is diagonal by \cref{r3:prop:octants}(i), and $\sum_i\sigma_ix_i<\sum_i|x_i|$ unless $\sigma=\operatorname{sign}(x)$. Equivariance follows
+from \cref{r3:prop:octgroup} (r3-6, with twenty random rational $x$).
+\end{proof}
+
+The spectral statements are fixed. The identification of the clock octant with the vacuum pole is constructed: it uses the order in
+$\omega_i=e_ie_{i+3}$ and the choice of the top rather than the bottom eigenline, and the opposite choice assigns the filled pole. The two
+objects are different in kind, a two-dimensional region of the sphere of clock directions in $V^+$ and a line of the spinor module; read
+physically, the correspondence is interpretive.
+
+\subsection{The exterior-algebra structure}
+\label{r3:sec:exterior}
+
+\begin{proposition}[The spinor module as an exterior algebra]
+\label{r3:prop:fock}
+$L:=\operatorname{span}\{e_i+e_{i+3}\}$ and $L':=\operatorname{span}\{e_i-e_{i+3}\}$ are maximal isotropic, transverse, and dual to each other
+under $\eta$. The map $\Lambda^r(L)\to S$, $\ell_1\wedge\dots\wedge\ell_r\mapsto2^{-r}\ell_1\cdots\ell_r|\mathrm{vac}\rangle$, is an isomorphism
+$\Lambda^*(L)\cong S$ carrying the degree to $N$, with $\dim\Lambda^w=1,3,3,1$ for $w=N=0,1,2,3$: the weights of the octants. A vector
+$X\in V$ acts as exterior multiplication by its $L$-part plus contraction with its $L'$-part,
+\begin{equation}
+\label{r3:eq:Xfock}
+X=\sum_i\bigl[(B_i+E_i)\,a^+_i+(B_i-E_i)\,a^-_i\bigr].
+\end{equation}
+Moreover $a\mapsto a|\mathrm{vac}\rangle$ is an isomorphism from the temporal Clifford algebra $\Cl(V^+)=\langle e_1,e_2,e_3\rangle\cong\Cl(3,0)$ onto
+$S$, and $e_I|\mathrm{vac}\rangle=a^+_I|\mathrm{vac}\rangle$: the octant weight $N$ is the Clifford grade of the temporal blade $e_I$.
+\end{proposition}
+
+\begin{proof}
+$\eta(e_i\pm e_{i+3},e_j\pm e_{j+3})=\delta_{ij}-\delta_{ij}=0$, while $\eta(e_i+e_{i+3},e_j-e_{j+3})=2\delta_{ij}$. Elements of $L$ anticommute, so the
+map is well defined, and it is bijective by \cref{r3:prop:octants}(iii). \Cref{r3:eq:Xfock} is $e_i=a^+_i+a^-_i$, $e_{i+3}=a^+_i-a^-_i$. Finally
+$e_j=a^+_j+a^-_j$ and $a^-_j$ annihilates $a^+_I|\mathrm{vac}\rangle$ for $j\notin I$, which gives $e_I|\mathrm{vac}\rangle=a^+_I|\mathrm{vac}\rangle$ by induction (r3-7).
+\end{proof}
+
+Inherited: this is Chevalley's realisation of the spinors of a space $L\oplus L'$ with $L'\cong L^*$ on $\Lambda^*(L)$
+\cite{Chevalley54,LawsonMichelsohn}, and the pure spinor lines of \cref{r3:prop:octants}(iv) are the lines of Cartan and Chevalley (see Section~2
+of \cite{Gualtieri03}). The last statement is the classical identification of the spinors of $\Cl(3,3)\cong M_8(\R)$ restricted to
+$\Cl(3,0)$ with the Pauli algebra itself.
+
+\begin{proposition}[The commutant of the grading root]
+\label{r3:prop:gl3}
+The elements of $\so{3,3}$ commuting with $\cK$ form a subalgebra of dimension nine, the adjoint image of the bivectors
+$E_{ij}:=a^+_ia^-_j-\tfrac12\delta_{ij}\id$ (so $E_{ij}=a^+_ia^-_j$ for $i\neq j$ and $E_{ii}=-\tfrac12\omega_i$). They commute with $N$; $\ad E_{ij}$ acts
+on $L$ by the matrix unit $e_{ij}$ and on $L'$ by $-e_{ji}$, so the subalgebra is $\mathfrak{gl}(L)\cong\mathfrak{gl}(3,\R)$; and the spin lift of
+$A\in\mathfrak{gl}(3)$ acts on $\Lambda^w(L)$ as $\Lambda^w(A)-\tfrac12\tr A$. As a $\mathfrak{gl}(3)$-module, $S\cong\Lambda^*(L)\otimes(\det L)^{-1/2}$.
+\end{proposition}
+
+\begin{proof}
+$\cK$ has the eigenspaces $L$ (eigenvalue $-1$) and $L'$ ($+1$), so an element commuting with it preserves both; $\eta$-skewness then
+forces $A|_{L'}=-(A|_L)^*$ under $L'\cong L^*$, and every $A|_L\in\mathfrak{gl}(L)$ occurs: dimension nine. Since $\cK=\tfrac12\ad_{\mathsf P}$ and
+$\mathsf P=3\,\id-2N$, an element $\ad\beta$ commutes with $\cK$ iff $[N,\beta]=0$. A bivector is quadratic in the $a^\pm$; the number-conserving
+ones are the $a^+_ia^-_j$ up to scalars, and $E_{ij}$ removes the scalar part. By the CAR $[a^+_ia^-_j,a^+_k]=\delta_{jk}a^+_i$ and
+$[a^+_ia^-_j,a^-_k]=-\delta_{ik}a^-_j$, and $a^+_ia^-_j$ acts on $a^+_K|\mathrm{vac}\rangle$ as the derivation replacing $a^+_j$ by $a^+_i$ (r3-8).
+\end{proof}
+
+The statement is standard (Example~2.12 of \cite{Gualtieri03} gives $\Lambda^*V^*\otimes(\det V)^{1/2}$ with $V^*$ in the role of $L$); it is fixed
+here in the realisation. It corrects the expectation that $\mathfrak{gl}(3)$ acts on $\Lambda^w$ as the bare exterior power: the density factor
+$-\tfrac12\tr A$, the same on all weights, is part of the spin representation. The commutant of $\cK$ is not stated in \cite{ES17} or \cite{RE}.
+
+\subsection{The field-octant map}
+\label{r3:sec:phi}
+
+The map should intertwine the rotations of the field. Which rotations act on both triples as the field's rotations is fixed first.
+
+\begin{lemma}[The diagonal rotations]
+\label{r3:lem:rot}
+For cyclic $(i,j,k)$ the bivector $L_i=\tfrac12(e_{j+3}e_{k+3}-e_je_k)$ of \cite{RE} acts on $V$ by $\delta\bB=e_i\times\bB$, $\delta\bE=e_i\times\bE$
+and commutes with $G$ and $\cK$. The paired bivector $e_je_k+e_{j+3}e_{k+3}$ rotates the two triples in opposite senses and commutes with
+neither. The diagonal rotations $\so3_\Delta=\operatorname{span}\{L_i\}$ are the compact part of $\lG$ and the antisymmetric part of
+$\mathfrak{gl}(3)$, and $\so3_\Delta=\lG\cap\mathfrak{gl}(3)$. In Fock form
+\[
+L_i=a^+_ka^-_j-a^+_ja^-_k,\qquad K_i=\tfrac12(e_ke_{j+3}-e_je_{k+3})=a^-_ja^-_k-a^+_ja^+_k .
+\]
+The spin lift of $L_i$ (left multiplication) satisfies $L_i^3=-L_i$, so $\exp(2\pi L_i)=\id$ on $S$; it annihilates exactly
+$\operatorname{span}\{|\mathrm{vac}\rangle,|\mathrm{full}\rangle\}$ and acts as $L_if_m=\epsilon_{imn}f_n$, $L_ig_m=\epsilon_{imn}g_n$ on
+\[
+f_k:=a^+_k|\mathrm{vac}\rangle,\qquad g_m:=\tfrac12\epsilon_{mjk}\,a^+_ja^+_k|\mathrm{vac}\rangle .
+\]
+\end{lemma}
+
+\begin{proof}
+$[e_je_k,e_k]=2e_j$ and $[e_je_k,e_j]=-2e_k$, while $[e_{j+3}e_{k+3},e_{k+3}]=-2e_{j+3}$ because $e_{k+3}^2=-\id$: the relative minus sign makes the
+triples turn alike. $G$ and $\cK$ map $e_i$ to $\pm e_{i+3}$, so they commute with $R\oplus R'$ iff $R=R'$. The Fock forms follow from
+$e=a^++a^-$, $e'=a^+-a^-$ and the CAR, and the action on $f,g$ from $[L_i,a^+_m]=\epsilon_{imn}a^+_n$ and $L_i|\mathrm{vac}\rangle=0$. The intersection is
+computed in r3-9, which also checks $K_i=GL_i$ on $V$ (Proposition~13.6 of \cite{ES17}) and the brackets of Theorem~12.3 of \cite{ES17}.
+\end{proof}
+
+Restated and fixed (r3-9). The paired combination proposed as a candidate is the wrong one; with the minus sign it is the diagonal
+rotation of Theorem~12.1 of \cite{ES17}, whose spin lift has integer spin on $S$, as Proposition~13.12 of \cite{ES17} states.
+
+\begin{theorem}[The field-octant map]
+\label{r3:thm:phi}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item The linear maps $V\to S$ intertwining $\so3_\Delta$ form a four-dimensional space. Those sending $\bE$ into weight one and $\bB$ into
+weight two form the two-parameter family
+\[
+\Phi_{\alpha,\beta}(X)=\alpha\sum_kE_kf_k+\beta\sum_mB_mg_m ,
+\]
+and $\Phi:=\Phi_{1,1}$ is an isometry of $\R^6$ onto the six field octants.
+\item Under $a^+_I|\mathrm{vac}\rangle\leftrightarrow dx^I$, $\Phi(X)=E_k\,dx^k+\tfrac12\epsilon_{mjk}B_m\,dx^j\wedge dx^k$: $\bE$ is a one-form and $\bB$ a two-form
+on $\R^3$.
+\item The spin lift of $\mathfrak{gl}(3)$ preserves the image of $\Phi$ and induces $\bE\mapsto(A-\tfrac12\tr A)\bE$ and $\bB\mapsto(\tfrac12\tr A-A^{\!\top})\bB$: $\bE$
+transforms in $L\otimes(\det L)^{-1/2}$ and $\bB$ in $L^*\otimes(\det L)^{1/2}$, contragredient up to the determinant.
+\item The same $\mathfrak{gl}(3)\subset\so{3,3}$ acts on the field point through the light-cone components, $\bB+\bE\mapsto A(\bB+\bE)$,
+$\bB-\bE\mapsto-A^{\!\top}(\bB-\bE)$. For symmetric $A$ this is $\bB\mapsto A\bE$, $\bE\mapsto A\bB$, a set of boosts, and $\Phi$ intertwines the
+vector action of $\mathfrak{gl}(3)$ with its spin lift only on $\so3_\Delta$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(i) As $\so3_\Delta$-modules $V=2\cdot\R^3$ and, by \cref{r3:lem:rot}, $S=2\cdot\R^3\oplus2\cdot\R$ (the $f$'s, the $g$'s and the poles). The
+vector representation is absolutely irreducible, so by Schur's lemma \cite{GoodmanWallach} $\Hom(\R^3,\R^3)=\R$ and $\Hom(\R^3,\R)=0$; the
+weight condition leaves one scale on each copy. (ii) $a^+_k$ acts as $dx^k\wedge$, and $g_1=a^+_2a^+_3|\mathrm{vac}\rangle\leftrightarrow dx^2\wedge dx^3$
+cyclically. (iii) follows from \cref{r3:prop:gl3}: on $\Lambda^1$ the action is $A-\tfrac12\tr A$, and on $\Lambda^2(L)\cong L^*\otimes\det L$, in the
+basis $g_m$, it is $\tr A-A^{\!\top}$, from which $\tfrac12\tr A$ is subtracted. (iv) is \cref{r3:prop:gl3} on $V$ with \cref{r3:eq:Xfock}
+(r3-10, r3-11).
+\end{proof}
+
+Items (i), (iii), (iv) are fixed; $\Phi$ itself is constructed. Item (ii) is the premetric statement that the electric field strength is a
+one-form and the magnetic field strength a two-form on space, $F=\bE\wedge d\sigma+\bB$ in the notation of Hehl and Obukhov \cite{HehlObukhov03}
+(inherited). Item (iv) is the precise form of the expectation that ``under $\mathfrak{gl}(3,\R)$, $\bE$ is a vector and $\bB$ a two-form'': this is
+true of the spin lift on the octants and false of the vector action on the field point, where the symmetric part of $\mathfrak{gl}(3)$
+mixes $\bE$ with $\bB$. The two scales of (i) are tied together by Maxwell's equations in \cref{r3:prop:maxunique}.
+
+\begin{proposition}[Parity on the octants]
+\label{r3:prop:parity}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item $\Ad_T|_V=\eta$ is the frame parity, fixing $\bB$ and reversing $\bE$ (Proposition~2.11 of \cite{RE}), and $T$ is, up to a factor, the only
+element of $\Cl(3,3)$ implementing it. $T$ carries each octant to its antipode,
+\[
+T|\mathrm{vac}\rangle=|\mathrm{full}\rangle,\quad Tf_k=g_k,\quad Tg_k=-f_k,\quad T|\mathrm{full}\rangle=-|\mathrm{vac}\rangle,
+\]
+and $T\Phi=-\Phi\circ G$: on the field octants the spinor lift of parity acts as minus the Hodge star, exchanging electric and magnetic octants.
+\item $(-1)^N\Phi=\Phi\circ\eta$: the weight parity, which is the chirality $\gamma_5=-\Gamma$, acts as $-1$ on the image of $\bE$ and $+1$ on the image
+of $\bB$; but $\Ad_{(-1)^N}=-\id$ on $V$.
+\item The Dirac parity $P=\gamma^0=e_1$ of Theorem~5.3 of \cite{ES17} acts on the frame field by
+$(\bB;\bE)\mapsto(B_1,-B_2,-B_3;-\bE)$, and $e_1f_1=|\mathrm{vac}\rangle$: it leaves the field octants.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) $T$ commutes with $e_1,e_2,e_3$ and anticommutes with $e_4,e_5,e_6$; uniqueness is Skolem--Noether. $T=\prod_i(a^+_i+a^-_i)$ flips all three
+signs, and the displayed values are r3-12. With them $T\Phi(X)=\sum_k(E_kg_k-B_kf_k)$, while $GX$ has $\bB'=-\bE$, $\bE'=\bB$. (ii) $(-1)^N$ is $-1$ on
+$f$ and $+1$ on $g$; $\Gamma$ anticommutes with every vector. (iii) $e_1$ commutes with itself and anticommutes with the other generators,
+and it flips the first sign (r3-12).
+\end{proof}
+
+Fixed. The polar and axial characters of $\bE$ and $\bB$ are present on the octants, but they are carried by the weight parity
+$(-1)^N=-\Gamma$, whose Clifford action on $V$ is the total reflection $X\mapsto-X$, and not by the spinor lift $T$ of the parity, which acts on
+the field octants as the duality rotation by $-\pi/2$. This is possible because $\Phi$ intertwines the rotations only, not the Clifford
+action of $\mathrm{Pin}(3,3)$; it contradicts the expectation that ``parity acts as $-1$ on $\bE$ and $+1$ on $\bB$'' if parity means the spinor
+lift of the spatial inversion.
+
+\begin{remark}[The earlier field-octant bijection]
+\label{r3:rem:bijection}
+The earlier version called the octants with one plus sign electric and those with two plus signs magnetic, the octant with its single
+plus sign in pair $k$ carrying $E_k$ and the octant with its single minus sign in pair $m$ carrying $B_m$. Its electric octants are therefore
+the lines of the $g_k$, of weight $N=2$, and its magnetic ones those of the $f_m$, of weight $N=1$: up to signs, which it does not fix, its
+labelling is that of $\Phi\circ G$ (\cref{r3:prop:maxunique}), not of $\Phi$. In both labellings $E_k$ and $B_k$ sit on antipodal octants,
+which the mass form pairs (\cref{r3:prop:energies}). The earlier bijection mapped octants to a basis of interior bivectors, a bijection of labels
+and not a linear map; it is admissible as a labelling and equivalent to $\Phi$ by a duality rotation of a quarter turn, and nothing in the
+octant structure prefers it. Its derivation of $E=cB$ from a count of ``temporal kernels'' is not reproduced: in the present construction the
+ratio of the two scales of $\Phi_{\alpha,\beta}$ is $c$ in SI units, the conversion constant of Proposition~2.7 of \cite{RE}, fixed by Faraday's
+law (\cref{r3:prop:maxunique} and \cref{r3:thm:maxwell}(iii)).
+\end{remark}
+
+\subsection{The field point acting on the poles}
+\label{r3:sec:poles}
+
+\begin{proposition}[Light-cone amplitudes]
+\label{r3:prop:poles}
+For every $X=\sum_i(B_ie_i+E_ie_{i+3})$
+\begin{equation}
+\label{r3:eq:poles}
+X|\mathrm{vac}\rangle=\sum_i(B_i+E_i)\,f_i,\qquad X|\mathrm{full}\rangle=\sum_i(B_i-E_i)\,g_i=\sum_i(-1)^{i-1}(B_i-E_i)\,|111\oplus\delta_i\rangle ,
+\end{equation}
+and $X^2=\eta(X,X)\id=\sum_i(B_i+E_i)(B_i-E_i)\,\id$. The amplitudes $B_i\pm E_i$ are the coordinates of $X$ on $L$ and $L'$, the eigen-coordinates of
+$\cK$, with $\bB+\bE=\sqrt2\,\Re(e^{-i\pi/4}z)$ and $\bB-\bE=-\sqrt2\,\Im(e^{-i\pi/4}z)$. Further
+\begin{equation}
+\label{r3:eq:eighth}
+X\bigl(|\mathrm{vac}\rangle+|\mathrm{full}\rangle\bigr)=\sqrt2\,\Phi\bigl(e^{\pi G/4}X\bigr).
+\end{equation}
+No spinor $\chi$ satisfies $X\chi=\Phi(X)$ for all $X$; the Clifford multiplications $X\mapsto X\chi$ that intertwine the rotations are those with
+$\chi\in\operatorname{span}\{|\mathrm{vac}\rangle,|\mathrm{full}\rangle\}$, and none of them places $\bE$ and $\bB$ on separate weights.
+\end{proposition}
+
+\begin{proof}
+\Cref{r3:eq:poles} follows from \cref{r3:eq:Xfock} with $a^-_i|\mathrm{vac}\rangle=0$, $a^+_i|\mathrm{full}\rangle=0$ and $a^-_i|\mathrm{full}\rangle=g_i$; $X^2$ follows from the
+CAR. The duality rotation $e^{\pi G/4}$ gives $\bE'=(\bE+\bB)/\sqrt2$, $\bB'=(\bB-\bE)/\sqrt2$, which is \cref{r3:eq:eighth}. If $X\chi=\Phi(X)$, then
+$e_1\chi=g_1$ and $e_4\chi=f_1$, i.e.\ $\chi=e_1|011\rangle=|111\rangle$ and $\chi=-e_4|100\rangle=|000\rangle$, a contradiction. $L_i(X\chi)=[L_i,X]\chi+XL_i\chi$, so
+equivariance requires $L_i\chi=0$, and then $X(a|\mathrm{vac}\rangle+b|\mathrm{full}\rangle)$ puts $a(\bB+\bE)$ on weight one (r3-13).
+\end{proof}
+
+Fixed; the reading is interpretive. The phrase ``$X=\bE+\bB$'' has an exact meaning: the field point, acting on the vacuum pole by Clifford
+multiplication, places on the $i$-th electric octant the amplitude $E_i+B_i$, which in textbook variables is $E_i-B_{{\rm t}i}$; on the filled
+pole it places $B_i-E_i=-(E_i+B_{{\rm t}i})$ on the $i$-th magnetic octant. The poles see the para-complex light-cone components of the field,
+never $\bE$ and $\bB$ separately, and the Clifford action differs from the field-octant map by a duality rotation of an eighth of a turn,
+\cref{r3:eq:eighth}. (An eighth of a turn also separates the Klein correspondence from the frame reading in Theorem~13.13 of \cite{ES17}; the
+maps are different and we draw no conclusion from the coincidence.)
+
+\subsection{Boosts and duality cannot act by even elements}
+\label{r3:sec:boosts}
+
+\begin{theorem}[The even obstruction]
+\label{r3:thm:noeven}
+Every even element of $\Cl(3,3)$ commutes with $(-1)^N$ and maps an octant of weight $w$ into the weights $w$ and $w\pm2$; this includes $\so{3,3}$,
+$\mathrm{Spin}(3,3)$ and the spin lifts of $\lG$ and $\lint$. No even $Q$ satisfies $Q\Phi=\Phi K_k$ for a boost $K_k$ of $\lG$, or $Q\Phi=\Phi G$.
+At the level of groups, no element of $\Cl(3,3)$ of definite parity intertwines $e^{sK_k}$ $(s\neq0)$ with $\Phi$, nor $e^{\vartheta G}$ unless
+$\vartheta\in\tfrac\pi2\Z$.
+\end{theorem}
+
+\begin{proof}
+$(-1)^N=-\omega$ commutes with even and anticommutes with odd elements, and weights of equal parity differ by $0$ or $2$. By Example~12.4 of
+\cite{ES17}, $K_3e_1=e_5$; so $\Phi(e_1)=g_1$ has weight two and $\Phi(K_3e_1)=f_2$ weight one, and an even $Q$ cannot map the first to the
+second. Likewise $\Phi(e_1)=g_1$ and $\Phi(Ge_1)=\Phi(e_4)=f_1$. For the groups, $e^{sK_3}e_1=\cosh s\,e_1+\sinh s\,e_5$, so $\Phi(e^{sK_3}e_1)$ has
+components of both parities when $s\neq0$, while an element of definite parity maps $g_1$ to a vector of definite parity; the same holds for
+$e^{\vartheta G}e_1=\cos\vartheta\,e_1+\sin\vartheta\,e_4$ unless $\cos\vartheta\sin\vartheta=0$ (r3-14, r3-15).
+\end{proof}
+
+Obstructed, under the hypothesis that the operator has definite parity; the hypothesis covers every element of the spin group and of its
+Lie algebra. The intertwiners that do exist are odd:
+
+\begin{proposition}[Odd intertwiners and the octant representation]
+\label{r3:prop:odd}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item $-T\Phi=\Phi G$ and $Q_k\Phi=\Phi K_k$ for
+\[
+Q_k:=-TL_k=-\tfrac12e_k(\id-\omega_j\omega_l)=-\tfrac12(e_k+e_{k+3}\omega),\qquad\{k,j,l\}=\{1,2,3\},
+\]
+an odd element with parts of grades one and five. The solutions of $Q\Phi=\Phi K_k$ form an affine space of dimension $16$, of dimension $8$
+among odd elements, and contain no Clifford vector; no Clifford vector implements $G$ on the octants.
+\item On $S=\Cl(V^+)|\mathrm{vac}\rangle$ (\cref{r3:prop:fock}), $Q_k(a|\mathrm{vac}\rangle)=-\tfrac12[e_k,a]|\mathrm{vac}\rangle$ and $-T$ is left multiplication by the
+central element $-e_1e_2e_3$ of $\Cl(V^+)$.
+\item $\rho_{\rm oct}(L_k)=L_k$, $\rho_{\rm oct}(K_k)=Q_k$ is a representation of $\lG$ on $S$. Its Casimir $\sum_k\rho_{\rm oct}(K_k)^2-\rho_{\rm oct}(L_k)^2$
+is $4$ on the field octants, the field-strength value, and $0$ on the poles, and its intertwiners $V\to S$ are $\operatorname{span}\{\Phi,\Phi G\}$.
+\item The spin lift of $\lG$ has Casimir $3$ on all of $S$ and admits no nonzero intertwiner $V\to S$. Its boosts carry $f_k$ to $-|\mathrm{full}\rangle$
+and $|\mathrm{vac}\rangle$ to $-g_k$: under the genuine Lorentz action the electric octants are the spatial components of the four-vector $S^+$
+whose time component is the filled pole, and the magnetic octants those of the four-vector $S^-$ whose time component is the vacuum.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) $T$ commutes with the same-sign bivectors, hence with $L_k$, so $-TL_k\Phi=-T\Phi L_k=\Phi GL_k=\Phi K_k$ by \cref{r3:prop:parity}(i) and $K_k=GL_k$.
+The closed forms use $T(e_je_l)=-e_k$ for cyclic $(k,j,l)$ and $e_{k+3}\omega=-e_k\omega_j\omega_l$. The values of a solution on the two poles are free, eight
+components each, four of them of the parity opposite to the pole (r3-15). (ii) $e_{k+3}\omega$ commutes with $e_1,e_2,e_3$ and sends $|\mathrm{vac}\rangle$ to $-e_k|\mathrm{vac}\rangle$,
+so it acts on $a|\mathrm{vac}\rangle$ as $-a\,e_k$. (iii) $T$ commutes with $\rho_{\rm oct}(L)$ and $T^2=-\id$, so the brackets of $\lG$ follow from
+those of $\so3$; $\rho_{\rm oct}(K)^2=-L^2$ gives the Casimir, and an intertwiner is a $T$-linear map $\C^3\to\C^3$ commuting with $\so3$, hence a
+complex multiple of $\Phi$ (r3-16). (iv) The Casimir is Proposition~13.12 of \cite{ES17}; $S=2(\tfrac12,\tfrac12)$ contains no
+$(1,0)\oplus(0,1)$; the boost formulas are $K_k=a^-_ja^-_l-a^+_ja^+_l$ on $f_k$ and $|\mathrm{vac}\rangle$ (r3-16).
+\end{proof}
+
+Constructed (i)--(iii), restated and fixed (iv). Item (ii) identifies the construction: in textbook variables (\cref{r3:thm:maxwell}) the
+field octants carry Hestenes' Pauli-algebra field $F=\bE+I\Btext$ \cite{Hestenes66}, written with $\sigma_k=e_k$ and $I=T$, and the boosts and the
+duality rotation act as they do in the Pauli algebra, through the commutator with $\sigma_k$ and through multiplication by $I$. The
+commutator is a left multiplication combined with a right multiplication, and on $S$ the right multiplication is the odd element
+$e_{k+3}\omega$: this is the reason the boosts are odd. Which symmetries of the field the octant picture carries is now settled.
+
+\begin{corollary}[What the octants carry]
+\label{r3:cor:carries}
+By even elements of $\Cl(3,3)$ the field octants carry the rotations $\so3_\Delta$ and the premetric $\mathfrak{gl}(3)$ of \cref{r3:thm:phi}(iii),
+through their spin lifts, and the parity, through $(-1)^N=-\omega$. They do not carry the boosts or the duality
+rotations, which act only through the odd operators $Q_k$ and $-T$ of the representation $\rho_{\rm oct}$, the Pauli algebra of the temporal triple.
+The spin-lifted Lorentz algebra $\lG$ makes the field octants parts of two four-vectors, not of a field strength.
+\end{corollary}
+
+The working note \cite{FMB} (Section~7) states that there is no nonzero linear Lorentz-equivariant map from the field-strength module to
+the four-vectors. Item (iv) confirms the same fact for the spinor module, whose modules under $\lG$ are four-vectors; the note's statement that
+$G$ can represent the Hodge star on the field (its Definition~2.2 and its verdict table) is confirmed on the octants with a correction: the
+operator representing it there is the odd element $-T$, the note's $I_T=e_1e_2e_3$ of its Section~5, not an element of $\mathrm{Spin}(3,3)$.
+
+\subsection{Energies on the octants}
+\label{r3:sec:energies}
+
+\begin{proposition}[Energies and the Chevalley--Mukai pairing]
+\label{r3:prop:energies}
+Let $\psi=\Phi(X)=\psi_{\bE}+\psi_{\bB}$ with $\psi_{\bE}=\sum_kE_kf_k$, $\psi_{\bB}=\sum_mB_mg_m$.
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item $|\psi|^2=|\bE|^2+|\bB|^2=2E_6$ and $\psi^{\!\top}(-1)^N\psi=|\bB|^2-|\bE|^2=\Re q$.
+\item $\psi_{\bE}^{\!\top}T\psi_{\bB}=-\bE\cdot\bB=-\tfrac12\Im q$, while $\psi^{\!\top}T\psi=0$ and $\psi^{\!\top}T\Gamma\psi=2\,\bE\cdot\bB=\Im q$. Hence
+\[
+E_0=\tfrac12|q|=\tfrac12\Bigl[\bigl(\psi^{\!\top}(-1)^N\psi\bigr)^2+4\bigl(\psi_{\bE}^{\!\top}T\psi_{\bB}\bigr)^2\Bigr]^{1/2}.
+\]
+\item The $\mathrm{Spin}(3,3)$-invariant bilinear forms on $S$ are $\operatorname{span}\{T,T\Gamma\}$, $T$ antisymmetric and $T\Gamma$ symmetric. Under
+$\Lambda^*(L)\cong S$ the Chevalley--Mukai pairing $(\varphi,\chi)=[\tau(\varphi)\wedge\chi]_{\rm top}$, with $\tau$ the reversal, equals
+$-\varphi^{\!\top}T\chi$. Two octants pair to a nonzero value iff their null planes $N_\sigma,N_\tau$ are transverse, iff they are antipodal.
+\item $(-1)^N$ and the Euclidean norm are invariant under the six compact bivectors and under $\rho_{\rm oct}$; $(-1)^N$ is invariant under none of
+the nine boosts.
+\item In SI units, with $\psi=\Phi(\bE,c\bB)$ $[\mathrm{V\,m^{-1}}]$, $u=\tfrac{\varepsilon_0}2|\psi|^2$ is the energy density and
+$\psi^{\!\top}(-1)^N\psi=\Re q_c$, $q_c=z_c\cdot z_c$, $z_c=c\bB+i\bE$ (Proposition~2.8 of \cite{RE}).
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+The $f_k,g_m$ are orthonormal, $(-1)^N=\mp1$ on them, $Tg_m=-f_m$ and $\Gamma=-(-1)^N$, which gives (i), (ii) and the formula for $E_0$ by
+$|q|^2=(\Re q)^2+(\Im q)^2$. (iii) A form $M$ is invariant iff $\beta^{\!\top}M+M\beta=0$ for the fifteen bivectors, a linear system with a
+two-dimensional solution space (r3-18, the count of Theorem~13.13 of \cite{ES17}); $T$ commutes with the antisymmetric (same-sign) and
+anticommutes with the symmetric (mixed) bivectors, and $\Gamma$ commutes with all of them (Proposition~2.11 of \cite{RE}). The Mukai identity is
+checked on all $64$ pairs of basis forms, and $\dim(N_\sigma\cap N_\tau)$ is the number of agreeing signs. (iv), (v): r3-17, r3-18.
+\end{proof}
+
+Items (i), (ii), (iv) are fixed, (iii) is inherited in substance and verified here, (v) restates \cite{RE}. The Chevalley form on the spinors
+of $L\oplus L'$, antisymmetric for $\dim L=3$ since $(-1)^{3\cdot2/2}=-1$, and its non-vanishing on pure spinors exactly for transverse null
+planes are Chevalley's \cite{Chevalley54}; Gualtieri identifies the form with the Mukai pairing (Section~2.4 and Proposition~2.21 of
+\cite{Gualtieri03}). So the Spin$(3,3)$-invariant mass form $T$ is, on the octants, the Chevalley--Mukai pairing of each octant with its
+antipode: of the vacuum with the filled pole and of $f_k$ with $g_k$, that is, of $E_k$ with $B_k$. This confirms the expected identification and
+corrects its sign statement: $T(\Phi(\bE),\Phi(\bB))=-\bE\cdot\bB$ and $-\tfrac12\Im q$ carry the same sign. The Lorentz invariant $\Re q$ appears on
+the octants through the form $(-1)^N$, which is not $\mathrm{Spin}(3,3)$-invariant, while the invariant symmetric form $T\Gamma$ gives $\Im q$;
+both facts are consistent with \cref{r3:thm:noeven} and with the representation $\rho_{\rm oct}$, which preserves $(-1)^N$.
+
+\subsection{Maxwell's equations on the octants}
+\label{r3:sec:maxwell}
+
+\begin{proposition}[Exterior derivative and codifferential]
+\label{r3:prop:dk}
+On $S$-valued fields put $d:=\sum_ia^+_i\partial_i$ and $\delta:=-\sum_ia^-_i\partial_i$. Then $d^2=\delta^2=0$,
+\[
+d-\delta=\sum_ie_i\partial_i=:D,\qquad d+\delta=\sum_ie_{i+3}\partial_i=:D',\qquad D^2=\Delta,\qquad D'^2=-\Delta,
+\]
+and under $f_k\leftrightarrow dx^k$, $g_m\leftrightarrow\star dx^m$, $|\mathrm{vac}\rangle\leftrightarrow1$, $|\mathrm{full}\rangle\leftrightarrow dx^1\wedge dx^2\wedge dx^3$, $d$ and $\delta$
+are the exterior derivative and the codifferential of the Euclidean $\R^3$: $d(\bE\cdot f)=(\curl\bE)\cdot g$, $d(\bB\cdot g)=(\nabla\cdot\bB)|\mathrm{full}\rangle$,
+$\delta(\bE\cdot f)=-(\nabla\cdot\bE)|\mathrm{vac}\rangle$, $\delta(\bB\cdot g)=(\curl\bB)\cdot f$.
+\end{proposition}
+
+\begin{proof}
+$d^2=\sum_{ij}a^+_ia^+_j\partial_i\partial_j=0$ because $a^+_ia^+_j$ is antisymmetric, and likewise for $\delta$; $a^+_i\pm a^-_i$ are $e_i$ and $e_{i+3}$, and
+$D^2=\sum_ie_i^2\partial_i^2$, $D'^2=\sum_ie_{i+3}^2\partial_i^2$. The four formulas use $a^-_ig_m=\epsilon_{mik}f_k$ and $a^+_mg_m=|\mathrm{full}\rangle$ (r3-19).
+\end{proof}
+
+Inherited, and verified here: $D=d-\delta$ is K\"ahler's operator on inhomogeneous forms \cite{Kahler62}, the forms read as spinors \cite{Graf78}
+and the Dirac--K\"ahler equation of Becher and Joos \cite{BecherJoos82}, here on space.
+
+\begin{theorem}[Maxwell's equations as one equation on the octants]
+\label{r3:thm:maxwell}
+For every smooth field $X(t,\mathbf x)$,
+\begin{equation}
+\label{r3:eq:maxwell}
+(\partial_t-D)\,\Phi(X)=-(\nabla\cdot\bE)\,|\mathrm{vac}\rangle+(\partial_t\bE+\curl\bB)\cdot f+(\partial_t\bB-\curl\bE)\cdot g-(\nabla\cdot\bB)\,|\mathrm{full}\rangle .
+\end{equation}
+Consequently:
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item Maxwell's equations with sources in the frame variables, $\partial_tz=-i\curl z-i\bj$ and $\nabla\cdot z=i\rho$ (eq.~(16) of \cite{ES17}), are equivalent to
+\[
+(\partial_t-D)\,\Phi(X)=-\bigl(\rho\,|\mathrm{vac}\rangle+\bj\cdot f\bigr):
+\]
+the vacuum component is Gauss's law $\nabla\cdot\bE=\rho$, the filled component the absence of magnetic charge, the electric octants carry the
+Amp\`ere--Maxwell law $\partial_t\bE=-\curl\bB-\bj$ and the magnetic octants Faraday's law $\partial_t\bB=\curl\bE$.
+\item $(\partial_t+D)(\partial_t-D)=\partial_t^2-\Delta$ on all eight components, while $(\partial_t+D')(\partial_t-D')=\partial_t^2+\Delta$. The derivatives along the
+three lengths $x^a$ couple to the temporal generators $e_1,e_2,e_3$, of square $+\id$, not to the spatial ones that carry the lengths in $V$.
+\item In SI units $\bigl(\tfrac1c\partial_t-D\bigr)\Phi(\bE,c\bB)=-(c\rho\,|\mathrm{vac}\rangle+\bj\cdot f)/(\varepsilon_0c)$.
+\item In textbook variables $\Phi_{\rm t}(X):=\bE\cdot f+\Btext\cdot g=-(-1)^N\Phi(X)$ satisfies $T\Phi_{\rm t}=\Phi_{\rm t}\circ G$ and
+\[
+(\partial_t+D)\,\Phi_{\rm t}(X)=\rho\,|\mathrm{vac}\rangle-\bj\cdot f,\qquad \Phi_{\rm t}(X)=\Bigl(\sum_kE_ke_k+\sum_kB_{{\rm t}k}\,Te_k\Bigr)|\mathrm{vac}\rangle ,
+\]
+which, under $S\cong\Cl(V^+)$ with $\sigma_k=e_k$ and $I=T$, is the equation $(\partial_t+\nabla)(\bE+I\Btext)=\rho-\bj$ of the Pauli algebra.
+\item With pole components $\psi=\Phi(X)+\phi_0|\mathrm{vac}\rangle+\phi_3|\mathrm{full}\rangle$, $(\partial_t-D)\psi=0$ reads $\partial_t\phi_0=\nabla\cdot\bE$, $\partial_t\phi_3=\nabla\cdot\bB$,
+$\partial_t\bE=-\curl\bB+\nabla\phi_0$, $\partial_t\bB=\curl\bE+\nabla\phi_3$; every component of a solution obeys the wave equation, so the Gauss constraints
+hold for all times if $\phi_0,\phi_3$ and the two divergences vanish initially.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+\Cref{r3:eq:maxwell} is $\partial_t\Phi(X)-(d-\delta)\Phi(X)$ with the four formulas of \cref{r3:prop:dk}; it is checked on general symbolic fields
+$E_k(t,\mathbf x)$, $B_k(t,\mathbf x)$ (r3-20), and the real and imaginary parts of the residuals of eq.~(16) of \cite{ES17} are exactly the
+components of $(\partial_t-D)\Phi(X)+\rho|\mathrm{vac}\rangle+\bj\cdot f$. (ii) $(\partial_t+D)(\partial_t-D)=\partial_t^2-D^2$ (r3-21). (iii) is (i) with $\Phi(\bE,c\bB)$ and
+$\partial_t\bE=-c^2\curl\bB-\bj/\varepsilon_0$, $\nabla\cdot\bE=\rho/\varepsilon_0$ (r3-24, on first-order jets). (iv) $\Phi_{\rm t}(X)=\bE\cdot f-\bB\cdot g$; $(-1)^N$
+anticommutes with $D$; $Te_k=e_je_l$ cyclically gives the second form; under $a|\mathrm{vac}\rangle\leftrightarrow a$ left multiplication by $e_k$ is that by $\sigma_k$ (r3-24). (v) is
+\cref{r3:eq:maxwell} together with $D(\phi_0|\mathrm{vac}\rangle)=\nabla\phi_0\cdot f$ and $D(\phi_3|\mathrm{full}\rangle)=\nabla\phi_3\cdot g$ (r3-21); the wave equation follows from (ii), and
+$\phi_0$ with $\phi_0=\partial_t\phi_0=0$ at $t=0$ vanishes identically.
+\end{proof}
+
+Fixed in the realisation and inherited in substance: (iv) is the Pauli-algebra form, obtained by multiplying with $\gamma_0$, of the
+spacetime-algebra equation $\nabla F=J$ of Hestenes \cite{Hestenes66}, which Theorem~13.3 of \cite{ES17} realises on the interior four-plane; here
+it is realised on the temporal triple acting on the vacuum. The element $T$ that plays the pseudoscalar $I$ is the $I_T$ of Section~5 of \cite{FMB},
+and the properties stated there, $I_T^2=-\id$ and $[I_T,e_i]=0$ for the temporal $e_i$, are confirmed (r3-24). The circularly polarised wave of Example~12.11 of \cite{ES17} solves $(\partial_t-D)\Phi(X)=0$, and the same wave with $\bB$ reversed does
+not (r3-23). The signs proposed in the question, $\partial_t\bE=\curl\bB-\bj$ and $\partial_t\bB=-\curl\bE$, are the textbook ones; with the frame
+variable $\bB=-\Btext$ they become those of (i).
+
+\begin{proposition}[Maxwell fixes the scales and leaves a duality angle]
+\label{r3:prop:maxunique}
+Let $\Phi_M(X)=(a\bE+b\bB)\cdot f+(c\bE+d\bB)\cdot g$ be the general rotation-equivariant map into the field octants. Then $(\partial_t-D)\Phi_M(X)$ vanishes
+for every source-free Maxwell field iff $c=-b$ and $d=a$, that is iff $\Phi_M=r\,\Phi\circ e^{\vartheta G}$ for some $r\ge0$ and $\vartheta$. The map puts
+$\bE$ and $\bB$ on single weights iff $\vartheta\in\tfrac\pi2\Z$: $\Phi$ for $\vartheta=0$ and $\Phi\circ G$, with $\bE$ on weight two, for $\vartheta=\tfrac\pi2$.
+\end{proposition}
+
+\begin{proof}
+Substituting $\partial_t\bE=-\curl\bB$, $\partial_t\bB=\curl\bE$ and the vanishing divergences, the residual has $f$-component $(d-a)\curl\bB+(b+c)\curl\bE$,
+$g$-component $(d-a)\curl\bE-(b+c)\curl\bB$ and no pole component; it vanishes on all first-order Maxwell jets iff $d=a$, $c=-b$ (r3-22). Conversely
+$\Phi\circ e^{\vartheta G}$ maps solutions to solutions, since $e^{\vartheta G}$, the duality rotation $z\mapsto e^{i\vartheta}z$, preserves the source-free system.
+\end{proof}
+
+Fixed. The two scales of \cref{r3:thm:phi}(i) are tied by Faraday's and Amp\`ere's laws, $\beta=\alpha$ in Heaviside--Lorentz units and $\beta=c\,\alpha$
+in SI, and the energy normalisation of \cref{r3:prop:energies}(i) fixes $\alpha$ up to sign. What remains is the duality angle. With electric
+sources, $\Phi$ places the charge density on the vacuum pole and the current on the electric octants, and $\Phi\circ G$ places them on the
+filled pole and on the weight-two octants; the convention that all charges are electric (Section~13 of \cite{ES17}, \cite{Jackson}) fixes which
+octants carry the current once the labelling is chosen, not the labelling.
+
+\begin{remark}[Octant pooling]
+\label{r3:rem:pooling}
+Each $e_i$ maps the octant $\sigma$ to the octant with $\sigma_i$ reversed, the image of $\sigma$ under the octant generator $R_i$, and
+$e_{i+3}=e_i\omega_i$ acts on the same pair of octants (r3-25). Hence the $\sigma$-component of $D\psi$ collects $\partial_i$ of the three neighbouring
+octants only: the Gauss law on the vacuum collects $\sum_i\partial_iE_i$ from the three adjacent electric octants, and each evolution equation
+collects a curl from two octants of the other weight. This is the exact content of the proposed ``pooling'' of Maxwell's equations across
+octants, and it holds as $D=\sum_ie_i\partial_i$. The proposed mechanism, a per-pair exchange of $e_i$ with $e_{i+3}$ converging on the pole
+$(-,-,-)$, is not confirmed: the exchange replaces $D$ by $D'$ and the wave operator by the four-dimensional Laplacian
+(\cref{r3:thm:maxwell}(ii)), and nothing converges on one pole, the two poles carrying one Gauss law each.
+\end{remark}
+
+\subsection{\texorpdfstring{The answer: what ``$X=\bE+\bB$ with each component an octant'' means}{The answer: what X = E + B with each component an octant means}}
+\label{r3:sec:answer}
+
+The statement has two exact meanings, related by a duality rotation of an eighth of a turn, \cref{r3:eq:eighth}. As a Clifford action
+(\cref{r3:prop:poles}) the field point maps the vacuum pole onto the electric octants with the amplitudes $B_i+E_i=E_i-B_{{\rm t}i}$: the octants
+see the light-cone components $\bB\pm\bE$ of the para-complex structure, not $\bE$ and $\bB$. As a field-octant map (\cref{r3:thm:phi,r3:prop:maxunique}),
+$\Phi(X)=\sum_k(E_k+B_kT)e_k|\mathrm{vac}\rangle$ puts each $E_k$ on the octant with a single minus sign in pair $k$ and each $B_k$ on its antipode; it
+is unique up to a scale once rotation equivariance, Maxwell's equations and the separation of $\bE$ from $\bB$ are required, apart from the
+alternative $\Phi\circ G$ that the earlier labelling uses; in textbook variables it is Hestenes' $\bE+I\Btext$ on the temporal Pauli algebra, with
+$I=T$.
+
+\paragraph{What the poles carry.} With $\Phi$, the vacuum pole carries Gauss's law and the charge density, the filled pole the absence of
+magnetic charge (\cref{r3:thm:maxwell}); they are the Fock vacuum and the filled state, the rotation scalars, the eigenlines of $\mathfrak{gl}(3)$ of
+weights $\Lambda^0$ and $\Lambda^3$, and, under the spin-lifted $\lG$, the time components of the two four-vectors $S^\mp$ (\cref{r3:prop:odd}(iv)).
+The mass form pairs them with each other as it pairs $E_k$ with $B_k$ (\cref{r3:prop:energies}). Of the earlier labels, ``statistics'' survives as
+the constructed correspondence between the Fisher--Rao octant of clocks and the vacuum pole $(+,+,+)$ (\cref{r3:prop:clock}). ``Mass'' does not
+survive as a property of the pole $(-,-,-)$: the mass form treats both poles alike, and the interior Lorentz algebra distinguishes no octant,
+since the stabiliser in $\lint$ of the octant $\sigma$ is the three-dimensional span of $e_1e_4=\omega_1$ and the null rotations
+$(e_1-\sigma_1e_4)e_5$, $(e_1-\sigma_1e_4)e_6$, depending on $\sigma_1$ only, while $g_2,g_3$ commute with $\lint$ and $g_1$ normalises it (r3-26). The
+octant Fock structure is the canonical anticommutation algebra of one constituent; it is not a photon Fock space, and the quantisation of the
+field stays open, as in \cite{FMB}.
+
+\paragraph{Open.} Whether a dynamics, rather than a convention, selects $\Phi$ or $\Phi\circ G$; what the two scalar fields $\phi_0,\phi_3$ of the
+extended system of \cref{r3:thm:maxwell}(v) mean, if anything; and whether $\rho_{\rm oct}$, which is not part of the spin representation, can enter
+a coupling to the Dirac sector of \cite{ES17}.
+
+\Cref{r3:tab:claims} lists every claim of the section with its check and its class.
+
+{\small\renewcommand{\arraystretch}{1.12}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.09\textwidth}>{\raggedright\arraybackslash}p{0.56\textwidth}>{\raggedright\arraybackslash}p{0.27\textwidth}@{}}
+\caption{The claims of this section, with their checks and classes.}\label{r3:tab:claims}\\
+\toprule
+id & claim & class\\
+\midrule
+\endfirsthead
+\toprule
+id & claim & class\\
+\midrule
+\endhead
+r3-1 & octants $=$ basis lines, sign triples, CAR, $N=\#$ minus signs, vacuum $(+,+,+)$ & restated (ES17), fixed\\
+r3-2 & octant $\sigma$ is the pure spinor of $N_\sigma=\operatorname{span}\{e_i-\sigma_ie_{i+3}\}$ & fixed; inherited (Cartan--Chevalley)\\
+r3-3 & $\Gamma=-\omega_1\omega_2\omega_3$, $(-1)^N=-\Gamma=\gamma_5$; the earlier $I=-\omega_1\omega_2\omega_3$ confirmed & restated, fixed\\
+r3-4, 5 & reflections lift to $e_a\omega$, unique; octant group simply transitive, lifted group of order $16$ & fixed\\
+r3-6 & top eigenline of $B_{\operatorname{diag}x}$ is the octant $\operatorname{sign}x$; clock octant $\leftrightarrow$ vacuum & fixed; identification constructed\\
+r3-7 & $S\cong\Lambda^*(L)\cong\Cl(V^+)|\mathrm{vac}\rangle$, weights $1,3,3,1$ & inherited (Chevalley), verified\\
+r3-8 & commutant of $\cK$ $=\mathfrak{gl}(3)$, acting as $\Lambda^w(A)-\tfrac12\tr A$ & fixed; standard\\
+r3-9 & diagonal rotations $L_i=\tfrac12(e_{j+3}e_{k+3}-e_je_k)$, Fock forms of $L_i,K_i$ & restated, fixed\\
+r3-10 & equivariant maps: dimension $4$; $\Phi_{\alpha,\beta}$ & fixed; $\Phi$ constructed\\
+r3-11 & premetric $\mathfrak{gl}(3)$ on the image; vector action mixes $\bE,\bB$ & fixed; premetric reading inherited\\
+r3-12 & $T$ lifts parity and acts as $-G$ on the octants; $(-1)^N$ acts as parity & fixed\\
+r3-13 & $X|\mathrm{vac}\rangle$, $X|\mathrm{full}\rangle$ light-cone amplitudes; \cref{r3:eq:eighth}; $\Phi$ is no Clifford map & fixed; reading interpretive\\
+r3-14 & no even intertwiner of boosts or of $G$ & obstructed\\
+r3-15, 16 & odd intertwiners $Q_k,-T$; $\rho_{\rm oct}$; spin lift: four-vectors, no intertwiner & constructed; restated (iv)\\
+r3-17, 18 & energies; invariant forms; $T=$ Chevalley--Mukai pairing of antipodes & fixed; pairing inherited\\
+r3-19 & $d,\delta$ on the octants, $d\mp\delta=D,D'$ & inherited (K\"ahler), verified\\
+r3-20, 21, 23, 24 & Maxwell $\Leftrightarrow(\partial_t-D)\Phi(X)=-(\rho|\mathrm{vac}\rangle+\bj\cdot f)$; wave operator; SI; Hestenes form & fixed; inherited in substance\\
+r3-22 & Maxwell-compatible equivariant maps $=r\Phi\circ e^{\vartheta G}$ & fixed\\
+r3-25 & pooling $=$ nearest-neighbour structure of $D$ & fixed; mechanism refuted\\
+r3-26 & $\lint$ distinguishes no octant & fixed; ``mass pole'' refuted\\
+\bottomrule
+\end{longtable}}

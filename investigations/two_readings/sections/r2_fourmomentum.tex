@@ -1,0 +1,589 @@
+% Track r2 -- The four-momentum with X on the spatial triple.
+% Verification: investigations/two_readings/verify/r2_fourmomentum.py (claims r2-0a ... r2-20).
+% New references: sections/bib_r2.tex (entries copied verbatim from tex/refs.tex).
+\section{\texorpdfstring{The four-momentum with $X$ on the spatial triple}{The four-momentum with X on the spatial triple}}
+\label{r2:sec:main}
+
+The third question asked in the introduction is how the four-momentum is constructed when $X$ is taken in the three directions
+$(-,-,-)$. We read the sign triple as the values $\eta(e_{a+3},e_{a+3})=-1$ of the metric on the spatial triple $V^-=\langle e_4,e_5,e_6\rangle$:
+the classical configuration $X_{\rm cl}$ has its three lengths there, and its three remaining components are times converted by $c$ on the
+temporal triple $V^+$. The starting point is the working note \cite{FMB}. Every statement of it used below is re-derived and marked as
+confirmed, corrected or refuted. In brief:
+(1) a clock $n\in V^+$ selects the four-plane $E_n=\R n\oplus V^-$, and these are exactly the Lorentzian four-planes that contain the three
+lengths; Theorem~4.1 of \cite{ES17} holds at every clock, with complex structure $J(n)=e_1e_2e_3\,n$ (\cref{r2:sec:clock});
+(2) the four-momentum of a particle is the projection $P_n=(E/c,\bp)$ of the six-momentum, conjugate to $(ct_n,x^a)$ and conserved by every dynamics
+that is translation invariant along $E_n$; of the three mass shells the arena's metric fixes the sign of the ambient one, and the gauge
+principle of Section~30 of \cite{ES17} selects the reduced one (\cref{r2:sec:particle});
+(3) rotating the clock reads a fixed six-momentum as a four-dimensional mass $m_4(n)\le\mu$, with equality exactly at the clock aligned with the
+temporal momentum (\cref{r2:sec:rotate});
+(4) the field $X_{\rm EM}$ has no linear, and no quadratic, covariant map to a four-vector: its four-momentum is the integrated first row of the
+stress tensor, a four-vector only for an isolated whole (\cref{r2:sec:field});
+(5) the no-go for the binding root concerns $G$ on the vector module $E_n$, where it leaks two of the three spatial directions into the surplus
+plane at every clock; it does not concern $G=\star$ on the field module (\cref{r2:sec:nogo}).
+\Cref{r2:sec:answer} collects the verdicts.
+
+\paragraph{Conventions and units.} As in Sections~2, 3 and 12 of \cite{ES17}: $V=\R^{3,3}$, $\eta=\operatorname{diag}(1,1,1,\allowbreak-1,-1,-1)$, the
+realisation of equation~(1) of \cite{ES17}, $s_a:=e_{a+3}$, the binding root $Ge_i=e_{i+3}$, $Ge_{i+3}=-e_i$ ($G^2=-\id$, $\eta$-self-adjoint, an
+anti-isometry) and the para-complex $\Kc e_i=e_{i+3}$, $\Kc e_{i+3}=e_i$ ($\Kc^2=\id$, $\eta$-skew). A bivector $a\wedge b$ acts on $V$ by
+$v\mapsto a\,\eta(b,v)-b\,\eta(a,v)=\tfrac12[ab,v]$. In the particle reading units are SI with $c$ explicit: times $t^i$ in $\mathrm s$, lengths $x^a$
+and the coordinates $Y^A$ in $\mathrm m$, $[c]=\mathrm{m\,s^{-1}}$, momenta $p_a,q_a$ and $K$ in $\mathrm{kg\,m\,s^{-1}}$, energies in $\mathrm J$,
+masses $M_6,m_4,\mu$ in $\mathrm{kg}$; clocks $n$ and frames are dimensionless. In the field reading the computations use Heaviside--Lorentz units with
+$c=1$, with $\bB$ measured as $c\bB$; the SI form is restored through $z_c=c\bB+i\bE$, $[\bE]=[c\bB]=\mathrm{V\,m^{-1}}$ (Proposition~2.8 of \cite{RE}).
+The paper's $\bB$ is minus the textbook magnetic field, $\Btext=-\bB$ (Section~1.4 of \cite{ES17}); the frame Poynting vector is $\mathbf S=\bE\times\bB
+=-\mathbf S_{\rm t}$, with $\mathbf S_{\rm t}=\bE\times\Btext$ the textbook one (equation~(1) of \cite{RE}). Identifiers r2-$n$ refer to
+\texttt{verify/r2\_fourmomentum.py}; r2-0a--c check these conventions, the Fock modes $a^\pm_i=\tfrac12(e_i\pm e_{i+3})$ (CAR, $N$ counting the minus
+signs of the pole operators $\omega_i=e_ie_{i+3}$, which are diagonal) and the generators $L_i,K_i$ of $\lG$.
+
+\subsection{Configuration, clock and the selected four-plane}
+\label{r2:sec:clock}
+
+\begin{definition}[Configuration and clock]
+\label{r2:def:config}
+The classical configuration is $Y=\sum_ic\,t^ie_i+\sum_ax^as_a$, three converted times on $V^+$ and three lengths on $V^-$, with
+$\eta(Y,Y)=c^2|t|^2-|x|^2$ in $\mathrm m^2$. A \emph{clock} is a unit vector $n\in V^+$. It defines
+\[
+E_n=\R n\oplus V^-,\qquad U_n=n^\perp\cap V^+,\qquad V=E_n\oplus U_n ,
+\]
+an oriented orthonormal frame $(n,u_1,u_2)$ of $V^+$, the time $t_n:=\eta(n,Y)/c=n\cdot t$ read by the clock and the surplus coordinates
+$u^a:=\eta(u_a,Y)$, in $\mathrm m$. With $\pi_\pm$ the projectors onto $V^\pm$ put $\mathsf P_n=n\,\eta(n,\cdot)+\pi_-$ and $\mathsf Q_n=\pi_+-n\,\eta(n,\cdot)$.
+The clocks of non-negative weight form the Fisher--Rao octant $n_i=\sqrt{w_i}$, $w\in\Delta^2$, which is the octant of radius two of Section~3.3 of
+\cite{ES17} scaled by one half; the symmetric clock is $\widehat W=(e_1+e_2+e_3)/\sqrt3$ (Proposition~3.5 of \cite{ES17}).
+\end{definition}
+
+This is constructed: a reading rule, the content of Definition~3.1 of \cite{FMB}, which is confirmed in that form. The splitting $V^+\oplus V^-$ is
+background structure, not invariant under $SO(3,3)$.
+
+\begin{proposition}[The four-planes that contain the three lengths]
+\label{r2:prop:planes}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item $\mathsf P_n$ and $\mathsf Q_n$ are complementary, $\eta$-self-adjoint, $\eta$-orthogonal projectors onto $E_n$ and $U_n$; $\eta|_{E_n}$ has
+signature $(1,3)$ and $\eta|_{U_n}$ is positive definite.
+\item Every four-plane $E\subset V$ that contains $V^-$ is $E_n$ for exactly one pair $\pm n$. Hence the four-planes containing the three lengths are
+parametrised by the clock sphere modulo $\pm$, a two-dimensional family inside the eight-dimensional space of Lorentzian four-planes of
+Theorem~28.1(iii) of \cite{ES17}.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) $\mathsf P_n+\mathsf Q_n=\pi_++\pi_-=\id$, $\mathsf P_nn=n$, $\mathsf P_ns_a=s_a$, $\mathsf Q_nu_a=u_a$, and the Gram matrices are
+$\operatorname{diag}(1,-1,-1,-1)$ on $(n,s_1,s_2,s_3)$ and $\id$ on $(u_1,u_2)$. (ii) Since $V^-$ is nondegenerate, $E=V^-\oplus(E\cap V^+)$, and
+$E\cap V^+$ is a line on which $\eta$ is positive, spanned by a unit $n$ determined up to sign.
+\end{proof}
+
+Fixed (r2-1a, symbolic for a general frame in the quaternion parametrisation of $SO(3)$; r2-1b). Taking $X$ ``in the three directions $(-,-,-)$''
+therefore leaves exactly one choice, that of a clock, and every observer of the three lengths is an $E_n$.
+
+\paragraph{The six-momentum.} The covector $K=K_A\,dY^A$ conjugate to $Y$ has the raised form (equation~(6) of \cite{FMB})
+\begin{equation}
+\label{r2:eq:K}
+K^\sharp=\eta^{-1}K=\frac Ecn+\sum_ap_as_a+\sum_aq_au_a,
+\end{equation}
+so that $E/c=\eta(n,K^\sharp)$, $p_a=-\eta(s_a,K^\sharp)$ and $q_a=\eta(u_a,K^\sharp)$.
+With the phase-space form $K_A\,dY^A=E\,dt_n-\sum_ap_a\,dx^a+\sum_aq_a\,du^a$ and $\{Y^A,K_B\}=\delta^A_B$ one finds
+\[
+\{ct_n,E/c\}=1,\qquad \{x^a,p_b\}=-\delta_{ab},\qquad \{u^a,q_b\}=\delta_{ab},
+\]
+and all other brackets among these twelve functions vanish (fixed; r2-5a, for the clocks $e_1$, $(2,3,6)/7$ and $(-1,4,8)/9$). So $\bp$ is conjugate to the three lengths, $E/c$
+to the converted time $ct_n$ of the clock and $q_a$ to the surplus coordinates; the relative sign between the first two is the Lorentzian lowering
+$K_{a+3}=-p_a$. This is the convention of Theorem~30.1 of \cite{ES17} and of equation~(9) of \cite{FMB}; the action $-Mc\int ds$ has the opposite overall
+sign, which exchanges which pair carries the minus sign and changes no equation of motion.
+
+\begin{proposition}[Covariance of the selected projection]
+\label{r2:prop:cov}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item An element of $O(V,\eta)$ commutes with $\mathsf P_n$ iff it preserves $E_n$ and $U_n$; the commutant of $\mathsf P_n$ in $\so{3,3}$ is
+$\lint(n)\oplus\so{U_n}$, of dimension $7$, where $\lint(n)$ is spanned by the six bivectors of $E_n$.
+\item For $\Lambda\in SO^+(E_n)$ extended by the identity on $U_n$, $\mathsf P_n(\Lambda K^\sharp)=\Lambda\,\mathsf P_nK^\sharp$ and
+$q_a(\Lambda K^\sharp)=q_a(K^\sharp)$: the projection is a four-vector and the $q_a$ are Lorentz scalars.
+\item The rotations $R_\theta=\exp(\theta\,u_1\wedge u_2)$ of $U_n$ commute with $\mathsf P_n$ and turn $(u^1,u^2)$ and $(q_1,q_2)$ through the same
+angle; their cotangent lift preserves $K_A\,dY^A$.
+\item The eight generators of $E_n\wedge U_n$ do not commute with $\mathsf P_n$, and their eight commutators are linearly independent. For instance
+at $n=e_1$ the rotation $\exp(\varphi\,e_1\wedge e_2)$ carries the rest momentum $K^\sharp=(E/c)\,e_1$ to one with $|q_1|=(E/c)|\sin\varphi|$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) A map commuting with a projector preserves its image and kernel; an isometry preserving $E_n$ preserves $E_n^\perp=U_n$. On Lie algebras this is
+$\so{E_n}\oplus\so{U_n}$, of dimension $6+1$. (ii) $\Lambda$ commutes with $\mathsf P_n$ by (i), and $\eta(u_a,\Lambda K^\sharp)=\eta(\Lambda^{-1}u_a,K^\sharp)
+=\eta(u_a,K^\sharp)$. (iii) $\eta$ is positive on $U_n$, so contravariant and covariant components of $U_n$ rotate alike; for an isometry $R$ the
+contragredient on $K_A$ is $R^{-\top}=\eta R\eta^{-1}$, so $K^\sharp$ moves as $Y$ and $K_A\,dY^A$ is invariant. (iv) A generator of $E_n\wedge U_n$
+maps $U_n$ into $E_n$; the example is a direct computation.
+\end{proof}
+
+Restated: this is Proposition~3.2 of \cite{FMB}, confirmed, including its stated limitation that nothing here gives covariance under the whole
+of $SO(3,3)$ (r2-2a for seven clocks including $\widehat W$, the dimension count for six rational clocks; r2-2b for a finite boost and the $SO(2)$ at
+$n=(2,3,6)/7$; r2-2c). Part (i) is the case $C=J(n)$ of Theorem~28.1(iii) of \cite{ES17}.
+
+\begin{proposition}[The clock, the surplus plane and $J(n)$]
+\label{r2:prop:J}
+Let $I_T=e_1e_2e_3$.
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item $I_T^2=-\id$; $I_T$ commutes with $e_1,e_2,e_3$ and anticommutes with $e_4,e_5,e_6$.
+\item $J(n):=I_Tn=n_1e_2e_3+n_2e_3e_1+n_3e_1e_2$ satisfies $J(n)^2=-|n|^2\id$ and commutes with $n$ and with $s_1,s_2,s_3$, hence with all of $\lint(n)$.
+\item For every oriented orthonormal frame $(n,u_1,u_2)$ of $V^+$, $nu_1u_2=I_T$; hence $J(n)=u_1u_2$ is the oriented unit bivector of $U_n$, and
+$J(e_1)=e_2e_3=J$.
+\item Under time reversal $n\mapsto-n$: $\mathsf P_{-n}=\mathsf P_n$, $\mathsf Q_{-n}=\mathsf Q_n$, $E_{-n}=-E_n$ (the energy read), $J(-n)=-J(n)$ and
+$\Omega_{-n}=-\Omega_n$ for $\Omega_n:=ns_1s_2s_3$, so that $\Gamma_n=J(n)\Omega_n$ is unchanged.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) is the blade rule (Lemma~2.1 of \cite{ES17}): $|I||J|-|I\cap J|$ equals $2$ for $e_i$ and $3$ for $s_a$. (ii) $I_T$ and $n$
+commute, so $J(n)^2=I_T^2n^2=-|n|^2$; $I_T$ and $n$ both commute with $n$ and both anticommute with each $s_a$. (iii) $nu_1u_2$ is the volume element of
+an oriented orthonormal frame of $V^+$, which is $\det(n,u_1,u_2)\,e_1e_2e_3=I_T$; then $u_1u_2=n^{-1}I_T=nI_T=I_Tn$. (iv) $\mathsf P_n$ is even in $n$,
+$J$ and $\Omega$ are odd.
+\end{proof}
+
+Restated: Proposition~5.1 of \cite{FMB}, confirmed, with a direct proof in place of the rotation argument (r2-3a and r2-3c for symbolic $n$, r2-3b for a
+symbolic frame, r2-3d). The formula $J(n)=I_Tn$ is the identity $J=\gamma^0T$ of Remark~4.2 of \cite{ES17} with $\gamma^0=n$. The sentence of
+\cite{FMB} that time orientation and the sign of the complex structure are tracked together is (iv).
+
+\begin{theorem}[The selected complex structure at every clock]
+\label{r2:thm:i}
+Let $\gamma^0=n$, $\gamma^a=s_a$ and $\Omega_n=ns_1s_2s_3$.
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item The joint commutant of $\lint(n)$ and of the surplus bivector $J(n)$ in $\End_\R(S)=M_8(\R)$ is $\operatorname{span}\{\id,\Omega_n,J(n),\Omega_nJ(n)\}
+\cong\C\oplus\C$. Its solutions of $x^2=-\id$ are $\pm\Omega_n,\pm J(n)$, and only $\pm J(n)$ commute with the four $\gamma^\mu$.
+\item The commutant of the four $\gamma^\mu$ alone is $\operatorname{span}\{\id,J(n),u_1\Omega_n,u_2\Omega_n\}\cong\HH$, and the elements of it that
+commute with $I_T$ are $\operatorname{span}\{\id,J(n)\}$.
+\item The mass form $\gamma^0J(n)=nI_Tn=I_T$ is the same for every clock; the kinetic kernels are $I_TJ(n)\gamma^\mu=-n\gamma^\mu$; and
+$H_n(\bp)=c\,ns_ap_a+mc^2n$ is symmetric, commutes with $J(n)$ and satisfies $H_n(\bp)^2=(c^2|\bp|^2+m^2c^4)\id$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+A rotor $R$ of $\mathrm{Spin}(V^+)$ with $RnR^{-1}$ prescribed exists for every unit $n$, and since temporal bivectors commute with each $s_a$ by the
+blade rule, $\Ad_R$ fixes $s_1,s_2,s_3$ and $I_T$. It therefore carries $(e_1,e_2,e_3)$ to an oriented frame $(n,u_1,u_2)$, $\lint(e_1)$ to $\lint(n)$,
+$e_2e_3$ to $u_1u_2=J(n)$ and $\Omega$ to $\Omega_n$. Conjugation is an automorphism of $M_8(\R)$, so (i) and (ii) are Theorem~4.1 and Remark~4.2 of
+\cite{ES17} transported. For (ii), $I_T$ commutes with $u_a$ and anticommutes with $\Omega_n$. (iii) $n$ commutes with $I_T$ and $n^2=\id$; the square of
+$H_n$ is that of Example~4.7 of \cite{ES17} with $\gamma^0=n$.
+\end{proof}
+
+Fixed. Each part is checked directly, not only through the transport: r2-4a,b compute the commutants and solve $x^2=-\id$ exactly at
+$n=e_1,e_2,(1,2,2)/3,(2,3,6)/7,(-1,4,8)/9$; r2-4c is symbolic in a general frame; r2-4d checks the transport by the rotor
+$\cos\frac\theta2-\sin\frac\theta2\,e_1e_2$. So the Dirac spinor read by the clock $n$ has imaginary unit $J(n)$, its sign fixed by the orientation of
+$V^+$ and of $n$, and its energy for momentum $\bp$ is the $E_n$ of the four-momentum below. The test of the commutant conditions for changing $n$
+asked for in Section~5 of \cite{FMB} is passed. That the mass form does not depend on the clock is consistent with Corollary~18.4 of \cite{ES17}, where
+$T=e_1e_2e_3$ is the mass kernel invariant under all of $\so{3,3}$.
+
+\begin{remark}[Three readings of $(-,-,-)$]
+\label{r2:rem:minus}
+The sign triple has three meanings in the arena, and only the first bears on the four-momentum. (a) The values of $\eta$ on $V^-$, the reading used
+here (interpretive: a reading of the question). (b) The sign sector $(-,-,-)$ of the temporal $\R^3$, which the author's older monograph proposed as the carrier of the Lorentzian interior: by
+\cref{r2:prop:J}(iv) the clocks of that sector give the same four-planes and surplus planes as those of the Fisher--Rao octant $(+,+,+)$, with the
+opposite time orientation, the opposite energy and the opposite complex structure, so the sector carries nothing the Fisher--Rao octant does not
+(fixed). (c) In the spinor module the joint eigenline of the pole operators with signs $(-,-,-)$ is the filled Fock line $N=3$ (r2-0b), a spinor and not a
+direction of $V$. The octant readings are the subject of \cref{r3:sec:main}.
+\end{remark}
+
+\subsection{The four-momentum of a particle}
+\label{r2:sec:particle}
+
+The four-momentum read by the clock $n$ is the projection
+\begin{equation}
+\label{r2:eq:P}
+P_n:=\mathsf P_nK^\sharp=\frac Ecn+\sum_ap_as_a,\qquad P_n^\mu=(E/c,\bp),\qquad P_{n,\mu}=(E/c,-\bp),
+\end{equation}
+whose three spatial components are the conjugates of the three lengths and whose time component is the conjugate of the clock's time.
+
+\begin{proposition}[Four-vector and conservation]
+\label{r2:prop:cons}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item Under the boost $\exp(\chi\,s_1\wedge n)$, extended by the identity on $U_n$, the components $(E/c,\bp)$ transform by the $4\times4$ boost of
+rapidity $\chi$ along the first spatial axis, an element of $SO^+(1,3)$.
+\item The Hamiltonian flows of $E/c$ and of $-p_a$ translate $ct_n$ and $x^a$ by one unit and leave every other coordinate fixed.
+\item For every Hamiltonian $H(K_A,u^1,u^2)$ that does not depend on $(ct_n,x^a)$, $\{E/c,H\}=\{p_a,H\}=0$. Adding a term $V(ct_n)$ destroys only the
+conservation of $E$; $q_a$ is conserved only if $H$ does not depend on $u$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) is \cref{r2:prop:cov}(ii) in the basis $(n,s_a)$. (ii) is the bracket table above. (iii) $\{P_\mu,H\}=-\partial H/\partial x^\mu$ in the adapted
+canonical coordinates.
+\end{proof}
+
+Fixed (r2-5c at $n=(1,2,2)/3$; r2-5b for a symbolic frame and an arbitrary function $H$). Part (iii) completes Proposition~3.2 of \cite{FMB} and
+corrects its limitation that nothing proves $E/c$ to be a Noether energy: $E/c$ and $\bp$ are the generators of the translations of $E_n$, hence the
+Noether charges of any dynamics invariant under them. Whether the energy component of the May paper cited in \cite{FMB} equals $E/c$ cannot be
+decided here, since that paper is not among the sources.
+
+\paragraph{Three mass shells.} The six-momentum is free until a dynamics is chosen. \Cref{r2:prop:shellI,r2:prop:shellII,r2:prop:shellIII} treat the
+three options of Section~4 of \cite{FMB}.
+
+\begin{proposition}[Option I: the ambient shell]
+\label{r2:prop:shellI}
+For every clock, $\eta(K^\sharp,K^\sharp)=E^2/c^2-|\bp|^2+|\mathbf q|^2$. On the shell $\eta(K^\sharp,K^\sharp)=M_6^2c^2$,
+\[
+E^2=c^2|\bp|^2+M_6^2c^4-c^2|\mathbf q|^2,\qquad m_{\rm eff}^2=M_6^2-|\mathbf q|^2/c^2 ,
+\]
+so the four-dimensional mass vanishes at $|\mathbf q|=M_6c$ and is imaginary (tachyonic) beyond.
+\end{proposition}
+
+\begin{proof}
+$(n,s_a,u_a)$ is $\eta$-orthonormal with norms $(+1,-1,+1)$.
+\end{proof}
+
+Fixed (r2-6, symbolic frame); equations~(7) and~(8) of \cite{FMB} are confirmed. The sign of $|\mathbf q|^2$ is not a choice: the normal plane of a
+Lorentzian four-plane in $\R^{3,3}$ has the sign of time (Theorem~28.1(ii) of \cite{ES17}). The option is a statement of \cite{RE} in another notation.
+
+\begin{proposition}[Option I is the momentum reading of \cite{RE}]
+\label{r2:prop:RE}
+Let $K^\sharp=\sum_i(\mathsf E_i/c)e_i+\sum_ap_as_a$ with $\eta(K^\sharp,K^\sharp)=\mu^2c^2$, as in Proposition~2.10 of \cite{RE}, and write
+$\boldsymbol{\mathsf E}=(\mathsf E_1,\mathsf E_2,\mathsf E_3)$, in $\mathrm J$. For every clock $n$,
+\[
+E=n\cdot\boldsymbol{\mathsf E},\qquad c\,q_a=u_a\cdot\boldsymbol{\mathsf E},\qquad c^2|\mathbf q|^2=|\boldsymbol{\mathsf E}|^2-(n\cdot\boldsymbol{\mathsf E})^2
+=|n\times\boldsymbol{\mathsf E}|^2,
+\]
+so Option I holds with $M_6=\mu$ and $m_{\rm eff}$ equal to the mass $m_4(n)$ read by the clock. At $n=\widehat W$, $c\,|\mathbf q|=|\boldsymbol{\mathsf E}_\perp|$
+and $m_4^2c^4=\mu^2c^4-|\boldsymbol{\mathsf E}_\perp|^2$, which is the statement of \cite{RE} that splitting the temporal energy lowers the mass. For
+$\boldsymbol{\mathsf E}=(3,4,0)$, $\bp=(5,0,0)$, $c=1$: $\mu=0$, $m_4^2=-16$ at $e_1$ and $m_4^2=-\tfrac{26}3$ at $\widehat W$.
+\end{proposition}
+
+\begin{proof}
+$E=c\,\eta(n,K^\sharp)$, $q_a=\eta(u_a,K^\sharp)$, and $(n,u_1,u_2)$ is orthonormal; the last identity is Lagrange's.
+\end{proof}
+
+Restated from \cite{RE} (Proposition~2.10 there), re-verified for a symbolic clock (r2-7). The surplus momenta of \cite{FMB} are the relative-time
+energies of \cite{RE} divided by $c$, and the tachyonic shell of \cite{FMB} is realised by the example of \cite{RE}. The obstruction stated there, that in the momentum reading the
+differentiation of the temporal energy subtracts from the mass, is the same obstruction as the sign in \cref{r2:prop:shellI}.
+
+\begin{proposition}[Option II: the first-class reduction]
+\label{r2:prop:shellII}
+In adapted canonical coordinates take the action of equation~(9) of \cite{FMB},
+\[
+S_{\rm red}=\int d\tau\Bigl(P_\mu\dot x^\mu+q_a\dot u^a-\tfrac N2\bigl(P_\mu P^\mu-M_6^2c^2+|\mathbf q|^2\bigr)-\lambda^aq_a\Bigr),
+\]
+with $[N]=\mathrm{kg^{-1}}$ and $[\lambda^a]=\mathrm{m\,s^{-1}}$ for $\tau$ in seconds. Then $\{q_a,q_b\}=0$ and $\{q_a,H\}=0$, so the constraints $q_a\approx0$ are
+first class; $\varepsilon^aq_a$ generates $\delta u^a=\varepsilon^a$ and nothing else; $S_{\rm red}$ is exactly invariant under $\delta u^a=\varepsilon^a(\tau)$,
+$\delta\lambda^a=\dot\varepsilon^a$; the reduced phase space is $T^*E_n$, of dimension $12-2\times2=8$, with the shell $P_\mu P^\mu=M_6^2c^2$. With a normal
+connection $A_\mu(x)$, $k_\mu=P_\mu-A_\mu\ell$ and $\ell=vp_u-up_v$ at $n=e_1$, where $\mathbf q=(p_u,p_v)$, the brackets become $\{p_u,H\}=-Cp_v$, $\{p_v,H\}=Cp_u$ with $C=A_\mu
+h^{\mu\nu}k_\nu$, and the constraints stay first class.
+\end{proposition}
+
+\begin{proof}
+$H$ does not depend on $u$; the variation of the surplus part of the Lagrangian is $q_a\dot\varepsilon^a-\dot\varepsilon^aq_a=0$. The last statement is the
+computation of Proposition~23.4 of \cite{ES17}.
+\end{proof}
+
+Restated: at $A=0$ this is Theorem~30.1 and Proposition~23.4 of \cite{ES17} with the clock $e_1$ replaced by $n$ (r2-8a; r2-8b re-verifies the brackets with
+$A\neq0$). \Cref{r2:prop:shellII} confirms Option~II of \cite{FMB} and sharpens its ``closely related to the first-class surplus-momentum idea in October
+Section~30'': it is that construction. Two consequences are restated from \cite{ES17}: gauging only the rotation of $U_n$ leaves the unstable band
+(Proposition~30.2), and in Dirac quantisation the physical states are functions on $E_n$ obeying the Klein--Gordon equation (Corollary~30.3). By
+\cref{r2:prop:RE}, $q\approx0$ means $\boldsymbol{\mathsf E}\parallel n$: the reduction does not select a clock in $V^+$, it ties the temporal momentum
+to whichever clock is chosen.
+
+\begin{proposition}[Option III: a separate internal mass]
+\label{r2:prop:shellIII}
+For the action of equation~(10) of \cite{FMB}, $S_n=\int d\tau\,[P_\mu\dot x^\mu+q_a\dot u^a-\tfrac N2(P_\mu P^\mu-c^2\mathcal M^2(u,q))]$ with an arbitrary
+function $\mathcal M^2$ (dimension $\mathrm{kg^2}$):
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item $\dot P_\mu=0$, $\tfrac{d}{d\tau}\mathcal M^2=0$, and the constraint is $E^2=c^2|\bp|^2+c^4\mathcal M^2$;
+\item for the toy $\mathcal M^2=m_0^2+|\mathbf q|^2/c^2$ the surplus velocity is $\dot u^a=-Nq_a$, against $+Nq_a$ on the ambient shell, and the constraint
+form is $P_\mu P^\mu-|\mathbf q|^2=\eta(R_nK^\sharp,K^\sharp)$ with $R_n=\mathsf P_n-\mathsf Q_n=\exp(\pi\,u_1\wedge u_2)\in SO(3,3)$, a quadratic form of
+signature $(1,5)$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) $H$ has no $x$-dependence, and $\{\mathcal M^2,H\}=-\tfrac{Nc^2}2\{\mathcal M^2,\mathcal M^2\}=0$. (ii) $\partial H/\partial q_a$; $R_n$ is the
+identity on $E_n$ and $-\id$ on $U_n$, the half-turn of $U_n$.
+\end{proof}
+
+Proposition~4.1 of \cite{FMB} is confirmed, and Option~III is constructed: $\mathcal M^2$ is supplied from outside the arena (r2-9a for an arbitrary
+function; r2-9b at $n=e_1,(2,3,6)/7$). The remark of \cite{FMB} that the positive sign of the toy is opposite to the ambient one is confirmed and made
+precise by (ii): the toy is the free particle of the twisted form $\eta(R_n\cdot,\cdot)$, which has one time and five space directions, so its sign is
+that of surplus \emph{lengths}, the Kaluza--Klein sign, and not that of the arena's surplus times.
+
+\begin{remark}[Which option the arena prefers]
+\label{r2:rem:prefer}
+The arena's metric fixes the sign of Option~I. For fields the same sign is the ill-posed, unbounded-below baseline of Proposition~27.1 of \cite{ES17}, whose
+unstable band is exactly the set removed by Option~II (Figure~19 and Theorem~30.1 there). Option~III needs a functional of the sign opposite to the
+metric, which no structure of the arena supplies. So the arena prefers Option~II, as the only one of the three that has the arena's sign and no
+instability; the preference is conditional, because the gauge principle of the normal translations is chosen and not derived (Section~30 of
+\cite{ES17}). This is interpretive; whether a principle makes the normal translations gauge is open.
+\end{remark}
+
+\subsection{Rotating the clock}
+\label{r2:sec:rotate}
+
+Fix a six-momentum $K^\sharp=\sum_i(\mathsf E_i/c)e_i+\sum_ap_as_a$ with temporal energy vector $\boldsymbol{\mathsf E}$ and six-dimensional mass
+$\mu^2c^4=|\boldsymbol{\mathsf E}|^2-|\bp|^2c^2$, and let the clock vary. The energy and the four-dimensional mass read by $n$ are
+\[
+E_n:=c\,\eta(K^\sharp,n),\qquad m_4(n)^2c^4:=E_n^2-|\bp|^2c^2 .
+\]
+
+\begin{proposition}[The mass read by a rotating clock]
+\label{r2:prop:rotate}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item On the clock sphere $E_n=n\cdot\boldsymbol{\mathsf E}$ and
+\[
+m_4(n)^2c^4=\mu^2c^4-|n\times\boldsymbol{\mathsf E}|^2=\mu^2c^4-|\boldsymbol{\mathsf E}|^2\sin^2\angle(n,\boldsymbol{\mathsf E}) .
+\]
+Hence $m_4(n)^2\le\mu^2$, with equality iff $n\parallel\boldsymbol{\mathsf E}$, and $E_n\le|\boldsymbol{\mathsf E}|$, with equality iff
+$n=\boldsymbol{\mathsf E}/|\boldsymbol{\mathsf E}|$: the clock that reads the largest energy is the direction of the temporal part of $K$, and there $m_4=\mu$.
+\item On the Fisher--Rao octant, $E_n=\sum_i\sqrt{w_i}\,\mathsf E_i$ and $m_4^2c^4=\bigl(\sum_i\sqrt{w_i}\,\mathsf E_i\bigr)^2-|\bp|^2c^2$. With
+$\boldsymbol{\mathsf E}^+$ the componentwise positive part, $\max E_n=|\boldsymbol{\mathsf E}^+|$, attained at $w_i=(\mathsf E_i^+)^2/|\boldsymbol{\mathsf E}^+|^2$.
+If $\boldsymbol{\mathsf E}$ has no negative component the maximising clock of (i) lies in the octant; otherwise, if $\boldsymbol{\mathsf E}^+\neq0$, the largest mass read by a future-reading
+clock of the octant is $m_4^2c^4=\mu^2c^4-|\boldsymbol{\mathsf E}-\boldsymbol{\mathsf E}^+|^2<\mu^2c^4$.
+\item At $\widehat W$, $E_W=(\mathsf E_1+\mathsf E_2+\mathsf E_3)/\sqrt3$ and $m_4^2c^4=\mu^2c^4-|\boldsymbol{\mathsf E}_\perp|^2$, the $\mathsf E_W$ of \cite{RE}.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) $|n|=1$ and Lagrange's identity $|\boldsymbol{\mathsf E}|^2=(n\cdot\boldsymbol{\mathsf E})^2+|n\times\boldsymbol{\mathsf E}|^2$. (ii) For $n_i\ge0$,
+$n\cdot\boldsymbol{\mathsf E}\le n\cdot\boldsymbol{\mathsf E}^+\le|\boldsymbol{\mathsf E}^+|$, with equality iff $n=\boldsymbol{\mathsf E}^+/|\boldsymbol{\mathsf E}^+|$;
+$m_4^2$ increases with $E_n\ge0$, and $|\boldsymbol{\mathsf E}^+|^2=|\boldsymbol{\mathsf E}|^2-|\boldsymbol{\mathsf E}-\boldsymbol{\mathsf E}^+|^2$. (iii) is (i) at $n=\widehat W$.
+\end{proof}
+
+Fixed (r2-10a symbolic; r2-10c a random test of (ii), 200 vectors $\boldsymbol{\mathsf E}$ against 4000 octant clocks each, in floating point with tolerance
+$10^{-12}$). An exact example (r2-10b): $\boldsymbol{\mathsf E}=(2,3,6)$, $\bp=(0,0,3)$, $c=1$ give $\mu^2=40$; the aligned clock $(2,3,6)/7$ lies in the
+Fisher--Rao octant with weights $(4,9,36)/49$ and reads $m_4^2=40$; the clock $e_1$ reads $m_4^2=-5$, and $\widehat W$ reads $\tfrac{94}3=40-|\boldsymbol{\mathsf E}_\perp|^2$.
+
+\begin{remark}[The mass as a projection]
+\label{r2:rem:projection}
+Interpretive. In the six-momentum the temporal energy is one vector $\boldsymbol{\mathsf E}$, undivided; a clock reads its component $E_n$, and what the
+reading leaves out, $c\,\mathsf Q_nK^\sharp$, is the part orthogonal to the clock. The four-dimensional mass is the projection of the undivided temporal
+energy onto the clock, maximal and equal to the six-dimensional $\mu$ only for the aligned clock, and lowered by every misalignment, which is
+\cref{r2:prop:RE} read on the clock sphere. Nothing in this reading prefers a direction of $V^+$: the aligned clock is fixed relative to the momentum,
+and for several particles read by one clock the reduction of \cref{r2:prop:shellII} requires all their temporal momenta to be parallel to it.
+\end{remark}
+
+\subsection{The four-momentum of the field}
+\label{r2:sec:field}
+
+In the field reading the field is a function on spacetime $E_n$, with coordinates $x^\mu=(ct_n,x^a)$, valued in a \emph{second} copy $V_{\rm EM}$ of
+$\R^{3,3}$ on which $X_{\rm EM}=\sum_i(B_ie_i+E_ie_{i+3})$ is read as a two-form through $\Phi:X\mapsto F_X$, $(F_X)_{0i}=E_i$, $(F_X)_{jk}=\epsilon_{ijk}B_i$, with
+$\lG$ as Lorentz algebra (Theorem~12.3 of \cite{ES17}). Both copies are needed: by Proposition~12.6 of \cite{ES17} one six-dimensional space cannot carry
+$\lint(n)$ and $\lG$ as its Lorentz action at once.
+
+\begin{proposition}[The dictionary is equivariant]
+\label{r2:prop:dict}
+$\Phi$ intertwines $\lG$ on $V_{\rm EM}$ with $\lint(n)$ on $\Lambda^2E_n^*$ through a unique isomorphism $\phi:\lG\to\lint(n)$, namely
+$L_i\mapsto s_j\wedge s_k$ and $K_i\mapsto s_i\wedge n$ for cyclic $(i,j,k)$. Moreover $F_{GX}=\star F_X$ with $\varepsilon_{0123}=+1$; on $\Lambda^2E_n^*$ the
+Hodge star satisfies $\star^2=-\id$, commutes with $\lint(n)$, and is self-adjoint and anti-isometric for $\langle F,F\rangle=\tfrac12F_{ab}F^{ab}=|\bB|^2-|\bE|^2
+=\eta(X,X)$, a form of signature $(3,3)$.
+\end{proposition}
+
+Restated from Theorem~12.3 and Proposition~12.7 of \cite{ES17} (r2-12a, which also finds $\phi$; r2-12b). With $\phi$, $E_n$ becomes a four-vector module of
+$\lG$, and the questions of Section~7 of \cite{FMB} become questions about $\lint(n)$-modules.
+
+\begin{proposition}[No covariant map from the field to a four-vector]
+\label{r2:prop:nolinear}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item For $n=e_1$ and $n=(2,3,6)/7$ the space $\Hom_{\lint(n)}(\Lambda^2E_n^*,E_n)$ is zero, and so is $\Hom_{\lG}(V_{\rm EM},E_n)$ for the module
+structure given by $\phi$.
+\item For quadratic maps, $\Hom_{\lG}(\mathrm{Sym}^2V_{\rm EM},E_n)=0$, $\dim\Hom_{\lG}(\mathrm{Sym}^2V_{\rm EM},\R)=2$ (the invariants $|\bB|^2-|\bE|^2$ and
+$\bE\cdot\bB$), $\dim\Hom_{\lG}(\mathrm{Sym}^2V_{\rm EM},\mathrm{Sym}^2E_n)=3$, and the traceless part of the last space is one-dimensional.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Complexified, $V_{\rm EM}\cong(1,0)\oplus(0,1)$ and $E_n\cong(\tfrac12,\tfrac12)$, and $\mathrm{Sym}^2V_{\rm EM}\cong(2,0)\oplus(0,2)\oplus(1,1)\oplus2(0,0)$
+contains no $(\tfrac12,\tfrac12)$; Schur's lemma \cite{GoodmanWallach} gives the dimensions, and the exact computation of the intertwiner spaces
+confirms them.
+\end{proof}
+
+Part (i) is inherited representation theory, computed (r2-11a, with two controls: the endomorphisms of $\Lambda^2E^*$ commuting with $\lint$ are spanned by the identity
+and the Hodge star, and $\dim\Hom_{\lint}(V,E)=1$); it confirms the corresponding statement of Section~7 of \cite{FMB}. Part (ii) is fixed by computation
+(r2-11b) and corrects that section in one respect: \cite{FMB} says that field momentum ``can be quadratic in the field and integrated over space'', but
+quadratic is not enough. The only traceless symmetric quadratic covariant is the stress tensor, up to scale, and a four-vector arises only after it is
+contracted with the unit normal of a spacelike hyperplane, which is a clock, and integrated.
+
+\begin{proposition}[Pointwise energy--momentum is a tensor row]
+\label{r2:prop:stress}
+For the stress tensor $\Theta^{\mu\nu}=\eta^{\mu\alpha}F_{\alpha\lambda}F^{\lambda\nu}+\tfrac14\eta^{\mu\nu}F_{\alpha\beta}F^{\alpha\beta}$ of $F_X$
+\cite{Jackson}:
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item $\Theta^{00}=E_6$ and $\Theta^{0a}=(\mathbf S_{\rm t})_a=-S_a$; $\Theta$ is symmetric and traceless, $\Theta^\mu{}_\lambda\Theta^\lambda{}_\nu=E_0^2\delta^\mu{}_\nu$ and
+$E_6^2=E_0^2+|\mathbf S|^2$.
+\item The rest field $X=e_1$ ($E_6=E_0=\tfrac12$, $\mathbf S=0$) boosted by $\exp(\chi\ad_{K_3})$ has $\bB=(\cosh\chi,0,0)$, $\bE=(0,\sinh\chi,0)$,
+$E_6=\tfrac12\cosh2\chi$ and $\mathbf S=-\tfrac12\sinh2\chi\,e_3$, while a four-vector with rest components $(\tfrac12,0)$ would have time component
+$\tfrac12\cosh\chi$.
+\item For every $X$, $\Theta[\exp(\chi\ad_{K_3})X]=L\,\Theta[X]\,L^{\!\top}$ with $L$ the boost of rapidity $\chi$ in the $(0,3)$ plane, the passage to the
+frame moving with velocity $-\tanh\chi\,e_3$.
+\end{enumerate}
+\end{proposition}
+
+Restated from Propositions~2.4 and~2.5 and Theorem~2.6 of \cite{RE}, re-verified symbolically (r2-13, r2-14a,b); the identities are inherited
+\cite{Rainich1925,LandauLifshitz2}. In the paper's variables the momentum density is $-\mathbf S=-\bE\times\bB$, the textbook $\bE\times\Btext$, that is minus the frame
+Poynting vector. So $(E_6,-\mathbf S)$ at a point is the first row of a tensor, quadratic in the boost, and not a
+four-vector, as \cite{RE} states; the density seen by the clock $n$ is $\Theta(\cdot,n)$, different for each clock and of Lorentz length $E_0$
+(Proposition~2.5 of \cite{RE}).
+
+\begin{proposition}[The four-momentum of an isolated field]
+\label{r2:prop:whole}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item If $\partial_\mu\Theta^{\mu\nu}=0$ and the Cauchy data have compact support, $P^\mu=(U/c,\mathbf P)$ with $U=\int u\,d^3x$ and $\mathbf P=\int\mathbf g\,d^3x$,
+$\mathbf g=\varepsilon_0\,\bE\times\Btext$ in SI, is independent of the spacelike hyperplane and is a future causal four-vector, with
+$M^2c^4=U^2-c^2|\mathbf P|^2\ge0$.
+\item For two free solutions the interference part $\Theta[X_1+X_2]-\Theta[X_1]-\Theta[X_2]$ is divergence free. Hence $P[X_1+X_2]=P[X_1]+P[X_2]$
+whenever the two fields have disjoint supports at some time, and two null wholes with momenta at angle $\vartheta$ have
+$M^2c^4=2U_1U_2(1-\cos\vartheta)$, timelike unless the momenta are collinear.
+\item In Heaviside--Lorentz units with $c=1$ and $f(s)=(1-s^2)^2$ on $|s|\le1$, zero elsewhere, the field $E_x=af(z-t)+bf(z+t)$,
+$B_{{\rm t}y}=af(z-t)-bf(z+t)$ has, per unit transverse area, $U=\tfrac{256}{315}(a^2+b^2)$ and $P_z=\tfrac{256}{315}(a^2-b^2)$ at every $t$, so
+$M=\tfrac{512}{315}ab$. Boosting the fields along $z$ with rapidity $\chi$ gives exactly $(U\cosh\chi-P_z\sinh\chi,\,P_z\cosh\chi-U\sinh\chi)$. For $|t|\ge1$ the
+pulses are disjoint, $q\equiv0$ and $\int E_0=0$, while $M>0$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) Integrate the conservation law over the region between two spacelike hyperplanes; the flux through the timelike boundary vanishes by finite
+propagation speed \cite{Laue1911,LandauLifshitz2}. Each $\Theta(\cdot,n)$ is future causal (the dominant energy condition \cite{HawkingEllis73}), hence so
+is the integral. (ii) $\Theta$ is quadratic and divergence free on every solution, so its polarisation is divergence free on pairs of solutions; the
+interference charge is conserved and vanishes when the supports are disjoint. The mass formula is that of two future null vectors. (iii) The cross terms
+of $u$ and of $S_{{\rm t}z}$ cancel pointwise; a right-moving pulse is multiplied by $e^{-\chi}$ and stretched by $e^\chi$ under the boost, and a left-moving one
+the reverse.
+\end{proof}
+
+Item (i) is inherited (von Laue \cite{Laue1911}) and is the mass of a whole of Proposition~2.9 of \cite{RE}, restated; items (ii) and (iii) are fixed by
+computation (r2-16: the interference part for two Maxwell plane waves with wave vectors $(0,0,3)$ and $(4,0,0)$, and the null sum $(3;0,0,3)+(4;4,0,0)$ of
+mass squared $24$; r2-15, by a genuine Lorentz transformation of the fields and exact integration). With $a=b=1$, (iii) is item~(4) of Proposition~2.9 of
+\cite{RE}. The mass of the whole comes from the non-collinearity of the two parts, not from their interference, which is absent at $|t|\ge1$. The four-momentum
+of the field is the integrated row $\int\Theta^{0\mu}d^3x$, which uses one hyperplane, that is one clock; the result does not depend on it.
+
+\begin{remark}[The photon]
+\label{r2:rem:photon}
+Inherited, and open in the arena. Quantising the free field gives translation generators with $\widehat P^\mu|\bk,\lambda\rangle=\hbar k^\mu|\bk,\lambda\rangle$,
+$k$ null and $\lambda=\pm1$ \cite{Wigner39,WeinbergQFT}; this is equation~(20) of \cite{FMB}, and its statement that the quantisation is not derived in the arena
+is confirmed. The arena supplies the classical counterparts: a null field such as $z=(1,i,0)e^{ik(x_3-t)}$ of Example~12.11 of \cite{ES17} has $E_6=|\mathbf S|$
+and momentum density along its propagation (r2-17), and on positive-frequency modes the eigenvalue of $G$ is $i$ times the helicity (Example~13.11 of
+\cite{ES17}), where the quantum of $\hbar$ per photon is put in by hand. Nor are the arena's own Fock modes photons: $a^\pm_i$ obey the anticommutation
+relations on $\R^8$, and no finite matrices obey $[a,a^\dagger]=\id$, since the trace of a commutator vanishes (r2-0b, r2-17).
+\end{remark}
+
+\begin{remark}[Base and fibre]
+\label{r2:rem:base}
+The field's four-momentum is a vector of the base $E_n$, the spacetime of the classical reading; the six components of $X_{\rm EM}$ are values in the fibre
+$V_{\rm EM}\cong\Lambda^2E_n^*$, with units of field strength, and its temporal triple carries $\bB$, not time. So $X_{\rm EM}$ is not a displacement and supplies
+no extra time components of momentum, as Section~7 of \cite{FMB} states (confirmed; fixed, since the four-momentum of
+\cref{r2:prop:whole} has its index in $E_n$). A field that depended on the surplus coordinates would carry surplus
+translation charges, the field analogue of $q_a$; these are what the gauge principle of \cref{r2:prop:shellII} removes (Corollary~30.3 of \cite{ES17}). The two
+readings of $X$ thus meet in one place, which is a reading (interpretive): the classical reading supplies the base $E_n$, and the field
+reading the fibre over it.
+\end{remark}
+
+\subsection{The no-go in its scope}
+\label{r2:sec:nogo}
+
+\begin{lemma}[Anti-isometry]
+\label{r2:lem:anti}
+If $G^\dagger=G$ and $G^2=-\id$ then $\eta(Gv,Gw)=-\eta(v,w)$.
+\end{lemma}
+
+\begin{proof}
+$\eta(Gv,Gw)=\eta(v,G^\dagger Gw)=\eta(v,G^2w)$.
+\end{proof}
+
+Restated (Proposition~3.3 and Theorem~16.2 of \cite{ES17}; Lemma~6.1 of \cite{FMB}, confirmed; r2-0a, r2-18).
+
+\begin{proposition}[No Lorentzian plane is $G$-invariant]
+\label{r2:prop:nogo}
+Every nondegenerate $G$-invariant subspace of $V$ has neutral signature $(k,k)$. In particular no four-plane of signature $(1,3)$, and no $E_n$, is
+invariant under an $\eta$-self-adjoint $G$ with $G^2=-\id$.
+\end{proposition}
+
+\begin{proof}
+If $GW\subset W$, then $G|_W$ is invertible and by \cref{r2:lem:anti} makes $\eta|_W$ congruent to $-\eta|_W$; by Sylvester's law of inertia
+\cite{ONeill83} a signature $(p,q)$ then equals $(q,p)$, so it is $(k,k)$. For the binding root the Gram matrix of $\operatorname{span}(v,Gv)$ is
+$\bigl(\begin{smallmatrix}a&b\\b&-a\end{smallmatrix}\bigr)$, of determinant $-(a^2+b^2)\le0$.
+\end{proof}
+
+Restated: Proposition~6.2 of \cite{FMB} is confirmed (r2-18: the symbolic identities, and 300 random $G$-invariant four-planes of signature $(2,2)$, in floating point
+with tolerance $10^{-9}$).
+
+\begin{proposition}[Leakage at every clock]
+\label{r2:prop:leak}
+For the interior Lagrangian $L_{\rm int}=\tfrac m2\,\eta(\dot X+\kappa GX,\dot X+\kappa GX)$ of equation~(26) of \cite{ES17}, with $X$ length-valued and $\kappa=c/\ell$
+of equation~(7) there:
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item $p=m\,\eta(\dot X+\kappa GX)$, the Euler--Lagrange equation is $\dot p=\kappa G^{\!\top}p$, and $\pi=\eta^{-1}p$ obeys $\dot\pi=\kappa G\pi$, so
+$\pi(\lambda)=(\cos\kappa\lambda+\sin\kappa\lambda\,G)\pi(0)$. At $n=e_1$, $\pi(0)=e_5$ gives $\pi(\lambda)=\cos(\kappa\lambda)e_5-\sin(\kappa\lambda)e_2$ and
+$\mathsf P_{e_1}\pi=\cos(\kappa\lambda)e_5$; along every solution $\eta(\pi,\pi)$ becomes $\cos2\kappa\lambda\,\eta(\pi,\pi)+\sin2\kappa\lambda\,\eta(\pi,G\pi)$.
+\item For every clock, $\mathsf Q_nGn=0$ and $\mathsf Q_nG\mathsf P_n=-(\id-nn^{\!\top})\circ\sigma$, where $\sigma:s_a\mapsto e_a$; hence
+$\rank\mathsf Q_nG\mathsf P_n=2$, with kernel $\operatorname{span}(n,Gn)$ in $E_n$.
+\item A vector $v\in E_n$ stays in $E_n$ under $\exp(\theta G)$ for all $\theta$ iff $v\in\operatorname{span}(n,Gn)$, a plane of signature $(1,1)$; at $n=e_1$
+it is $\langle e_1,e_4\rangle$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) Direct variation; $\eta^{-1}G^{\!\top}\eta=G$, and $e^{\theta G}=\cos\theta+\sin\theta\,G$ since $G^2=-\id$; $G$ is an anti-isometry, so $e^{\theta G}$ is not an
+isometry. (ii) $G$ maps $V^+$ into $V^-\subset E_n$, so $\mathsf Q_nGn=0$; on $V^-$, $G=-\sigma$ lands in $V^+$, of which $\mathsf Q_n$ keeps the part orthogonal to
+$n$: an idempotent of trace two composed with an isomorphism. (iii) If $e^{\theta G}v\in E_n$ for all $\theta$, the derivative at $0$ gives $\mathsf Q_nGv=0$, so
+$v\in\operatorname{span}(n,Gn)$; conversely this plane is $G$-invariant, and $\eta(Gn,Gn)=-1$.
+\end{proof}
+
+Fixed (r2-19a with sympy Euler--Lagrange equations; r2-19b symbolic in a general frame, and exact ranks at six rational clocks; r2-19c). Equations~(16)
+and~(17) of \cite{FMB}, its rank two at $n=e_1$ and its remark that only $\langle e_1,e_4\rangle$ stays are confirmed; (ii) extends the rank to every clock, and the
+mechanism is that $G$ maps the three spatial directions into $V^+$, and of $V^+$ only the $n$-component returns to $E_n$. If the interior
+momentum $\pi$ is identified with $K^\sharp$ and $q\approx0$ is imposed on its flow, the momentum is confined to the $(1,1)$ plane $\operatorname{span}(n,Gn)$ and
+two of the three spatial momenta are lost: the identification is obstructed. Allowing $q\neq0$ does not help, since neither $\mathsf P_n\pi$ nor even
+$\eta(\pi,\pi)$ is conserved, which confirms the last sentence of Section~6 of \cite{FMB}.
+
+\begin{proposition}[The two Lorentz algebras and the clock]
+\label{r2:prop:twoalg}
+$\lint(n)$ fixes $U_n$ pointwise and $\lG$ fixes no nonzero vector; $\lG\cap\lint(n)=0$; and $\lG$ meets the stabiliser $\so{E_n}\oplus\so{U_n}$ of the
+clock exactly in the line of the diagonal rotation $\sum_in_iL_i$. $G$ commutes with $\lG$ and not with $\lint(n)$.
+\end{proposition}
+
+The first two statements restate Proposition~12.2 of \cite{ES17}; the rest is fixed (r2-20 at $n=e_1,(1,2,2)/3$, and $\widehat W$ for the fixed planes).
+\Cref{r2:prop:leak} is the vector-module face of the exclusion of Proposition~12.6 of \cite{ES17}: the operator that is the Hodge star for $\lG$ moves every
+four-plane of $\lint(n)$, and the only symmetry the two structures share is the rotation about the clock, whose axis plane $\operatorname{span}(n,Gn)$ is the one
+that survives in \cref{r2:prop:leak}(iii).
+
+The no-go does not obstruct $G$ as the Hodge star. On the field module $\Lambda^2E_n^*$ the star acts on the whole module, which is neutral of signature $(3,3)$
+(\cref{r2:prop:dict}); \cref{r2:prop:nogo} forbids only invariant subspaces that are not neutral, and Theorem~16.2 of \cite{ES17} requires exactly $P=Q$, which
+$\Lambda^2E_n^*$ satisfies. So $G_{\rm EM}=\star$ is electric--magnetic duality on field strengths, commuting with the Lorentz action, while $G_{\rm cl}$ on the vector
+module $E_n$ is obstructed. This is fixed (r2-12b with \cref{r2:prop:nogo}) and confirms the revised interpretation of Section~6 of \cite{FMB}.
+
+\subsection{Answer}
+\label{r2:sec:answer}
+
+For the particle reading the four-momentum is constructed as follows. $X$ is taken with its lengths on the three directions of $V^-$; a clock $n\in V^+$
+selects the four-plane $E_n=\R n\oplus V^-$, and every four-plane containing the lengths is of this form. The six-momentum conjugate to $Y$ splits into the
+four-momentum $P_n=(E/c,\bp)$, conjugate to $(ct_n,x^a)$, and two surplus momenta $q_a$, Lorentz scalars. $P_n$ is a four-vector and the Noether charge of
+the translations of $E_n$. What it needs beyond the arena is a dynamics: the arena's metric gives the ambient shell, on which $q$ lowers the mass;
+the gauge principle of \cite{ES17} gives the reduced shell $q\approx0$, on which the clock is aligned with the temporal momentum and $m_4=\mu$; a positive internal mass
+needs a functional of the opposite sign, that of extra space dimensions. For the field reading the four-momentum is the integrated first row of the stress
+tensor on the base $E_n$, a four-vector for an isolated whole, with the mass of a whole from non-collinear parts; no linear or quadratic covariant map
+produces it pointwise, and $X_{\rm EM}$ supplies no time components. The two readings share the clock: it fixes $E_n$, the complex structure $J(n)$ of the
+Dirac spinor and the hyperplane on which the field's momentum is integrated.
+
+{\small
+\renewcommand{\arraystretch}{1.12}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{6.9cm}>{\raggedright\arraybackslash}p{2.1cm}>{\raggedright\arraybackslash}p{1.9cm}>{\raggedright\arraybackslash}p{3.0cm}@{}}
+\toprule
+statement & class & checks & on \cite{FMB}\\
+\midrule
+\endhead
+four-planes containing $V^-$ are the $E_n$ (\cref{r2:prop:planes}) & fixed & r2-1a,b & new\\
+$\mathsf P_n$ covariant under $SO^+(1,3)\times SO(2)$ only (\cref{r2:prop:cov}) & restated & r2-2a--c & Prop.~3.2 confirmed\\
+$J(n)=I_Tn$, $J(n)=u_1u_2$, $J(-n)=-J(n)$ (\cref{r2:prop:J}) & restated & r2-3a--d & Prop.~5.1 confirmed\\
+Theorem~4.1 of \cite{ES17} at every clock; mass form $I_T$ clock-independent (\cref{r2:thm:i}) & fixed & r2-4a--d & test of Sec.~5 passed\\
+$P_n$ four-vector, Noether charge of translations (\cref{r2:prop:cons}) & fixed & r2-5a--c & limitation corrected\\
+ambient shell, tachyonic for $|\mathbf q|>M_6c$ (\cref{r2:prop:shellI}) & fixed & r2-6 & eqs.~(7),(8) confirmed\\
+Option I is the momentum reading of \cite{RE} (\cref{r2:prop:RE}) & restated & r2-7 & new link\\
+first-class reduction $=$ \cite[Thm.~30.1]{ES17} at $A=0$ (\cref{r2:prop:shellII}) & restated & r2-8a,b & sharpened\\
+internal mass functional; toy has signature $(1,5)$ (\cref{r2:prop:shellIII}) & constructed; sign fixed & r2-9a,b & Prop.~4.1 confirmed\\
+the arena prefers Option II (\cref{r2:rem:prefer}) & interpretive & -- & new\\
+$m_4(n)\le\mu$, equality at the aligned clock; octant maximum (\cref{r2:prop:rotate}) & fixed & r2-10a--c & new\\
+mass as projection onto the clock (\cref{r2:rem:projection}) & interpretive & -- & new\\
+dictionary equivariant, $\star$ on a neutral module (\cref{r2:prop:dict}) & restated & r2-12a,b & confirmed\\
+no linear map to a four-vector (\cref{r2:prop:nolinear}(i)) & inherited & r2-11a,b & confirmed\\
+no quadratic map to a four-vector (\cref{r2:prop:nolinear}(ii)) & fixed & r2-11b & corrected\\
+pointwise $(E_6,-\mathbf S)$ is a tensor row (\cref{r2:prop:stress}) & restated & r2-13, r2-14a,b & confirmed\\
+von Laue four-vector, mass of a whole (\cref{r2:prop:whole}(i)) & inherited & -- & confirmed\\
+interference conserved; exact packets (\cref{r2:prop:whole}(ii),(iii)) & fixed & r2-15, r2-16 & new\\
+photon $P=\hbar k$, two helicities (\cref{r2:rem:photon}) & inherited; open in the arena & r2-17 & Sec.~7 confirmed\\
+$X_{\rm EM}$ supplies no time components (\cref{r2:rem:base}) & fixed & -- & confirmed\\
+no $G$-invariant $(1,3)$ plane (\cref{r2:prop:nogo}) & restated & r2-18 & Prop.~6.2 confirmed\\
+$\rank\mathsf Q_nG\mathsf P_n=2$ at every clock; $\pi\equiv K^\sharp$ with $q\approx0$ (\cref{r2:prop:leak}) & fixed; obstructed & r2-19a--c & extended\\
+$\lG\cap(\so{E_n}\oplus\so{U_n})=\R\sum_in_iL_i$ (\cref{r2:prop:twoalg}) & fixed & r2-20 & new\\
+$G=\star$ on $\Lambda^2E_n^*$ not obstructed & fixed & r2-12b & confirmed\\
+a principle making the normal translations gauge & open & -- & open there too\\
+\bottomrule
+\end{longtable}}
+
+What remains open is what remained open in \cite{FMB}, now located more precisely: a principle that makes the surplus translations gauge rather than
+chosen, a dynamics that selects the clock rather than aligning it with the momentum, and a derivation of the photon's Hilbert space from the arena. Nothing
+in this section identifies $X_{\rm cl}$ with $X_{\rm EM}$; they share the clock, and through it the base on which both four-momenta live.

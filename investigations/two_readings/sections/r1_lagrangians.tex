@@ -1,0 +1,505 @@
+% Section r1: the two readings of X and their Lagrangians.  Verification: verify/r1_lagrangians.py (ids r1-n).
+\section{Two readings of \texorpdfstring{$X$}{X} and their Lagrangians}
+\label{r1:sec:main}
+
+The question asked in the introduction contains two requests that this section answers together: that the two uses of the letter $X$
+be told apart, the first being a length and the second the pair $(\bE,\bB)$, and that Lagrangians be written for $X$, for the Dirac field
+and for the energies. The section types the two readings (\cref{r1:sec:types}), writes the Lagrangians of the classical reading
+(\cref{r1:sec:cl}), of the Dirac field (\cref{r1:sec:dirac}) and of the energies (\cref{r1:sec:energies}), assembles them
+(\cref{r1:sec:total}) and states what is fixed and what is not (\cref{r1:sec:answer}). Identifiers r1-$n$ refer to the lines
+\texttt{PASS r1-$n$} printed by \texttt{verify/r1\_lagrangians.py}, which checks every finite-dimensional and symbolic claim in exact
+arithmetic; Euler--Lagrange equations, Noether currents and stress tensors are derived there on general symbolic fields, and the
+Grassmann-valued Dirac field is handled by an exact Grassmann jet algebra.
+
+Conventions are those of \cite{ES17}: $V=\R^{3,3}$ with $\eta=\operatorname{diag}(1,1,1,-1,-1,-1)$, the temporal triple
+$V^+=\langle e_1,e_2,e_3\rangle$ and the spatial triple $V^-=\langle e_4,e_5,e_6\rangle$, the realisation of Appendix~A of \cite{ES17},
+the binding root $Ge_i=e_{i+3}$, $Ge_{i+3}=-e_i$, which satisfies $G^2=-\id$, $\eta G=(\eta G)^{\!\top}$ and $G^{\!\top}\eta G=-\eta$
+(r1-1), the interior Lorentz algebra $\lint$ on $E=\langle e_1,e_4,e_5,e_6\rangle$ with $\gamma^\mu=(e_1,e_4,e_5,e_6)$, $J=e_2e_3$ and
+$T=e_1e_2e_3=\gamma^0J$. Spacetime signature is $(+,-,-,-)$. The paper's $\bB$ is minus the textbook magnetic field,
+$\Btext=-\bB$ (Section~1.4 of \cite{ES17}); every Maxwell formula below names which of the two it uses. Each claim carries a class in
+words: \emph{fixed}, \emph{constructed}, \emph{obstructed}, \emph{open}, \emph{inherited}, \emph{interpretive} or \emph{restated}.
+
+\subsection{The two readings, typed}
+\label{r1:sec:types}
+
+\begin{definition}[The classical reading]
+\label{r1:def:cl}
+A classical displacement in the arena is
+\begin{equation}
+\label{r1:eq:Y}
+X_{\rm cl}=Y=\sum_{i=1}^3c\,t^i\,e_i+\sum_{a=1}^3x^a\,e_{a+3},\qquad [t^i]=\mathrm s,\quad [x^a]=\mathrm m,\quad [c\,t^i]=\mathrm m,
+\qquad \eta(Y,Y)=\sum_i(ct^i)^2-\sum_a(x^a)^2,\quad [\eta(Y,Y)]=\mathrm m^2 .
+\end{equation}
+Its length-valued part $\sum_ax^ae_{a+3}$ lies on the spatial triple: this is the precise content of the phrase that $X$ is taken in the
+three directions of sign $(-,-,-)$. The temporal components are times, converted to lengths by the constant $c$.
+\end{definition}
+
+The conversion is not a choice. A map $C:V^+\to V^-$ that commutes with the common rotations of the two triples is $C=c\,\id$ with
+$[c]=\mathrm{m\,s^{-1}}$ (Theorem~3.2 of \cite{ES17}; Proposition~2.7 of \cite{RE}), and the binding root acts on the unconverted
+coordinates $(t;x)$ as
+\begin{equation}
+\label{r1:eq:GC}
+G_C=\begin{pmatrix}0&-C^{-1}\\ C&0\end{pmatrix}=\Phi^{-1}G\,\Phi,\qquad \Phi=\operatorname{diag}(c,c,c,1,1,1),\qquad \Phi(t;x)=Y .
+\end{equation}
+Hence $G$ is dimensionless on $Y$, while $G_C$ carries entries of dimension $\mathrm{m\,s^{-1}}$ and $\mathrm{s\,m^{-1}}$: $G$ maps
+lengths to lengths only after the conversion, and on $Y$ it sends the length $x^a$ to the converted time slot $e_a$ (r1-2; restated
+from \cite{ES17,RE}, the commutation criterion being fixed there).
+
+\begin{definition}[The field reading]
+\label{r1:def:em}
+The field-strength reading of Theorem~12.3 of \cite{ES17} is, with SI units and $c$ explicit,
+\begin{equation}
+\label{r1:eq:XEM}
+X_{\rm EM}=\sum_{i=1}^3\bigl(cB_i\,e_i+E_i\,e_{i+3}\bigr),\qquad [E_i]=[cB_i]=\mathrm{V\,m^{-1}},\qquad z_c=c\bB+i\bE,\qquad
+\eta(X_{\rm EM},X_{\rm EM})=c^2|\bB|^2-|\bE|^2=\Re\,(z_c\cdot z_c),
+\end{equation}
+so $[\eta(X_{\rm EM},X_{\rm EM})]=\mathrm{V^2\,m^{-2}}$. With Heaviside--Lorentz units and $c=1$ this is $X=\sum_i(B_ie_i+E_ie_{i+3})$,
+$z=\bB+i\bE$, $q=z\cdot z$, $E_6=\tfrac12|z|^2$, $E_0=\tfrac12|q|$, and $E_6^2=E_0^2+|\mathbf S|^2$ with $\mathbf S=\bE\times\bB$
+(Proposition~2.4 of \cite{RE}). The same matrix $\Phi$ of \eqref{r1:eq:GC} converts $(\bB;\bE)$ to $(c\bB;\bE)$.
+\end{definition}
+
+\begin{theorem}[The type rule]
+\label{r1:thm:type}
+The two readings share the vector space $\R^{3,3}$, its form $\eta$ and the Clifford action on $S=\R^8$, and differ in the following
+four respects.
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item \emph{Units.} A linear map $X_{\rm EM}\mapsto X_{\rm cl}$ has entries of dimension $\mathrm{m^2\,V^{-1}}$. No monomial
+$c^a\ell^b\hbar^d$, with real exponents, has this dimension, where $\ell$ is the length of the shift operator (equation~(7) of
+\cite{ES17}); with the vacuum permittivity admitted, the only such monomial is $\ell^3(\varepsilon_0/\hbar c)^{1/2}$.
+\item \emph{Lorentz action.} Once the clock $e_1$ is chosen, $\lint$ acts on $Y$ as $E\oplus2\cdot\mathbf1$: the four-vector
+$(ct^1;x^1,x^2,x^3)$, which complexifies to $(\tfrac12,\tfrac12)$, and the two scalars $ct^2,ct^3$. The algebra that acts naturally on
+$X_{\rm EM}$ is $\lG$, the centraliser of $G$ in $\so{3,3}$, under which $V$ is irreducible and complexifies to $(1,0)\oplus(0,1)$
+(Section~12 of \cite{ES17}). The two subalgebras of $\so{3,3}$ meet in $0$.
+\item \emph{No equivariant map.} For every Lie algebra isomorphism $\phi:\lint\to\lG$ let $V_\phi$ be $V$ with $\lint$ acting through
+$\phi$. Then $\Hom_{\lint}(E,V_\phi)=\Hom_{\lint}(V_\phi,E)=0$ and $\Hom_{\lint}(E\oplus2\cdot\mathbf1,V_\phi)=\Hom_{\lint}(V_\phi,E\oplus2\cdot\mathbf1)=0$.
+By contrast $\Hom_{\lint}(\Lambda^2E,V_\phi)=\{(a+bG)M_0\}$ is two-dimensional: the field strength of the interior four-plane, at
+grade two (Proposition~12.7 of \cite{ES17}), is carried to $X_{\rm EM}$ uniquely up to a scale and a duality angle.
+\item \emph{Conjugates and observables.} The six components of $Y$ are configuration coordinates that Poisson-commute, with conjugate
+covector $K_A$ of dimension $\mathrm{kg\,m\,s^{-1}}$; its observables are a worldline, a four-momentum and a mass. In Maxwell's theory the
+configuration variable is the potential $\mathbf a$ with $\bB=\curl\mathbf a$, and $\bE$ is (up to $\varepsilon_0$) the momentum conjugate
+to $\mathbf a$, so $X_{\rm EM}$ is a point of phase space, not of configuration space: $\{\int\mathbf f\cdot\bE,\int\mathbf g\cdot\bB\}=-\int\mathbf
+f\cdot\curl\mathbf g$ (Heaviside--Lorentz) for test fields $\mathbf f,\mathbf g$, while the $\bE$--$\bE$ and $\bB$--$\bB$ brackets vanish. Its
+observables are $E_6$, $\mathbf S$, the invariants $q$ and the stress tensor.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(i) Over the base $(\mathrm m,\mathrm{kg},\mathrm s,\mathrm A)$ the volt is $\mathrm{kg\,m^2\,s^{-3}\,A^{-1}}$; none of $c$, $\ell$,
+$\hbar$ contains the ampere, so the ampere exponent of $\mathrm{m^2V^{-1}}$ cannot be matched, and with $\varepsilon_0$ the linear system
+for the exponents has the unique solution stated (r1-3). (ii) $\lint$ is spanned by $R_i=\tfrac12e_{j+3}e_{k+3}$ and
+$B_i=\tfrac12e_1e_{i+3}$ ($(i,j,k)$ cyclic), acting on vectors by the commutator; they annihilate $e_2,e_3$ and preserve $E$. The
+centraliser of $G$ in $\so{3,3}$ has dimension $6$ and is spanned by $L_i=\tfrac12(e_{j+3}e_{k+3}-e_je_k)$ and
+$K_i=\tfrac12(e_ke_{j+3}-e_je_{k+3})$; its commutant on $V$ is $\operatorname{span}\{\id,G\}\cong\C$, a division algebra, and $V$ is
+irreducible (Corollary~12.5 of \cite{ES17}). The spans of $\{R_i,B_i\}$ and $\{L_i,K_i\}$ inside $\so{3,3}$ have trivial intersection (r1-4).
+(iii) Both triples satisfy $[R_i,R_j]=\epsilon_{ijk}R_k$, $[R_i,B_j]=\epsilon_{ijk}B_k$, $[B_i,B_j]=-\epsilon_{ijk}R_k$ and the same with
+$(L,K)$, so $R_i\mapsto L_i$, $B_i\mapsto K_i$ is an isomorphism (r1-4). For any isomorphism $\phi$, $V_\phi$ is irreducible of dimension
+$6$ and $E$ irreducible of dimension $4$. The image of an equivariant $M:E\to V_\phi$ is a submodule of dimension at most $4$, hence $0$;
+the kernel of $M:V_\phi\to E$ is a submodule of dimension at least $2$, hence all of $V_\phi$. On the trivial summand an equivariant map
+lands in the fixed vectors of $V_\phi$, of which there are none, and a map out of $V_\phi$ into it is zero by irreducibility. Schur's lemma
+\cite{GoodmanWallach} on the irreducible $\Lambda^2E\cong V_\phi$ gives an intertwiner space equal to the commutant $\operatorname{span}\{\id,G\}$.
+The exact solution of the intertwining equations confirms all six dimensions for $\phi$ and for its parity twist $B_i\mapsto-K_i$ (r1-5),
+and the Casimirs separate the modules: $\sum R_i^2-\sum B_i^2=-3$, $\sum R_iB_i=0$ on $E$, against $-4$ and $-2G$ (eigenvalues $\pm2i$) on
+$V$ (r1-6). (iv) The bracket follows from $\{a_i(\mathbf x),E_j(\mathbf y)\}=\delta_{ij}\delta^3(\mathbf x-\mathbf y)$, read off the
+first-order action of \cref{r1:prop:E6}(ii), and from $\mathbf g\cdot\curl\mathbf a-\mathbf a\cdot\curl\mathbf g=\nabla\cdot(\mathbf
+a\times\mathbf g)$ (r1-31).
+\end{proof}
+
+Parts (i) and (iii) are fixed: (iii) could have failed for a different pair of subalgebras, and (i) is obstructed in the sense that the
+arena's constants cannot supply the conversion. Part (ii) is restated from \cite{ES17} (Propositions~12.2 and~12.6), and (iv) is
+inherited electrodynamics \cite{HenneauxTeitelboim92}. The identity map of $\R^{3,3}$ is linear but not equivariant between the two
+actions, so sharing the vector space identifies nothing.
+
+\begin{remark}[The working note]
+\label{r1:rem:fmb1}
+Definition~2.1 of \cite{FMB} is confirmed with one correction: its surplus coordinates $u^a$, there said to be ``also length-valued'', are
+the converted times $ct^2,ct^3$ of the temporal triple, length-valued only through $C=c\,\id$. Its distinction between the cotangent
+momentum $K$ and the momentum $\pi$ of the interior Lagrangian is a distinction between two Lagrangians for the same coordinates, as
+\cref{r1:sec:cl} shows: applied to $Y$, the interior Lagrangian has canonical momentum $p=\eta\pi$. Definition~2.2 is confirmed as a
+statement about $\lint$-modules: $V_{\rm EM}\cong\Lambda^2E_n^*$ holds through an isomorphism $\phi$, unique up to the factor $a+bG$, but
+$\Lambda^2E$ is not a subspace of $V$, and $\lG$ preserves no Lorentzian four-plane of $V$ (Proposition~6.2 of \cite{FMB}). The rule of
+interpretation of Section~2 of \cite{FMB} is confirmed and sharpened by parts (i) and (iii): no linear equivariant map exists in either
+direction, for any isomorphism of the two Lorentz algebras, and no arena constant supplies its dimension; the decomposition (18) of
+\cite{FMB} and its consequence ``no linear equivariant map $\Lambda^2E_n^*\to E_n$'' are confirmed in both directions.
+\end{remark}
+
+\subsection{Lagrangians for the classical reading}
+\label{r1:sec:cl}
+
+\begin{proposition}[The free worldline in the arena]
+\label{r1:prop:free}
+Let $Y(\lambda)$ be a curve with $\eta(Y',Y')>0$, $\lambda$ an arbitrary parameter, $[M]=\mathrm{kg}$, and
+\begin{equation}
+\label{r1:eq:Lfree}
+L_{\rm free}=-Mc\sqrt{\eta(Y',Y')},\qquad S=\int L_{\rm free}\,d\lambda,\quad [S]=\mathrm{J\,s}.
+\end{equation}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item $K_A=\partial L/\partial Y'^A=-Mc\,\eta_{AB}Y'^B/\sqrt{\eta(Y',Y')}$, with $\eta^{AB}K_AK_B=M^2c^2$ and $K_AY'^A-L=0$: the
+canonical Hamiltonian vanishes, $L$ is homogeneous of degree one in $Y'$, and the dynamics is the constraint
+$H=\tfrac N2(\eta^{AB}K_AK_B-M^2c^2)$. The kinetic six-momentum is $P^A=-\eta^{AB}K_B=McY'^A/\sqrt{\eta(Y',Y')}$.
+\item The Euler--Lagrange equations are $dK_A/d\lambda=0$; their solutions are the straight lines, in every parametrisation.
+\item The timelike set $\{\eta>0\}$ and the shell $\{\eta(K,K)=M^2c^2\}$ are connected: $(\cos s,\sin s,0;0,0,0)$ joins $e_1$ to $-e_1$
+with $\eta=1$, so there is no past and future. With the clock $e_1$ and $P=(\mathsf E/c,q_1,q_2;\bp)$, the shell reads
+$\mathsf E^2=c^2|\bp|^2+M^2c^4-c^2|\mathbf q|^2$; for $M=c=1$ and $\mathbf q=(2,0)$ the four-dimensional mass squared is $-3$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i)--(ii) by differentiation (r1-7). A straight line $Y_0+Vf(\lambda)$ with $f'>0$ solves the equations, while the timelike curve
+$(2\cos\lambda,2\sin\lambda,0;\lambda,0,0)$, with $\eta(Y',Y')=3$ and $Y''$ not parallel to $Y'$, does not (r1-8). (iii) $\eta(P,P)=\mathsf
+E^2/c^2+|\mathbf q|^2-|\bp|^2$ (r1-9).
+\end{proof}
+
+The form \eqref{r1:eq:Lfree} is inherited \cite{LandauLifshitz2}; (iii) is restated from Propositions~27.1--27.2 and Example~27.3 of
+\cite{ES17}, where the surplus momenta $\mathbf q$ produce the unstable band and the first-class constraints $q_a\approx0$ (Proposition~23.4,
+Theorem~30.1 of \cite{ES17}) remove it. Equation~(8) of \cite{FMB} is confirmed, and its Option~II is this constraint.
+
+The interior Lagrangian of \cite{ES17} is the split-form Lagrangian of equation~(26) there. Applied to the length-valued $Y$ it reads
+\begin{equation}
+\label{r1:eq:Lkappa}
+L_\kappa=\frac m2\,\eta\bigl(Y'+\kappa GY,\,Y'+\kappa GY\bigr),\qquad \kappa=\frac c\ell,\quad [\tau]=\mathrm s,\quad [m]=\mathrm{kg},\quad [L_\kappa]=\mathrm J,
+\end{equation}
+with $Y'=dY/d\tau$; the sum $Y'+\kappa GY$ is homogeneous in dimension only because $G$ acts on the converted coordinates (\eqref{r1:eq:GC},
+r1-2, r1-36).
+
+\begin{proposition}[The interior Lagrangian on lengths]
+\label{r1:prop:shift}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item $p=\partial L_\kappa/\partial Y'=m\eta(Y'+\kappa GY)$, $\pi:=\eta^{-1}p=m(Y'+\kappa GY)$, and the Euler--Lagrange equation is
+$Y''=-\kappa^2Y$ on all six components; on shell $p'=\kappa G^{\!\top}p$ and $\pi'=\kappa G\pi$.
+\item $L_\kappa=\tfrac m2\bigl(\eta(Y',Y')-\kappa^2\eta(Y,Y)\bigr)+\tfrac{d}{d\tau}\Lambda$ with
+$\Lambda=\tfrac{m\kappa}2\eta(Y,GY)=-m\kappa\sum_a(ct^a)\,x^a$, and $p-m\eta Y'=\partial\Lambda/\partial Y$.
+\item The energy $\mathcal E=p\cdot Y'-L_\kappa=\tfrac m2\bigl(\eta(Y',Y')+\kappa^2\eta(Y,Y)\bigr)$ is conserved and equals
+$H(Y,p)=\tfrac1{2m}\eta^{-1}(p,p)-\kappa\,p^{\!\top}GY$, which generates the flow. Explicitly
+$\mathcal E=\tfrac m2\sum_i\bigl((c\dot t^i)^2+\kappa^2(ct^i)^2\bigr)-\tfrac m2\sum_a\bigl((\dot x^a)^2+\kappa^2(x^a)^2\bigr)$: the
+three converted-time oscillators carry positive and the three length oscillators negative energy, and both $\mathcal E$ on $(Y,Y')$ and
+$H$ on $(Y,p)$ have signature $(6,6)$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) Differentiation and $G^\dagger=G$ (r1-10). (ii) $\eta(GY,GY)=-\eta(Y,Y)$, $\tfrac{d}{d\tau}\eta(Y,GY)=2\eta(Y',GY)$ because $\eta G$ is
+symmetric, and $\eta(Y,GY)=-2\sum_iy_iy_{i+3}$ (r1-11). (iii) Substitution and Hamilton's equations; the inertia of the two $12\times12$
+Hessians is computed in floating point with tolerance $10^{-9}$ (r1-12).
+\end{proof}
+
+Item (i) is restated (equations~(26)--(27) and Theorem~16.2 of \cite{ES17}); the claim of \cite{FMB} (below its equation~(15)) that the
+raised momentum obeys $\pi'=\kappa G\pi$ for constant $G$ is confirmed. Item (ii) is Theorem~16.6 of \cite{ES17} read on lengths: the
+boundary term that is $-m\kappa\,\bE\cdot\bB$ in the field reading is $-m\kappa\sum_a(ct^a)x^a$, the correlation of converted time and
+length along each paired axis. Item (iii) is fixed; the indefinite sign is that of Theorem~5.14 of \cite{RE}.
+
+\begin{proposition}[The spatial triple is not invariant]
+\label{r1:prop:mix}
+Every solution is $Y(\tau)=e^{-\kappa G\tau}Y_0+\frac{\sin\kappa\tau}{\kappa m}\pi_0$, $\pi(\tau)=e^{\kappa G\tau}\pi_0$, with
+$e^{sG}=\cos s\,\id+\sin s\,G$.
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item Phase-space data of lengths and spatial momenta, $Y_0=\sum_ax_0^ae_{a+3}$ and $\pi_0\in V^-$, acquire the temporal part
+$\sin(\kappa\tau)\sum_ax_0^ae_a$: lengths are rotated into converted times at once.
+\item Configuration data $(Y_0,Y'_0)\in V^-\times V^-$ stay in $V^-$, since $Y''=-\kappa^2Y$ is diagonal, but their canonical momentum
+has the temporal part $\pi(0)^+=-m\kappa\sum_ax^a_0e_a\neq0$, and $\pi'=\kappa G\pi$ maps $V^-$ into $V^+$; for example $\pi(0)=e_5$ gives
+$\pi(\tau)=\cos(\kappa\tau)e_5-\sin(\kappa\tau)e_2$.
+\item The zero-momentum orbits $e^{-\kappa G\tau}Y_0$ are duality rotations; $e^{-\kappa G\tau}e_4=\cos(\kappa\tau)e_4+\sin(\kappa\tau)e_1$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+The formula solves $Y''=-\kappa^2Y$ and $m(Y'+\kappa GY)=\pi$ with $Y(0)=Y_0$; the components are read off (r1-13).
+\end{proof}
+
+This is fixed. Restricting $X_{\rm cl}$ to the spatial triple is therefore not preserved by the interior dynamics as a statement about phase
+space, while it is preserved as a statement about configurations. The example in (ii) is the one of Section~6 of \cite{FMB}
+(equations~(16)--(17)), confirmed. Its reading needs one correction. By (ii) of \cref{r1:prop:shift} the rotation of $\pi$ out of a subspace
+is carried by the gradient $m\kappa\eta GY$ of a boundary term, which a canonical transformation removes (Theorem~16.6 of \cite{ES17}); the
+kinetic momentum $mY'$ obeys $mY''=-m\kappa^2Y$ and preserves $V^-$ and every four-plane $E_n$. The obstruction of Proposition~6.2 and
+equation~(16) of \cite{FMB} is therefore an obstruction to taking the canonical $\pi$ as the observable momentum, not a property of the
+motion. Neither $\pi$ nor $mY'$ is conserved, so neither is a four-momentum.
+
+\subsection{The Dirac Lagrangian}
+\label{r1:sec:dirac}
+
+Section~4 of \cite{ES17} fixes the kernels and the conditions they must meet, not a normalised Lagrangian: the mass form $T=\gamma^0J$
+is antisymmetric, the kinetic kernels $K^\mu=(\gamma^0J)(J\gamma^\mu)=-\gamma^0\gamma^\mu$ are symmetric with $K^0=-\id$, and
+$(\gamma^0J)\gamma^\mu$ is antisymmetric (Proposition~4.5 of \cite{ES17}; r1-14, which also checks $T^2=-\id$, $[K^\mu,J]=[T,J]=0$ and that
+$K^\mu J$ is antisymmetric). The normalised one-constituent Lagrangian is that of Proposition~3.6(iii) of \cite{RE}. For a real Grassmann
+field $\psi:\R^{1,3}\to S\otimes\Lambda$, in Heaviside--Lorentz units with $\hbar=c=1$,
+\begin{equation}
+\label{r1:eq:LD}
+L_D=\tfrac12\psi^{\!\top}\bigl(K^\mu D_\mu-mT\bigr)\psi=\tfrac12\psi^{\!\top}T\bigl(J\gamma^\mu D_\mu-m\bigr)\psi,\qquad
+D_\mu=\partial_\mu+qA_\mu J ,
+\end{equation}
+the real form of $\bar\psi(i\gamma^\mu D_\mu-m)\psi$ with $J$ in the place of $i$ \cite{Hestenes67}; in SI units the density is
+$\tfrac12\hbar c\,\psi^{\!\top}(K^\mu\partial_\mu-\tfrac{mc}\hbar T)\psi$ with $x^0=ct$ and $[\psi]=\mathrm m^{-3/2}$ (r1-36).
+
+\begin{proposition}[The real Dirac field]
+\label{r1:prop:dirac}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item For arbitrary real $8\times8$ kernels, the Euler--Lagrange expression of $\tfrac12\psi^{\!\top}A^\mu\partial_\mu\psi-\tfrac12\psi^{\!\top}M\psi$
+is $A^\mu_{\rm sym}\partial_\mu\psi-M_{\rm anti}\psi$. A symmetric mass kernel gives a vanishing bilinear and an antisymmetric kinetic
+kernel a total derivative.
+\item The field equation of \eqref{r1:eq:LD} at $q=0$ is $K^\mu\partial_\mu\psi=mT\psi$, that is $T(J\gamma^\mu\partial_\mu-m)\psi=0$,
+equivalently $J\gamma^\mu\partial_\mu\psi=m\psi$ or $\gamma^\mu\partial_\mu\psi=-mJ\psi$; since
+$(\gamma^\mu\partial_\mu-mJ)(\gamma^\nu\partial_\nu+mJ)=\Box+m^2$, each component obeys $(\Box+m^2)\psi=0$.
+\item $L_D$ is invariant under $\psi\mapsto e^{\theta J}\psi$; $D_\mu$ is covariant under $\psi\mapsto e^{-q\lambda J}\psi$,
+$A\mapsto A+d\lambda$, since $e^{-\theta J}$ preserves every $K^\mu$ and $T$. The Noether current $j^\mu=\tfrac12\psi^{\!\top}K^\mu J\psi$
+satisfies $\partial_\mu j^\mu=\psi^{\!\top}J\,\mathcal E_D$ identically, with $\mathcal E_D=K^\mu\partial_\mu\psi-mT\psi$; $j^0=-\tfrac12\psi^{\!\top}J\psi$.
+\item The canonical tensor $\Theta^\mu{}_\nu=\tfrac12\psi^{\!\top}K^\mu\partial_\nu\psi-\delta^\mu_\nu L_D$ satisfies
+$\partial_\mu\Theta^\mu{}_\nu=-(\partial_\nu\psi)^{\!\top}\mathcal E_D$ identically, and its energy density is
+$\Theta^0{}_0=\tfrac12\psi^{\!\top}\bigl(\gamma^0\gamma^a\partial_a+mT\bigr)\psi$, the real form of $\psi^\dagger(\boldsymbol\alpha\cdot\bp+\beta m)\psi$
+with $\bp=-J\nabla$.
+\item On shell $\Theta^{\mu\nu}-\Theta^{\nu\mu}=\partial_\rho S^{\rho\mu\nu}$ with the totally antisymmetric spin tensor
+$S^{\rho\mu\nu}=\tfrac14\psi^{\!\top}\gamma^0\gamma^{[\rho}\gamma^\mu\gamma^{\nu]}\psi$, so the Belinfante tensor
+$T_B^{\mu\nu}=\Theta^{\mu\nu}-\tfrac12\partial_\rho S^{\rho\mu\nu}=\tfrac14\psi^{\!\top}(K^\mu\partial^\nu+K^\nu\partial^\mu)\psi-\eta^{\mu\nu}L_D$ is
+symmetric, conserved on shell, and has $T_B^{00}=\Theta^{00}$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+For a Grassmann $\psi$, $\psi^{\!\top}M\delta\psi=\delta\psi^{\!\top}M\psi$ when $M$ is antisymmetric and $\psi^{\!\top}A\partial\delta\psi=
+\partial(\psi^{\!\top}A\delta\psi)+\delta\psi^{\!\top}A^{\!\top}\partial\psi$; collecting the left variations gives (i), which the jet algebra
+confirms for random integer kernels (r1-15). (ii) $K^\mu=TJ\gamma^\mu$ and $T$ is invertible (r1-16). (iii) $(K^\mu J)^{\!\top}=-K^\mu J$,
+and $\partial_\mu j^\mu=\psi^{\!\top}K^\mu J\partial_\mu\psi=\psi^{\!\top}J(\mathcal E_D+mT\psi)$ with $\psi^{\!\top}JT\psi=0$ because $JT$ is
+symmetric (r1-17). (iv) Exchanging Grassmann factors and using the symmetry of $K^\mu$ (r1-18). (v) The coefficient $\tfrac14$ is solved
+for, and the identity holds for all six pairs $(\mu,\nu)$ after the time derivatives are eliminated with the field equation (r1-19).
+\end{proof}
+
+Item (i) is fixed and turns the admissibility conditions of Proposition~4.5 of \cite{ES17} into a theorem of the variation: a Grassmann field
+sees only the symmetric part of a first-order kinetic kernel and only the antisymmetric part of a mass kernel. Items (ii)--(iii) are
+restated (Section~5 of \cite{ES17}, where the Dirac operator is written $J\gamma^\mu\partial_\mu-m$); the sign of the mass term in
+$\gamma^\mu\partial_\mu\psi=-mJ\psi$ follows from $K^0=-\id$ and $T=\gamma^0J$, and $m\mapsto-m$ passes to the opposite sign. Items
+(iv)--(v) are inherited \cite{Belinfante40,WeinbergQFT}. Equation~(35) of \cite{ES17} uses kinetic kernels $K^\mu=P_*\gamma^0\gamma^\mu P_*$,
+with $K^0=+\id$ on its block, and a mass term of the opposite sign: its Lagrangian is minus \eqref{r1:eq:LD} on the corresponding block,
+with the same field equation. For Grassmann fields $\Theta^0{}_0$ is not a number; positivity is a property of the quantised theory, whose
+state space Theorems~5.6--5.7 of \cite{ES17} construct from outside the real module.
+
+\subsection{Lagrangians for the energies}
+\label{r1:sec:energies}
+
+In this subsection units are Heaviside--Lorentz with $c=1$, $A_\mu$ is covariant, $\mathbf a=(A_1,A_2,A_3)$, and
+$F_{\mu\nu}=\partial_\mu A_\nu-\partial_\nu A_\mu$ with $F_{0i}=E_i$ and $F_{jk}=\epsilon_{ijk}B_i$ (Theorem~12.3 of \cite{ES17}). In SI
+every density below is multiplied by $\varepsilon_0$ with $\bB\to c\bB$, which makes it a density in $\mathrm{J\,m^{-3}}$ (r1-36).
+
+\begin{proposition}[Maxwell's Lagrangian in the field reading]
+\label{r1:prop:maxwell}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item $\bE=\partial_t\mathbf a-\nabla A_0$, $\bB=\curl\mathbf a$, and
+$L_M=-\tfrac14F_{\mu\nu}F^{\mu\nu}=\tfrac12(|\bE|^2-|\bB|^2)=-\tfrac12\eta(X_{\rm EM},X_{\rm EM})=-\tfrac12\Re q$; in SI,
+$L_M=\tfrac{\varepsilon_0}2(|\bE|^2-c^2|\bB|^2)$.
+\item The Euler--Lagrange equations of $L_M-A_\mu j^\mu$ are $\partial_\mu F^{\mu\nu}=j^\nu$: $\nabla\cdot\bE=\rho$ and
+$\partial_t\bE=-\curl\bB-\bj$ (in textbook variables $\partial_t\bE=\curl\Btext-\bj$), together with the identities $\partial_t\bB=\curl\bE$,
+$\nabla\cdot\bB=0$.
+\item The symmetric tensor $T^{\mu\nu}=F^{\mu\lambda}F_\lambda{}^\nu+\tfrac14\eta^{\mu\nu}F_{\alpha\beta}F^{\alpha\beta}$ is traceless, with
+$T^{00}=E_6$ and $T^{0i}=-(\bE\times\bB)_i=(\bE\times\Btext)_i$: the momentum density is $-\mathbf S$ in the paper's variables. It obeys
+$\partial_\mu T^{\mu\nu}=-F^\nu{}_\lambda\,\partial_\mu F^{\mu\lambda}$ identically, and $T^\mu{}_\lambda T^\lambda{}_\nu=E_0^2\delta^\mu_\nu$,
+so that $E_0=\tfrac12\sqrt{T_{\mu\nu}T^{\mu\nu}}$.
+\item The second invariant $\bE\cdot\bB=\tfrac12\Im q=-\bE\cdot\Btext$ is the divergence $\bE\cdot\bB=-\partial_\mu K^\mu$ of the
+Chern--Simons current $K^\mu=\tfrac12\varepsilon^{\mu\nu\rho\sigma}A_\nu\partial_\rho A_\sigma$ ($\varepsilon_{0123}=+1$), with
+$K^0=-\tfrac12\mathbf a\cdot\curl\mathbf a$; its Euler--Lagrange expression vanishes identically, so $\theta\,\bE\cdot\bB$ changes no field
+equation.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Symbolic differentiation on general $A_\mu(t,\mathbf x)$ and $j^\mu(t,\mathbf x)$ (r1-20, r1-21, r1-23); (iii) on general $(\bE,\bB)$ (r1-22).
+\end{proof}
+
+All of this is inherited \cite{Jackson,LandauLifshitz2,Rainich1925}; the Rainich identity and $E_6^2=E_0^2+|\mathbf S|^2$ are restated from
+Propositions~2.4--2.5 of \cite{RE}. Two signs are fixed by the paper's orientation and are easy to lose: the second invariant is
+$+\tfrac12\Im q$ in the paper's variables and $-\tfrac12\Im q$ in textbook ones, and the momentum density $T^{0i}$ is $-\mathbf S$, not
+$\mathbf S$. Maxwell's Lagrangian is the $\eta$-form of $X_{\rm EM}$, a member of the Lorentz class of Theorem~17.11 of \cite{ES17}.
+
+\paragraph{The rest energy as a Lagrangian.}
+Write $S=\tfrac12(|\bE|^2-|\Btext|^2)$ and $P=\bE\cdot\Btext$, so that $E_0=\tfrac12|q|=\sqrt{S^2+P^2}$, and set $L_0:=E_0$.
+For a Lagrangian $L(S,P)$ put $\mathbf D=\partial L/\partial\bE$ and $\mathbf H=-\partial L/\partial\Btext$.
+
+\begin{theorem}[The rest-energy Lagrangian]
+\label{r1:thm:L0}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item $L_0$ is Lorentz invariant (annihilated by $\lG$), homogeneous of degree two, and invariant pointwise under the duality rotation
+$z\mapsto e^{i\theta}z$, which does not leave $L_M=-\tfrac12\Re q$ invariant. It is not differentiable at null fields: along
+$\Btext=(1,0,0)$, $\bE=(0,e,0)$ it equals $\tfrac12|1-e^2|$, with one-sided derivatives $-1$ and $+1$ at $e=1$.
+\item $\mathbf D=(S\bE+P\Btext)/E_0$, $\mathbf H=(S\Btext-P\bE)/E_0$, and the Hamiltonian density is
+$\mathbf D\cdot\bE-L_0=\tfrac S{E_0}E_6=-\cos(\arg q)\,E_6$, which ranges over $[-E_6,E_6]$ and equals $-\tfrac12$ on the magnetic field
+$\Btext=(1,0,0)$, $\bE=0$, where $L_0$ is not convex in $\bE$.
+\item For every $L(S,P)$ the gauge-invariant tensor $T^\mu{}_\nu=\frac{\partial L}{\partial(\partial_\mu A_\lambda)}F_{\nu\lambda}-\delta^\mu_\nu L$
+equals $L_ST_M{}^\mu{}_\nu+\delta^\mu_\nu(SL_S+PL_P-L)$ and obeys $\partial_\mu T^\mu{}_\nu=-\mathcal E^\lambda F_{\nu\lambda}$, with
+$\mathcal E^\lambda$ the Euler--Lagrange expression of $A_\lambda$. Since $L_0$ is homogeneous of degree one in $(S,P)$, its tensor
+$T_0=(S/E_0)T_M$ is traceless: $L_0$ is conformal.
+\item For any $L(S,P)$, $\mathbf D\cdot\mathbf H-\bE\cdot\Btext=P(L_S^2-L_P^2-1)-2SL_SL_P$. The defect is $-2P$ for $L_0$ and
+$-(1+\lambda^2)P$ for $\lambda L_0$: no multiple of $E_0$ is a duality-invariant Lagrangian in the sense of Gaillard and Zumino.
+\item The ModMax Lagrangians $L_\gamma=\cosh\gamma\,S+\sinh\gamma\,E_0=\cosh\gamma\,L_M+\sinh\gamma\,L_0$ have vanishing defect for every
+$\gamma$, are conformal, and for $\gamma\ge0$ have $L_S\ge e^{-\gamma}>0$ and $\partial_\gamma L_\gamma=\tfrac12\sqrt{T^{(\gamma)}_{\mu\nu}T^{(\gamma)\mu\nu}}$;
+in particular $L_0=\partial_\gamma L_\gamma|_{\gamma=0}=\tfrac12\sqrt{T^M_{\mu\nu}T^{M\mu\nu}}$. As $\gamma\to\infty$,
+$L_\gamma/\sinh\gamma\to S+E_0=L_M+L_0$, whose defect is $-P$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(i) Under $L_i,K_i$ the variations of $S$ and $P$ vanish; $|q|$ is invariant under $q\mapsto e^{2i\theta}q$ (r1-24). (ii) Differentiation
+and $\mathbf D\cdot\bE-L_0=(SE^2+P^2-S^2-P^2)/E_0$ with $E^2-S=E_6$; the Hessian in $\bE$ at the stated point has a negative eigenvalue
+(r1-25). (iii) With $G^{\mu\lambda}=\partial L/\partial(\partial_\mu A_\lambda)=L_S\partial S/\partial(\partial_\mu A_\lambda)+L_P\partial
+P/\partial(\partial_\mu A_\lambda)$ the identity is polynomial in $(\partial A,L_S,L_P,L)$; conservation uses
+$G^{\mu\lambda}\partial_\mu F_{\nu\lambda}=\tfrac12G^{\mu\lambda}\partial_\nu F_{\mu\lambda}$, which holds for antisymmetric $G$ by the
+Bianchi identity (r1-27). (iv) $\mathbf D=L_S\bE+L_P\Btext$, $\mathbf H=L_S\Btext-L_P\bE$ (r1-25, r1-26). (v) $L_S=\cosh\gamma+\sinh\gamma\,(S/E_0)$
+with $S/E_0\in[-1,1]$; by (iii) and \cref{r1:prop:maxwell}(iii), $\tfrac12\sqrt{T^{(\gamma)}\!\cdot T^{(\gamma)}}=L_SE_0=\partial_\gamma L_\gamma$
+(r1-26, r1-28).
+\end{proof}
+
+Every computation in the theorem is fixed. The duality invariance and conformality of ModMax are inherited
+\cite{BandosLechnerSorokinTownsend20}, as is the Gaillard--Zumino criterion \cite{GaillardZumino81,GibbonsRasheed95} (Section~14 of
+\cite{ES17}) and the generation of ModMax by the root-$T\bar T$ flow \cite{BabaeiAghbolagh22}; the scripts re-derive them. Calling $L_0$
+``the rest-energy Lagrangian'' is interpretive, and the theorem says what the name costs. $L_0$ is an admissible Lagrangian, Lorentz invariant
+and conformal, but it is not duality invariant although $E_0$ is pointwise duality invariant; its energy density is indefinite; and it is
+singular exactly on the null fields that carry radiation. A positive-energy field theory with Lagrangian $\lambda E_0$ is obstructed. What the
+rest energy is, in the Lagrangian formalism, is the operator that deforms Maxwell's theory into ModMax: $L_0=\partial_\gamma L_\gamma|_0$,
+equal to $\tfrac12\sqrt{T_{\mu\nu}T^{\mu\nu}}$ by Rainich's identity. The limit $\gamma\to\infty$ does not isolate it but gives $L_M+L_0$.
+
+\paragraph{Hamiltonians.} In Hamiltonian variables $(\mathbf D,\Btext)$ put $w=\Btext+i\mathbf D$, $s=E_6(w)=\tfrac12(|\mathbf D|^2+|\Btext|^2)$,
+$p=|\mathbf D\times\Btext|=|\mathbf S(w)|$ and $E_0(w)=\tfrac12|w\cdot w|=\sqrt{s^2-p^2}$, the last by the identity of Proposition~2.4 of
+\cite{RE}. For $\mathcal H(\mathbf D,\Btext)$ the field equations are $\dot{\mathbf D}=\curl\mathbf H$, $\dot\Btext=-\curl\bE$ with
+$\bE=\partial\mathcal H/\partial\mathbf D$, $\mathbf H=\partial\mathcal H/\partial\Btext$; the energy flux is $\bE\times\mathbf H$, the
+momentum density $\mathbf D\times\Btext$, and Lorentz invariance requires $\bE\times\mathbf H=\mathbf D\times\Btext$; duality invariance is
+$\bE\cdot\Btext=\mathbf D\cdot\mathbf H$ and conformal invariance $\mathbf D\cdot\bE+\Btext\cdot\mathbf H=2\mathcal H$
+\cite{BialynickiBirula83,BandosLechnerSorokinTownsend20}.
+
+\begin{proposition}[Which energies are Hamiltonians]
+\label{r1:prop:ham}
+For $\mathcal H=a\,s+b\,E_0(w)$ one has $\bE\times\mathbf H=(a^2-b^2)\,\mathbf D\times\Btext$, and $\mathcal H$ is duality invariant and
+conformal for all $(a,b)$. Hence $\mathcal H$ is Lorentz invariant exactly when $a^2-b^2=1$: the Maxwell Hamiltonian $s=E_6$ and the ModMax
+Hamiltonian $\cosh\gamma\,E_6-\sinh\gamma\,E_0$. The rest energy alone, $\mathcal H=E_0$, gives $\bE\times\mathbf H=-\mathbf D\times\Btext$
+and is not Lorentz invariant. The Bialynicki-Birula Hamiltonian $\mathcal H=p=|\mathbf S(w)|=\sqrt{E_6^2-E_0^2}$ satisfies all three
+conditions.
+\end{proposition}
+
+\begin{proof}
+With $\xi=\tfrac12(|\mathbf D|^2-|\Btext|^2)$, $\eta_w=\mathbf D\cdot\Btext$ and $E_0=\sqrt{\xi^2+\eta_w^2}$,
+$\bE=a\mathbf D+b(\xi\mathbf D+\eta_w\Btext)/E_0$ and $\mathbf H=a\Btext+b(\eta_w\mathbf D-\xi\Btext)/E_0$; the cross terms cancel and the
+$b^2$ term is $-(\xi^2+\eta_w^2)\mathbf D\times\Btext/E_0^2$ (r1-29).
+\end{proof}
+
+The classification of conformal duality-invariant Hamiltonians, ModMax and Bialynicki-Birula's, is inherited
+\cite{BandosLechnerSorokinTownsend20,BialynickiBirula83}. What is fixed here is its form in the variables of \cite{RE}: the differentiation
+$E_6^2=E_0^2+|\mathbf S|^2$ of the undivided energy supplies all three duality invariants, the admissible Hamiltonians are $\cosh\gamma\,E_6-\sinh\gamma\,E_0$
+and $|\mathbf S|$, and the rest energy is admissible only together with $E_6$, never alone.
+
+\begin{proposition}[The undivided energy is a Hamiltonian, not a Lagrangian]
+\label{r1:prop:E6}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item Used as a Lagrangian of the potential, $E_6=\tfrac12(|\bE|^2+|\bB|^2)$ with $\bE=\partial_t\mathbf a-\nabla A_0$, $\bB=\curl\mathbf a$
+gives $\nabla\cdot\bE=0$ and $\partial_t\bE=+\curl\bB$; a transverse plane wave then needs $\omega^2+k^2=0$. The equations are elliptic.
+\item The first-order action $L_H=\bE\cdot\partial_t\mathbf a-E_6+A_0\nabla\cdot\bE$, with $\bE$ independent, has Euler--Lagrange equations
+$\bE=\partial_t\mathbf a-\nabla A_0$, $\partial_t\bE=-\curl\bB$, $\nabla\cdot\bE=0$, and on the first of them
+$L_H=L_M+\nabla\cdot(A_0\bE)$: $E_6$ is the Legendre transform of $L_M$, with $\bE$ conjugate to $\mathbf a$.
+\item With two potentials, $\bB=\curl\mathbf A$ and $\bE=\curl\mathbf C$, $X_A=(\mathbf A;\mathbf C)$, the Schwarz--Sen Lagrangian
+$L_{SS}=\tfrac12(\curl X_A)\cdot G\dot X_A-\tfrac12|\curl X_A|^2=\tfrac12(\bE\cdot\dot{\mathbf A}-\bB\cdot\dot{\mathbf C})-E_6$ is first order in
+time with Hamiltonian $E_6$, is exactly invariant under $X_A\mapsto e^{\theta G}X_A$, and the duality charge density is
+$-\tfrac12X_A\cdot\curl X_A$, minus the optical helicity density. $L_{SS}-(\bE\cdot\dot{\mathbf A}-E_6)$ has identically vanishing
+Euler--Lagrange expression.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Symbolic Euler--Lagrange equations on general fields; the plane wave is $\mathbf a=(0,e^{i(kx-\omega t)},0)$, $A_0=0$ (r1-30, r1-31, r1-32).
+\end{proof}
+
+Item (i) is fixed, (ii) inherited \cite{HenneauxTeitelboim92}, and (iii) restated from equation~(17) and Theorem~13.10 of \cite{ES17}, the
+duality-symmetric form of Deser and Teitelboim and of Schwarz and Sen \cite{DeserTeitelboim76,SchwarzSen94}. In (iii) duality is a symmetry
+off shell because both terms are $G$-invariant: $E_6=\tfrac12|z|^2$ has duality weight zero, and $G$ is orthogonal for the Euclidean product
+of the symplectic term. This is the field form of the dichotomy of Theorem~17.11 of \cite{ES17} and Theorem~2.1 of \cite{RE}: the Lagrangian
+$-\tfrac12\eta(X,X)$ lies in the Lorentz class, the Hamiltonian $E_6$ in the duality class, and the two classes meet in $0$, so no quadratic
+form is both. $E_0$ enters neither $L_M$ nor $L_H$ nor $L_{SS}$; it enters as the deformation of \cref{r1:thm:L0}(v) and of
+\cref{r1:prop:ham}.
+
+\subsection{The total Lagrangian}
+\label{r1:sec:total}
+
+With $\hbar=c=1$ the total Lagrangian of the field theory and of a classical charged test particle is
+\begin{equation}
+\label{r1:eq:Ltot}
+\mathcal L_{\rm tot}=-\tfrac14F_{\mu\nu}F^{\mu\nu}+\tfrac12\psi^{\!\top}\bigl(K^\mu D_\mu-mT\bigr)\psi,\qquad
+L_{\rm pp}=-M\sqrt{\eta(Y',Y')}-e\,A_\mu(x)\,x'^\mu,\quad x=(Y^1;Y^4,Y^5,Y^6).
+\end{equation}
+
+\begin{proposition}[Coupled equations and conservation]
+\label{r1:prop:total}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item $\partial\mathcal L_{\rm tot}/\partial A_\nu=q\,j^\nu$, so Maxwell's equations are $\partial_\mu F^{\mu\nu}=J_e^\nu:=-q\,j^\nu$, and the
+Dirac equation is $K^\mu D_\mu\psi=mT\psi$.
+\item The gauge-covariant Dirac tensor $\Theta_D{}^\mu{}_\nu=\tfrac12\psi^{\!\top}K^\mu D_\nu\psi-\delta^\mu_\nu L_D$ satisfies
+$\partial_\mu\Theta_D{}^\mu{}_\nu=qF_{\lambda\nu}j^\lambda$ on the Dirac shell, and $\partial_\mu T_M{}^\mu{}_\nu=-F_{\nu\lambda}\partial_\mu F^{\mu\lambda}$,
+which equals $qF_{\nu\lambda}j^\lambda$ on the Maxwell shell. Hence $\partial_\mu(T_M+\Theta_D)^\mu{}_\nu=0$ on the coupled shell.
+\item For $L_{\rm pp}$ the surplus momenta $K_2,K_3$ are conserved, and the interior equations are the Lorentz force
+$\frac{d}{d\lambda}\bigl(Mx'_\mu/\sqrt{\eta(Y',Y')}\bigr)=eF_{\mu\nu}x'^\nu$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i)--(ii) in the Grassmann jet algebra with coefficients depending on general $A_\mu(t,\mathbf x)$, the time derivatives of $\psi$ being
+eliminated with the Dirac equation (r1-33, r1-34). (iii) Symbolic Euler--Lagrange equations for general $A_\mu(x)$ (r1-35).
+\end{proof}
+
+The coupled statement is inherited \cite{WeinbergQFT}; in the arena it is the one-constituent version of Theorem~13.19 of \cite{ES17}, with
+the Grassmann kernels of \eqref{r1:eq:LD} in place of the commuting ones there, and the checks make it fixed for this realisation. Equation~(19)
+of \cite{FMB} is confirmed. The four-momentum of the field is $P^\mu=\int T^{0\mu}_{\rm tot}\,d^3x$; its properties are the subject of the
+section on the four-momentum.
+
+Each reading enters $\mathcal L_{\rm tot}$ in its own place. The classical reading is the argument: the coordinates $x^\mu=(ct^1;x^a)$ on which
+$A_\mu$ and $\psi$ depend, and the worldline $Y(\lambda)$, whose surplus components $ct^2,ct^3$ couple to nothing but the six-dimensional
+mass shell. The field reading is a value: $X_{\rm EM}$ is the field strength $F=dA$ of the interior potential, entering through
+$L_M=-\tfrac12\eta(X_{\rm EM},X_{\rm EM})$, through $T^{\mu\nu}$ and through the Lorentz force, and it becomes a vector of $\R^{3,3}$ with
+the action of $\lG$ only through the two-parameter dictionary of \cref{r1:thm:type}(iii). The two meet only in the derivative
+$\partial_\mu$, of dimension $\mathrm m^{-1}$ in the classical reading, which carries the potential to the field strength.
+
+\begin{table}[t]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{1.45cm}>{\raggedright\arraybackslash}p{1.75cm}>{\raggedright\arraybackslash}p{1.3cm}%
+>{\raggedright\arraybackslash}p{2.25cm}>{\raggedright\arraybackslash}p{2.75cm}>{\raggedright\arraybackslash}p{2.2cm}>{\raggedright\arraybackslash}p{2.55cm}@{}}
+\toprule
+symbol & reading & SI unit & natural Lorentz action & Lagrangian & canonical conjugate & Noether charges\\
+\midrule
+$Y=X_{\rm cl}$ & displacement; lengths on $V^-$ & m & $\lint$ on $(ct^1;x)$ after the clock; $ct^2,ct^3$ scalars & $-Mc\sqrt{\eta(Y',Y')}$ &
+$K_A$, $\mathrm{kg\,m\,s^{-1}}$ & $K_A$ (translations of $\R^{3,3}$), $\so{3,3}$ charges $Y\wedge K$\\
+$Y$, interior & configuration & m & none preserving a Lorentzian four-plane & $\tfrac m2\eta(Y'+\kappa GY,Y'+\kappa GY)$ & $p=m\eta(Y'+\kappa GY)$ & energy, signature $(6,6)$\\
+$A_\mu=(A_0;\mathbf a)$ & potential & $\mathrm{V\,s\,m^{-1}}$ & $\lint$, $(\tfrac12,\tfrac12)$ & $L_M$ through $F=dA$ & $\varepsilon_0\bE$ conjugate to $\mathbf a$ & Gauss constraint generates gauge\\
+$X_{\rm EM}=(c\bB;\bE)$ & field strength & $\mathrm{V\,m^{-1}}$ & $\lG$, $(1,0)\oplus(0,1)$ & $L_M=-\tfrac{\varepsilon_0}2\eta(X_{\rm EM},X_{\rm EM})$ &
+none: a phase-space point & $P^\mu=\int T^{0\mu}$, $J^{\mu\nu}$\\
+$X_A=(\mathbf A;\mathbf C)$ & dual potentials & $\mathrm{V\,s\,m^{-1}}$ & boosts only on shell; duality $e^{\theta G}$ & $L_{SS}$ & $\tfrac12G^{\!\top}\curl X_A$ (second class) & energy $\int E_6$, helicity\\
+$\psi$ & Dirac field & $\mathrm m^{-3/2}$ & $\lint$, $(\tfrac12,0)\oplus(0,\tfrac12)$ & $\tfrac12\psi^{\!\top}(K^\mu D_\mu-mT)\psi$ & $\tfrac12\psi^{\!\top}$ (second class) & $\int j^0$, $P^\mu$\\
+$E_6$ & undivided energy & $\mathrm{J\,m^{-3}}$ & $T^{00}$, a tensor component & Hamiltonian of $L_M$, $L_{SS}$; not a Lagrangian & -- & generates time translation\\
+$E_0$ & rest energy & $\mathrm{J\,m^{-3}}$ & scalar, duality invariant & $L_0$ (interpretive); ModMax deformation & -- & --\\
+\bottomrule
+\end{tabular}
+\caption{The objects of \cref{r1:sec:main}: reading, unit, Lorentz action, Lagrangian, conjugate and charges.}
+\label{r1:tab:objects}
+\end{table}
+
+\subsection{Answer}
+\label{r1:sec:answer}
+
+The Lagrangians asked for in the introduction, and the status of each statement, are the following.
+\begin{enumerate}[label=(\arabic*),leftmargin=2.2em]
+\item \emph{The two $X$'s.} $X_{\rm cl}=Y$ is a displacement in metres whose length-valued part lies on the spatial triple, the temporal
+part being times converted by the unique $c$; $X_{\rm EM}=(c\bB;\bE)$ is a field strength in volts per metre. They share $\R^{3,3}$, $\eta$
+and the Clifford action, and nothing else: no nonzero linear equivariant map joins them for any identification of their Lorentz algebras,
+and no monomial in $c$, $\ell$, $\hbar$ supplies the unit $\mathrm{m^2V^{-1}}$ such a map would need (\cref{r1:thm:type}; fixed and
+obstructed). They are kept apart by treating $X_{\rm cl}$ as the argument and $X_{\rm EM}$ as a value of the fields
+(\cref{r1:sec:total}; interpretive).
+\item \emph{Lagrangians for $X_{\rm cl}$.} The free worldline \eqref{r1:eq:Lfree} (inherited form; its split-signature consequences restated)
+and the interior Lagrangian \eqref{r1:eq:Lkappa} on lengths, with $\kappa=c/\ell$, Euler--Lagrange equation $Y''=-\kappa^2Y$, $\pi'=\kappa G\pi$
+(restated, confirming \cite{FMB}) and an energy of signature $(6,6)$ (fixed). The interior flow does not preserve the spatial triple in phase
+space (fixed); the obstruction concerns the canonical momentum, which differs from the kinetic one by a boundary-term gradient (fixed;
+corrects the reading of Section~6 of \cite{FMB}).
+\item \emph{The Dirac Lagrangian.} \eqref{r1:eq:LD}, with the Grassmann variation rule (fixed), the field equation
+$J\gamma^\mu\partial_\mu\psi=m\psi$ (restated), the current $\tfrac12\psi^{\!\top}K^\mu J\psi$ and the canonical and Belinfante tensors
+(inherited, checked).
+\item \emph{Lagrangians for the energies.} Maxwell's $L_M=-\tfrac12\eta(X_{\rm EM},X_{\rm EM})$ (inherited); $E_6$ is its Hamiltonian, in the
+first-order and the duality-symmetric forms (inherited, restated), and as a Lagrangian it gives elliptic equations (fixed); $E_0$ is a
+Lorentz-invariant conformal Lagrangian with indefinite energy and no duality invariance (fixed), and it is the generator of ModMax and the
+partner of $E_6$ in the ModMax Hamiltonian (fixed; the ModMax facts inherited). Reading $L_0$ as ``the rest-energy Lagrangian'' is
+interpretive, and as the Lagrangian of a positive-energy theory it is obstructed.
+\item \emph{The total Lagrangian.} \eqref{r1:eq:Ltot}, with total conservation on the coupled shell (inherited, checked) and
+\cref{r1:tab:objects}.
+\item \emph{Open.} A dynamical relation between the two readings, which would have to be a new, dimensionful, covariant map, and the
+quantisation of either reading in the arena's own terms, remain open.
+\end{enumerate}

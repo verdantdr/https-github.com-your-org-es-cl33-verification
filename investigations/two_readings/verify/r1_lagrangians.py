@@ -427,8 +427,13 @@ def block_C():
     ok &= is_zero(L.subs({Yd[a]: s_ * Yd[a] for a in range(6)}, simultaneous=True) - s_ * L)
     EL = [sp.diff(L, Y[a]) - sp.diff(K[a], lam) for a in range(6)]
     ok &= all(is_zero(EL[a] + sp.diff(K[a], lam)) for a in range(6))       # EL = -dK/dlambda
+    # so(3,3) charges M_AB = Y_A K_B - Y_B K_A (Y_A = eta_AB Y^B): dM/dlambda = Y_A K_B' - Y_B K_A'
+    Ylow = ETA * Y
+    ok &= all(is_zero(sp.diff(Ylow[a] * K[b] - Ylow[b] * K[a], lam) - (Ylow[a] * sp.diff(K[b], lam) - Ylow[b] * sp.diff(K[a], lam)))
+              for a in range(6) for b in range(a + 1, 6))
     check(7, "free worldline L = -Mc sqrt(eta(Y',Y')): K_A = -Mc eta_AB Y'^B / sqrt(eta(Y',Y')), eta(K,K) = M^2 c^2, "
-             "K.Y' - L = 0, L homogeneous of degree 1 in Y' (reparametrisation invariance), EL <=> dK/dlambda = 0", ok)
+             "K.Y' - L = 0, L homogeneous of degree 1 in Y' (reparametrisation invariance), EL <=> dK/dlambda = 0; the "
+             "so(3,3) charges Y_A K_B - Y_B K_A are conserved on shell", ok)
 
     # straight lines (any parametrisation) solve EL; a non-straight timelike curve does not
     V = sp.Matrix([2, 1, 0, 1, 0, 0])                                      # eta(V,V) = 4 > 0
@@ -716,9 +721,11 @@ def block_E():
         dens = dens + bilinear(psi, GAM[0] * GAM[a_] / 2, field((a_,)))
     dens = dens + bilinear(psi, m * TT / 2, psi)
     ok &= (Theta(0, 0) - dens).is_zero()
+    # canonical momentum of psi: dL/d(d_0 psi_a) (left derivative) = 1/2 psi_a, a second-class constraint
+    ok &= all((left_deriv(L, gid(a_, (0,))) - psi[a_].scale(sp.Rational(1, 2))).is_zero() for a_ in range(8))
     check(18, "canonical Dirac tensor Theta^mu_nu = 1/2 psi^T K^mu d_nu psi - delta^mu_nu L_D obeys "
               "d_mu Theta^mu_nu = -(d_nu psi)^T E_D identically (conserved on shell); energy density "
-              "Theta^0_0 = 1/2 psi^T (gamma^0 gamma^a d_a + m T) psi off shell", ok)
+              "Theta^0_0 = 1/2 psi^T (gamma^0 gamma^a d_a + m T) psi off shell; the momentum conjugate to psi is 1/2 psi^T", ok)
 
     # symmetric (Belinfante) tensor: T_B^{mu nu} = 1/4 psi^T (K^mu d^nu + K^nu d^mu) psi - eta^{mu nu} L
     rule = onshell_rule(m)
@@ -1018,9 +1025,8 @@ def block_G():
     ok = sp.simplify(dg.subs(gam, 0) - Rs) == 0
     LS = sp.diff(LMM, Ss)
     # T_gamma = L_S T_M and T_M.T_M = 4 E0^2 (r1-22), so (1/2) sqrt(T.T) = |L_S| E0
-    ok &= sp.simplify((LS * Rs) ** 2 - dg ** 2) == 0
+    ok &= sp.simplify(LS * Rs - dg) == 0
     g_pos = sp.Symbol("g", positive=True)
-    ok &= sp.simplify((LS - sp.exp(-gam)).subs(gam, g_pos).subs(Ss, -Rs)) == 0 or True
     xg = sp.Symbol("x", real=True)                                       # x = S/E0 in [-1, 1]
     LSx = sp.cosh(g_pos) + sp.sinh(g_pos) * xg
     ok &= sp.simplify(LSx.subs(xg, -1) - sp.exp(-g_pos)) == 0 and sp.diff(LSx, xg) == sp.sinh(g_pos)
@@ -1123,12 +1129,147 @@ def block_H():
     ok &= sp.trigsimp(sp.expand(LSSr - LSS)) == 0
     vel = list(XA.diff(XS[0]))
     mom = sp.Matrix([sp.diff(LSS, v) for v in vel])
-    ok &= is_zero((mom.T * sp.Matrix(vel))[0] - LSS - (XF.T * XF)[0] / 2)
+    ok &= is_zero((mom.T * sp.Matrix(vel))[0] - LSS - (XF.T * XF)[0] / 2) and mat_zero(mom - G6.T * XF / 2)
     j0 = (mom.T * G6 * XA)[0]
     ok &= is_zero(j0 + (XA.T * XF)[0] / 2)
     diffL = LSS - ((Ess.T * Av.diff(XS[0]))[0] - (Ess.T * Ess + Bss.T * Bss)[0] / 2)
     ok &= all(is_zero(x) for x in EL_first_order(diffL, list(Av) + list(Cv)))
     check(32, "Schwarz-Sen form L_SS = (1/2) curl X_A . G dX_A/dt - (1/2)|curl X_A|^2 = (E.dA/dt - B.dC/dt)/2 - E6 "
               "(B = curl A, E = curl C): exactly invariant under X_A -> exp(theta G) X_A (off-shell duality), first order "
-              "in time with Hamiltonian E6, duality charge density -(1/2) X_A . curl X_A (ES17 Thm 13.10 restated), and "
+              "in time with momentum G^T curl X_A / 2 and Hamiltonian E6, duality charge density -(1/2) X_A . curl X_A (ES17 Thm 13.10 restated), and "
               "L_SS - (E.dA/dt - E6) has identically vanishing EL expression (same theory as L_H with Gauss solved)", ok)
+
+
+# ==============================================================================================
+# I. The coupled Maxwell-Dirac system and a charged test worldline
+# ==============================================================================================
+def block_I():
+    Af = [sp.Function(f"A{mu}")(*XS) for mu in range(4)]
+    q = sp.Symbol("q", real=True)
+    m = sp.Symbol("mD", positive=True)
+    L = dirac_L(m, gauge=Af, q=q)
+    psi = field()
+    # the source of Maxwell's equation: dL_D/dA_nu = q j^nu with j^nu = 1/2 psi^T K^nu J psi
+    j = [bilinear(psi, KK[mu] * JJ / 2, psi) for mu in range(4)]
+    a_syms = sp.symbols("alpha0:4")
+    Lsym = GA({k: v.subs({Af[mu]: a_syms[mu] for mu in range(4)}) for k, v in L.t.items()})
+    ok = all((GA({k: sp.diff(v, a_syms[nu]) for k, v in Lsym.t.items()}) - j[nu].scale(q)).is_zero() for nu in range(4))
+    # Dirac EL equation with the gauge field: K^mu D_mu psi = m T psi
+    E = euler_lagrange_first_order(L)
+    exp1 = [GA() for _ in range(8)]
+    Jpsi = matvec(JJ, psi)
+    for mu in range(4):
+        col = matvec(KK[mu], [field((mu,))[a] + Jpsi[a].scale(q * Af[mu]) for a in range(8)])
+        exp1 = [exp1[a] + col[a] for a in range(8)]
+    colT = matvec(m * TT, psi)
+    exp1 = [exp1[a] - colT[a] for a in range(8)]
+    ok &= all((E[a] - exp1[a]).is_zero() for a in range(8))
+    # gauge-covariant Dirac tensor: d_mu Theta_D^mu_nu = q F_{l nu} j^l on the Dirac shell
+    F = sp.Matrix(4, 4, lambda mu, nu: sp.diff(Af[nu], XS[mu]) - sp.diff(Af[mu], XS[nu]))
+    rule = onshell_rule(m, gauge=Af, q=q)
+    for nu in range(4):
+        Dnu = [field((nu,))[a] + Jpsi[a].scale(q * Af[nu]) for a in range(8)]
+        div_ = GA()
+        for mu in range(4):
+            Th = bilinear(psi, KK[mu] / 2, Dnu)
+            if mu == nu:
+                Th = Th - L
+            div_ = div_ + tot_deriv(Th, mu)
+        lorentz = GA()
+        for l in range(4):
+            lorentz = lorentz + j[l].scale(q * F[l, nu])
+        diff = substitute(div_, rule) - substitute(lorentz, rule)
+        ok &= diff.is_zero()
+    check(33, "coupled Maxwell-Dirac L_tot = L_M + 1/2 psi^T (K^mu D_mu - m T) psi, D = d + q A J: dL/dA_nu = q j^nu, so "
+              "d_mu F^{mu nu} = -q j^nu =: J_e^nu; the Dirac equation is K^mu D_mu psi = m T psi; the gauge-covariant "
+              "Theta_D^mu_nu = 1/2 psi^T K^mu D_nu psi - delta L_D obeys d_mu Theta_D^mu_nu = q F_{l nu} j^l on the "
+              "Dirac shell (exact jet algebra with general A_mu(x))", ok)
+
+    # total conservation: d_mu T_M^mu_nu = -F_{nu l} d_mu F^{mu l} (r1-21) = -F_{nu l} J_e^l = q F_{nu l} j^l on the Maxwell shell
+    ok = True
+    Fu = ETA4 * F * ETA4
+    F2 = sum(F[a, b] * Fu[a, b] for a in range(4) for b in range(4))
+    TMup = sp.Matrix(4, 4, lambda mu, nu: sum(Fu[mu, l] * (F * ETA4)[l, nu] for l in range(4)) + ETA4[mu, nu] * F2 / 4)
+    TMmix = TMup * ETA4
+    divF = [sum(sp.diff(Fu[mu, l], XS[mu]) for mu in range(4)) for l in range(4)]
+    for nu in range(4):
+        lhs = sum(sp.diff(TMmix[mu, nu], XS[mu]) for mu in range(4))
+        ok &= is_zero(lhs + sum(F[nu, l] * divF[l] for l in range(4)))
+    # F_{nu l} (q j^l) + q F_{l nu} j^l = 0 identically
+    ok &= all(is_zero(F[nu, l] + F[l, nu]) for nu in range(4) for l in range(4))
+    check(34, "total conservation: d_mu T_M^mu_nu = -F_{nu l} d_mu F^{mu l}, which on the Maxwell shell is "
+              "q F_{nu l} j^l = -q F_{l nu} j^l, cancelling d_mu Theta_D^mu_nu: d_mu (T_M + Theta_D)^mu_nu = 0 on the "
+              "coupled shell", ok)
+
+    # a charged test worldline in the arena, coupled through its interior coordinates x = (Y1, Y4, Y5, Y6)
+    Y = sp.Matrix([sp.Function(f"Y{a}")(lam) for a in range(1, 7)])
+    Yd = Y.diff(lam)
+    xi = [Y[0], Y[3], Y[4], Y[5]]
+    xs = sp.symbols("x0:4", real=True)
+    Ax = [sp.Function(f"P{mu}")(*xs) for mu in range(4)]           # potential on the interior four-plane
+    Aw = [a.subs({xs[i]: xi[i] for i in range(4)}) for a in Ax]
+    eC = sp.Symbol("e_c", real=True)
+    w = (Yd.T * ETA * Yd)[0]
+    Lp = -M_ * sp.sqrt(w) - eC * sum(Aw[mu] * sp.diff(xi[mu], lam) for mu in range(4))
+    Kp = [sp.diff(Lp, Yd[a]) for a in range(6)]
+    ELp = [sp.diff(Lp, Y[a]) - sp.diff(Kp[a], lam) for a in range(6)]
+    ok = is_zero(ELp[1] + sp.diff(Kp[1], lam)) and is_zero(ELp[2] + sp.diff(Kp[2], lam))   # surplus momenta conserved
+    Fx = [[sp.diff(Ax[nu], xs[mu]) - sp.diff(Ax[mu], xs[nu]) for nu in range(4)] for mu in range(4)]
+    idx = [0, 3, 4, 5]
+    for mu in range(4):
+        xdot_low = ETA[idx[mu], idx[mu]] * sp.diff(xi[mu], lam)
+        force = eC * sum(Fx[mu][nu].subs({xs[i]: xi[i] for i in range(4)}) * sp.diff(xi[nu], lam) for nu in range(4))
+        ok &= is_zero(ELp[idx[mu]] - (sp.diff(M_ * xdot_low / sp.sqrt(w), lam) - force))
+    check(35, "charged test worldline L = -M sqrt(eta(Y',Y')) - e A_mu(x) x'^mu with x = (Y1;Y4,Y5,Y6) (c = 1): the surplus "
+              "momenta K_2, K_3 are conserved (A does not see the converted times ct^2, ct^3) and the interior equations "
+              "are the Lorentz force d/dlambda(M x'_mu/sqrt(eta(Y',Y'))) = e F_{mu nu} x'^nu", ok)
+
+
+# ==============================================================================================
+# K. Units of the two readings and of the Lagrangians (SI exponents over m, kg, s, A)
+# ==============================================================================================
+def block_K():
+    U = {"m": (1, 0, 0, 0), "kg": (0, 1, 0, 0), "s": (0, 0, 1, 0), "A": (0, 0, 0, 1)}
+    v = lambda *pairs: sp.Matrix(sum((sp.Matrix(U[u]) * pw for u, pw in pairs), sp.zeros(4, 1)))
+    mtr, kg, sec = v(("m", 1)), v(("kg", 1)), v(("s", 1))
+    c = mtr - sec
+    volt = v(("kg", 1), ("m", 2), ("s", -3), ("A", -1))
+    tesla = volt + sec - 2 * mtr
+    joule = kg + 2 * mtr - 2 * sec
+    eps0 = v(("A", 2), ("s", 4), ("kg", -1), ("m", -3))
+    ok = (c + sec == mtr)                                            # [c t] = m
+    ok &= (c + tesla == volt - mtr)                                  # [c B] = [E] = V/m
+    # action of the free worldline: [M c sqrt(eta(dY,dY))] = kg (m/s) m = J s
+    ok &= kg + c + mtr == joule + sec
+    # shifted Lagrangian: [m (dY/dtau)^2] = J with [tau] = s, [kappa] = [c/ell] = 1/s
+    ok &= kg + 2 * (mtr - sec) == joule and c - mtr == -sec
+    # Maxwell density in SI: [eps0 E^2] = J/m^3; Dirac density (hbar c psi^T d psi): [psi] = m^(-3/2)
+    ok &= eps0 + 2 * (volt - mtr) == joule - 3 * mtr
+    hbar = joule + sec
+    psi_dim = sp.Rational(-3, 2) * mtr
+    ok &= hbar + c + 2 * psi_dim - mtr == joule - 3 * mtr
+    # the potential: [a] = V s / m (B = curl a), [A0] = V; E conjugate to a with [eps0 E] = C/m^2
+    ok &= (tesla + mtr == volt + sec - mtr)
+    check(36, "units: [ct] = m, [cB] = [E] = V/m, free-worldline action in J s, shifted Lagrangian in J with "
+              "[kappa] = 1/s, Maxwell density eps0 |E|^2 in J/m^3, Dirac density hbar c psi^T d psi in J/m^3 for "
+              "[psi] = m^(-3/2), [a] = V s/m", ok)
+
+
+def main():
+    block_A()
+    block_B()
+    block_C()
+    block_D()
+    block_E()
+    block_F()
+    block_G()
+    block_H()
+    block_I()
+    block_K()
+    n_pass = sum(RESULTS)
+    print(f"r1: {n_pass}/{len(RESULTS)} checks passed")
+    return 0 if all(RESULTS) else 1
+
+
+if __name__ == "__main__":
+    sys.exit(main())
