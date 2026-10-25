@@ -94,8 +94,8 @@ irreducible (Corollary~12.5 of \cite{ES17}). The spans of $\{R_i,B_i\}$ and $\{L
 $(L,K)$, so $R_i\mapsto L_i$, $B_i\mapsto K_i$ is an isomorphism (r1-4). For any isomorphism $\phi$, $V_\phi$ is irreducible of dimension
 $6$ and $E$ irreducible of dimension $4$. The image of an equivariant $M:E\to V_\phi$ is a submodule of dimension at most $4$, hence $0$;
 the kernel of $M:V_\phi\to E$ is a submodule of dimension at least $2$, hence all of $V_\phi$. On the trivial summand an equivariant map
-lands in the fixed vectors of $V_\phi$, of which there are none, and a map out of $V_\phi$ into it is zero by irreducibility. Schur's lemma
-\cite{GoodmanWallach} on the irreducible $\Lambda^2E\cong V_\phi$ gives an intertwiner space equal to the commutant $\operatorname{span}\{\id,G\}$.
+lands in the fixed vectors of $V_\phi$, of which there are none, and a map out of $V_\phi$ into it is zero by irreducibility. Since an intertwiner
+$\Lambda^2E\to V_\phi$ exists (r1-5), Schur's lemma \cite{GoodmanWallach} on the irreducible $\Lambda^2E\cong V_\phi$ gives an intertwiner space equal to the commutant $\operatorname{span}\{\id,G\}$.
 The exact solution of the intertwining equations confirms all six dimensions for $\phi$ and for its parity twist $B_i\mapsto-K_i$ (r1-5),
 and the Casimirs separate the modules: $\sum R_i^2-\sum B_i^2=-3$, $\sum R_iB_i=0$ on $E$, against $-4$ and $-2G$ (eigenvalues $\pm2i$) on
 $V$ (r1-6). (iv) The bracket follows from $\{a_i(\mathbf x),E_j(\mathbf y)\}=\delta_{ij}\delta^3(\mathbf x-\mathbf y)$, read off the
@@ -206,7 +206,7 @@ The formula solves $Y''=-\kappa^2Y$ and $m(Y'+\kappa GY)=\pi$ with $Y(0)=Y_0$; t
 
 This is fixed. Restricting $X_{\rm cl}$ to the spatial triple is therefore not preserved by the interior dynamics as a statement about phase
 space, while it is preserved as a statement about configurations. The example in (ii) is the one of Section~6 of \cite{FMB}
-(equations~(16)--(17)), confirmed. Its reading needs one correction. By (ii) of \cref{r1:prop:shift} the rotation of $\pi$ out of a subspace
+(equations~(16)--(17)), confirmed, and \cref{r2:prop:leak} extends the rank of the leakage to every clock. Its reading needs one correction. By (ii) of \cref{r1:prop:shift} the rotation of $\pi$ out of a subspace
 is carried by the gradient $m\kappa\eta GY$ of a boundary term, which a canonical transformation removes (Theorem~16.6 of \cite{ES17}); the
 kinetic momentum $mY'$ obeys $mY''=-m\kappa^2Y$ and preserves $V^-$ and every four-plane $E_n$. The obstruction of Proposition~6.2 and
 equation~(16) of \cite{FMB} is therefore an obstruction to taking the canonical $\pi$ as the observable momentum, not a property of the
@@ -225,7 +225,8 @@ field $\psi:\R^{1,3}\to S\otimes\Lambda$, in Heaviside--Lorentz units with $\hba
 L_D=\tfrac12\psi^{\!\top}\bigl(K^\mu D_\mu-mT\bigr)\psi=\tfrac12\psi^{\!\top}T\bigl(J\gamma^\mu D_\mu-m\bigr)\psi,\qquad
 D_\mu=\partial_\mu+qA_\mu J ,
 \end{equation}
-the real form of $\bar\psi(i\gamma^\mu D_\mu-m)\psi$ with $J$ in the place of $i$ \cite{Hestenes67}; in SI units the density is
+the real form of $\bar\psi(i\gamma^\mu D_\mu-m)\psi$ with $J$ in the place of $i$ \cite{Hestenes67}, the charge $q$ being dimensionless in
+these units ($D_\mu=\partial_\mu+\tfrac q\hbar A_\mu J$ with $[q]=\mathrm C$ in SI); in SI units the density is
 $\tfrac12\hbar c\,\psi^{\!\top}(K^\mu\partial_\mu-\tfrac{mc}\hbar T)\psi$ with $x^0=ct$ and $[\psi]=\mathrm m^{-3/2}$ (r1-36).
 
 \begin{proposition}[The real Dirac field]
@@ -242,8 +243,8 @@ $A\mapsto A+d\lambda$, since $e^{-\theta J}$ preserves every $K^\mu$ and $T$. Th
 satisfies $\partial_\mu j^\mu=\psi^{\!\top}J\,\mathcal E_D$ identically, with $\mathcal E_D=K^\mu\partial_\mu\psi-mT\psi$; $j^0=-\tfrac12\psi^{\!\top}J\psi$.
 \item The canonical tensor $\Theta^\mu{}_\nu=\tfrac12\psi^{\!\top}K^\mu\partial_\nu\psi-\delta^\mu_\nu L_D$ satisfies
 $\partial_\mu\Theta^\mu{}_\nu=-(\partial_\nu\psi)^{\!\top}\mathcal E_D$ identically, and its energy density is
-$\Theta^0{}_0=\tfrac12\psi^{\!\top}\bigl(\gamma^0\gamma^a\partial_a+mT\bigr)\psi$, the real form of $\psi^\dagger(\boldsymbol\alpha\cdot\bp+\beta m)\psi$
-with $\bp=-J\nabla$.
+$\Theta^0{}_0=\tfrac12\psi^{\!\top}\bigl(\gamma^0\gamma^a\partial_a+mT\bigr)\psi$; on a mode with $\partial_a\psi=Jp_a\psi$ it is
+$\tfrac12\psi^{\!\top}JH(p)\psi$, with $H(p)=\gamma^0\gamma^ap_a+m\gamma^0$ the free Hamiltonian of equation~(8) of \cite{ES17}.
 \item On shell $\Theta^{\mu\nu}-\Theta^{\nu\mu}=\partial_\rho S^{\rho\mu\nu}$ with the totally antisymmetric spin tensor
 $S^{\rho\mu\nu}=\tfrac14\psi^{\!\top}\gamma^0\gamma^{[\rho}\gamma^\mu\gamma^{\nu]}\psi$, so the Belinfante tensor
 $T_B^{\mu\nu}=\Theta^{\mu\nu}-\tfrac12\partial_\rho S^{\rho\mu\nu}=\tfrac14\psi^{\!\top}(K^\mu\partial^\nu+K^\nu\partial^\mu)\psi-\eta^{\mu\nu}L_D$ is
@@ -256,7 +257,8 @@ For a Grassmann $\psi$, $\psi^{\!\top}M\delta\psi=\delta\psi^{\!\top}M\psi$ when
 \partial(\psi^{\!\top}A\delta\psi)+\delta\psi^{\!\top}A^{\!\top}\partial\psi$; collecting the left variations gives (i), which the jet algebra
 confirms for random integer kernels (r1-15). (ii) $K^\mu=TJ\gamma^\mu$ and $T$ is invertible (r1-16). (iii) $(K^\mu J)^{\!\top}=-K^\mu J$,
 and $\partial_\mu j^\mu=\psi^{\!\top}K^\mu J\partial_\mu\psi=\psi^{\!\top}J(\mathcal E_D+mT\psi)$ with $\psi^{\!\top}JT\psi=0$ because $JT$ is
-symmetric (r1-17). (iv) Exchanging Grassmann factors and using the symmetry of $K^\mu$ (r1-18). (v) The coefficient $\tfrac14$ is solved
+symmetric (r1-17). (iv) Exchanging Grassmann factors and using the symmetry of $K^\mu$;
+$\gamma^0\gamma^aJ=J\gamma^0\gamma^a$ and $mT=Jm\gamma^0$ give the mode form (r1-18). (v) The coefficient $\tfrac14$ is solved
 for, and the identity holds for all six pairs $(\mu,\nu)$ after the time derivatives are eliminated with the field equation (r1-19).
 \end{proof}
 
@@ -362,8 +364,8 @@ $\bE\cdot\Btext=\mathbf D\cdot\mathbf H$ and conformal invariance $\mathbf D\cdo
 \begin{proposition}[Which energies are Hamiltonians]
 \label{r1:prop:ham}
 For $\mathcal H=a\,s+b\,E_0(w)$ one has $\bE\times\mathbf H=(a^2-b^2)\,\mathbf D\times\Btext$, and $\mathcal H$ is duality invariant and
-conformal for all $(a,b)$. Hence $\mathcal H$ is Lorentz invariant exactly when $a^2-b^2=1$: the Maxwell Hamiltonian $s=E_6$ and the ModMax
-Hamiltonian $\cosh\gamma\,E_6-\sinh\gamma\,E_0$. The rest energy alone, $\mathcal H=E_0$, gives $\bE\times\mathbf H=-\mathbf D\times\Btext$
+conformal for all $(a,b)$. Hence $\mathcal H$ is Lorentz invariant exactly when $a^2-b^2=1$; with $a>0$ these are
+$\cosh\gamma\,E_6-\sinh\gamma\,E_0$, the Maxwell Hamiltonian $s=E_6$ at $\gamma=0$ and the ModMax Hamiltonians for $\gamma>0$. The rest energy alone, $\mathcal H=E_0$, gives $\bE\times\mathbf H=-\mathbf D\times\Btext$
 and is not Lorentz invariant. The Bialynicki-Birula Hamiltonian $\mathcal H=p=|\mathbf S(w)|=\sqrt{E_6^2-E_0^2}$ satisfies all three
 conditions.
 \end{proposition}
@@ -440,8 +442,7 @@ eliminated with the Dirac equation (r1-33, r1-34). (iii) Symbolic Euler--Lagrang
 
 The coupled statement is inherited \cite{WeinbergQFT}; in the arena it is the one-constituent version of Theorem~13.19 of \cite{ES17}, with
 the Grassmann kernels of \eqref{r1:eq:LD} in place of the commuting ones there, and the checks make it fixed for this realisation. Equation~(19)
-of \cite{FMB} is confirmed. The four-momentum of the field is $P^\mu=\int T^{0\mu}_{\rm tot}\,d^3x$; its properties are the subject of the
-section on the four-momentum.
+of \cite{FMB} is confirmed. The four-momentum of the field is $P^\mu=\int T^{0\mu}_{\rm tot}\,d^3x$, developed in \cref{r2:sec:field}.
 
 Each reading enters $\mathcal L_{\rm tot}$ in its own place. The classical reading is the argument: the coordinates $x^\mu=(ct^1;x^a)$ on which
 $A_\mu$ and $\psi$ depend, and the worldline $Y(\lambda)$, whose surplus components $ct^2,ct^3$ couple to nothing but the six-dimensional

@@ -721,11 +721,17 @@ def block_E():
         dens = dens + bilinear(psi, GAM[0] * GAM[a_] / 2, field((a_,)))
     dens = dens + bilinear(psi, m * TT / 2, psi)
     ok &= (Theta(0, 0) - dens).is_zero()
+    # on a mode d_a psi = J p_a psi the kernel becomes J H(p), H(p) = gamma^0 gamma^a p_a + m gamma^0 (ES17 eq. 8)
+    pm = sp.symbols("p1:4")
+    Hp = sum((GAM[0] * GAM[a_] * pm[a_ - 1] for a_ in (1, 2, 3)), sp.zeros(8)) + m * GAM[0]
+    ok &= mat_zero(sum((GAM[0] * GAM[a_] * JJ * pm[a_ - 1] for a_ in (1, 2, 3)), sp.zeros(8)) + m * TT - JJ * Hp)
+    ok &= (JJ * Hp).T == -(JJ * Hp)
     # canonical momentum of psi: dL/d(d_0 psi_a) (left derivative) = 1/2 psi_a, a second-class constraint
     ok &= all((left_deriv(L, gid(a_, (0,))) - psi[a_].scale(sp.Rational(1, 2))).is_zero() for a_ in range(8))
     check(18, "canonical Dirac tensor Theta^mu_nu = 1/2 psi^T K^mu d_nu psi - delta^mu_nu L_D obeys "
               "d_mu Theta^mu_nu = -(d_nu psi)^T E_D identically (conserved on shell); energy density "
-              "Theta^0_0 = 1/2 psi^T (gamma^0 gamma^a d_a + m T) psi off shell; the momentum conjugate to psi is 1/2 psi^T", ok)
+              "Theta^0_0 = 1/2 psi^T (gamma^0 gamma^a d_a + m T) psi off shell, = 1/2 psi^T J H(p) psi on a mode d_a psi = J p_a psi "
+              "(J H antisymmetric); the momentum conjugate to psi is 1/2 psi^T", ok)
 
     # symmetric (Belinfante) tensor: T_B^{mu nu} = 1/4 psi^T (K^mu d^nu + K^nu d^mu) psi - eta^{mu nu} L
     rule = onshell_rule(m)
