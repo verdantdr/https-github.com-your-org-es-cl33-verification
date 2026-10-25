@@ -16,8 +16,8 @@ Written independently of verify/r1_lagrangians.py (nothing is imported from it),
     polarised Lagrangian evaluated at v.  All field identities are then identities of commuting jet polynomials;
   * inertias are exact (Descartes' rule on the characteristic polynomial of a real symmetric matrix);
   * the closed-form interior solution is compared with a numerical integration (scipy, tolerance 1e-9).
-Floating point is used only for that integration and for random numerical tests of sqrt-valued Lagrangians (tolerance
-1e-10). Runtime: well under 3 minutes.
+Floating point is used only for that integration, for random numerical tests of sqrt-valued Lagrangians (tolerance
+1e-10) and for the Fock spectra of s1-38 (tolerance 1e-9). Runtime: about one minute.
 """
 import itertools
 import sys
@@ -1198,6 +1198,50 @@ def block_I():
                "depend on Y2, Y3, so K_2, K_3 are conserved, and d/dlambda(M x'_mu/sqrt(eta(Y',Y'))) = e F_{mu nu} x'^nu", ok)
 
 
+# ---------------------------------------------------------------------------------------------------------------
+# J. The one-momentum spectrum on the state space formed from outside the real module (ES17 Thm 5.7)
+# ---------------------------------------------------------------------------------------------------------------
+def block_J():
+    # floating-point spectra: single-particle eigenvalues of J H(p), then the Fock lift rho for a CAR set that is
+    # rotated by a random orthogonal matrix (so that no special Jordan-Wigner alignment is used)
+    Hp = 3 * ES[1] * ES[6] + 4 * ES[1]                    # p = (0,0,3), m = 4, E = 5
+    JH = np.array((JJ * Hp).tolist(), dtype=float)
+    ev = np.linalg.eigvals(JH)                            # +-iE, +-iE, ... (real antisymmetric)
+    ok = np.allclose(np.sort(np.abs(ev.imag)), [5] * 8) and np.allclose(ev.real, 0)
+    # numerical Fock matrix: random orthogonal frame for the eight real components, Majoranas from Pauli strings
+    Xp = np.array([[0, 1], [1, 0]], dtype=complex)
+    Yp = np.array([[0, -1j], [1j, 0]])
+    Zp = np.diag([1.0 + 0j, -1.0])
+    Ip = np.eye(2, dtype=complex)
+
+    def kr(*ms):
+        out = np.array([[1.0 + 0j]])
+        for m_ in ms:
+            out = np.kron(out, m_)
+        return out
+
+    maj = []
+    for kmode in range(4):
+        for P in (Xp, Yp):
+            maj.append(1j * kr(*([Zp] * kmode + [P] + [Ip] * (3 - kmode))))
+    Q, _ = np.linalg.qr(rng.normal(size=(8, 8)))          # theta'_i = sum_j Q_ij theta_j is again a CAR set
+    th = [sum(Q[i, j] * maj[j] for j in range(8)) for i in range(8)]
+    ok &= all(np.allclose(th[i] @ th[j] + th[j] @ th[i], -2 * np.eye(16) * (i == j)) for i in range(8) for j in range(8))
+    rho = lambda A: -0.25 * sum(A[i, j] * th[i] @ th[j] for i in range(8) for j in range(8))
+    Hf = -1j * rho(JH)
+    ok &= np.allclose(Hf, Hf.conj().T)
+    spec = np.round(np.linalg.eigvalsh(Hf), 9)
+    vals, mult = np.unique(spec, return_counts=True)
+    ok &= list(vals) == [-10, -5, 0, 5, 10] and list(mult) == [1, 4, 6, 4, 1]
+    Qc = -1j * rho(np.array(JJ.tolist(), dtype=float))
+    vq, mq = np.unique(np.round(np.linalg.eigvalsh(Qc), 9), return_counts=True)
+    ok &= list(vq) == [-2, -1, 0, 1, 2] and list(mq) == [1, 4, 6, 4, 1]
+    report(38, "ES17 Thm 5.7 restated (float, tol 1e-9): J H(p) at p = (0,0,3), m = 4 has eigenvalues +-5i (four each); on "
+               "the Fock module of a randomly rotated CAR set, H = -i rho(JH) has spectrum {-2E,-E,0,E,2E} = {-10,-5,0,5,10} "
+               "with multiplicities 1,4,6,4,1 and Q = -i rho(J) has {0,+-1,+-2}: the energy is symmetric about zero and "
+               "bounded below, positive only when measured from the lowest state", ok)
+
+
 def main():
     block_A()
     block_units()
@@ -1209,6 +1253,7 @@ def main():
     block_G()
     block_H()
     block_I()
+    block_J()
     print(f"s1: {sum(OK_ALL)}/{len(OK_ALL)} checks passed")
     return 0 if all(OK_ALL) else 1
 

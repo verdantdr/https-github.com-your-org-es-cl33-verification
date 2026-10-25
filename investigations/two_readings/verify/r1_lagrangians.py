@@ -6,8 +6,8 @@
 Prints one line 'PASS r1-<n>: <claim>' (or 'FAIL ...') per claim and exits 0 only if every check passes.
 Algebraic statements use exact integer/rational/symbolic arithmetic (sympy); Euler-Lagrange equations,
 Noether currents and stress tensors are derived with sympy on general symbolic fields; Grassmann-valued
-Dirac fields are handled by a small exact Grassmann jet algebra written below.  Floating point is used only
-for the inertia (signature) of two real symmetric matrices, with tolerance 1e-9.  Runtime: well under 3 minutes.
+Dirac fields are handled by a small exact Grassmann jet algebra written below.  All arithmetic is exact (the
+inertia of the two Hessians of r1-12 comes from their exact eigenvalues).  Runtime: well under 3 minutes.
 """
 import itertools
 import sys
@@ -306,8 +306,12 @@ def block_A():
     no_sol = sp.linsolve(list(vec((a, b, d), ("c", "ell", "hbar")) - target), [a, b, d]) == sp.EmptySet
     with_eps = sp.linsolve(list(vec((a, b, d, f), ("c", "ell", "hbar", "eps0")) - target), [a, b, d, f])
     ok = no_sol and with_eps == sp.FiniteSet((sp.Rational(-1, 2), 3, sp.Rational(-1, 2), sp.Rational(1, 2)))
+    # (eps0/(hbar c))^(1/2) E has dimension m^-2: the Heaviside-Lorentz field with hbar = c = 1, so ell^3 converts it
+    field_HL = (sp.Matrix(dims["eps0"]) - sp.Matrix(dims["hbar"]) - sp.Matrix(dims["c"])) / 2 + (volt - sp.Matrix([1, 0, 0, 0]))
+    ok &= field_HL == sp.Matrix([-2, 0, 0, 0]) and field_HL + 3 * sp.Matrix(dims["ell"]) == sp.Matrix([1, 0, 0, 0])
     check(3, "no monomial c^a ell^b hbar^d (any real exponents) has dimension m^2/V (the ampere exponent cannot be "
-             "matched); with eps0 admitted the unique monomial is ell^3 (eps0/(hbar c))^(1/2)", ok)
+             "matched); with eps0 admitted the unique monomial is ell^3 (eps0/(hbar c))^(1/2); (eps0/(hbar c))^(1/2) E has "
+             "dimension m^-2 (the Heaviside-Lorentz field with hbar = c = 1), which ell^3 converts into a length", ok)
 
 
 # ==============================================================================================
@@ -388,14 +392,29 @@ def block_B():
     ad = [sp.Matrix.hstack(*[coords(br(X, b)) for b in basis]) for X in basis]
     dims = dict(
         E_to_V=intertwiners(src_E, tgt_phi), V_to_E=intertwiners(tgt_phi, src_E),
-        E_to_VP=intertwiners(src_E, tgt_phiP), Vint_to_V=intertwiners(src_V, tgt_phi),
-        V_to_Vint=intertwiners(tgt_phi, src_V), E_to_L2E=intertwiners(src_E, ad),
+        E_to_VP=intertwiners(src_E, tgt_phiP), V_to_EP=intertwiners(tgt_phiP, src_E),
+        Vint_to_V=intertwiners(src_V, tgt_phi), V_to_Vint=intertwiners(tgt_phi, src_V),
+        Vint_to_VP=intertwiners(src_V, tgt_phiP), V_to_VintP=intertwiners(tgt_phiP, src_V),
+        E_to_L2E=intertwiners(src_E, ad), L2E_to_E=intertwiners(ad, src_E),
         L2E_to_V=intertwiners(ad, tgt_phi), L2E_to_VP=intertwiners(ad, tgt_phiP))
-    ok = (dims["E_to_V"] == 0 and dims["V_to_E"] == 0 and dims["E_to_VP"] == 0 and dims["Vint_to_V"] == 0
-          and dims["V_to_Vint"] == 0 and dims["E_to_L2E"] == 0 and dims["L2E_to_V"] == 2 and dims["L2E_to_VP"] == 2)
-    check(5, "intertwiner spaces (exact): Hom(E, V_G) = Hom(V_G, E) = 0 for the isomorphism phi and its parity twist; "
-             "Hom(V_int, V_G) = Hom(V_G, V_int) = 0; Hom_lint(E, Lambda^2 E) = 0; Hom_lint(Lambda^2 E, V_G) has "
-             f"dimension 2 (= span{{M0, G M0}}) [{dims}]", ok)
+    ok = all(v == 0 for k_, v in dims.items() if not k_.startswith("L2E_to_V")) and \
+        dims["L2E_to_V"] == 2 and dims["L2E_to_VP"] == 2
+    # existence for every isomorphism: the adjoint module of l_G is isomorphic to V (Hom_lG(ad_lG, V) = 2-dimensional)
+    basisG = L8 + K8
+
+    def coordsG(X):
+        A = sp.Matrix.hstack(*[b.reshape(64, 1) for b in basisG])
+        sol = A.solve_least_squares(X.reshape(64, 1))
+        assert A * sol == X.reshape(64, 1)
+        return sol
+
+    adG = [sp.Matrix.hstack(*[coordsG(br(X, b)) for b in basisG]) for X in basisG]
+    dims["adG_to_V"] = intertwiners(adG, Lv + Kv)
+    ok &= dims["adG_to_V"] == 2
+    check(5, "intertwiner spaces (exact), for the isomorphism phi and its parity twist B_i -> -K_i: Hom(E, V_G) = "
+             "Hom(V_G, E) = Hom(V_int, V_G) = Hom(V_G, V_int) = 0; Hom_lint(E, Lambda^2 E) = Hom(Lambda^2 E, E) = 0; "
+             "Hom_lint(Lambda^2 E, V_G) has dimension 2 (= span{M0, G M0}); Hom_lG(ad_lG, V) has dimension 2, so "
+             f"V is the adjoint module of l_G and Lambda^2 E -> V_phi exists for every isomorphism phi [{dims}]", ok)
 
     # Casimirs: C1 = sum R^2 - sum B^2, C2 = sum R_i B_i
     C1E = sum((r * r for r in RE_), sp.zeros(4)) - sum((b * b for b in BE_), sp.zeros(4))
@@ -457,9 +476,21 @@ def block_C():
                                                  - c_ ** 2 * (q1 ** 2 + q2 ** 2) - En ** 2))
     m4sq = (M_ ** 2 - (q1 ** 2 + q2 ** 2) / c_ ** 2).subs({M_: 1, c_: 1, q1: 2, q2: 0})
     ok &= m4sq == -3
+    # connectedness: (u;(1-s)v) keeps eta > 0; the shell is the image of S^2 x R^3 under (w,v) -> (sqrt(M^2c^2+|v|^2) w; v)
+    uu = sp.Matrix(sp.symbols("u1:4", real=True))
+    vv = sp.Matrix(sp.symbols("v1:4", real=True))
+    ww = sp.Matrix(sp.symbols("w1:4", real=True))
+    etauv = lambda u3, v3: (u3.T * u3)[0] - (v3.T * v3)[0]
+    ok &= is_zero(etauv(uu, (1 - sv) * vv) - etauv(uu, vv) - (vv.T * vv)[0] * (1 - (1 - sv) ** 2))
+    img = sp.sqrt(M_ ** 2 * c_ ** 2 + (vv.T * vv)[0]) * ww
+    ok &= is_zero(etauv(img, vv) - (M_ ** 2 * c_ ** 2 + (vv.T * vv)[0]) * (ww.T * ww)[0] + (vv.T * vv)[0])
+    unit = img / sp.sqrt((img.T * img)[0])
+    ok &= is_zero(sp.simplify((unit.T * unit)[0]) - 1)
     check(9, "split signature: the path (cos s, sin s, 0; 0,0,0) joins e1 to -e1 inside eta = 1 (no past/future, ES17 "
-             "Prop. 27.2); with the clock e1 the shell eta(K,K) = M^2c^2 reads E^2 = c^2|p|^2 + M^2c^4 - c^2|q|^2 "
-             "(FMB eq. minus confirmed); M = c = 1, q = (2,0) gives m4^2 = -3 < 0", ok)
+             "Prop. 27.2); (u;(1-s)v) stays timelike, so {eta > 0} retracts onto the unit sphere of V^+; for |w| = 1 the "
+             "map (w,v) -> (sqrt(M^2c^2+|v|^2) w; v) lands on the shell eta = M^2c^2, with inverse (u;v) -> (u/|u|, v), "
+             "so the shell is S^2 x R^3, connected; with the clock e1 the shell eta(K,K) = M^2c^2 reads "
+             "E^2 = c^2|p|^2 + M^2c^4 - c^2|q|^2 (FMB eq. minus confirmed); M = c = 1, q = (2,0) gives m4^2 = -3 < 0", ok)
 
 
 # ==============================================================================================
@@ -512,13 +543,15 @@ def block_D():
     ok &= mat_zero(dHdP - (ETA * P / m_ - kappa * G6 * Ys)) and mat_zero(-dHdY - kappa * G6.T * P)
     Hess = sp.hessian(H.subs({m_: 1, kappa: 1}), list(Ys) + list(P))
     HessE = sp.hessian(Evel.subs({m_: 1, kappa: 1}), list(Ys) + list(Yds))
-    sig = lambda Mx: (int(np.sum(np.linalg.eigvalsh(np.array(Mx, dtype=float)) > 1e-9)),
-                      int(np.sum(np.linalg.eigvalsh(np.array(Mx, dtype=float)) < -1e-9)))
+    def sig(Mx):                                            # exact inertia from the exact (real) eigenvalues
+        ev = sp.Matrix(Mx).eigenvals()
+        assert all(sp.im(lv) == 0 for lv in ev)
+        return (sum(mult for lv, mult in ev.items() if lv > 0), sum(mult for lv, mult in ev.items() if lv < 0))
     ok &= sig(Hess) == (6, 6) and sig(HessE) == (6, 6)
     ok &= is_zero(Evel.subs({Ys[a]: 0 for a in range(3, 6)}).subs({Yds[a]: 0 for a in range(3, 6)})
                   - m_ / 2 * sum(Yds[i] ** 2 + kappa ** 2 * Ys[i] ** 2 for i in range(3)))
     check(12, "energy E = (m/2)[eta(Y',Y') + k^2 eta(Y,Y)] is conserved; H(Y,p) = eta(p,p)/(2m) - k p^T G Y equals E and "
-              "generates the flow; both quadratic forms have signature (6,6) (float inertia, tol 1e-9): positive on the "
+              "generates the flow; both quadratic forms have signature (6,6) (exact eigenvalues): positive on the "
               "three converted-time oscillators, negative on the three length oscillators", ok)
 
     # the restriction to V^- (lengths) under the flow
@@ -548,7 +581,8 @@ def block_D():
     ok &= expG(-kappa * tau) * sp.Matrix([0, 0, 0, 1, 0, 0]) == sp.Matrix([sp.sin(kappa * tau), 0, 0, sp.cos(kappa * tau), 0, 0])
     check(13, "general solution Y = exp(-kG tau) Y0 + sin(k tau) pi0/(k m), pi = exp(kG tau) pi0; phase-space data "
               "(Y0, pi0) in V^- x V^- acquire the temporal part -sin(k tau) G Y0 (lengths rotated into converted times); "
-              "configuration data (Y0, Y0') in V^- stay in V^- but carry pi(0) with temporal part -m k (x0); FMB example "
+              "configuration data (Y0, Y0') in V^- stay in V^- but carry pi(0) with temporal part -m k (x0), nonzero exactly "
+              "when Y0 != 0; FMB example "
               "pi = cos(k tau) e5 - sin(k tau) e2 confirmed; exp(-kG tau) e4 = cos e4 + sin e1", ok)
 
 
@@ -662,9 +696,19 @@ def block_E():
     k = sp.symbols("k0:4")
     gk = sum((GAM[mu] * k[mu] for mu in range(4)), sp.zeros(8))
     ok &= mat_zero((gk - m * JJ) * (gk + m * JJ) - (k[0] ** 2 - k[1] ** 2 - k[2] ** 2 - k[3] ** 2 + m ** 2) * I8)
+    # the sign pattern of ES17 eq. (35) on one constituent: kernels gamma^0 gamma^mu = -K^mu and +1/2 psi^T (mT) psi
+    L35 = GA()
+    for mu in range(4):
+        L35 = L35 + bilinear(psi, -KK[mu] / 2, field((mu,)))
+    L35 = (L35 + bilinear(psi, TT * m / 2, psi)).simplify()
+    ok &= (L35 + L).is_zero()
+    E35 = euler_lagrange_first_order(L35)
+    ok &= all((E35[a] + E[a]).is_zero() for a in range(8))
     check(16, "Dirac EL equation of L_D = 1/2 psi^T (K^mu d_mu - m T) psi: K^mu d_mu psi = m T psi, equivalently "
               "T(J gamma^mu d_mu - m) psi = 0, i.e. J gamma^mu d_mu psi = m psi and gamma^mu d_mu psi = -m J psi; "
-              "(gamma.d - mJ)(gamma.d + mJ) = Box + m^2 gives (Box + m^2) psi = 0", ok)
+              "(gamma.d - mJ)(gamma.d + mJ) = Box + m^2 gives (Box + m^2) psi = 0; the Lagrangian with the kernels "
+              "gamma^0 gamma^mu = -K^mu and the term +1/2 psi^T (mT) psi (the signs of ES17 eq. (35) with y Phi -> m T) is "
+              "-L_D, with EL expression -E_D and hence the same field equation", ok)
 
     # gauge invariance and the current
     th = sp.Symbol("theta", real=True)
@@ -1256,9 +1300,50 @@ def block_K():
     ok &= hbar + c + 2 * psi_dim - mtr == joule - 3 * mtr
     # the potential: [a] = V s / m (B = curl a), [A0] = V; E conjugate to a with [eps0 E] = C/m^2
     ok &= (tesla + mtr == volt + sec - mtr)
+    # dual potentials: B = curl A gives [A] = V s/m, E = curl C gives [C] = V; (cA; C) is homogeneous in V;
+    # the covariant potential A_mu = (phi/c; a) is homogeneous in V s/m
+    ok &= (volt - mtr) + mtr == volt and c + (tesla + mtr) == volt and volt - c == volt + sec - mtr
     check(36, "units: [ct] = m, [cB] = [E] = V/m, free-worldline action in J s, shifted Lagrangian in J with "
               "[kappa] = 1/s, Maxwell density eps0 |E|^2 in J/m^3, Dirac density hbar c psi^T d psi in J/m^3 for "
-              "[psi] = m^(-3/2), [a] = V s/m", ok)
+              "[psi] = m^(-3/2), [a] = V s/m; [C] = V for E = curl C, so X_A is homogeneous as (cA; C) in V; "
+              "[phi/c] = V s/m", ok)
+
+
+# ==============================================================================================
+# L. The free spectrum of one momentum on the state space formed from outside the real module (ES17 Thm 5.7)
+# ==============================================================================================
+def block_L():
+    # eight anticommuting theta_i with theta_i^2 = -1 on C^16 (Jordan-Wigner, Gaussian-integer entries); the
+    # irreducible module of Cl_8(C) is unique, so the spectra below do not depend on this choice
+    X2 = sp.Matrix([[0, 1], [1, 0]])
+    Y2 = sp.Matrix([[0, -sp.I], [sp.I, 0]])
+    Z2 = sp.Matrix([[1, 0], [0, -1]])
+    one = sp.eye(2)
+    thetas = []
+    for kmode in range(4):
+        for P in (X2, Y2):
+            fac = [Z2] * kmode + [P] + [one] * (3 - kmode)
+            thetas.append(sp.I * kron(*fac))
+    ok = all(thetas[i] * thetas[j] + thetas[j] * thetas[i] == (-2 if i == j else 0) * sp.eye(16)
+             for i in range(8) for j in range(8))
+
+    def rho(A):
+        return -sum((A[i, j] * thetas[i] * thetas[j] for i in range(8) for j in range(8) if A[i, j] != 0),
+                    sp.zeros(16)) / 4
+
+    x = sp.Symbol("x")
+    Hp = 3 * GAM[0] * GAM[3] + 4 * GAM[0]              # p = (0, 0, 3), m = 4, E = 5 (ES17 Example 4.7)
+    cJ = sp.factor((2 * rho(JJ)).charpoly(x).as_expr())
+    cH = sp.factor((2 * rho(JJ * Hp)).charpoly(x).as_expr())
+    ok &= sp.expand(cJ - x ** 6 * (x ** 2 + 4) ** 4 * (x ** 2 + 16)) == 0
+    ok &= sp.expand(cH - x ** 6 * (x ** 2 + 100) ** 4 * (x ** 2 + 400)) == 0
+    Hq = -sp.I * rho(JJ * Hp)
+    ev = Hq.eigenvals()
+    ok &= ev == {0: 6, 5: 4, -5: 4, 10: 1, -10: 1}
+    check(37, "free spectrum of one momentum (ES17 Thm 5.7 restated): with eight anticommuting theta_i (theta_i^2 = -1) and "
+              "rho(A) = -1/4 sum A_ij theta_i theta_j, char(2 rho(J)) = x^6 (x^2+4)^4 (x^2+16) and, at p = (0,0,3), m = 4, "
+              "E = 5, char(2 rho(JH)) = x^6 (x^2+4E^2)^4 (x^2+16E^2); H = -i rho(JH) has spectrum {0, +-E, +-2E} with "
+              "multiplicities 6, 4, 4, 1, 1: symmetric about zero and bounded below, not positive", ok)
 
 
 def main():
@@ -1272,6 +1357,7 @@ def main():
     block_H()
     block_I()
     block_K()
+    block_L()
     n_pass = sum(RESULTS)
     print(f"r1: {n_pass}/{len(RESULTS)} checks passed")
     return 0 if all(RESULTS) else 1
