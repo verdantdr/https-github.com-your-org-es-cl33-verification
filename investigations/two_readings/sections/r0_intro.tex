@@ -1,0 +1,43 @@
+% Introduction of the two-readings note.
+\section{Introduction}
+\label{r0:sec:main}
+
+The letter $X$ is used in the arena of \cite{ES17} for two different things. In the momentum--force construction it is a displacement,
+a vector of $V=\R^{3,3}$ with the dimension of a length; in the field-strength reading of Section~12 of \cite{ES17} the same vector space
+carries the electric and magnetic fields, $X=\sum_i(B_ie_i+E_ie_{i+3})$. A working note of 24 October 2026 \cite{FMB} proposed to keep the two
+readings strictly apart, $X_{\rm cl}$ for the displacement and $X_{\rm EM}=(\bB,\bE)$ for the six components of the field two-form, and to
+build the four-momentum of each separately. This note answers four questions put on that basis:
+\begin{enumerate}[label=(\arabic*),leftmargin=2.2em]
+\item construct the Lagrangians for $X$, for the Dirac field and for the energies;
+\item differentiate between the two $X$'s, the first a length and the second the pair $(\bB,\bE)$;
+\item construct the four-momentum, the length-valued $X$ being taken along the three directions of the spatial triple $V^-$, of signature
+$(-,-,-)$;
+\item place $X_{\rm EM}=(\bB,\bE)$ on the octants, each of the six components $E_x,E_y,E_z$, $B_x,B_y,B_z$ on an octant.
+\end{enumerate}
+Question (4) is read as the pair: $X_{\rm EM}$ is not a sum of two vectors but the six independent components of one field strength.
+Questions (1) and (2) are answered in \cref{r1:sec:main}, question (3) in \cref{r2:sec:main} and question (4) in \cref{r3:sec:main}.
+\Cref{r4:sec:main} takes up the element that the answers share: the temporal volume $T=e_1e_2e_3$, which is the Dirac mass form of the
+classical reading for every clock $n$, through $T=nJ(n)$ with $J(n)$ the Dirac complex structure of that clock, and the duality operator
+of the field reading on the octants. \Cref{r5:sec:main} collects the answers.
+
+\paragraph{What is established, in brief.} The two readings share a vector space and a Clifford action, but their units, their natural
+Lorentz algebras, their canonical conjugates and their observables differ, and no equivariant linear map relates them
+(\cref{r1:thm:type}). The Lagrangians are the six-dimensional worldline and the interior shifted Lagrangian for $X_{\rm cl}$, the real
+Grassmann Lagrangian for the Dirac field, and the Maxwell Lagrangian $-\tfrac12\Re q$ for the field, whose Hamiltonian is the undivided
+energy $E_6$; the rest energy $E_0=\tfrac12|q|$ is a Lorentz-invariant and conformal Lagrangian, but not a duality-invariant one and not an
+admissible Hamiltonian (\cref{r1:thm:L0,r1:prop:ham}). With a clock $n$ on the temporal triple, the four-momentum $(E/c,\bp)$ has $\bp$
+conjugate to the three lengths of $V^-$ and $E/c$ conjugate to the time read by $n$, and the four-dimensional mass read by $n$ never exceeds
+the six-dimensional one (\cref{r2:prop:cons,r2:prop:rotate}); the field's four-momentum comes from its stress tensor and is a four-vector
+only for an isolated whole (\cref{r2:sec:field}). On the octants, the joint eigenlines of the pole operators, $\bE$ sits on the three
+octants of Fock weight one and $\bB$ on the three of weight two; Maxwell's four equations become one first-order equation with the two
+Gauss laws on the two poles; and the boosts and the duality rotation of the field act on the octants only through odd operators, so that
+the octant representation of the field is not the spin representation in which a Dirac field transforms (\cref{r3:thm:noeven,r3:prop:odd}).
+
+\paragraph{Conventions and classes.} The conventions are those of \cite{ES17}: $\eta=\operatorname{diag}(1,1,1,-1,-1,-1)$, the temporal
+triple $V^+=\langle e_1,e_2,e_3\rangle$ carries the converted times of the classical reading and $\bB$ of the field reading, the spatial
+triple $V^-=\langle e_4,e_5,e_6\rangle$ the lengths and $\bE$; the paper's $\bB$ is minus the textbook magnetic field. Each section states
+its units. Every claim carries a class stated in words: \emph{fixed} (an identity or theorem that could have failed), \emph{constructed}
+(admitted and exhibited, not selected), \emph{obstructed} (impossible under stated hypotheses), \emph{open}, \emph{inherited} (true of
+ordinary physics in any notation, cited), \emph{interpretive} (a reading), or \emph{restated} (established in \cite{ES17}, \cite{RE} or
+\cite{FMB} and re-verified here). Where \cite{FMB} states something, the text says whether it is confirmed, corrected or refuted.
+Every finite-dimensional and symbolic claim is checked by a script; the checks are described in \cref{r9:sec:main}.
