@@ -243,9 +243,18 @@ for el in group:
     lines.add(perm)
 regular = len(lines) == 8 and all(len(set(p)) == 8 for p in lines) and \
     len({p[0] for p in lines}) == 8      # each line is reached from the vacuum by exactly one element of Z2^3
+gmats = [sp.Matrix(8, 8, el) for el in group]
+centre = [M for M in gmats if all(M * gg == gg * M for gg in gens)]
+g123 = gens[0] * gens[1] * gens[2]
+centre_ok = len(centre) == 4 and set(map(tuple, centre)) == {tuple(I8), tuple(-I8), tuple(g123), tuple(-g123)}
+centre_ok &= g123 == blade([4, 5, 6]) and g123 == -T * omega and g123 * g123 == I8
+centre_ok &= all((g123 * basis(n))[7 - n] != 0 for n in range(8))          # maps each octant to its antipode
+trivial = [M for M in gmats if all((M * basis(n))[n] != 0 for n in range(8))]
+centre_ok &= set(map(tuple, trivial)) == {tuple(I8), tuple(-I8)}
 check(5, "the lifts g_i = e_i omega (i=1,2,3) satisfy g_i^2 = -1, anticommute pairwise and generate a group of order 16 "
-         "with centre +-1; its action on the eight octant lines is the regular action of Z_2^3 (simply transitive)",
-      len(group) == 16 and anti and sq and regular)
+         "whose centre is {+-1, +-g_1g_2g_3} (order 4), with g_1g_2g_3 = -T omega = e4e5e6 mapping each octant to its antipode; "
+         "the kernel of the action on the octant lines is {+-1}, and the action is the regular action of Z_2^3 (simply transitive)",
+      len(group) == 16 and anti and sq and regular and centre_ok)
 
 # r3-6  Clocks: the conversion operator B_diag(t) = sum t_i omega_i has the octant of sign(t) as its unique top eigenline
 ts = sp.symbols('t1:4', real=True)
@@ -304,8 +313,22 @@ ok &= all(Nop * (blade(list(I)) * vac) == len(I) * (blade(list(I)) * vac)
           for r in range(4) for I in itertools.combinations((1, 2, 3), r))
 ok &= all(blade(list(I)) * vac == reduce(lambda acc, i: ap[i] * acc, reversed(I), vac)
           for r in range(4) for I in itertools.combinations((1, 2, 3), r))
+# with l_I := l_{i1} ^ .. ^ l_{ir} <-> a+_I|vac>, Clifford multiplication by l_i = e_i + e_{i+3} is 2 (l_i ^ .) and by
+# l'_i = e_i - e_{i+3} the contraction with the form eta(l'_i, .) on L (eta(l'_i, l_j) = 2 delta_ij)
+lam = {I: reduce(lambda acc, i: ap[i] * acc, reversed(I), vac) for r in range(4) for I in itertools.combinations((1, 2, 3), r)}
+for i in (1, 2, 3):
+    form = [(Lpvecs[i - 1].T * eta6 * Lvecs[k])[0] for k in range(3)]
+    for I, v in lam.items():
+        if i in I:
+            wedge = sp.zeros(8, 1)
+        else:
+            J = tuple(sorted(I + (i,)))
+            wedge = (-1) ** sum(1 for k in I if k < i) * lam[J]
+        contr = sum(((-1) ** pos * form[k - 1] * lam[tuple(x for x in I if x != k)] for pos, k in enumerate(I)), sp.zeros(8, 1))
+        ok &= (e[i] + e[i + 3]) * v == 2 * wedge and (e[i] - e[i + 3]) * v == contr
 check(7, "L = span(e_i+e_{i+3}) and L' = span(e_i-e_{i+3}) are maximal isotropic, transverse and eta-dual; "
-         "l1^..^lr -> l1..lr|vac> identifies Lambda^*(L) with S, graded by N with dimensions 1,3,3,1; "
+         "l1^..^lr -> l1..lr|vac>/2^r identifies Lambda^*(L) with S, graded by N with dimensions 1,3,3,1; a vector X = X_L + X_L' "
+         "acts as exterior multiplication by 2 X_L plus contraction with eta(X_L', .); "
          "X = sum (B_i+E_i) a+_i + (B_i-E_i) a-_i; moreover a -> a|vac> is an isomorphism Cl(V^+) -> S carrying the "
          "Clifford grade of the temporal blade e_I to N = |I|, e_I|vac> = a+_I|vac>", ok)
 
@@ -600,7 +623,7 @@ qc = sp.expand(sum((cc * Bs[i] + sp.I * Es[i]) ** 2 for i in range(3)))
 ok &= sp.expand((psiSI.T * parN * psiSI)[0] - sp.re(qc)) == 0
 check(17, "for psi = Phi(X): |psi|^2 = |E|^2+|B|^2 = 2 E6; psi^T (-1)^N psi = |B|^2-|E|^2 = Re q; psi_E^T T psi_B = -E.B = -Im q/2; "
           "psi^T T psi = 0; psi^T T Gamma psi = 2 E.B = Im q; (psi^T(-1)^N psi)^2 + 4 (psi_E^T T psi_B)^2 = |q|^2 = 4 E0^2; in SI "
-          "with psi = Phi(E, cB): (eps0/2)|psi|^2 = u and psi^T(-1)^N psi = Re q_c", ok)
+          "with psi = Phi(cB; E): (eps0/2)|psi|^2 = u and psi^T(-1)^N psi = Re q_c", ok)
 
 Ws = sp.symbols('w0:64')
 Wm = sp.Matrix(8, 8, Ws)
@@ -649,10 +672,18 @@ compact = [e[a] * e[b] for a, b in itertools.combinations(range(1, 7), 2) if (a 
 boosts = [e[a] * e[b] for a in (1, 2, 3) for b in (4, 5, 6)]
 ok &= all(beta.T * parN + parN * beta == Z8 for beta in compact) and all(beta.T * parN + parN * beta != Z8 for beta in boosts)
 ok &= all(M.T * parN + parN * M == Z8 for M in list(ro_L.values()) + list(ro_K.values()))
+# the Euclidean norm (= 2 E6 on the image of Phi) is invariant under the compact bivectors and rho_oct(L_k), not under the
+# symmetric rho_oct(K_k) = Q_k: boosts change the energy density, |Phi(e^{s K_3} e_1)|^2 = cosh 2s
+ok &= all(beta.T + beta == Z8 for beta in compact) and all(M.T + M == Z8 for M in ro_L.values())
+ok &= all(M.T == M and M != Z8 for M in ro_K.values())
+s_ = sp.symbols('s', real=True)
+v_s = Phi * (KV[3] * s_).exp()[:, 0]
+ok &= sp.simplify(((v_s.T * v_s)[0] - sp.cosh(2 * s_)).rewrite(sp.exp)) == 0
 check(18, "the Spin(3,3)-invariant bilinear forms on S form the 2-dimensional span of T (antisymmetric) and T Gamma (symmetric); "
           "the Chevalley-Mukai pairing [tau(phi) ^ psi]_top on Lambda^*(L) equals -phi^T T psi on all 64 basis pairs; two octants "
           "pair to a nonzero value iff their null planes N_sigma, N_tau are transverse iff they are antipodal; (-1)^N is invariant "
-          "under the compact bivectors and rho_oct, under none of the nine boosts", ok)
+          "under the compact bivectors and rho_oct, under none of the nine boosts; the Euclidean norm is invariant under the "
+          "compact bivectors and rho_oct(L_k) but not under rho_oct(K_k) = Q_k, which are symmetric (|Phi(e^{sK_3}e_1)|^2 = cosh 2s)", ok)
 
 # ================================================================================================================
 # r3-19..24  Maxwell on the octants
@@ -845,7 +876,7 @@ Fp = sum((Es[k - 1] * e[k] - Bs[k - 1] * T * e[k] for k in (1, 2, 3)), Z8)
 ok &= sp.expand(Fp * vac - Phit * xs) == sp.zeros(8, 1)
 ok &= all(T * e[k] == e[[c for c in cyc if c[0] == k][0][1]] * e[[c for c in cyc if c[0] == k][0][2]] for k in (1, 2, 3))
 ok &= all(comm(T, e[k]) == Z8 for k in (1, 2, 3)) and T * T == -I8
-check(24, "SI: ((1/c) d_t - D) Phi(E, cB) = -(c rho|vac> + j.f)/(eps0 c) on Maxwell jets; textbook variables: "
+check(24, "SI: ((1/c) d_t - D) Phi(cB; E) = -(c rho|vac> + j.f)/(eps0 c) on Maxwell jets; textbook variables: "
           "(d_t + D)(E.f + B_t.g) = rho|vac> - j.f, and E.f + B_t.g = (E + T B_t)|vac> with E, B_t written on e1,e2,e3 and "
           "T = e1e2e3 central in Cl(V^+), T^2 = -1, T e_i = e_j e_k: Hestenes' (d_t + grad)(E + I B) = rho - j", ok)
 
