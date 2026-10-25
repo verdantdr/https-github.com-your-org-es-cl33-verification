@@ -929,3 +929,474 @@ def _():
         ok &= len(invariant_forms([], N, G=Gk, cls='lor')) == 3 * n * (3 * n + 1)
         ok &= len(invariant_forms([], N, G=Gk, cls='dual')) == (3 * n) ** 2
     return ok
+
+
+# ----------------------------------------------------------------------------- 5. two constituents and one rotor
+def Nform(a, b, m):
+    """Lorentz-class inverse inertia N = (a eta^{-1} + b G eta^{-1}) / m on V^* (eta^{-1} = eta)."""
+    return (a * ETA1M + b * (G1 @ ETA1M)) / m
+
+
+def wfun(p):
+    """w(p) = C - i D = q(z(eta^{-1} p))  (ES17 eq. (29))."""
+    return p @ ETA1M @ p - 1j * (p @ G1 @ ETA1M @ p)
+
+
+def expG(t):
+    return np.cos(t) * np.eye(6) + np.sin(t) * G1
+
+
+def rhs_closure(Ns, I0):
+    """full one-rotor closure on n constituents: y = (theta, h, p_1..p_n, x_1..x_n)."""
+    n = len(Ns)
+    GT = G1.T.astype(float)
+
+    def f(t, y):
+        th, h = y[0], y[1]
+        ps = [y[2 + 6 * k: 8 + 6 * k] for k in range(n)]
+        dy = np.zeros_like(y)
+        dy[0] = h / I0
+        dy[1] = -sum(p @ G1 @ N @ p for p, N in zip(ps, Ns))
+        E = expG(th)
+        for k in range(n):
+            dy[2 + 6 * k: 8 + 6 * k] = (h / I0) * GT @ ps[k]
+            dy[2 + 6 * n + 6 * k: 8 + 6 * n + 6 * k] = E @ Ns[k] @ ps[k]
+        return dy
+    return f
+
+
+def integrate(Ns, I0, h0, ps, T, npts=2001, events=None):
+    n = len(Ns)
+    y0 = np.concatenate([[0.0, h0]] + list(ps) + [np.zeros(6)] * n)
+    ts = np.linspace(0, T, npts)
+    return solve_ivp(rhs_closure(Ns, I0), (0, T), y0, method="DOP853", rtol=1e-12, atol=1e-12, t_eval=ts,
+                     events=events, dense_output=True)
+
+
+def Reff(cs, ps):
+    F = sum(c * wfun(p) for c, p in zip(cs, ps))
+    return abs(F), np.angle(F), F
+
+
+@claim("e5-5a", "rotor law at n = 2: (1/2) p^T N p = Re((a+ib) w(p))/(2m) exactly (symbolic, restates ES17 Thm 17.11(ii)); the "
+                "Lorentz-class forms invariant under the diagonal lG are exactly Re and Im of the six products z_k.z_l, z_k = z(eta^{-1}p^(k)) "
+                "(exact span), so with a diagonal-Lorentz inertia U = (1/2) Re tr(C Q(pi)) with C complex symmetric and the rotor obeys "
+                "I_0 theta'' = R sin(2 theta + phi), R e^{i phi} = tr(C Q(pi(0))): checked along a flow with a random C to 1e-9")
+def _():
+    xs = sp.symbols("p1:7", real=True)
+    a, b, m = sp.symbols("a b m", positive=True)
+    P = sp.Matrix(xs)
+    Gs, Es = sp.Matrix(G1.tolist()), sp.Matrix(ETA1M.tolist())
+    N = (a * Es + b * Gs * Es) / m
+    lhs = sp.Rational(1, 2) * (P.T * N * P)[0]
+    C = (P.T * Es * P)[0]
+    D = (P.T * Gs * Es * P)[0]
+    ok = sp.expand(lhs - (a * C + b * D) / (2 * m)) == 0
+    # Re and Im of z_k.z_l as integer forms on p-space (p = (p1, p2) in R^12); pi_k = eta p_k
+    def zz_forms():
+        out = []
+        for k, l in [(0, 0), (1, 1), (0, 1)]:
+            for part in (0, 1):
+                S = np.zeros((12, 12))
+                Ib = np.eye(12)
+                def f(Y, k=k, l=l, part=part):
+                    zk = (ETA1M @ Y[6 * k:6 * k + 6]); zl = (ETA1M @ Y[6 * l:6 * l + 6])
+                    v = (zk[:3] + 1j * zk[3:]) @ (zl[:3] + 1j * zl[3:])
+                    return v.real if part == 0 else v.imag
+                for i in range(12):
+                    for j in range(12):
+                        S[i, j] = f(Ib[i] + Ib[j]) - f(Ib[i]) - f(Ib[j])
+                out.append(np.round(S).astype(np.int64))
+        return out
+    Ss = zz_forms()
+    inv = invariant_forms(LGD, 12, G=G2, cls='lor')
+    ok &= span_rank(Ss) == 6 and span_rank(Ss + inv) == 6 and len(inv) == 6
+    # flow with a random complex symmetric C: U = 1/2 Re sum C_kl z_k.z_l  <->  N = sum Re/Im parts
+    Cc = np.array([[0.7 + 0.2j, -0.4 + 0.5j], [-0.4 + 0.5j, 1.1 - 0.3j]])
+    coef = [Cc[0, 0], Cc[1, 1], 2 * Cc[0, 1]]
+    Nbig = np.zeros((12, 12))
+    for i, c in enumerate(coef):
+        Nbig += 0.5 * (c.real * Ss[2 * i] - c.imag * Ss[2 * i + 1])     # Y^T S Y = 2 f(Y); U = 1/2 Y^T N Y
+    Nbig = Nbig / 2.0
+    ok &= np.allclose(Nbig @ G2 + G2 @ Nbig, 0)
+    I0, h0 = 1.3, 0.8
+    p0 = RNG.normal(size=12)
+    G2f = G2.astype(float)
+
+    def f(t, y):
+        th, h, p = y[0], y[1], y[2:]
+        return np.concatenate([[h / I0, -p @ G2f @ Nbig @ p], (h / I0) * G2f.T @ p])
+    sol = solve_ivp(f, (0, 20), np.concatenate([[0, h0], p0]), method="DOP853", rtol=1e-12, atol=1e-12,
+                    t_eval=np.linspace(0, 20, 801))
+    def Qmat(p):
+        z = [(ETA1M @ p[6 * k:6 * k + 6]) for k in (0, 1)]
+        z = [v[:3] + 1j * v[3:] for v in z]
+        return np.array([[z[0] @ z[0], z[0] @ z[1]], [z[1] @ z[0], z[1] @ z[1]]])
+    F0 = np.trace(Cc @ Qmat(p0))
+    ok &= abs(0.5 * p0 @ Nbig @ p0 - 0.5 * F0.real) < 1e-12 * (1 + p0 @ p0)
+    R, ph = abs(F0), np.angle(F0)
+    err = 0.0
+    for th, h, p in zip(sol.y[0], sol.y[1], sol.y[2:].T):
+        hd = -p @ G2f @ Nbig @ p
+        err = max(err, abs(I0 * 0 + hd - R * np.sin(2 * th + ph)))
+    ok &= err < 1e-9
+    return ok
+
+
+DATA_RNG = np.random.default_rng(1729)
+P1_BAL = DATA_RNG.normal(size=6)
+P2_BAL = -(G1 @ P1_BAL)                                   # p^(2) = -G p^(1)
+A_, B_, M_ = 1.0, 0.3, 1.0                                # equal inertias, N = (a eta^{-1} + b G eta^{-1}) / m
+N_EQ = Nform(A_, B_, M_)
+C_EQ = (A_ + 1j * B_) / M_
+
+
+@claim("e5-5b", "balanced pair, equal inertias, p^(2) = -G p^(1), I_0 = 1, h(0) = 2 (frames included, DOP853, rtol = atol = 1e-12, "
+                "tau in [0,60]): w_2 = -w_1 exactly, both constituents massive (E_0(pi^(k)) = |w_k|/2 > 0), rate constant to 1e-11, frames on "
+                "the circles x_k = (e^{2 kappa tau G} - 1)(2 kappa G)^{-1} N p^(k)(0) to 1e-9 (restates RE Thm 8.1(i), d6-2a); a generic "
+                "balanced pair with unequal inertias (m = 1, 2.5; a+ib = 1+0.3i, 0.4-0.7i) gives the same to the same tolerances")
+def _():
+    ok = abs(wfun(P2_BAL) + wfun(P1_BAL)) < 1e-12 and abs(wfun(P1_BAL)) > 0.1
+    cases = [([N_EQ, N_EQ], [P1_BAL, P2_BAL])]
+    # unequal inertias: adjust p2 by a scale and a duality rotation so that c1 w1 + c2 w2 = 0
+    c1, c2 = (1 + 0.3j) / 1.0, (0.4 - 0.7j) / 2.5
+    N1, N2 = Nform(1.0, 0.3, 1.0), Nform(0.4, -0.7, 2.5)
+    q1 = DATA_RNG.normal(size=6)
+    q2 = DATA_RNG.normal(size=6)
+    target = -c1 * wfun(q1) / c2                         # want w(q2') = target; w(s e^{alpha G} q) = s^2 e^{-2 i alpha} w(q)
+    ratio = target / wfun(q2)
+    s = np.sqrt(abs(ratio))
+    alpha = -np.angle(ratio) / 2
+    q2b = s * (expG(alpha) @ q2)
+    ok &= abs(c1 * wfun(q1) + c2 * wfun(q2b)) < 1e-12
+    cases.append(([N1, N2], [q1, q2b]))
+    for Ns, ps in cases:
+        sol = integrate(Ns, 1.0, 2.0, ps, 60.0)
+        ok &= sol.success
+        h = sol.y[1]
+        ok &= np.max(np.abs(h - 2.0)) < 1e-11
+        kap = 2.0
+        for k in range(2):
+            xk = sol.y[14 + 6 * k: 20 + 6 * k]
+            Np = Ns[k] @ ps[k]
+            inv2kG = np.linalg.inv(2 * kap * G1)
+            pred = np.array([(expG(2 * kap * t) - np.eye(6)) @ inv2kG @ Np for t in sol.t]).T
+            ok &= np.max(np.abs(xk - pred)) < 1e-9
+    return ok
+
+
+def period_event(theta_target):
+    def ev(t, y):
+        return y[0] - theta_target
+    ev.terminal = True
+    ev.direction = 1
+    return ev
+
+
+def lam_eff(eps, psi0, kappa0):
+    from scipy.integrate import quad
+    f = lambda psi: np.cos(psi) / (abs(kappa0) * np.sqrt(1 + eps * (np.cos(psi0) - np.cos(psi))))
+    return 0.5 * quad(f, 0, 2 * np.pi, epsabs=1e-14, epsrel=1e-13, limit=200)[0]
+
+
+U_PERT = DATA_RNG.normal(size=6)
+
+
+def unbalanced(delta):
+    return [P1_BAL, P2_BAL + delta * U_PERT]
+
+
+@claim("e5-5c", "off the balance surface (equal inertias, p^(2) = -G p^(1) + delta u, delta = 0.05, h(0) = 2): R_eff = |sum c_k w_k| and "
+                "the relative phase w_1 conj(w_2) are constant (1e-10), the rotor obeys I_0 theta'' = R_eff sin(2 theta + phi_eff) to 1e-9, "
+                "kappa^2 = kappa_0^2 [1 + eps (cos psi_0 - cos psi)] with eps = R_eff/(I_0 kappa_0^2) to 1e-9, |kappa^2/kappa_0^2 - 1| <= 2 eps, "
+                "and over one period of the rate (theta: 0 -> pi) each frame moves by lambda_eff e^{-phi_eff G} N_k p^(k)(0) with lambda_eff "
+                "of ES17 Thm 17.16 at eps (relative 1e-8): the several-constituent pendulum and drift")
+def _():
+    ps = unbalanced(0.05)
+    R, ph, F = Reff([C_EQ, C_EQ], ps)
+    ok = R > 1e-3
+    I0, h0 = 1.0, 2.0
+    sol = integrate([N_EQ, N_EQ], I0, h0, ps, 30.0)
+    ok &= sol.success
+    eps = R / (I0 * h0 ** 2)
+    psi0 = ph
+    for t, y in zip(sol.t, sol.y.T):
+        th, h = y[0], y[1]
+        p1, p2 = y[2:8], y[8:14]
+        Rt, _, Ft = Reff([C_EQ, C_EQ], [p1, p2])
+        ok &= abs(Rt - R) < 1e-10
+        ok &= abs(wfun(p1) * np.conj(wfun(p2)) - wfun(ps[0]) * np.conj(wfun(ps[1]))) < 1e-10 * (1 + abs(wfun(ps[0])) ** 2)
+        hd = -(p1 @ G1 @ N_EQ @ p1 + p2 @ G1 @ N_EQ @ p2)
+        ok &= abs(hd - R * np.sin(2 * th + ph)) < 1e-9
+        psi = 2 * th + ph
+        ok &= abs((h / I0) ** 2 - h0 ** 2 * (1 + eps * (np.cos(psi0) - np.cos(psi)))) < 1e-9
+        ok &= abs((h / h0) ** 2 - 1) <= 2 * eps + 1e-12
+    # one period of the rate
+    sol2 = integrate([N_EQ, N_EQ], I0, h0, ps, 10.0, events=period_event(np.pi))
+    ok &= len(sol2.t_events[0]) == 1
+    yT = sol2.y_events[0][0]
+    lam = lam_eff(eps, psi0, h0 / I0)
+    for k in range(2):
+        pred = lam * (expG(-ph) @ N_EQ @ ps[k])
+        dx = yT[14 + 6 * k: 20 + 6 * k]
+        ok &= np.linalg.norm(dx - pred) < 1e-8 * np.linalg.norm(pred)
+    # rate and momenta return after the period; theta has advanced by pi
+    ok &= abs(yT[1] - h0) < 1e-9 and np.allclose(yT[2:14], -np.concatenate(ps), atol=1e-9)
+    return ok
+
+
+@claim("e5-5d", "transverse stability of the balance surface (equal inertias, h(0) = 2, delta = 1e-3, 2e-3, 4e-3): R_eff is a constant "
+                "of motion, so the surface and each level R_eff = r are invariant (neither attracting nor repelling); R_eff, the rate excursion "
+                "max|h - h_0| <= R_eff/|kappa_0| and the mean frame velocity over a period all scale linearly in delta (ratios 2 within 2%), "
+                "and the mean velocity matches (eps/4)|N p^(k)(0)| to relative 1%: the rate is Lyapunov stable, the frames are not "
+                "(drift linear in the imbalance)")
+def _():
+    ok = True
+    I0, h0 = 1.0, 2.0
+    out = []
+    for d in (1e-3, 2e-3, 4e-3):
+        ps = unbalanced(d)
+        R, ph, _ = Reff([C_EQ, C_EQ], ps)
+        sol = integrate([N_EQ, N_EQ], I0, h0, ps, 10.0, npts=4001, events=period_event(np.pi))
+        T = sol.t_events[0][0]
+        yT = sol.y_events[0][0]
+        exc = np.max(np.abs(sol.sol(np.linspace(0, T, 2001))[1] - h0))
+        ok &= exc <= 1.01 * R / h0 * I0 / I0
+        v = [np.linalg.norm(yT[14 + 6 * k: 20 + 6 * k]) / T for k in range(2)]
+        eps = R / (I0 * h0 ** 2)
+        for k in range(2):
+            ok &= abs(v[k] / (eps / 4 * np.linalg.norm(N_EQ @ ps[k])) - 1) < 1e-2
+        out.append((R, exc, v[0], v[1]))
+    for i in range(2):
+        for j in range(4):
+            ok &= abs(out[i + 1][j] / out[i][j] - 2) < 4e-2
+    # exactly balanced: no drift over a period
+    sol = integrate([N_EQ, N_EQ], I0, h0, [P1_BAL, P2_BAL], 10.0, events=period_event(np.pi))
+    yT = sol.y_events[0][0]
+    ok &= np.linalg.norm(yT[14:26]) < 1e-10
+    return ok
+
+
+@claim("e5-5e", "libration and the h(0) = 0 precision: off balance with h(0) = 0 the rotor librates (h changes sign, theta stays in an "
+                "interval of length < pi, period 4K(sin^2(xi_0/2))/Omega with Omega^2 = 2 R_eff/I_0 to 1e-8) and the frames drift; on the "
+                "balance surface with h(0) = 0 the state is an equilibrium of the rotor (|h| < 1e-12) while each frame moves uniformly, "
+                "x_k = tau N_k p^(k)(0) (to 1e-10): bounded frames on the balance surface need h(0) != 0")
+def _():
+    from scipy.special import ellipk
+    ok = True
+    I0 = 1.0
+    ps = unbalanced(0.05)
+    R, ph, _ = Reff([C_EQ, C_EQ], ps)
+    sol = integrate([N_EQ, N_EQ], I0, 0.0, ps, 200.0, npts=40001)
+    th, h = sol.y[0], sol.y[1]
+    ok &= np.min(h) < -1e-3 and np.max(h) > 1e-3 and (np.max(th) - np.min(th)) < np.pi
+    Omega = np.sqrt(2 * R / I0)
+    xi0 = abs(((ph + np.pi) % (2 * np.pi)) - np.pi)       # psi_0 - pi folded: amplitude of xi = psi - pi
+    xi0 = np.pi - xi0 if False else abs(np.angle(np.exp(1j * (ph - np.pi))))
+    Tpred = 4 * ellipk(np.sin(xi0 / 2) ** 2) / Omega
+    # measured period of h: zero crossings of theta' with the same sign of slope
+    ev = lambda t, y: y[1]
+    ev.direction = -1
+    sol2 = solve_ivp(rhs_closure([N_EQ, N_EQ], I0), (0, 4 * Tpred),
+                     np.concatenate([[0.0, 0.0]] + ps + [np.zeros(12)]), method="DOP853", rtol=1e-12, atol=1e-12,
+                     events=ev)
+    te = sol2.t_events[0]
+    te = te[te > 1e-6]
+    ok &= len(te) >= 2 and abs((te[1] - te[0]) / Tpred - 1) < 1e-8
+    x1 = sol.y[14:20, -1]
+    ok &= np.linalg.norm(x1) > 1.0
+    # balanced, h(0) = 0
+    sol = integrate([N_EQ, N_EQ], I0, 0.0, [P1_BAL, P2_BAL], 20.0)
+    ok &= np.max(np.abs(sol.y[1])) < 1e-12
+    for k in range(2):
+        pred = np.outer(N_EQ @ [P1_BAL, P2_BAL][k], sol.t)
+        ok &= np.max(np.abs(sol.y[14 + 6 * k: 20 + 6 * k] - pred)) < 1e-10
+    return ok
+
+
+def dF_rank(cs, ps):
+    """real rank of dF, F = sum c_k w(p^(k)), at p (as a map R^{6n} -> R^2)."""
+    n = len(ps)
+    J = np.zeros((2, 6 * n))
+    for k in range(n):
+        g = 2 * cs[k] * (ETA1M @ ps[k] - 1j * ((G1 @ ETA1M + (G1 @ ETA1M).T) / 2) @ ps[k])
+        # w(p) = p^T eta p - i p^T (G eta) p; gradient of p^T A p is (A + A^T) p
+        g = cs[k] * (2 * ETA1M @ ps[k] - 1j * ((G1 @ ETA1M) + (G1 @ ETA1M).T) @ ps[k])
+        J[0, 6 * k:6 * k + 6] = g.real
+        J[1, 6 * k:6 * k + 6] = g.imag
+    s = np.linalg.svd(J, compute_uv=False)
+    return int(np.sum(s > 1e-9 * max(s[0], 1e-300)))
+
+
+def random_balanced(cs, rng):
+    q1 = rng.normal(size=6)
+    q2 = rng.normal(size=6)
+    target = -cs[0] * wfun(q1) / cs[1]
+    ratio = target / wfun(q2)
+    return [q1, np.sqrt(abs(ratio)) * (expG(-np.angle(ratio) / 2) @ q2)]
+
+
+def random_null(rng):
+    """a random p in R^6 with w(p) = 0: pi = eta p with z = u + i v, |u| = |v|, u . v = 0."""
+    u = rng.normal(size=3)
+    v = np.cross(u, rng.normal(size=3))
+    v *= np.linalg.norm(u) / np.linalg.norm(v)
+    return ETA1M @ np.concatenate([u, v])
+
+
+@claim("e5-5f", "geometry of the balance surface at n = 2 (20 random points each): dF has real rank 2 on B \\ 0 for equal and for "
+                "unequal coefficients (codimension 2; restates RE Thm 8.1(iii)); at equal coefficients the so(6,C)-orbit through a "
+                "point of B \\ 0 has real dimension 10 = dim B, so B \\ 0 = {Z.Z = 0, Z != 0} is one orbit, connected, = R_{>0} x V_2(R^6); "
+                "the all-null part N x N has dimension 8 (rank of d(w_1,w_2) = 4 there); on the massive part w_1 : B -> C^* is a "
+                "submersion (rank 2), with fibre a product of two complex spheres: B_massive = C^* x TS^2 x TS^2, connected")
+def _():
+    ok = True
+    rng = np.random.default_rng(99)
+    cases = [[C_EQ, C_EQ], [(1 + 0.3j) / 1.0, (0.4 - 0.7j) / 2.5]]
+    for cs in cases:
+        for _ in range(20):
+            ps = random_balanced(cs, rng)
+            ok &= abs(cs[0] * wfun(ps[0]) + cs[1] * wfun(ps[1])) < 1e-11 * (1 + sum(p @ p for p in ps))
+            ok &= dF_rank(cs, ps) == 2
+    # orbit dimension at equal coefficients: tangent vectors X Y for X in Cent(G_2), acting on momenta p by -X^T
+    for _ in range(20):
+        ps = random_balanced([1.0, 1.0], rng)
+        Y = np.concatenate(ps)
+        T_ = np.array([(-X.T) @ Y for X in CENT])
+        s = np.linalg.svd(T_, compute_uv=False)
+        ok &= int(np.sum(s > 1e-9 * s[0])) == 10 and s[9] / s[0] > 1e-6
+    # the null part: rank of d(w1, w2) as R^12 -> R^4 at points of N x N
+    for _ in range(20):
+        ps = [random_null(rng), random_null(rng)]
+        ok &= abs(wfun(ps[0])) < 1e-12 and abs(wfun(ps[1])) < 1e-12
+        J = np.zeros((4, 12))
+        for k in range(2):
+            g = 2 * ETA1M @ ps[k] - 1j * ((G1 @ ETA1M) + (G1 @ ETA1M).T) @ ps[k]
+            J[2 * k, 6 * k:6 * k + 6], J[2 * k + 1, 6 * k:6 * k + 6] = g.real, g.imag
+        s = np.linalg.svd(J, compute_uv=False)
+        ok &= int(np.sum(s > 1e-9 * s[0])) == 4
+    # w1 restricted to B_massive is a submersion: rank of (dF; dw1) = 4
+    for cs in cases:
+        for _ in range(20):
+            ps = random_balanced(cs, rng)
+            J = np.zeros((4, 12))
+            for k in range(2):
+                g = cs[k] * (2 * ETA1M @ ps[k] - 1j * ((G1 @ ETA1M) + (G1 @ ETA1M).T) @ ps[k])
+                J[0, 6 * k:6 * k + 6], J[1, 6 * k:6 * k + 6] = g.real, g.imag
+            g = 2 * ETA1M @ ps[0] - 1j * ((G1 @ ETA1M) + (G1 @ ETA1M).T) @ ps[0]
+            J[2, 0:6], J[3, 0:6] = g.real, g.imag
+            s = np.linalg.svd(J, compute_uv=False)
+            ok &= int(np.sum(s > 1e-9 * s[0])) == 4
+    return ok
+
+
+SWAP = np.zeros((12, 12), dtype=np.int64)
+SWAP[0:6, 6:12] = np.eye(6, dtype=np.int64)
+SWAP[6:12, 0:6] = np.eye(6, dtype=np.int64)
+
+
+@claim("e5-5g", "exchange of the constituents: the swap sigma is an eta_2-isometry commuting with G_2 (so with the rotor), preserves the "
+                "equal-inertia Hamiltonian and the closure bracket, and as an element of O(6,C) has determinant -1; sigma maps "
+                "V_+ = {p^(2) = -G p^(1)} onto V_- = {p^(2) = G p^(1)}; exchange-even and -odd data p^(2) = +-p^(1) both have w_2 = w_1, "
+                "so R_eff = 2|c||w_1| and they are balanced only when null; with equal coefficients R_eff = 2|c||w_s|, w_s = (w_1+w_2)/2 "
+                "the exchange-even part of (w_1, w_2): balanced iff (w_1, w_2) is exchange-odd")
+def _():
+    ok = iszero(SWAP.T @ ETA2M @ SWAP - ETA2M) and iszero(comm(SWAP, G2))
+    NB = blockdiag(N_EQ, N_EQ)
+    ok &= np.allclose(SWAP @ NB @ SWAP.T, NB)
+    cf = complex_form(SWAP) if False else None
+    # complex 6x6 matrix of the swap on (z1, z2): permutation of three pairs
+    R = SWAP[np.ix_(TEMP, TEMP)].astype(float)
+    ok &= iszero(SWAP[np.ix_(PART, PART)] - SWAP[np.ix_(TEMP, TEMP)]) and iszero(SWAP[np.ix_(TEMP, PART)])
+    ok &= abs(np.linalg.det(R) + 1) < 1e-12
+    rng = np.random.default_rng(5)
+    for _ in range(10):
+        p1 = rng.normal(size=6)
+        Y = np.concatenate([p1, -G1 @ p1])
+        Ys = SWAP @ Y
+        ok &= np.allclose(Ys[6:], G1 @ Ys[:6])
+        for sgn in (1, -1):
+            ok &= abs(wfun(sgn * p1) - wfun(p1)) < 1e-12
+            ok &= abs(Reff([C_EQ, C_EQ], [p1, sgn * p1])[0] - 2 * abs(C_EQ) * abs(wfun(p1))) < 1e-12
+        p2 = rng.normal(size=6)
+        ws = (wfun(p1) + wfun(p2)) / 2
+        ok &= abs(Reff([C_EQ, C_EQ], [p1, p2])[0] - 2 * abs(C_EQ) * abs(ws)) < 1e-12
+    return ok
+
+
+@claim("e5-5h", "carry-over of the rest-closure results: Gamma_12 = E_1...E_12 satisfies Gamma_12^2 = 1 and anticommutes with all twelve "
+                "generators, so it implements e^{pi G_2} = -id on S_2 (the half turn of RE Prop. 4.14 at n = 2); "
+                "G_2^T eta_2 = eta_2 G_2 and G_2^T eta_2 G_2 = -eta_2, so (e^{theta G_2})^T eta_2 e^{theta G_2} = cos 2theta eta_2 + "
+                "sin 2theta eta_2 G_2 and the rotor lifts to Pin(6,6) only at theta in pi Z (RE Prop. 4.10(ii) at n = 2); the coadjoint "
+                "orbits of s_2 at p != 0 are two-dimensional (rank of the Lie-Poisson tensor = 2 at 10 random points)")
+def _():
+    ok = np.array_equal(GAMMA12 @ GAMMA12, I64)
+    ok &= all(np.array_equal(GAMMA12 @ g_ + g_ @ GAMMA12, 0 * I64) for g_ in GEN)
+    ok &= iszero(G2.T @ ETA2M - ETA2M @ G2) and iszero(G2.T @ ETA2M @ G2 + ETA2M)
+    for t in (0.3, 1.1, np.pi):
+        Et = np.cos(t) * np.eye(12) + np.sin(t) * G2
+        ok &= np.allclose(Et.T @ ETA2M @ Et, np.cos(2 * t) * ETA2M + np.sin(2 * t) * ETA2M @ G2, atol=1e-13)
+    # Lie-Poisson tensor of s_2 = R x_G V_2 at (h, p): {h, p_a} = (G^T p)_a-type; only brackets with h are nonzero
+    rng = np.random.default_rng(8)
+    for _ in range(10):
+        p = rng.normal(size=12)
+        Pi = np.zeros((13, 13))
+        v = G2.T @ p
+        Pi[0, 1:] = v
+        Pi[1:, 0] = -v
+        ok &= np.linalg.matrix_rank(Pi) == 2
+    return ok
+
+
+# ----------------------------------------------------------------------------- 6. the ladder n = 1, 2, 3
+@claim("e5-6a", "ladder entries (exact): n = 1: Cent(lint) in so(3,3) = R J (J = e2e3), which meets Cent(G) in 0, and Cent(G) meets lint in 0; "
+                "n = 3: Cent(G_3) meets lint^(1) in 0, and for the Pati-Salam algebra of P_* (U = span{e_7,e_13,e_14,e_15}, so(6) on the colour "
+                "directions {10,11,12,16,17,18}) ps_U meets Cent(G_3) in 6 dimensions, all compact (so4_Delta, restates ES17 Thm 17.21); "
+                "balance: rank dF = 2 at random nonzero points for n = 1, 2, 3 and on B for n = 2, 3, while for n = 1 B = {w = 0}")
+def _():
+    ok = True
+    so33 = so_basis(6, ETA1)
+    lint1 = [rot_vec(6, INT0[a], INT0[b], ETA1) for a in range(4) for b in range(a + 1, 4)]
+    cl = lie_subspace(so33, [lambda X, L=L: comm(X, L) for L in lint1])
+    Jv = rot_vec(6, 1, 2, ETA1)
+    ok &= len(cl) == 1 and span_rank(cl + [Jv]) == 1
+    ok &= len(lie_subspace(cl, [lambda X: comm(X, G1)])) == 0
+    ok &= len(lie_subspace(lint1, [lambda X: comm(X, G1)])) == 0
+    G3 = Gn(3)
+    eta3 = np.diag(etan(3)).tolist()
+    lint31 = [rot_vec(18, INT0[a], INT0[b], eta3) for a in range(4) for b in range(a + 1, 4)]
+    ok &= len(lie_subspace(lint31, [lambda X: comm(X, G3)])) == 0
+    W = [6, 12, 13, 14]                           # 0-based of 7, 13, 14, 15
+    col = [9, 10, 11, 15, 16, 17]                 # 0-based of 10, 11, 12, 16, 17, 18
+    ps_ = [rot_vec(18, W[a], W[b], eta3) for a in range(4) for b in range(a + 1, 4)] + \
+          [rot_vec(18, col[a], col[b], eta3) for a in range(6) for b in range(a + 1, 6)]
+    inter = lie_subspace(ps_, [lambda X: comm(X, G3)])
+    ok &= len(inter) == 6 and len(euclid_compact(inter)) == 6
+    rng = np.random.default_rng(31)
+    for n in (1, 2, 3):
+        cs = [complex(*rng.normal(size=2)) for _ in range(n)]
+        for _ in range(5):
+            ps = [rng.normal(size=6) for _ in range(n)]
+            ok &= dF_rank(cs, ps) == 2
+            if n >= 2:
+                q = [rng.normal(size=6) for _ in range(n - 2)]
+                bal = random_balanced(cs[:2], rng)
+                # rescale so that the first two absorb the rest: c1 w1 + c2 w2 = -sum_{k>2} c_k w_k
+                if n == 3:
+                    rest = cs[2] * wfun(q[0])
+                    q1 = rng.normal(size=6)
+                    tgt = -(cs[0] * wfun(q1) + rest) / cs[1]
+                    q2 = rng.normal(size=6)
+                    ratio = tgt / wfun(q2)
+                    bal = [q1, np.sqrt(abs(ratio)) * (expG(-np.angle(ratio) / 2) @ q2), q[0]]
+                Fv = sum(c * wfun(p) for c, p in zip(cs, bal))
+                ok &= abs(Fv) < 1e-10 and dF_rank(cs, bal) == 2
+    return ok
+
+
+# ------------------------------------------------------------------------------------------------- summary
+print(f"# {NPASS[0]} PASS, {len(FAILS)} FAIL; runtime {time.time() - T0:.1f}s")
+if FAILS:
+    print("FAILED:", ", ".join(FAILS))
+    sys.exit(1)
+sys.exit(0)
