@@ -17,8 +17,9 @@ Exactness: every algebraic statement is checked in exact arithmetic: Clifford ge
 permutation) matrices, spin lifts are integer matrices divided by 4, vector-level Lie algebra statements use exact
 rational null spaces (sympy DomainMatrix over QQ).  Floating point is used only for (a) eigenvalue listings of Casimir
 operators (tolerance 1e-9), (b) the pair invariant M_pair and its derivatives (tolerances stated), (c) the numerical
-integrations of the closure (DOP853, rtol = atol = 1e-12; tolerances stated per check).
-Runtime: about half a minute.
+integrations of the closure (DOP853, rtol = atol = 1e-12; tolerances stated per check), (d) the quadratures of the drift
+(trapezoidal rule on 4096 points, spectrally accurate for the smooth periodic integrands) and the Jacobian ranks of e5-5h.
+Runtime: under twenty seconds.
 """
 import itertools
 import sys
@@ -493,6 +494,35 @@ def _():
     return ok
 
 
+@claim("e5-1e", "M_pair through the three diagonal invariants: q(z1+z2) = q1+q2+2 z1.z2 and det Q = q1 q2 - (z1.z2)^2 exactly "
+                "(symbolic), M_pair^2 = (|q1|^2+|q2|^2+2|z1.z2|^2)/4 + |q1 q2 - (z1.z2)^2|/2 at 30 random pairs (1e-12, against the "
+                "singular values); M_pair is not invariant under lG^(1)+lG^(2): its derivative along each of the three boosts of "
+                "constituent 2 alone is nonzero at a random pair, while z1.z2 changes and q1, q2 do not")
+def _():
+    a = sp.symbols("a1:4") + sp.symbols("b1:4")
+    c = sp.symbols("c1:4") + sp.symbols("d1:4")
+    z1 = sp.Matrix([a[i] + sp.I * a[i + 3] for i in range(3)])
+    z2 = sp.Matrix([c[i] + sp.I * c[i + 3] for i in range(3)])
+    dot = lambda u, v: (u.T * v)[0]
+    ok = sp.expand(dot(z1 + z2, z1 + z2) - dot(z1, z1) - dot(z2, z2) - 2 * dot(z1, z2)) == 0
+    Qs = sp.Matrix([[dot(z1, z1), dot(z1, z2)], [dot(z2, z1), dot(z2, z2)]])
+    ok &= sp.expand(Qs.det() - (dot(z1, z1) * dot(z2, z2) - dot(z1, z2) ** 2)) == 0
+    rng = np.random.default_rng(77)
+    for _ in range(30):
+        u = rng.normal(size=3) + 1j * rng.normal(size=3)
+        v = rng.normal(size=3) + 1j * rng.normal(size=3)
+        q1, q2, r = u @ u, v @ v, u @ v
+        f = np.sqrt((abs(q1) ** 2 + abs(q2) ** 2 + 2 * abs(r) ** 2) / 4 + abs(q1 * q2 - r ** 2) / 2)
+        ok &= abs(Mpair(u, v) - f) < 1e-12 * (1 + f)
+    Y = rng.normal(size=12)
+    for K in [emb(2, M) for M in LG_K]:
+        ok &= abs(dMpair_sq(Y, K)) > 1e-3
+        z1n, z2n = zpair(Y)
+        d1, d2 = zpair(K @ Y)
+        ok &= abs(2 * z1n @ d1) < 1e-12 and abs(2 * z2n @ d2) < 1e-12 and abs(d1 @ z2n + z1n @ d2) > 1e-3
+    return ok
+
+
 # ----------------------------------------------------------------------------- 2. no common Lorentz algebra
 @claim("e5-2a", "Cent(G_2) meets lint^(1) in 0, and the elements of so(6,6) commuting with G_2 and lint^(1) form lG^(2) "
                 "(dim 6; restates RE Prop. 7.8(iv)); for comparison the same algebra is 0 at n = 1 and 30-dimensional at "
@@ -668,14 +698,25 @@ KIN = [GAMMAS[0] @ g_ for g_ in GAMMAS]                                         
 
 
 @claim("e5-3a", "spectator action: g(1,0,1) = Cent(lint^(1)) in so(6,6) has dim 28 (so(5,3)), compact part dim 13 "
-                "(so(5)+so(3)); g(1,0,1) meets Cent(G_2) in lG^(2) (dim 6), and its compact part meets Cent(G_2) in the "
-                "three paired rotations of constituent 2: su(2), compact and non-abelian (brackets [L_i,L_j] = eps L_k)")
+                "(so(5)+so(3), so(5) on the positive Lorentz-trivial directions e^(1)_2,e^(1)_3,e^(2)_1,e^(2)_2,e^(2)_3 and so(3) on "
+                "e^(2)_4,e^(2)_5,e^(2)_6); g(1,0,1) meets Cent(G_2) in lG^(2) (dim 6); neither so(5) nor so(3) meets Cent(G_2), and "
+                "(so(5)+so(3)) meets it in {A + G_2 A G_2^{-1}: A in so(E_2)}, E_2 = span{e^(2)_1,e^(2)_2,e^(2)_3}: the three paired "
+                "rotations of constituent 2, su(2), compact and non-abelian ([L_i,L_j] = eps_ijk L_k)")
 def _():
     ok = len(GSPEC) == 28 and len(GSPEC_C) == 13
+    pos, neg = [1, 2, 6, 7, 8], [9, 10, 11]
+    so5 = [rot_vec(12, pos[a], pos[b], ETA2.tolist()) for a, b in itertools.combinations(range(5), 2)]
+    so3 = [rot_vec(12, neg[a], neg[b], ETA2.tolist()) for a, b in itertools.combinations(range(3), 2)]
+    ok &= span_rank(so5 + so3) == 13 and span_rank(so5 + so3 + GSPEC_C) == 13
+    ok &= len(lie_subspace(so5, [lambda X: comm(X, G2)])) == 0 and len(lie_subspace(so3, [lambda X: comm(X, G2)])) == 0
     inter = lie_subspace(GSPEC, [lambda X: comm(X, G2)])
     ok &= len(inter) == 6 and span_rank(inter + LG2) == 6
     interc = lie_subspace(GSPEC_C, [lambda X: comm(X, G2)])
     ok &= len(interc) == 3 and span_rank(interc + LG2_ROT) == 3
+    E2 = [6, 7, 8]
+    G2inv = -G2
+    graph = [A + G2 @ A @ G2inv for A in [rot_vec(12, E2[a], E2[b], ETA2.tolist()) for a, b in itertools.combinations(range(3), 2)]]
+    ok &= span_rank(graph + interc) == 3 and span_rank(graph) == 3
     ok &= np.array_equal(comm(LG2_ROT[0], LG2_ROT[1]), LG2_ROT[2])
     return ok
 
@@ -886,6 +927,25 @@ def _():
     return ok
 
 
+@claim("e5-3i", "the two binding actions at n = 2: under lG^(1) (constituent 2 a spectator, (k_I,k_B,k_S) = (0,1,1)) the commutant in "
+                "so(6,6) is so(3,3) of constituent 2 (dim 15, compact part 6), meeting Cent(G_2) in lG^(2) (dim 6) with compact part the 3 "
+                "paired rotations of constituent 2; under the diagonal lG ((0,2,0)) the commutant is so(2,C) = span{C_v, eps(x)G} (dim 2), "
+                "contained in Cent(G_2), with compact part R C_v (restates RE Prop. 7.8(iii) and Table 8)")
+def _():
+    c011 = lie_subspace(SO66, [lambda X, L=L: comm(X, L) for L in LG1])
+    so33_2 = [emb(2, M) for M in so_basis(6, ETA1)]
+    ok = len(c011) == 15 and span_rank(c011 + so33_2) == 15 and len(euclid_compact(c011)) == 6
+    i011 = lie_subspace(c011, [lambda X: comm(X, G2)])
+    ok &= len(i011) == 6 and span_rank(i011 + LG2) == 6
+    ok &= len(euclid_compact(i011)) == 3 and span_rank(euclid_compact(i011) + LG2_ROT) == 3
+    c020 = lie_subspace(SO66, [lambda X, L=L: comm(X, L) for L in LGD])
+    ok &= len(c020) == 2 and span_rank(c020 + [CV, CBOOST]) == 2
+    ok &= all(iszero(comm(X, G2)) for X in c020)
+    comp = euclid_compact(c020)
+    ok &= len(comp) == 1 and span_rank(comp + [CV]) == 1
+    return ok
+
+
 # ----------------------------------------------------------------------------- 4. inertia freedom at two constituents
 INERTIA_TABLE = [
     # (name, generators, Lorentz class {N,G_2}=0, duality class [N,G_2]=0)
@@ -1016,8 +1076,8 @@ def _():
     coef = [Cc[0, 0], Cc[1, 1], 2 * Cc[0, 1]]
     Nbig = np.zeros((12, 12))
     for i, c in enumerate(coef):
-        Nbig += 0.5 * (c.real * Ss[2 * i] - c.imag * Ss[2 * i + 1])     # Y^T S Y = 2 f(Y); U = 1/2 Y^T N Y
-    Nbig = Nbig / 2.0
+        # Y^T S Y = 2 f(Y), so Y^T [sum 0.5 (Re c S_re - Im c S_im)] Y = Re tr(C Q) and U = 1/2 Y^T N Y = 1/2 Re tr(C Q)
+        Nbig += 0.5 * (c.real * Ss[2 * i] - c.imag * Ss[2 * i + 1])
     ok &= np.allclose(Nbig @ G2 + G2 @ Nbig, 0)
     I0, h0 = 1.3, 0.8
     p0 = RNG.normal(size=12)
@@ -1093,13 +1153,23 @@ def period_event(theta_target):
     return ev
 
 
+def _periodic_mean(f, M=4096):
+    """2 pi times the mean of a smooth 2 pi-periodic function on M equispaced points (spectrally accurate)."""
+    psi = np.linspace(0.0, 2 * np.pi, M, endpoint=False)
+    return 2 * np.pi * np.mean(f(psi))
+
+
 def lam_eff(eps, psi0, kappa0):
-    from scipy.integrate import quad
-    f = lambda psi: np.cos(psi) / (abs(kappa0) * np.sqrt(1 + eps * (np.cos(psi0) - np.cos(psi))))
-    return 0.5 * quad(f, 0, 2 * np.pi, epsabs=1e-14, epsrel=1e-13, limit=200)[0]
+    """lambda of ES17 Thm 17.16: (1/2) int_0^{2pi} cos psi dpsi / (|kappa0| sqrt(1 + eps (cos psi0 - cos psi)))."""
+    return 0.5 * _periodic_mean(lambda psi: np.cos(psi) / (abs(kappa0) * np.sqrt(1 + eps * (np.cos(psi0) - np.cos(psi)))))
 
 
-U_PERT = DATA_RNG.normal(size=6)
+def period_eff(eps, psi0, kappa0):
+    """duration of one period of the rate (theta: 0 -> pi): (1/2) int_0^{2pi} dpsi / (|kappa0| sqrt(...))."""
+    return 0.5 * _periodic_mean(lambda psi: 1.0 / (abs(kappa0) * np.sqrt(1 + eps * (np.cos(psi0) - np.cos(psi)))))
+
+
+U_PERT = np.random.default_rng(4242).normal(size=6)        # own generator: independent of the order of the checks
 
 
 def unbalanced(delta):
@@ -1145,31 +1215,42 @@ def _():
     return ok
 
 
-@claim("e5-5d", "transverse stability of the balance surface (equal inertias, h(0) = 2, delta = 1e-3, 2e-3, 4e-3): R_eff is a constant "
-                "of motion, so the surface and each level R_eff = r are invariant (neither attracting nor repelling); R_eff, the rate excursion "
-                "max|h - h_0| <= R_eff/|kappa_0| and the mean frame velocity over a period all scale linearly in delta (ratios 2 within 2%), "
-                "and the mean velocity matches (eps/4)|N p^(k)(0)| to relative 1%: the rate is Lyapunov stable, the frames are not "
-                "(drift linear in the imbalance)")
+@claim("e5-5d", "transverse stability of the balance surface (equal inertias, h(0) = 2, delta = 1e-3, 2e-3, 4e-3, 5e-2): R_eff is a "
+                "constant of motion, so the surface and each level R_eff = r are invariant (neither attracting nor repelling); the rate "
+                "excursion obeys max|h - h_0| <= R_eff/|kappa_0| (I_0 = 1); R_eff, the excursion and the mean frame velocity over a period "
+                "scale linearly in delta (doubling ratios 2 within 2%); the period equals the quadrature (1/2) int dpsi/(|kappa_0| sqrt(..)) "
+                "and the mean velocity equals lambda_eff |N_k p^(k)(0)| / period (relative 1e-8); to first order it is (eps/4)|N_k p^(k)(0)| "
+                "(relative deviation <= 1.5 eps) and to second order (eps/4)(1 - eps cos psi_0)|N_k p^(k)(0)| (relative deviation <= eps^2): "
+                "the rate is Lyapunov stable, the frames are not (secular drift linear in the imbalance)")
 def _():
     ok = True
     I0, h0 = 1.0, 2.0
     out = []
-    for d in (1e-3, 2e-3, 4e-3):
+    for d in (1e-3, 2e-3, 4e-3, 5e-2):
         ps = unbalanced(d)
         R, ph, _ = Reff([C_EQ, C_EQ], ps)
-        sol = integrate([N_EQ, N_EQ], I0, h0, ps, 10.0, npts=4001, events=period_event(np.pi))
+        sol = integrate([N_EQ, N_EQ], I0, h0, ps, 10.0, npts=11, events=period_event(np.pi))
         T = sol.t_events[0][0]
         yT = sol.y_events[0][0]
-        exc = np.max(np.abs(sol.sol(np.linspace(0, T, 2001))[1] - h0))
-        ok &= exc <= 1.01 * R / h0 * I0 / I0
+        exc = np.max(np.abs(sol.sol(np.linspace(0, T, 4001))[1] - h0))
+        ok &= exc <= (1 + 1e-9) * R / h0
         v = [np.linalg.norm(yT[14 + 6 * k: 20 + 6 * k]) / T for k in range(2)]
         eps = R / (I0 * h0 ** 2)
+        kap0 = h0 / I0
+        Tq = period_eff(eps, ph, kap0)
+        lam = lam_eff(eps, ph, kap0)
+        ok &= abs(T / Tq - 1) < 1e-8
         for k in range(2):
-            ok &= abs(v[k] / (eps / 4 * np.linalg.norm(N_EQ @ ps[k])) - 1) < 1e-2
-        out.append((R, exc, v[0], v[1]))
+            nk = np.linalg.norm(N_EQ @ ps[k])
+            ok &= abs(v[k] / (lam * nk / Tq) - 1) < 1e-8
+            first = eps / 4 * nk
+            ok &= abs(v[k] / first - 1) <= 1.5 * eps
+            ok &= abs(v[k] / (first * (1 - eps * np.cos(ph))) - 1) <= eps ** 2
+        if d < 1e-2:
+            out.append((R, exc, v[0], v[1]))
     for i in range(2):
         for j in range(4):
-            ok &= abs(out[i + 1][j] / out[i][j] - 2) < 4e-2
+            ok &= abs(out[i + 1][j] / out[i][j] - 2) < 2e-2
     # exactly balanced: no drift over a period
     sol = integrate([N_EQ, N_EQ], I0, h0, [P1_BAL, P2_BAL], 10.0, events=period_event(np.pi))
     yT = sol.y_events[0][0]
@@ -1248,7 +1329,7 @@ def random_null(rng):
                 "unequal coefficients (codimension 2; restates RE Thm 8.1(iii)); at equal coefficients the so(6,C)-orbit through a "
                 "point of B \\ 0 has real dimension 10 = dim B, so B \\ 0 = {Z.Z = 0, Z != 0} is one orbit, connected, = R_{>0} x V_2(R^6); "
                 "the all-null part N x N has dimension 8 (rank of d(w_1,w_2) = 4 there); on the massive part w_1 : B -> C^* is a "
-                "submersion (rank 2), with fibre a product of two complex spheres: B_massive = C^* x TS^2 x TS^2, connected")
+                "submersion (rank 2), whose fibre over s is the product of the two complex spheres {w = s} and {w = -c_1 s/c_2}")
 def _():
     ok = True
     rng = np.random.default_rng(99)
@@ -1328,8 +1409,34 @@ def _():
                 "generators, so it implements e^{pi G_2} = -id on S_2 (the half turn of RE Prop. 4.14 at n = 2); "
                 "G_2^T eta_2 = eta_2 G_2 and G_2^T eta_2 G_2 = -eta_2, so (e^{theta G_2})^T eta_2 e^{theta G_2} = cos 2theta eta_2 + "
                 "sin 2theta eta_2 G_2 and the rotor lifts to Pin(6,6) only at theta in pi Z (RE Prop. 4.10(ii) at n = 2); the coadjoint "
-                "orbits of s_2 at p != 0 are two-dimensional (rank of the Lie-Poisson tensor = 2 at 10 random points)")
+                "orbits of s_2 at p != 0 are two-dimensional (rank of the Lie-Poisson tensor = 2 at 10 random points), so there are "
+                "11 = 13 - 2 local Casimirs, and the real and imaginary parts of conj(z_j) z_k, z = (z(pi^(1)), z(pi^(2))) in C^6, provide "
+                "them (Jacobian rank 11 at 10 random points; 5 at n = 1, RE Thm 4.1(ii)) and are invariant under p -> e^{tG_2} p")
 def _():
+    rng0 = np.random.default_rng(81)
+
+    def herm_funcs(p, n):
+        z = []
+        for k in range(n):
+            pi = ETA1M @ p[6 * k:6 * k + 6]
+            z.extend(list(pi[:3] + 1j * pi[3:]))
+        z = np.array(z)
+        H = np.outer(np.conj(z), z)
+        iu = np.triu_indices(3 * n)
+        return np.concatenate([H[iu].real, H[np.triu_indices(3 * n, 1)].imag])
+
+    okc = True
+    for n, r in [(1, 5), (2, 11)]:
+        for _ in range(10):
+            p = rng0.normal(size=6 * n)
+            J = np.array([(herm_funcs(p + 1e-6 * e_, n) - herm_funcs(p - 1e-6 * e_, n)) / 2e-6 for e_ in np.eye(6 * n)]).T
+            s = np.linalg.svd(J, compute_uv=False)
+            okc &= int(np.sum(s > 1e-6 * s[0])) == r
+            Gk = Gn(n).astype(float)
+            Et = np.cos(0.7) * np.eye(6 * n) + np.sin(0.7) * Gk
+            okc &= np.allclose(herm_funcs(Et @ p, n), herm_funcs(p, n), atol=1e-12)
+    if not okc:
+        return False
     ok = np.array_equal(GAMMA12 @ GAMMA12, I64)
     ok &= all(np.array_equal(GAMMA12 @ g_ + g_ @ GAMMA12, 0 * I64) for g_ in GEN)
     ok &= iszero(G2.T @ ETA2M - ETA2M @ G2) and iszero(G2.T @ ETA2M @ G2 + ETA2M)
@@ -1352,9 +1459,38 @@ def _():
 @claim("e5-6a", "ladder entries (exact): n = 1: Cent(lint) in so(3,3) = R J (J = e2e3), which meets Cent(G) in 0, and Cent(G) meets lint in 0; "
                 "n = 3: Cent(G_3) meets lint^(1) in 0, and for the Pati-Salam algebra of P_* (U = span{e_7,e_13,e_14,e_15}, so(6) on the colour "
                 "directions {10,11,12,16,17,18}) ps_U meets Cent(G_3) in 6 dimensions, all compact (so4_Delta, restates ES17 Thm 17.21); "
+                "the compact spectator algebra (Euclidean-antisymmetric part of Cent(lint^(1)), dim 43 = so(8)+so(6)) meets Cent(G_3) in "
+                "the 15 paired rotations of constituents 2, 3 (so(6)), and the diagonal connection algebra Cent(diag lint) (dim 18) meets "
+                "it in the 3 copy rotations (E_lk - E_kl) (x) 1_6: the binding-compatible parts are so(3n-3) and so(n) at n = 1, 2, 3; "
                 "balance: rank dF = 2 at random nonzero points for n = 1, 2, 3 and on B for n = 2, 3, while for n = 1 B = {w = 0}")
 def _():
     ok = True
+    eta3l = np.diag(etan(3)).tolist()
+    so99 = so_basis(18, eta3l)
+    G3_ = Gn(3)
+    lint31_ = [rot_vec(18, INT0[a], INT0[b], eta3l) for a in range(4) for b in range(a + 1, 4)]
+    spec3 = lie_subspace(so99, [lambda X, L=L: comm(X, L) for L in lint31_])
+    spec3c = euclid_compact(spec3)
+    ok &= len(spec3) == 91 and len(spec3c) == 43
+    bc3 = lie_subspace(spec3c, [lambda X: comm(X, G3_)])
+    temp23, part23 = [6, 7, 8, 12, 13, 14], [9, 10, 11, 15, 16, 17]
+    pr23 = []
+    for a, b in itertools.combinations(range(6), 2):
+        R_ = np.zeros((18, 18), dtype=np.int64)
+        R_[temp23[a], temp23[b]], R_[temp23[b], temp23[a]] = -1, 1
+        R_[part23[a], part23[b]], R_[part23[b], part23[a]] = -1, 1
+        pr23.append(R_)
+    ok &= len(bc3) == 15 and span_rank(bc3 + pr23) == 15
+    lintd =[sum(rot_vec(18, 6 * k + INT0[a], 6 * k + INT0[b], eta3l) for k in range(3)) for a in range(4) for b in range(a + 1, 4)]
+    diag3 = lie_subspace(so99, [lambda X, L=L: comm(X, L) for L in lintd])
+    ok &= len(diag3) == 18 and len(euclid_compact(diag3)) == 18
+    dbc3 = lie_subspace(diag3, [lambda X: comm(X, G3_)])
+    copyrots = []
+    for k, l in [(0, 1), (0, 2), (1, 2)]:
+        B_ = np.zeros((3, 3), dtype=np.int64)
+        B_[l, k], B_[k, l] = 1, -1
+        copyrots.append(np.kron(B_, np.eye(6, dtype=np.int64)))
+    ok &= len(dbc3) == 3 and span_rank(dbc3 + copyrots) == 3
     so33 = so_basis(6, ETA1)
     lint1 = [rot_vec(6, INT0[a], INT0[b], ETA1) for a in range(4) for b in range(a + 1, 4)]
     cl = lie_subspace(so33, [lambda X, L=L: comm(X, L) for L in lint1])
