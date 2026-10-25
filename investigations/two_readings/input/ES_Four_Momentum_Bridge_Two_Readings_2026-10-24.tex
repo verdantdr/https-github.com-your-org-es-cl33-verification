@@ -1,0 +1,309 @@
+\documentclass[10.5pt,a4paper]{article}
+\usepackage[margin=23mm,headheight=14pt]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype}
+\usepackage{amsmath,amssymb,mathtools,amsthm,bm}
+\usepackage{array,booktabs,tabularx,enumitem,xcolor}
+\usepackage{fancyhdr,lastpage}
+\usepackage[hidelinks]{hyperref}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable}
+\definecolor{ink}{HTML}{13263A}
+\definecolor{muted}{HTML}{526477}
+\definecolor{edge}{HTML}{D6E0EA}
+\definecolor{blue}{HTML}{184B75}
+\definecolor{pale}{HTML}{F2F6FA}
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{lemma}[proposition]{Lemma}
+\newtheorem{corollary}[proposition]{Corollary}
+\newtheorem{definition}[proposition]{Definition}
+\newcommand{\R}{\mathbb R}
+\newcommand{\Cl}{\mathrm{Cl}}
+\newcommand{\dd}{\mathrm d}
+\newcommand{\pr}{\mathsf P}
+\newcommand{\qs}{\mathsf Q}
+\newcommand{\ph}{\mathcal P}
+\newcommand{\mm}{\mathcal M}
+\newcommand{\Xcl}{X_{\mathrm{cl}}}
+\newcommand{\Xem}{X_{\mathrm{EM}}}
+\newcommand{\Fhat}{\widehat F}
+\newcommand{\Ahat}{\widehat A}
+\newcommand{\st}[1]{\textcolor{muted}{\small\sffamily [#1]}}
+\newtcolorbox{resultbox}{breakable,colback=pale,colframe=edge,boxrule=.5pt,arc=2pt,left=9pt,right=9pt,top=7pt,bottom=7pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\sffamily\color{muted} ES / Four-momentum bridge / Two readings}
+\fancyhead[R]{\small\sffamily\color{muted} 24 October 2026}
+\fancyfoot[L]{\small\sffamily\color{muted} Preliminary mathematical audit -- not a publication claim}
+\fancyfoot[R]{\small\sffamily\color{muted} \thepage/\pageref{LastPage}}
+\renewcommand{\headrulewidth}{.35pt}
+\setlength{\parskip}{4pt}
+\setlength{\parindent}{0pt}
+\setlist[enumerate]{leftmargin=*,itemsep=2pt,topsep=3pt}
+\setlist[itemize]{leftmargin=*,itemsep=1.5pt,topsep=3pt}
+\hypersetup{pdftitle={ES Four-Momentum Bridge: Classical Displacement and the Quantum Electromagnetic Reading},pdfauthor={ES research working note},pdfsubject={Third working revision: distinct classical geometric and quantized electromagnetic readings}}
+\begin{document}
+\vspace*{3mm}
+{\sffamily\small\color{blue}\bfseries ES RESEARCH NOTE \hspace{7pt} / \hspace{7pt} REVISED INVESTIGATION (VERSION 3)}\\[8pt]
+{\Huge\bfseries\color{ink} The Four-Momentum Bridge}\\[6pt]
+{\Large\color{blue} Classical displacement, electromagnetic quantization, and momentum selection}\\[7pt]
+{\color{muted}\small 24 October 2026 \quad | \quad Extends the dimensionality-axiom audit with a strict two-reading distinction}
+\vspace{7pt}\hrule\vspace{10pt}
+\begin{abstract}
+\noindent
+We distinguish two physically different readings of a six-component symbol $X$ in the ES program. In the \emph{classical geometric reading}, $\Xcl$ denotes a displacement/configuration with dimensions of length; selection of one of three timelike directions specifies one physical $3+1$ spacetime and its observable four-momentum $(E/c,\mathbf p)$. The other two timelike coordinates retain conjugate momenta $q_1,q_2$, not additional observable energies. These momenta need not vanish unless a stronger gauge reduction is imposed. In the \emph{electromagnetic reading}, $\Xem\leftrightarrow(\mathbf B,\mathbf E)$ labels the six components of a spacetime two-form $F$, not six displacement coordinates or six energy components. This second reading is \emph{intended} to underlie quantized physics, but $(\mathbf E,\mathbf B)$ are classical field variables until a gauge-compatible quantum field construction produces operator-valued fields and photon states. We retain the exact anti-isometry obstruction for identifying the classical internal $G$-rotating momentum with a fixed physical four-momentum, but show why it is \emph{not} an obstruction to $G$ acting as Hodge duality on electromagnetic two-forms. Four-momentum in the field sector comes from spacetime translation symmetry and, upon quantization, translation generators rather than a projection of $F$. The common dynamic relation between these two readings remains open. This is a critical working note, not a claim to have proved quantum emergence or a mass-generation mechanism.
+\end{abstract}
+
+\begin{resultbox}
+\textbf{Central outcome.} The word $X$ must be type-distinguished: $\Xcl$ is length-valued classical configuration data, whereas $\Xem$ is a six-component electromagnetic \emph{field strength} intended for quantization. Neither the old four-component momentum nor the photon four-momentum follows by simply relabelling the other reading's six components. The anti-isometric binding no-go limits a \emph{specific direct identification}, not electromagnetic duality.
+\end{resultbox}
+
+\section{Inputs, status conventions, and the corrected question}
+\textbf{Source-derived ingredients.} The May 24, 2026 pole-octant paper constructs $(p_X,p_Y,p_Z,p_W)$, taking a kernel contraction for the proposed $E/c$ component. Its $m_{\rm geo}=c^{-1}\int\ell_e\,\dd\ell$ has dimensions of length times time, and the paper does not prove its equality with an independently defined invariant momentum norm. The October 17 ES manuscript supplies a selected interior Lorentzian four-plane, a Clifford complex structure, split-form momentum--force dynamics, a conventional Maxwell--Dirac action in one mixed construction, and surplus-time worldline constraints. The October energy analysis retains ordinary four-dimensional relativistic energy--momentum, with no independent three-dimensional physical energy.
+
+\textbf{New hypothesis (this revision).} There are \emph{two distinct physical readings}, which must not be conflated. The \emph{classical geometric} configuration $\Xcl$ has units of length, and its selected physical spacetime supports one energy component and three spatial momenta, alongside two possibly nonzero surplus-time conjugate momenta. The \emph{electromagnetic} variable $\Xem\leftrightarrow(\mathbf B,\mathbf E)$ is a field-strength variable: its six components are not six momentum or position components. The EM reading is a candidate basis for quantum field theory, but a classical field-strength dictionary is not itself quantization. Temporal-clock permutations and rotations are deferred.
+
+\textbf{Status notation.} \st{Axiom} is an assumption or reading rule; \st{Proved} follows from displayed hypotheses; \st{Constructed} is an illustrative consistent model, not one forced by ES; \st{Standard} is established classical or quantum field theory used for comparison; \st{Open} denotes a missing physical argument. Statements from the May and October manuscripts are identified as source-derived, while the two-reading axiom is a new organizing proposal.
+
+\section{Two readings of $X$: physical types must not be conflated}\label{sec:two}
+\begin{definition}[Classical geometric reading]\label{def:xcl}
+\st{Axiom / interpretation} In the classical sector, $\Xcl$ is a displacement or configuration on a six-dimensional geometric arena, with $[\Xcl]=\mathrm{length}$. Local worldline coordinates may be written $Y^A=(x^\mu,u^a)$, with $x^0=ct$ and the surplus coordinates $u^a$ also length-valued. The phase-space covector $K_A$ is \emph{conjugate to $Y^A$} in the ordinary Hamiltonian sense. Its physical projection $P_\mu$ and surplus conjugates $q_a$ must be distinguished from the canonical momentum $\pi$ of any separate interior configuration Lagrangian.
+\end{definition}
+\begin{definition}[Electromagnetic field-strength reading]\label{def:xem}
+\st{Axiom / representation} After a Lorentzian four-plane $E_n$ is selected and a field-strength dictionary $\Phi_n$ is specified, $\Xem\in V_{\mathrm{EM}}\simeq\Lambda^2 E_n^*$ denotes the six electromagnetic components, schematically
+\begin{equation}\label{eq:Fdict}
+   \Phi_n:\Xem\longleftrightarrow F=\tfrac12F_{\mu\nu}\,\dd x^\mu\wedge\dd x^\nu,
+   \qquad \Xem\sim(\mathbf B,\mathbf E).
+\end{equation}
+Here $[F_{\mu\nu}]$ is field-strength dimension, \emph{not} length. The identification concerns Lorentz representations and requires conventions for units (e.g., $c\mathbf B$ and $\mathbf E$ in SI). It does not turn a field component into a spacetime momentum component.
+\end{definition}
+\begin{resultbox}
+\textbf{Rule of interpretation.} Symbols $\Xcl$ and $\Xem$ may use isomorphic six-dimensional \emph{linear spaces}, but their units, Lorentz actions, observables, equations, and canonical conjugates differ. An equation identifying them requires a separate map with specified dimensions and symmetries; none is currently part of ES.
+\end{resultbox}
+\textbf{Quantum status of the EM reading.} Classical Maxwell theory uses ordinary functions $F_{\mu\nu}(x)$. Quantized electrodynamics instead requires gauge fixing or a constrained gauge quantization, a Hilbert/Fock-state construction (for the free photon sector), and operator-valued distributions $\Fhat_{\mu\nu}(x)$; in an interacting quantum theory additional renormalization questions arise. Thus
+\begin{equation}\label{eq:qft}
+  F_{\mu\nu}(x)\quad\xrightarrow{\ \text{quantization}\ }\quad
+  \Fhat_{\mu\nu}(x),\qquad \text{one-photon states }|\mathbf k,\lambda\rangle,\ \lambda=\pm1.
+\end{equation}
+The arrow is \st{Open in ES}; it is not implied by $G^2=-1$, $J^2=-1$, or the Riemann--Silberstein form of Maxwell's equations. Consequently \emph{``quantized reading'' names the intended research sector}, not an already derived property of $\Xem$.
+
+\subsection*{Which operator acts on which reading?}
+In the classical interior Lagrangian an anti-isometry $G_{\mathrm{cl}}$ can act on the length-valued configuration $\Xcl$. In the electromagnetic reading, an operator $G_{\mathrm{EM}}$ can represent the Lorentzian Hodge star:
+\begin{equation}\label{eq:Gtypes}
+  G_{\mathrm{cl}}:\Xcl\mapsto G_{\mathrm{cl}}\Xcl,\qquad
+  \Phi_n(G_{\mathrm{EM}}\Xem)=\star\Phi_n(\Xem),\qquad \star^2=-I\ \text{on two-forms}.
+\end{equation}
+Both operators may have the same block matrix after choosing bases. \emph{That does not establish that they represent the same physical transformation or that their canonical momenta coincide.} In the EM reading $G_{\mathrm{EM}}$ is electric--magnetic duality, not an operation transporting a particle's four-momentum into extra times.
+
+\section{Classical sector: a selected time direction and six canonical components}
+Work with $(V,\eta)=(\R^{3,3},\mathrm{diag}(+,+,+,-,-,-))$ and the distinguished temporal/spatial splitting
+\begin{equation}\label{eq:split}
+  V=T\oplus S,\quad T=\langle e_1,e_2,e_3\rangle,\quad S=\langle e_4,e_5,e_6\rangle.
+\end{equation}
+Here $\eta|_T$ is positive and $\eta|_S$ negative. Choosing the splitting itself is additional background structure; it is not invariant under the entire $SO(3,3)$.
+
+\begin{definition}[Physical momentum dimensionality axiom]\label{def:axiom}
+\st{Axiom, restricted to the classical geometric reading} Choose a unit $n\in T$, $\eta(n,n)=1$. Define
+\begin{equation}\label{eq:En}
+ E_n=\R n\oplus S,\qquad U_n=\{u\in T:\eta(u,n)=0\},\qquad V=E_n\oplus U_n.
+\end{equation}
+Observable classical four-momentum is the projection of a six-dimensional canonical covector $K$ for the length-valued coordinates $Y^A$ (with indices raised by $\eta$) onto $E_n$, denoted $P_n^\mu=(E/c,\mathbf p)$. The remaining two components $q_a$ are momenta conjugate to surplus coordinates $u^a$; no physical interpretation as additional energies is made, and \emph{no vanishing constraint is imposed by this axiom alone}. This is a phase-space \emph{reading rule}; in particular it neither describes the components of $\Xem$ nor defines the momentum of a photon.
+\end{definition}
+Choose an oriented orthonormal basis $(u_1,u_2)$ of $U_n$ and write the raised six-momentum as
+\begin{equation}\label{eq:K}
+ K^\sharp=\frac{E}{c}n+\sum_{i=1}^3p_i s_i+\sum_{a=1}^2q_a u_a,\qquad s_i=e_{i+3}.
+\end{equation}
+In canonical cotangent coordinates, $q_a$ are defined by $q_a=\partial L/\partial \dot u^a$ where a regular Lagrangian exists, or simply as cotangent variables in first-order Hamiltonian mechanics. The physical and surplus projections are $\pr_n K^\sharp=P_n$ and $\qs_n K^\sharp=\sum q_a u_a$.
+
+\begin{proposition}[Lorentz covariance of the selected projection]\label{prop:cov}
+\st{Proved, given the axiom} Extend $SO^+(1,3)$ acting on $E_n$ to $V$ by the identity on $U_n$. Then $\pr_n$ commutes with this subgroup and $P_n$ transforms as a Lorentz four-vector; $q_a$ are Lorentz scalars. An independent $SO(2)$ rotates the surplus coordinate--momentum pairs.
+\end{proposition}
+\begin{proof}
+The decomposition \eqref{eq:En} is invariant under the specified block-diagonal group; hence its projector commutes with the action. The $E_n$ summand is by definition the vector representation. Neither this argument nor the axiom selects a dynamics or establishes conservation.
+\end{proof}
+
+\paragraph{Immediate limitation.} This construction is covariant under the Lorentz subgroup that preserves the \emph{chosen} physical sector. It does \emph{not} establish invariance under arbitrary $SO(3,3)$ transformations mixing physical and surplus coordinates. Nor does it prove that $E/c$ is a Noether energy or that the fourth component from the May paper equals $E/c$.
+
+\section{Classical surplus conjugate momenta: three possible dynamics}
+For \eqref{eq:K}, the ambient six-dimensional quadratic norm is
+\begin{equation}\label{eq:eta6}
+ \eta(K^\sharp,K^\sharp)=\frac{E^2}{c^2}-|\mathbf p|^2+|\mathbf q|^2,
+ \qquad |\mathbf q|^2=q_1^2+q_2^2.
+\end{equation}
+\textbf{Option I: ambient mass shell, nonzero $q$.} If an additional six-dimensional constraint $\eta(K,K)=M_6^2c^2$ is imposed, then
+\begin{equation}\label{eq:minus}
+ \boxed{E^2=c^2|\mathbf p|^2+M_6^2c^4-c^2|\mathbf q|^2},\qquad
+ m_{4,\mathrm{eff}}^2=M_6^2-\frac{|\mathbf q|^2}{c^2}.
+\end{equation}
+This is \st{Proved, conditional on the ambient shell}. Internal timelike momenta \emph{lower} the inferred four-dimensional mass squared. Nonzero $q$ is not forbidden, but $|\mathbf q|>M_6c$ produces a tachyonic four-dimensional shell. The dimensionality axiom alone does not remove this problem.
+
+\textbf{Option II: strong gauge reduction, $q_a\approx0$.} Add two constraints to a free phase-space action:
+\begin{equation}\label{eq:strong}
+ S_{\rm red}=\int\!\dd\tau\,\left(P_\mu\dot x^\mu+q_a\dot u^a
+ -\frac{N}{2}\bigl(P_\mu P^\mu-M_6^2c^2+|\mathbf q|^2\bigr)-\lambda^a q_a\right).
+\end{equation}
+With fixed $n$ and canonical Poisson brackets, $\{q_a,q_b\}=0$ and $\{q_a,H\}=0$, so the two constraints are first class. Their gauge flows shift the surplus coordinates $u^a$. The reduced mass shell is $P^2=M_6^2c^2$. This is \st{Constructed} for the classical particle sector, closely related to the first-class surplus-momentum idea in October Section 30. It is stronger than the dimensionality axiom and \emph{deletes the dynamical surplus momenta} from reduced physical states. These constraints are not the transversality conditions used to quantize the electromagnetic field.
+
+\textbf{Option III: nonzero internal $q$ and a separate physical mass functional.} The weak axiom admits a consistent phase-space action without setting $q=0$:
+\begin{equation}\label{eq:weakaction}
+ \boxed{S_n=\int\!\dd\tau\left[P_\mu\dot x^\mu+q_a\dot u^a
+ -\frac{N}{2}\big(P_\mu P^\mu-c^2\mm^2(u,q)\big)\right].}
+\end{equation}
+Here $\mm^2(u,q)$ is required to be a nonnegative $SO(2)$ scalar and independent of spacetime position $x$. The chosen $E_n$ Lorentz group acts on $(x,P)$, while $(u,q)$ transform as Lorentz scalars. Equation \eqref{eq:weakaction} is manifestly four-dimensionally Lorentz invariant and reparametrization invariant with its single mass-shell constraint.
+
+\begin{proposition}[A consistent, nonzero-$q$ completion]\label{prop:weak}
+\st{Proved within the constructed model} Along solutions of \eqref{eq:weakaction} with fixed $n$:
+\begin{equation}\label{eq:pres}
+ \dot P_\mu=0,\qquad \frac{\dd}{\dd\tau}\mm^2(u,q)=0,\qquad
+ \boxed{E^2=c^2|\mathbf p|^2+c^4\mm^2(u,q).}
+\end{equation}
+Thus the surplus momenta may be nonzero and dynamical without becoming additional observed energy components.
+\end{proposition}
+\begin{proof}
+The Hamiltonian constraint has no explicit $x$ dependence, giving $\dot P_\mu=-\partial H/\partial x^\mu=0$. As $H=N(P^2-c^2\mm^2)/2$, one has $\dot{\mm}^2=\{\mm^2,H\}=0$ because the internal function Poisson-commutes with itself and with $P$. The third identity is the constraint itself. The multiplier $N$ enforces the relation and does not independently determine the value of $\mm$.
+\end{proof}
+
+One \emph{illustrative}, non-derived choice is
+\begin{equation}\label{eq:ansatz}
+ \mm^2(u,q)=m_0^2+\frac{|\mathbf q|^2}{c^2},\qquad
+ E^2=c^2|\mathbf p|^2+m_0^2c^4+c^2|\mathbf q|^2.
+\end{equation}
+For $m_0=0$ and $q\ne0$, the four-dimensional mass of this \emph{toy model} is $m_{4}=|\mathbf q|/c$. This does \textbf{not} derive elementary particle mass: the positive sign was \emph{chosen} by supplying an independent $SO(2)$-invariant internal quadratic functional. It is \emph{opposite} to the sign forced by the ambient $(3,3)$ shell in \eqref{eq:minus}; it cannot be presented as a consequence of the ambient metric without an additional geometric or dynamical principle. Nor does \eqref{eq:ansatz} select numerical values of $q$, generate a mass spectrum, or explain why observed elementary fermion masses are nonzero.
+
+\begin{resultbox}
+\textbf{Decisive distinction.} In the \emph{classical} sector the axiom selects observable momentum components, a mass shell specifies dynamics, and a positive internal mass functional is an extra hypothesis. None of these steps concerns the six components of $\Xem$, and none constitutes photon quantization. A satisfactory ES bridge must not silently identify these structures.
+\end{resultbox}
+
+\section{The selected clock and the Clifford complex structure}
+Let $I_T=e_1e_2e_3$ be the oriented volume element of the positive temporal triple. It satisfies $I_T^2=-1$ and commutes with every vector of $T$. Define
+\begin{equation}\label{eq:Jn}
+ \boxed{J(n)=I_Tn=n_1e_2e_3+n_2e_3e_1+n_3e_1e_2.}
+\end{equation}
+\begin{proposition}[Clock--surplus-plane--complex-structure correspondence]\label{prop:J}
+\st{Proved} For any unit $n\in T$, the bivector $J(n)$ satisfies
+\begin{equation}
+ J(n)^2=-1,\qquad [J(n),n]=0,\qquad [J(n),s_i]=0\quad(i=1,2,3).
+\end{equation}
+It is the oriented bivector of $U_n$ (with orientation induced from $T$), and therefore commutes with every Clifford generator of the physical four-plane $E_n$.
+\end{proposition}
+\begin{proof}
+Since $I_T$ commutes with $n$, $J(n)^2=I_T^2n^2=-1$. Choosing $n=e_1$ by an oriented temporal rotation gives $J=e_2e_3$; this bivector uses precisely the two perpendicular temporal directions and commutes with $e_1$ and with each $s_i$, which has disjoint indices from its grade-two factors. Covariance under temporal rotations proves the general case.
+\end{proof}
+For coordinate clocks the three representatives are $J(e_1)=e_2e_3$, $J(e_2)=e_3e_1$, and $J(e_3)=e_1e_2$. If the temporal triple has full rotational symmetry, the choice of clock is continuous, $n\in S^2$, not merely a permutation among three axes. Reversing $n$ reverses $J(n)$, so time orientation and the sign of the complex structure must be tracked together.
+
+\textbf{Interpretation.} Choosing the observer's time direction simultaneously chooses a surplus plane and a \emph{candidate} real Dirac imaginary unit. This may supply a common geometric input to both readings, but it does \emph{not} identify $\Xcl$ with $\Xem$, quantize $F$, or explain why that clock is dynamically preferred. The October Theorem 4.1 commutant conditions and the electromagnetic Hodge dictionary must be tested separately for changing $n$.
+
+\section{The October no-go theorem: its correct scope after separating the readings}
+A split-form model built from a length-valued classical configuration is the October Section 16 action
+\begin{equation}\label{eq:Lint}
+ L_{\rm int}=\frac m2\,\eta(\dot{\Xcl}+\kappa G_{\rm cl}\Xcl,
+ \dot{\Xcl}+\kappa G_{\rm cl}\Xcl),\quad
+ G_{\rm cl}^\dagger=G_{\rm cl},\quad G_{\rm cl}^2=-I,
+\end{equation}
+whose raised internal canonical momentum $\pi=m(\dot{\Xcl}+\kappa G_{\rm cl}\Xcl)$ obeys $\dot\pi=\kappa G_{\rm cl}\pi$ when the operator is constant. This is a \emph{classical configuration-space} dynamics. Its $\pi$ is not automatically the cotangent momentum $K$ for the chosen worldline coordinates $Y^A$, and \emph{neither} is the electromagnetic field $\Xem$ or its quantized photon momentum.
+
+\begin{lemma}[Anti-isometry]
+\st{Proved} If $G^\dagger=G$ and $G^2=-I$, then $\eta(Gv,Gw)=-\eta(v,w)$.
+\end{lemma}
+\begin{proof}
+$\eta(Gv,Gw)=\eta(v,G^\dagger Gw)=\eta(v,G^2w)=-\eta(v,w)$.
+\end{proof}
+\begin{proposition}[No invariant Lorentzian physical four-plane]\label{prop:nogo}
+\st{Proved} No nondegenerate $E_n$ of signature $(1,3)$ is invariant under an $\eta$-self-adjoint $G$ with $G^2=-I$.
+\end{proposition}
+\begin{proof}
+If $GE_n\subset E_n$, invertibility of $G$ makes $\eta|_{E_n}$ congruent to $-\eta|_{E_n}$. By Sylvester's law of inertia, a $(1,3)$ form cannot be congruent to a $(3,1)$ form. An invariant nondegenerate restriction would have to be neutral, with equal positive and negative indices.
+\end{proof}
+Let $\pr_n,\qs_n$ be orthogonal projectors onto $E_n,U_n$. If one \emph{identifies} the classical internal momentum $\pi$ with the physical-plus-surplus cotangent momentum $K^\sharp$, then the strong constraint $\qs_n\pi=0$ obeys
+\begin{equation}\label{eq:failure}
+ \frac{\dd}{\dd\tau}(\qs_n\pi)=\kappa\qs_nG\pr_n\pi,\qquad
+ \boxed{\qs_n G\pr_n\ne0.}
+\end{equation}
+For the paired root, $Ge_i=e_{i+3}$ and $Ge_{i+3}=-e_i$. At $n=e_1$, $\pi(0)=e_5$ evolves as
+\begin{equation}
+ \pi(\tau)=\cos(\kappa\tau)e_5-\sin(\kappa\tau)e_2,
+\end{equation}
+so a surplus component appears immediately; only $\langle e_1,e_4\rangle$ stays inside $E_{e_1}$ for every $\tau$. This is the obstruction in the former note, and the new axiom \emph{does not} remove it. For this root the rank of $\qs_nG\pr_n$ is $2$.
+
+\textbf{Revised interpretation.} The no-go theorem concerns $G_{\rm cl}$ on a classical \emph{six-dimensional configuration or momentum representation} whenever someone tries to restrict its unmodified anti-isometric flow to a fixed, non-neutral physical four-plane. It applies to a naive identification $\pi\equiv K^\sharp$, or to strong surplus constraints directly imposed on that flow. It \emph{does not} obstruct $G_{\rm EM}=\star$ acting on the entire six-dimensional module $\Lambda^2E_n^*$: that module is a field-strength representation, not the physical four-vector subspace $E_n$. The two operators may look alike as matrices without sharing physical meaning. Allowing nonzero $q_a$ still does not make $\pr_n\pi$ a conserved classical four-momentum; a new equivariant map and compatible dynamics would be needed.
+
+\section{Field sector: classical Noether momentum, then quantization}
+The electromagnetic reading is a Lorentz module of \emph{field strengths}:
+\begin{equation}
+  V_{\mathrm{EM}}\simeq\Lambda^2E_n^*,\qquad
+  (V_{\mathrm{EM}})_\mathbb C\simeq(1,0)\oplus(0,1),\qquad
+  (E_n)_\mathbb C\simeq(\tfrac12,\tfrac12).
+\end{equation}
+Hence there is no nonzero \emph{linear} Lorentz-equivariant map $\Lambda^2E_n^*\to E_n$. This is a statement of standard Lorentz representation theory. Its physical meaning is narrower than a no-go for field momentum: the latter can be \emph{quadratic} in the field and integrated over space.
+
+\textbf{Classical Maxwell--Dirac route (\st{Standard}, realized in October's mixed construction).} Let $F=\dd A$ in the classical field theory. With its Maxwell--Dirac action, translational invariance and the equations of motion yield, for isolated solutions with appropriate boundary conditions,
+\begin{equation}\label{eq:Tmunu}
+ \partial_\mu T^{\mu\nu}_{\rm total}=0,\qquad
+ \boxed{P^\nu_{\rm field}=\int_{\Sigma_t}T^{0\nu}_{\rm total}\,\dd^3x}
+ \quad (c=1).
+\end{equation}
+The stress tensor contains the electromagnetic and coupled Dirac sectors. They can exchange momentum, whereas their total is conserved. For a free Maxwell field, $u=(|\mathbf E|^2+|\mathbf B|^2)/2$ and $\mathbf S=\mathbf E\times\mathbf B$ give $|\mathbf S|\le u$, hence the integrated four-momentum of an isolated whole is future causal. The resulting total invariant mass need not be zero even though the elementary photon mass is zero. These statements require no identification of $\Xem$ with length or with an extra time momentum.
+
+\textbf{Quantum photon route (\st{Standard}, not yet derived in ES).} Quantizing the free gauge field, with gauge constraints and a positive-norm physical state space, yields translation generators $\widehat P^\mu$. Schematically, with $\hbar$ explicit,
+\begin{equation}\label{eq:quantP}
+  \widehat P^\nu\ |\mathbf k,\lambda\rangle
+  =\hbar k^\nu|\mathbf k,\lambda\rangle,
+  \qquad k_\mu k^\mu=0,\quad\lambda=\pm1.
+\end{equation}
+The photon momentum is the eigenvalue of a spacetime translation generator, \emph{not a seventh variable}, and not any one of the six entries in $\Xem$. Writing $\Fhat$ alone is not sufficient to claim quantum emergence; a quantization with the correct physical Hilbert space and dynamics is necessary. For interacting QED, stress-tensor operators and states require the appropriate renormalized definition.
+
+\textbf{Known mismatch.} October Section 13.19 constructs classical two-flavour spinor electrodynamics in a mixed second-rung embedding; the projector vacuum of October Section 26 belongs to a different spectator embedding. These are not yet a single vacuum-compatible model. The additional problems of choosing the clock and constructing a satisfactory mass mechanism remain open.
+
+\begin{resultbox}
+\textbf{Two outstanding bridges, not one assumed identification.}
+\begin{align*}
+ \mathfrak M_n^{\rm cl}:&(\Xcl,\pi;Y,K,q)\longmapsto P_n^\mu
+  &&\text{(classical four-momentum; open)},\\
+ \Phi_n:&\Xem\longleftrightarrow F\longrightarrow T^{\mu\nu}
+  \longrightarrow P^\mu_{\rm field}
+  &&\text{(classical field theory)},\\
+ &F\ \xrightarrow{\text{quantization}}\ \Fhat,
+ \widehat P^\mu,\ |\mathbf k,\lambda\rangle
+  &&\text{(quantum sector; open in ES)}.
+\end{align*}
+A cross-sector coupling, if proposed, must specify the map's units, Lorentz covariance, symplectic/Poisson properties, conservation and quantum consistency. No derivation from the bare common Clifford space has yet been supplied.
+\end{resultbox}
+
+\section{Next tests with the two readings kept separate}
+\begin{enumerate}
+ \item \textbf{Classical model and dimensions.} Fix $n=e_1$, set $x^0=ct$, and let $\Xcl$ have dimensions of length. Specify which classical coordinates $Y^A$ are configuration variables and exactly how their canonical covector $K$ relates (or does not relate) to the October shifted-action momentum $\pi$. Check units before deriving a mass shell.
+ \item \textbf{Classical constraint alternatives.} Study both first-class reduction $q_a\approx0$ and nonzero surplus canonical momenta in a distinct internal Hamiltonian. Test stability, conservation, sign and the origin of any positive mass functional; do not infer it from the ambient split metric.
+ \item \textbf{EM representation, not displacement.} Fix $\Phi_n:\Xem\to F$ and verify Lorentz covariance, $\star^2=-1$, the Maxwell action and its helicity/transversality conditions. Show explicitly that physical energy-momentum comes from $T^{\mu\nu}$, not from a linear projection of $\Xem$.
+ \item \textbf{Quantization is an additional calculation.} Construct the physical photon Hilbert space (or a defensible equivalent), gauge constraints, positive norm, translation generators and two helicities. Establish whether any of these are selected by the ES geometry rather than merely reproduced from standard free Maxwell quantization.
+ \item \textbf{Common geometry without conflation.} Analyze $J(n)$ as a candidate Dirac complex structure separately from $G_{\rm EM}=\star$. Check whether a common, fully compatible Maxwell--Dirac action and projector vacuum exist, especially across the mixed/spectator embedding mismatch.
+ \item \textbf{Only afterward vary the clock.} Determine whether $n\in S^2$ denotes physically different sectors, gauge-equivalent choices, or a dynamical order parameter. Account for moving projectors and possible mixing of clock-dependent identifications.
+\end{enumerate}
+
+\section{Revised verdict: typed claims and statuses}
+\begin{center}
+\renewcommand{\arraystretch}{1.13}
+\small
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{.34\linewidth}>{\raggedright\arraybackslash}p{.17\linewidth}X@{}}
+\toprule
+Statement & Status & Consequence \\
+\midrule
+$\Xcl$ is length-valued classical displacement & \st{Axiom / reading} & Classical configurations, canonical 4+2 momenta; no photon fields implied \\
+$\Xem$ is a six-component EM field strength & \st{Representation} & Its six entries are $(\mathbf B,\mathbf E)$, not six spacetime momenta \\
+$\Xem$ is already quantum merely because $G^2=-1$ & \st{Not established} & Gauge-field quantization remains required \\
+One selected clock gives observable $P^\mu$ plus surplus $q_a$ & \st{Axiom + covariance} & A classical dimensionality rule; nonzero $q_a$ allowed \\
+Positive internal mass from $q_a$ & \st{Constructed only} & Requires further action-level motivation and stability proof \\
+Clock determines $J(n)^2=-1$ & \st{Proved} & Candidate complex unit; not photon quantization \\
+Anti-isometric $G_{\rm cl}$ preserves selected $E_n$ & \st{Refuted} & Obstructs direct classical momentum restriction, not EM duality \\
+$G_{\rm EM}$ can represent $\star$ on two-forms & \st{Representation} & Electric--magnetic duality acts on field strength \\
+Four-momentum of Maxwell--Dirac fields & \st{Standard / constructed} & Comes from stress--energy; quantum version from translations \\
+Dynamic relation between both readings & \st{Open} & Must specify a typed, covariant coupling rather than identify their symbols \\
+Masses and quantum emergence fixed by ES & \st{Open} & Not yet obtained from the common geometry \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\textbf{Research recommendation.} Keep the classical dimensionality axiom and the possibly nonzero surplus conjugate momenta. Treat $\Xem$ as the \emph{electromagnetic field variable intended for quantization}; make no claim that the six-vector is intrinsically quantum. Reinterpret the earlier $G$ no-go only in its actual domain (classical momentum restriction), retain the Maxwell/Dirac translation-charge route in the field sector, and make any map between the readings an explicit \emph{new dynamical hypothesis} to test.
+
+\vspace{6pt}
+\textbf{Source basis and provenance.} User-provided research manuscripts: \emph{Relativistic Momentum and Force in the Pole Octant of the Electromagnetic Sphere} (24 May 2026, Sections 3--6); \emph{The electromagnetic sphere} (17 October 2026, especially Sections 4, 12--13, 15--16, 26--28 and 30); \emph{The undivided energy and its differentiation} (October 2026, four-momentum and mass of a whole). The \emph{explicit classical/quantized-reading separation} is the author's new interpretive clarification (24 October 2026), not a claim quoted from those manuscripts. Standard Noether and free-photon quantization facts are used as background, not as new ES theorems. No empirical prediction, quantum-emergence mechanism, or independently verified novelty is claimed.
+\end{document}
