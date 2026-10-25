@@ -812,3 +812,267 @@ def _():
     ok &= lorentz_ok(LD, KD)
     ok &= content(list(lorentz_casimirs(LD, KD))) == {(0.0, 0.0): 4, (2.0, 0.0): 12, (0.0, 2.0): 12, (2.0, 2.0): 36}
     return ok
+
+
+# ================================================================================================================
+# 3. gauge algebras at two constituents and the binding root (Props noPS, spectator, diagonal, mixed)
+# ================================================================================================================
+LINT1, LINT2 = lint_list(2, 1), lint_list(2, 2)
+LINTD = [a + b for a, b in zip(LINT1, LINT2)]
+LMIX = [a + b for a, b in zip(LINT1, LG2)]             # S^(1)_k + L^(2)_k, T^(1)_k + K^(2)_k (doubled)
+ACTIONS = {"spectator (1,0,1)": LINT1, "binding+spectator (0,1,1)": LG1, "diagonal interior (2,0,0)": LINTD,
+           "mixed (1,1,0)": LMIX, "binding on both (0,2,0)": LGD}
+
+
+def antisym_extra(X):
+    return [X + X.T]
+
+
+@check("y5-3a", "Prop. noPS: the grade-two commutants g(k_I,k_B,k_S) of the five Lorentz actions at n = 2 have dimensions "
+                "28, 15, 7, 1, 2, are closed under transposition (so their compact parts are their Euclidean-antisymmetric "
+                "parts) and have compact parts of dimensions 13, 6, 7, 1, 1 (exact); all are below 15 = dim su(4) < 21 = "
+                "dim(so4+so6), so none contains the Pati-Salam algebra or its colour factor (dimension count)")
+def _():
+    ok = lorentz_ok(LINT1[:3], LINT1[3:]) and lorentz_ok(LMIX[:3], LMIX[3:]) and lorentz_ok(LINTD[:3], LINTD[3:])
+    expect = [(28, 13), (15, 6), (7, 7), (1, 1), (2, 1)]
+    for (name, gens), (d, dc) in zip(ACTIONS.items(), expect):
+        g = commutant_in(SO66, gens)
+        gc = commutant_in(SO66, gens, extra=antisym_extra)
+        ok &= len(g) == d and len(gc) == dc
+        ok &= all(in_span(flat(g), X.T.ravel()) for X in g)
+        ok &= dc < 15
+    return ok
+
+
+P_IDX = [idx(1, 2), idx(1, 3), idx(2, 1), idx(2, 2), idx(2, 3)]
+N_IDX = [idx(2, 4), idx(2, 5), idx(2, 6)]
+E2_IDX = [idx(2, 1), idx(2, 2), idx(2, 3)]
+SO_P = [bv(2, a, b) for a, b in itertools.combinations(P_IDX, 2)]
+SO_N = [bv(2, a, b) for a, b in itertools.combinations(N_IDX, 2)]
+ROT2 = [rot(2, 2, 2, 3), rot(2, 2, 3, 1), rot(2, 2, 1, 2)]       # 2 L^(2)_k, the paired rotations of constituent 2
+BST2 = [bst(2, 2, 2, 3), bst(2, 2, 3, 1), bst(2, 2, 1, 2)]
+
+
+@check("y5-3b", "Prop. spectator (i): g(1,0,1) = Cent(lint^(1)) in so(6,6) has dimension 28, compact part so(P) + so(N) "
+                "(10 + 3) on P = <e^(1)_2,e^(1)_3,e^(2)_1,e^(2)_2,e^(2)_3>, N = <e^(2)_4,e^(2)_5,e^(2)_6>; g(1,0,1) cap Cent(G_2) "
+                "= lG^(2); so(P) and so(N) each meet Cent(G_2) in 0, and so(P)+so(N) meets it in {A + G_2 A G_2^-1: A in "
+                "so(E_2)}, the three paired rotations of constituent 2, with su(2) brackets")
+def _():
+    g = commutant_in(SO66, LINT1)
+    gc = commutant_in(SO66, LINT1, extra=antisym_extra)
+    ok = len(g) == 28 and same_span(gc, SO_P + SO_N)
+    ok &= same_span(commutant_in(SO66, LINT1 + [G2]), LG2)
+    cent = CENT2
+    ok &= intersect_dim(SO_P, cent) == 0 and intersect_dim(SO_N, cent) == 0
+    inter = commutant_in(SO66, LINT1 + [G2], extra=antisym_extra)
+    ok &= len(inter) == 3 and same_span(inter, ROT2)
+    G2inv = -G2
+    graph = [A + G2 @ A @ G2inv for A in [bv(2, a, b) for a, b in itertools.combinations(E2_IDX, 2)]]
+    ok &= same_span(graph, ROT2) and all(is0(comm(X, G2)) for X in graph)
+    ok &= lorentz_ok(ROT2, BST2)                         # in particular [L_i, L_j] = eps_ijk L_k
+    return ok
+
+
+GAM1 = [cl(1, 1), cl(1, 4), cl(1, 5), cl(1, 6)]
+KER1 = [-(GAM1[0] @ g) for g in GAM1]
+
+
+def kinetic_ok(X, kernels):
+    return all(is0(X.T @ Km + Km @ X) for Km in kernels)
+
+
+@check("y5-3c", "Prop. spectator (ii): among the spin lifts of Cent(G_2) the solutions of X^T K^mu + K^mu X = 0 (K^mu = "
+                "-gamma^0 gamma^mu of constituent 1, mu = 0..3) form exactly the span of the lifts of the three paired "
+                "rotations of constituent 2 (exact null space of a 16384 x 30 integer system); each paired boost of "
+                "constituent 2 fails; the spin lift used is that of the section, checked against the bivectors")
+def _():
+    lifts = [spin_lift4(X) for X in CENT2]
+    cols = [np.concatenate([(S.T @ Km + Km @ S).ravel() for Km in KER1]) for S in lifts]
+    null = exact_nullspace(np.array(cols, dtype=np.int64).T)
+    sols = [sum(int(c) * S for c, S in zip(v, lifts) if c != 0) for v in null]
+    ok = len(sols) == 3 and same_span(sols, [spin_lift4(X) for X in ROT2])
+    ok &= all(np.array_equal(spin_lift4(X), 2 * rot_cl(2, *ij)) for X, ij in zip(ROT2, [(2, 3), (3, 1), (1, 2)]))
+    ok &= all(not kinetic_ok(spin_lift4(X), KER1) for X in BST2)
+    return ok
+
+
+W8 = cl(1, 2) @ cl(1, 3)
+for a in range(1, 7):
+    W8 = W8 @ cl(2, a)
+OMEGA1 = cl(1, 1) @ cl(1, 4) @ cl(1, 5) @ cl(1, 6)
+GAMMA_SP = W8 @ OMEGA1
+PL_SP, PR_SP = (I64 - GAMMA_SP), (I64 + GAMMA_SP)          # doubled projectors 2 P_L, 2 P_R
+
+
+def sym3(hs, P2):
+    """symmetrised integer traces Tr(h_(a h_b h_c) P) of integer matrices hs and doubled projector P2."""
+    vals = []
+    for a, b, c in itertools.combinations_with_replacement(range(len(hs)), 3):
+        t = 0
+        for p in set(itertools.permutations((a, b, c))):
+            t += int(np.trace(hs[p[0]] @ hs[p[1]] @ hs[p[2]] @ P2))
+        vals.append(t)
+    return vals
+
+
+@check("y5-3d", "Prop. spectator (iii): w = product of the 8 Lorentz-trivial generators has w^2 = -1 and commutes with "
+                "lint^(1) and with the spin lifts of all 28 elements of so(5,3); Gamma = w Omega^(1), Omega^(1) = "
+                "E_(1,1)E_(1,4)E_(1,5)E_(1,6), is an involution commuting with w and with both; with w as i each chirality "
+                "half is C^16 = (1/2,0)(x)(4,2), respectively (0,1/2)(x)(4,2) (so(5), so(3) Casimirs 5/2, 3/4); under the "
+                "binding-compatible su(2) each half is (Weyl)(x)(2.1 + 2.3): su(2) Casimir 0 on 4 and 2 on 12 dimensions, no "
+                "isospin 1/2, the same content on both halves")
+def _():
+    ok = is0(W8 @ W8 + I64)
+    S1, T1 = lint_cl(1)
+    g101 = commutant_in(SO66, LINT1)
+    lifts = [spin_lift4(X) for X in g101]
+    ok &= all(is0(comm(W8, X)) for X in S1 + T1 + lifts)
+    ok &= is0(GAMMA_SP @ GAMMA_SP - I64) and is0(comm(GAMMA_SP, W8))
+    ok &= all(is0(comm(GAMMA_SP, X)) for X in S1 + T1 + lifts)
+    Uw = orth_range((I64 - 1j * W8) / 2)
+    ok &= Uw.shape[1] == 32
+    CA, CB = lorentz_casimirs(S1, T1)
+    soP = [spin_lift4(X) for X in SO_P]                  # 4 x (1/2) e_a e_b ... spin_lift4(bv) = 4 e_a e_b
+    soN = [spin_lift4(X) for X in SO_N]
+    CP = -sum((x / 8) @ (x / 8) for x in soP)            # (1/2) e_a e_b = spin_lift4(bv)/8
+    CN = -sum((x / 8) @ (x / 8) for x in soN)
+    Csu = su2_casimir([spin_lift4(X) / 2 for X in ROT2])  # spin_lift4(rot) = 2 rot_cl; L = rot_cl / 2
+    halves = []
+    for sgn in (-1, 1):
+        Ph = Uw.conj().T @ ((I64 + sgn * GAMMA_SP) / 2) @ Uw
+        Uh = Uw @ orth_range(Ph)
+        ok &= Uh.shape[1] == 16
+        halves.append(content([CA, CB, CP, CN, Csu], basis=Uh))
+    ok &= halves[0] == {(0.75, 0.0, 2.5, 0.75, 0.0): 4, (0.75, 0.0, 2.5, 0.75, 2.0): 12} and \
+        halves[1] == {(0.0, 0.75, 2.5, 0.75, 0.0): 4, (0.0, 0.75, 2.5, 0.75, 2.0): 12}
+    return ok
+
+
+@check("y5-3e", "Prop. spectator (iii), anomaly traces, CORRECTED REASON: with h = -w S(X) the symmetrised traces Tr(h P_L), "
+                "Tr(h^3 P_L) and the same for P_R vanish exactly for the binding-compatible su(2) (integer isospin) and equally "
+                "for so(N) = su(2) of the spectator algebra, which acts on the Weyl block by isospin doublets (so(N) Casimir "
+                "3/4 on all of S_2): the vanishing of odd traces holds for every su(2) action (weights symmetric under m -> -m); "
+                "what integer isospin adds is the absence of doublets, hence of the global SU(2) anomaly")
+def _():
+    ok = True
+    for gens in (ROT2, SO_N):
+        lifts = [spin_lift4(X) for X in gens]           # 4 S(X) for SO_N bivectors; 2 x (2 L) for ROT2
+        hs = [-(W8 @ S) for S in lifts]                  # integer multiples of the charges h = -w S(X)
+        for P2 in (PL_SP, PR_SP):
+            ok &= all(int(np.trace(h @ P2)) == 0 for h in hs)
+            ok &= all(v == 0 for v in sym3(hs, P2))
+    CN = -sum((spin_lift4(X) / 8) @ (spin_lift4(X) / 8) for X in SO_N)
+    ok &= np.allclose(CN, 0.75 * np.eye(64))
+    return ok
+
+
+CB2 = sum(ETA2[idx(1, a), idx(1, a)] * (cl(1, a) @ cl(2, a)) for a in range(1, 7))     # 2 C_b
+GAMMA12 = I64.copy()
+for X in E2T:
+    GAMMA12 = GAMMA12 @ X
+
+
+@check("y5-3f", "Prop. diagonal (i): Cent(diagonal lint) in so(6,6) has dimension 7, all of it Euclidean-antisymmetric "
+                "(compact); it meets Cent(G_2) in R C_v, C_v = eps (x) 1_6, which is the copy rotation of the interior four-planes "
+                "plus that of the surplus pairs, neither of which commutes with G_2 alone; S(C_v) = -C_b with C_b = (1/2) sum_a "
+                "eta_aa E_(1,a)E_(2,a) (exact)")
+def _():
+    g = commutant_in(SO66, LINTD)
+    ok = len(g) == 7 and all(is0(X + X.T) for X in g)
+    inter = commutant_in(SO66, LINTD + [G2])
+    ok &= len(inter) == 1 and same_span(inter, [CV])
+    four = [idx(k, a) for k in (1, 2) for a in (1, 4, 5, 6)]
+    Pm = np.zeros((12, 12), dtype=np.int64)
+    Pm[four, four] = 1
+    M12, Cs = CV @ Pm, CV @ (np.eye(12, dtype=np.int64) - Pm)
+    ok &= all(is0(comm(X, Y)) for X in (M12, Cs) for Y in LINTD)
+    ok &= not is0(comm(M12, G2)) and not is0(comm(Cs, G2))
+    ok &= np.array_equal(spin_lift4(CV), -2 * CB2)
+    return ok
+
+
+@check("y5-3g", "Prop. diagonal (ii): C_b satisfies the kinetic condition with the summed kernels K^mu_S = sum_k "
+                "gamma^(k)_0 gamma^(k)_mu (mu = 0..3), and fails it with the kernels f_0 f_mu of f_a = (E_(1,a)+E_(2,a))/sqrt2 "
+                "for each mu = 1, 2, 3 (it holds at mu = 0, where f_0 f_0 = 1) (exact)")
+def _():
+    gam = {k: [cl(k, 1), cl(k, 4), cl(k, 5), cl(k, 6)] for k in (1, 2)}
+    KS = [gam[1][0] @ gam[1][m] + gam[2][0] @ gam[2][m] for m in range(4)]
+    ok = kinetic_ok(CB2, KS)
+    f2 = [gam[1][m] + gam[2][m] for m in range(4)]       # sqrt2 f_mu
+    Kf = [f2[0] @ f2[m] for m in range(4)]               # 2 f_0 f_mu
+    ok &= kinetic_ok(CB2, [Kf[0]]) and all(not kinetic_ok(CB2, [Kf[m]]) for m in (1, 2, 3))
+    return ok
+
+
+@check("y5-3h", "Prop. diagonal (iii): Gamma_12^2 = 1, Gamma_12 commutes with the diagonal lint and C_b; the joint content "
+                "(diagonal-lint Casimirs, copy charge q = -i C_b, Gamma_12) of S_2 (x) C is exactly the table of the section: "
+                "Gamma_12 = -1: (0,0)_{+-3} + (0,0)_{+-1} + 2(1/2,1/2)_{+-1} + (1,0)_{+-1} + (0,1)_{+-1}; Gamma_12 = +1: "
+                "2(0,0)_{+-2} + (1/2,1/2)_{+-2} + 2(1/2,1/2)_0 + 2(1,0)_0 + 2(0,1)_0; Tr(C_b^k P_+-) = 0 for k = 1, 3, 5 (exact)")
+def _():
+    ok = is0(GAMMA12 @ GAMMA12 - I64) and is0(comm(GAMMA12, CB2))
+    S1, T1 = lint_cl(1)
+    S2, T2 = lint_cl(2)
+    SD, TD = [a + b for a, b in zip(S1, S2)], [a + b for a, b in zip(T1, T2)]
+    ok &= all(is0(comm(GAMMA12, X)) for X in SD + TD) and all(is0(comm(CB2, X)) for X in SD + TD)
+    CA, CB = lorentz_casimirs(SD, TD)
+    q = -1j * CB2 / 2
+    got = content([CA, CB, q, GAMMA12.astype(float)])
+    want = {}
+
+    def add(jl, jr, qq, g, mult):
+        key = (jl * (jl + 1), jr * (jr + 1), float(qq), float(g))
+        want[key] = want.get(key, 0) + mult * int((2 * jl + 1) * (2 * jr + 1))
+    for s in (1, -1):
+        add(0, 0, 3 * s, -1, 1); add(0, 0, s, -1, 1); add(.5, .5, s, -1, 2); add(1, 0, s, -1, 1); add(0, 1, s, -1, 1)
+        add(0, 0, 2 * s, 1, 2); add(.5, .5, 2 * s, 1, 1)
+    add(.5, .5, 0, 1, 2); add(1, 0, 0, 1, 2); add(0, 1, 0, 1, 2)
+    ok &= got == want
+    for P2 in (I64 - GAMMA12, I64 + GAMMA12):
+        for k in (1, 3, 5):
+            ok &= int(np.trace(np.linalg.matrix_power(CB2, k) @ P2)) == 0
+    return ok
+
+
+J1V = bv(2, idx(1, 2), idx(1, 3))
+GV2 = np.zeros((12, 12), dtype=np.int64)
+GV2[6:, 6:] = G1
+
+
+@check("y5-3i", "Prop. mixed: l_mix (lint^(1) paired with lG^(2)) has the so(1,3) brackets; V_2 = (1/2,1/2) + (1,0)+(0,1) + "
+                "2(0,0) under it; its centraliser in so(6,6) is R J_1 (J_1 the rotation of e^(1)_2, e^(1)_3), which meets "
+                "Cent(G_2) in 0; [G_2, l_mix] != 0; the l_mix-equivariant endomorphisms of V_2 form a 7-dimensional space "
+                "whose Euclidean-antisymmetric part is span{G^(2) = 0+G, J_1}, and [J_1, G^(2)] = 0 (exact)")
+def _():
+    ok = lorentz_ok(LMIX[:3], LMIX[3:])
+    CA, CB = lorentz_casimirs(LMIX[:3], LMIX[3:])
+    ok &= content([CA, CB]) == {(0.75, 0.75): 4, (2.0, 0.0): 3, (0.0, 2.0): 3, (0.0, 0.0): 2}
+    c = commutant_in(SO66, LMIX)
+    ok &= len(c) == 1 and same_span(c, [J1V]) and intersect_dim(c, CENT2) == 0
+    ok &= any(not is0(comm(G2, X)) for X in LMIX)
+    units = []
+    for i in range(12):
+        for j in range(12):
+            U = np.zeros((12, 12), dtype=np.int64)
+            U[i, j] = 1
+            units.append(U)
+    endo = commutant_in(units, LMIX)
+    ok &= len(endo) == 7
+    endo_a = commutant_in(units, LMIX, extra=antisym_extra)
+    ok &= len(endo_a) == 2 and same_span(endo_a, [GV2, J1V]) and is0(comm(J1V, GV2))
+    return ok
+
+
+@check("y5-3j", "binding actions: the commutant of lG^(1) in so(6,6) is the so(3,3) of constituent 2 (dimension 15, supported "
+                "on constituent 2, compact part 6) and meets Cent(G_2) in lG^(2), with compact part the three paired rotations "
+                "of constituent 2; the commutant of the diagonal lG is span{C_v, eps(x)G} (dimension 2), inside Cent(G_2), "
+                "with compact part R C_v (exact)")
+def _():
+    g = commutant_in(SO66, LG1)
+    ok = len(g) == 15 and all(is0(X[:, :6]) and is0(X[:6, :]) for X in g)
+    ok &= len(commutant_in(SO66, LG1, extra=antisym_extra)) == 6
+    ok &= same_span(commutant_in(SO66, LG1 + [G2]), LG2)
+    ok &= same_span(commutant_in(SO66, LG1 + [G2], extra=antisym_extra), ROT2)
+    d = commutant_in(SO66, LGD)
+    ok &= len(d) == 2 and same_span(d, [CV, CBOOST]) and all(is0(comm(X, G2)) for X in d)
+    ok &= same_span(commutant_in(SO66, LGD, extra=antisym_extra), [CV])
+    return ok
