@@ -1,16 +1,19 @@
-% Track r3 -- X = E + B on the octants.
+% Track r3 -- the field-strength sector X_EM = (B;E) on the Clifford octants.
 % Verification: investigations/two_readings/verify/r3_octants.py (claims r3-1 ... r3-26).
-\section{\texorpdfstring{$X=\bE+\bB$ on the octants}{X = E + B on the octants}}
+\section{\texorpdfstring{The field-strength sector $X_{\rm EM}=(\bB;\bE)$ on the Clifford octants}{The field-strength sector X\_EM = (B;E) on the Clifford octants}}
 \label{r3:sec:main}
 
-The question asked in the introduction about the octants reads: $X=(\bE+\bB)$, where each of $E_x,E_y,E_z$ and $B_x,B_y,B_z$ is an
-octant. A construction of this kind was proposed in an earlier, superseded version of the programme: the eight octants are the joint
+The question asked in the introduction about the octants concerns the field reading $X_{\rm EM}=(\bB;\bE)$, where each of the six components
+$E_x,E_y,E_z$, $B_x,B_y,B_z$ is to sit on an octant. In the sense of the working note \cite{FMB} (its Definition~2.2), $X_{\rm EM}$ is not a sum
+of two vectors and not a displacement: the pair $(\bB;\bE)$ labels the six components of the field two-form $F$, and the question is how
+these six components, as six independent components of one field strength, sit on the eight octants of the spinor module. Everything below
+is a classical field representation: placing $(\bB;\bE)$ on six lines of $S$ quantises nothing. A construction of this kind was proposed in an earlier, superseded version of the programme: the eight octants are the joint
 eigenspaces of the pole operators $\omega_i$; the six mixed octants are field octants, those with one plus sign (temporal weight one
 there, Fock weight $N=2$ here) carrying the electric components (as boosts) and those with two plus signs ($N=1$) the magnetic
 components (as rotations); the two poles carry ``mass'' and
 ``statistics''; and Maxwell's equations are ``pooled'' across the octants. This section establishes in the conventions of \cite{ES17}
 what of this is true. In brief: the octants are the eight lines of a Fock basis of the spinor module $S=\R^8$, which is the exterior
-algebra of a null three-plane; there is a field-octant map $\Phi$ placing $\bE$ on the Fock weight $N=1$ and $\bB$ on $N=2$, unique up to
+algebra of a null three-plane; there is a field-octant map $\Phi$ placing the electric member $\bE$ of the pair on the Fock weight $N=1$ and the magnetic member $\bB$ on $N=2$, unique up to
 a scale and a quarter turn of duality once rotations and Maxwell's equations are required, the quarter turn giving the earlier
 labelling; it carries the rotations, a parity and the
 premetric $\mathfrak{gl}(3)$, but no even element of $\Cl(3,3)$ carries the boosts or the duality rotation; the Spin$(3,3)$-invariant mass
@@ -267,8 +270,11 @@ ratio of the two scales of $\Phi_{\alpha,\beta}$ is $c$ in SI units, the convers
 law (\cref{r3:prop:maxunique} and \cref{r3:thm:maxwell}(iii)).
 \end{remark}
 
-\subsection{The field point acting on the poles}
+\subsection{Clifford multiplication does not give the pair reading}
 \label{r3:sec:poles}
+
+The field point is also a Clifford vector, and one may ask what it does to the octants by left multiplication. The answer shows why the
+pair reading $X_{\rm EM}=(\bB;\bE)$ needs the map $\Phi$ and is not obtained by multiplying.
 
 \begin{proposition}[Light-cone amplitudes]
 \label{r3:prop:poles}
@@ -294,10 +300,12 @@ $e_1\chi=g_1$ and $e_4\chi=f_1$, i.e.\ $\chi=e_1|011\rangle=|111\rangle$ and $\c
 equivariance requires $L_i\chi=0$, and then $X(a|\mathrm{vac}\rangle+b|\mathrm{full}\rangle)$ puts $a(\bB+\bE)$ on weight one (r3-13).
 \end{proof}
 
-Fixed; the reading is interpretive. The phrase ``$X=\bE+\bB$'' has an exact meaning: the field point, acting on the vacuum pole by Clifford
-multiplication, places on the $i$-th electric octant the amplitude $E_i+B_i$, which in textbook variables is $E_i-B_{{\rm t}i}$; on the filled
-pole it places $B_i-E_i=-(E_i+B_{{\rm t}i})$ on the $i$-th magnetic octant. The poles see the para-complex light-cone components of the field,
-never $\bE$ and $\bB$ separately, and the Clifford action differs from the field-octant map by a duality rotation of an eighth of a turn,
+Fixed; the reading is interpretive. Read as a Clifford vector acting on the vacuum pole, the field point does not keep the two members of
+the pair apart: it places on the $i$-th electric octant the sum $E_i+B_i$, which in textbook variables is $E_i-B_{{\rm t}i}$, and on the
+filled pole it places $B_i-E_i=-(E_i+B_{{\rm t}i})$ on the $i$-th magnetic octant. These sums are the coordinates of $X$ on the null planes
+$L$ and $L'$, the light-cone components of the para-complex structure; they mix the electric and the magnetic member and are not the
+field strength. A literal reading ``$X=\bE+\bB$'' would therefore be wrong: the pair $(\bB;\bE)$ is placed on the octants by $\Phi$, which is
+not Clifford multiplication by any spinor, and the Clifford action differs from $\Phi$ by a duality rotation of an eighth of a turn,
 \cref{r3:eq:eighth}. (An eighth of a turn also separates the Klein correspondence from the frame reading in Theorem~13.13 of \cite{ES17}; the
 maps are different and we draw no conclusion from the coincidence.)
 
@@ -453,8 +461,10 @@ Consequently:
 \]
 the vacuum component is Gauss's law $\nabla\cdot\bE=\rho$, the filled component the absence of magnetic charge, the electric octants carry the
 Amp\`ere--Maxwell law $\partial_t\bE=-\curl\bB-\bj$ and the magnetic octants Faraday's law $\partial_t\bB=\curl\bE$.
-\item $(\partial_t+D)(\partial_t-D)=\partial_t^2-\Delta$ on all eight components, while $(\partial_t+D')(\partial_t-D')=\partial_t^2+\Delta$. The derivatives along the
-three lengths $x^a$ couple to the temporal generators $e_1,e_2,e_3$, of square $+\id$, not to the spatial ones that carry the lengths in $V$.
+\item $(\partial_t+D)(\partial_t-D)=\partial_t^2-\Delta$ on all eight components, while $(\partial_t+D')(\partial_t-D')=\partial_t^2+\Delta$. In $D=\sum_ie_i\partial_i$ the
+derivatives $\partial_i$ are taken along the three physical spatial coordinates $x^i$, the lengths of the classical reading, which sit on $V^-$;
+the Clifford generators multiplying them are the temporal $e_1,e_2,e_3$, of square $+\id$, the generators that carry $\bB$ in the field reading,
+and not the spatial ones.
 \item In SI units $\bigl(\tfrac1c\partial_t-D\bigr)\Phi(c\bB;\bE)=-(c\rho\,|\mathrm{vac}\rangle+\bj\cdot f)/(\varepsilon_0c)$.
 \item In textbook variables $\Phi_{\rm t}(X):=\bE\cdot f+\Btext\cdot g=-(-1)^N\Phi(X)$ satisfies $T\Phi_{\rm t}=\Phi_{\rm t}\circ G$ and
 \[
@@ -477,7 +487,11 @@ anticommutes with $D$; $Te_k=e_je_l$ cyclically gives the second form; under $a|
 $\phi_0$ with $\phi_0=\partial_t\phi_0=0$ at $t=0$ vanishes identically.
 \end{proof}
 
-Fixed in the realisation and inherited in substance: (iv) is the Pauli-algebra form, obtained by multiplying with $\gamma_0$, of the
+Fixed in the realisation and inherited in substance. Item (ii) is a statement about the representation and not about spacetime: the
+octant form of Maxwell's equations uses the Pauli triple $e_1,e_2,e_3$ because it is the triple of square $+\id$ that makes the operator hyperbolic,
+and this choice is constructed. It does not show that spatial differentiation follows from three temporal directions, and the spatial
+coordinates $x^i$ remain the lengths of $V^-$; the Dirac operator of the particle reading couples the same derivatives to the spatial
+generators through $\gamma^0\gamma^a$ instead (\cref{r4:sec:main}). Item (iv) is the Pauli-algebra form, obtained by multiplying with $\gamma_0$, of the
 spacetime-algebra equation $\nabla F=J$ of Hestenes \cite{Hestenes66}, which Theorem~13.3 of \cite{ES17} realises on the interior four-plane; here
 it is realised on the temporal triple acting on the vacuum. The element $T$ that plays the pseudoscalar $I$ is the $I_T$ of Section~5 of \cite{FMB},
 and the properties stated there, $I_T^2=-\id$ and $[I_T,e_i]=0$ for the temporal $e_i$, are confirmed (r3-24). The circularly polarised wave of Example~12.11 of \cite{ES17} solves $(\partial_t-D)\Phi(X)=0$, and the same wave with $\bB$ reversed does
@@ -514,16 +528,23 @@ $(-,-,-)$, is not confirmed: the exchange replaces $D$ by $D'$ and the wave oper
 (\cref{r3:thm:maxwell}(ii)), and nothing converges on one pole, the two poles carrying one Gauss law each.
 \end{remark}
 
-\subsection{\texorpdfstring{The answer: what ``$X=\bE+\bB$ with each component an octant'' means}{The answer: what X = E + B with each component an octant means}}
+\subsection{\texorpdfstring{The answer: $X_{\rm EM}=(\bB;\bE)$ with each component on an octant}{The answer: X\_EM = (B;E) with each component on an octant}}
 \label{r3:sec:answer}
 
-The statement has two exact meanings, related by a duality rotation of an eighth of a turn, \cref{r3:eq:eighth}. As a Clifford action
-(\cref{r3:prop:poles}) the field point maps the vacuum pole onto the electric octants with the amplitudes $B_i+E_i=E_i-B_{{\rm t}i}$: the octants
-see the light-cone components $\bB\pm\bE$ of the para-complex structure, not $\bE$ and $\bB$. As a field-octant map (\cref{r3:thm:phi,r3:prop:maxunique}),
-$\Phi(X)=\sum_k(E_k+B_kT)e_k|\mathrm{vac}\rangle$ puts each $E_k$ on the octant with a single minus sign in pair $k$ and each $B_k$ on its antipode; it
+The pair reading has one exact realisation. The field-octant map (\cref{r3:thm:phi,r3:prop:maxunique}),
+$\Phi(X)=\sum_k(E_k+B_kT)e_k|\mathrm{vac}\rangle$, puts each $E_k$ on the octant with a single minus sign in pair $k$ and each $B_k$ on its antipode; it
 is unique up to a scale once rotation equivariance, Maxwell's equations and the separation of $\bE$ from $\bB$ are required, apart from the
 alternative $\Phi\circ G$ that the earlier labelling uses; in textbook variables the same octants carry, through $\Phi_{\rm t}=-(-1)^N\Phi$
-(\cref{r3:thm:maxwell}(iv)), Hestenes' $\bE+I\Btext$ on the temporal Pauli algebra, with $I=T$.
+(\cref{r3:thm:maxwell}(iv)), Hestenes' $\bE+I\Btext$ on the temporal Pauli algebra, with $I=T$. Clifford multiplication by the field point does
+not realise the pair: it places the light-cone sums $\bB\pm\bE$ on the octants (\cref{r3:prop:poles}), and differs from $\Phi$ by an eighth of a turn
+of duality. The construction is a representation of the classical field strength; it is not a quantisation of the field.
+
+\paragraph{The main obstruction.} On the octants the rotations act through the spin representation, but the boosts and the duality rotation
+of the field act only through the odd operators $Q_k$ and $-T$ of $\rho_{\rm oct}$ (\cref{r3:thm:noeven,r3:prop:odd}), whereas a Dirac field transforms
+under the spin lift of the interior Lorentz algebra. A covariant theory containing both the Dirac field and the field octants must say how
+$\rho_{\rm oct}$, the spin lift acting on Dirac spinors and the map $\Phi$ coexist. This is the principal question the octant picture leaves, and the
+element $T$, which is at once the mass form of the Dirac reading and the duality operator on the octants, is where the two meet
+(\cref{r4:sec:main}).
 
 \paragraph{What the poles carry.} With $\Phi$, the vacuum pole carries Gauss's law and the charge density, the filled pole the absence of
 magnetic charge (\cref{r3:thm:maxwell}); they are the Fock vacuum and the filled state, the rotation scalars, the eigenlines of $\mathfrak{gl}(3)$ of

@@ -124,7 +124,8 @@ def block_A():
     for Rm in gens:
         eqs += list(C * Rm - Rm * C)
     sol = sp.solve(eqs, cs, dict=True)
-    ok = len(sol) == 1 and sp.Matrix(3, 3, [sol[0].get(s, s) for s in cs]) == cs[0] * sp.eye(3)
+    Csol = C.subs(sol[0]) if len(sol) == 1 else None
+    ok = Csol is not None and Csol - Csol[0, 0] * sp.eye(3) == sp.zeros(3) and len(Csol.free_symbols) == 1
     c = sp.Symbol("c", positive=True)
     Phi = sp.diag(c, c, c, 1, 1, 1)
     GC = sp.Matrix(sp.BlockMatrix([[sp.zeros(3), -sp.eye(3) / c], [c * sp.eye(3), sp.zeros(3)]]))
@@ -1094,7 +1095,7 @@ def block_H():
     ok &= sp.simplify(rM - (om ** 2 - kk ** 2)) == 0
     # with A0 = 0, div a = 0 the a-equation of E6 is the four-dimensional Laplace equation (d_t^2 + Laplacian) a = 0
     ap = sp.Matrix([0, sp.Function("h")(XS[0], XS[1], XS[3]), 0])     # transverse: independent of y
-    lapl = sp.expand((ap.diff(XS[0], 2) + sum(ap.diff(X, 2) for X in XS[1:]))[1])
+    lapl = sp.expand((ap.diff(XS[0], 2) + sum((ap.diff(X, 2) for X in XS[1:]), sp.zeros(3, 1)))[1])
     e6p = sp.expand(e6[2].subs({A0: 0, av[0]: 0, av[1]: ap[1], av[2]: 0}).doit())
     ok &= zero(e6p + lapl)
     report(32, "E6 as a Lagrangian of the potential (euler_equations): div E = 0 and d_t E = +curl B; the plane wave a_y = "
@@ -1106,7 +1107,7 @@ def block_H():
     eH = EL(LH, list(Ef) + list(av) + [A0])
     ok = all(zero(eH[i] - (av.diff(XS[0])[i] - Ef[i] - sp.diff(A0, XS[i + 1]))) for i in range(3))
     ok &= all(zero(eH[3 + i] - (-Ef.diff(XS[0])[i] - curlF(B)[i])) for i in range(3)) and zero(eH[6] - divF(Ef))
-    ok &= zero(LH.subs({Ef[i]: E[i] for i in range(3)}) - LM - divF(A0 * E))
+    ok &= zero(LH.subs({Ef[i]: E[i] for i in range(3)}).doit() - LM - divF(A0 * E))
     report(33, "first-order action L_H = E.d_t a - E6 + A0 div E: euler_equations give E = d_t a - grad A0, d_t E = -curl B, "
                "div E = 0, and on the first L_H = L_M + div(A0 E)", ok)
 
