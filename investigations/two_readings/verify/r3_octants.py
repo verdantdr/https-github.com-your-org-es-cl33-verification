@@ -215,9 +215,7 @@ for a in range(1, 7):
         m = [r for r in range(8) if img[r] != 0]
         ok &= len(m) == 1 and m[0] == n ^ (1 << (3 - i))
     lifts[a] = cand
-pairlift = all(sp.Matrix(list(lifts[i] * lifts[i + 3])).T * sp.Matrix(list(lifts[i] * lifts[i + 3])) != sp.zeros(1)
-               and (lifts[i] * lifts[i + 3]).is_diagonal() and (lifts[i] * lifts[i + 3] == om[i] or lifts[i] * lifts[i + 3] == -om[i])
-               for i in (1, 2, 3))
+pairlift = all(lifts[i] * lifts[i + 3] in (om[i], -om[i]) for i in (1, 2, 3))
 check(4, "for each axis a the automorphisms implementing the reflection e_a -> -e_a form the line R e_a omega (omega=e1..e6); "
          "e_a omega is a signed permutation, conjugates omega_i (i = a or a-3) to -omega_i and fixes the other two, so it maps "
          "the octant sigma to the octant with sigma_i flipped; reflecting both axes of a pair lifts to +-omega_i",
@@ -451,14 +449,15 @@ check(11, "the spin lift of gl(3) preserves the image of Phi and induces E -> (A
 ok = conjmat(T) == eta6
 ns = implementers([1, 1, 1, -1, -1, -1])
 ok &= len(ns) == 1 and sp.Matrix.hstack(ns[0], sp.Matrix(list(T))).rank() == 1
-ok &= all(any((T * basis(n))[r] != 0 for r in [7 - n]) for n in range(8))      # octant sigma -> -sigma
+ok &= all(T * basis(n) in (basis(7 - n), -basis(7 - n)) for n in range(8))      # octant sigma -> -sigma
+ok &= all(T * f[k] == g[k] and T * g[k] == -f[k] for k in (1, 2, 3)) and T * vac == full and T * full == -vac
 ok &= T * Phi == -Phi * Gm
 ok &= parN * Phi == Phi * eta6
 ok &= conjmat(parN) == -sp.eye(6)
 ok &= conjmat(e[1]) == sp.diag(1, -1, -1, -1, -1, -1)
-ok &= any(x != 0 for x in (e[1] * f[1])[[0], :]) and (e[1] * f[1])[0] != 0          # e1 maps f_1 onto the vacuum
+ok &= e[1] * f[1] == vac                                                            # e1 maps f_1 onto the vacuum
 check(12, "Ad_T = eta on V (frame parity) and T = e1e2e3 is the unique element (up to scale) implementing it; T maps each "
-          "octant to its antipode and T Phi = -Phi G (on the octants the lift of parity is minus the Hodge star); "
+          "octant to its antipode (T f_k = g_k, T g_k = -f_k, T|vac> = |full>, T|full> = -|vac>) and T Phi = -Phi G (on the octants the lift of parity is minus the Hodge star); "
           "(-1)^N Phi = Phi eta (the weight parity, i.e. the chirality, implements E polar / B axial) while Ad_{(-1)^N} = -1 on V; "
           "the Dirac parity gamma^0 = e1 of ES17 Thm 5.3 acts on the frame as (B1,-B2,-B3;-E) and maps f_1 to the vacuum", ok)
 
@@ -720,14 +719,22 @@ zF = BFv + sp.I * EFv
 RS1 = zF.diff(t) + sp.I * curl(zF) + sp.I * jF
 RS2 = div(zF) - sp.I * rho
 lhs = res + rho * vac + fsum(list(jF), f)
+
+
+def re_im(expr):
+    """real and imaginary parts of an expression linear in I with real (generic) fields."""
+    ex = sp.expand(expr)
+    rp = ex.subs(sp.I, 0)
+    return rp, sp.expand((ex - rp) / sp.I)
+
+
 # the components of lhs are exactly the real/imaginary parts of the residuals of the RS system
-ok &= sp.expand(lhs[0] + sp.im(sp.expand(RS2)) * 1) == 0 or sp.expand(lhs[0] - (-(div(EFv) - rho))) == 0
-ok &= sp.expand(lhs[0] - (-(div(EFv) - rho))) == 0 and sp.expand(lhs[7] - (-div(BFv))) == 0
-ok &= all(sp.expand((lhs.T * f[k])[0] - (EFv.diff(t) + curl(BFv) + jF)[k - 1]) == 0 for k in (1, 2, 3))
-ok &= all(sp.expand((lhs.T * g[k])[0] - (BFv.diff(t) - curl(EFv))[k - 1]) == 0 for k in (1, 2, 3))
-ok &= all(sp.expand(sp.im(RS1[k]) - (EFv.diff(t) + curl(BFv) + jF)[k]) == 0 and
-          sp.expand(sp.re(RS1[k]) - (BFv.diff(t) - curl(EFv))[k]) == 0 for k in range(3))
-ok &= sp.expand(sp.im(RS2) - (div(EFv) - rho)) == 0 and sp.expand(sp.re(RS2) - div(BFv)) == 0
+ok &= sp.expand(lhs[0] + re_im(RS2)[1]) == 0 and sp.expand(lhs[7] + re_im(RS2)[0]) == 0
+ok &= all(sp.expand((lhs.T * f[k])[0] - re_im(RS1[k - 1])[1]) == 0 for k in (1, 2, 3))
+ok &= all(sp.expand((lhs.T * g[k])[0] - re_im(RS1[k - 1])[0]) == 0 for k in (1, 2, 3))
+ok &= all(sp.expand(re_im(RS1[k])[1] - (EFv.diff(t) + curl(BFv) + jF)[k]) == 0 and
+          sp.expand(re_im(RS1[k])[0] - (BFv.diff(t) - curl(EFv))[k]) == 0 for k in range(3))
+ok &= sp.expand(re_im(RS2)[1] - (div(EFv) - rho)) == 0 and sp.expand(re_im(RS2)[0] - div(BFv)) == 0
 check(20, "for general fields, (d_t - sum e_i d_i) Phi(X) = -(div E)|vac> - (div B)|full> + (d_t E + curl B).f + "
           "(d_t B - curl E).g; hence (d_t - D) Phi(X) = -(rho|vac> + j.f) is exactly the system of ES17 eq. (16) "
           "(div E = rho, div B = 0, d_t E = -curl B - j, d_t B = curl E): Gauss laws on the poles, evolution on the field octants",
@@ -861,21 +868,39 @@ check(25, "each e_i maps the octant sigma to the octant with sigma_i flipped (th
           "neighbouring octants only", ok)
 
 lint = [e[a] * e[b] for a, b in itertools.combinations((1, 4, 5, 6), 2)]
+lintV = sp.Matrix.hstack(*[sp.Matrix(list(L_)) for L_ in lint])
+
+
+def in_span(M, span):
+    return sp.Matrix.hstack(span, sp.Matrix(list(M))).rank() == span.rank()
+
+
 ok = True
 any_inv = False
+cs6 = sp.symbols('y0:6')
+comb = sum((cs6[m] * lint[m] for m in range(6)), Z8)
 for n in range(8):
     v = basis(n)
-    cs6 = sp.symbols('y0:6')
-    comb = sum((cs6[m] * lint[m] for m in range(6)), Z8)
+    s1 = om[1][n, n]
     img = comb * v
-    eqs = [img[r] for r in range(8) if r != n]
-    A, _ = sp.linear_eq_to_matrix(eqs, cs6)
-    stab = A.nullspace()
-    ok &= len(stab) == 1 and sum((stab[0][m] * lint[m] for m in range(6)), Z8).is_diagonal()
+    A, _ = sp.linear_eq_to_matrix([img[r] for r in range(8) if r != n], cs6)
+    stab = A.nullspace()                      # beta in l_int with beta v in R v
+    expected = [e[1] * e[4], (e[1] - s1 * e[4]) * e[5], (e[1] - s1 * e[4]) * e[6]]
+    Sm = sp.Matrix.hstack(*[sp.Matrix(list(sum((st[m] * lint[m] for m in range(6)), Z8))) for st in stab])
+    ok &= len(stab) == 3 and all(in_span(x, Sm) for x in expected)
+    ok &= all((x * v) == sp.zeros(8, 1) for x in expected[1:])
+    # the null rotations fix the null vector n_sigma = e1 - sigma_1 e4 of the interior four-plane
+    nv = e[1] - s1 * e[4]
+    ok &= (nv * nv == Z8) and all(comm(x, nv) == Z8 for x in expected[1:])
     any_inv |= all(all((L_ * v)[r] == 0 for r in range(8) if r != n) for L_ in lint)
+# g_2, g_3 commute with l_int; g_1 (and g_4) normalise it; together they permute the octants transitively
+ok &= all(comm(lifts[i], L_) == Z8 for i in (2, 3) for L_ in lint)
+ok &= all(in_span(lifts[i] * L_ * lifts[i].inv(), lintV) for i in (1, 4) for L_ in lint)
 ok &= not any_inv and lint[0] == om[1]
-check(26, "under the interior Lorentz algebra l_int (bivectors of e1,e4,e5,e6) the stabiliser of every octant line is "
-          "the line of e1e4 = omega_1: no octant, in particular neither pole, is distinguished by l_int", ok)
+check(26, "under the interior Lorentz algebra l_int (bivectors of e1,e4,e5,e6) no octant line is invariant; the stabiliser of the "
+          "line sigma is three-dimensional, spanned by e1e4 = omega_1 and the null rotations (e1 - sigma_1 e4)e5, "
+          "(e1 - sigma_1 e4)e6, which annihilate it and fix the null vector e1 - sigma_1 e4; it depends on sigma_1 only, and the "
+          "lifts g_2, g_3 commute with l_int while g_1 normalises it: l_int distinguishes no octant, in particular neither pole", ok)
 
 print()
 if FAILS:

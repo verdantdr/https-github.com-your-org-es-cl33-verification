@@ -10,7 +10,7 @@ Conventions (tex/s02_arena.tex, tex/sA_realisation.tex, tex/s12_emfield.tex of t
   field reading X = sum_i (B_i e_i + E_i e_{i+3}), z = B + iE, paper B = minus the textbook field (B_t = -B),
   E6 = |z|^2/2, E0 = |q|/2, q = z.z, frame Poynting vector S = E x B = -S_t, S_t = E x B_t.
 A bivector a^b acts on V by M(a,b) v = a eta(b,v) - b eta(a,v) = (1/2)[ab, v] (Clifford commutator).
-Claims r2-0 ... r2-22 (ids as in the section; sub-ids a,b,c...).  Exact sympy arithmetic for algebraic and
+Claims r2-0 ... r2-20 (ids as in the section; sub-ids a,b,c,...).  Exact sympy arithmetic for algebraic and
 symbolic statements; floating point only where stated (random tests, tolerance given in the line).
 Run from any directory:  python3 r2_fourmomentum.py   (exit status 0 iff every check passes)
 """
@@ -944,8 +944,8 @@ def check_stress():
     okm = zero(sp.simplify(Thb - Lm * Th * Lm.T))
     report("r2-14b", okp and not okm,
            "for general (B,E): Theta[exp(chi ad K3)X] = L Theta[X] L^T with L = [[cosh,sinh],[sinh,cosh]] on (0,3), the "
-           "passage to the frame of velocity -tanh(chi) e3 (ES17 Sec. 12, RE Thm 2.6); the first row transforms "
-           "quadratically in L, the integrated row linearly")
+           "passage to the frame of velocity -tanh(chi) e3 (ES17 Sec. 12, RE Thm 2.6): the first row of Theta "
+           "transforms quadratically in L")
 
 
 def check_packets():
