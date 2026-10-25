@@ -489,7 +489,7 @@ uniqueness argument of Theorem~17.7 of \cite{ES17} fails under $\lG^\Delta$, is 
 \subsection{The ladder: one, two and three constituents}
 \label{e5:sec:ladder}
 
-\begin{table}[t]
+\begin{table}[htbp]
 \centering
 \footnotesize
 \begin{tabular}{@{}>{\raggedright\arraybackslash}p{3.4cm}>{\raggedright\arraybackslash}p{2.9cm}>{\raggedright\arraybackslash}p{4.3cm}>{\raggedright\arraybackslash}p{3.9cm}@{}}
@@ -517,31 +517,7 @@ Theorems~17.19--17.24 of \cite{ES17}, except the spectator and diagonal rows, wh
 \label{e5:tab:ladder}
 \end{table}
 
-The new entries of \cref{e5:tab:ladder} at $n=1$ and $n=3$ are fixed (e5-6a). At $n=1$, $\Cent(\lint)\cap\so{3,3}=\R J$ meets $\Cent(G)$ in $0$, so the
-binding root leaves no gauge algebra on one constituent. At $n=3$ the compact spectator algebra meets $\Cent(G_3)$ in the $15$ paired rotations of
-constituents $2$ and $3$, which contain the $\so4_\Delta$ of Theorem~17.21 of \cite{ES17}, and the diagonal connection algebra meets it in the three copy
-rotations. In general the binding-compatible parts are $\so{3n-3}$ and $\so n$. The balance condition $F=0$ has codimension two at every rung, because $dF$
-has rank two at every nonzero point. At $n=1$ it is the null cone and carries no massive datum.
-
-\paragraph{Answer.} \emph{Is $n=2$ a closure rung in its own right?} Yes, in a precise sense (fixed): every structure of the three-constituent
-analysis of \cite{ES17} has a computed $n=2$ analogue, and four of them first appear at $n=2$. The balance surface carries massive constituents at
-an exactly constant rate (Theorem~8.1 of \cite{RE}). The closure symmetry mixes the constituents and does not see their pair invariant
-(\cref{e5:thm:pair}). The closure symmetry compatible with the matter Lorentz algebra is nonzero, and is itself a Lorentz algebra (\cref{e5:prop:nocommon}).
-And the binding root leaves a compact gauge algebra, non-abelian under the spectator action (\cref{e5:prop:spectator}). \emph{What $n=2$ adds to $n=1$} is
-therefore a constant rate with mass, a gauge part that survives the binding root, a pair invariant and an exchange symmetry. \emph{What it lacks}, and
-\emph{what $n=3$ adds}, is everything chiral. At $n=2$ every binding-compatible gauge part acts vector-like, with zero anomaly coefficients and integer
-isospin, and no Pati--Salam algebra fits. At $n=3$ the projectors $\Pfam$ and $P_*$ exist, the surviving $\so4_\Delta$ acts on inequivalent halves
-with doublets, the abelian charges of $\Pfam$ carry nonzero anomaly coefficients, and fermions exist under the diagonal action. The inertia question does
-not distinguish the rungs: the closure symmetry fixes the inertia up to one complex scale at $n=1,2,3$ alike, and the gauge parts never do.
-
-For the question of this note the closure gives a definite but modest answer (interpretive, drawn from the fixed statements above). The closure at $n=2$
-distinguishes two constituents only through structures it does not select. Equal inertias and the closure symmetry see one field strength in $\C^6$. A
-pair invariant needs a diagonal Lorentz action and the copy rotation. Per-constituent rest energies need the copies to be distinguished, and then nothing in
-the closure moves rest energy between them (Proposition~8.9 and Corollary~8.3 of \cite{RE}). What two constituents can do that one cannot is to run at
-an exactly constant rate with both momentum fields massive. That holds on a set of codimension two which is invariant but whose frames are secularly
-unstable, which is closer to a balanced pair carried by the dynamics than to two particles produced by it.
-
-\begin{table}[t]
+\begin{table}[htbp]
 \centering
 \footnotesize
 \begin{tabular}{@{}>{\raggedright\arraybackslash}p{8.0cm}>{\raggedright\arraybackslash}p{4.7cm}>{\raggedright\arraybackslash}p{2.1cm}@{}}
@@ -569,6 +545,31 @@ binding actions: $\lG^{(2)}$ and $\so{2,\C}$ survive & restated (RE Prop.~7.8(ii
 \cref{e5:sec:ladder}: answer & interpretive (drawn from fixed statements) & ---\\
 \bottomrule
 \end{tabular}
-\caption{Claims of \cref{e5:sec:main}, their classes, and the checks printed by \texttt{verify/e5\_closure\_two.py}.}
+\caption{Claims of \cref{e5:sec:main}, their classes and their checks, which are \texttt{PASS} lines of the script
+\texttt{verify/e5\_closure\_two.py}.}
 \label{e5:tab:claims}
 \end{table}
+
+The new entries of \cref{e5:tab:ladder} at $n=1$ and $n=3$ are fixed (e5-6a). At $n=1$, $\Cent(\lint)\cap\so{3,3}=\R J$ meets $\Cent(G)$ in $0$, so the
+binding root leaves no gauge algebra on one constituent. At $n=3$ the compact spectator algebra meets $\Cent(G_3)$ in the $15$ paired rotations of
+constituents $2$ and $3$, which contain the $\so4_\Delta$ of Theorem~17.21 of \cite{ES17}, and the diagonal connection algebra meets it in the three copy
+rotations. In general the binding-compatible parts are $\so{3n-3}$ and $\so n$. The balance condition $F=0$ has codimension two at every rung, because $dF$
+has rank two at every nonzero point. At $n=1$ it is the null cone and carries no massive datum.
+
+\paragraph{Answer.} \emph{Is $n=2$ a closure rung in its own right?} Yes, in a precise sense (fixed): every structure of the three-constituent
+analysis of \cite{ES17} has a computed $n=2$ analogue, and four of them first appear at $n=2$. The balance surface carries massive constituents at
+an exactly constant rate (Theorem~8.1 of \cite{RE}). The closure symmetry mixes the constituents and does not see their pair invariant
+(\cref{e5:thm:pair}). The closure symmetry compatible with the matter Lorentz algebra is nonzero, and is itself a Lorentz algebra (\cref{e5:prop:nocommon}).
+And the binding root leaves a compact gauge algebra, non-abelian under the spectator action (\cref{e5:prop:spectator}). \emph{What $n=2$ adds to $n=1$} is
+therefore a constant rate with mass, a gauge part that survives the binding root, a pair invariant and an exchange symmetry. \emph{What it lacks}, and
+\emph{what $n=3$ adds}, is everything chiral. At $n=2$ every binding-compatible gauge part acts vector-like, with zero anomaly coefficients and integer
+isospin, and no Pati--Salam algebra fits. At $n=3$ the projectors $\Pfam$ and $P_*$ exist, the surviving $\so4_\Delta$ acts on inequivalent halves
+with doublets, the abelian charges of $\Pfam$ carry nonzero anomaly coefficients, and fermions exist under the diagonal action. The inertia question does
+not distinguish the rungs: the closure symmetry fixes the inertia up to one complex scale at $n=1,2,3$ alike, and the gauge parts never do.
+
+For the question of this note the closure gives a definite but modest answer (interpretive, drawn from the fixed statements above). The closure at $n=2$
+distinguishes two constituents only through structures it does not select. Equal inertias and the closure symmetry see one field strength in $\C^6$. A
+pair invariant needs a diagonal Lorentz action and the copy rotation. Per-constituent rest energies need the copies to be distinguished, and then nothing in
+the closure moves rest energy between them (Proposition~8.9 and Corollary~8.3 of \cite{RE}). What two constituents can do that one cannot is to run at
+an exactly constant rate with both momentum fields massive. That holds on a set of codimension two which is invariant but whose frames are secularly
+unstable, which is closer to a balanced pair carried by the dynamics than to two particles produced by it.
