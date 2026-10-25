@@ -353,7 +353,8 @@ def check_J():
     ok4 = zero(Pp - Pm_) and zero(Qp - Qm_) and zero(eta(-nv, Kv) + eta(nv, Kv))
     ok4 &= zero(J_m + J_p) and zero(Om_m + Om_p) and zero(J_m * Om_m - J_p * Om_p)
     report("r2-3d", ok4,
-           "time reversal n -> -n (symbolic n): P_{-n} = P_n, Q_{-n} = Q_n (same E_n, U_n), E_{-n} = -E_n, J(-n) = -J(n), "
+           "time reversal n -> -n (symbolic n): P_{-n} = P_n, Q_{-n} = Q_n (same E_n, U_n), the energy read by the clock "
+           "E(-n) = c eta(-n,K) = -E(n), J(-n) = -J(n), "
            "Omega_{-n} = -Omega_n, so Gamma_n = J(n) Omega_n is unchanged")
 
 
@@ -491,10 +492,12 @@ def check_poisson():
     Hx = Hexpr + Vf(x0)
     okx = sp.simplify(PB(Ec, Hx)) != 0 and all(sp.simplify(PB(p, Hx)) == 0 for p in ps)
     okq = sp.simplify(PB(qs[0], Hexpr)) != 0
+    H2only = Hf(*Ksym, us[1])                      # depends on u^2 but not on u^1
+    okq &= sp.simplify(PB(qs[0], H2only)) == 0 and sp.simplify(PB(qs[1], H2only)) != 0
     report("r2-5b", okc and okx and okq,
            "for a general frame (symbolic) and an arbitrary function H(K_A,u^1,u^2): {E/c,H}={p_a,H}=0, so P_n=(E/c,p) is "
-           "conserved by every dynamics independent of (c t_n, x^a); adding V(c t_n) breaks only {E,H}=0; q_a is not conserved "
-           "unless H is independent of u")
+           "conserved by every dynamics independent of (c t_n, x^a); adding V(c t_n) breaks only {E,H}=0; q_a is conserved "
+           "iff H does not depend on u^a (an H(K,u^2) conserves q_1 and not q_2)")
     # P_n is a four-vector: under L = exp(chi n^s_1) + id on U_n, components transform by the 4x4 boost
     n, u1, u2 = frame6("(1,2,2)/3")
     chi = sp.symbols("chi", real=True)
@@ -592,10 +595,15 @@ def check_option2():
     ok &= sp.simplify(dL) == 0
     # reduced shell and dimension count
     ok &= sp.simplify(H.subs({qs[0]: 0, qs[1]: 0}) - N / 2 * (P2 - M6**2 * c**2)) == 0
+    # q ~ 0 removes every q != 0; the unstable band q^2 > |k|^2 + m^2 of ES17 Prop 27.1 is a proper subset:
+    # k = m = 1, q = 1/2 is a stable mode (omega^2 = 7/4 > 0) that the constraints also remove
+    kq, mq, qq = 1, 1, R3(1, 2)
+    ok &= kq**2 + mq**2 - qq**2 == R3(7, 4) and qq != 0
     report("r2-8a", ok,
            "Option II (FMB eq. 9): {q_a,q_b}=0, {q_a,H}=0 for H=(N/2)(P^2-M6^2c^2+|q|^2), so q_a~0 are first class; "
            "eps^a q_a generates du^a = eps^a only; the action is exactly invariant under du=eps, dlambda=d eps/d tau; "
-           "on q=0 the shell is P^2 = M6^2 c^2; 12 - 2x2 = 8 = dim T*E_n")
+           "on q=0 the shell is P^2 = M6^2 c^2; 12 - 2x2 = 8 = dim T*E_n; q~0 removes every q != 0, a proper superset of the "
+           "unstable band of ES17 Prop 27.1 (k=m=1, q=1/2 is stable, omega^2 = 7/4)")
     # ES17 Prop 23.4 / Thm 30.1 with a normal connection A_mu(x): structure functions
     xs4 = list(xs)
     u, v, pu, pv = sp.symbols("u v p_u p_v", real=True)
@@ -675,8 +683,9 @@ def check_clock_rotation():
     # E_n <= |E| with equality iff n parallel to E (Cauchy-Schwarz via Lagrange identity); explicit maximiser
     ok &= zero(sp.simplify(Ev.dot(Ev) - En**2 - n3.cross(Ev).dot(n3.cross(Ev))))
     report("r2-10a", ok,
-           "general clock (symbolic): E_n = n.E and m_4(n)^2 c^4 = mu^2 c^4 - |n x E|^2 with mu^2 c^4 = |E|^2 - |p|^2 c^2; "
-           "hence m_4(n) <= mu, equality iff n || E (the temporal part of K), where E_n = |E| is maximal")
+           "general clock (symbolic): E(n) = c eta(K,n) = n.E and m_4(n)^2 c^4 = mu^2 c^4 - |n x E|^2 with mu^2 c^4 = |E|^2 - |p|^2 c^2; "
+           "hence m_4(n)^2 <= mu^2, equality iff n is parallel or antiparallel to E (the temporal part of K); the energy read "
+           "by the clock, E(n) = n.E, is maximal (= |E|) at n = E/|E|")
     # exact example with mu > 0: E = (2,3,6), p = (0,0,3), c = 1
     Eex = sp.Matrix([2, 3, 6])
     pex2 = 9
@@ -690,9 +699,11 @@ def check_clock_rotation():
     ok &= sp.nsimplify(mu2 - Eperp.dot(Eperp)) == R3(94, 3) and all(v >= 0 for v in nstar)
     wstar = [v**2 for v in nstar]
     ok &= wstar == [R3(4, 49), R3(9, 49), R3(36, 49)]
+    ok &= m4(-nstar) == 40 and (-nstar).dot(Eex) == -7
     report("r2-10b", ok,
            "E=(2,3,6), p=(0,0,3), c=1: mu^2=40; the maximising clock (2,3,6)/7 lies in the Fisher-Rao octant with weights "
-           "(4,9,36)/49 and gives m_4^2=40; at e1 m_4^2=-5; at W m_4^2 = 94/3 = mu^2 - |E_perp|^2 (RE's E_W)")
+           "(4,9,36)/49 and gives m_4^2=40, as does the opposite clock -(2,3,6)/7 (energy -7); at e1 m_4^2=-5; at W "
+           "m_4^2 = 94/3 = mu^2 - |E_perp|^2 (RE's E_W)")
     # Fisher-Rao octant: max of n.E over n>=0, |n|=1 is |E^+| at n = E^+/|E^+|  (random test, floats)
     rng = np.random.default_rng(20261025)
     worst = 0.0
@@ -710,6 +721,25 @@ def check_clock_rotation():
     report("r2-10c", worst <= 1e-12 and attained,
            "Fisher-Rao octant (200 random E, 4000 random octant clocks each, float, tol 1e-12): n.E <= |E^+| with E^+ the "
            "positive part, attained at n = E^+/|E^+|, i.e. weights w_i = (E_i^+)^2/|E^+|^2")
+    # the case E^+ = 0: the octant maximum is max_i E_i <= 0, at a vertex (not |E^+| = 0)
+    n1s, n2s, n3s = sp.symbols("n1 n2 n3", nonnegative=True)
+    # (sum n_i)^2 = |n|^2 + 2 sum_{i<j} n_i n_j >= |n|^2 = 1 for n_i >= 0
+    oks = sp.expand((n1s + n2s + n3s)**2 - (n1s**2 + n2s**2 + n3s**2) - 2 * (n1s * n2s + n1s * n3s + n2s * n3s)) == 0
+    Eneg = sp.Matrix([-1, -2, -3])
+    oks &= max(Eneg) == -1 and sp.Matrix([1, 0, 0]).dot(Eneg) == -1
+    worst0 = -np.inf
+    for _ in range(100):
+        Er = -np.abs(rng.normal(size=3))
+        pts = np.abs(rng.normal(size=(4000, 3)))
+        pts /= np.linalg.norm(pts, axis=1)[:, None]
+        worst0 = max(worst0, float(np.max(pts @ Er) - Er.max()))
+    pts = np.abs(rng.normal(size=(20000, 3)))
+    pts /= np.linalg.norm(pts, axis=1)[:, None]
+    oks &= float(np.max(pts @ np.array([-1.0, -2.0, -3.0]))) <= -1 + 1e-12
+    report("r2-10d", oks and worst0 <= 1e-12,
+           "if E^+ = 0 the octant maximum of n.E is max_i E_i <= 0, attained at a vertex, since sum n_i >= |n| = 1 for n_i >= 0: "
+           "E=(-1,-2,-3) gives -1 (not |E^+| = 0), and no octant clock reads a positive energy (100 random all-negative E "
+           "against 4000 octant clocks and 20000 clocks at (-1,-2,-3), float, tol 1e-12)")
 
 
 # ============================================================================= r2-11 .. r2-16 field four-momentum
@@ -854,10 +884,12 @@ def check_field_reps():
         def traceless(T):
             return [sum(trrow[r] * T[r, col] for r in range(10)) for col in range(T.shape[1])]
         d_s_sym0 = hom_dim(Sym2G, Sym2E, extra=traceless)
-        report("r2-11b", d_G == 0 and d_s_vec == 0 and d_s_triv == 2 and d_s_sym == 3 and d_s_sym0 == 1,
+        d_s_U = hom_dim(Sym2G, [sp.zeros(2, 2) for _ in range(6)])     # U_n: a trivial two-dimensional module
+        report("r2-11b", d_G == 0 and d_s_vec == 0 and d_s_triv == 2 and d_s_sym == 3 and d_s_sym0 == 1 and d_s_U == 4,
                "with lG as Lorentz algebra: dim Hom(V_EM, E) = 0; quadratic maps: dim Hom(Sym^2 V_EM, E) = 0, "
                "dim Hom(Sym^2 V_EM, R) = 2 (|B|^2-|E|^2 and E.B), dim Hom(Sym^2 V_EM, Sym^2 E) = 3, traceless part 1 "
-               "(the stress tensor): no covariant map, linear or quadratic, from the field to a four-vector")
+               "(the stress tensor): no covariant map, linear or quadratic, from the field to a four-vector; but "
+               "dim Hom(Sym^2 V_EM, U_n) = 4 (U_n trivial): covariance alone allows quadratic maps to the surplus plane")
     else:
         report("r2-11b", False, "lG representation-theoretic counts (phi not found)")
     # Hodge star: Phi(G X) = star Phi(X), star^2 = -1, star commutes with lint on Lambda^2, anti-isometry, neutral
@@ -977,6 +1009,9 @@ def check_packets():
     ok &= sp.simplify(U_t - U) == 0 and sp.simplify(P_t - P) == 0
     M = sp.sqrt(sp.expand(U**2 - P**2))
     ok &= sp.simplify(M - 2 * a * b * Nint) == 0
+    ar, br = sp.symbols("a_r b_r", real=True)          # for real amplitudes of either sign M = (512/315)|ab|
+    Ur, Pr = (ar**2 + br**2) * Nint, (ar**2 - br**2) * Nint
+    ok &= sp.simplify(sp.sqrt(sp.factor(Ur**2 - Pr**2)) - 2 * Nint * sp.Abs(ar * br)) == 0
     # genuine boost of the fields along z with velocity beta = tanh(chi): E'_x = gamma(E_x - beta B_ty),
     # B'_ty = gamma(B_ty - beta E_x), at z = gamma(z' + beta t'), t = gamma(t' + beta z')
     zp, tp = sp.symbols("zp tp", real=True)
@@ -1005,7 +1040,7 @@ def check_packets():
     ok &= sp.solve_univariate_inequality((t - 1) - (-t + 1) >= 0, t, relational=False) == sp.Interval(1, sp.oo)
     report("r2-15", ok,
            "counter-propagating packets E_x = a f(z-t)+b f(z+t), B_ty = a f(z-t)-b f(z+t), f=(1-s^2)^2 (HL, c=1): u and "
-           "S_tz have no cross terms, U=(a^2+b^2)256/315, P_z=(a^2-b^2)256/315 at all t, M = 2ab 256/315; under the boost of "
+           "S_tz have no cross terms, U=(a^2+b^2)256/315, P_z=(a^2-b^2)256/315 at all t, M = 2|ab| 256/315; under the boost of "
            "rapidity chi along z (U,P_z) -> (U cosh - P sinh, P cosh - U sinh) exactly; paper sign S_z = -S_tz; "
            "q = -4ab f(z-t)f(z+t) vanishes for |t|>=1 while M > 0")
     # the interference term is conserved: Theta[z1+z2]-Theta[z1]-Theta[z2] is divergence free for two solutions
@@ -1042,10 +1077,13 @@ def check_packets():
     ka = sp.Matrix([1, 0, 0, 1])
     kb = sp.Matrix([1, sp.sin(th), 0, sp.cos(th)])
     okk = m2(k1) == 0 and m2(k2) == 0 and m2(k1 + k2) == 24 and sp.simplify(m2(ka + kb) - 2 * (1 - sp.cos(th))) == 0
+    k3 = sp.Matrix([4, 0, 0, -4])                    # antiparallel (collinear) null momentum: still timelike sum
+    okk &= m2(k3) == 0 and m2(k1 + k3) == 48 and sp.simplify(m2(ka + kb).subs(th, sp.pi)) == 4
     report("r2-16", okm and all(d == 0 for d in div) and okk,
            "two Maxwell plane waves with non-collinear wave vectors (0,0,3), (4,0,0): the interference part of Theta is "
            "divergence free (so it is conserved and drops out once the parts are disjoint); two future null momenta at angle "
-           "theta add to a vector of mass^2 2E1E2(1-cos theta), e.g. (3;0,0,3)+(4;4,0,0) has M^2 = 24")
+           "theta add to a vector of mass^2 2E1E2(1-cos theta), timelike unless theta = 0: (3;0,0,3)+(4;4,0,0) has M^2 = 24 and "
+           "the antiparallel (3;0,0,3)+(4;0,0,-4) has M^2 = 48")
 
 
 def check_photon_and_null():
