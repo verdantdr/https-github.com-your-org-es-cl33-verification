@@ -797,6 +797,24 @@ def _():
     return ok
 
 
+@claim("e5-3j", "the vanishing odd traces of e5-3c are not a consequence of integer isospin: the so(3) on N = <e^(2)_4,e^(2)_5,"
+                "e^(2)_6>, which acts on the Weyl block by isospin doublets (Casimir 3/4, e5-3b), also has Tr(h P_L) = Tr(h P_R) = 0 "
+                "and vanishing symmetrised cubic traces Tr(h_(a h_b h_c) P_L,R), h = -w S(X), exactly as the binding-compatible su(2) "
+                "does: every su(2) action has weights symmetric under m -> -m; integer isospin excludes doublets (the global anomaly)")
+def _():
+    neg = [9, 10, 11]
+    so3N = [rot_vec(12, neg[a], neg[b], ETA2.tolist()) for a, b in itertools.combinations(range(3), 2)]
+    ok = True
+    for gens in (so3N, LG2_ROT):
+        H = [-W_CS @ spin_lift(M) for M in gens]
+        for P2 in (PL_SPEC, PR_SPEC):
+            ok &= all(np.trace(h @ P2) == 0 for h in H)
+            for a, b, c in itertools.combinations_with_replacement(range(3), 3):
+                t = sum(np.trace(H[x] @ H[y] @ H[z] @ P2) for x, y, z in set(itertools.permutations((a, b, c))))
+                ok &= t == 0
+    return ok
+
+
 # diagonal interior action
 def lint_diag():
     S1, T1 = lint_vec(1)
@@ -1259,7 +1277,8 @@ def _():
 
 
 @claim("e5-5e", "libration and the h(0) = 0 precision: off balance with h(0) = 0 the rotor librates (h changes sign, theta stays in an "
-                "interval of length < pi, period 4K(sin^2(xi_0/2))/Omega with Omega^2 = 2 R_eff/I_0 to 1e-8) and the frames drift; on the "
+                "interval of length < pi, period 4K(sin^2(xi_0/2))/Omega with Omega^2 = 2 R_eff/I_0 to 1e-8) and the frames drift at this "
+                "amplitude (the general law is e5-5i); on the "
                 "balance surface with h(0) = 0 the state is an equilibrium of the rotor (|h| < 1e-12) while each frame moves uniformly, "
                 "x_k = tau N_k p^(k)(0) (to 1e-10): bounded frames on the balance surface need h(0) != 0")
 def _():
@@ -1405,6 +1424,66 @@ def _():
     return ok
 
 
+@claim("e5-5i", "libration drift, Thm stab (iv) as corrected: off the surface with h(0) = 0 and psi_0 = pi - xi_0, the displacement "
+                "of each frame after 1, 2, 3 periods 4K(m)/Omega (m = sin^2(xi_0/2), Omega^2 = 2R_eff/I_0) equals j T (1 - 2E(m)/K(m)) "
+                "e^{-phi_eff G} N_k p^(k)(0) to relative 1e-9 at xi_0 = 0.6, 1.5, 2.6 and at the root of 2E(m) = K(m) (m = 0.8261, "
+                "xi_0 = 130.7 deg), where it vanishes: the frames drift except at that amplitude, where they return after every "
+                "period; at psi_0 = 0 the datum is an equilibrium of (theta, h, p)")
+def _():
+    from scipy.special import ellipk, ellipe
+    from scipy.optimize import brentq
+    ok = True
+    I0 = 1.0
+    mstar = brentq(lambda m: 2 * ellipe(m) - ellipk(m), 0.5, 0.99)
+    xistar = 2 * np.arcsin(np.sqrt(mstar))
+    ok &= abs(mstar - 0.8261) < 1e-4 and abs(np.degrees(xistar) - 130.7) < 0.05
+    base = unbalanced(0.05)
+    R, ph, _ = Reff([C_EQ, C_EQ], base)
+    for xi0 in (0.6, 1.5, 2.6, xistar):
+        al = (np.pi - xi0 - ph) / 2                      # w -> e^{2 i al} w under p -> e^{-al G} p
+        ps = [expG(-al) @ p for p in base]
+        R_, ph_, _ = Reff([C_EQ, C_EQ], ps)
+        ok &= abs(R_ - R) < 1e-12 and abs(np.angle(np.exp(1j * (ph_ - (np.pi - xi0))))) < 1e-12
+        m = np.sin(xi0 / 2) ** 2
+        T = 4 * ellipk(m) / np.sqrt(2 * R_ / I0)
+        sol = integrate([N_EQ, N_EQ], I0, 0.0, ps, 3 * T + 1e-9, npts=11)
+        ok &= sol.success
+        for k in range(2):
+            Np = N_EQ @ ps[k]
+            pred = (1 - 2 * ellipe(m) / ellipk(m)) * (expG(-ph_) @ Np) * T
+            for j in (1, 2, 3):
+                xk = sol.sol(j * T)[14 + 6 * k: 20 + 6 * k]
+                ok &= np.linalg.norm(xk - j * pred) < 1e-9 * np.linalg.norm(Np) * T
+            if xi0 == xistar:
+                ok &= np.linalg.norm(pred) < 1e-12 * np.linalg.norm(Np) * T
+            else:
+                ok &= np.linalg.norm(pred) > 1e-2 * np.linalg.norm(Np) * T
+    al = (0.0 - ph) / 2
+    ps = [expG(-al) @ p for p in base]
+    y0 = np.concatenate([[0.0, 0.0]] + ps + [np.zeros(12)])
+    ok &= np.max(np.abs(rhs_closure([N_EQ, N_EQ], I0)(0.0, y0)[:14])) < 1e-12
+    return ok
+
+
+@claim("e5-5j", "exchange eigenstates for general coefficients: F(p, +-p) = (c_1 + c_2) w(p) (symbolic), so for c_2 = -c_1 every "
+                "exchange eigenstate is balanced, massive ones included (10 random data); the statement 'a massive balanced pair is "
+                "never an exchange eigenstate' holds exactly when c_1 + c_2 != 0, in particular for equal inertias")
+def _():
+    ps_ = sp.symbols("p1:7", real=True)
+    c1, c2 = sp.symbols("c1 c2")
+    P = sp.Matrix(ps_)
+    Es, Gs = sp.Matrix(ETA1M.tolist()), sp.Matrix(G1.tolist())
+    wsym = lambda Q: sp.expand((Q.T * Es * Q)[0] - sp.I * (Q.T * Gs * Es * Q)[0])
+    ok = all(sp.expand(c1 * wsym(P) + c2 * wsym(s_ * P) - (c1 + c2) * wsym(P)) == 0 for s_ in (1, -1))
+    rng = np.random.default_rng(12)
+    for _ in range(10):
+        p1 = rng.normal(size=6)
+        ok &= abs(wfun(p1)) > 1e-6
+        for s_ in (1, -1):
+            ok &= Reff([C_EQ, -C_EQ], [p1, s_ * p1])[0] < 1e-12 and Reff([C_EQ, C_EQ], [p1, s_ * p1])[0] > 1e-6
+    return ok
+
+
 @claim("e5-5h", "carry-over of the rest-closure results: Gamma_12 = E_1...E_12 satisfies Gamma_12^2 = 1 and anticommutes with all twelve "
                 "generators, so it implements e^{pi G_2} = -id on S_2 (the half turn of RE Prop. 4.14 at n = 2); "
                 "G_2^T eta_2 = eta_2 G_2 and G_2^T eta_2 G_2 = -eta_2, so (e^{theta G_2})^T eta_2 e^{theta G_2} = cos 2theta eta_2 + "
@@ -1527,6 +1606,35 @@ def _():
                     bal = [q1, np.sqrt(abs(ratio)) * (expG(-np.angle(ratio) / 2) @ q2), q[0]]
                 Fv = sum(c * wfun(p) for c, p in zip(cs, bal))
                 ok &= abs(Fv) < 1e-10 and dF_rank(cs, bal) == 2
+    return ok
+
+
+@claim("e5-6b", "binding-compatible parts at every rung (the proofs of the spectator and diagonal propositions apply verbatim), "
+                "exact at n = 4: the compact spectator algebra meets Cent(G_4) in 36 = dim so(9) dimensions, the paired rotations of "
+                "constituents 2, 3, 4, and the diagonal connection algebra meets it in 6 = dim so(4), the copy rotations")
+def _():
+    N4 = 24
+    eta4 = np.diag(etan(4)).tolist()
+    comp = [rot_vec(N4, a, b, eta4) for a in range(N4) for b in range(a + 1, N4) if eta4[a] == eta4[b]]
+    G4 = Gn(4)
+    lint41 = [rot_vec(N4, INT0[a], INT0[b], eta4) for a in range(4) for b in range(a + 1, 4)]
+    spec = lie_subspace(comp, [lambda X, L=L: comm(X, L) for L in lint41] + [lambda X: comm(X, G4)])
+    temp = [6 * k + i for k in (1, 2, 3) for i in range(3)]
+    pr = []
+    for a, b in itertools.combinations(temp, 2):
+        R_ = np.zeros((N4, N4), dtype=np.int64)
+        R_[a, b], R_[b, a] = -1, 1
+        R_[a + 3, b + 3], R_[b + 3, a + 3] = -1, 1
+        pr.append(R_)
+    ok = len(spec) == 36 and span_rank(spec + pr) == 36
+    lintd = [sum(rot_vec(N4, 6 * k + INT0[a], 6 * k + INT0[b], eta4) for k in range(4)) for a in range(4) for b in range(a + 1, 4)]
+    dg = lie_subspace(comp, [lambda X, L=L: comm(X, L) for L in lintd] + [lambda X: comm(X, G4)])
+    copyrots = []
+    for k, l in itertools.combinations(range(4), 2):
+        B_ = np.zeros((4, 4), dtype=np.int64)
+        B_[l, k], B_[k, l] = 1, -1
+        copyrots.append(np.kron(B_, np.eye(6, dtype=np.int64)))
+    ok &= len(dg) == 6 and span_rank(dg + copyrots) == 6
     return ok
 
 

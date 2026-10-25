@@ -1,5 +1,5 @@
 % Track e5 -- The closure of the force law at two constituents (n = 2).
-% Verification: investigations/emergence/verify/e5_closure_two.py (claims e5-1a ... e5-6a).
+% Verification: investigations/emergence/verify/e5_closure_two.py (claims e5-1a ... e5-6b).
 % New references: sections/bib_e5.tex.
 \section{The closure at two constituents}
 \label{e5:sec:main}
@@ -10,8 +10,8 @@ in which the rate is the angular velocity of a rotor. It treats one constituent,
 algebra, the part of the Pati--Salam algebra that commutes with the binding root, what survives each projector, its chirality and
 anomalies, and the freedom left in the inertia. The case $n=2$ is not treated there. Parts of it are in \cite{RE}: the closure
 symmetry $\so{6,\C}$ (Proposition~7.8), the balance surface (Theorem~8.1), the balanced pairs (Proposition~8.4) and the pair invariant
-$M_{\rm pair}$ (Theorem~8.6). This section supplies the $n=2$ analogue of every item and asks whether $n=2$ is a closure rung in its own
-right. The answers, with their classes, are these. (1) The closure symmetry $\so{6,\C}$ is the complex orthogonal algebra of
+$M_{\rm pair}$ (Theorem~8.6). This section supplies the $n=2$ analogue of every item, with the five Lorentz actions at $n=2$ in place of the two
+projectors, which exist only at $n=3$, and asks whether $n=2$ is a closure rung in its own right. The answers, with their classes, are these. (1) The closure symmetry $\so{6,\C}$ is the complex orthogonal algebra of
 $q_{\rm tot}=z_1\cdot z_1+z_2\cdot z_2$. It mixes the two field strengths, keeps no quadratic invariant except $q_{\rm tot}$, and does not
 preserve the pair invariant: on each of its orbits $M_{\rm pair}$ takes every value in $[\half|q_{\rm tot}|,\infty)$ (fixed;
 \cref{e5:sec:symmetry}). (2) There is no common Lorentz algebra, and under $\lG^{(1)}$ the spinor module carries no Weyl spinor
@@ -21,7 +21,8 @@ isospin and vector-like; of the diagonal connection algebra it leaves the copy r
 \cref{e5:sec:gauge}). (4) The inertia freedom is $(2,0)$ under the closure symmetry, as at $n=1$ and $n=3$, and it is $(14,10)$ or $(18,18)$
 under the binding-compatible gauge parts (fixed, partly restated; \cref{e5:sec:inertia}). (5) The balance surface is connected and of
 codimension two. It is transversally neutral, since the imbalance is a constant of motion; the rate is stable, but the bounded frame orbits
-are not, and they need $h(0)\neq0$. A massive balanced pair is never an exchange eigenstate of its momenta (fixed; \cref{e5:sec:rotor}).
+are not, and they need $h(0)\neq0$. With equal inertias a massive balanced pair is never an exchange eigenstate of its momenta
+(fixed; \cref{e5:sec:rotor}).
 (6) \Cref{e5:tab:ladder} compares $n=1,2,3$, and \cref{e5:sec:ladder} answers the question. Identifiers e5-$n$ refer to the \texttt{PASS}
 lines of \texttt{verify/e5\_closure\_two.py} (\cref{e5:tab:claims}).
 
@@ -90,7 +91,7 @@ symmetry only $q_{\rm tot}=\tr Q$ is invariant.
 is $\lG^\Delta\oplus\R C_v$, of real dimension $7$.
 \item The closure symmetry does not preserve $M_{\rm pair}$. The copy boost has the eigenvector $(e_1,ie_1)$ with eigenvalue $1$, and maps the
 balanced pair $(e_1,ie_1)$, with $q_{\rm tot}=0$ and $M_{\rm pair}=1$, to $e^t(e_1,ie_1)$, with $M_{\rm pair}=e^{2t}$. The compact rotation
-$R^{(1)}_\varphi\in\so6$ of Example~8.8 of \cite{RE} takes $((1,i,0),0)$ from $M_{\rm pair}=0$ to $M_{\rm pair}=\sin\varphi$.
+$R^{(1)}_\varphi\in SO(6)$ of Example~8.8 of \cite{RE} takes $((1,i,0),0)$ from $M_{\rm pair}=0$ to $M_{\rm pair}=\sin\varphi$.
 \item For each $c\in\C$ the set $\{Z\neq0:\ q_{\rm tot}(Z)=c\}$ is a single orbit of $SO(6,\C)$, and on it $M_{\rm pair}$ takes every value in
 $[\half|c|,\infty)$. The bound $M_{\rm pair}\ge\half|q_{\rm tot}|$ of Theorem~8.6(iii) of \cite{RE} is attained at $(z,0)$, and the copy boost
 carries $(z,0)$ to $(\cosh t\,z,\,i\sinh t\,z)$, with $q_{\rm tot}=q(z)$ and $M_{\rm pair}=\half|q(z)|\cosh2t$.
@@ -117,7 +118,7 @@ pairs to $10^{-12}$ (e5-1e); invariance to $10^{-11}$, and the rank $23$ with a 
 $10^{-12}$ (e5-1d). So the closure symmetry mixes the two field strengths and does not preserve the pair invariant. The closure symmetry sees one field strength in $\C^6$ and its square $q_{\rm tot}$. To split it into two
 field strengths that carry a pair invariant takes the seven-dimensional stabiliser $\lG^\Delta\oplus\R C_v$, a diagonal Lorentz action together
 with the copy rotation, and the closure selects neither. With equal inertias its dynamics agrees: the frame energy is $\half\Re(c\,q_{\rm tot}(\pi))$
-(Proposition~7.9 of \cite{RE}), and its compact symmetry carries every balanced pair to one null constituent and an empty copy (Proposition~8.9(iii)
+(Proposition~17.18 of \cite{ES17}; \cref{e5:prop:rotorlaw}(i) with $c_1=c_2=c$), and its compact symmetry carries every balanced pair to one null constituent and an empty copy (Proposition~8.9(iii)
 of \cite{RE}). In that closure ``two constituents'' is a label that the dynamics does not see (interpretive).
 
 \subsection{No common Lorentz algebra}
@@ -187,7 +188,8 @@ the three paired rotations of constituent~$2$: compact and non-abelian.
 \item Among the spin lifts of the $30$ elements of $\Cent(G_2)$, those satisfying the kinetic condition with the kernels of constituent~$1$ are
 exactly the paired rotations of constituent~$2$. The paired boosts of constituent~$2$ fail it.
 \item Let $w$ be the product of the eight Lorentz-trivial generators. Then $w^2=-\id$, $w$ commutes with $\lint^{(1)}$ and with the spin lift of
-$\so{5,3}$, and $\Gamma=w\,\Omega^{(1)}$ is a chirality commuting with both. With $w$ as $i$, each chirality half is a Weyl block $(\half,0)\otimes(\mathbf4,\mathbf2)$, respectively $(0,\half)\otimes(\mathbf4,\mathbf2)$, of
+$\so{5,3}$, and $\Gamma=w\,\Omega^{(1)}$, with $\Omega^{(1)}=E_{(1,1)}E_{(1,4)}E_{(1,5)}E_{(1,6)}$ the interior volume element of
+constituent~1, is a chirality commuting with both. With $w$ as $i$, each chirality half is a Weyl block $(\half,0)\otimes(\mathbf4,\mathbf2)$, respectively $(0,\half)\otimes(\mathbf4,\mathbf2)$, of
 $\lint^{(1)}\oplus\so5\oplus\so3$ (Proposition~10.12 of \cite{ES17}). Under the binding-compatible $\su2$,
 \[
 L=(\half,0)\otimes\bigl(2\cdot\mathbf1\oplus2\cdot\mathbf3\bigr),\qquad R=(0,\half)\otimes\bigl(2\cdot\mathbf1\oplus2\cdot\mathbf3\bigr):
@@ -207,12 +209,14 @@ condition is antisymmetry. The spin lift of a paired boost is a sum of boost biv
 of a paired rotation of constituent~$2$ is antisymmetric and commutes with every bivector of constituent~$1$, in particular with $\gamma^0\gamma^a$.
 A general element of $\Cent(G_2)$ was tested by an exact null space. (iii) $\so5\supset\so{E_2}\oplus\so F$ restricts the spinor $\mathbf4$ to two
 isospin doublets, and $\so3$ acts on $\mathbf2$ as a doublet, so the diagonal $\su2$ sees $(\mathbf2\oplus\mathbf2)\otimes\mathbf2=2\cdot(\mathbf1\oplus\mathbf3)$.
-Integer isospin makes every odd trace of $h$ vanish on each half separately.
+Every representation of $\su2$ has weights symmetric under $m\mapsto-m$, so every odd trace of $h$ vanishes on each half
+separately; integer isospin excludes doublets, and with them the global anomaly.
 \end{proof}
 
 Part (i) is fixed: it is the structure of Theorem~17.21 of \cite{ES17} at $n=2$, with $U=P$ and $d=\dim E_2=3$. Part (ii) is fixed, and in
 (iii) the Weyl blocks restate Proposition~10.12 of \cite{ES17}, the branching is inherited, and the content and the anomaly traces are fixed. Checks:
-exact Lie algebra (e5-3a), exact null space of the kinetic condition (e5-3d), Casimirs to $10^{-9}$ and integer traces (e5-3b, e5-3c). The binding
+exact Lie algebra (e5-3a), exact null space of the kinetic condition (e5-3d), Casimirs to $10^{-9}$ and integer traces (e5-3b, e5-3c); the odd traces vanish as well for the $\so3$ on $N$, which
+acts by doublets (e5-3j). The binding
 root therefore turns the isospin doublets of the spectator algebra, the ``doublets, no colour, real'' of Section~10.8 of \cite{ES17}, into isospin
 $0$ and $1$. No doublet survives at $n=2$, as for the copy isospin of Proposition~9.6 of \cite{RE}. At $n=3$ the doublets survive in the
 $(\half,\half)_{\pm1}$ of $\so4_\Delta$ on $P_*$ (Theorem~17.23(ii) of \cite{ES17}).
@@ -248,7 +252,7 @@ $(q,(j_L,j_R))\mapsto(-q,(j_R,j_L))$: self-conjugate, hence vector-like. $\Tr(C_
 \cite{ES17}. Within it, an element $aM+B$, with $M$ the copy rotation of the interior four-planes and $B$ in the surplus $\so4$, commutes with
 $G_2$ exactly when $B$ is $a$ times the copy rotation of the surplus pairs, because $G_2$ maps each surplus pair into the interior plane of the same
 constituent. This is Proposition~9.1(ii) of \cite{RE}, and the lift is Proposition~7.3(ii) there. (ii) $C_b$ commutes with the diagonal boosts and is
-antisymmetric, while $f_0f_\mu$ contains the cross terms $E_{(1,0)}E_{(2,\mu)}$, with which it does not commute. (iii) Computed.
+antisymmetric, while $f_0f_\mu$ contains the cross terms $E_{(1,1)}E_{(2,\mu)}$ ($\gamma^0=e_1$), with which it does not commute. (iii) Computed.
 \end{proof}
 
 Part (i) restates Proposition~9.1(ii) and Proposition~7.3 of \cite{RE} (fixed there; e5-3e), (ii) is fixed (exact; e5-3f), and (iii) is fixed
@@ -399,9 +403,13 @@ $\lambda\,e^{-\varphi_{\rm eff}G}N_kp^{(k)}(0)$, with $\lambda$ of Theorem~17.16
 \]
 of first order in the imbalance. A perturbation off the surface therefore moves the frames by a distance that grows linearly in $\tau$, at a rate linear
 in the perturbation. A perturbation along the surface, or of $h(0)$, keeps them on circles.
-\item If $h(0)=0$, a balanced datum is an equilibrium of the rotor, and each frame moves uniformly, $x_k=\tau N_kp^{(k)}(0)$, without bound. Off the surface the
-rotor librates about $\psi=\pi$ with $\Omega^2=2R_{\rm eff}/I_0$ and period $4\mathrm K(\sin^2(\xi_0/2))/\Omega$, which diverges as $R_{\rm eff}\to0$, and
-the frames drift.
+\item If $h(0)=0$, a balanced datum is an equilibrium of the rotor, and each frame moves uniformly, $x_k=x_k(0)+\tau N_kp^{(k)}(0)$, without bound.
+Off the surface, unless $\psi_0\in\pi\Z$ (an equilibrium, at which the frames move uniformly), the rotor librates about $\psi=\pi$ with
+$\Omega^2=2R_{\rm eff}/I_0$, amplitude $\xi_0\in(0,\pi)$ given by $\cos\xi_0=-\cos\psi_0$, and period $4\mathrm K(m)/\Omega$, $m=\sin^2(\xi_0/2)$,
+which diverges as $R_{\rm eff}\to0$; $\mathrm K$ and $\mathrm E$ are the complete elliptic integrals in the parameter $m$ \cite{DLMF}. The
+frames move with the mean velocity $\bigl(1-2\mathrm E(m)/\mathrm K(m)\bigr)e^{-\varphi_{\rm eff}G}N_kp^{(k)}(0)$. They drift, except at the one
+amplitude with $2\mathrm E(m)=\mathrm K(m)$ ($m=0.8261$, $\xi_0=130.7^\circ$), at which every frame returns to its initial position after each
+period.
 \end{enumerate}
 \end{theorem}
 
@@ -413,7 +421,11 @@ $(1+\varepsilon(\cos\psi_0-\cos\psi))^{-1/2}$ to second order,
 $\lambda=\frac{\pi\varepsilon}{4|\kappa_0|}\bigl(1-\tfrac32\varepsilon\cos\psi_0\bigr)+O(\varepsilon^3)$ and the period is
 $\frac\pi{|\kappa_0|}\bigl(1-\half\varepsilon\cos\psi_0\bigr)+O(\varepsilon^2)$; their ratio gives $\bar v_k$. Along the surface $\varepsilon=0$, and a change
 of $h(0)$ changes only the radius $|N_kp^{(k)}(0)|/(2|\kappa|)$ of the circles. (iv) At $h(0)=0$ and $R_{\rm eff}=0$, $\ddot\theta=0$ and $\theta\equiv0$, so
-$\dot x_k=N_kp^{(k)}(0)$. Off the surface the rotor equation is the pendulum of Proposition~4.4 of \cite{RE} with $R_0/m$ replaced by $R_{\rm eff}$.
+$\dot x_k=N_kp^{(k)}(0)$. Off the surface the rotor equation is the pendulum of Proposition~4.4 of \cite{RE} with $R_0/m$ replaced by $R_{\rm eff}$. With
+$\psi=\pi+\xi$, $\dot x_k=-e^{-\varphi_{\rm eff}G}(\cos\xi+G\sin\xi)N_kp^{(k)}(0)$. The substitution $\sin(\xi/2)=\sin(\xi_0/2)\sin t$ of that
+proposition gives $d\tau=dt/(\Omega\sqrt{1-m\sin^2t})$, so over one period $\int\sin\xi\,d\tau=(2\sqrt m/\Omega)\int_0^{2\pi}\sin t\,dt=0$ and
+$\int\cos\xi\,d\tau=(4/\Omega)\int_0^{\pi/2}(1-2m\sin^2t)(1-m\sin^2t)^{-1/2}dt=(4/\Omega)\bigl(2\mathrm E(m)-\mathrm K(m)\bigr)$; divide by the
+period.
 \end{proof}
 
 Item (i) restates Theorem~8.1(i) of \cite{RE}; (ii) restates Corollary~17.15 of \cite{ES17} for two constituents; (iii) and (iv) are fixed. The
@@ -427,7 +439,8 @@ rotor obeys the pendulum law to $10^{-9}$, and the displacement per period is $\
 perturbations $10^{-3}$, $2\times10^{-3}$, $4\times10^{-3}$ the imbalance, the rate excursion and the mean frame velocity double with the perturbation (to
 $2\%$). The mean velocity equals the quadrature value to $10^{-8}$, the first-order law to within $1.5\varepsilon$ and the second-order law to within
 $\varepsilon^2$ (relative). With $h(0)=0$ the rotor librates with the period of (iv) to $10^{-8}$, and on the balance surface it stays at rest to
-$10^{-12}$ while the frames move uniformly.
+$10^{-12}$ while the frames move uniformly. Off the surface with $h(0)=0$ the displacement after one, two and three periods equals
+the mean-velocity law of (iv) to relative $10^{-9}$ at four amplitudes, among them $\xi_0=130.7^\circ$, where it vanishes (e5-5i).
 
 \begin{proposition}[Exchange of the constituents]
 \label{e5:prop:exchange}
@@ -438,17 +451,17 @@ preserves the equal-inertia Hamiltonian; as an element of $O(6,\C)$ it has deter
 symmetry group. It exchanges $V_+$ and $V_-$.
 \item With equal coefficients $R_{\rm eff}=2|c|\,|w_s|$ with $w_s=\half(w_1+w_2)$, the exchange-even part of $(w_1,w_2)$: a pair is balanced iff
 $(w_1,w_2)$ is exchange-odd, $w_2=-w_1$.
-\item The exchange eigenstates of the momenta, $p^{(2)}=\pm p^{(1)}$, both have $w_2=w_1$ and are balanced only when null. A massive balanced pair is
-never an exchange eigenstate of its momenta.
+\item The exchange eigenstates of the momenta, $p^{(2)}=\pm p^{(1)}$, both have $w_2=w_1$, so $F=(c_1+c_2)w_1$: unless $c_2=-c_1$ they are
+balanced only when null. With equal inertias a massive balanced pair is never an exchange eigenstate of its momenta.
 \end{enumerate}
 \end{proposition}
 
 \begin{proof}
 (i) $\sigma$ permutes the copies; on $Z$ it is the permutation of three pairs of coordinates, of determinant $(-1)^3$. If $p^{(2)}=-Gp^{(1)}$, then
-$\sigma p$ has second component $p^{(1)}=G(-Gp^{(1)})$. (ii) $R_{\rm eff}=|c|\,|w_1+w_2|$. (iii) $w$ is quadratic.
+$\sigma p$ has second component $p^{(1)}=G(-Gp^{(1)})$. (ii) $R_{\rm eff}=|c|\,|w_1+w_2|$. (iii) $w$ is quadratic, so $F=c_1w_1+c_2w_1$.
 \end{proof}
 
-Fixed (e5-5g). Exchange parity of the duality invariants and exchange parity of the momenta are different things: the balanced pairs of $V_\pm$, a
+Fixed (e5-5g, e5-5j). Exchange parity of the duality invariants and exchange parity of the momenta are different things: the balanced pairs of $V_\pm$, a
 magnetic and an electric constituent a quarter duality turn apart (Proposition~8.4(iii) of \cite{RE}), are exchanged with each other by $\sigma$ and are
 not exchange eigenstates. With $c_1\neq c_2$, $\sigma$ is not a symmetry of the closure.
 
@@ -457,7 +470,7 @@ not exchange eigenstates. With $c_1\neq c_2$, $\sigma$ is not a symmetry of the 
 For one rotor on two constituents with Lorentz-class inertias:
 \begin{enumerate}[label=(\roman*),leftmargin=2.2em]
 \item (Theorem~4.1 of \cite{RE}.) A function of $p$ is a Casimir iff it is invariant under $p\mapsto e^{tG_2}p$. At $p\neq0$ the leaves are
-two-dimensional, so there are $11$ local Casimirs, against $5$ at $n=1$, and the real and imaginary parts of $\bar z_jz_k$, with $z\in\C^6$ the pair of
+two-dimensional, so there are $11$ local Casimirs, against $5$ at $n=1$, and the real and imaginary parts of $\bar z_az_b$, $a,b=1,\dots,6$, with $z\in\C^6$ the pair of
 momentum fields, provide them. They include $E_6$, $E_0$ and $\mathbf S$ of each $\pi^{(k)}$ and the moduli $|Q_{kl}|$; no Hamiltonian moves rest energy
 between the constituents (Corollary~8.3 of \cite{RE}).
 \item (Propositions~4.3--4.8 of \cite{RE}.) The pendulum, its small oscillations, the energy budget and the multiscale criterion hold with $R_0/m$ replaced
@@ -468,7 +481,7 @@ $e^{\pi G_2}=-\id$ on $S_2$. Since $(e^{\theta G_2})^{\!\top}\eta_2e^{\theta G_2
 $\mathrm{Pin}(6,6)$ only at $\theta\in\pi\Z$.
 \item (Proposition~4.9 of \cite{RE}.) The rotor turns both momentum fields at one rate, while the graded rest Hamiltonian of the tower has the single
 frequency $(m_1^2+m_2^2)^{1/2}$ and the ungraded one the two frequencies $m_1$, $m_2$ (\cref{e1:prop:rest}(v)). A closure with two rates exists, with
-the rotor acting by $K\otimes G$ (Proposition~9.2 of \cite{RE}), and is admitted, not selected.
+the rotor acting by $\operatorname{diag}(\kappa_1,\kappa_2)\otimes G$, $\kappa_1\neq\kappa_2$ (Proposition~9.2 of \cite{RE}), and is admitted, not selected.
 \item (Proposition~4.16 of \cite{RE}.) Under Assumption~4.15 of \cite{RE}, every leaf through the balance surface is flat, $U\equiv0$, so the
 conditional ladder $\kappa_n=(n+\delta)\hbar/I_0$ holds exactly with both constituents massive, where at $n=1$ it needs null data.
 \end{enumerate}
@@ -484,7 +497,7 @@ parameters. (ii) The equations for $(\theta,h)$ are those of one constituent wit
 Items (i)--(iii) restate the cited results for two constituents (fixed there) and are fixed in their $n=2$ form (Jacobian rank $11$ and $5$, Lie--Poisson
 rank $2$, exact Clifford identities; e5-5h). Item (iv) restates \cref{e1:prop:rest} and Proposition~9.2 of \cite{RE} and is constructed for the two-rate
 closure. Item (v) is constructed and conditional on the assumption. The copy rotor of Remark~8.10 of \cite{RE}, a second rotor that exists because the
-uniqueness argument of Theorem~17.7 of \cite{ES17} fails under $\lG^\Delta$, is the one structure of the rest closure that exists only from $n=2$ on.
+uniqueness argument of Theorem~17.7 of \cite{ES17} fails under $\lG^\Delta$, and the two-rate rotor of (iv) are the structures of the rest closure that exist only from $n=2$ on.
 
 \subsection{The ladder: one, two and three constituents}
 \label{e5:sec:ladder}
@@ -513,7 +526,8 @@ balance surface & $\{w=0\}$: null data only, dim $4$ & codim $2$, connected; mas
 \bottomrule
 \end{tabular}
 \caption{The closure along the ladder. Dimensions are real; the inertia entries are (Lorentz class, duality class). The $n=3$ column restates
-Theorems~17.19--17.24 of \cite{ES17}, except the spectator and diagonal rows, which are computed here (e5-6a).}
+Theorems~17.19--17.24 and Section~10.7 of \cite{ES17} and Theorem~8.1(iii) of \cite{RE}, except the spectator and diagonal rows, which
+are computed here (e5-6a).}
 \label{e5:tab:ladder}
 \end{table}
 
@@ -531,17 +545,17 @@ statement & class & checks\\
 \cref{e5:thm:pair}(iii),(iv): $\so{6,\C}$ does not preserve $M_{\rm pair}$; range $[\half|c|,\infty)$ on each orbit & fixed (Ex.~8.8 of RE restated; transitivity inherited) & e5-1d\\
 \cref{e5:prop:nocommon}: no common Lorentz algebra; $\lG^{(2)}$; $16(\half,\half)$; integer spin under $\lG^\Delta$ & fixed (restated: RE Props.~7.8(iv), 9.1(iii); ES17 Thm~17.20) & e5-2a to e5-2c\\
 \cref{e5:prop:noPS}: no Pati--Salam algebra at $n=2$ & obstructed (dimension count) & e5-3a, 3e, 3h, 3i\\
-\cref{e5:prop:spectator}: binding-compatible $\su2$; kinetic condition; integer isospin, vector-like, anomaly free & fixed (Weyl block restated, ES17 Prop.~10.12; branching inherited) & e5-3a to e5-3d\\
+\cref{e5:prop:spectator}: binding-compatible $\su2$; kinetic condition; integer isospin, vector-like, anomaly free & fixed (Weyl block restated, ES17 Prop.~10.12; branching inherited) & e5-3a to e5-3d, 3j\\
 \cref{e5:prop:diagonal}: $\R C_v$; no canonical kinetic kernel; content, vector-like & fixed ((i) restated, RE Props.~9.1(ii), 7.3) & e5-3e to e5-3g\\
 \cref{e5:prop:mixed}: mixed rung, nothing survives $G_2$; covariant rotors $G^{(2)},J_1$ & fixed (restated: ES17 Props.~13.16, 13.17); rotor $G^{(2)}$ constructed & e5-3h\\
 binding actions: $\lG^{(2)}$ and $\so{2,\C}$ survive & restated (RE Prop.~7.8(iii), Table~8) & e5-3i\\
 \cref{e5:thm:inertia}: inertia freedom at $n=2$; $(2,0)$ at $n=1,2,3$ & fixed (rows 1, 3, 4 restated, RE Sec.~8.2) & e5-4a, e5-4b\\
 \cref{e5:prop:rotorlaw}: rotor law with pair inertias & fixed ((i) restated, ES17 Thm~17.11(ii)) & e5-5a\\
 \cref{e5:prop:Bgeom}: codimension two, connected, one orbit, parts & fixed ((i) restated, RE Thm~8.1(iii)) & e5-5f\\
-\cref{e5:thm:stab}: neutral surface, stable rate, secular frames, $h(0)\neq0$ needed & fixed ((i), (ii) restated) & e5-5b to e5-5e\\
-\cref{e5:prop:exchange}: exchange, $\det\sigma=-1$, balanced iff $w$ exchange-odd & fixed & e5-5g\\
+\cref{e5:thm:stab}: neutral surface, stable rate, secular frames, $h(0)\neq0$ needed, libration drift & fixed ((i), (ii) restated) & e5-5b to e5-5e, 5i\\
+\cref{e5:prop:exchange}: exchange, $\det\sigma=-1$, balanced iff $w$ exchange-odd & fixed & e5-5g, 5j\\
 \cref{e5:prop:carry}: Casimirs, pendulum, half turn, rates, ladder at $n=2$ & (i)--(iii) restated (RE Sec.~4), fixed at $n=2$; (iv), (v) constructed & e5-5h\\
-\cref{e5:tab:ladder}: the ladder $n=1,2,3$ & fixed; $n=3$ mostly restated (ES17 Sec.~17.6) & e5-6a, e5-2a, e5-4b\\
+\cref{e5:tab:ladder}: the ladder $n=1,2,3$ & fixed; $n=3$ mostly restated (ES17 Sec.~17.6) & e5-6a, 6b, 2a, 4b\\
 \cref{e5:sec:ladder}: answer & interpretive (drawn from fixed statements) & ---\\
 \bottomrule
 \end{tabular}
@@ -553,11 +567,13 @@ binding actions: $\lG^{(2)}$ and $\so{2,\C}$ survive & restated (RE Prop.~7.8(ii
 The new entries of \cref{e5:tab:ladder} at $n=1$ and $n=3$ are fixed (e5-6a). At $n=1$, $\Cent(\lint)\cap\so{3,3}=\R J$ meets $\Cent(G)$ in $0$, so the
 binding root leaves no gauge algebra on one constituent. At $n=3$ the compact spectator algebra meets $\Cent(G_3)$ in the $15$ paired rotations of
 constituents $2$ and $3$, which contain the $\so4_\Delta$ of Theorem~17.21 of \cite{ES17}, and the diagonal connection algebra meets it in the three copy
-rotations. In general the binding-compatible parts are $\so{3n-3}$ and $\so n$. The balance condition $F=0$ has codimension two at every rung, because $dF$
+rotations. At every rung the binding-compatible parts are $\so{3n-3}$, the paired rotations of constituents $2,\dots,n$, and $\so n$, the copy
+rotations: the proofs of \cref{e5:prop:spectator}(i) and \cref{e5:prop:diagonal}(i) apply verbatim (fixed; exact at $n=4$, e5-6b). The balance condition $F=0$ has codimension two at every rung, because $dF$
 has rank two at every nonzero point. At $n=1$ it is the null cone and carries no massive datum.
 
-\paragraph{Answer.} \emph{Is $n=2$ a closure rung in its own right?} Yes, in a precise sense (fixed): every structure of the three-constituent
-analysis of \cite{ES17} has a computed $n=2$ analogue, and four of them first appear at $n=2$. The balance surface carries massive constituents at
+\paragraph{Answer.} \emph{Is $n=2$ a closure rung in its own right?} Yes, in a precise sense (interpretive, drawn from the fixed statements cited here):
+every structure of the three-constituent analysis of \cite{ES17} except the two projectors, which exist only at $n=3$, has a computed $n=2$
+analogue, and four of them first appear at $n=2$. The balance surface carries massive constituents at
 an exactly constant rate (Theorem~8.1 of \cite{RE}). The closure symmetry mixes the constituents and does not see their pair invariant
 (\cref{e5:thm:pair}). The closure symmetry compatible with the matter Lorentz algebra is nonzero, and is itself a Lorentz algebra (\cref{e5:prop:nocommon}).
 And the binding root leaves a compact gauge algebra, non-abelian under the spectator action (\cref{e5:prop:spectator}). \emph{What $n=2$ adds to $n=1$} is
