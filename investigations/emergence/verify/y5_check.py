@@ -5,7 +5,7 @@
 
 Independent of verify/e5_closure_two.py (nothing is imported from it).  Prints one 'PASS y5-<id>: ...' line per check
 and exits 0 only if every check passes.  Where the section states something false, the check below tests the
-corrected statement (y5-5f, y5-5g, y5-3c).  numpy, scipy, sympy and mpmath only; runtime well under a minute.
+corrected statement (y5-3e, y5-5e, y5-5g).  numpy, scipy, sympy and mpmath only; runtime well under a minute.
 
 Methods, chosen to differ from the derivation script where possible:
   * exact linear algebra: Gaussian elimination modulo the prime p = 2^31 - 1, rational reconstruction of the null

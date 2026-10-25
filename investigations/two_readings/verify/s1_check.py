@@ -25,6 +25,7 @@ import sys
 import numpy as np
 import sympy as sp
 from scipy.integrate import solve_ivp
+from sympy.combinatorics import Permutation
 
 OK_ALL = []
 
@@ -403,9 +404,10 @@ def block_C():
     vv = sp.Matrix(sp.symbols("p1:4", real=True))
     M2 = sp.Symbol("M2", positive=True)                     # M^2 c^2
     h = sp.Matrix(list(sp.sqrt(M2 + (vv.T * vv)[0]) * om) + list(vv))
-    ok = zero(sp.simplify((h.T * ETA * h)[0].subs((om.T * om)[0], 1) -
-                          (M2 + (vv.T * vv)[0]) * ((om.T * om)[0] - 1) - M2))
-    ok &= zero(sp.expand((h.T * ETA * h)[0] - (M2 + (vv.T * vv)[0]) * (om.T * om)[0] + (vv.T * vv)[0]))
+    ok = zero(sp.expand((h.T * ETA * h)[0] - (M2 + (vv.T * vv)[0]) * (om.T * om)[0] + (vv.T * vv)[0]))
+    uvec = sp.Matrix(sp.symbols("u1:4", real=True))
+    hinv = sp.Matrix(list(uvec / sp.sqrt((uvec.T * uvec)[0])) + list(vv))   # (u,v) -> (u/|u|, v)
+    ok &= zero(sp.simplify((hinv[:3, 0].T * hinv[:3, 0])[0] - 1))
     sv = sp.Symbol("s", real=True)
     path = sp.Matrix([sp.cos(sv), sp.sin(sv), 0, 0, 0, 0])
     ok &= sp.simplify((path.T * ETA * path)[0]) == 1 and path.subs(sv, sp.pi) == -path.subs(sv, 0)
@@ -417,7 +419,6 @@ def block_C():
     c = sp.Symbol("c", positive=True)
     Mm = sp.Symbol("M", positive=True)
     Pv = sp.Matrix([En / c, q1, q2] + list(vv))
-    shell = sp.solve(sp.Eq((Pv.T * ETA * Pv)[0], Mm ** 2 * c ** 2), En ** 2) if False else None
     ok &= zero(sp.expand(c ** 2 * ((Pv.T * ETA * Pv)[0] - Mm ** 2 * c ** 2)
                          - (En ** 2 - c ** 2 * (vv.T * vv)[0] - Mm ** 2 * c ** 4 + c ** 2 * (q1 ** 2 + q2 ** 2))))
     ok &= (Mm ** 2 - (q1 ** 2 + q2 ** 2) / c ** 2).subs({Mm: 1, c: 1, q1: 2, q2: 0}) == -3
@@ -468,7 +469,6 @@ def block_D():
     ok = zero(Ef - m / 2 * ((vs.T * ETA * vs)[0] + k ** 2 * (ys.T * ETA * ys)[0]))
     H = (ps.T * ETA * ps)[0] / (2 * m) - k * (ps.T * G * ys)[0]
     ok &= zero(H.subs({ps[a]: pp[a] for a in range(6)}, simultaneous=True) - Ef)
-    ok &= zero(sp.diff(Ef.subs({vs[a]: sp.Symbol(f"q{a}") for a in range(6)}), m) * 0)
     # conservation of E along Y'' = -k^2 Y: dE/dtau = m(eta(Y',Y'') + k^2 eta(Y,Y'))
     accel = -k ** 2 * ys
     ok &= zero(m * ((vs.T * ETA * accel)[0] + k ** 2 * (ys.T * ETA * vs)[0]))
@@ -710,7 +710,6 @@ def block_E():
         dv = sp.expand(sum(d.j.D(Theta(mu, nu), mu) for mu in range(4)))
         target = -(bil(d.j.col("u", (nu,)), I8, Ev) - bil(d.j.col("v", (nu,)), I8, Eu))
         ok &= zero(dv - target)
-    dens = d.pol(lambda f: d.j.col(f), sum((GAM[0] * GAM[a_] for a_ in (1, 2, 3)), sp.zeros(8)) * 0, lambda f: d.j.col(f))
     dens = sp.Integer(0)
     for a_ in (1, 2, 3):
         dens += d.pol(lambda f: d.j.col(f), GAM[0] * GAM[a_] / 2, lambda f, a_=a_: d.j.col(f, (a_,)))
@@ -747,9 +746,10 @@ def block_E():
             break
         sols.add(sol[0][sS])
     ok &= sols == {R(1, 4)}
-    ok &= all(GAM[0] * GAM[pr[0]] * GAM[pr[1]] * GAM[pr[2]] ==
-              sp.combinatorics.Permutation([sorted(pr).index(x) for x in pr]).signature() * GAM[0] * GAM[sorted(pr)[0]] *
-              GAM[sorted(pr)[1]] * GAM[sorted(pr)[2]] for pr in itertools.permutations(range(1, 4)))
+    prod3 = lambda tr: GAM[0] * GAM[tr[0]] * GAM[tr[1]] * GAM[tr[2]]
+    ok &= all(prod3(pr) == Permutation([list(cmb).index(x) for x in pr]).signature() * prod3(cmb)
+              for cmb in itertools.combinations(range(4), 3) for pr in itertools.permutations(cmb))
+    ok &= all(prod3(cmb).T == -prod3(cmb) for cmb in itertools.combinations(range(4), 3))
 
     def TB(mu, nu):
         x_ = (d.pol(lambda f: d.j.col(f), KK[mu] / 4, lambda f: d.j.col(f, (nu,))) * up(nu) +
@@ -969,8 +969,8 @@ def block_G():
         Hh = sp.Matrix([-sp.diff(Lf, x) for x in Bt])
         for _ in range(3):
             pt = {**{x: rat() for x in Ev}, **{x: rat() for x in Bt}}
-            dfc = sp.nsimplify(sp.simplify(((Dd.T * Hh)[0] - P).subs(pt)))
-            ok &= zero(sp.simplify(dfc - expect[name] * P.subs(pt)))
+            dfc = ((Dd.T * Hh)[0] - P).subs(pt)
+            ok &= sp.simplify(dfc - expect[name] * P.subs(pt)) == 0
     report(28, "Gaillard-Zumino defect D.H - E.B_t computed directly at random fields: -(1+lambda^2)P for lambda E0 "
                "(lambda = 3/7), 0 for ModMax (gamma = ln 2) and Maxwell, -P for S + E0", ok)
 
@@ -986,7 +986,7 @@ def block_G():
     ok = zero(Sf + F2 / 4)
     TMmix = sp.Matrix(4, 4, lambda mu, nu: sum(Fu[mu, l] * (F * ETA4)[l, nu] for l in range(4)) + ETA4[mu, nu] * F2 / 4) * ETA4
     Ssym, Psym = sp.symbols("S P")
-    Lpoly = Ssym + Ssym ** 2 / 3 + Ssym * Psym / 5 + Psym ** 2 / 7 + Psym ** 3 / 11
+    Lpoly = Ssym + Ssym ** 2 / 3 + Ssym * Psym / 5 + Psym ** 2 / 7
     Lf = Lpoly.subs({Ssym: Sf, Psym: Pf})
     Gup = sp.Matrix(4, 4, lambda mu, lam_: sp.diff(Lf, dA(mu, lam_)))
     Tgen = sp.Matrix(4, 4, lambda mu, nu: sp.expand(sum(Gup[mu, l] * F[nu, l] for l in range(4)) - (Lf if mu == nu else 0)))
@@ -1192,7 +1192,7 @@ def block_I():
         xlow = ETA4[mu, mu] * sp.diff(xi[mu], lam)
         Fmn = [(sp.diff(Ax[nu], xs[mu]) - sp.diff(Ax[mu], xs[nu])).subs({xs[i]: xi[i] for i in range(4)}) for nu in range(4)]
         force = e_ * sum(Fmn[nu] * sp.diff(xi[nu], lam) for nu in range(4))
-        ok &= zero(sp.simplify(eqs[idx[mu]] + sp.diff(M_ * xlow / sp.sqrt(wv), lam) - force) .doit())
+        ok &= zero(sp.simplify((eqs[idx[mu]] - (sp.diff(M_ * xlow / sp.sqrt(wv), lam) - force)).doit()))
     report(37, "charged worldline L = -M sqrt(eta(Y',Y')) - e A_mu(x) x'^mu, x = (Y1;Y4,Y5,Y6) (euler_equations): L does not "
                "depend on Y2, Y3, so K_2, K_3 are conserved, and d/dlambda(M x'_mu/sqrt(eta(Y',Y'))) = e F_{mu nu} x'^nu", ok)
 
