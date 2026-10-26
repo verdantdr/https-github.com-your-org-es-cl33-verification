@@ -932,6 +932,29 @@ def _():
     return ok
 
 
+@claim("e3-4f", "Fock form of the copy rotations (exact, n = 2, 3, 4): C^{kl} = sum_i (a+_(k,i) a-_(l,i) - a+_(l,i) a-_(k,i)), the "
+       "antisymmetrised gl(n) generator on the copy index of the 3n modes (the so(n) of Howe's skew duality on "
+       "Lambda(C^n (x) C^3)); C^{kl} a+_(l,i)|0> = a+_(k,i)|0>, and every C^{kl} commutes with N")
+def _():
+    ok = True
+    for n in (2, 3, 4):
+        E, _ = tower(n)
+        C = copy_rot2(n)                                                    # 2 C^{kl}
+        ap = {(k, i): E[(k, i)] + E[(k, i + 3)] for k in range(1, n + 1) for i in (1, 2, 3)}   # 2 a+
+        am = {(k, i): E[(k, i)] - E[(k, i + 3)] for k in range(1, n + 1) for i in (1, 2, 3)}   # 2 a-
+        Nm = ss.diags(number_diag(n), dtype=np.int64).tocsr()
+        vac = np.zeros(8 ** n, dtype=np.int64)
+        vac[0] = 1
+        ok &= number_diag(n)[0] == 0
+        for (k, l), X in C.items():
+            F = sum(ap[(k, i)] @ am[(l, i)] - ap[(l, i)] @ am[(k, i)] for i in (1, 2, 3))      # 4 x Fock form
+            ok &= seq(2 * X, F)
+            ok &= seq(X @ Nm, Nm @ X)
+            for i in (1, 2, 3):
+                ok &= np.array_equal(X @ (ap[(l, i)] @ vac), 2 * (ap[(k, i)] @ vac))          # 2C (2a+) = 2 (2a+)
+    return ok
+
+
 # ============================================================================== section 5: the symmetric group
 @claim("e3-5a", "Koszul swaps (exact, n = 3, 4): tau_k = 1..(x) tau_K (x)..1 satisfy tau_k^2 = 1, (tau_k tau_(k+1))^3 = 1 and "
        "tau_k tau_l = tau_l tau_k for |k-l| > 1, so they define an action of S_n on S_n; tau_k E_(j,a) tau_k = E_(s_k j, a); "
@@ -1131,6 +1154,57 @@ def _():
                 ok &= seq(C4 @ R, 6 * R)
             if n == 4:
                 ok &= seq(C4 @ R, 0 * R)
+    return ok
+
+
+@claim("e3-5e", "Koszul exchange sectors never empty (exact, signed permutations, n = 1..5; relations tau_k^2 = 1, (tau_k tau_(k+1))^3 = 1, "
+       "far commutation re-checked at n = 5; tau_k|0> = -|0> for the Fock vacuum, so tau_sigma = sgn(sigma) Lambda(sigma)): the Koszul-symmetric and Koszul-antisymmetric parts of S_n both have dimension "
+       "sum_k binom(n-k+3,3) binom(4,k) = 8, 32, 88, 192, 360 (super-symmetric and super-exterior powers of S = R^(4|4), "
+       "omega = parity), against 2 binom(4,n) = 8, 12, 8, 2, 0 for the antisymmetric part of W_n under plain permutations")
+def _():
+    ok = True
+    sp_tau = SP.from_dense(tauK)
+    for n in (1, 2, 3, 4, 5):
+        d = 8 ** n
+        Iden = SP.ident(d)
+        gens = []
+        for k in range(1, n):
+            M = SP.ident(8 ** (k - 1)) if k > 1 else None
+            M = sp_tau if M is None else M.kron(sp_tau)
+            if n - k - 1 > 0:
+                M = M.kron(SP.ident(8 ** (n - k - 1)))
+            gens.append(M)
+        for t in gens:                                   # the Koszul swaps send the Fock vacuum |0> (first basis vector) to -|0>
+            ok &= t.p[0] == 0 and t.s[0] == -1
+        if n == 5:
+            for k, t in enumerate(gens):
+                ok &= (t @ t) == Iden
+                if k + 1 < len(gens):
+                    x = t @ gens[k + 1]
+                    ok &= (x @ x @ x) == Iden
+                for t2 in gens[k + 2:]:
+                    ok &= (t @ t2) == (t2 @ t)
+        # all n! group elements by breadth-first search in the Cayley graph (consistent because the relations hold)
+        elems = {tuple(range(n)): (Iden, 1)}
+        frontier = [tuple(range(n))]
+        while frontier:
+            new = []
+            for p in frontier:
+                M, s = elems[p]
+                for k, t in enumerate(gens):
+                    q = list(p)
+                    q[k], q[k + 1] = q[k + 1], q[k]
+                    q = tuple(q)
+                    if q not in elems:
+                        elems[q] = (M @ t, -s)
+                        new.append(q)
+            frontier = new
+        ok &= len(elems) == math.factorial(n)
+        tr_triv = sum(M.trace() for M, s in elems.values())
+        tr_sign = sum(s * M.trace() for M, s in elems.values())
+        want = sum(math.comb(n - k + 3, 3) * math.comb(4, k) for k in range(0, min(n, 4) + 1))
+        ok &= Fraction(tr_triv, math.factorial(n)) == want and Fraction(tr_sign, math.factorial(n)) == want
+        ok &= want == [8, 32, 88, 192, 360][n - 1]
     return ok
 
 

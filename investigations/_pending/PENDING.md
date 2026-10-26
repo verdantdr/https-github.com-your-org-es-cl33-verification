@@ -17,8 +17,8 @@ applied are in `findings/`.
 
 1. ~~**Two readings, track r4 (bridge T=nJ(n))**~~ — done 26 October: referee applied 15 corrections (`findings/s4_findings.md`); `r4_bridge.py` 25 PASS, `s4_check.py` 24 PASS; note rebuilt (50 pp.).
 2. ~~**Emergence, track e6**~~ — done 26 October: referee applied 14 corrections (`findings/y6_findings.md`); `e6_bfield_triples.py` 33 PASS, `y6_check.py` 33 PASS.
-3. **Emergence, tracks e3 (ladder) and e4 (b-field up the ladder)**: scripts exist (`e3_ladder.py` 20 PASS; `e4_bfield_ladder.py` partial);
-   the section texts are not written. Resume: `prompts/derive_e3.txt`, `prompts/derive_e4.txt`.
+3. **Emergence, tracks e3 (ladder) and e4 (b-field up the ladder)**: e3 section written 26 October (`e3_ladder.tex`, `e3_ladder.py` 22 PASS;
+   not yet refereed); e4 in progress (`e4_bfield_ladder.py`). Resume e4: `prompts/derive_e4.txt`; then referees (`prompts/check_e3.txt`, `check_e4.txt`).
 4. **Emergence, track e7 (classical physics: astronomy, cosmology)**: partial script `e7_classical.py`; no section. Resume:
    `prompts/derive_e7.txt`.
 5. **Emergence, referees for e1 and e2**: partial independent scripts `y1_check.py`, `y2_check.py`, findings `findings/y1_findings.md`.
@@ -38,5 +38,7 @@ applied are in `findings/`.
   in `prompts/` here, and the findings under `scratchpad/wf/` are in `findings/`.
 - The two-readings `references.tex` now contains the merged entries of `bib_r1`–`bib_r4`; a new track must add only new keys.
 - The emergence and photon notes still keep their references in `bib_*.tex` files; merge them (each key once) before a final build.
+- Sign convention to harmonise in the emergence note: e1, e3 and RE use C_b = C^{12} = +(1/2) sum_a eta_aa E_(1,a)E_(2,a); e2 and e6 use the
+  opposite sign, and e6 also calls it C_b. Rename or align before the final build.
 - The author's instruction for the field reading: `X_EM = (B,E)` is the pair labelling the six components of the field two-form,
   never a sum `E + B`.

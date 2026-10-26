@@ -1,0 +1,506 @@
+% Track e3 -- Up the ladder: the rung Cl(3n,3n).
+% Verification: investigations/emergence/verify/e3_ladder.py (claims e3-1a ... e3-6c).
+% New references: sections/bib_e3.tex (Howe89). Also cited: Chevalley54, LawsonMichelsohn89, Pauli40, WeinbergQFT (bib_e1.tex),
+% EhrenfestOppenheimer31 (bib_e2.tex).
+\section{Up the ladder}
+\label{e3:sec:main}
+
+\Cref{e1:sec:main,e2:sec:main} treat the second rung. This section treats the rung $\Cl(3n,3n)$ for every $n$ and the step from $n$ to
+$n+1$. The question is the same as at $n=2$: in what precise sense, and under which added structures, does rung $n$ carry $n$ particles
+rather than one particle with a larger internal space, and what changes from one rung to the next. The answers, with their classes, are
+these. (1) $\Cl(3n,3n)=M_{8^n}(\R)$ at every rung. The step embeds rung $n$ in rung $n+1$ with multiplicity eight and adds three Fock
+modes, one frame and one copy direction; the commuting copy of the new constituent is its generators dressed by the volume element of
+rung $n$ (fixed; \cref{e3:sec:rung}). (2) For $n$ equal masses the graded rest Hamiltonian is one clock of mass $\sqrt n\,m$, and the
+ungraded one is $n$ clocks of mass $m$, with spectrum $m(n-2j)$ of multiplicity $\binom nj4^n$ (fixed, partly restated from
+\cref{e1:prop:rest}; \cref{e3:sec:mass}). (3) A rotation through $2\pi$ of the diagonal interior Lorentz action is $(-1)^n$ on $S_n$, and one
+of the diagonal field-strength action is $+\id$. The interior composite is a fermion exactly at odd $n$, and the field-strength composite
+has integer spin at every rung (restated from Proposition~10.9 of \cite{ES17}, with the second half fixed; \cref{e3:sec:spin}). (4) On vectors
+the copy rotations of all six directions span the commutant of the diagonal $\so{3,3}$, and the copy group $O(n)$ has the diagonal $\so{3,3}$
+as its commutant. On $S_n$ the Casimirs satisfy $C_{\rm cop}+C_{\rm diag}=\tfrac34n(n+4)$. This is Howe's skew duality $(O(n),\so6)$ on the spinor module of $\so{6n}$, and at
+$n=2,3$ the joint decomposition has the predicted multiplicity-free form (fixed; the duality inherited; \cref{e3:sec:dual}). (5) The Koszul
+swaps realise the permutation matrices of that $O(n)$, twisted by the sign character. Their symmetric and antisymmetric sectors are mirror images, of equal dimension and
+never empty. The plain permutations of the common complex space give $\Lambda^n_\C$ of the Dirac module, which vanishes for $n\ge5$ (fixed;
+the exterior powers inherited; \cref{e3:sec:sym}). (6) The algebra singles out no rung, and its invariant forms single out only the parity of $n$, through a period of four. Odd rungs are
+singled out by the interior Lorentz action, even rungs by the binding action, and $n=3$ by the projector $P_*$ (restated and fixed; \cref{e3:sec:table}). (7) Going up the ladder
+enlarges one particle; it becomes the addition of a particle only through the constructed structures of \cref{e1:sec:main}, now needed at every
+rung (interpretive, drawn from the fixed statements; \cref{e3:sec:answer}). Identifiers e3-$n$ refer to the \texttt{PASS} lines of
+\texttt{verify/e3\_ladder.py} (\cref{e3:tab:claims}).
+
+\paragraph{Notation.} As in \cref{e1:sec:main}: $S=\R^8$, $S_n=S^{\otimes n}$, $E_{(k,a)}=\omega^{\otimes(k-1)}\otimes e_a\otimes\id^{\otimes(n-k)}$, and
+$V_n=\R^n\otimes V=\R^{3n,3n}$ with $\eta_n=\id_n\otimes\eta$ and $G_n=\id_n\otimes G$. $\Gamma^{(k)}=E_{(k,1)}\cdots E_{(k,6)}=\id\otimes\cdots\otimes\omega\otimes\cdots\otimes\id$ is the
+volume element of constituent $k$, and $\Gamma_n=\Gamma^{(1)}\cdots\Gamma^{(n)}$. The ungraded generators are
+$u_{(k,a)}=\id^{\otimes(k-1)}\otimes e_a\otimes\id^{\otimes(n-k)}$, $J^{(k)}=E_{(k,2)}E_{(k,3)}$, and $a^\pm_{k,i}=\half(E_{(k,i)}\pm E_{(k,i+3)})$, $N=\sum_{k,i}a^+_{k,i}a^-_{k,i}$
+(Proposition~7.2 of \cite{RE}); $|0\rangle$ is the first basis vector of $S_n$, the Fock vacuum. The diagonal generators are
+$\Delta_{ab}=\half\sum_kE_{(k,a)}E_{(k,b)}$. All fifteen span the \emph{diagonal} $\so{3,3}$; those with $a,b\in\{1,4,5,6\}$ span the diagonal $\lint$; and the
+paired rotations $\Delta_{ij}-\Delta_{i+3,j+3}$ and paired boosts $\Delta_{i,j+3}-\Delta_{j,i+3}$ span the diagonal $\lG$ (Theorem~12.1 of \cite{ES17}). The
+copy rotations are $C^{kl}=\half\sum_a\eta_{aa}E_{(k,a)}E_{(l,a)}$ for $k<l$, with $C^{12}=C_b$ of Proposition~7.3(ii) of \cite{RE}, and $M_{kl}$ are their
+interior parts (Section~10.1 of \cite{ES17}). The Casimirs are $C_{\rm diag}=-\sum_{a<b}\eta^{aa}\eta^{bb}\Delta_{ab}^2$ over all six directions,
+$C_\Delta$ the same over the interior four (Section~10.2 of \cite{ES17}), $C_G=-\sum_iL_i^2+\sum_iK_i^2$ for the paired rotations $L_i$ and boosts
+$K_i$ of $\lG$, $C_{\rm cop}=-\sum_{k<l}(C^{kl})^2$ and $C^{\rm int}_{\rm cop}=-\sum_{k<l}M_{kl}^2$. A Lorentz Casimir takes the value
+$2[j_L(j_L+1)+j_R(j_R+1)]$ on $(j_L,j_R)$. We write $\mathfrak S_n$ for the symmetric group, to keep $S_n$ for the module.
+
+\subsection{The rung and the step}
+\label{e3:sec:rung}
+
+\begin{proposition}[The rung and the step]
+\label{e3:prop:rung}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item Every blade of $\Cl(3n,3n)$ other than $\pm\id$ is traceless on $S_n$. Hence the $64^n$ blades are linearly independent and
+$\Cl(3n,3n)\cong M_{8^n}(\R)$, with $S_n$ its unique irreducible module. The volume element is $E_{(1,1)}\cdots E_{(n,6)}=\Gamma_n=\omega^{\otimes n}$, and
+$(-1)^N=(-1)^n\Gamma_n$.
+\item $E^{(n+1)}_{(k,a)}=E^{(n)}_{(k,a)}\otimes\id$ for $k\le n$ and $E_{(n+1,a)}=\Gamma_n\otimes e_a$. So $\Cl(3n,3n)\otimes\id\subset\Cl(3n+3,3n+3)$, and
+$S_{n+1}$ restricted to $\Cl(3n,3n)$ is eight copies of $S_n$. The commutant of $\Cl(3n,3n)\otimes\id$ is $\id\otimes M_8(\R)$, generated by the
+ungraded generators $\id\otimes e_a=(\Gamma_n\otimes\id)E_{(n+1,a)}$ of the new constituent.
+\item $N_{n+1}=N_n\otimes\id+\id\otimes N_1$, $\spec N_n=\{0,\dots,3n\}$ with multiplicities $\binom{3n}j$, and $[N,E_{(k,i)}]=E_{(k,i+3)}$,
+$[N,E_{(k,i+3)}]=E_{(k,i)}$. Each step adds three modes.
+\item Every diagonal bivector satisfies $\sum_{k\le n+1}E_{(k,a)}E_{(k,b)}=\bigl(\sum_{k\le n}E_{(k,a)}E_{(k,b)}\bigr)\otimes\id+\id\otimes e_ae_b$. Hence
+$S_{n+1}\cong S_n\otimes S$ and $S_n\cong S^{\otimes n}$ as modules of the diagonal $\so{3,3}$, and so of the diagonal $\lint$ and $\lG$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) Moving the generators of each constituent to their own factor gives $e_I=\pm\bigotimes_je_{I_j}\omega^{p_j}$ with $p_j=|I_{j+1}|+\cdots+|I_n|$ mod $2$, and
+the trace is multiplicative. On $S$, $\tr(e_J\omega^p)\ne0$ only for $(J,p)=(\emptyset,0)$ and for $J$ the full index set with $p=1$. The last
+factor has $p_n=0$, so a nonzero trace needs $I_n=\emptyset$; then $p_{n-1}=0$, and so on, down to $I=\emptyset$. Trace orthogonality gives
+independence, and $64^n=(8^n)^2$. The volume element is $\prod_k\Gamma^{(k)}$ because $\prod_aE_{(k,a)}=(\omega^{\otimes(k-1)})^6\otimes\omega\otimes\id$. On one
+constituent $(-1)^N=-\omega$ (Proposition~7.2 of \cite{RE}), and $N=\sum_kN^{(k)}$. (ii) The formulas are equation~(2) of \cite{ES17} at rungs $n$
+and $n+1$. The commutant of $M_{8^n}(\R)\otimes\id$ in $M_{8^{n+1}}(\R)$ is $\id\otimes M_8(\R)$, and $\Gamma_n^2=\id$. (iii) $N=\sum_{k,i}\half(\id-E_{(k,i)}E_{(k,i+3)})$,
+the terms are commuting diagonal involutions with traceless products, and the commutators are those of Proposition~7.2 of \cite{RE}. (iv)
+$E_{(n+1,a)}E_{(n+1,b)}=\Gamma_n^2\otimes e_ae_b=\id\otimes e_ae_b$.
+\end{proof}
+
+Part (i) is fixed in the realisation (e3-1a, exhaustive over all $64^n$ blades at $n\le4$). That $\Cl(p,q)\cong M_{2^{(p+q)/2}}(\R)$ for $p-q\equiv0\pmod8$
+is inherited \cite{LawsonMichelsohn89}: the real structure of the algebra is the same at every rung, so it singles out none. Parts (ii) and
+(iii) restate Propositions~7.1 and~7.2 of \cite{RE} and \cref{e1:prop:copies}(ii),(v) at the last factor (e3-1b, with the commutant
+exhaustive over blades at $n=1,2$; e3-1c, spectrum also at $n=5$). Part (iv) is fixed (e3-6c, $n\le3$). Under (iv) every statement about the
+diagonal action is a statement about tensor powers of the one-constituent module, and the step is tensoring with $S$.
+
+\subsection{Mass up the ladder: one clock or \texorpdfstring{$n$}{n} clocks}
+\label{e3:sec:mass}
+
+Put $H_g=m\sum_kE_{(k,1)}$, built from the vectors of the rung, and $H_u=m\sum_ku_{(k,1)}$, built from the commuting copies.
+
+\begin{proposition}[Mass up the ladder]
+\label{e3:prop:mass}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item The $E_{(k,1)}$ are pairwise anticommuting traceless involutions. So $H_g^2=nm^2\id$ and $\spec H_g=\{\pm\sqrt n\,m\}$, each of multiplicity
+$8^n/2$. Every $J^{(k)}$ commutes with $H_g$, and $Z_g=J^{(1)}H_g$ satisfies $Z_g^2=-nm^2\id$: the rest flow $e^{-\lambda Z_g}$ is one clock of
+angular frequency $\sqrt n\,m$.
+\item The ungraded generators are $u_{(k,a)}=\Gamma^{(1)}\cdots\Gamma^{(k-1)}E_{(k,a)}$, with no further sign. The $u_{(k,1)}$ commute, square to $\id$, and
+every product over a nonempty subset is traceless. So $\spec H_u=\{m(n-2j):j=0,\dots,n\}$, the value $m(n-2j)$ with multiplicity $\binom nj4^n$.
+\item $T^{(k)}_u=J^{(k)}u_{(k,1)}=\id\otimes\cdots\otimes T\otimes\cdots\otimes\id$ are $n$ commuting complex structures: $n$ clocks of angular frequency $m$.
+\item $H_g^{(n+1)}=H_g^{(n)}\otimes\id+\Gamma_n\otimes me_1$ with anticommuting summands, and $H_u^{(n+1)}=H_u^{(n)}\otimes\id+\id\otimes me_1$ with commuting
+summands. The graded mass grows in quadrature, $\sqrt n\,m\to\sqrt{n+1}\,m$, and the ungraded energies add.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) Graded generators of distinct constituents anticommute, and each $E_{(k,1)}$ is traceless because $\tr e_1=0$. $J^{(k)}$ is a bivector sharing no
+index with any $E_{(l,1)}$, so it commutes with each (equation~(3) of \cite{ES17}), and $(J^{(k)})^2=-\id$. (ii) $\Gamma^{(1)}\cdots\Gamma^{(k-1)}=\omega^{\otimes(k-1)}\otimes\id$ and $\omega^2=\id$, so the
+product is $\id^{\otimes(k-1)}\otimes e_a\otimes\id$. Products of the $u_{(k,1)}$ are tensor products of factors $e_1$ and $\id$, traceless unless all
+factors are $\id$. Commuting involutions whose nonempty products are traceless have all $2^n$ joint signs with equal multiplicity $8^n/2^n=4^n$, and $j$ minus signs give
+$m(n-2j)$. (iii) $J\,e_1=e_2e_3e_1=T$ on the $k$th factor. (iv) \Cref{e3:prop:rung}(ii); $\Gamma_n$ anticommutes with every generator of $\Cl(3n,3n)$.
+\end{proof}
+
+At general masses (i) and (ii) are \cref{e1:prop:rest}(vi), restated; the multiplicities, the clocks (iii) and the step (iv) are fixed
+(e3-2a and e3-2b, exact over signed permutations at $n\le5$, eigenvalue counts in floating point at $n\le3$; e3-6c). At $n=2$, (i) is the
+Dirac duplication of Proposition~8.11(iv) of \cite{RE}. So rung $n$ read through its vectors carries one Dirac mass, $\sqrt n\,m$, along the unit
+vector $n^{-1/2}\sum_kE_{(k,1)}$ of $\R^{3n,3n}$, with one clock; read through its commuting copies it carries $n$ masses $m$ with $n$ clocks and
+threshold $nm$. The quadrature is the statement that the copies of the graded tower are directions of one momentum space (\cref{e1:sec:rest}).
+
+\subsection{Spin parity}
+\label{e3:sec:spin}
+
+Let $R_n=\half\sum_kE_{(k,4)}E_{(k,5)}$, the rotation about the third axis of the diagonal $\lint$, and
+$L_n=\half\sum_k\bigl(E_{(k,1)}E_{(k,2)}-E_{(k,4)}E_{(k,5)}\bigr)$, the paired rotation of the $(1,2)$ and $(4,5)$ planes in the diagonal $\lG$. Both
+generate rotations of period $2\pi$ on vectors.
+
+\begin{proposition}[Spin parity up the ladder]
+\label{e3:prop:spin}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item $R_n$ is a sum of $n$ commuting terms $\half b_k$ with $b_k^2=-\id$. Hence $e^{2\pi R_n}=(-1)^n\id$, and the eigenvalues of $2R_n$ are $i$ times
+integers congruent to $n$ modulo $2$. Under the diagonal $\lint$ the whole of $S_n$ has half-integer spin for odd $n$ and integer spin for even
+$n$. The Casimir spectra are
+\[
+\begin{array}{@{}ll@{}}
+n=1: & C_\Delta=\tfrac32\,(8),\\
+n=2: & 0\,(8),\ 3\,(32),\ 4\,(24),\\
+n=3: & \tfrac32\,(160),\ \tfrac{11}2\,(288),\ \tfrac{15}2\,(64),\\
+n=4: & 0\,(160),\ 3\,(1024),\ 4\,(864),\ 8\,(864),\ 9\,(1024),\ 12\,(160),
+\end{array}
+\]
+where the values $0,\tfrac32,3,4,\tfrac{11}2,8,\tfrac{15}2,9,12$ are those of $(0,0)$, $(\half,0)\oplus(0,\half)$, $(\half,\half)$, $(1,0)\oplus(0,1)$, $(1,\half)\oplus(\half,1)$, $(1,1)$, $(\tfrac32,0)\oplus(0,\tfrac32)$,
+$(\tfrac32,\half)\oplus(\half,\tfrac32)$ and $(2,0)\oplus(0,2)$.
+\item $L_n$ commutes with $G_n$ on vectors and is a sum of $2n$ commuting terms $\pm\half b$ with $b^2=-\id$. Hence $e^{2\pi L_n}=+\id$ at every rung. The
+diagonal $\lG$ has Casimir $C_G=3$ on all of $S$; $0,4,8$ on $4,24,36$ dimensions at $n=2$; and $3,9,15$ on $128,256,128$ at $n=3$: the content of
+$(\half,\half)^{\otimes n}$, integer spin at every rung.
+\item The central element $-\id$ of $\mathrm{Spin}(3,3)$, which is $e^{\pi e_4e_5}=e^{\pi e_1e_2}$ on $S$, acts on $S_n$ through the diagonal
+$\mathrm{Spin}(3,3)$ as $(-1)^n$. The rotation through $2\pi$ of $\lint$ is this element, and that of $\lG$ is not.
+\item For the actions of Theorem~10.8 of \cite{ES17}, with $\lint$ on $k_I$ constituents, $\lG$ on $k_B$ and trivially on the rest, the rotation
+through $2\pi$ is $(-1)^{k_I}$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) $(E_{(k,4)}E_{(k,5)})^2=-E_{(k,4)}^2E_{(k,5)}^2=-\id$, and bivectors of distinct constituents share no index and commute. So
+$e^{2\pi R_n}=\prod_k(\cos\pi+b_k\sin\pi)$. Each listed value of $2[j_L(j_L+1)+j_R(j_R+1)]$ is attained by exactly one unordered pair $(j_L,j_R)$, which identifies the
+modules. (ii) $e_ie_j-e_{i+3}e_{j+3}$ commutes with $G$ (Proposition~7.8(i) of \cite{RE}). The $2n$ terms share no index, and
+$e^{2\pi L_n}=\prod_k(-\id)(-\id)$. By \cref{e3:prop:rung}(iv), $S_n\otimes\C\cong(S\otimes\C)^{\otimes n}=2^n(\half,\half)^{\otimes n}$ under the diagonal $\lG$,
+since $S\otimes\C=2(\half,\half)$ (Proposition~13.12 of \cite{ES17}); the Clebsch--Gordan series gives the listed values. (iii) The diagonal
+$\mathrm{Spin}(3,3)$ acts on $S^{\otimes n}$ by $g\mapsto g^{\otimes n}$ (\cref{e3:prop:rung}(iv)). $e^{2\pi\cdot\frac12e_4e_5}$ is $-\id$, while the double
+rotation $e^{2\pi\cdot\frac12(e_1e_2-e_4e_5)}=e^{\pi e_1e_2}e^{-\pi e_4e_5}$ is $+\id$. (iv) Products of the factors of (i) and (ii) over the respective
+constituents.
+\end{proof}
+
+Part (i) restates Proposition~10.9 and Proposition~10.10(i) of \cite{ES17} (fixed there), with the element and the spectra re-verified (e3-3a,
+exact at $n\le5$; e3-3c, floating-point spectra at $n\le4$). Part (ii) extends Proposition~13.12 of \cite{ES17} from $n=1$ to every rung and is
+fixed (e3-3b, e3-3c). Part (iii) is fixed (e3-3b), and (iv) restates Proposition~10.9 of \cite{ES17}. The parity of (i) is the
+Ehrenfest--Oppenheimer rule, a composite of $n$ spin-$\half$ particles is a fermion iff $n$ is odd (inherited \cite{EhrenfestOppenheimer31}).
+The rule holds equally for one particle whose internal space is the $n$-fold tensor product of spinors. So the spin parity does not decide
+between one particle and $n$. Under the field-strength reading it does not arise: every rung carries integer spin, $\mathrm{Spin}(3,3)\cong SL(4,\R)$
+restricted to $\lG$ integrates to $SO^+(1,3)$ on every $S_n$, and the diagonal $\lG$ composite is a boson at every rung.
+
+\begin{remark}[Comparison with Theorem~13.15 of \cite{ES17}]
+\label{e3:rem:copyparity}
+Theorem~13.15 of \cite{ES17} says that a copy-invariant four-vector in $\Lambda^g(\R^n\otimes\R^{1,3})$ needs $n$ odd and $g$ odd, $n\le g\le3n$. The
+statement concerns the algebra and (i) concerns the module, and they are logically independent. Both are products over the $n$ constituents:
+in (i) each constituent contributes a factor $-1$ to the $2\pi$ rotation, and in the theorem the copy invariant of odd grade needs the
+Levi-Civita symbol of $SO(n)$ with its $n$ indices. They meet on the Dirac block. At odd $n$ the module contains spin $\half$, and at $n=3$ the
+copy-singlet four-vector $Q_\mu$ of grade three builds a gauge-invariant $\Cl(1,3)$ on that block (Theorem~10.6 of \cite{ES17}). The check e3-6b
+re-verifies that $Q_\mu$ commutes with the interior copy rotations $M_{kl}$ and satisfies $[\Delta_{ab},Q_c]=\eta_{bc}Q_a-\eta_{ac}Q_b$, and that the $n=2$
+analogue $\sum_\nu\eta_{\nu\nu}(\gamma^{(1)}_\mu\gamma^{(2)}_\nu+\gamma^{(1)}_\nu\gamma^{(2)}_\mu)$ commutes with $M_{12}$ but is not a vector. At even $n$ there is
+neither a fermion to carry gamma matrices nor a copy-invariant four-vector to build them. Under the diagonal $\lG$ neither statement has
+an analogue: the spin is integral at every rung, and grade one is $n[(1,0)\oplus(0,1)]$, $n$ field strengths and no four-vector (Section~13.5
+of \cite{ES17}). The juxtaposition is interpretive; the facts are restated and fixed.
+\end{remark}
+
+\subsection{A dual pair up the ladder}
+\label{e3:sec:dual}
+
+\begin{theorem}[The copy algebra and the diagonal $\so{3,3}$]
+\label{e3:thm:dual}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item On vectors, the commutant of the diagonal $\so{3,3}$ in $\so{3n,3n}$ is $\so n\otimes\id_6$, of dimension $\binom n2$, spanned by the vector
+actions of the $C^{kl}$. The commutant of $\so n\otimes\id_6$ together with the copy permutations is $\id_n\otimes\so{3,3}$ for $n\ge2$; that of
+$\so n\otimes\id_6$ alone has dimension $36$ at $n=2$ and $15$ for $n\ge3$. The weights $\eta_{aa}$ are forced: $\sum_aE_{(k,a)}E_{(l,a)}$ does not commute
+with the diagonal $\so{3,3}$.
+\item On $S_n$, $C^{kl}$ is the spin lift of $(e_ke_l^{\!\top}-e_le_k^{\!\top})\otimes\id_6$: $[C^{kl},E_{(l,a)}]=E_{(k,a)}$ and $[C^{kl},E_{(k,a)}]=-E_{(l,a)}$. The
+$C^{kl}$ commute with the fifteen $\Delta_{ab}$ and close on $\so n$, with $[C^{kl},C^{lm}]=C^{km}$. Each is a sum of six commuting terms of square
+$-\tfrac14$, so $e^{2\pi C^{kl}}=\id$. In Fock form
+\[
+C^{kl}=\sum_{i=1}^3\bigl(a^+_{k,i}a^-_{l,i}-a^+_{l,i}a^-_{k,i}\bigr),\qquad C^{kl}a^+_{l,i}|0\rangle=a^+_{k,i}|0\rangle,
+\]
+so the copy algebra conserves $N$ and moves quanta between constituents.
+\item As operators on $S_n$,
+\[
+C_{\rm cop}+C_{\rm diag}=\tfrac34\,n(n+4)\,\id,
+\]
+that is $\tfrac{15}4,9,\tfrac{63}4,24,\tfrac{135}4,\tfrac{81}2$ at $n=1,\dots,6$. The interior identity of Theorem~10.4 of \cite{ES17},
+$C^{\rm int}_{\rm cop}+C_\Delta=\half n(n+2)\,\id$, holds at every $n$. Both constants are $nd(d+n-2)/8$, at $d=6$ and $d=4$.
+\item At $n=2$ the commutant of the diagonal $\so{3,3}$ in $M_{64}(\R)$ has dimension $14$ and is spanned by the words in $C^{12}$ and the Koszul
+swap $\tau_K$, with $C^{12}\tau_K=-\tau_KC^{12}$: it is the image of the group algebra of $O(2)$. The words in $C^{12}$ alone span $7$ dimensions.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(i) $V=\R^{3,3}$ is absolutely irreducible under $\so{3,3}$, so by Schur's lemma the commutant of $\id_n\otimes\so{3,3}$ in $\End(\R^n\otimes V)$ is
+$\End(\R^n)\otimes\id_6$. An element $A\otimes\id_6$ is $\eta_n$-antisymmetric iff $A^{\!\top}=-A$. Conversely, $\R^n$ is absolutely irreducible under
+the group generated by $SO(n)$ and the permutation matrices for $n\ge2$, and under $\so n$ alone for $n\ge3$; at $n=2$ the commutant of $\so2$
+is $\operatorname{span}\{\id,\varepsilon\}$, which adds $\varepsilon\otimes\mathrm{Sym}_\eta(V)$, of dimension $21$. The unweighted sum lifts
+$(e_ke_l^{\!\top}-e_le_k^{\!\top})\otimes\eta$, and $\eta$ does not commute with the boosts. (ii) The spin lift $\sigma(X)=\tfrac14\sum_{A,B}X_{AB}\eta_{BB}E_AE_B$
+satisfies $[\sigma(X),E_C]=\sum_AX_{AC}E_A$ and is a Lie algebra homomorphism; the vector matrices commute by (i). The six terms
+$\half\eta_{aa}E_{(k,a)}E_{(l,a)}$ share no index, and $(E_{(k,a)}E_{(l,a)})^2=-\eta_{aa}^2\id$. For the Fock form substitute
+$E_{(k,i)}=a^+_{k,i}+a^-_{k,i}$, $E_{(k,i+3)}=a^+_{k,i}-a^-_{k,i}$: $C^{kl}=\sum_i(a^+_{k,i}a^-_{l,i}+a^-_{k,i}a^+_{l,i})$, and $a^-_{k,i}a^+_{l,i}=-a^+_{l,i}a^-_{k,i}$ for
+$k\ne l$ by the CAR of Proposition~7.2 of \cite{RE}. (iii) The proof of Theorem~10.4 of \cite{ES17} uses neither $d=4$ nor the signature of the
+interior: with $B^{kl}_{ab}=E_{(k,a)}E_{(k,b)}E_{(l,a)}E_{(l,b)}$ it gives $C_{\rm diag}=\tfrac{nd(d-1)}8-\half\mathsf S$ and $C_{\rm cop}=\binom n2\tfrac d4+\half\mathsf S$
+with the same cross term $\mathsf S=\sum_{k<l}\sum_{a<b}\eta^{aa}\eta^{bb}B^{kl}_{ab}$. At $d=6$ the constant is $\tfrac{15n}4+\tfrac{3n(n-1)}2=\tfrac34n(n+4)$.
+(iv) Computed: the nullity of $\sum_X\ad_X^{\!\top}\ad_X$ over the fifteen generators, and the rank of the words.
+\end{proof}
+
+Part (i) is fixed (e3-4a, exact over $\Q$ at $n\le5$); at $n=3$ its interior analogue is Theorem~10.2 of \cite{ES17}. Part (ii) restates
+Proposition~7.3(ii) of \cite{RE} at $n=2$ and Proposition~9.6(i) of \cite{RE}, and is fixed at $n\le4$ (e3-4b, e3-4f); the Fock form at $n=2$ is
+\cref{e2:prop:hop}(i) with the opposite orientation. Part (iii) is fixed: the constant $\tfrac34n(n+4)$ is new, and the identity was checked exactly
+as matrices on $S_n$ at $n\le4$ and blade by blade in the abstract Clifford algebra at $n\le6$; the interior identity is restated and checked in
+the same two ways (e3-4c). Part (iv) is fixed (e3-4e; nullity in floating point with gap $>1$, rank exact). The $\eta$-weighting is where the
+signature enters: a copy rotation pairs two generators of the same square, so it is compact (Theorem~10.2 of \cite{ES17}), and $C_{\rm cop}\ge0$.
+
+\paragraph{Howe's skew duality.} By Proposition~7.2 of \cite{RE}, $S_n\otimes\C$ is the exterior algebra on the $3n$ creation operators
+$a^+_{k,i}$, that is $\Lambda(\C^n\otimes\C^3)$ with $k$ the copy index and $i$ the mode index. The complexified diagonal $\so{3,3}$ is spanned by
+the quadratics $\sum_kx_ky_k$ with $x,y\in\{a^\pm_{\cdot,i}\}$, the $O(n)$-invariant contractions over the copy index, which form, up to multiples
+of $\id$ and by the substitution used in (ii),
+$\Lambda^2\C^3\oplus\mathfrak{gl}(3)\oplus\Lambda^2\C^3\cong\so{6,\C}$. By (ii) the copy rotations are the $\so n\subset\mathfrak{gl}(n)$ acting on the copy index.
+This is the setting of Howe's skew $(O(n),\so{2m})$ duality on $\Lambda(\C^n\otimes\C^m)$, here with $m=3$ \cite{Howe89}: the two actions generate mutual
+commutants, and the module decomposes without multiplicity as $\bigoplus_\lambda\rho_\lambda\otimes\pi_{\lambda'}$, with $\rho_\lambda$ an irreducible
+representation of $O(n)$ and $\pi_{\lambda'}$ one of $\so6$ determined by it. The theorem, and the linear relation between the two Casimirs, are
+inherited; (iii) is its constant and (iv) its commutant at $n=2$ in the tower. The $O(n)$ contains more than $SO(n)$: at $n=2$ the reflection is
+$\tau_K$, and \cref{e3:sec:sym} shows that the Koszul swaps realise the permutation matrices at every rung.
+
+\begin{table}[t]
+\centering
+\footnotesize
+\begin{tabular}{@{}cccclcc@{}}
+\toprule
+$n$ & copy label & $C_{\rm cop}$ & $C_{\rm diag}$ & $\so6$ modules $(\lambda_1,\lambda_2,\lambda_3)$ & dimensions & rank in $S_n$\\
+\midrule
+$2$ & $|j|=0$ & $0$ & $9$ & $(1,1,1)$, $(1,1,-1)$ & $10+10$ & $1\cdot20=20$\\
+ & $|j|=1$ & $1$ & $8$ & $(1,1,0)$ & $15$ & $2\cdot15=30$\\
+ & $|j|=2$ & $4$ & $5$ & $(1,0,0)$ & $6$ & $2\cdot6=12$\\
+ & $|j|=3$ & $9$ & $0$ & $(0,0,0)$ & $1$ & $2\cdot1=2$\\
+\midrule
+$3$ & $j=0$ & $0$ & $\tfrac{63}4$ & $(\tfrac32,\tfrac32,\pm\tfrac32)$ & $20+20$ & $1\cdot40=40$\\
+ & $j=1$ & $2$ & $\tfrac{55}4$ & $(\tfrac32,\tfrac32,\pm\tfrac12)$ & $36+36$ & $3\cdot72=216$\\
+ & $j=2$ & $6$ & $\tfrac{39}4$ & $(\tfrac32,\tfrac12,\pm\tfrac12)$ & $20+20$ & $5\cdot40=200$\\
+ & $j=3$ & $12$ & $\tfrac{15}4$ & $(\tfrac12,\tfrac12,\pm\tfrac12)$ & $4+4$ & $7\cdot8=56$\\
+\bottomrule
+\end{tabular}
+\caption{Joint decomposition of $S_n$ under the copy algebra and the diagonal $\so{3,3}$ (\cref{e3:thm:dual}). At $n=2$, $j$ is the
+$\so2$ weight; at $n=3$, $j$ is the copy isospin. $C_{\rm diag}=\langle\lambda,\lambda+2\rho\rangle$ with $\rho=(2,1,0)$, so that the spinor has
+$\tfrac{15}4$ and the vector $5$. Ranks are real dimensions of $S_n$, equal to complex dimensions of $S_n\otimes\C$. Check e3-4d.}
+\label{e3:tab:joint}
+\end{table}
+
+\begin{proposition}[Joint decomposition]
+\label{e3:prop:joint}
+The joint spectrum of $(C_{\rm cop},C_{\rm diag})$ on $S_2$ and $S_3$ is that of \cref{e3:tab:joint}. Every rank is the dimension of the copy module
+times the sum of the dimensions of the listed $\so6$ modules, and every $\so6$ Casimir equals $\tfrac34n(n+4)-C_{\rm cop}$. At $n=4$,
+$C_{\rm cop}=0,3,4,8,9,12,15,16,19,24$ on $70,560,504,810,1024,200,320,450,144,14$ dimensions, the values $2[j_+(j_++1)+j_-(j_-+1)]$ of the
+$\so4=\su2\oplus\su2$ modules $(0,0)$, $(\half,\half)$, $(1,0)\oplus(0,1)$, $(1,1)$, $(\tfrac32,\half)\oplus(\half,\tfrac32)$, $(2,0)\oplus(0,2)$, $(\tfrac32,\tfrac32)$,
+$(2,1)\oplus(1,2)$, $(\tfrac52,\half)\oplus(\half,\tfrac52)$, $(3,0)\oplus(0,3)$, each paired with $\so6$ modules of Casimir $24-C_{\rm cop}$ whose
+dimensions reproduce the ranks.
+\end{proposition}
+
+\begin{proof}
+At $n=2,3$ the minimal polynomial of $C_{\rm cop}$ is checked exactly and the ranks are traces of its Lagrange projectors, in integer
+arithmetic. The $\so6$ dimensions are the Weyl dimension formula of $D_3$. At $n=4$, $C_{\rm cop}$ commutes with $N$ (by (ii)) and is
+diagonalised on each of the thirteen number sectors.
+\end{proof}
+
+This is fixed (e3-4d), and the $n=3$ copy spectrum restates Proposition~9.6(ii) of \cite{RE}. The joint spectra lie on the line of
+\cref{e3:thm:dual}(iii). Copy type and $\so{3,3}$ type determine each other, as $j_{\rm cop}$ and Lorentz type do in Corollary~10.5 of
+\cite{ES17}. Two features recur up the ladder. The sector of largest copy Casimir carries the smallest $\so{3,3}$ module: the trivial module at
+$n=2,4$ and the half-spinors $\mathbf4,\bar{\mathbf4}$ of one constituent at $n=3$. And the copy isospin is integral at $n=2,3$, while at $n=4$ the
+modules of $\so4=\su2\oplus\su2$ include doublets of each factor, always with $j_++j_-$ integral, as single-valuedness requires (\cref{e3:thm:dual}(ii)).
+
+\subsection{The symmetric group}
+\label{e3:sec:sym}
+
+Let $\tau_k=\id^{\otimes(k-1)}\otimes\tau_K\otimes\id^{\otimes(n-k-1)}$, with $\tau_K=D\,P$ the Koszul swap of Proposition~7.3(iii) of \cite{RE}. For a
+surplus direction $s\in\{2,3\}$ let $\Theta_s=E_{(1,s)}E_{(2,s)}\cdots E_{(n,s)}$, and let $C_3=\sum_{a<b,\,c<d,\,e<f}\varepsilon_{abcdef}L^{ab}L^{cd}L^{ef}$ be the cubic invariant of
+the diagonal $\so{3,3}$, with $L^{ab}=\eta^{aa}\eta^{bb}\Delta_{ab}$.
+
+\begin{proposition}[The Koszul symmetric group]
+\label{e3:prop:koszul}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item $\tau_k^2=\id$, $(\tau_k\tau_{k+1})^3=\id$ and $\tau_k\tau_l=\tau_l\tau_k$ for $|k-l|>1$, so the $\tau_k$ define an action of $\mathfrak S_n$ on $S_n$. Moreover
+$\tau_kE_{(j,a)}\tau_k=E_{(s_kj,a)}$ and $\tau_k=\tfrac18\prod_a(E_{(k,a)}-E_{(k+1,a)})$: $\tau_k$ is the lift to $\mathrm{Pin}(3n,3n)$ of the transposition matrix of
+copies $k,k+1$, a product of six reflections. It commutes with the diagonal $\so{3,3}$, with $N$, with $H_g$ and with $C_{\rm cop}$, and conjugates
+$C^{kl}$ as the permutation does. On the vacuum $\tau_k|0\rangle=-|0\rangle$.
+\item At $n=3$ the $\mathfrak S_3$-isotypic parts have the content
+\begin{center}
+\begin{tabular}{@{}lccc|cccc@{}}
+\toprule
+ & $C_\Delta=\tfrac32$ & $\tfrac{11}2$ & $\tfrac{15}2$ & $C_{\rm cop}=0$ & $2$ & $6$ & $12$\\
+\midrule
+trivial & $24$ & $48$ & $16$ & $20$ & $36$ & $20$ & $12$\\
+sign & $24$ & $48$ & $16$ & $20$ & $36$ & $20$ & $12$\\
+standard & $112$ & $192$ & $32$ & $0$ & $144$ & $160$ & $32$\\
+\bottomrule
+\end{tabular}
+\end{center}
+(real dimensions; the standard rows are twice the multiplicity of the two-dimensional representation). The Dirac block, $C_\Delta=\tfrac32$,
+contains $24$ totally symmetric and $24$ totally antisymmetric dimensions.
+\item $\Theta_s$ is invertible, anticommutes with every $\tau_k$, commutes with the diagonal $\lint$ and with every $C^{kl}$, and anticommutes with $C_3$. It
+maps the Koszul-symmetric part isomorphically onto the Koszul-antisymmetric part, as modules of $\lint\oplus\so n$, and exchanges the two
+chiralities of $\so6$. At $n=3$ the eigenvalues of $8C_3$ are $-630,-210,-126$ on the symmetric part of the copy sectors $j=0,1,2$ and
+$+630,+210,+126$ on the antisymmetric part.
+\item The Koszul-symmetric part and the Koszul-antisymmetric part of $S_n$ have the same dimension, $\sum_k\binom{n-k+3}3\binom4k$, which is
+$8,32,88,192,360$ at $n=1,\dots,5$. Neither is ever zero.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) The relations are checked. $(E_{(k,a)}-E_{(k+1,a)})^2=2\eta_{aa}$, and the reflection in this vector exchanges $E_{(k,a)}$ and $E_{(k+1,a)}$; the product
+over the six directions acts on vectors as the transposition matrix $P$, because the sign $(-1)^6$ of the twisted adjoint action is $+1$. Hence
+$\tau_k\sigma(X)\tau_k^{-1}=\sigma(PXP^{-1})$ for every $X\in\so{\eta_n}$ and $\tau_kv\tau_k^{-1}=Pv$ for every vector. $P$ commutes with $\id_n\otimes\so{3,3}$ and with
+$K_n$, and fixes $\sum_kE_{(k,1)}$, so $\tau_k$ commutes with the $\Delta_{ab}$, with $N=\tfrac{3n}2+\sigma(K_n)$ (\cref{e2:lem:N}(i)) and with $H_g$; it permutes
+the $C^{kl}$ up to sign and so fixes $C_{\rm cop}$. (ii) Traces of the isotypic projectors
+$\frac{\dim\rho}{6}\sum_\sigma\chi_\rho(\sigma)\tau_\sigma$ times the spectral projectors of $C_\Delta$ and $C_{\rm cop}$, in exact integer arithmetic. (iii) $\Theta_s$ is a
+blade. Against $E_{(k,a)}-E_{(k+1,a)}$ it gives the sign $(-1)^n$ for $a\ne s$ and $(-1)^{n-1}$ for $a=s$, so against $\tau_k$ the sign is $(-1)^{6n-1}=-1$.
+The interior bivectors share no index with $\Theta_s$; the terms of $C^{kl}$ share none or two; a diagonal bivector $\Delta_{sb}$ shares one, so
+$\Ad\Theta_s$ acts on the diagonal $\so{3,3}$ as the reflection of the direction $s$, an outer automorphism, which reverses $C_3$. (iv) $\tau_\sigma$
+permutes the basis tensors of $S^{\otimes n}$ with the Koszul sign of $\omega$-parity, and $\omega$ has four even and four odd basis vectors. The image of
+the symmetriser is spanned by orbit sums, and an orbit contributes iff no odd basis vector repeats, so its dimension is the number of
+monomials of degree $n$ in four even and four odd variables, $\sum_k\binom{n-k+3}3\binom4k$; for the antisymmetriser exchange the roles of even
+and odd, which gives the same number.
+\end{proof}
+
+Part (i) restates Proposition~7.3(iii) of \cite{RE} at $n=2$ and is fixed at every rung (e3-5a at $n=3,4$; e3-5e, relations and vacuum at
+$n\le5$). Parts (ii)--(iv) are fixed (e3-5b; e3-5c, exact at $n\le4$, the $C_3$ eigenvalues in floating point to $10^{-6}$; e3-5e). Since $\tau_k$
+and the natural action $\Lambda(s_k)$ of the transposition on $\Lambda(\C^n\otimes\C^3)$ implement the same automorphism of $\Cl(3n,3n)$, they differ by
+a scalar, and the vacuum fixes it: $\tau_\sigma=\operatorname{sgn}(\sigma)\Lambda(\sigma)$. The Koszul swaps are therefore the permutation matrices of
+Howe's $O(n)$, twisted by the sign character. Part (iii) generalises the mirror statement of \cref{e1:prop:stat}(ii) to every rung: the
+Koszul sign does not sort the module by Lorentz type or by copy type, and its two sectors carry the same content up to the reflection of
+one direction.
+
+\begin{proposition}[The ungraded $n$-particle space]
+\label{e3:prop:ungraded}
+Let $P_\sigma$ permute the tensor factors of $S_n$ without signs, and let $W_n=\{J^{(1)}=\cdots=J^{(n)}\}$, of dimension $2\cdot4^n$, with $J:=J^{(1)}|_{W_n}$ as
+imaginary unit, so that $W_n\cong S\otimes_\C\cdots\otimes_\C S=(\C^4)^{\otimes_\C n}$ (\cref{e1:prop:select}(iv)).
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item $P_\sigma J^{(k)}P_\sigma^{-1}=J^{(\sigma k)}$, so $P_\sigma$ preserves $W_n$ and is $\C$-linear there.
+\item The totally antisymmetric part of $W_n$ under $P_\sigma$ is $\Lambda^n_\C\C^4$, of real dimension $2\binom4n=8,12,8,2,0$ at $n=1,\dots,5$, and the
+totally symmetric part is $\mathrm{Sym}^n_\C\C^4$, of real dimension $2\binom{n+3}3=8,20,40,70,112$.
+\item Under the diagonal $\lint$, $\Lambda^2_\C\C^4$ has $C_\Delta=0$ on $4$ and $3$ on $8$ dimensions, $2(0,0)\oplus(\half,\half)$; $\Lambda^3_\C\C^4$ has
+$C_\Delta=\tfrac32$ on all $8$, a Dirac spinor; and $\Lambda^4_\C\C^4$ has $C_\Delta=0$, a scalar.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) $P_\sigma(A_1\otimes\cdots\otimes A_n)P_\sigma^{-1}$ permutes the factors. (ii) Exact traces of $\frac1{n!}\sum_\sigma\operatorname{sgn}(\sigma)P_\sigma$ and of $\frac1{n!}\sum_\sigma P_\sigma$, composed with the projector
+$2^{1-n}\prod_k(\id-J^{(k)}J^{(k+1)})$ onto $W_n$, as signed permutations. (iii) The projector onto the antisymmetric part, as an exact integer matrix,
+satisfies the stated polynomial identities with $C_\Delta$. Since $\C^4=(\half,0)\oplus(0,\half)$,
+$\Lambda^2=\Lambda^2(\half,0)\oplus(\half,0)\otimes(0,\half)\oplus\Lambda^2(0,\half)$, $\Lambda^3\C^4\cong(\C^4)^*\otimes\Lambda^4\C^4$ and $\Lambda^4\C^4=\det$.
+\end{proof}
+
+The representation theory is inherited \cite{WeinbergQFT}; its realisation on $W_n$ is fixed (e3-5d). With the plain exchange and
+antisymmetry, rung $n$ on $W_n$ carries $n$ identical Dirac fermions in one momentum mode, and the Pauli principle holds: at most four, since a
+Dirac spinor has four states, so there is no antisymmetric state at $n\ge5$ (inherited \cite{Pauli40}). The two exchanges therefore differ at
+every rung, not only at $n=2$ (\cref{e1:prop:swap}). The Koszul exchange is the one the algebra supplies, since it permutes the vectors of
+$\Cl(3n,3n)$. Its antisymmetric sector has dimension $88$ at $n=3$ and contains all three Lorentz types, and at $n=5$ it has dimension $360$
+where the plain one is empty. It is not a statistics label. The plain exchange is a statistics label, but only on the constructed space $W_n$,
+with the constructed generators $u_{(k,a)}$ as gamma matrices.
+
+\subsection{The ladder table}
+\label{e3:sec:table}
+
+\begin{table}[t]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{4.7cm}ccccc>{\raggedright\arraybackslash}p{2.7cm}@{}}
+\toprule
+structure & $n=1$ & $2$ & $3$ & $4$ & $5$ & source\\
+\midrule
+$\dim V_n$, $\dim S_n$ & $6$, $8$ & $12$, $64$ & $18$, $512$ & $24$, $8^4$ & $30$, $8^5$ & ---\\
+$\Cl(3n,3n)$ & \multicolumn{5}{c}{$M_{8^n}(\R)$ at every rung} & e3-1a ($n\le4$)\\
+Fock modes & $3$ & $6$ & $9$ & $12$ & $15$ & e3-1c\\
+spectator centraliser $\so{3n-1,3n-3}$ & $1$ & $28$ & $91$ & $190$ & $325$ & ES17 Thm~6.1; e3-6a\\
+commutant of diagonal $\lint$, $\so n\oplus\so{2n}$ & $1$ & $7$ & $18$ & $34$ & $55$ & ES17 Thm~10.8; e3-6a\\
+commutant of diagonal $\lG$, $\so{n,\C}$ & $0$ & $2$ & $6$ & $12$ & $20$ & ES17 Prop.~13.14; e3-6a\\
+its compact part, $\so n$ & $0$ & $1$ & $3$ & $6$ & $10$ & e3-6a\\
+rotor algebra $\uu n$ (in $\so{6n}$) & $1$ & $4$ & $9$ & $16$ & $25$ & ES17 Prop.~13.14; e3-6a\\
+copy algebra, commutant of diagonal $\so{3,3}$ & $0$ & $1$ & $3$ & $6$ & $10$ & e3-4a\\
+$C_{\rm cop}+C_{\rm diag}$ & $\tfrac{15}4$ & $9$ & $\tfrac{63}4$ & $24$ & $\tfrac{135}4$ & e3-4c\\
+graded rest mass & $m$ & $\sqrt2\,m$ & $\sqrt3\,m$ & $2m$ & $\sqrt5\,m$ & e3-2a\\
+ungraded rest energies $|m(n-2j)|$ & $m$ & $0,2m$ & $m,3m$ & $0,2m,4m$ & $m,3m,5m$ & e3-2b\\
+$2\pi$ rotation, diagonal $\lint$ & $-\id$ & $+\id$ & $-\id$ & $+\id$ & $-\id$ & e3-3a\\
+$2\pi$ rotation, diagonal $\lG$ & $+\id$ & $+\id$ & $+\id$ & $+\id$ & $+\id$ & e3-3b\\
+copy-invariant four-vector & yes & no & yes & no & yes & ES17 Thm~13.15; e3-6b\\
+selected imaginary unit (diagonal $\lint$) & yes & no & yes & no & yes & \cref{e1:prop:select}(iv)\\
+invariant number of quanta (diagonal $\lG$) & no & yes & no & yes & no & \cref{e2:thm:invnumber}\\
+invariant Grassmann mass kernel & $T_1$ & plane & $S_3$ & none & $T_5$ & \cref{e6:thm:ladder}(ii)\\
+copy isospin & --- & integral & integral & $j_\pm\in\half\Z$ & --- & RE Prop.~9.6; e3-4d\\
+projector $P_*$ & --- & --- & yes & --- & --- & ES17 Thm~8.1\\
+$\Lambda^n_\C$ of the Dirac module on $W_n$ & Dirac & $2(0,0){\oplus}(\half,\half)$ & Dirac & $(0,0)$ & $0$ & e3-5d\\
+Koszul-antisymmetric part of $S_n$ & $8$ & $32$ & $88$ & $192$ & $360$ & e3-5e\\
+\bottomrule
+\end{tabular}
+\caption{The ladder. Dimensions of Lie algebras are real. ``Plane'' and ``none'': at $n\equiv2\pmod4$ the invariant Grassmann kernels form a plane,
+at $n\equiv0$ there is none; $T_n$ and $S_n$ there are the temporal and spatial volumes of \cref{e6:thm:ladder}, not the spinor module. The copy
+isospin is that of the six-direction copy algebra.}
+\label{e3:tab:ladder}
+\end{table}
+
+\Cref{e3:tab:ladder} collects the rung-by-rung data. The Lie algebra rows are fixed (e3-6a, exact over $\Q$ at $n\le5$) and restate
+Theorem~6.1, Theorem~10.8 and Proposition~13.14 of \cite{ES17}; the row of copy-invariant four-vectors restates Theorem~13.15 of \cite{ES17}, with
+the case $n=3$ and the absence at $n=2$ re-verified (e3-6b). Read as a whole, the table says which structures single out which rungs.
+
+\emph{No rung is singled out by the algebra.} $\Cl(3n,3n)=M_{8^n}(\R)$, its module is $S_n$, and every Lie algebra row is a polynomial in $n$. The
+first structure with a period in $n$ is the symmetry of the invariant bilinear forms on $S_n$, of period four (\cref{e6:thm:ladder}(ii)). It is
+Chevalley's pattern for spinors of $\R^{3n,3n}$, the dimension $6n$ running through the residues $6,4,2,0$ modulo $8$ with period four in $n$
+(inherited \cite{Chevalley54}). Through it the $\so{3n,3n}$-invariant Grassmann mass kernel is unique exactly at odd $n$. That is the only
+selection the algebra makes by itself, and it does not distinguish $n=3$ from the other odd rungs.
+
+\emph{Odd rungs are singled out by the interior Lorentz action.} Under the diagonal $\lint$, odd $n$ is where the composite is a fermion
+(\cref{e3:prop:spin}(i)), where an imaginary unit is selected (\cref{e1:prop:select}(iv)), where copy-invariant four-vectors and the Dirac block
+exist (Theorem~13.15 and Proposition~10.10 of \cite{ES17}). \emph{Even rungs
+are singled out by the binding action}: only there does a Lorentz-invariant number of quanta exist under the diagonal $\lG$
+(\cref{e2:thm:invnumber}). \emph{The third rung is singled out by added projectors and by the low-rank coincidences of the diagonal algebra}: the
+chiral Pati--Salam projector $P_*$ is constructed at $n=3$ (Theorem~8.1 of \cite{ES17}), the diagonal connection algebra there is
+$\so3\oplus\so6\cong\su2\oplus\su4$ with colour $\su3$ inside $\so6$, and the copy isospin is integral (Proposition~10.10(iii) of \cite{ES17};
+Proposition~9.6 of \cite{RE}). At $n=5$ the Dirac block carries one Standard-Model family per copy multiplet (Proposition~10.10(iv) of
+\cite{ES17}). Apart from the period of the forms, every one of these selections comes from a Lorentz action, a projector or a gauge-algebra
+identification added to the rung. None comes from the ladder.
+
+\subsection{The step from \texorpdfstring{$n$}{n} to \texorpdfstring{$n+1$}{n+1}, and what going up the ladder means}
+\label{e3:sec:answer}
+
+\paragraph{What the step preserves.} By \cref{e3:prop:rung}(ii) the step keeps rung $n$ as the subalgebra $\Cl(3n,3n)\otimes\id$, with all of its
+operators. Under the spectator action the interior four-plane stays in the first factor, so the tower is one Lorentz frame with nested
+internal centralisers (Proposition~6.3 of \cite{ES17}). The diagonal module is tensored with $S$ (\cref{e3:prop:rung}(iv)), and the dual pair $(O(n),\so{3,3})$ sits inside
+$(O(n+1),\so{3,3})$.
+
+\paragraph{What the step adds.} Three Fock modes, $N_{n+1}=N_n\otimes\id+\id\otimes N_1$ (\cref{e3:prop:rung}(iii)). One frame: $V_{n+1}=V_n\oplus V$, which
+under the diagonal $\lG$ is one more field strength $(1,0)\oplus(0,1)$ and under the diagonal $\lint$ one more potential $(\half,\half)$ with two
+scalars (Section~13.5 of \cite{ES17}). One copy direction: the copy space $\R^n$ becomes $\R^{n+1}$, the copy algebra gains the $n$ rotations
+$C^{k,n+1}$, and the Casimir constant grows by $\tfrac34(2n+5)$ (\cref{e3:thm:dual}(iii); e3-6c). The new constituent has its own commuting
+copy, $(\Gamma_n\otimes\id)E_{(n+1,a)}$.
+
+\paragraph{What the step changes.} The graded mass grows in quadrature and the ungraded energies add (\cref{e3:prop:mass}(iv)). The spin parity
+under the diagonal $\lint$ flips, and that under the diagonal $\lG$ does not (\cref{e3:prop:spin}). Every parity-dependent selection of
+\cref{e3:sec:table} switches on or off.
+
+\paragraph{One particle or several.} Read together, the statements of this section answer the question in four sentences. (1) As given by
+its vectors, every rung carries one particle: one Dirac mass $\sqrt n\,m$ along a unit vector of $\R^{3n,3n}$ with one clock, and copies
+that are the components of a vector of the copy group $O(n)$. That group is the Howe dual of the diagonal $\so{3,3}$, its type is locked to
+the $\so{3,3}$ type by $C_{\rm cop}+C_{\rm diag}=\tfrac34n(n+4)$, and its Lie algebra moves quanta between constituents without creating any. So
+the copy index behaves as a flavour index of one particle, and going up the ladder adds a flavour direction and three modes to that particle
+(fixed statements, read interpretively; \cref{e3:prop:mass,e3:thm:dual}). (2) The Lorentz content does not decide. The parity $(-1)^n$ under
+the interior action is the parity of $n$ spin-$\half$ particles and equally that of one particle in an $n$-fold tensor product, and under
+the field-strength action every rung is bosonic (fixed; inherited rule; \cref{e3:prop:spin}). (3) A rung carries $n$ particles in the sense of
+ordinary quantum mechanics only with the structures of \cref{e1:sec:main}, now needed at every rung: the commuting copies
+$u_{(k,a)}=\Gamma^{(1)}\cdots\Gamma^{(k-1)}E_{(k,a)}$ (fixed as an algebra), the additive Hamiltonian $H_u$ with its $n$ clocks, the common complex
+space $W_n$ with $J|_{W_n}$, and the plain exchange with antisymmetry (constructed; the unit selected up to sign at odd $n$ only). With them
+the rung carries $n$ identical Dirac fermions in one mode, with the Pauli bound $n\le4$ (fixed; inherited; \cref{e3:prop:ungraded}). (4) The
+exchange the algebra supplies is the Koszul $\mathfrak S_n$, the permutation matrices of $O(n)$ up to sign, and it is not a statistics label: its
+two sectors are mirror images and never empty (fixed; \cref{e3:prop:koszul}).
+
+\paragraph{Which process goes up the ladder.} Within a rung, the copy algebra hops quanta among the $n$ constituents and conserves $N$
+(\cref{e3:thm:dual}(ii); \cref{e2:prop:hop}). Between rungs there is no process in the algebra: rung $n+1$ is not an element or a state of
+rung $n$, and the embedding $\Cl(3n,3n)\otimes\id$ makes rung $n$ the part of rung $n+1$ that does not see the last constituent. In the
+two-particle reading the step is the tensor embedding $\psi\mapsto\psi\otimes\phi_0$, which needs a state $\phi_0$ that nothing selects
+(constructed, as at $n=2$). Whether a dynamical mechanism selects $W_n$, the additive Hamiltonian and a rung is open.
+
+\begin{table}[!htbp]
+\centering
+\footnotesize
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{8.2cm}>{\raggedright\arraybackslash}p{4.5cm}>{\raggedright\arraybackslash}p{2.2cm}@{}}
+\toprule
+statement & class & checks\\
+\midrule
+\cref{e3:prop:rung}(i): $\Cl(3n,3n)=M_{8^n}(\R)$, volume $\omega^{\otimes n}$, $(-1)^N=(-1)^n\Gamma_n$ & fixed in the realisation; classification inherited & e3-1a\\
+\cref{e3:prop:rung}(ii), (iii): step formulas, eight copies, commutant $\id\otimes M_8(\R)$; Fock modes & restated (RE Props.~7.1, 7.2; \cref{e1:prop:copies}) & e3-1b, e3-1c\\
+\cref{e3:prop:rung}(iv): diagonal bivectors additive, $S_{n+1}=S_n\otimes S$ & fixed & e3-6c\\
+\cref{e3:prop:mass}(i), (ii): $\pm\sqrt n\,m$; $m(n-2j)$ with $\binom nj4^n$; exact dressing & restated (\cref{e1:prop:rest}(vi), RE Prop.~8.11(iv)); multiplicities fixed & e3-2a, e3-2b\\
+\cref{e3:prop:mass}(iii), (iv): one clock against $n$ clocks; the step & fixed & e3-2a, e3-2b, e3-6c\\
+\cref{e3:prop:spin}(i), (iv): $e^{2\pi R_n}=(-1)^n$; $(-1)^{k_I}$; $C_\Delta$ spectra & restated (ES17 Props.~10.9, 10.10(i)); spectra fixed & e3-3a, e3-3c\\
+\cref{e3:prop:spin}(ii), (iii): $e^{2\pi L_n}=+\id$; $(\half,\half)^{\otimes n}$; central element & fixed (extends ES17 Prop.~13.12) & e3-3b, e3-3c\\
+\cref{e3:rem:copyparity}: spin parity against copy-invariant four-vectors & restated (ES17 Thms~10.6, 13.15); comparison interpretive & e3-6b\\
+\cref{e3:thm:dual}(i): mutual commutants on vectors; $\eta$-weighting forced & fixed & e3-4a\\
+\cref{e3:thm:dual}(ii): spin lifts, $\so n$, single-valued, Fock form & fixed; restated at $n=2,3$ (RE Props.~7.3, 9.6) & e3-4b, e3-4f\\
+\cref{e3:thm:dual}(iii): $C_{\rm cop}+C_{\rm diag}=\tfrac34n(n+4)$; interior identity & fixed (constant new); interior restated (ES17 Thm~10.4) & e3-4c\\
+\cref{e3:thm:dual}(iv): commutant at $n=2$ is the image of $\R[O(2)]$ & fixed & e3-4e\\
+Howe's skew duality $(O(n),\so6)$ on $\Lambda(\C^n\otimes\C^3)$ & inherited \cite{Howe89} & e3-4f\\
+\cref{e3:prop:joint}, \cref{e3:tab:joint}: joint decomposition at $n=2,3,4$ & fixed; $n=3$ copy spectrum restated (RE Prop.~9.6) & e3-4d\\
+\cref{e3:prop:koszul}(i): Koszul $\mathfrak S_n$, Pin lift, commutation, vacuum sign & fixed; restated at $n=2$ (RE Prop.~7.3(iii)) & e3-5a, e3-5e\\
+\cref{e3:prop:koszul}(ii)--(iv): $\mathfrak S_3$ content; mirror $\Theta_s$; sector dimensions & fixed & e3-5b, e3-5c, e3-5e\\
+\cref{e3:prop:ungraded}: $W_n$, $\Lambda^n_\C\C^4$, $\mathrm{Sym}^n_\C\C^4$, Lorentz content & fixed in the realisation; inherited (exterior powers, Pauli) & e3-5d\\
+\cref{e3:tab:ladder}: the ladder $n=1,\dots,5$ & fixed; restated (ES17 Thms~6.1, 8.1, 10.8, 13.15, Prop.~13.14; RE Prop.~9.6) & e3-6a, e3-6b, as listed\\
+\cref{e3:sec:table}: no rung selected by the algebra; odd, even, third rung & interpretive (drawn from fixed statements); period four inherited & ---\\
+\cref{e3:sec:answer}: step; one particle or several; process & fixed parts as cited; reading interpretive; tensor embedding constructed; mechanism open & e3-1b, e3-1c, e3-6c\\
+\bottomrule
+\end{tabular}
+\caption{Claims of \cref{e3:sec:main}, their classes and their checks, which are \texttt{PASS} lines of \texttt{verify/e3\_ladder.py}.
+``Restated'': fixed in \cite{ES17}, \cite{RE} or \cref{e1:sec:main}, re-verified here.}
+\label{e3:tab:claims}
+\end{table}
