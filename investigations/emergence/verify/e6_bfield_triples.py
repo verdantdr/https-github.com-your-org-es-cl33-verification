@@ -20,8 +20,8 @@ Exactness: every algebraic identity is checked in integer or rational arithmetic
 symbolic identities and exact null spaces).  Spin rotors at rational points use (cos phi, sin phi) = (3/5, 4/5) and are
 stored as integer matrices times a known power of 5.  Invariant bilinear forms on S_n are counted exactly: for a Lie algebra
 spanned by blades, by signed orbits of the matrix entries; for the diagonal so(3,3), by the Weyl-group multiplicity
-formula on exact integer weights.  Floating point is used only in e6-7d's dense cross-check at n = 2 (none: exact) and
-nowhere else.  Runtime: well under a minute.
+formula on exact integer weights, with a direct exact cross-check at n = 2.  No floating-point quantity enters any check
+(the only float is numpy's determinant of a 3 x 3 signed permutation matrix, rounded to +-1).  Runtime: well under a minute.
 """
 import itertools
 import sys
