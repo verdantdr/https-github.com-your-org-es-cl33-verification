@@ -1,10 +1,16 @@
-# The electromagnetic sphere — unified paper (17 October 2026)
+# The electromagnetic sphere — unified paper (26 October 2026)
 
 A single, self-contained academic paper collecting the findings on the split-signature Clifford algebra Cl(3,3) and its tower,
 written bottom up and without references to earlier ES papers, reports or versions.
 
-- `ES_electromagnetic_sphere_2026-10-17.pdf` — the paper, 119 pages, 21 figures, 7 tables, 151 references.
-- `ES_electromagnetic_sphere_sources_2026-10-17.zip` — LaTeX sources (same as `tex/`).
+- `ES_electromagnetic_sphere_2026-10-26.pdf` — the current paper, 154 pages, with four new sections (15, 16, 20, 21) on the undivided
+  energy and its differentiation, what a rest energy breaks, rest energy in the closure, and the connection part of the shift.
+- `ES_electromagnetic_sphere_sources_2026-10-26.zip` — its LaTeX sources (same as `tex/`).
+- `ES_electromagnetic_sphere_2026-10-17.pdf` — the previous version, 119 pages, 21 figures, 7 tables, 151 references (cited by the
+  investigation notes as ES17).
+- `ES_electromagnetic_sphere_sources_2026-10-17.zip` — its LaTeX sources.
+- `investigations/` — verified investigation notes (rest energy; two readings of X; emergence; photon selection) and
+  `investigations/_pending/PENDING.md`, the list of unfinished work.
 - `tex/` — sources: `main.tex` plus one file per section (`s01`–`s31`), appendices `sA_realisation`, `sB_methods`, and `refs.tex`.
 
 ## Structure

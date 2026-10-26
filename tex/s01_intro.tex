@@ -80,7 +80,7 @@ reductive dual pair satisfying $C_{\rm cop}+C_\Delta=\tfrac{15}2$, and the modul
 the candidate gauge algebra of every Lorentz action on the tower, and with it a rung-by-rung census of the vector bosons
 the tower can carry.
 
-\paragraph{Gauge fields and the electromagnetic reading (\cref{sec:fields,sec:emfield,sec:spin,sec:orth}).} A varying
+\paragraph{Gauge fields and the electromagnetic reading (\cref{sec:fields,sec:emfield,sec:spin,sec:orth,sec:energy,sec:massbreaks}).} A varying
 projector induces a connection whose available curvature algebra is far too large, so a parent action would have to cut
 the projector's freedom rather than build a gauge field. The centraliser of the complex structure $G$ in $\so{3,3}$ is a
 Lorentz algebra, under which $\R^{3,3}$ \emph{is} $\Lambda^2\R^{1,3}$: boosts act by $\delta\bE=\bv\times\bB$,
@@ -90,15 +90,21 @@ is built. Covariance fixes the form of Maxwell's equations, because the vector m
 multiplicity exactly two, and fixes nothing else. The photon's spin one appears in two places, related by the Klein
 correspondence $V\cong\Lambda^2(S^+)^*$, and at the second rung both can be coupled to a Dirac block in a single gauge
 theory. The orthogonality of $\bE$ and $\bB$ is the reality of the invariant $q=z\cdot z$; its failure breaks parity and time
-reversal, is never spontaneous, and does not generate mass.
+reversal, is never spontaneous, and does not generate mass. The energy of a field point is one undivided, duality-invariant
+quantity $E_6=\tfrac12|z|^2$; its rest part $E_0=\tfrac12|q|$ is the minimum over boosts, $E_6^2=E_0^2+|\mathbf S|^2$ is the field form of
+$E^2=p^2c^2+m^2c^4$, and $c$ enters only as the conversion between the two triples. $\mathrm{Spin}(3,3)$ keeps the Dirac mass form, so
+a mass breaks no spacetime symmetry, and particle and antiparticle are the two senses of one rest rotation.
 
-\paragraph{Interior dynamics (\cref{sec:shifted,sec:neutral,sec:closure}).} The Lagrangian of a single shifted operator
+\paragraph{Interior dynamics (\cref{sec:shifted,sec:neutral,sec:closure,sec:restclosure,sec:bfield}).} The Lagrangian of a single shifted operator
 $\partial_\tau+\kappa g$ factorises exactly when the shift is symmetric, and then it describes an inverted oscillator; for
 every constant shift some solution is unbounded, and with a positive form no solution with nonzero momentum recurs. In the
 split form the same factorisation admits bound motion, and it does so exactly in neutral signature, with the complex
 structure $G$ as the shift. The force law is a dual transport which is a Lie--Poisson equation only on an extension of the
 frame; that extension is unique, its rotor angle is the duality angle of the momentum, and its free motion is a pendulum
-that drifts the frame except on null data.
+that drifts the frame except on null data. The rest energy sets the amplitude of that pendulum; a constant rate and a bounded frame
+coexist only on null data or on the balance surface of several constituents, and identifying the rest rotation of the Dirac field
+with the rate of the closure, $mc^2=\hbar\kappa$, is an added hypothesis. The antisymmetric part of a shift is a connection: the part
+commuting with the binding root is removed by a moving frame, and no connection binds on its own.
 
 \paragraph{The vacuum (\cref{sec:subfields,sec:kernels,sec:selection,sec:matter,sec:goldstone}).} At one constituent we
 classify the vacuum of every coordinate three-plane in four senses. At three constituents the space of Lorentz-invariant
@@ -143,7 +149,8 @@ and the corresponding charges by the symmetric operators $\hat t=-Jt$.
 \subsection{Organisation}
 
 \Cref{sec:arena,sec:clock,sec:dirac,sec:discrete} develop one constituent. \Cref{sec:tower,sec:projectors,sec:pstar,sec:charges,sec:actions} climb the tower and build the matter. \Cref{sec:fields,sec:emfield,sec:spin,sec:orth} treat gauge
-fields and the field-strength reading, \cref{sec:shifted,sec:neutral,sec:closure} the interior dynamics, and
+fields and the field-strength reading and \cref{sec:energy,sec:massbreaks} the undivided energy and what a rest energy breaks,
+\cref{sec:shifted,sec:neutral,sec:closure} the interior dynamics and \cref{sec:restclosure,sec:bfield} the rest energy and the connection in it, and
 \cref{sec:subfields,sec:kernels,sec:selection,sec:matter,sec:goldstone} the vacuum. \Cref{sec:curved,sec:curvop,sec:transport,sec:photon} pass to a curved arena and to the photon, \cref{sec:baseline,sec:selector,sec:typesel,sec:constraints} to causal structure, and \cref{sec:assessment} collects what is fixed, what is constructed, what is
 obstructed and what is open. \Cref{app:realisation} gives the explicit matrices, so that every finite-dimensional claim
 can be checked by hand, and \cref{app:methods} describes the verification.
