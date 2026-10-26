@@ -43,7 +43,7 @@ and the field reading's is $\rho_{\rm oct}(L_i)=L_i$, $\rho_{\rm oct}(K_i)=Q_i=-
 rotations $\so3_+$ of the temporal triple alone, and $A_i:=\tfrac12(e_je_k+e_{j+3}e_{k+3})$ rotates the two triples in opposite senses
 (\cref{r3:lem:rot}); $L(n):=\sum_in_iL_i$, $A(n):=\sum_in_iA_i$. Dimensions: $n$, $J(n)$, $T$, $\Gamma$, all Clifford elements and all
 intertwiners are dimensionless; $[x^a]=[x^0]=[ct]=\mathrm m$ and $[\partial_\mu]=\mathrm m^{-1}$; in SI units a Dirac field has $[\psi]=\mathrm m^{-3/2}$ and
-a Lagrangian density $\mathrm{J\,m^{-3}}$ (\cref{r1:eq:LD}); the field enters as $X_{\rm EM}=(c\bB;\bE)$ with $[E_i]=[cB_i]=\mathrm{V\,m^{-1}}$; a
+a Lagrangian density has the unit $\mathrm{J\,m^{-3}}$, as in \cref{r1:eq:LD}; the field enters as $X_{\rm EM}=(c\bB;\bE)$ with $[E_i]=[cB_i]=\mathrm{V\,m^{-1}}$; a
 magnetic moment $\mu$ has $[\mu]=\mathrm{J\,T^{-1}}$ and an electric dipole moment $d$ has $[d]=\mathrm{C\,m}$. Computations use Heaviside--Lorentz units
 with $\hbar=c=1$. Identifiers r4-$n$ refer to \texttt{verify/r4\_bridge.py}, which checks every finite-dimensional and symbolic claim below
 in exact arithmetic (r4-1 re-verifies the conventions).
@@ -66,7 +66,8 @@ $nJ(n)=nnT=|n|^2T$; $T$ and $n$ each anticommute with $s_a$, so $J(n)$ commutes 
 $n=(2a,2b,1-a^2-b^2)/(1+a^2+b^2)$ of the clock sphere).
 \end{proof}
 
-Restated: \cref{r2:prop:J} and Remark~4.2 of \cite{ES17} ($J=\gamma^0T$), re-verified (r4-2). Proposition~5.1 of \cite{FMB} is confirmed.
+Restated from \cref{r2:prop:J} and from Remark~4.2 of \cite{ES17} ($J=\gamma^0T$), re-verified (r4-2). Proposition~5.1 of the working note \cite{FMB} is
+confirmed.
 
 \begin{proposition}[Rotations]
 \label{r4:prop:rot}
@@ -197,6 +198,7 @@ compatible: (b) and (a) say that the mass is parity-even, (b) and (c) that the p
 
 \begin{proposition}[$J(n)$ relative to the field structure]
 \label{r4:prop:Jdec}
+With $L(n)$ and $A(n)$ as in the conventions:
 \begin{enumerate}[label=(\roman*),leftmargin=2.2em]
 \item $J(n)=-L(n)+A(n)$, with $L(n)A(n)=A(n)L(n)=0$; for a clock, $-L(n)^2$ and $-A(n)^2$ are complementary projectors of rank four, $L(n)^3=-L(n)$ and
 $A(n)^3=-A(n)$.
@@ -341,6 +343,7 @@ in the units of \cref{r1:eq:LD}: $T$ is the common left factor of the kinetic, m
 
 \begin{proposition}[The couplings when the clock moves or the axes are permuted]
 \label{r4:prop:coupclock}
+The couplings of \cref{r4:thm:couplings} transform as follows.
 \begin{enumerate}[label=(\roman*),leftmargin=2.2em]
 \item Let $q\in\mathrm{Spin}(V^+)$ be a rotor with $qe_1q^{-1}=n$. Then, with $X$ fixed,
 \[
@@ -419,9 +422,10 @@ right multiplication, $s_a(x|\mathrm{vac}\rangle)=(\hat x e_a)|\mathrm{vac}\rang
 On the eight blades $x=e_I$, $I\subset\{1,2,3\}$ (r4-22).
 \end{proof}
 
-Inherited in substance: Chevalley's realisation of $\Cl(V\oplus V^*)$ on $\Lambda^*$ \cite{Chevalley54}, in which one Lagrangian half acts on the left and
-the other on the right, and the classical fact that Dirac spinors in the Pauli or space-time algebra transform on one side while the field bivector
-transforms on both \cite{Hestenes66,Hestenes67}. The section's statements are fixed in the realisation.
+Restated: the right action is that of \cref{r3:prop:odd}(ii), where $e_{a+3}\omega$ acts as $x\mapsto-xe_a$, on the Fock model of Chevalley
+\cite{Chevalley54} (\cref{r3:prop:fock}); verified here on all blades. Inherited: in the Pauli and space-time algebras a Dirac spinor transforms
+by one-sided and the field bivector by two-sided multiplication \cite{Hestenes66,Hestenes67}, which is the difference between $\rho_n$ and $\rho_{\rm oct}$
+in \cref{r4:thm:conj}.
 
 These results answer the remark after \cref{r3:thm:maxwell}. The Dirac reading couples $\partial_a$ to the spatial generators, through $\gamma^0\gamma^a=\alpha_a(n)=ns_a$;
 in the Fock picture this is the clock $n$ on the left and the temporal Pauli generator $e_a$ on the right. The octant field reading couples $\partial_a$ to
@@ -502,7 +506,7 @@ clock times the other complex structure $\Omega_n$, which Theorem~4.1 of \cite{E
 It was proposed in an earlier, superseded version of the programme that, of the two trivectors anticommuting with the three Dirac matrices
 $\alpha_a$, the spatial volume $e_4e_5e_6$ is the scalar mass and $e_1e_2e_3$ its pseudoscalar partner. In the present conventions the first half is
 confirmed at every clock: the trivectors anticommuting with $\alpha_1(n),\alpha_2(n),\alpha_3(n)$ are $\operatorname{span}\{T,e_4e_5e_6\}$, the clock-independent space of
-\cref{r4:thm:unique}(ii) (r4-24). The assignment is corrected. As the matrix $\beta$ of $H=\sum_a\alpha_ap_a+m\beta$, $e_4e_5e_6=n\Omega_n$ is admissible
+\cref{r4:thm:unique}(ii) (r4-24, at four clocks; at all clocks by \cref{r4:prop:rot}(iii), since conjugation by a rotor preserves the grade). The assignment is corrected. As the matrix $\beta$ of $H=\sum_a\alpha_ap_a+m\beta$, $e_4e_5e_6=n\Omega_n$ is admissible
 (symmetric, square $\id$, commuting with $J(n)$, $H^2=(|\bp|^2+m^2)\id$), but relative to the kinetic kernels with $\gamma^0=n$ it gives the pseudoscalar mass
 of Proposition~4.6 of \cite{ES17}, whose Grassmann kernel $J(n)e_4e_5e_6=T\Omega_n$ depends on the clock; the scalar mass has $\beta=n$ and the
 clock-independent kernel $J(n)n=T$. The element $e_1e_2e_3$ is not a $\beta$ at all (it is antisymmetric with square $-\id$); it is the kernel.
@@ -510,8 +514,7 @@ clock-independent kernel $J(n)n=T$. The element $e_1e_2e_3$ is not a $\beta$ at 
 
 Interpretation. In the particle reading the clock and the complex structure both move, and their product $T$ does not; in the field reading $T$ is
 the duality on the octants and, as the Chevalley--Mukai pairing, the form pairing $E_k$ with $B_k$ (\cref{r3:prop:energies}). The mass form is the part of
-the particle reading that the field reading shares. This is interpretive; what is fixed is \cref{r4:thm:unique} and the fact that $T$ is the only
-element common to the structures of both readings that appears in a kernel of the Dirac Lagrangian.
+the particle reading that the field reading shares. This is interpretive; what is fixed is \cref{r4:thm:roles,r4:thm:unique}.
 
 \subsection{Answer}
 \label{r4:sec:answer}
@@ -542,7 +545,7 @@ clock with a Dirac complex structure, and with the second complex structure $\Om
 fixed). Clocks are related by the diagonal rotations, a symmetry of both readings and of the couplings, so a change of clock is a change of frame
 (fixed as an equivalence); whether a dynamics selects a clock is open.
 \item \emph{What remains for a covariant Dirac--Maxwell theory in the arena.} The minimal coupling through the potential and $J(n)$, $D_\mu=\partial_\mu+qA_\mu J(n)$
-(\cref{r1:eq:Ltot,r1:prop:total}; inherited, restated), which uses $A_\mu$ on the base and not the octants; the Pauli and electric-dipole couplings
+(\cref{r1:prop:total}, with the Lagrangian \cref{r1:eq:Ltot}; inherited, restated), which uses $A_\mu$ on the base and not the octants; the Pauli and electric-dipole couplings
 \cref{r4:eq:LP}, with two constants the arena does not fix (open); the absence of a common Lorentz representation on one $S$ (obstructed at one constituent;
 the two readings can be housed together at the mixed second rung of Section~13.6 of \cite{ES17}, at the price stated there, restated); and the
 quantisation of either reading (open, as in \cite{FMB}).
@@ -583,7 +586,7 @@ r4-18 & couplings conjugated by the clock rotor, $T$ fixed; diagonal covariance 
 r4-19 & odd permutation: Pauli term does not change sign, dual does when paired (\cref{r4:prop:coupclock}(iii)) & fixed; expectation refuted for the Pauli term\\
 r4-20 & two Pauli triples, $J(n)\alpha_a=Ts_a$, $e_a=-TJ(e_a)$, no one-sided relation (\cref{r4:prop:triples}) & fixed\\
 r4-21 & intertwiners: dimension $8$, none of definite parity; Dirac $\mapsto$ left Pauli representation (\cref{r4:thm:conj}) & fixed; existence inherited\\
-r4-22 & temporal $=$ left, spatial $=$ twisted right multiplication (\cref{r4:prop:fockLR}) & inherited (Chevalley), verified\\
+r4-22 & temporal $=$ left, spatial $=$ twisted right multiplication (\cref{r4:prop:fockLR}) & restated (\cref{r3:prop:odd}), verified; one-/two-sided inherited\\
 r4-23 & uniqueness of $T$; two-clock exception; $\operatorname{span}\{T,T\Gamma\}$ (\cref{r4:thm:unique}) & fixed\\
 r4-24 & trivectors anticommuting with $\alpha_a(n)$; $e_4e_5e_6$ as $\beta$ is the pseudoscalar mass (\cref{r4:rem:V}) & fixed; earlier assignment corrected\\
 -- & spatial derivatives ``from temporal directions'' (\cref{r4:sec:operators}) & interpretive; inference refuted\\
