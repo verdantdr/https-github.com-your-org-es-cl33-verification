@@ -535,9 +535,10 @@ ok &= c1 == 3 * I8 and c2 == Z8
 Ls = phi(C7)[('L', 3)]
 ok &= Ls * Ls == -I8 / 4 and Lb[3] ** 3 == -Lb[3] and (Lb[3] ** 2).rank() == 4
 ok &= sp.Matrix(Ls.charpoly().all_coeffs()) == sp.Matrix((sp.Poly((sp.Symbol('x') ** 2 + sp.Rational(1, 4)) ** 4)).all_coeffs())
+ok &= any(comm(rho_oct[k], phi(C1)[kk]) != Z8 for k in KEYS for kk in KEYS)          # rho_oct does not commute with rho_e1
 check(13, "Casimirs sum K^2-L^2 and (sum K.L)^2: spin lift of l_int(n) via phi_n: 3/2 and -9/16 (2(1/2,0)+2(0,1/2)); rho_oct: 4 and "
           "-4 on the field octants, 0 on the poles ((1,0)+(0,1)+2(0,0)); spin lift of l_G: 3 and 0 (2(1/2,1/2)); L_3 has "
-          "spectrum +-i/2 (exp 2pi L_3 = -1) in the first, L_3^3=-L_3 (exp 2pi L_3 = +1) in the others: pairwise inequivalent", ok)
+          "spectrum +-i/2 (exp 2pi L_3 = -1) in the first, L_3^3=-L_3 (exp 2pi L_3 = +1) in the others: pairwise inequivalent; rho_oct does not commute with rho_e1", ok)
 
 
 # =====================================================================================================================
@@ -739,7 +740,11 @@ for n in (C1, C7):
     lam = {('L', i): -e[j] * e[k] / 2 for (i, j, k) in cyc} | {('K', i): -e[i] / 2 for i in (1, 2, 3)}
     ok &= all(isZ(U * ph[kk] * Ui - lam[kk]) for kk in KEYS)
 ok &= all(Qb[i] == -(e[i] + s[i] * omega) / 2 and Lb[i] == -e[j] * e[k] / 2 + s[j] * s[k] / 2 for (i, j, k) in cyc)
-check(21, "the U with U alpha_a(n) U^-1 = e_a form (with 0) an 8-dimensional space (a coset of the commutant M_2(C)), contain no "
+ce = commutant([e[1], e[2], e[3]])
+cand = [I8, s[1] * s[2], s[2] * s[3], s[3] * s[1]]
+cand = cand + [T * c for c in cand]
+ok &= len(ce) == 8 and all(all(comm(c, e[a]) == Z8 for a in (1, 2, 3)) for c in cand) and rank_of(cand) == 8
+check(21, "the U with U alpha_a(n) U^-1 = e_a form (with 0) an 8-dimensional space (a coset of the commutant span{1,T} x Cl^0(V^-) = M_2(C) of e_1,e_2,e_3), contain no "
           "element of definite parity, and every invertible one carries the spin lift of l_int(n) to the left-multiplication "
           "representation L_i -> -e_je_k/2, K_i -> -e_i/2 of the temporal Pauli algebra; rho_oct(K_i) = -(e_i + e_{i+3} omega)/2 "
           "adds the right multiplication (n = e1, (2,3,6)/7)", ok)
