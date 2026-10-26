@@ -821,7 +821,7 @@ for key, (N, U1, U2, r) in CLOCKS.items():
         B_, E_ = X[:3], X[3:]
         M2 = Mn2(N, X, r)                                              # 2 r^2 M_n
         expl = r * r * sv(E_) - r * nM @ sum((B_[i - 1] * (s[j] @ s[k]) for (i, j, k) in cyc), Z8)   # r^2 (E.s - n B ss) ... times 1
-        ok &= eqm(M2, expl) and eqm(M2, -r * nM @ S2(N, X, r))      # = -n S_n
+        ok &= eqm(M2, expl) and eqm(M2, -(nM @ S2(N, X, r)))        # = -n S_n
         Ms = Ms2(N, X, r)                                              # 2 r M*_n
         expls = r * sv(B_) + nM @ sum((E_[i - 1] * (s[j] @ s[k]) for (i, j, k) in cyc), Z8)
         ok &= eqm(Ms, expls) and eqm(r * Ms, Mn2(N, list(Gm @ np.array(X)), r))           # M*(X) = M(GX)

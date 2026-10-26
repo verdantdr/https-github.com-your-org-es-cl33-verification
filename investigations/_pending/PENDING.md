@@ -9,14 +9,13 @@ applied are in `findings/`.
 |---|---|---|
 | Paper with the four rest-energy sections (Sections 15, 16, 20, 21 of the new numbering) | `tex/`, `ES_electromagnetic_sphere_2026-10-26.pdf` | builds, 154 pp. |
 | Rest-energy note | `investigations/rest_energy/` | 14 scripts, 464 PASS |
-| Two readings of X (Lagrangians; four-momentum on the spatial triple; X_EM=(B;E) on the octants; bridge T=nJ(n)) | `investigations/two_readings/` (49 pp.) | 7 scripts, 227 PASS; r1–r3 refereed |
+| Two readings of X (Lagrangians; four-momentum on the spatial triple; X_EM=(B;E) on the octants; bridge T=nJ(n)) | `investigations/two_readings/` (50 pp.) | 8 scripts, 252 PASS; r1–r4 refereed |
 | Emergence: two from one (e1), processes (e2), closure at n=2 (e5, refereed), b-field on +++ / c on −−− (e6, refereed) | `investigations/emergence/` (45 pp., draft) | e1, e2, e3, e5, e6 scripts pass |
 | Photon selection: compact families at n=3 (p1) | `investigations/photon_selection/` (22 pp., draft) | p1 47 PASS |
 
 ## Unfinished
 
-1. **Two readings, track r4 (bridge T=nJ(n))**: section written and checked (24 PASS); its adversarial referee was interrupted before
-   applying anything (partial independent script `verify/s4_check.py`). Resume: `prompts/referee_r4.txt`.
+1. ~~**Two readings, track r4 (bridge T=nJ(n))**~~ — done 26 October: referee applied 15 corrections (`findings/s4_findings.md`); `r4_bridge.py` 25 PASS, `s4_check.py` 24 PASS; note rebuilt (50 pp.).
 2. ~~**Emergence, track e6**~~ — done 26 October: referee applied 14 corrections (`findings/y6_findings.md`); `e6_bfield_triples.py` 33 PASS, `y6_check.py` 33 PASS.
 3. **Emergence, tracks e3 (ladder) and e4 (b-field up the ladder)**: scripts exist (`e3_ladder.py` 20 PASS; `e4_bfield_ladder.py` partial);
    the section texts are not written. Resume: `prompts/derive_e3.txt`, `prompts/derive_e4.txt`.

@@ -452,6 +452,13 @@ sn_ = sum((NS[i - 1] * s[j] * s[k] for (i, j, k) in cyc), Z8)          # 2 x spi
 ok = isZ(Jn - (-Ln + An)) and isZ(Ln * An) and isZ(An * Ln) and isZ(sn_ * sn_ + N2 * I8)
 ok &= isZ(Ln - (sn_ / 2 - Jn / 2)) and isZ(sn_ / 2 - (Ln + An) / 2)
 ok &= isZ(sn_ / 2 - sum((NS[i - 1] * phi(NS)[('L', i)] for i in (1, 2, 3)), Z8))
+# the Dirac rotation rho_n(L(n)) = sn_/2 acts on V (by the commutator) trivially on V^+ and as v -> n x v on V^-:
+# a rotation about the spatial axis sum n_i s_i paired with n, not about the clock n itself
+nvec3 = sp.Matrix(NS)
+for a in (1, 2, 3):
+    ok &= isZ(comm(sn_ / 2, e[a]))
+    ua = sp.Matrix([1 if b == a - 1 else 0 for b in range(3)])
+    ok &= isZ(comm(sn_ / 2, s[a]) - svec(list(nvec3.cross(ua))))
 ok &= all(Lb[i] == phi(C7)[('L', i)] - J([1 if a == i - 1 else 0 for a in range(3)]) / 2 for i in (1, 2, 3))
 # unit clock: -L^2 and -A^2 are complementary rank-4 projectors; L^3 = -L, A^3 = -A, so exp(2 pi L(n)) = 1 = exp(2 pi A(n)),
 # while exp(2 pi s(n)/2) = cos(pi) + sin(pi) s(n) = -1 and exp(-pi J(n)) = -1
@@ -462,7 +469,8 @@ ok &= isZu(Pp * Pp - Pp) and isZu(Pl * Pl - Pl) and isZu(Pp + Pl - I8) and isZu(
 ok &= isZu(Lu * Lu * Lu + Lu) and isZu(Au * Au * Au + Au)
 ok &= Pp.subs({pa: 0, pb: 0}).rank() == 4 and Pl.subs({pa: 0, pb: 0}).rank() == 4
 check(10, "J(n) = -L(n) + A(n) with L(n)=sum n_i L_i (diagonal rotation), A(n)=sum n_i (e_je_k+e_{j+3}e_{k+3})/2 (anti-paired), "
-          "L(n)A(n)=A(n)L(n)=0; L(n) = s(n)/2 - J(n)/2 where s(n)/2 = spin lift of phi_n(L(n)) is the Dirac rotation about n "
+          "L(n)A(n)=A(n)L(n)=0; L(n) = s(n)/2 - J(n)/2 where s(n)/2 = spin lift of phi_n(L(n)) is the Dirac rotation of V^- about the "
+          "spatial axis sum n_i s_i (trivial on V^+) "
           "(rho_oct(L_i) = rho_n(L_i) - J(e_i)/2); for unit n -L^2, -A^2 are complementary rank-4 projectors, L^3=-L", ok)
 
 # =====================================================================================================================
@@ -642,6 +650,16 @@ for n in (C1, C7):
     ok &= isZ(comm(MP, J(n))) and isZ(comm(MD, J(n)))
     ok &= isZ(MP - (svec(Es) / 2 - nv_ * sum((X[i - 1] * s[j] * s[k] for (i, j, k) in cyc), Z8) / 2))
     ok &= isZ(MD - (svec(Bs) / 2 + nv_ * sum((X[i + 2] * s[j] * s[k] for (i, j, k) in cyc), Z8) / 2))
+    # S_n(X) = Clifford image of sum_{mu<nu} F_{mu nu} gamma_mu ^ gamma_nu with gamma_mu = eta_{mu nu} gamma^nu_n,
+    # (F_X)_{0i} = E_i, (F_X)_{jk} = eps_ijk B_i; the same sum with F^{mu nu} gives S_n(eta X)
+    Fl = sp.zeros(4, 4)
+    for (i, j, k) in cyc:
+        Fl[0, i], Fl[i, 0], Fl[j, k], Fl[k, j] = X[i + 2], -X[i + 2], X[i - 1], -X[i - 1]
+    etaE = sp.diag(1, -1, -1, -1)
+    Fu = etaE * Fl * etaE
+    gdn = [nv_] + [-s[a] for a in (1, 2, 3)]
+    biv = lambda F_: sum((F_[m, v] * gdn[m] * gdn[v] / 2 for m in range(4) for v in range(m + 1, 4)), Z8)
+    ok &= isZ(biv(Fl) - S_n(n, X)) and isZ(biv(Fu) - S_n(n, etax(X)))
     anti, sym = SPACES[tuple(n)]
     flatmap = lambda Ms: sum((flat(m) for m in Ms), [])
     ok &= sp.Matrix([flatmap(m) for m in anti] + [flatmap(as_map(M_P, n)), flatmap(as_map(M_D, n))]).rank() == 2
@@ -653,7 +671,8 @@ for n in (C1, C7):
     ok &= sp.Matrix([flatmap(m) for m in sym] + [flatmap(m) for m in symmaps]).rank() == 6
 check(16, "l(X) = sum(B_i L_i + E_i K_i) is l_G-equivariant and rho_n(Y)^T = -n rho_n(Y) n; the Grassmann couplings are spanned by M_n(X) = T J(n) S_n(X) = -n S_n(X) (real form of psibar sigma^{mu nu} psi F_{mu nu}) "
           "and M*_n(X) = T Gamma S_n(X) = T J(n) Omega_n S_n(X) = M_n(GX) (real form of i psibar sigma^{mu nu} gamma_5 psi F_{mu nu}), "
-          "S_n(X) the Clifford image of phi_n(l(X)); both commute with J(n); M_n = E.s/2 - n(sum B_i s_js_k)/2; the "
+          "S_n(X) the Clifford image of phi_n(l(X)) = sum_{mu<nu} F_{mu nu} gamma_mu^gamma_nu (gamma_mu = eta_{mu nu} gamma^nu_n; with F^{mu nu} "
+          "the sum is S_n(eta X)); both commute with J(n); M_n = E.s/2 - n(sum B_i s_js_k)/2; the "
           "commuting-psi couplings are n C S_n(X), C in {u_1,u_2,J(n)} x {1,Omega_n}", ok)
 
 # =====================================================================================================================
@@ -717,10 +736,16 @@ for trip in ([al[a].subs({n1: 1, n2: 0, n3: 0}) for a in (1, 2, 3)], [e[1], e[2]
     K_ = sum((ks[a] * trip[a] for a in range(3)), Z8)
     ok &= isZ(K_ * K_ - (ks[0] ** 2 + ks[1] ** 2 + ks[2] ** 2) * I8)
 a1 = {a: tvec(C1) * s[a] for a in (1, 2, 3)}
+# for a general clock: Z = n s_a e_a would need s1e1 = s2e2; Z = e_a n s_a would need e1 n s1 = e2 n s2, and the linear map
+# n -> e1 n s1 - e2 n s2 is injective (its matrix in the 64 entries has rank 3)
+ok &= s[1] * e[1] != s[2] * e[2]
+dmap = e[1] * nv * s[1] - e[2] * nv * s[2]
+ok &= sp.Matrix([[sp.diff(x, v) for v in NS] for x in flat(dmap)]).rank() == 3
 ok &= len({tuple(e[a] * a1[a]) for a in (1, 2, 3)}) == 3 and len({tuple(a1[a] * e[a]) for a in (1, 2, 3)}) == 3
 check(20, "alpha_a(n) = n e_{a+3} is a Pauli triple (symmetric, square |n|^2, anticommuting) with J(n) alpha_a(n) = |n|^2 T e_{a+3}; "
           "the octant triple is e_a = -T J(e_a); (sum k_a pi_a)^2 = |k|^2 for both triples, so both first-order operators square "
-          "to the wave operator; e_a and alpha_a(n) are not related by one-sided multiplication with a fixed element", ok)
+          "to the wave operator; for every clock n (symbolic) e_a and alpha_a(n) are not related by one-sided multiplication with a "
+          "fixed element", ok)
 
 # =====================================================================================================================
 # r4-21  intertwiners of the two triples
@@ -744,7 +769,7 @@ ce = commutant([e[1], e[2], e[3]])
 cand = [I8, s[1] * s[2], s[2] * s[3], s[3] * s[1]]
 cand = cand + [T * c for c in cand]
 ok &= len(ce) == 8 and all(all(comm(c, e[a]) == Z8 for a in (1, 2, 3)) for c in cand) and rank_of(cand) == 8
-check(21, "the U with U alpha_a(n) U^-1 = e_a form (with 0) an 8-dimensional space (a coset of the commutant span{1,T} x Cl^0(V^-) = M_2(C) of e_1,e_2,e_3), contain no "
+check(21, "the U with U alpha_a(n) U^-1 = e_a form (with 0) an 8-dimensional space (C U_0 for an invertible solution U_0, C = span{1,T} x Cl^0(V^-) = M_2(C) the commutant of e_1,e_2,e_3), contain no "
           "element of definite parity, and every invertible one carries the spin lift of l_int(n) to the left-multiplication "
           "representation L_i -> -e_je_k/2, K_i -> -e_i/2 of the temporal Pauli algebra; rho_oct(K_i) = -(e_i + e_{i+3} omega)/2 "
           "adds the right multiplication (n = e1, (2,3,6)/7)", ok)
@@ -780,9 +805,20 @@ ok &= len(solA2) == 2 and rank_of([combo(v, EU) for v in solA2] + [T, tvec(list(
 solB = solve_linear(EU, lambda Y: sum((flat(comm(tvec(n) * Y, gm)) for n in two for gm in lint(n) + [J(n)]), []))
 ok &= len(solB) == 2 and rank_of([combo(v, EU) for v in solB] + [T, s123]) == 2
 ok &= isZ(nv * Omega(NS) - N2 * s123) and isZ(Jn * Omega(NS) - N2 * omega) and T * omega == -s123
+# for two clocks the products 'clock times a square root of -1 commuting with the gamma^mu' are not only +-T:
+# at e1 and (0,3,4)/5, Y = (3 T + 4 w e4e5e6)/5 with w = n x n' a unit vector works at both
+Cb = [sp.Integer(0), sp.Rational(3, 5), sp.Rational(4, 5)]
+wv = list(sp.Matrix(C1).cross(sp.Matrix(Cb)))
+Yc = (3 * T + 4 * tvec(wv) * s123) / 5
+for n in (C1, Cb):
+    xx = tvec(n) * Yc
+    ok &= isZ(xx * xx + I8) and all(isZ(comm(xx, gm)) for gm in gam(n))
+ok &= rank_of([Yc, T]) == 2
 check(23, "{Y : n^-1 Y commutes with gamma^mu(n) for three independent clocks of the Fisher-Rao octant} = R T (for two clocks "
           "n,n' it is span{T, (n x n') e4e5e6}); {Y : n^-1 Y in span{1,Omega_n,J(n),Omega_nJ(n)} for two clocks} = span{T, e4e5e6}; "
-          "n Omega_n = |n|^2 e4e5e6 = -|n|^2 T Gamma and J(n) Omega_n = |n|^2 Gamma for every n", ok)
+          "n Omega_n = |n|^2 e4e5e6 = -|n|^2 T Gamma and J(n) Omega_n = |n|^2 Gamma for every n; for two clocks (e1, (0,3,4)/5) "
+          "Y = (3T + 4 (n x n') e4e5e6)/5 makes n^-1 Y a square root of -1 commuting with the gamma^mu_n at both, so (iii) also "
+          "needs three clocks", ok)
 
 # =====================================================================================================================
 # r4-24  the earlier "covariant mass" e4e5e6
@@ -801,5 +837,17 @@ check(24, "at every clock tested the trivectors anticommuting with alpha_1,alpha
           "a symmetric H = alpha.p + m e4e5e6 with H^2 = p^2+m^2, [H,J(n)]=0, whose Grassmann kernel J(n)e4e5e6 = T Omega_n is the "
           "pseudoscalar mass and depends on the clock, while beta = n has the clock-independent kernel J(n) n = T", ok)
 
-print(f"# r4: {24 - len(FAILS)} of 24 claims pass; runtime {time.time() - T0:.1f}s")
+# =====================================================================================================================
+# r4-25  couplings beyond linear order in X: (psi^T T psi) eta(X,X)
+# =====================================================================================================================
+ok = T.T == -T
+for n in (C1, C7):
+    ok &= all(isZ(phi(n)[k].T * T + T * phi(n)[k]) for k in KEYS)            # T is a rho_n-invariant form
+etaM = sp.diag(1, 1, 1, -1, -1, -1)
+ok &= all(isZ(rhoV[k].T * etaM + etaM * rhoV[k]) for k in KEYS)                # eta(X,X) is l_G-invariant
+check(25, "(psi^T T psi) eta(X,X) is a covariant derivative-free coupling of a Grassmann psi to X (T antisymmetric and "
+          "rho_n-invariant at e1 and (2,3,6)/7, eta(X,X) l_G-invariant): the trilinear couplings are the only covariant "
+          "derivative-free ones linear in X, not the only ones", ok)
+
+print(f"# r4: {25 - len(FAILS)} of 25 claims pass; runtime {time.time() - T0:.1f}s")
 sys.exit(1 if FAILS else 0)

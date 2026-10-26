@@ -1,5 +1,5 @@
 % Track r4 -- the bridge T = nJ(n) between the two readings.
-% Verification: investigations/two_readings/verify/r4_bridge.py (claims r4-1 ... r4-24).
+% Verification: investigations/two_readings/verify/r4_bridge.py (claims r4-1 ... r4-25).
 % New references: sections/bib_r4.tex.
 \section{\texorpdfstring{The bridge $T=nJ(n)$ between the two readings}{The bridge T = nJ(n) between the two readings}}
 \label{r4:sec:main}
@@ -8,13 +8,16 @@ Two sections of this note meet in one element of $\Cl(3,3)$. The clock $n\in V^+
 $J(n)=Tn$ of the Dirac reading (\cref{r2:prop:J,r2:thm:i}), while the octant representation of the field in \cref{r3:sec:main} uses $T=e_1e_2e_3$
 itself, through $-T$, as the duality operator (\cref{r3:prop:parity,r3:prop:odd}). Since $n$ commutes with $T$ and $n^2=\id$,
 $T=nJ(n)=J(n)n$ for every clock. This section asks whether this identity can be built into both readings at once while their distinct
-Lorentz representations are kept apart, also when the clock varies or the temporal axes are permuted, and it answers the two points left open
-in \cref{r3:sec:main}: the remark on the spatial derivatives of the octant Maxwell operator after \cref{r3:thm:maxwell}, and the paragraph ``The
-main obstruction'' of \cref{r3:sec:answer}. In brief:
+Lorentz representations are kept apart, also when the clock varies or the temporal axes are permuted, and it answers the points left open
+in \cref{r3:sec:main}: the remark on the spatial derivatives of the octant Maxwell operator after \cref{r3:thm:maxwell}, the paragraph ``The
+main obstruction'' of \cref{r3:sec:answer}, and the question of its paragraph ``Open'' whether $\rho_{\rm oct}$ can enter a coupling to the Dirac
+sector. Three expectations are tested on the way: (E1) that an odd permutation of the temporal axes reverses the mass form and the duality
+operator together; (E2) that the couplings of the Dirac field to the field, which contain $T$, change sign with it under such a permutation;
+(E3) that such a coupling can be written through $T$ and $J(n)$. In brief:
 (1) $T$ is invariant and $J(n)$ covariant under every rotation of the temporal triple and under the diagonal rotations; an odd permutation of the
-temporal axes reverses $T$ and $J(n)$ together, and with them the mass form and the duality operator, and turns the octant map into its
-textbook-orientation form; reversing the clock is a half-turn, which fixes $T$, and the charge conjugation of \cite{ES17,RE} is that half-turn
-composed with $T$ (\cref{r4:sec:identity});
+temporal axes reverses $T$ and $J(n)$ together, hence the mass form; paired with the same permutation of the spatial axes, the only form that
+respects $G$, it also reverses the duality operator and turns the octant map into its textbook-orientation form; reversing the clock is a
+half-turn, which fixes $T$, and the charge conjugation of \cite{ES17,RE} is a half-turn composed with $T$ (\cref{r4:sec:identity});
 (2) $T$ is at once the Dirac mass form, the Dirac parity and the lift of the frame parity, and the duality on the octants; $J(n)$ acts on the
 octants as a rotation of the transverse field about $n$ and maps the longitudinal field to the two poles that carry the Gauss laws
 (\cref{r4:sec:roles});
@@ -107,7 +110,8 @@ $\Phi\circ(-\eta)=\Phi_{\rm t}=-(-1)^N\Phi$, the textbook-orientation map of \cr
 $A'(-T)$: $A'(-T)\Phi'=\Phi'G$.
 \item No nontrivial $A_\sigma$ commutes with $G$.
 \item Let $R=nu_2$, the rotor of the half-turn about $u_1$. Then $RnR^{-1}=-n$, $RTR^{-1}=T$, $RJ(n)R^{-1}=J(-n)=-J(n)$, and $RT=u_1$: every unit vector
-$C$ of the surplus plane, the charge conjugation of Theorem~5.1 of \cite{ES17}, is the half-turn reversing the clock composed with $T$.
+$C$ of the surplus plane, the charge conjugation of Theorem~5.1 of \cite{ES17} at the clock $n$, is the half-turn about $C$, which reverses the
+clock, composed with $T$.
 \end{enumerate}
 \end{proposition}
 
@@ -121,7 +125,7 @@ element of $\Cl(V^+)$, so it commutes with $T$; $nu_2nu_1u_2=-u_2u_1u_2=u_1$. Al
 for three clocks (r4-5, r4-6, r4-7).
 \end{proof}
 
-Fixed. The statement asked for is confirmed in the form (i): an odd permutation reverses $T$ and $J(n)$ together, and the paired one, which is
+Fixed. Expectation (E1) is confirmed in the form (i): an odd permutation reverses $T$ and $J(n)$ together, and the paired one, which is
 the only one that respects $G$ and the octants, reverses the mass form $T$ and the duality operator $-T$ together. The reason is (ii): an odd
 permutation of the axes is an improper rotation, under which $\bB$ is axial; on the octants it changes the orientation convention $\Btext=-\bB$
 of \cite{ES17} into the textbook one, for which the duality operator is $+T$ (\cref{r3:thm:maxwell}(iv)). The working note \cite{FMB} defers the
@@ -194,7 +198,8 @@ reverses the momentum term of $H_n$; uniqueness: the solutions of $Ye_a=\eta_{aa
 Restated and fixed: (a) is Remark~4.2 and Proposition~4.5 of \cite{ES17} and \cref{r2:thm:i}(iii) at every clock, (b) is Proposition~2.11 of \cite{RE} and
 \cref{r3:prop:parity} together with Theorem~5.3 of \cite{ES17} at every clock, (c) is \cref{r3:prop:odd}(i); proved together here (r4-9). The three are
 compatible: (b) and (a) say that the mass is parity-even, (b) and (c) that the parity lift acts on the field octants as minus the Hodge star, which is
-\cref{r3:prop:parity}. Of the three roles only (c) belongs to the field reading, and it uses $T$ alone; (a) uses $T$ as the product $nJ(n)$.
+\cref{r3:prop:parity}. Role (a) belongs to the particle reading and uses $T$ as the product $nJ(n)$; (c) belongs to the field reading and uses $T$
+alone; (b) belongs to both, since $\Ad_T|_V=\eta$ is the parity of the frame $(\bB;\bE)$ and of the three lengths, and $T$ is the Dirac parity.
 
 \begin{proposition}[$J(n)$ relative to the field structure]
 \label{r4:prop:Jdec}
@@ -202,7 +207,8 @@ With $L(n)$ and $A(n)$ as in the conventions:
 \begin{enumerate}[label=(\roman*),leftmargin=2.2em]
 \item $J(n)=-L(n)+A(n)$, with $L(n)A(n)=A(n)L(n)=0$; for a clock, $-L(n)^2$ and $-A(n)^2$ are complementary projectors of rank four, $L(n)^3=-L(n)$ and
 $A(n)^3=-A(n)$.
-\item $L(n)=\rho_n(L(n))-\tfrac12J(n)$, in which $\rho_n(L(n))=\tfrac12\sum_in_is_js_k$ is the Dirac spin rotation about $n$; and $\rho_{\rm oct}(L_i)=\rho_n(L_i)-\tfrac12J(e_i)$ for
+\item $L(n)=\rho_n(L(n))-\tfrac12J(n)$, in which $\rho_n(L(n))=\tfrac12\sum_in_is_js_k$ is the Dirac spin rotation of $V^-$ about the spatial axis
+$\sum_in_is_i$ paired with $n$ (it acts trivially on $V^+$); and $\rho_{\rm oct}(L_i)=\rho_n(L_i)-\tfrac12J(e_i)$ for
 every $i$ and every clock. Hence $e^{2\pi L(n)}=e^{2\pi\rho_n(L(n))}e^{-\pi J(n)}=(-\id)(-\id)=\id$.
 \item For every $n$,
 \[
@@ -226,8 +232,9 @@ Fixed. What this means is the following, and the reading is interpretive. The Di
 a transformation of the field: on transverse fields it is the rotation by $-\theta$ about the axis paired with the clock, and on the four-dimensional
 complement it exchanges the longitudinal components with the pole components, $\bE\cdot n$ with the slot of $\nabla\cdot\bB$ and $\bB\cdot n$ with the slot of
 $\nabla\cdot\bE$ (\cref{r3:thm:maxwell}). So the complex structure of the particle reading mixes the field with the Gauss constraints, and it is not in
-the commutant of the field reading's Lorentz representation. Item (ii) shows where integer and half-integer spin part on $S$: about the clock axis the
-field rotation is the Dirac rotation combined with half a turn of the charge, and the two signs $-1$ cancel. The working note \cite{FMB} asks that
+the commutant of the field reading's Lorentz representation. Item (ii) shows where integer and half-integer spin part on $S$: the field rotation
+$L(n)$, which turns $\bB$ about $n$ and $\bE$ about $\sum_in_is_i$, is the Dirac rotation about $\sum_in_is_i$ combined with half a turn of the charge,
+and the two signs $-1$ cancel. The working note \cite{FMB} asks that
 $J(n)$ be analysed separately from $G_{\rm EM}=\star$ (its Section~8, item~5): on the octants $\star$ is $-T$ (\cref{r3:prop:odd}), $J(n)=nT$ differs from it by
 the clock, and $J(n)$ commutes with $\lint(n)$ while $G$ commutes with $\lG$.
 
@@ -274,7 +281,8 @@ Equivalent representations have conjugate Casimirs; the values are computed exac
 Restated (the decompositions) and fixed (the Casimirs and the inequivalence). That $\rho_{\rm oct}$ does not commute with the spin lift of
 $\lint(e_1)$ (r4-13) is the weakest form of this; the proposition says that the two are not even conjugate. They therefore cannot both be the Lorentz
 action of one field on $S$. A theory containing a Dirac field and the field octants must treat them as two fields, $\psi$ in a copy of $S$ with
-$\rho_n$ and $\Phi(X)$ in another with $\rho_{\rm oct}$, and the joint action of $Y\in\lint(n)$ is $\rho_n$ on $\psi$ and $\rho_{\rm oct}\circ\phi_n^{-1}$ on the octants.
+$\rho_n$ and $\Phi(X)$ in another with $\rho_{\rm oct}$, and the joint action of $Y\in\lint(n)$ is its spin lift $\rho_n(\phi_n^{-1}Y)$ on $\psi$ and
+$\rho_{\rm oct}(\phi_n^{-1}Y)$ on the octants; equivalently $Y'\in\lG$ acts by $\rho_n(Y')$ and by $\rho_{\rm oct}(Y')$.
 Since $\Phi$ intertwines $\lG$ on $V$ with $\rho_{\rm oct}$ (\cref{r3:prop:odd}(iii)), a coupling to $\Phi(X)$ is a coupling to $X$ with its own action
 $Y\cdot X=[Y,X]$, and conversely.
 
@@ -283,11 +291,13 @@ For $X\in V$ let $\ell(X):=\sum_i(B_iL_i+E_iK_i)\in\lG$, an equivariant isomorph
 \[
 S_n(X):=\rho_n(\ell(X))=\tfrac12\sum_i\bigl(B_i\,s_js_k+E_i\,s_in\bigr),
 \]
-the field strength as a bivector of $E_n$; under the dictionary of \cref{r2:prop:dict} it is the Clifford image of $F_X^\sharp=\sum_{\mu<\nu}F_X^{\mu\nu}\gamma_\mu\wedge\gamma_\nu$.
+the field strength as a bivector of $E_n$; under the dictionary of \cref{r2:prop:dict} it is the Clifford image of the bivector
+$\sum_{\mu<\nu}(F_X)_{\mu\nu}\,\gamma_\mu\wedge\gamma_\nu=\sum_i(E_i\,s_i\wedge n+B_i\,s_j\wedge s_k)$, $\gamma_\mu:=\eta_{\mu\nu}\gamma^\nu_n$, while the same sum
+with $F_X^{\mu\nu}$ in place of $(F_X)_{\mu\nu}$ is $S_n(\eta X)$ (r4-16).
 
 \begin{theorem}[Covariant couplings of the Dirac field to the field octants]
 \label{r4:thm:couplings}
-Let $\psi$ carry $\rho_n$ and $\Phi(X)$ carry $\rho_{\rm oct}\circ\phi_n^{-1}$.
+Let $Y\in\lG$ act by $\rho_n(Y)$ on $\psi$ and by $\rho_{\rm oct}(Y)$ on $\Phi(X)$, that is, by $Y\cdot X=[Y,X]$ on $X$.
 \begin{enumerate}[label=(\roman*),leftmargin=2.2em]
 \item No nonzero bilinear form $\psi^{\!\top}M\Phi(X)$ is invariant, nor one on all of $S$ with $\rho_{\rm oct}$.
 \item The invariant trilinear couplings $\psi^{\!\top}M(X)\psi$, $M:V\to\End(S)$ linear with $\rho_n(Y)^{\!\top}M(X)+M(X)\rho_n(Y)+M(Y\cdot X)=0$, are exactly
@@ -333,7 +343,7 @@ textbook ones. The Lagrangian density
 \mathcal L_{\rm P}=\tfrac12\,\psi^{\!\top}\Bigl(\tfrac{\mu}{c}\,M_n(X_{\rm EM})+d\,M^\star_n(X_{\rm EM})\Bigr)\psi,\qquad X_{\rm EM}=(c\bB;\bE),
 \end{equation}
 has dimension $\mathrm{J\,m^{-3}}$ in SI units for $[\mu]=\mathrm{J\,T^{-1}}$ and $[d]=\mathrm{C\,m}$, and its two couplings have mass dimension $-1$ in natural units: they
-are not renormalisable \cite{PeskinSchroeder}. The arena fixes neither constant (open). The kernel $M_n$ is written through $T$ and $J(n)$ as asked:
+are not renormalisable \cite{PeskinSchroeder}. The arena fixes neither constant (open). The kernel $M_n$ is written through $T$ and $J(n)$, as (E3) proposed:
 $T$ is the adjoint form, $J(n)$ the imaginary unit of $\sigma^{\mu\nu}$, and $S_n(X)$ the field bivector; the dual uses the other $\mathrm{Spin}(3,3)$-invariant
 form $T\Gamma$ (\cref{r3:prop:energies}(iii)) and no $J(n)$. With these couplings the Dirac sector reads, at every clock,
 \[
@@ -364,8 +374,9 @@ $\sigma n$, so $A(S_n(X))=S_{\sigma n}(X)$; $A(\Gamma)=\operatorname{sgn}(\sigma
 $s_{\sigma(j)}s_{\sigma(k)}$ is $\operatorname{sgn}(\sigma)$ times the cyclically ordered pair (r4-18, r4-19).
 \end{proof}
 
-Fixed. The expectation that the couplings change sign with $T$ under an odd permutation is refuted for the Pauli term and confirmed only for the
-dual term under the paired permutation: $M_n=TJ(n)S_n$ contains the product $TJ(n)=-n$, in which the two reversals cancel. What changes sign is the
+Fixed. Expectation (E2), that the couplings change sign with $T$ under an odd permutation, is refuted for the Pauli term under both kinds of
+permutation and for the dual term under the temporal permutation alone; it holds only for the dual term under the paired permutation:
+$M_n=TJ(n)S_n$ contains the product $TJ(n)=-n$, in which the two reversals cancel. What changes sign is the
 Pauli term \emph{relative to the mass term}, since $T$ reverses and $M_n$ does not; after the axial rotation that restores the mass
 (\cref{r4:cor:senses}), $M_n$ is reversed. Physically the paired odd permutation is an improper rotation, and the electric-dipole coupling is the
 parity-odd one (\cref{r4:thm:couplings}(iii)).
@@ -390,13 +401,15 @@ the three coordinate clocks themselves, $e_a=-TJ(e_a)$, one for each spatial axi
 
 \begin{proof}
 (i) $n$ and $s_a$ are orthogonal matrices, $n$ symmetric, $s_a$ antisymmetric, anticommuting: $(ns_a)^2=-n^2s_a^2=\id$ and $ns_ans_b=-s_as_b$. (ii)
-$J(n)n=T$, and $TJ(e_a)=T^2e_a$. (iii) $e_a\alpha_a(e_1)$ takes three different values for $a=1,2,3$, and so does $\alpha_a(e_1)e_a$ (r4-20).
+$J(n)n=T$, and $TJ(e_a)=T^2e_a$. (iii) $\alpha_a(n)=Ze_a$ for all $a$ would give $Z=ns_ae_a$ for $a=1,2$, hence $s_1e_1=s_2e_2$, which is false;
+$\alpha_a(n)=e_aZ$ would give $e_1ns_1=e_2ns_2$, whose grade-one part $n_1s_1=n_2s_2$ forces $n=\pm e_3$, and $e_1e_3s_1\neq e_2e_3s_2$ (r4-20, symbolic
+in $n$).
 \end{proof}
 
 \begin{theorem}[The triples are conjugate only by elements of mixed parity]
 \label{r4:thm:conj}
-For each clock the $U\in M_8(\R)$ with $U\alpha_a(n)=e_aU$ $(a=1,2,3)$ form an eight-dimensional space, a coset of the commutant $\operatorname{span}\{\id,T\}\otimes\Cl^0(V^-)\cong M_2(\C)$
-of the $e_a$; its invertible elements are dense. No nonzero solution is even and none is odd, so no element of the Clifford group, of
+For each clock the $U\in M_8(\R)$ with $U\alpha_a(n)=e_aU$ $(a=1,2,3)$ form an eight-dimensional space, $\mathcal C\,U_0$ for any invertible
+solution $U_0$, where $\mathcal C=\operatorname{span}\{\id,T\}\otimes\Cl^0(V^-)\cong M_2(\C)$ is the commutant of the $e_a$; its invertible elements are dense. No nonzero solution is even and none is odd, so no element of the Clifford group, of
 $\mathrm{Spin}(3,3)$ or of $\so{3,3}$ relates the two triples. Every invertible solution carries the Dirac representation to the left-multiplication
 representation of the temporal Pauli algebra,
 \[
@@ -407,7 +420,8 @@ whereas $\rho_{\rm oct}(L_i)=-\tfrac12e_je_k+\tfrac12s_js_k$ and $\rho_{\rm oct}
 
 \begin{proof}
 Both triples generate copies of $\Cl(3,0)\cong M_2(\C)$, which has a unique simple module, $\R^4$; $S$ is twice it for each, so intertwiners exist and form
-a torsor of the commutant (inherited: Wedderburn's theorem). If $U$ had definite parity, $U\alpha_aU^{-1}$ would be even, but $e_a$ is odd. The exact solution
+a torsor of the commutant (inherited: Wedderburn's theorem). If $U$ had definite parity, $U\alpha_a$ would have the parity of $U$ and $e_aU$ the
+opposite one, so both would vanish, and $U=0$ since $e_a$ is invertible. The exact solution
 spaces, their even and odd parts, invertibility of a generic solution and the conjugated generators are computed at $n=e_1$ and $(2,3,6)/7$ (r4-21);
 $\rho_n(L_i)=-\tfrac12\alpha_j\alpha_k$ and $\rho_n(K_i)=-\tfrac12\alpha_i$.
 \end{proof}
@@ -495,10 +509,13 @@ the commutant of the $\gamma^\mu_n$) for every clock and that does not depend on
 $nu_a\Omega_n=-u_ae_4e_5e_6$. The four have grades $1,3,4,4$, so for $Y$ fixed the grade-one part lies in $\bigcap\R n=0$, the grade-four part in $(\bigcap U_n)\,e_4e_5e_6$,
 which is $0$ for three independent clocks and the line of $n\times n'$ for two. (ii) $n\cdot\operatorname{span}\{\id,\Omega_n,J(n),\Omega_nJ(n)\}=\operatorname{span}\{n,e_4e_5e_6,T,n\Gamma\}$, of grades
 $1,3,3,5$; the grades one and five vanish for two independent clocks; $T\Gamma=-e_4e_5e_6$ (r4-1) and $\operatorname{span}\{T,T\Gamma\}$ is the space of invariant forms
-(\cref{r3:prop:energies}(iii)). (iii) By Theorem~4.1 of \cite{ES17} at every clock (\cref{r2:thm:i}) the Dirac complex structures are $\pm J(n)$. Exact solutions in r4-23.
+(\cref{r3:prop:energies}(iii)). (iii) If $n^{-1}Y$ is a square root of $-\id$ commuting with the $\gamma^\mu_n$ for every clock, then $Y\in\R T$ by (i), so
+$n^{-1}Y=aJ(n)$, and $(aJ(n))^2=-a^2\id$ gives $a=\pm1$; with the selection of Theorem~4.1 of \cite{ES17} at every clock (\cref{r2:thm:i}) the Dirac
+complex structures are $\pm J(n)$ and the products are $\pm T$ directly. For two clocks the elements $\cos\vartheta\,T+\sin\vartheta\,\hat w\,e_4e_5e_6$,
+$\hat w$ the unit vector along $n\times n'$, meet the conditions at both, so (iii), like (i), needs three clocks. Exact solutions in r4-23.
 \end{proof}
 
-Fixed; the two-clock exception in (i) is a correction to the expectation that two clocks suffice. The second element of (ii), $e_4e_5e_6$, is the
+Fixed; by the two-clock exception in (i) two clocks do not single out $T$, and three are needed. The second element of (ii), $e_4e_5e_6$, is the
 clock times the other complex structure $\Omega_n$, which Theorem~4.1 of \cite{ES17} excludes because it anticommutes with the $\gamma^\mu_n$.
 
 \begin{remark}[The earlier ``covariant mass'' $e_4e_5e_6$]
@@ -521,21 +538,24 @@ the particle reading that the field reading shares. This is interpretive; what i
 
 \begin{enumerate}[label=(\arabic*),leftmargin=2.2em]
 \item \emph{Consistency.} $T=nJ(n)$ holds at every clock and is compatible with all operations considered: $T$ is invariant under all rotations of the
-temporal triple and the diagonal rotations, reversed together with $J(n)$, and with the duality operator, by odd permutations, and fixed by the
+temporal triple and the diagonal rotations, reversed together with $J(n)$ by odd permutations, and with the duality operator by the paired ones,
+and fixed by the
 reversal of the clock (\cref{r4:prop:rot,r4:prop:perm}; fixed). Its three roles, mass form, parity and duality, are compatible (\cref{r4:thm:roles};
 restated and fixed). It incorporates consistently into both readings.
 \item \emph{The Lorentz representations stay apart.} On $S$ the Dirac representation $\rho_n$ and the octant representation $\rho_{\rm oct}$ are inequivalent,
 their joint commutant is $\R\id$, and no operator, $T$ included, relates them (\cref{r4:prop:comm,r4:prop:ineq,r4:thm:conj}; fixed). A single module
 carrying both as the Lorentz action of one field is obstructed; the Dirac field and the field octants are two fields.
 \item \emph{The bridge as a coupling.} The answer to ``The main obstruction'' of \cref{r3:sec:answer}: $\rho_{\rm oct}$, $\rho_n$ and $\Phi$ coexist as the
-actions on two different fields, and the only covariant local couplings without derivatives are trilinear: the Pauli kernel $TJ(n)S_n(X)$ and the
-electric-dipole kernel $T\Gamma S_n(X)$, a two-dimensional space at every clock, bilinear couplings being excluded by the $2\pi$ rotation
-(\cref{r4:thm:couplings}; fixed, the textbook terms inherited). Since $\Phi$ is an equivalence onto its image, the octants add no coupling that $X$ itself
+actions on two different fields, and the covariant local couplings without derivatives that are linear in the field strength are trilinear,
+quadratic in $\psi$: the Pauli kernel $TJ(n)S_n(X)$ and the electric-dipole kernel $T\Gamma S_n(X)$, a two-dimensional space at every clock,
+bilinear couplings being excluded by the $2\pi$ rotation (\cref{r4:thm:couplings}; fixed, the textbook terms inherited). Couplings of higher
+order in $X$ exist, for instance $(\psi^{\!\top}T\psi)\,\eta(X,X)$, since $T$ is $\rho_n$-invariant and $\eta(X,X)$ is $\lG$-invariant (r4-25). Since $\Phi$ is an equivalence onto its image, the octants add no coupling that $X$ itself
 does not have. $T$ is the clock-independent factor of every Dirac kernel; the couplings are conjugated by the rotation that moves the clock, and an odd
-permutation reverses the electric-dipole term with $T$ but not the Pauli term (\cref{r4:prop:coupclock}; fixed, the sign expectation refuted for the
-Pauli term).
-\item \emph{$J(n)$ on the field.} $J(n)=-L(n)+A(n)$ rotates the transverse octants about the clock axis and maps the longitudinal octants to the Gauss-law poles;
-the field rotation about the clock axis is the Dirac rotation combined with half a charge rotation (\cref{r4:prop:Jdec}; fixed; the reading interpretive).
+permutation paired with the spatial one reverses the electric-dipole term with $T$ but not the Pauli term, and the temporal one alone reverses
+neither (\cref{r4:prop:coupclock}; fixed, (E2) refuted for the Pauli term).
+\item \emph{$J(n)$ on the field.} $J(n)=-L(n)+A(n)$ rotates the transverse octants about the axis with the components of $n$ and maps the
+longitudinal octants to the Gauss-law poles; this field rotation $L(n)$ is the Dirac rotation about the spatial axis $\sum_in_is_i$ combined with
+half a turn of the charge (\cref{r4:prop:Jdec}; fixed; the reading interpretive).
 \item \emph{Spatial derivatives.} The remark after \cref{r3:thm:maxwell} is answered by \cref{r4:prop:triples,r4:thm:conj,r4:prop:fockLR}: both operators
 differentiate along the lengths of $V^-$, the Dirac reading through the spatial generators and one clock, the octant reading through the three temporal
 generators; the triples are conjugate only by mixed-parity elements, and nothing derives spatial differentiation from temporal directions (fixed; the
@@ -553,8 +573,9 @@ quantisation of either reading (open, as in \cite{FMB}).
 
 \paragraph{On the working note.} Proposition~5.1 of \cite{FMB} is confirmed; its statement that reversing $n$ reverses $J(n)$ is confirmed and
 sharpened (\cref{r4:prop:perm}(iv)); its deferred temporal permutations and rotations are carried out (\cref{r4:prop:rot,r4:prop:perm}); its item~5 of
-Section~8 is answered by \cref{r4:prop:Jdec} and \cref{r4:sec:reps} ($J(n)$ is not the duality, a common Lorentz representation on $S$ does not exist, and the
-cross-sector coupling has the units, covariance and parity stated in \cref{r4:thm:couplings} and \cref{r4:eq:LP}); its item~6 by \cref{r4:prop:clockdep}.
+Section~8 is answered in part by \cref{r4:prop:Jdec} and \cref{r4:sec:reps} ($J(n)$ is not the duality, a common Lorentz representation on $S$ does not exist,
+and the cross-sector coupling has the units, covariance and parity stated in \cref{r4:thm:couplings} and \cref{r4:eq:LP}), while the projector vacuum and
+the mixed/spectator embedding mismatch named there are not treated here (open); its item~6 is answered by \cref{r4:prop:clockdep}.
 Its requirement that a cross-sector coupling specify symplectic and quantum consistency is not addressed here (open).
 
 {\small\renewcommand{\arraystretch}{1.12}
@@ -583,12 +604,13 @@ r4-14 & no invariant bilinear coupling $\psi^{\!\top}M\Phi(X)$ (\cref{r4:thm:cou
 r4-15, 16 & trilinear couplings: dimension $2$ (Grassmann), $6$ (commuting); Pauli $TJ(n)S_n$ and dual $T\Gamma S_n$ & fixed; textbook terms inherited\\
 r4-17 & Pauli term parity-even, dual parity-odd (\cref{r4:thm:couplings}(iii)) & fixed; inherited in substance\\
 r4-18 & couplings conjugated by the clock rotor, $T$ fixed; diagonal covariance (\cref{r4:prop:coupclock}) & fixed\\
-r4-19 & odd permutation: Pauli term does not change sign, dual does when paired (\cref{r4:prop:coupclock}(iii)) & fixed; expectation refuted for the Pauli term\\
+r4-19 & odd permutation: Pauli term does not change sign, dual does when paired (\cref{r4:prop:coupclock}(iii)) & fixed; (E2) refuted for the Pauli term\\
 r4-20 & two Pauli triples, $J(n)\alpha_a=Ts_a$, $e_a=-TJ(e_a)$, no one-sided relation (\cref{r4:prop:triples}) & fixed\\
 r4-21 & intertwiners: dimension $8$, none of definite parity; Dirac $\mapsto$ left Pauli representation (\cref{r4:thm:conj}) & fixed; existence inherited\\
 r4-22 & temporal $=$ left, spatial $=$ twisted right multiplication (\cref{r4:prop:fockLR}) & restated (\cref{r3:prop:odd}), verified; one-/two-sided inherited\\
 r4-23 & uniqueness of $T$; two-clock exception; $\operatorname{span}\{T,T\Gamma\}$ (\cref{r4:thm:unique}) & fixed\\
 r4-24 & trivectors anticommuting with $\alpha_a(n)$; $e_4e_5e_6$ as $\beta$ is the pseudoscalar mass (\cref{r4:rem:V}) & fixed; earlier assignment corrected\\
+r4-25 & a covariant quartic coupling $(\psi^{\!\top}T\psi)\,\eta(X,X)$: the trilinear couplings are the only ones linear in $X$, not the only ones (\cref{r4:sec:answer}) & fixed\\
 -- & spatial derivatives ``from temporal directions'' (\cref{r4:sec:operators}) & interpretive; inference refuted\\
 -- & a change of clock is a change of frame (\cref{r4:prop:clockdep}) & fixed (equivalence); interpretive\\
 -- & mass form $=$ the shared part of the two readings & interpretive\\
