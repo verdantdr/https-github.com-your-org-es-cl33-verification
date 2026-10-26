@@ -1,0 +1,446 @@
+% Track e4 -- The b-field between the constituents of a rung, up the ladder.
+% Verification: investigations/emergence/verify/e4_bfield_ladder.py (claims e4-1a ... e4-5e).
+% New references: sections/bib_e4.tex.
+\section{\texorpdfstring{The $b$-field up the ladder}{The b-field up the ladder}}
+\label{e4:sec:main}
+
+Section~9 of \cite{RE} studied the field that acts between the constituents of one rung, the copy field $b=B\otimes\id_6$, and settled what it
+does to rates and lines on two and three constituents. This section follows that field up the ladder, $n=2,3,4,\dots$, and reads it in
+the Fock picture of \cref{e1:sec:fock,e2:sec:quanta}. The field always acts between the constituents of one rung $\Cl(3n,3n)$; going up the
+ladder means increasing $n$.
+
+The answers, with their classes, are these. (1) Every compact binding-compatible field is the second quantisation of a one-quantum
+Hamiltonian. It conserves the number $N$ of quanta, moves quanta between the constituents, and its many-quantum lines are sums of
+one-quantum lines. The copy boosts create pairs, one quantum in each of the two constituents they join (fixed; \cref{e4:sec:fock}). (2) On $n$
+constituents with distinct rates and all couplings nonzero, the invariants of the copy field are the $|B_{kl}|$ and the signs of the
+products of $B$ around the cycles of the complete graph. Exactly $(n-1)(n-2)/2$ of these signs are independent, and all of them can be taken
+time-odd. The Jarlskog-type determinant $\det[H,K]$ has time parity $(-1)^n$, so it detects time reversal only at odd $n$ (fixed;
+\cref{e4:sec:cycles}). (3) At $n=4$ the copy group is $SO(4)$, and each of its two $\su2$ factors has half-integer isospin exactly on the states
+with an odd number of quanta. The copy inversion acts as $(-1)^N$. Above $n=4$ the same holds for the $\so4$ of any four constituents, with the
+quanta in those four. At no rung does a spinor of the copy algebra occur (fixed; \cref{e4:sec:isospin}). (4) For rates of multiplicities $n_1+\dots+n_r=n$ the removable part of the copy $\so n$ is $\bigoplus_i\so{n_i}$, and
+$\sum_{i<j}n_in_j$ directions are physical (fixed; the Higgs-like reading is interpretive; \cref{e4:sec:rates}). (5) For a rotor with rates
+$(\kappa_k)$, a frame bracket between copies $i,j$ and $k$ is admitted only if $\kappa_k=\kappa_i+\kappa_j$. A harmonic ladder of rates
+$\kappa_k=k\kappa_1$ therefore admits non-abelian, nilpotent frames. From $n=4$ on the Jacobi identity among the frame brackets is a
+quadratic condition (fixed; the reading is constructed; \cref{e4:sec:rotor}). \Cref{e4:sec:answer} says what the field can and cannot do for the emergence of particles.
+Identifiers e4-$n$ refer to the \texttt{PASS} lines of \texttt{verify/e4\_bfield\_ladder.py} (\cref{e4:tab:claims}).
+
+\paragraph{Notation.} As in Section~9 of \cite{RE}: $V_n=\R^n\otimes\R^6$, $\eta_n$, $G_n=\id_n\otimes G$, $z=(z_1,\dots,z_n)\in\C^{3n}$ with
+$z_k=\bB_k+i\bE_k$, copy rotations $C^{kl}=(E_{lk}-E_{kl})\otimes\id_6$, copy boosts $(E_{lk}-E_{kl})\otimes G$, copy field $b=B\otimes\id_6$ with
+$B\in\so n$, rates $K=\operatorname{diag}(\kappa_1,\dots,\kappa_n)$, $\tilde K=K\otimes\id_3$, and, for a compact binding-compatible $b$ acting on $z$ as the
+real antisymmetric $R$, the frame Hamiltonian $H=\tilde K-iR$ of Theorem~9.3 of \cite{RE}. $\sigma$ is the spin lift to
+$S_n=(\R^8)^{\otimes n}$, with $[\sigma(X),v]=Xv$ for $v\in V_n$, and $\hat C^{kl}=\sigma(C^{kl})$. The $3n$ modes are $p=(k,i)$, $k\le n$, $i\le3$, with
+$a^\pm_{k,i}=\half(E_{(k,i)}\pm E_{(k,i+3)})$ (Proposition~7.2 of \cite{RE}). $N_{k,i}=a^+_{k,i}a^-_{k,i}$, $N^{(k)}=\sum_iN_{k,i}$ is the number in
+constituent $k$, $N_{[i]}=\sum_kN_{k,i}$ the number in direction $i$, and $N=\sum_kN^{(k)}$. For a complex $3n\times3n$ matrix $M$ we write
+$\mathcal N(M)=\sum_{p,q}M_{pq}\,a^+_pa^-_q$. The first basis vector of the realisation is the Fock vacuum $|0\rangle$ (e4-1a).
+
+\subsection{Quanta between constituents: transfer, not creation}
+\label{e4:sec:fock}
+
+\Cref{e1:thm:Nrule} shows, at every rung, that the compact binding-compatible fields are exactly the binding-compatible fields that
+conserve $N$, and \cref{e2:prop:hop,e2:prop:copyboost} give the hop and the pair at $n=2$. The theorem below adds the second-quantised form,
+which says how the quanta move, and the bookkeeping by constituent and by direction at $n=3$.
+
+\begin{theorem}[The field between constituents, second quantised]
+\label{e4:thm:fock}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item Let $X$ be a paired rotation, acting on $z$ as the real antisymmetric $R\in\so{3n}$. Then $\sigma(X)=\mathcal N(R)$. Hence $\sigma(X)$ commutes
+with $N$, and $\sigma(X)\,a^+_q|0\rangle=\sum_pR_{pq}\,a^+_p|0\rangle$.
+\item For the copy field $b=B\otimes\id_6$ and rates $K$, the operator $\mathsf H=\sum_k\kappa_kN^{(k)}-i\sigma(b)$ on $S_n\otimes\C$ equals
+$\mathcal N(H)$, $H=(K-iB)\otimes\id_3$. It is Hermitian and commutes with $N$. Its block on $\{N=1\}$, in the basis $a^+_p|0\rangle$, is $H$, and its
+eigenvalues on $\{N=m\}$ are the sums of $m$ eigenvalues of $H$ with distinct indices.
+\item At $n=3$, $\hat C^{kl}=\sum_i\bigl(a^+_{l,i}a^-_{k,i}-a^+_{k,i}a^-_{l,i}\bigr)$. It commutes with $N$, with $N^{(k)}+N^{(l)}$, with $N^{(m)}$ for
+$m\notin\{k,l\}$ and with every $N_{[i]}$, and not with $N^{(k)}$. The three lifts close on $\so3$ as on vectors, $[\hat C^{12},\hat C^{13}]=\hat C^{23}$.
+\item At $n=3$, $\sigma\bigl((E_{lk}-E_{kl})\otimes G\bigr)=-\sum_i\bigl(a^+_{k,i}a^+_{l,i}+a^-_{l,i}a^-_{k,i}\bigr)$. It joins only sectors whose $N$ differs
+by $2$, in both directions, and it commutes with $N^{(k)}-N^{(l)}$ and with $N^{(m)}$, $m\notin\{k,l\}$: every pair it creates has one quantum in
+constituent~$k$ and one in constituent~$l$.
+\item At $n=3$ the quarter turn $U=e^{\pi\hat C^{12}/2}=\tfrac18\prod_a(\id+2t_a)$, with $t_a=-\half\eta_{aa}E_{(1,a)}E_{(2,a)}$ the six commuting terms of
+$\hat C^{12}$, is orthogonal, commutes with $N$ and $N^{(3)}$, and satisfies $UN^{(1)}U^{-1}=N^{(2)}$. For $\kappa_1\neq\kappa_2$ it changes the rate
+operator $\sum_k\kappa_kN^{(k)}$ and keeps its spectrum.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(i) A paired rotation acts in the same way on the temporal directions and on their partners, so $X(2a^\pm_q)=\sum_pR_{pq}\,2a^\pm_p$, and
+$[\sigma(X),a^\pm_q]=\sum_pR_{pq}a^\pm_p$. The CAR give $[\mathcal N(R),a^+_q]=\sum_pR_{pq}a^+_p$ and $[\mathcal N(R),a^-_q]=-\sum_pR_{qp}a^-_p$,
+which is the same because $R^{\!\top}=-R$. So $\sigma(X)-\mathcal N(R)$ commutes with every generator, and $S_n$ is irreducible, so it is a multiple
+of $\id$. Both operators are traceless: $\sigma(X)$ is a sum of products of two anticommuting generators, and $\Tr(a^+_pa^-_q)=0$ for $p\neq q$, while
+$R_{pp}=0$. Hence they are equal. Each term $a^+_pa^-_q$ conserves $N$, and $a^-_q|0\rangle=0$ gives the action on one quantum. (ii)
+$N^{(k)}=\mathcal N(E_{kk}\otimes\id_3)$, and by (i) $\sigma(b)=\mathcal N(B\otimes\id_3)$, so $\mathsf H=\mathcal N(H)$. $N^{(k)}$ is real diagonal and
+$\sigma(b)$ real antisymmetric, so $\mathsf H$ is Hermitian. For $H=WDW^\dagger$ with $W$ unitary, $b^\pm_r=\sum_pW_{pr}^{(\pm)}a^\pm_p$ ($W^{(+)}=W$,
+$W^{(-)}=\bar W$) satisfy the CAR and $\mathsf H=\sum_rd_r\,b^+_rb^-_r$; its eigenvectors are $b^+_{r_1}\cdots b^+_{r_m}|0\rangle$ with $r_1<\dots<r_m$. (iii) is
+(i) for $R=(E_{lk}-E_{kl})\otimes\id_3$. Each term moves one quantum between $(k,i)$ and $(l,i)$. (iv) A copy boost anticommutes with $K_3$, so its
+lift is a combination of $a^+a^+$ and $a^-a^-$ terms (\cref{e2:lem:N}(ii)). It maps the plane of mode $(k,i)$ to that of mode $(l,i)$, which fixes
+the modes paired, and the coefficients are computed. (v) $t_a^2=-\tfrac14$, so
+$e^{\theta\hat C^{12}}=\prod_a(\cos\tfrac\theta2+2\sin\tfrac\theta2\,t_a)$. At $\theta=\tfrac\pi2$, $\Ad U$ maps $E_{(1,a)}$ to $\pm E_{(2,a)}$ and $E_{(2,a)}$ to
+$\mp E_{(1,a)}$, and fixes $E_{(3,a)}$. $N^{(k)}$ is a function of the products $E_{(k,i)}E_{(k,i+3)}$, so $UN^{(1)}U^{-1}=N^{(2)}$, and conjugation keeps
+spectra.
+\end{proof}
+
+The theorem is fixed. Part (i) is the standard realisation of $\so{3n}$ on the exterior algebra by one-body operators
+\cite{Chevalley54,Fock32}, inherited, and its realisation in the tower is checked exactly for all $15$ and $36$ basis elements at $n=2,3$
+(e4-1b) and for the copy rotations at $n=4$ (e4-3a). Part (ii) is checked exactly on $\{N=1\}$ at $n=3$, rates $(1,2,4)$ and
+$(B_{12},B_{23},B_{31})=(\tfrac12,\tfrac13,\tfrac15)$, and the additivity on $\{N=2\}$ and $\{N=3\}$ to $10^{-9}$ (e4-1e). Parts (iii) to (v) are exact
+(e4-1c, e4-1d, e4-1f); in (iv) a random paired boost of $\so{9,\C}$ also changes $N$ by exactly $\pm2$. The external $i$ in $\mathsf H$ is constructed,
+as in \cref{e2:prop:hop}(iii). Under $z\mapsto\sum_pz_pa^+_p|0\rangle$ the one-quantum sector of $e^{-i\mathsf Ht}$ is the frame flow $z(t)=e^{-iHt}z(0)$ of
+Theorem~9.3(i) of \cite{RE}.
+
+\begin{corollary}[Transfer, not creation]
+\label{e4:cor:transfer}
+Let $b$ be a compact element of $\Cent(G_n)\cap\so{3n,3n}$, the class of gauge-admissible fields between the constituents (Theorem~9.3(ii) of
+\cite{RE}; Corollary~2.4 of \cite{ES17}).
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item $e^{t\sigma(b)}$ conserves $N$ and acts on $\{N=m\}$ as the $m$-th exterior power of $e^{tR}$. It moves quanta between modes and
+constituents, and never creates or annihilates one.
+\item The binding-compatible elements that change $N$ are the paired boosts, among them the copy boosts. Each of their terms creates or
+annihilates one pair, and a copy boost puts one quantum in each of the two constituents it joins.
+\item Let $\hat U$ lift a compact $\eta_n$-isometry commuting with $G_n$, which acts on $z$ as a unitary $W$. A change of frame by $\hat U$ takes the
+rate operator $\mathcal N(\tilde K)$ to $\hat U\mathcal N(\tilde K)\hat U^{-1}=\mathcal N(W\tilde KW^{-1})$. This operator commutes with $N$ and has the same
+spectrum on every sector $\{N=m\}$, the sums of $m$ rates. The numbers $N^{(k)}$ are not kept.
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+(i) The proof of \cref{e4:thm:fock}(i) holds at every $n$, and $\mathcal N(R)$ is the derivation of the exterior algebra induced by $R$, so its
+exponential is $\Lambda(e^{tR})$. (ii) is \cref{e1:thm:Nrule}(ii), with the pairing of \cref{e4:thm:fock}(iv) at $n=3$ and of
+\cref{e2:prop:copyboost}(iii) at $n=2$. (iii) $\Ad\hat U$ acts on vectors as the isometry, hence on the $a^+_p$ as $W$, which gives the formula. A compact isometry commuting with $G_n$
+commutes with $K_n=-\eta_nG_n$, so $\hat U$ commutes with $N$, and conjugation keeps spectra. This is the Fock form of Theorem~9.3(iii) of
+\cite{RE}, and \cref{e4:thm:fock}(v) exhibits a frame change that moves $N^{(1)}$ to $N^{(2)}$.
+\end{proof}
+
+The corollary is fixed. It answers the first question precisely. The gauge-admissible field between constituents transfers quanta and never
+creates them. It does not change a rate either (Theorem~9.3(iii) of \cite{RE}). Which constituent carries a quantum depends on the frame
+when the copy rotation is gauged, as \cref{e2:prop:hop} found at $n=2$. How many quanta there are, and the multiset of their rates, does not.
+Pair creation across constituents needs a copy boost, which is a metric connection and not a gauge field (Proposition~9.4 of \cite{RE}).
+Because $\mathsf H$ is one-body, its many-quantum lines carry no interaction energy. The field mixes quanta; it does not bind them.
+
+\subsection{\texorpdfstring{Time-odd invariants on $n$ constituents}{Time-odd invariants on n constituents}}
+\label{e4:sec:cycles}
+
+Theorem~9.5 of \cite{RE} found on three constituents one invariant that two do not carry, the sign of $J=B_{12}B_{23}B_{31}$, odd under interior
+time reversal. For a cycle $\gamma=(k_1,\dots,k_L)$ of distinct copy indices write $\Pi_\gamma B=B_{k_1k_2}B_{k_2k_3}\cdots B_{k_Lk_1}$; reversing the
+orientation multiplies it by $(-1)^L$.
+
+\begin{theorem}[The copy field on $n$ constituents]
+\label{e4:thm:cycles}
+Let $n\ge3$, let the rates be distinct, and let $b=B\otimes\id_6$ with every $B_{kl}\neq0$.
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item The endomorphisms of $V_n$ commuting with $G_n$, the diagonal $\lG$ and $K\otimes G$ are $\sum_k(a_k+b_kG)$ on copy $k$, and the $\eta_n$-isometries
+among them are the $2^n$ copy reflections $\operatorname{diag}(s_1,\dots,s_n)\otimes\id_6$, $s_k=\pm1$, under which $B_{kl}\mapsto s_ks_lB_{kl}$.
+\item Two fields with the same $|B_{kl}|$ are related by a copy reflection iff $\Pi_\gamma B$ has the same sign for both on every cycle $\gamma$. The
+signs of the $c_n=\tfrac12(n-1)(n-2)$ triangles $B_{1k}B_{kl}B_{l1}$, $2\le k<l\le n$, are independent and determine all the others. The
+invariants of the field are the $\tfrac12n(n-1)$ magnitudes and these $c_n$ signs.
+\item Interior time reversal, $(K,B)\mapsto(K,-B)$ (Theorem~9.5(iv) of \cite{RE}), multiplies $\Pi_\gamma B$ by $(-1)^L$. It flips all $c_n$ triangle signs,
+and no copy reflection undoes it.
+\item The triangle invariants are spectral. With $P_k$ the spectral projectors of $K$, polynomials in $K$, and $H=K-iB$ on the copy index,
+$\tr(P_kHP_lHP_mH)=iB_{kl}B_{lm}B_{mk}$ for every triangle $(k,l,m)$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(i) The commutant of $G_n$ and the diagonal $\lG$ is $\{A\otimes\id+A'\otimes G\}$ with $A,A'\in\mathfrak{gl}(n)$ (Proposition~9.2 of \cite{RE}).
+$[A\otimes\id+A'\otimes G,K\otimes G]=[A,K]\otimes G-[A',K]\otimes\id$, so $A$ and $A'$ commute with $K$ and are diagonal. The isometry condition per copy is
+$a_kb_k=0$, $a_k^2-b_k^2=1$, as in the proof of Theorem~9.5(iii) of \cite{RE}. (ii) Encode the signs of $B_{kl}$, $k<l$, as $\sigma\in\Z_2^E$, $E$ the
+edges of the complete graph $K_n$. A reflection adds $\delta s$, $(\delta s)_{kl}=s_k+s_l$, so the orbits are the cosets of $\operatorname{im}\delta$.
+$\ker\delta$ is the constants because $K_n$ is connected, so $\rank\delta=n-1$ and there are $2^{|E|-n+1}=2^{c_n}$ orbits. The functions of $\sigma$ that are
+constant on cosets are the characters $\sigma\mapsto\sum_{e\in\gamma}\sigma_e$ with $\gamma$ in the annihilator of $\operatorname{im}\delta$, the edge sets of even
+degree at every vertex, which form the cycle space \cite{Diestel17}. Its dimension is $|E|-n+1=c_n$, and the fundamental cycles of the star at
+vertex $1$, the triangles $(1,k,l)$, form a basis. A character pairs perfectly with the cosets, so the triangle signs separate the orbits. The
+oriented product $\Pi_\gamma B$ differs from the unoriented one by a sign fixed by $\gamma$. (iii) $-B$ adds the all-ones vector to $\sigma$, and its
+character on $\gamma$ is $L\bmod2$. A triangle is odd, so the all-ones vector is not in $\operatorname{im}\delta$. (iv) $P_kHP_l=H_{kl}E_{kl}$ and
+$H_{kl}=-iB_{kl}$ for $k\neq l$, and $P_k=\prod_{j\neq k}(K-\kappa_j)/(\kappa_k-\kappa_j)$ for distinct rates.
+\end{proof}
+
+The theorem is fixed. Part (i) is exact at $n=4$, rates $(1,2,3,5)$ (e4-2a), and at $n=3$ it is Theorem~9.5(iii) of \cite{RE}. Parts (ii) and (iii)
+are checked exhaustively on all sign patterns at $n=3,4,5,6$, with $c_n=1,3,6,10$ and $\rank\delta=n-1$ over $\Z_2$ (e4-2b, e4-2c). Part (iv) is
+symbolic at $n=4$, where the product of the four triangle invariants is a product of squares, because every edge of $K_4$ lies on two
+triangles (e4-2d). The count $c_n$ is the cycle rank of $K_n$, inherited from graph theory. It is also the number of rephasing-invariant phases of $n$
+families of quarks \cite{KobayashiMaskawa73,BrancoLavouraSilva99} (inherited). Here the phases are fixed at $\pm\pi/2$ because the field is real
+(Section~9.5 of \cite{RE}), so they reduce to signs. On $n$ constituents the copy field carries $c_n$ time-odd signs, its Wilson loops around the
+triangles.
+
+\begin{remark}[Couplings that vanish]
+\label{e4:rem:graphs}
+For a general coupling graph $\Gamma_B$, with $|E'|$ nonzero couplings and $c(\Gamma_B)$ connected components, the same argument gives
+$2^{|E'|-n+c(\Gamma_B)}$ classes of sign patterns, so the number of independent cycle signs is the cycle rank $|E'|-n+c(\Gamma_B)$ (exhaustive over all
+$64$ graphs at $n=4$, rank over $\Z_2$ for all graphs at $n=5,6$; e4-2f). A chain of constituents carries no sign. A ring of $n$ constituents
+carries one sign, odd under time reversal iff $n$ is odd, in agreement with the bipartite criterion of Theorem~9.5(iv) of \cite{RE}. This is fixed.
+\end{remark}
+
+\begin{proposition}[The Jarlskog-type determinant up the ladder]
+\label{e4:prop:jarlskog}
+On the copy index $[H,K]=iD$ with $D_{kl}=(\kappa_k-\kappa_l)B_{kl}$, a real symmetric matrix with zero diagonal. Hence $\det[H,K]=i^n\det D$, and
+$\det D$ is the sum over derangements $\pi$ of $(-1)^{n-\#\text{cycles}(\pi)}\prod_kD_{k\pi(k)}$. Under $B\mapsto-B$ it changes by $(-1)^n$.
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item $n=3$: $\det[H,K]=2iJ(\kappa_1-\kappa_2)(\kappa_1-\kappa_3)(\kappa_2-\kappa_3)$.
+\item $n=4$: $\det[H,K]=D_{12}^2D_{34}^2+D_{13}^2D_{24}^2+D_{14}^2D_{23}^2-2(D_{12}D_{23}D_{34}D_{41}+D_{12}D_{24}D_{43}D_{31}+D_{13}D_{32}D_{24}D_{41})$. It is even
+under time reversal and contains no triangle.
+\item $n=5$: $\det[H,K]$ is odd under time reversal; every cycle cover contains a $5$-cycle or a triangle.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+$[K-iB,K]=-i[B,K]$ and $[B,K]_{kl}=-(\kappa_k-\kappa_l)B_{kl}$. $D$ is a product of two antisymmetric factors entrywise, hence symmetric. The Leibniz
+expansion of a matrix with zero diagonal runs over derangements, and $-D$ multiplies each term by $(-1)^n$. At $n=4$ the derangements are the three
+double transpositions and the six $4$-cycles. At $n=5$ they are the $24$ five-cycles and the $20$ products of a transposition and a $3$-cycle.
+\end{proof}
+
+The proposition is fixed. Part (i) restates Theorem~9.5(ii) of \cite{RE}, and the identities are symbolic at $n=3,4,5$, with the cycle-cover
+sum checked at $n=4,5$ (e4-2e). The determinant measures cycle covers. A $2$-cycle contributes the magnitude $(\kappa_k-\kappa_l)^2B_{kl}^2$, and a
+cycle of length $L\ge3$ contributes twice the product of the rate differences around it times $\Pi_\gamma B$. At $n=4$ the $4$-cycle products are
+time-even: $B_{12}B_{23}B_{34}B_{41}=-B_{12}B_{23}B_{31}\cdot B_{13}B_{34}B_{41}/B_{13}^2$ is fixed by the product of two triangle signs. So
+$\det[H,K]$ cannot tell $(K,B)$ from $(K,-B)$ at $n=4$, although the field is time-odd. The time-odd invariants there are the triangle traces of
+\cref{e4:thm:cycles}(iv). Jarlskog's determinant \cite{Jarlskog85} measures time reversal on three constituents and, among the rungs, only at odd
+$n$; the triangle traces measure it at every $n\ge3$.
+
+\subsection{Copy isospin at four constituents}
+\label{e4:sec:isospin}
+
+On two and three constituents the copy isospin is integral (Proposition~9.6 of \cite{RE}), and Remark~9.8(d) of \cite{RE} notes that this does
+not extend to four (d7-6d). We determine the copy isospin content of $S_4$, of dimension $4096$. Write
+\[
+I^\pm_1=\half(\hat C^{23}\pm\hat C^{14}),\qquad I^\pm_2=\half(\hat C^{31}\pm\hat C^{24}),\qquad I^\pm_3=\half(\hat C^{12}\pm\hat C^{34})
+\]
+(the self-dual and anti-self-dual combinations; $J^\pm_a$ in the script), and let $j_\pm(j_\pm+1)$ be the eigenvalues of the Casimirs
+$-\sum_a(I^\pm_a)^2$.
+
+\begin{theorem}[Copy isospin on four constituents]
+\label{e4:thm:so4}
+Let $n=4$.
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item Each $\hat C^{kl}$ equals $\sum_i(a^+_{l,i}a^-_{k,i}-a^+_{k,i}a^-_{l,i})$, commutes with every $N_{[i]}$, and is a sum of six commuting terms of square
+$-\tfrac14$, so $e^{2\pi\hat C^{kl}}=+\id$. The six close on $\so4$, and the copy group acting on $S_4$ is $SO(4)$.
+\item $[I^+_a,I^-_b]=0$ and $[I^\pm_1,I^\pm_2]=I^\pm_3$ cyclically, on vectors and on $S_4$. On vectors $4(I^\pm_a)^2=-\id$, so the copy index is the module
+$(\half,\half)$. On $S_4$, $e^{2\pi I^+_3}=e^{2\pi I^-_3}=(-1)^N$. Hence $I^+_3=\half(\hat C^{12}+\hat C^{34})$ has eigenvalues $i\mu$ with $\mu$ half-integral
+exactly on the sectors of odd $N$. In particular $e^{2\pi I^+_3}a^+_{1,1}|0\rangle=-a^+_{1,1}|0\rangle$.
+\item As an $\so4$-module, $S_4\otimes\C\cong(\Lambda\C^4)^{\otimes3}$ with $\Lambda\C^4=2(0,0)\oplus2(\half,\half)\oplus(1,0)\oplus(0,1)$. The modules $(j_+,j_-)$ and their
+multiplicities are those of \cref{e4:tab:so4}. Always $j_+-j_-\in\Z$. The modules with half-integral $j_+$ fill exactly the odd-$N$ sectors, $2048$
+dimensions. The one-quantum sector is $(\half,\half)\otimes\R^3$.
+\end{enumerate}
+\end{theorem}
+
+\begin{table}[htbp]
+\centering
+\footnotesize
+\begin{tabular}{@{}lcccccccccc@{}}
+\toprule
+even $N$: $(j_+,j_-)$ & $(0,0)$ & $(1,0)$ & $(0,1)$ & $(1,1)$ & $(2,0)$ & $(0,2)$ & $(2,1)$ & $(1,2)$ & $(3,0)$ & $(0,3)$\\
+multiplicity & $70$ & $84$ & $84$ & $90$ & $20$ & $20$ & $15$ & $15$ & $1$ & $1$\\
+\midrule
+odd $N$: $(j_+,j_-)$ & $(\half,\half)$ & $(\tfrac32,\half)$ & $(\half,\tfrac32)$ & $(\tfrac32,\tfrac32)$ & $(\tfrac52,\half)$ & $(\half,\tfrac52)$ & & & &\\
+multiplicity & $140$ & $64$ & $64$ & $20$ & $6$ & $6$ & & & &\\
+\bottomrule
+\end{tabular}
+\caption{The copy isospin content of $S_4\otimes\C$ under $\so4=\su2_+\oplus\su2_-$. Each half has dimension $2048$ (e4-3c).}
+\label{e4:tab:so4}
+\end{table}
+
+\begin{proof}
+(i) The one-body form is \cref{e4:thm:fock}(i), and the six terms are those of Proposition~9.6(i) of \cite{RE} with $|D|=6$. A module of $\so4$ on which
+the $2\pi$ rotation in one plane acts as $\id$ integrates to $SO(4)$, not to its double cover. (ii) On vectors $2I^\pm_3=(C^{12}\pm C^{34})$ squares to
+$-\id$, so $e^{2\pi I^\pm_3}=-\id$ on $V_4$. Its lift is the product of the twelve commuting factors $e^{2\pi u}$, where $u$ runs over the terms of
+$I^\pm_3$, $u^2=-\tfrac1{16}$ and $e^{2\pi u}=4u$. That product is a multiple of the volume element of $\Cl(12,12)$, and the computation gives $(-1)^N$. On a
+sector where $e^{2\pi I^+_3}=-\id$ the eigenvalues $i\mu$ of $I^+_3$ satisfy $e^{2\pi i\mu}=-1$. (iii) $S_4$ is the exterior algebra on the modes, and the
+modes of direction $i$ span a copy $\C^4_i$ of the copy index, so $S_4\otimes\C=\Lambda(\C^4_1\oplus\C^4_2\oplus\C^4_3)=\bigotimes_i\Lambda\C^4_i$. By (i), $\so4$ acts
+on each factor as the derivation induced by the vector module. $\Lambda^0=\Lambda^4=(0,0)$, $\Lambda^1\cong\Lambda^3=(\half,\half)$ and
+$\Lambda^2=\Lambda^2_+\oplus\Lambda^2_-=(1,0)\oplus(0,1)$ \cite{Humphreys72}. The Clebsch--Gordan rule gives the table. Odd degree in $\Lambda\C^4$ means half-integral
+$(j_+,j_-)$, and the parity of a product is the parity of the total degree, $(-1)^N$.
+\end{proof}
+
+The theorem is fixed. (i) and (ii) are exact on $S_4$, with sparse integer matrices (e4-3a, e4-3b), and $e^{2\pi\hat C^{12}}=+\id$ also on $S_5$, of dimension
+$32768$ (e4-3a). (iii) is checked on the joint spectrum of the two Casimirs, block-diagonalised by the direction numbers $N_{[i]}$, which commute with
+every copy rotation; the eigenvalues are integral to $10^{-8}$ and the multiplicities agree with the character (e4-3c). The decomposition rule is
+inherited. The same rule at $n=3$, $\Lambda\C^3=2(j{=}0)\oplus2(j{=}1)$, gives the Casimir spectrum $j=0,1,2,3$ on $40,216,200,56$ dimensions of
+Proposition~9.6(ii) of \cite{RE}, recomputed here (e4-3d, restated).
+
+\begin{corollary}[No spinor of the copy algebra at any rung]
+\label{e4:cor:nospinor}
+For every $n$, $e^{2\pi\hat C^{kl}}=+\id$ on $S_n$, and $S_n\otimes\C\cong(\Lambda\C^n)^{\otimes3}$ as a module of the copy $\so n$. The copy algebra acts through
+$SO(n)$, and for $n\ge3$ no spinor module of $\so n$ occurs. At $n=4$ the half-integral isospin is that of the vector $(\half,\half)$ and of its odd
+exterior powers. At $n=6$, where $\so6\cong\su4$, the fundamental $\mathbf 4$ does not occur.
+\end{corollary}
+
+\begin{proof}
+The six terms of $\hat C^{kl}$ commute and square to $-\tfrac14$ at every $n$, and the proof of \cref{e4:thm:so4}(iii) holds with $\C^n$ in place of $\C^4$.
+Exterior powers of the vector module have integral weights in the orthonormal basis, and the spinor modules have half-integral ones
+\cite{LawsonMichelsohn89}.
+\end{proof}
+
+The corollary is fixed, checked on $S_4$ and $S_5$ (e4-3a). It makes the doublets of Remark~9.8(d) of \cite{RE} precise. At $n=4$ a state carries
+half-integral copy isospin under either $\su2$ factor iff it has an odd number of quanta; the copy inversion $-\id\in SO(4)$, the rotation through $\pi$
+in the planes $(1,2)$ and $(3,4)$, acts as $(-1)^N$. This is possible without any double cover because $\so4$ is not simple and its vector is a
+doublet of each factor. Up the ladder the copy algebra $\so n$ is simple again ($n\ge5$), so it has no $\su2$ ideal. Its subalgebra $\so4$ on any four
+constituents still has doublets: on $S_5$, $e^{2\pi I^\pm_3}$ built on the constituents $(1,2,3,4)$ or $(2,3,4,5)$ is $(-1)^{N'}$, with $N'$ the number of
+quanta in those four constituents (e4-3e). Half-integral copy isospin therefore first appears at the fourth rung and persists above it, under
+the $\so4$ of four constituents. The doublets are frames and their odd products, not spinors of a spin cover.
+
+\subsection{Rate patterns and the breaking of the copy symmetry}
+\label{e4:sec:rates}
+
+\begin{proposition}[Rate patterns]
+\label{e4:prop:rates}
+Let the rates take $r$ distinct values with multiplicities $n_1+\dots+n_r=n$.
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item The removable part of the copy $\so n$, the part commuting with $K\otimes G$, is $\bigoplus_i\so{n_i}$, block diagonal on the equal-rate
+constituents, of dimension $\sum_i\half n_i(n_i-1)$. The non-removable directions number $\half n(n-1)-\sum_i\half n_i(n_i-1)=\sum_{i<j}n_in_j$. Within the
+compact binding-compatible $\so{3n}$ the removable part is $\bigoplus_i\so{3n_i}$, and the non-removable directions number $9\sum_{i<j}n_in_j$.
+\item The quadratic form $B\mapsto\|[K,B]\|^2$ on $\so n$ is diagonal in the basis $C^{kl}$ (on the copy index), with eigenvalue $2(\kappa_k-\kappa_l)^2$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) $[K,E_{lk}-E_{kl}]=(\kappa_l-\kappa_k)(E_{lk}+E_{kl})$, so $X\in\so n$ commutes with $K$ iff $X_{kl}=0$ whenever $\kappa_k\neq\kappa_l$, and likewise for $R$ and
+$\tilde K$ on $\C^{3n}$. Removability is commutation with $K\otimes G$ (Theorem~9.3(v) of \cite{RE}). The count uses $n^2=\sum n_i^2+2\sum_{i<j}n_in_j$. (ii) The
+matrices $E_{lk}+E_{kl}$, $k<l$, are orthogonal, of norm squared $2$.
+\end{proof}
+
+The proposition is fixed, exact for every partition of $n=2,\dots,5$ in $\so n$ and of $n=2,3,4$ in $\so{3n}$ (e4-4a), and at rates $(1,1,2,5)$, where the
+form is $\operatorname{diag}(0,2,32,2,32,18)$ on $C^{12},C^{13},C^{14},C^{23},C^{24},C^{34}$ (e4-4b). At $n=3$ it restates the dimensions $36,18,9$ and $3,1,0$ of
+Theorem~9.3(v) of \cite{RE}. With the factor $6$ of $\id_6$, (ii) is the norm $6\sum_{k\neq l}(\kappa_k-\kappa_l)^2B_{kl}^2$ of Remark~9.8(e) of \cite{RE}.
+
+\begin{remark}[The breaking pattern]
+\label{e4:rem:higgs}
+The rate matrix is a symmetric tensor of the copy $\so n$, and its stabiliser is $\bigoplus_i\so{n_i}$; its stabiliser in $O(n)$ is
+$O(n_1)\times\dots\times O(n_r)$, which for distinct rates is the group of copy reflections of \cref{e4:thm:cycles}(i). Read as in Remark~9.8(e) of
+\cite{RE}, this is the pattern of a gauge symmetry broken by a symmetric-tensor vacuum value \cite{LiLF74}, with $\sum_{i<j}n_in_j$ massive directions
+of masses proportional to $|\kappa_k-\kappa_l|$ \cite{EnglertBrout64,Higgs64,Kibble67}. Up the ladder, constituents with equal rates form a multiplet
+whose internal copy rotations are removable, so which of them carries a quantum is a gauge choice. Constituents with different rates are
+distinguishable, and the field between them is physical. The reading is interpretive, with the caveat of \cite{RE}: $b$ is a constant connection
+without kinetic term, and the rates are inputs.
+\end{remark}
+
+\subsection{A ladder of rates admits a non-abelian frame}
+\label{e4:sec:rotor}
+
+Section~9.2 of \cite{RE} shows that a common binding action lets the rotor act by a non-central $A\in\uu n$. It also shows that the frame then
+admits equivariant brackets $[X,Y]_k=\sum_{i,j}\Gamma^k_{ij}\beta_0(X_i,Y_j)$, with $\beta_0(x,y)=z(x)\times z(y)$ the complex cross product and
+$\Gamma^k_{ij}=\Gamma^k_{ji}\in\C$, subject to $\Gamma^k_{ij}(\omega_k-\omega_i-\omega_j)=0$, where $A$ acts on copy $k$ as $i\omega_k$. For $A=K\otimes G$ the
+$\omega_k$ are the rates. With a copy field, $A$ acts on $z$ as $iH$, and the condition applies to the eigenvalues of $H$, the lines.
+
+\begin{proposition}[Rotor-compatible frame brackets]
+\label{e4:prop:rotor}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item The real bilinear maps $V\times V\to V$ equivariant under $\lG$ form the two-dimensional space spanned by $\beta_0$ and $G\beta_0$, and all of them
+are antisymmetric. The equivariant antisymmetric brackets on $V_n$ are the maps above, a space of real dimension $n^2(n+1)=12,36,80$ for $n=2,3,4$.
+\item $A=K\otimes G$ is a derivation of the bracket iff $\Gamma^k_{ij}=0$ unless $\kappa_k=\kappa_i+\kappa_j$. The rotor-compatible brackets have real dimension
+$0$, $0$, $2$ for rates $(1,1)$, $(1,3)$, $(1,2)$; $0$, $4$, $0$, $4$ for $(1,1,1)$, $(1,2,3)$, $(1,3,5)$, $(1,2,4)$; and $8$ for $(1,2,3,4)$. For the
+harmonic ladder $\kappa_k=k$ the dimension is $2\sum_{k\le n}\lfloor k/2\rfloor=2,4,8,12,18$ for $n=2,\dots,6$.
+\item Rates $(1,2,3)$. The rotor-compatible brackets are $[X,Y]_2=a\,\beta_0(X_1,Y_1)$, $[X,Y]_3=b\,(\beta_0(X_1,Y_2)+\beta_0(X_2,Y_1))$, $(a,b)\in\C^2$. Every one of them
+satisfies the Jacobi identity. For $ab\neq0$ the frame is a nilpotent Lie algebra $V_1\oplus V_2\oplus V_3$, graded by the rate and generated by $V_1$, with
+lower central series of real dimensions $18,12,6,0$.
+\item Rates $(1,2,4)$. The rotor-compatible brackets are $[X,Y]_2=a\,\beta_0(X_1,Y_1)$, $[X,Y]_3=b\,\beta_0(X_2,Y_2)$. For $X,Y\in V_1$ and $Z\in V_2$ the
+Jacobiator is $ab\,\beta_0(\beta_0(X,Y),Z)\in V_3$, so the Jacobi identity holds iff $ab=0$.
+\item Rates $(1,2,3,4)$, with $a=\Gamma^2_{11}$, $b=\Gamma^3_{12}$, $c=\Gamma^4_{13}$, $d=\Gamma^4_{22}$. For $X,Y\in V_1$ and $Z\in V_2$ the Jacobiator is
+$(ad-bc)\,\beta_0(\beta_0(X,Y),Z)\in V_4$, and the Jacobi identity holds on all of $V_4$ iff $ad=bc$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) is an exact null-space computation on the $216$ coefficients of a bilinear map (e4-5a); $G$ acts as $i$, so $G\beta_0=i\beta_0$, and the maps are complex
+bilinear. A bracket is a choice of $\Gamma^k_{ij}$ for each $k$ and each unordered pair $\{i,j\}$, $n\cdot\half n(n+1)$ complex numbers. (ii) On $z$,
+$A$ acts as $i\kappa_k$ on copy $k$, and the bracket is complex bilinear, so $A[X,Y]_k-[AX,Y]_k-[X,AY]_k=i(\kappa_k-\kappa_i-\kappa_j)\Gamma^k_{ij}\beta_0(X_i,Y_j)$. For
+$\kappa_k=k$ the pairs $i\le j$ with $i+j=k$ number $\lfloor k/2\rfloor$. (iii) The only composite is $[[X,Y]_2,Z]_3$, so the Jacobiator is
+$ab\sum_{\rm cyc}\beta_0(\beta_0(X_1,Y_1),Z_1)$, which vanishes by the Jacobi identity of the complex cross product, the bracket of $\so{3,\C}$.
+$\beta_0(V_1,V_1)=V_2$ and $\beta_0(V_1,V_2)=V_3$ for $ab\neq0$. The Jacobiator is trilinear and alternating, and inputs of rates $r_1,r_2,r_3$ give an output of rate $r_1+r_2+r_3$, so each of its components is fixed
+by inputs whose rates add to the target rate. (iv) The only composite is $[[X,Y]_2,Z]_3=ab\,\beta_0(\beta_0(X_1,Y_1),Z_2)$, with inputs of rates $1,1,2$. For $X,Y\in V_1$ and $Z\in V_2$
+the other two cyclic terms vanish, because $V_1\times V_2$ brackets to zero. For $ab=0$ there is no composite. (v) The $V_3$-component is as in (iii)
+and vanishes. For $X,Y\in V_1$ and $Z\in V_2$, $[[X,Y],Z]_4=ad\,\beta_0(\beta_0(X,Y),Z)$, while
+$[[Y,Z],X]_4+[[Z,X],Y]_4=bc\,(\beta_0(\beta_0(Y,Z),X)+\beta_0(\beta_0(Z,X),Y))=-bc\,\beta_0(\beta_0(X,Y),Z)$ by the Jacobi identity of $\beta_0$.
+\end{proof}
+
+The proposition is fixed. (i) restates the space of Section~9.2 of \cite{RE} at $n=2$ (e4-5a). (ii) is exact, block by block, for the listed rates and
+for the harmonic ladder up to $n=4$; for $n=5,6$ the count is the number of resonant blocks (e4-5b). At $n=2$ it restates the bracket of
+$\operatorname{diag}(1,2)\otimes G$ of Section~9.2 of \cite{RE}. (iii) to (v) are checked on random samples to $10^{-10}$: antisymmetry,
+$\lG$-equivariance, the rotor as a derivation and the Jacobi identity; at $(1,2,4)$ and $(1,2,3,4)$ the samples off the stated conditions fail (e4-5c,
+e4-5d, e4-5e). That every rotor-compatible frame is nilpotent when all rates are positive is inherited: $A$ is then a nonsingular derivation, and a
+Lie algebra with a nonsingular derivation is nilpotent \cite{Jacobson55}.
+
+The reading is constructed. A harmonic ladder of rates admits a non-abelian frame, from $n=3$ on and already for $\operatorname{diag}(1,2)$ at $n=2$. Its
+bracket joins two frames whose rates add into the frame of the summed rate, so the frame algebra is graded by rate. With three constituents
+on the harmonic ladder the Lie frame brackets form the linear space $\C^2$. With four the Jacobi identity cuts out the cone $ad=bc$ in $\C^4$, and
+on a longer ladder the same condition recurs, because the $V_4$-component of the Jacobiator involves only the blocks with target rate at most
+$4$. The resonant pattern $(1,2,4)$ admits a non-abelian frame only with one of its two blocks, $ab=0$. Nothing selects such a rotor. The paper's closure takes $A=G_n$ and an abelian frame
+(Theorem~17.7 and Proposition~17.18 of \cite{ES17}). The non-central rotor, its rate ladder and the bracket are admitted, not selected. The
+resonance condition $\omega_k=\omega_i+\omega_j$ is that of three-wave mixing and sum-frequency generation \cite{Armstrong62}, a parallel only
+(interpretive). Read with $mc^2=\hbar\kappa$, the bracket composes frames whose rest energies add (interpretive).
+
+\subsection{Answer: what the field between constituents can and cannot do}
+\label{e4:sec:answer}
+
+\begin{remark}[What the field does up the ladder]
+\label{e4:rem:answer}
+\begin{enumerate}[label=(\alph*),leftmargin=2.2em]
+\item \emph{It moves quanta and keeps their number} (fixed). A gauge-admissible field between the constituents acts as a one-body operator.
+It hops quanta between constituents and mixes them, and its $N$-quantum lines are sums of one-quantum lines (\cref{e4:thm:fock} and
+\cref{e4:cor:transfer}).
+\item \emph{It does not take one to two} (fixed). It creates no quantum and changes no rate. Pair emergence across constituents needs a copy boost,
+which is not a gauge field (\cref{e4:cor:transfer}(ii); Proposition~9.4 of \cite{RE}). Because it is one-body, it binds no quanta into composites.
+If two particles are to emerge from one, the process lies outside the compact field between constituents.
+\item \emph{It carries time-odd invariants that grow with the rung} (fixed). From $n=3$ on it carries $\tfrac12(n-1)(n-2)$ independent triangle signs, each odd
+under interior time reversal. The triangle traces measure them at every $n$, Jarlskog's determinant only at odd $n$
+(\cref{e4:thm:cycles,e4:prop:jarlskog}).
+\item \emph{It acts on doublets from the fourth rung on} (fixed). At $n=4$ the copy isospin is half-integral exactly on odd $N$, and above it under the
+$\so4$ of any four constituents, on an odd number of quanta in them. At every rung the copy algebra acts through $SO(n)$, so no spinor of it
+occurs (\cref{e4:thm:so4,e4:cor:nospinor}).
+\item \emph{It is physical exactly between unequal rates} (fixed). The physical directions number $\sum_{i<j}n_in_j$; equal-rate constituents stay
+gauge-equivalent (\cref{e4:prop:rates}). The reading as symmetry breaking by the rate matrix is interpretive (\cref{e4:rem:higgs}).
+\item \emph{It admits non-abelian frames on a harmonic ladder of rates} (constructed). The rotor must be non-central and its rates resonant, and
+nothing in the closure selects either (\cref{e4:prop:rotor}).
+\end{enumerate}
+Up the ladder, then, the field between constituents distinguishes constituents by their rates, carries more time-odd structure, and from
+$n=4$ on acts on doublets. It never changes the number of quanta that the rung carries. In the sense of \cref{e1:sec:fock}, a rung carries $N$
+quanta, and the compact $b$-field keeps $N$ fixed. It decides where the quanta are, not how many there are. This reading is interpretive, drawn
+from the fixed statements above.
+\end{remark}
+
+\begin{table}[htbp]
+\centering
+\footnotesize
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.4cm}>{\raggedright\arraybackslash}p{2.6cm}>{\raggedright\arraybackslash}p{2.0cm}>{\raggedright\arraybackslash}p{1.8cm}>{\raggedright\arraybackslash}p{3.8cm}>{\raggedright\arraybackslash}p{2.3cm}@{}}
+\toprule
+$n$ & copy algebra, group on $S_n$ & physical directions, distinct rates & independent signs $c_n$ & half-integral copy isospin & rotor brackets, rates $1,\dots,n$\\
+\midrule
+$2$ & $\so2$, $SO(2)$ & $1$ & $0$ & no; charges $i\{-3,\dots,3\}$ & $2$\\
+$3$ & $\so3$, $SO(3)$ & $3$ & $1$ & no; $j=0,\dots,3$ & $4$\\
+$4$ & $\su2\oplus\su2$, $SO(4)$ & $6$ & $3$ & yes, exactly on odd $N$ & $8$, Jacobi: $ad=bc$\\
+$5$ & $\so5$, $SO(5)$ & $10$ & $6$ & under the $\so4$ of four constituents; no spinor of $\so5$ & $12$\\
+$6$ & $\so6\cong\su4$, $SO(6)$ & $15$ & $10$ & as for $n=5$; no $\mathbf 4$ of $\su4$ & $18$\\
+\bottomrule
+\end{tabular}
+\caption{The field between constituents, rung by rung. The $n=2,3$ isospin entries restate Proposition~9.6 of \cite{RE}. The others follow from
+\cref{e4:thm:cycles,e4:thm:so4,e4:cor:nospinor,e4:prop:rates,e4:prop:rotor}; the rotor column counts real dimensions.}
+\label{e4:tab:ladder}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\footnotesize
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{8.0cm}>{\raggedright\arraybackslash}p{4.8cm}>{\raggedright\arraybackslash}p{2.0cm}@{}}
+\toprule
+statement & class & checks\\
+\midrule
+\cref{e4:thm:fock}(i): paired rotations are one-body operators $\mathcal N(R)$, conserve $N$ & fixed (structure inherited, realisation fixed) & e4-1a, e4-1b\\
+\cref{e4:thm:fock}(ii): $\mathsf H=\mathcal N(H)$; $N=1$ block is $H$; additive lines & fixed; external $i$ constructed & e4-1e\\
+\cref{e4:thm:fock}(iii), (iv): copy rotations and copy boosts at $n=3$ by constituent and direction & fixed & e4-1c, e4-1d\\
+\cref{e4:thm:fock}(v): quarter turn moves $N^{(1)}$ to $N^{(2)}$, keeps the rate spectrum & fixed & e4-1f\\
+\cref{e4:cor:transfer}: transfer, not creation; rates gauge invariant & fixed (partly restated: \cref{e1:thm:Nrule}; RE Thm~9.3(iii)) & e4-1b, e4-1d, e4-3a\\
+\cref{e4:thm:cycles}(i): residual group is the copy reflections & fixed (restated at $n=3$: RE Thm~9.5(iii)) & e4-2a\\
+\cref{e4:thm:cycles}(ii), (iii): invariants are $|B_{kl}|$ and $c_n$ triangle signs; all time-odd & fixed (cycle space inherited) & e4-2b, e4-2c\\
+\cref{e4:thm:cycles}(iv): triangle traces & fixed & e4-2d\\
+\cref{e4:rem:graphs}: cycle rank of the coupling graph & fixed & e4-2f\\
+\cref{e4:prop:jarlskog}: $\det[H,K]=i^n\det D$, parity $(-1)^n$, $n=3,4,5$ & fixed ($n=3$ restated: RE Thm~9.5(ii)) & e4-2e\\
+parallel with the $(n-1)(n-2)/2$ phases of $n$ quark families & inherited & ---\\
+\cref{e4:thm:so4}(i), (ii): $SO(4)$, $(\half,\half)$, $e^{2\pi I^\pm_3}=(-1)^N$ & fixed & e4-3a, e4-3b\\
+\cref{e4:thm:so4}(iii), \cref{e4:tab:so4}: $(\Lambda\C^4)^{\otimes3}$, doublets on odd $N$ & fixed (decomposition rule inherited) & e4-3c\\
+$n=3$ Casimir spectrum $40,216,200,56$ & restated (RE Prop.~9.6(ii)) & e4-3d\\
+\cref{e4:cor:nospinor}: no spinor of the copy algebra at any rung; doublets of the $\so4$ of four constituents at $n=5$ & fixed & e4-3a, e4-3e\\
+\cref{e4:prop:rates}: removable $\bigoplus\so{n_i}$, $\sum_{i<j}n_in_j$ physical; mass form & fixed ($n=3$ restated: RE Thm~9.3(v)) & e4-4a, e4-4b\\
+\cref{e4:rem:higgs}: breaking by the rate matrix & interpretive & ---\\
+\cref{e4:prop:rotor}(i), (ii): equivariant brackets, resonance condition, dimensions & fixed ($n=2$ restated: RE Sec.~9.2) & e4-5a, e4-5b\\
+\cref{e4:prop:rotor}(iii)--(v): Jacobi at $(1,2,3)$, $(1,2,4)$, $(1,2,3,4)$; nilpotency & fixed; nilpotency inherited & e4-5c, e4-5d, e4-5e\\
+\cref{e4:sec:rotor}: a harmonic ladder admits a non-abelian frame & constructed; three-wave parallel interpretive & e4-5b, e4-5c\\
+\cref{e4:rem:answer}, \cref{e4:tab:ladder}: what the field can and cannot do & (a)--(e) fixed, (f) constructed; summary interpretive & ---\\
+\bottomrule
+\end{tabular}
+\caption{Claims of \cref{e4:sec:main}, their classes and their checks, which are \texttt{PASS} lines of \texttt{verify/e4\_bfield\_ladder.py}.}
+\label{e4:tab:claims}
+\end{table}

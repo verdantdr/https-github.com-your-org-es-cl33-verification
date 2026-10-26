@@ -10,15 +10,16 @@ applied are in `findings/`.
 | Paper with the four rest-energy sections (Sections 15, 16, 20, 21 of the new numbering) | `tex/`, `ES_electromagnetic_sphere_2026-10-26.pdf` | builds, 154 pp. |
 | Rest-energy note | `investigations/rest_energy/` | 14 scripts, 464 PASS |
 | Two readings of X (Lagrangians; four-momentum on the spatial triple; X_EM=(B;E) on the octants; bridge T=nJ(n)) | `investigations/two_readings/` (50 pp.) | 8 scripts, 252 PASS; r1–r4 refereed |
-| Emergence: two from one (e1), processes (e2), closure at n=2 (e5, refereed), b-field on +++ / c on −−− (e6, refereed) | `investigations/emergence/` (45 pp., draft) | e1, e2, e3, e5, e6 scripts pass |
+| Emergence: two from one (e1), processes (e2), ladder (e3), b-field up the ladder (e4), closure at n=2 (e5, refereed), b-field on +++ / c on −−− (e6, refereed) | `investigations/emergence/` (draft) | e1–e6 scripts pass |
 | Photon selection: compact families at n=3 (p1) | `investigations/photon_selection/` (22 pp., draft) | p1 47 PASS |
 
 ## Unfinished
 
 1. ~~**Two readings, track r4 (bridge T=nJ(n))**~~ — done 26 October: referee applied 15 corrections (`findings/s4_findings.md`); `r4_bridge.py` 25 PASS, `s4_check.py` 24 PASS; note rebuilt (50 pp.).
 2. ~~**Emergence, track e6**~~ — done 26 October: referee applied 14 corrections (`findings/y6_findings.md`); `e6_bfield_triples.py` 33 PASS, `y6_check.py` 33 PASS.
-3. **Emergence, tracks e3 (ladder) and e4 (b-field up the ladder)**: e3 section written 26 October (`e3_ladder.tex`, `e3_ladder.py` 22 PASS;
-   not yet refereed); e4 in progress (`e4_bfield_ladder.py`). Resume e4: `prompts/derive_e4.txt`; then referees (`prompts/check_e3.txt`, `check_e4.txt`).
+3. ~~**Emergence, tracks e3 (ladder) and e4 (b-field up the ladder)**~~ — sections written 26 October (`e3_ladder.py` 22 PASS, `e4_bfield_ladder.py`
+   24 PASS); not yet refereed: `prompts/check_e3.txt`, `prompts/check_e4.txt` (add STEP 2/3 as in `referee_e6.txt`). Small fix for e1:
+   in `e1:prop:Nlorentz`(i) the product (1/8)prod(1 + eta E E) equals exp(-pi C_b/2), not exp(+pi C_b/2) (harmless).
 4. **Emergence, track e7 (classical physics: astronomy, cosmology)**: partial script `e7_classical.py`; no section. Resume:
    `prompts/derive_e7.txt`.
 5. **Emergence, referees for e1 and e2**: partial independent scripts `y1_check.py`, `y2_check.py`, findings `findings/y1_findings.md`.

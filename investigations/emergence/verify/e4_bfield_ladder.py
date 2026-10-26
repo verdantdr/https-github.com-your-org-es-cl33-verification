@@ -914,6 +914,27 @@ def _():
     return ok
 
 
+@claim("e4-3e", "n = 5, S_5 of dimension 32768 (exact, sparse integer): for the so(4) of the four constituents (1,2,3,4) and of (2,3,4,5), "
+                "exp(2 pi J^+-_3) = (-1)^{N'} with N' the number of quanta in those four constituents (a product of twelve commuting signed "
+                "permutations): its su(2) factors carry half-integral isospin exactly where N' is odd")
+def _():
+    T = Tower(5)
+    ok = True
+    for quad in ((0, 1, 2, 3), (1, 2, 3, 4)):
+        q0, q1, q2, q3 = quad
+        Nq = sum(T.Nk[k] for k in quad)
+        par = T.diag((-1) ** Nq)
+        for s_ in (+1, -1):
+            fac = [(-ETA[a] * (T.E[6 * q0 + a] @ T.E[6 * q1 + a])).tocsr() for a in range(6)]
+            fac += [(s_ * (-ETA[a]) * (T.E[6 * q2 + a] @ T.E[6 * q3 + a])).tocsr() for a in range(6)]
+            Ex = ident(T.d)
+            for x in fac:
+                Ex = (Ex @ x).tocsr()
+            ok &= eq(Ex, par)
+        ok &= not eq(par, T.diag((-1) ** T.Ntot))
+    return ok
+
+
 # ================================================================================================ 4. rate patterns
 def so_basis_int(m):
     out = []
