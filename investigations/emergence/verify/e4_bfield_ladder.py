@@ -240,7 +240,7 @@ def _():
 
 @claim("e4-1c", "copy rotations at n = 3 (exact): sigma(C^{kl}) commutes with N, with N^(k) + N^(l), with N^(m) for m not in {k,l}, and "
                 "with each direction number N_i = sum_k N_(k,i); it does not commute with N^(k); it equals "
-                "sum_i (a+_(l,i) a-_(k,i) - a+_(k,i) a-_(l,i)); the three lifts close on so(3) ([C12, C13] = -C23 lifted as on vectors)")
+                "sum_i (a+_(l,i) a-_(k,i) - a+_(k,i) a-_(l,i)); the three lifts close on so(3) as on vectors ([C^12, C^13] = C^23)")
 def _():
     T = TW[3]
     n = 3
@@ -267,7 +267,7 @@ def _():
     C01, C02, C12 = (copy_rot_vec(0, 1, 3), copy_rot_vec(0, 2, 3), copy_rot_vec(1, 2, 3))
     cv = C01 @ C02 - C02 @ C01
     c = -1 if np.array_equal(cv, -C12) else (1 if np.array_equal(cv, C12) else 0)
-    ok &= c == -1
+    ok &= c == 1
     ok &= eq(comm(lifts[(0, 1)], lifts[(0, 2)]), 4 * c * lifts[(1, 2)])
     return ok
 
@@ -539,6 +539,55 @@ def _():
     return ok
 
 
+def components(n, Es):
+    par = list(range(n))
+
+    def find(x):
+        while par[x] != x:
+            par[x] = par[par[x]]
+            x = par[x]
+        return x
+    for k, l in Es:
+        par[find(k)] = find(l)
+    return len({find(x) for x in range(n)})
+
+
+@claim("e4-2f", "general coupling graphs (exact): for every graph E' of nonzero couplings on n = 4 vertices (all 64, exhaustive orbit count) "
+                "the copy reflections act on the sign patterns of E' with exactly 2^{|E'| - n + c(E')} orbits, c the number of connected "
+                "components; on n = 5 (all 1024 graphs) and n = 6 (all 32768 graphs) the rank of the coboundary map over Z_2 is n - c(E')")
+def _():
+    ok = True
+    for n in (4, 5, 6):
+        Es = edges(n)
+        for gmask in range(2 ** len(Es)):
+            Eg = [e_ for i, e_ in enumerate(Es) if (gmask >> i) & 1]
+            c = components(n, Eg)
+            if n == 4:
+                masks = set()
+                for s_ in range(2 ** n):
+                    m_ = 0
+                    for i, (k, l) in enumerate(Eg):
+                        if ((s_ >> k) & 1) ^ ((s_ >> l) & 1):
+                            m_ |= 1 << i
+                    masks.add(m_)
+                seen, orbits = set(), 0
+                for pat in range(2 ** len(Eg)):
+                    if pat in seen:
+                        continue
+                    orbits += 1
+                    seen |= {pat ^ m_ for m_ in masks}
+                ok &= orbits == 2 ** (len(Eg) - n + c)
+            else:
+                if not Eg:
+                    ok &= c == n
+                    continue
+                M = np.zeros((len(Eg), n), dtype=np.int64)
+                for i, (k, l) in enumerate(Eg):
+                    M[i, k] = M[i, l] = 1
+                ok &= rank_gf2(M) == n - c
+    return ok
+
+
 def H_and_K(n):
     kap = sp.symbols(f'k1:{n + 1}', real=True)
     Bs = {}
@@ -615,16 +664,16 @@ def _():
     # n = 3
     H, K, B, kap, Bs = H_and_K(3)
     J = B[0, 1] * B[1, 2] * B[2, 0]
-    d3 = sp.expand((H * K - K * H).det())
+    d3 = sp.expand((H * K - K * H).det(method='berkowitz'))
     ok &= sp.expand(d3 - 2 * sp.I * J * (kap[0] - kap[1]) * (kap[0] - kap[2]) * (kap[1] - kap[2])) == 0
     for n in (4, 5):
         H, K, B, kap, Bs = H_and_K(n)
         C = H * K - K * H
         D = sp.Matrix(n, n, lambda k, l: (kap[k] - kap[l]) * B[k, l])
-        ok &= sp.simplify(C - sp.I * D) == sp.zeros(n)
-        ok &= D == D.T and all(D[k, k] == 0 for k in range(n))
-        detC = sp.expand(C.det())
-        detD = sp.expand(D.det())
+        ok &= (C - sp.I * D).expand() == sp.zeros(n)
+        ok &= (D - D.T).expand() == sp.zeros(n) and all(D[k, k] == 0 for k in range(n))
+        detC = sp.expand(C.det(method='berkowitz'))
+        detD = sp.expand(D.det(method='berkowitz'))
         ok &= sp.expand(detC - sp.I ** n * detD) == 0
         ok &= sp.expand(detD - cycle_cover_det(D, n)) == 0
         flip = {s: -s for s in Bs.values()}
@@ -679,9 +728,18 @@ def vecJ(sign):
 
 @claim("e4-3a", "n = 4, S_4 of dimension 4096 (exact, sparse integer): each copy rotation sigma(C^{kl}) is a sum of six commuting terms t_a "
                 "with t_a^2 = -1/4, so exp(2 pi sigma(C^{kl})) = prod_a (-1) = +1; the same holds on S_5 (dimension 32768) for "
-                "C^{12}; on vectors and on S_4 the six copy rotations close on so(4)")
+                "C^{12}; each sigma(C^{kl}) equals the one-body operator sum_i (a+_(l,i) a-_(k,i) - a+_(k,i) a-_(l,i)) and commutes with "
+                "the direction numbers N_i; on vectors and on S_4 the six copy rotations close on so(4)")
 def _():
     ok = True
+    Z4 = sps.csr_matrix((T4.d, T4.d), dtype=np.int64)
+    for (k, l), Cm in C2.items():
+        Rint = np.zeros((12, 12), dtype=np.int64)
+        for i in range(3):
+            Rint[3 * l + i, 3 * k + i], Rint[3 * k + i, 3 * l + i] = 1, -1
+        ok &= eq(2 * Cm, T4.onebody4(Rint)) and eq(2 * Cm, T4.lift4(copy_rot_vec(k, l, 4)))
+        for i in range(3):
+            ok &= eq(comm(Cm, T4.diag(T4.Ndir[i])), Z4)
     for T in (T4, Tower(5)):
         t2 = [(-ETA[a] * (T.E[a] @ T.E[6 + a])).tocsr() for a in range(6)]
         Z = sps.csr_matrix((T.d, T.d), dtype=np.int64)
@@ -707,7 +765,7 @@ def _():
 
 
 @claim("e4-3b", "n = 4 (exact): with J^+-_1 = (C^{23} +- C^{14})/2, J^+-_2 = (C^{31} +- C^{24})/2, J^+-_3 = (C^{12} +- C^{34})/2, "
-                "[J^+_a, J^-_b] = 0 and [J^+-_1, J^+-_2] = -J^+-_3 (cyclic) on vectors and on S_4; on vectors 4(J^+-_a)^2 = -1, "
+                "[J^+_a, J^-_b] = 0 and [J^+-_1, J^+-_2] = J^+-_3 (cyclic) on vectors and on S_4; on vectors 4(J^+-_a)^2 = -1, "
                 "the vector is (1/2,1/2); on S_4, exp(2 pi J^+_3) = exp(2 pi J^-_3) = (-1)^N (a product of twelve commuting signed "
                 "permutations), so J^+_3 = T = (C^{12}+C^{34})/2 has half-integer eigenvalues exactly on odd N, and exp(2 pi T) = -1 "
                 "on the one-quantum state a+_(1,1)|0>")
@@ -718,16 +776,16 @@ def _():
         Jv = vecJ(s)  # 2J on vectors (4x4)
         for a in range(3):
             ok &= np.array_equal(Jv[a] @ Jv[a], -np.eye(4, dtype=np.int64))  # (2J)^2 = -1  <=> 4 J^2 = -1
-        ok &= np.array_equal(Jv[0] @ Jv[1] - Jv[1] @ Jv[0], -2 * Jv[2])  # [2J1, 2J2] = -2 (2J3)  <=> [J1,J2] = -J3
-        ok &= np.array_equal(Jv[1] @ Jv[2] - Jv[2] @ Jv[1], -2 * Jv[0])
-        ok &= np.array_equal(Jv[2] @ Jv[0] - Jv[0] @ Jv[2], -2 * Jv[1])
+        ok &= np.array_equal(Jv[0] @ Jv[1] - Jv[1] @ Jv[0], 2 * Jv[2])  # [2J1, 2J2] = 2 (2J3)  <=> [J1,J2] = J3
+        ok &= np.array_equal(Jv[1] @ Jv[2] - Jv[2] @ Jv[1], 2 * Jv[0])
+        ok &= np.array_equal(Jv[2] @ Jv[0] - Jv[0] @ Jv[2], 2 * Jv[1])
     JvP, JvM = vecJ(1), vecJ(-1)
     for a in range(3):
         for b in range(3):
             ok &= np.array_equal(JvP[a] @ JvM[b] - JvM[b] @ JvP[a], np.zeros((4, 4), dtype=np.int64))
     # spin level: JP[a] = 4 J^+_a
     for J in (JP, JM):
-        ok &= eq(comm(J[0], J[1]), -4 * J[2]) and eq(comm(J[1], J[2]), -4 * J[0]) and eq(comm(J[2], J[0]), -4 * J[1])
+        ok &= eq(comm(J[0], J[1]), 4 * J[2]) and eq(comm(J[1], J[2]), 4 * J[0]) and eq(comm(J[2], J[0]), 4 * J[1])
     for a in range(3):
         for b in range(3):
             ok &= eq(comm(JP[a], JM[b]), Z)
@@ -916,7 +974,7 @@ def _():
 
 @claim("e4-4b", "the non-removable part as a mass matrix (exact, n = 4, rates (1,1,2,5)): the quadratic form B -> ||[K,B]||^2 on so(n) "
                 "is diagonal in the basis of copy rotations C^{kl} with eigenvalue 2(kappa_k - kappa_l)^2; its kernel is the "
-                "removable so(2) and its nonzero eigenvalues are 2, 32, 32, 18, 18 (twice: 2*1, 2*16, 2*16, 2*9, 2*9)")
+                "removable so(2) = span C^{12} and its nonzero eigenvalues are 2, 2, 18, 32, 32")
 def _():
     rates = [1, 1, 2, 5]
     n = 4
@@ -925,8 +983,7 @@ def _():
     Gm = np.array([[int(np.sum((K @ X - X @ K) * (K @ Y - Y @ K))) for Y in basis] for X in basis])
     expect = np.diag([2 * (rates[k] - rates[l]) ** 2 for k, l in edges(n)])
     ok = np.array_equal(Gm, expect)
-    ok &= sorted(np.diag(Gm).tolist()) == sorted([0, 2, 2, 32, 32, 18][:0] + [2 * (rates[k] - rates[l]) ** 2 for k, l in edges(n)])
-    ok &= sorted(np.diag(Gm).tolist()) == [0, 2, 2, 18, 18, 32]
+    ok &= Gm[0, 0] == 0 and sorted(np.diag(Gm).tolist()) == [0, 2, 2, 18, 32, 32]
     return ok
 
 
@@ -1136,6 +1193,34 @@ def _():
         for _ in range(5):
             Xg, Yg, Zg = (rng.normal(size=12) + 1j * rng.normal(size=12) for _ in range(3))
             ok &= np.allclose(jacobiator(brz2, Xg, Yg, Zg), 0, atol=1e-10)
+    return ok
+
+
+@claim("e4-5e", "n = 3, rotor diag(1,2,4)(x)G (floating point, 1e-10): the rotor-compatible brackets are [X,Y]_2 = a beta_0(X_1,Y_1), "
+                "[X,Y]_3 = b beta_0(X_2,Y_2); for X, Y in V_1 and Z in V_2 the Jacobiator is a b beta_0(beta_0(X,Y),Z) in V_3, so the Jacobi "
+                "identity holds iff a b = 0 (samples with a = 0 or b = 0 pass, with a b != 0 fail)")
+def _():
+    n = 3
+    rng = np.random.default_rng(11)
+    ok = True
+    A = np.kron(np.diag([1.0, 2.0, 4.0]), G6.astype(float))
+    for trial in range(4):
+        a, b = rng.normal(size=2) + 1j * rng.normal(size=2)
+        brz = make_bracket(n, {(1, 0, 0): a, (2, 1, 1): b})
+        br = lambda x, y: from_z(brz(to_z(x, n), to_z(y, n)), n)
+        x, y = rng.normal(size=(2, 6 * n))
+        ok &= np.allclose(A @ br(x, y), br(A @ x, y) + br(x, A @ y), atol=1e-10)
+        X1, Y1, Z2 = (rng.normal(size=3) + 1j * rng.normal(size=3) for _ in range(3))
+        X = np.concatenate([X1, np.zeros(6)])
+        Y = np.concatenate([Y1, np.zeros(6)])
+        Z = np.concatenate([np.zeros(3), Z2, np.zeros(3)])
+        expect = np.concatenate([np.zeros(6), a * b * np.cross(np.cross(X1, Y1), Z2)])
+        ok &= np.allclose(jacobiator(brz, X, Y, Z), expect, atol=1e-10) and np.abs(expect).max() > 1e-3
+        for g in ({(1, 0, 0): a}, {(2, 1, 1): b}):
+            brz0 = make_bracket(n, g)
+            for _ in range(3):
+                Xg, Yg, Zg = (rng.normal(size=9) + 1j * rng.normal(size=9) for _ in range(3))
+                ok &= np.allclose(jacobiator(brz0, Xg, Yg, Zg), 0, atol=1e-10)
     return ok
 
 
