@@ -1,0 +1,525 @@
+% Track e6 -- The b-field on the temporal triple, c on the spatial triple, and the mass form T = e1e2e3.
+% Verification: investigations/emergence/verify/e6_bfield_triples.py (claims e6-0 ... e6-7e).
+% New references: sections/bib_e6.tex.
+\section{\texorpdfstring{The $b$-field on the temporal triple, $c$ on the spatial triple}{The b-field on the temporal triple, c on the spatial triple}}
+\label{e6:sec:main}
+
+An earlier assignment places the arena of $c$ (of $c^2$) on the negative triple $\langle e_4,e_5,e_6\rangle$, of signature $(-,-,-)$, and the
+arena of the $b$-field on the positive triple $\langle e_1,e_2,e_3\rangle$, of signature $(+,+,+)$, with the remark that the mass is unique in
+$T=e_1e_2e_3$. In the conventions of \cite{ES17} the positive triple is the temporal triple $V^+$ and carries $\bB$, the negative triple is
+the spatial triple $V^-$ and carries $\bE$ ($X=\sum_i(B_ie_i+E_ie_{i+3})$, Theorem~12.3 of \cite{ES17}), the clock is $\gamma^0=e_1$, the spatial
+gamma matrices are $\gamma^a=e_{a+3}$, and $c$ is carried by the conversion $C\colon V^+\to V^-$, of which $C=c\,\id$ is the unique choice that
+commutes with the diagonal rotations (Theorem~3.2 of \cite{ES17}; Proposition~2.7 of \cite{RE}). We therefore read the assignment as follows:
+the $b$-field takes values in the temporal rotations $\so3_+=\operatorname{span}\{e_2e_3,e_3e_1,e_1e_2\}$, and $c^2$ is a symmetric part of $C$.
+The trivector $T=\gamma^0J$ ($J=e_2e_3$) is the Dirac mass form, the unique antisymmetric kernel invariant under all fifteen bivectors
+(Corollary~18.4 of \cite{ES17}), kept by $\mathrm{Spin}(3,3)$ at group level (Proposition~3.5 of \cite{RE}).
+
+The answers, with their classes, are these. (1) As a form $T$ is invariant under all of $\so{3,3}$; as an operator it commutes exactly with
+the compact part $\so3_+\oplus\so3_-$, and its commutant in $M_8(\R)$ is $M_4(\C)$, spanned by the $32$ blades with an even number of spatial
+indices (fixed; \cref{e6:sec:Tform}). (2) On the Dirac data the temporal rotations are a symmetry of the mass form and of the rest flow that the
+kinetic term breaks to $\uu1_J$. The two broken directions rotate the clock and flip the charge, and the breaking is measured by the velocity of
+the clock. The temporal $\so3$ and the Pauli--G\"ursey $\su2$ of the massless kinetic term are the two diagonals of one $\so4$, and they meet in
+$\R J$ (fixed; \cref{e6:sec:dirac}). (3) A temporal $b$-field is half a field-strength rotation, which commutes with the binding root, and half
+a counter-rotation, which anticommutes with it. It leaves the rates unchanged, splits the lines into $\kappa$ and $s\pm\omega/2$ with
+$s=(\kappa^2+\omega^2/4)^{1/2}$, cannot be removed along a worldline, and tears the binding (fixed; \cref{e6:sec:binding}). (4) The conversions whose
+binding root preserves the weighted energy $\tfrac12(c^2|\bB|^2+|\bE|^2)$ are exactly $C=cR$, $R\in O(3)$. A temporal rotation keeps the
+symmetric factor $CC^{\!\top}$ on the spatial triple, for every $C$, and moves only the orthogonal factor, which the energy does not see and
+the pseudoscalar invariant does (fixed; the reading as ``$c^2$ on $(-,-,-)$, $b$ on $(+,+,+)$'' is interpretive; \cref{e6:sec:polar}).
+(5) A temporal $b$-field of constant rate makes the four-dimensional mass read by a fixed clock oscillate at fixed six-dimensional mass, unless
+the clock or the temporal energy lies on the axis (fixed; the oscillation of a mass is a reading; \cref{e6:sec:clock}). (6) Between two
+constituents the temporal copy rotation rotates the graded masses $(m_1,m_2)$ at fixed $M=(m_1^2+m_2^2)^{1/2}$, so a massless second copy
+acquires mass from the first. Half of it creates quanta in pairs, one in each constituent, and in the ungraded reading no transfer at fixed spectrum
+exists (fixed; the reading ``a second particle acquires mass'' is available only in the one-particle reading; \cref{e6:sec:copies}). (7) At every rung
+the forms invariant under $\so{3n,3n}$ are spanned by the temporal and the spatial volume elements. Their symmetry has period four in $n$, so the
+invariant Grassmann mass kernel is unique only at odd rungs, and it is the temporal volume only for $n\equiv1\pmod 4$. At $n=3$ it is the spatial
+volume, and at $n=4$ there is none (fixed; \cref{e6:sec:ladder}). \Cref{e6:sec:compare} compares the assignment with the $b$-field of Sections~5 and~9
+of \cite{RE}. Identifiers e6-$n$ refer to the \texttt{PASS} lines of \texttt{verify/e6\_bfield\_triples.py} (\cref{e6:tab:claims}).
+
+\paragraph{Notation.} $S=\R^8$ with the realisation of equation~(1) of \cite{ES17}; $\omega_T=T=e_1e_2e_3$, $\omega_S=e_4e_5e_6=\gamma^1\gamma^2\gamma^3$,
+$\Gamma=\omega_T\omega_S=e_1\cdots e_6$, $J=e_2e_3$, $\Omega=e_1e_4e_5e_6$ (Theorem~18.1 of \cite{ES17}); $K^\mu=-\gamma^0\gamma^\mu$ are the kinetic kernels
+(Proposition~4.5 of \cite{ES17}) and $\mathfrak g_{\rm massless}=\operatorname{span}\{\Omega,J,e_2\Omega,e_3\Omega\}=\uu1_\Omega\oplus\su2_{\rm PG}$ is the
+massless kinetic algebra (Proposition~5.5 of \cite{ES17}). The temporal generators are symmetric and the spatial ones antisymmetric
+(Theorem~2.3 of \cite{ES17}). $\so3_\pm$ are the rotations of $V^\pm$, the six compact bivectors, and the nine bivectors $e_ie_{a+3}$ are the
+boosts. A bivector $Y$ acts on vectors by $v\mapsto Y(v):=\tfrac12[Y,v]$. On $V=V^+\oplus V^-$ we use the blocks of \cite{RE}: $G=\bigl(\begin{smallmatrix}0&-\id\\ \id&0\end{smallmatrix}\bigr)$,
+$G_C=\bigl(\begin{smallmatrix}0&-C^{-1}\\ C&0\end{smallmatrix}\bigr)$ (Proposition~2.7 of \cite{RE}), $N_C=\operatorname{diag}(C^{\!\top}C,\id)$ and
+$E_C(X)=\tfrac12X^{\!\top}N_CX=\tfrac12(|C\bB|^2+|\bE|^2)$, with $E_c$ for $C=c\,\id$; $\lG\oplus\mathfrak p_G$ is the splitting of $\so{3,3}$ into the
+parts commuting and anticommuting with $G$ (Proposition~5.3 of \cite{RE}). The interior shift is $S=b+\kappa G$ with phase-space generator $M$
+(equation~(9) and Lemma~5.4 of \cite{RE}). Following Section~9 of \cite{RE}, the \emph{rates} are the spectrum of the $\eta$-self-adjoint part of
+$S$ and the \emph{lines} are the frequencies of $S$ itself. On the tower $E_{(k,a)}$, $N$ and the ungraded generators $u_a=\id\otimes e_a$ are as in
+\cref{e1:sec:main}; $C_b=-\tfrac12\sum_a\eta_{aa}E_{(1,a)}E_{(2,a)}$ is the copy rotation. Units are $\hbar=c=1$ unless $c$ is shown. The companion
+note \emph{Two readings of $X$} \cite{TR} is cited by its own numbers.
+
+\subsection{\texorpdfstring{$T$ as a form and as an operator}{T as a form and as an operator}}
+\label{e6:sec:Tform}
+
+\begin{proposition}[The two invariances of the mass form]
+\label{e6:prop:Tform}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item \emph{As a form.} For every bivector $Y$, $Y^{\!\top}T+TY=0$ and $Y^{\!\top}TY=-Y^2\,T$, so $(e^{sY})^{\!\top}Te^{sY}=T$ for every real $s$. The same holds for
+$\omega_S$. The forms on $S$ invariant under $\so{3,3}$ are $\operatorname{span}\{T,\omega_S\}$, with $T$ antisymmetric and $\omega_S$ symmetric.
+\item \emph{As an operator.} $T$ commutes with the six compact bivectors and anticommutes with the nine boosts. Hence $e^{sY}$ commutes with $T$ for
+$Y\in\so3_+\oplus\so3_-$, while $e^{sY}Te^{-sY}=e^{2sY}T$ for a boost.
+\item \emph{The commutant.} The commutant of $T$ in $M_8(\R)$ is spanned by the $32$ blades with an even number of spatial indices. It is
+$\Cl(V^+)\cdot\Cl^0(V^-)$, a product of two commuting subalgebras with $\Cl(V^+)\cong\Cl(3,0)\cong M_2(\C)$, whose centre is $\operatorname{span}\{\id,T\}$, and
+$\Cl^0(V^-)\cong\HH$. So it is $M_2(\C)\otimes_\R\HH\cong M_4(\C)$, of dimension $32$ and with centre $\operatorname{span}\{\id,T\}$, and it meets $\so{3,3}$ in
+$\so3_+\oplus\so3_-\cong\so4$. The $32$ blades with an odd number of spatial indices anticommute with $T$.
+\item $\Ad_T$ acts on $V$ as $\eta$: on the frame it is parity.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+By the blade rule (Lemma~2.1 of \cite{ES17}) a blade $e_I$ commutes with $T$ iff $3|I|-|I\cap\{1,2,3\}|$ is even, that is iff $|I\cap\{4,5,6\}|$ is even,
+and anticommutes otherwise. Conjugation by $T$ is diagonal in the blade basis, so its commutant is spanned by the blades it contains, as in
+\cref{e1:prop:copies}(ii). This gives (ii) and the first sentence of (iii). A temporal generator commutes with a spatial bivector, so
+$\Cl(V^+)$ and $\Cl^0(V^-)$ commute, and their products are the $8\times4$ commuting blades. $T$ is central in $\Cl(V^+)$; $e_4e_5$, $e_5e_6$ and
+$e_4e_5e_5e_6$ square to $-\id$. The isomorphisms $\Cl(3,0)\cong M_2(\C)$ and $M_2(\C)\otimes_\R\HH\cong M_4(\C)$ are inherited; equivalently, $T^2=-\id$ makes
+$S\cong\C^4$, and the commutant of a complex structure is $\mathfrak{gl}(4,\C)$. For (i): a compact $Y$ is antisymmetric with $Y^2=-\id$, so
+$Y^{\!\top}T+TY=[T,Y]=0$ and $e^{sY}=\cos s+\sin s\,Y$; a boost is symmetric with $Y^2=\id$, so $Y^{\!\top}T+TY=\{T,Y\}=0$ and
+$(\cosh s+\sinh s\,Y)^{\!\top}T(\cosh s+\sinh s\,Y)=(\cosh^2s-\sinh^2s)T$. $\omega_S$ has the same commutation pattern. The dimension two is
+\cref{e6:thm:ladder}(i) at $n=1$. (iv) $T$ commutes with $e_1,e_2,e_3$ and anticommutes with $e_4,e_5,e_6$.
+\end{proof}
+
+Part (i) restates Corollary~18.4 of \cite{ES17} and Proposition~3.5(i) of \cite{RE} (fixed there), with the symmetric partner $\omega_S$ of
+Section~28 of \cite{ES17}. Part (iv) restates Proposition~2.11(i) of \cite{RE}. Parts (ii) and (iii) are fixed (e6-1a to e6-1c); that $\omega_T$ and
+$\omega_S$ are fixed by all six compact rotations is noted after Theorem~18.1 of \cite{ES17}. The two invariances are one statement read twice.
+Because the compact bivectors are antisymmetric and the boosts symmetric, invariance of the form is commutation with the first and
+anticommutation with the second. As a form, $T$ breaks nothing in $\so{3,3}$. As an operator it singles out the maximal compact subalgebra, the
+rotations of the two triples, and among these it does not distinguish the temporal from the spatial ones. Two things distinguish $T$ from
+$\omega_S$: as a Grassmann kernel $T$ is antisymmetric and $\omega_S$ symmetric, and as an operator $T^2=-\id$ is a complex structure while
+$\omega_S^2=\id$ gives a projector (Theorem~18.1 of \cite{ES17}).
+
+\subsection{The temporal rotations on the Dirac data}
+\label{e6:sec:dirac}
+
+The Dirac data of one constituent are the kinetic kernels $K^\mu$, the rest Hamiltonian $H(0)=m\gamma^0=me_1$ of the real first-order form,
+and the rest flow $e^{-m\lambda T}$, with $JH(0)=mT$ (Section~4.4 of \cite{ES17}; Propositions~3.7 and~4.9 of \cite{RE}).
+
+\begin{proposition}[What the temporal rotations do to the Dirac data]
+\label{e6:prop:dirac}
+Let $Y=\alpha J+\beta\,e_3e_1+\gamma\,e_1e_2\in\so3_+$.
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item \emph{Kinetic forms.} $Y^{\!\top}K^0+K^0Y=0$ and $Y^{\!\top}K^a+K^aY=2\,Y(\gamma^0)\,\gamma^a$, where $Y(\gamma^0)=\beta e_3-\gamma e_2$ is the velocity
+of the clock. Hence $\sum_a\|Y^{\!\top}K^a+K^aY\|^2=96(\beta^2+\gamma^2)$ (Frobenius norm), and $Y$ maps the kinetic forms into their span,
+$Y^{\!\top}K^\mu+K^\mu Y=\Lambda^\mu{}_\nu K^\nu$, iff $\beta=\gamma=0$: $\so3_+\cap(\lint\oplus\R J)=\R J$.
+\item \emph{Rest Hamiltonian.} $e^{\varphi e_1e_2}e_1e^{-\varphi e_1e_2}=\cos2\varphi\,e_1-\sin2\varphi\,e_2$, and likewise with $e_1e_3$ and $e_3$. The stabiliser of
+$H(0)$ in $\so3_+$ is $\R J$. A rotor of $\mathrm{Spin}(V^+)$ that carries $e_1$ to a clock $n$ carries $J$ to $J(n)=Tn$, $K^\mu$ to $-n\gamma^\mu$ and
+$H(0)$ to $mn$, and it fixes $T$. Moreover $nJ(n)=J(n)n=T$.
+\item \emph{Rest flow.} $e^{-m\lambda T}$ commutes with $\mathrm{Spin}(3)_+\times\mathrm{Spin}(3)_-$. The spin lift $\tfrac12e_je_k$ of $\so3_+$ has Casimir
+$-\tfrac34\id$ on $S$, so $S$ carries isospin $\tfrac12$, and $e^{\pi e_je_k}=-\id$. The clock rotations $e_1e_2$ and $e_3e_1$ anticommute with $J$ and commute
+with $T$. Their half turn $\Ad_{e_1e_2}=\Ad_{e_1}\Ad_{e_2}$ maps $(e_1,J,T,\gamma^a)$ to $(-e_1,-J,T,\gamma^a)$.
+\item \emph{Field octants.} With the field-octant map $\Phi\colon V\to S$ of Theorem~4.7 of \cite{TR}, $-T\Phi=\Phi G$, so
+$e^{-m\lambda T}\Phi=\Phi\,e^{m\lambda G}$: on the six field octants the Dirac rest flow is the duality rotation at angular frequency $m$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) $Y$ is antisymmetric and commutes with each $\gamma^a$ (a temporal bivector and a spatial generator), so
+$Y^{\!\top}K^a+K^aY=[K^a,Y]=-[e_1,Y]\gamma^a=2Y(e_1)\gamma^a$, and $K^0=-\id$. With $v=Y(e_1)$ temporal, $(v\gamma^a)^{\!\top}(v\gamma^a)=|v|^2\id$, so each term has
+squared norm $4\cdot8|v|^2$. The covariance statement intersects the seven-dimensional solution space $\lint\oplus\R J$ of Proposition~3.5(ii) of
+\cite{RE} with $\so3_+$; it is also solved directly (e6-2a). (ii) $e_1$ anticommutes with $e_1e_2$, so $e^{\varphi e_1e_2}e_1e^{-\varphi e_1e_2}=e^{2\varphi e_1e_2}e_1$. The
+stabiliser condition is $Y(e_1)=0$. A rotor $R$ of $\mathrm{Spin}(V^+)$ commutes with $T$ and with every $\gamma^a$, and $J=Te_1$, so $\Ad_RJ=Tn$ and
+$\Ad_RK^\mu=-n\gamma^\mu$. Since $n$ commutes with $T$ and $n^2=\id$, $nJ(n)=J(n)n=T$. (iii) $T$ commutes with the compact bivectors by
+\cref{e6:prop:Tform}(ii); the Casimir is $\tfrac14\sum Y_j^2$ with $Y_j^2=-\id$; the rest is the blade rule. (iv) Iterate $-T\Phi=\Phi G$.
+\end{proof}
+
+Part (i) is fixed (e6-2a); its covariance half restates Proposition~3.5(ii) of \cite{RE}. Part (ii) is fixed (e6-2b, exact at $\cos\varphi=\tfrac35$
+and at the clock $n=-\tfrac7{25}e_1-\tfrac{24}{25}e_2$, where (i) holds with $Y(n)$ in place of $Y(\gamma^0)$). Its transport of the data restates
+Proposition~3.4 and Theorem~3.5 of \cite{TR}, by which the Dirac mass form $\gamma^0J(n)=T$ is the same for every clock while $J(n)$ turns with $n$.
+Part (iii) is fixed (e6-2c). Part (iv) restates Proposition~4.12(i) of \cite{TR}, re-verified with $\Phi$ built from the Fock vacuum (e6-2c).
+
+So the temporal $SU(2)$ is a symmetry of the mass form, of the rest flow and of the charge-free part of the data, and the kinetic term breaks it to
+$\uu1_J$. That reverses the usual order, in which the kinetic term is symmetric and the mass breaks; Section~3.3 of \cite{RE} found the same inversion
+for $\mathrm{Spin}(3,3)$. The broken directions are the two clock rotations. They move the clock, and the kinetic term is exactly the structure that
+pairs one temporal direction with the spatial triple. The size of the breaking is $|Y(n)|$, the speed of the clock. The clock rotations flip the
+charge, and their half turn acts on the data as $\mathsf{CP}$ ($\Ad_{e_2}$ is the charge conjugation of Theorem~5.1 of \cite{ES17}, $\Ad_{e_1}$ the
+parity), reversing the clock and the sense of the rest rotation, as $\mathsf{CP}$ does in Proposition~3.8(iii) of \cite{RE}. Interpretively, the
+temporal $SU(2)$ joins the two senses of the rest rotation, particle and antiparticle, through the sphere of clocks at fixed mass form.
+
+\begin{proposition}[The mass symmetry and the kinetic symmetry]
+\label{e6:prop:twosu2}
+Let $P_\pm=\tfrac12(\id\pm\omega_S)$.
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item $\so3_+\cap\mathfrak g_{\rm massless}=\R J$.
+\item $e_2\Omega=-(e_1e_2)\,\omega_S$ and $e_3\Omega=(e_3e_1)\,\omega_S$. $\omega_S$ commutes with $\so3_+$, and $P_\pm$ are orthogonal projectors of rank four.
+\item $\so3_+=\{YP_++YP_-\}$ and $\su2_{\rm PG}=\{YP_++(JYJ^{-1})P_-\}$, $Y\in\so3_+$: both are graphs of automorphisms of $\so3$ over the two
+eigenspaces of $\omega_S$, the identity and the half turn $\Ad_J$ about $J$. The Lie algebra they generate is $\so3_+P_+\oplus\so3_+P_-\cong\so4$, and they
+meet in the fixed algebra of $\Ad_J$, which is $\R J$.
+\item $g=P_++JP_-=\exp(\tfrac\pi2JP_-)$ is orthogonal and $g\,\so3_+\,g^{-1}=\su2_{\rm PG}$; $2g=\id+J+\omega_S-J\omega_S$ has components of grades $0,2,3,5$,
+so $g\notin\mathrm{Pin}(3,3)$.
+\item $\so3_+$ preserves $T$ and the kinetic term breaks it to $\R J$; $\su2_{\rm PG}$ preserves the kinetic forms and the mass breaks it to $\R J$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(ii) $e_2\Omega=e_2e_1e_4e_5e_6=-e_1e_2\,\omega_S$, and similarly for $e_3$. $\omega_S$ is disjoint from each temporal bivector, and the grades $3$ and $2$
+give a commuting sign. (iii) Substitute $\omega_S=P_+-P_-$. $J$ commutes with $J$ and anticommutes with $e_1e_2$ and $e_3e_1$, so
+$\Ad_J$ is the half turn about $J$. A bracket of two graphs of automorphisms $\phi_1,\phi_2$ contains $[Y,Y']P_++[\phi_1Y,\phi_2Y']P_-$, and the
+generated algebra is computed (e6-2d). (iv) $(JP_-)^2=-P_-$ and $gYg^{-1}=YP_++JYJ^{-1}P_-$, because $P_\pm$ commute with $Y$ and $J$. (i) follows from (iii),
+and (v) is \cref{e6:prop:dirac}(i) together with Proposition~3.6(i)--(ii) of \cite{RE}.
+\end{proof}
+
+This is fixed (e6-2d); (v) restates Proposition~5.5 of \cite{ES17} and Proposition~3.6 of \cite{RE}. The comparison asked for has a sharp answer.
+The two $\su2$'s are not the same, and neither contains the other. They are the untwisted and the $\Ad_J$-twisted diagonals of $\so3_+P_+\oplus\so3_+P_-$,
+and they share the Cartan direction $J$. One is the symmetry of the mass that the kinetic term breaks, the other the symmetry of the kinetic term
+that the mass breaks. Both leave the same $\uu1_J$ \cite{Pauli57,Gursey58}. The orthogonal map that exchanges them is not in the Clifford group.
+
+\subsection{A temporal \texorpdfstring{$b$}{b}-field and the binding root}
+\label{e6:sec:binding}
+
+\begin{proposition}[A $b$-field on the temporal triple]
+\label{e6:prop:binding}
+Let $b=(R,0)$ on $V^+\oplus V^-$, with $R=[\mathbf r]_\times\neq0$, $\omega=|\mathbf r|$, $\kappa>0$ and $S=b+\kappa G$.
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item $b=b_l+b_p$ with $b_l=\tfrac12(R,R)\in\lG$, a field-strength rotation, and $b_p=\tfrac12(R,-R)\in\mathfrak p_G$, a counter-rotation; they commute. In
+the notation of equation~(11) of \cite{RE}, $\mathbf a=\mathbf c=\mathbf r/2$, so $\mathbf a\cdot\mathbf c=\omega^2/4$.
+\item $e^{\theta b}Ge^{-\theta b}=G_{C(\theta)}$ with $C(\theta)=e^{-\theta R}$. $G_C$ is $\eta$-self-adjoint with $(\kappa G_C)^2=-\kappa^2\id$ iff $C$ is
+orthogonal, so the rates, $\pm i\kappa$, are unchanged. $[b,G]=2b_pG\neq0$, so $b$ is not removable along a worldline.
+\item $\det(\lambda-S)=(\lambda^2+\kappa^2)\bigl(\lambda^4+(2\kappa^2+\omega^2)\lambda^2+\kappa^4\bigr)$. The lines are $\kappa$, on the plane
+$\langle\hat{\mathbf r},G\hat{\mathbf r}\rangle$, and $s\pm\omega/2$, with $s=(\kappa^2+\omega^2/4)^{1/2}$ and $(s+\omega/2)(s-\omega/2)=\kappa^2$; at $(\kappa,\omega)=(2,3)$
+they are $1,2,4$.
+\item Not every solution is bounded. At $(\kappa,\omega)=(2,3)$ and $(6,5)$, $M$ has Jordan blocks exactly at the frequencies $s\pm\omega/2$ and is
+semisimple at $\kappa$.
+\item On spinors $e_je_k=\tfrac12(e_je_k-e_{j+3}e_{k+3})+\tfrac12(e_je_k+e_{j+3}e_{k+3})$ for temporal $j,k$. The first summand, a paired rotation, commutes with
+$N$; the second changes $N$ by $\pm2$ only.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) $G$ commutes with $\operatorname{diag}(R,R)$ and anticommutes with $\operatorname{diag}(R,-R)$ in the $(\bB,\bE)$ blocks. (ii)
+$e^{\theta b}=\operatorname{diag}(e^{\theta R},\id)$, and $\operatorname{diag}(Q,\id)\,G\,\operatorname{diag}(Q^{-1},\id)=G_{Q^{-1}}$. $G_C^\dagger=\eta G_C^{\!\top}\eta$ has blocks $-C^{\!\top}$ and
+$C^{-\top}$, which equal those of $G_C$ iff $C^{\!\top}=C^{-1}$. The rates are the spectrum of the self-adjoint part, a tensor (Theorem~9.3(iii) of
+\cite{RE}). Removability fails by Proposition~5.9 of \cite{RE}. (iii) $b_l$ commutes with $b_p$ and with $G$. By Larmor's theorem (Proposition~5.7 of
+\cite{RE}) the substitution $X=e^{-b_l\tau}Y$ removes $b_l$ and shifts the exponents by the eigenvalues $0,\pm i\omega/2$ of $-b_l$. On the support of $b_p$ the
+remaining shift $b_p+\kappa G$ has the frequency $(\kappa^2+\omega^2/4)^{1/2}$ of Theorem~5.8(ii) of \cite{RE}, and on its kernel $\langle\hat{\mathbf r},G\hat{\mathbf r}\rangle$ the
+frequency $\kappa$. The characteristic polynomial is also computed symbolically in $\mathbf r$. (iv) By Theorem~5.10(i) of \cite{RE}, boundedness needs
+$\mathbf a\cdot\mathbf c=0$. The Jordan structure is that of $b_p+\kappa G$ (Theorem~5.8(ii) of \cite{RE}), transported by the bounded frame $e^{-b_l\tau}$, and is
+computed exactly. (v) With $e=a^++a^-$ and $e'=a^+-a^-$, the sum is $2(a^+_ja^+_k+a^-_ja^-_k)$ and the difference $2(a^+_ja^-_k+a^-_ja^+_k)$.
+\end{proof}
+
+This is fixed (e6-3a to e6-3e); the statement on the rates restates Theorem~9.3(iii) of \cite{RE}. A $b$-field on the temporal triple alone is
+therefore half binding-compatible and half binding-odd. Its paired half is the compact part of $\lG$, a Zeeman term removable by a rotating frame
+\cite{Larmor1897}. Its counter half lies in $\mathfrak p_G$. The latter is the gauge-covariant remainder $D_\tau G=[b,G]$, it moves the binding root
+to the root $G_{e^{-\theta R}}$ of a rotated conversion, and it tears the binding, with the screened frequency $s$ and Jordan blocks. The rate
+$\kappa=c/\ell$ is never touched. In \cref{e6:prop:binding}(iii) the two halves act independently, because $\mathbf a\parallel\mathbf c$: the lines are
+the screened frequency $\sqrt{\kappa^2+|\mathbf c|^2}$ shifted by the Zeeman amounts $\pm|\mathbf a|$. Theorem~5.10 of \cite{RE} needed
+$\mathbf a\perp\mathbf c$ for screening; a field on one triple has the opposite geometry. On spinors the same split is the split of
+\cref{e1:prop:Nbiv}(ii): the paired half hops quanta within a constituent and the counter half creates or annihilates them in pairs, so the
+temporal rotations, $J$ included, do not conserve $N$ (\cref{e1:prop:Nlorentz}(ii); \cref{e2:lem:N}).
+
+\subsection{\texorpdfstring{$c$}{c} on the spatial triple: the polar form of the conversion}
+\label{e6:sec:polar}
+
+\begin{proposition}[Conversions and the temporal rotations]
+\label{e6:prop:polar}
+Let $C\colon V^+\to V^-$ be invertible, $z_C=C\bB+i\bE$ and $q_C=z_C\cdot z_C$.
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item $G_C^2=-\id$, $G_C$ acts on $z_C$ as multiplication by $i$, and $e^{\theta G_C}$ preserves $E_C$, which depends on $C$ only through $C^{\!\top}C$.
+\item $G_C^{\!\top}N_c+N_cG_C=\bigl(\begin{smallmatrix}0&C^{\!\top}-c^2C^{-1}\\ C-c^2C^{-\top}&0\end{smallmatrix}\bigr)$, so $G_C$ preserves
+$E_c=\tfrac12(c^2|\bB|^2+|\bE|^2)$ iff $C^{\!\top}C=c^2\id$, that is iff $C=cR$ with $R\in O(3)$.
+\item For $C=cR$, the elements of $\so3\oplus\so3$ commuting with $G_C$ are the twisted diagonal rotations $(Q,RQR^{-1})$. $G_{cR}=\Ad_{(R^{-1},\id)}G_c=\Ad_{(\id,R)}G_c$
+for $R\in SO(3)$, and $\Ad_{(R_+,R_-)}G_c=G_{cR_-R_+^{-1}}$ for $(R_+,R_-)\in O(3)\times O(3)$. The Lie algebra preserving $\eta$ and $E_c$ is
+$\so3\oplus\so3$, and adding $[Y,G_c]=0$ leaves the diagonal $\so3$. Hence $\{G_C:C^{\!\top}C=c^2\id\}$ is one orbit of $O(3)\times O(3)$, of dimension three.
+\item A temporal rotation $(R_+,\id)$ carries $G_C$ to $G_{CR_+^{-1}}$ and $N_C$ to $N_{CR_+^{-1}}$. It conjugates $C^{\!\top}C$ to $R_+C^{\!\top}CR_+^{-1}$ and fixes
+$CC^{\!\top}$; in the polar form $C=(CC^{\!\top})^{1/2}U$ it moves only $U$. A spatial rotation $(\id,R_-)$ carries $C$ to $R_-C$, fixes $C^{\!\top}C$ and
+moves only $U'$ in $C=U'(C^{\!\top}C)^{1/2}$.
+\item For $C=cR$: $E_c$ and $\Re q_C=c^2|\bB|^2-|\bE|^2$ do not depend on $R$, while $\Im q_C=2c\,(R\bB)\cdot\bE$ does. At $c=1$, $\bB=e_1$, $\bE=e_2$ and $R$ the
+rotation through $\theta$ about $e_3$, $q_C=2i\sin\theta$: the same field point is null for $\theta=0$ and at rest for $\theta=\tfrac\pi2$, where
+$E_0=E_6=1$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) $G_C^2$ has blocks $-C^{-1}C$ and $-CC^{-1}$. On $z_C$, $G_CX$ has $C\bB'=-\bE$ and $\bE'=C\bB$, so $z_C(G_CX)=iz_C(X)$, and $|z_C|^2=2E_C$. (ii) is a
+block computation. Its vanishing means $C^{\!\top}C=c^2\id$, and then $C/c$ is orthogonal. (iii) The lower-left block of $[G_C,\operatorname{diag}(Q,Q')]$ is
+$CQ-Q'C$. The conjugation formulas are block products. An $\eta$-isometry preserving the positive form $N_c$ preserves the eigenspaces $V^\pm$ of
+$\eta^{-1}N_c=\operatorname{diag}(c^2,-1)$, and is orthogonal on each. The stabiliser dimensions are exact null spaces (e6-4c). (iv)
+$(CR_+^{-1})(CR_+^{-1})^{\!\top}=CC^{\!\top}$. (v) Expand $z_C\cdot z_C$; in the example $R\bB=(\cos\theta,\sin\theta,0)$.
+\end{proof}
+
+This is fixed (e6-4a to e6-4e). Parts (i)--(iii) extend Proposition~2.7 of \cite{RE} and Theorem~3.2 of \cite{ES17} from $C=c\,\id$ to the orbit. They are
+elementary linear algebra: Schur's lemma applied to a twisted diagonal action gives $C=cR$. Part (v) is the passive form of Proposition~2.14(ii) of
+\cite{RE}, where the anti-diagonal part of a compact transport turns a null field into one at rest at fixed $E_6$.
+
+\begin{remark}[What ``$c^2$ on $(-,-,-)$, $b$ on $(+,+,+)$'' fixes]
+\label{e6:rem:csym}
+\begin{enumerate}[label=(\alph*),leftmargin=2.2em]
+\item \emph{Fixed.} The complete invariant of a conversion under the temporal rotations is $CC^{\!\top}$, a symmetric form on the spatial triple:
+$C$ and $C'$ lie in one orbit of $O(3)_+$ iff $C'C'^{\!\top}=CC^{\!\top}$ (\cref{e6:prop:polar}(iv)). A $b$-field on the temporal triple can change
+anything about the conversion except this. The paper's $c$ is the isotropic case $CC^{\!\top}=c^2\id$, which is also $C^{\!\top}C=c^2\id$, and that
+is exactly the case in which the binding root preserves the weighted energy (\cref{e6:prop:polar}(ii)). In this precise sense $c^2$ sits on the
+spatial triple and the temporal $b$-field cannot reach it. What the temporal $b$-field moves is the orthogonal factor $R$. The energy $E_c$ does not see
+$R$; the binding root $G_{cR}$ (which spatial direction is paired with which temporal one), the pseudoscalar $\Im q_C$ and the rest energy
+$\tfrac12|q_C|$ do.
+\item \emph{Fixed: a mirror.} With the triples exchanged the statement still holds: a spatial $b$-field keeps $C^{\!\top}C$ on the temporal triple and
+moves the other orthogonal factor. The conversion alone therefore does not decide which triple carries $c^2$ and which the $b$-field. The Dirac data
+decide it, through the clock in $V^+$ and the kinetic term (\cref{e6:prop:dirac}), and so does the frame reading, in which $\so3_-\subset\lint$ is part of
+the Lorentz algebra while $\so3_+$ meets $\lint\oplus\R J$ only in $J$.
+\item \emph{Relation to the clause ``$c^2$ is the symmetric part of $E=mc^2$''.} Section~2.5 of \cite{RE} (Propositions~2.7 and~2.8) gives the clause
+two exact forms: $c$ is the unique isotropic conversion, its weight in $E_6$ a unit convention, and the shift splits as
+$\End(V)=\so{3,3}\oplus\{Y^\dagger=Y\}$ with $\kappa G$ in the self-adjoint summand, $(\kappa G)^2=-c^2/\ell^2$, and the connections in $\so{3,3}$ (Section~5 of
+\cite{RE}). The present form adds a third, compatible decomposition, the polar decomposition of the conversion itself. Its symmetric factor
+carries $c^2$ and is invariant under the temporal $b$-field; its orthogonal factor is moved by it. Under the dictionary of \cite{RE} the three
+agree: for every orthogonal $C$, $\kappa G_C$ stays in the self-adjoint summand with the same spectrum, and the temporal $b$ lies in the connection
+summand (\cref{e6:prop:binding}(ii)). The form adds nothing else. It does not fix $c$, it does not make $c$ a symmetry (the stabiliser $O(3)\times O(3)$ of
+$\eta$ and $E_c$ is not a Lorentz group), and it selects no amount of rest energy. A constant $R$ is a choice of identification of the triples:
+Theorem~3.2 of \cite{ES17} selects $R=\id$ once a common $SO(3)$ is fixed, and a twisted common $SO(3)$ selects another $R$. Only a $\tau$-dependent
+$R(\tau)$, a temporal $b$-field, has gauge-invariant content, its $D_\tau G\neq0$. Reading the symmetric factor as ``$c^2$'' and the orthogonal factor
+as the place of the $b$-field is interpretive.
+\end{enumerate}
+\end{remark}
+
+\subsection{The six-momentum read by a clock}
+\label{e6:sec:clock}
+
+Let $P=\sum_i(\mathsf E_i/c)e_i+\sum_ap_ae_{a+3}$ with $\eta(P,P)=\mu^2c^2$, so $\mu^2c^4=|\boldsymbol{\mathsf E}|^2-|\bp|^2c^2$, as in Proposition~2.10 of \cite{RE}.
+For a clock $n$ the energy read is $E_n=n\cdot\boldsymbol{\mathsf E}$ and $m_4(n)^2c^4=E_n^2-|\bp|^2c^2=\mu^2c^4-|n\times\boldsymbol{\mathsf E}|^2$ (Proposition~3.13 of
+\cite{TR}). A temporal $b$-field of constant rate $\Omega$ about a unit axis $\hat{\mathbf e}$ acts on $P$ by $\boldsymbol{\mathsf E}(t)=R_{\hat{\mathbf e}}(\Omega t)\boldsymbol{\mathsf E}$,
+with $\bp$ fixed.
+
+\begin{proposition}[The four-dimensional mass under a temporal $b$-field]
+\label{e6:prop:clock}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item The six-dimensional mass $\mu$ and the norm $|\boldsymbol{\mathsf E}|$ of the temporal energy are constant along the flow.
+\item For a fixed clock $n$, $E_n(t)=A+B\cos(\Omega t-\phi)$, where $A=(n\cdot\hat{\mathbf e})(\hat{\mathbf e}\cdot\boldsymbol{\mathsf E})$ and
+$B=|n_\perp|\,|\boldsymbol{\mathsf E}_\perp|$ with $n_\perp$ and $\boldsymbol{\mathsf E}_\perp$ the parts orthogonal to $\hat{\mathbf e}$. Hence $m_4(n)^2c^4=\mu^2c^4-|\boldsymbol{\mathsf E}|^2+E_n(t)^2$ oscillates. Its maximum is
+$\mu^2c^4-|\boldsymbol{\mathsf E}|^2+(|A|+B)^2\le\mu^2c^4$. Its minimum is $\mu^2c^4-|\boldsymbol{\mathsf E}|^2+(|A|-B)^2$ if $|A|\ge B$ and
+$\mu^2c^4-|\boldsymbol{\mathsf E}|^2$ otherwise. It is constant iff $B=0$, that is iff $n\parallel\hat{\mathbf e}$ or $\boldsymbol{\mathsf E}\parallel\hat{\mathbf e}$.
+\item The rotation about the clock, whose spin lift is proportional to $J(n)$ (Proposition~3.4(iii) of \cite{TR}), keeps $E_n$. On the reduced shell
+$\boldsymbol{\mathsf E}\parallel n$ of Theorem~30.1 of \cite{ES17} (Proposition~3.10 of \cite{TR}) the flow preserves the constraint iff $\hat{\mathbf e}\parallel n$.
+\item With $c=1$, $\boldsymbol{\mathsf E}=(2,3,6)$ and $\bp=(0,0,3)$, so that $\mu^2=40$: the rotation about $e_3$ read by $e_1$ gives $E_n=2\cos\Omega t-3\sin\Omega t$ and
+$m_4^2\in[-9,4]$; read by $\widehat W$ it gives $m_4^2\in[\tfrac{35}3-4\sqrt{26},\tfrac{35}3+4\sqrt{26}]$. The rotation about $\widehat W$ read by $\widehat W$ keeps
+$m_4^2=\tfrac{94}3$ while the relative-time energies $\boldsymbol{\mathsf E}_\perp$ turn.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Rodrigues' formula gives $n\cdot\boldsymbol{\mathsf E}(t)=A+(n\cdot\boldsymbol{\mathsf E}-A)\cos\Omega t+n\cdot(\hat{\mathbf e}\times\boldsymbol{\mathsf E})\sin\Omega t$, and the squared
+amplitude $(n\cdot\boldsymbol{\mathsf E}-A)^2+(n\cdot(\hat{\mathbf e}\times\boldsymbol{\mathsf E}))^2$ equals $(|n|^2-(n\cdot\hat{\mathbf e})^2)(|\boldsymbol{\mathsf E}|^2-(\hat{\mathbf e}\cdot\boldsymbol{\mathsf E})^2)$
+(Lagrange's identity in the plane orthogonal to $\hat{\mathbf e}$). $|A|+B\le|\boldsymbol{\mathsf E}|$ by the Cauchy--Schwarz inequality. The rest is
+substitution; the reduced-shell statement says that a vector stays on the line $\R n$ under all rotations about $\hat{\mathbf e}$ iff the line is the axis.
+\end{proof}
+
+This is fixed (e6-5a, symbolic for three rational axes; e6-5b, exact). The reading needs care. ``The four-dimensional mass oscillates'' holds only
+if the clock is held fixed while the temporal $b$-field turns the temporal momentum. Equivalently, the clock turns against a fixed momentum along a
+great circle of the clock sphere of Proposition~3.13 of \cite{TR}. Read in the sense of Remark~3.14 of \cite{TR}, the energy read by the clock is
+the projection of the undivided temporal energy, and the $b$-field moves energy periodically between the clock and the relative times. This is the
+dynamical form of the obstruction of Proposition~2.10 of \cite{RE}: splitting the temporal energy lowers the mass. The six-dimensional mass is
+constant throughout. The rotation about the clock is the charge $J(n)$ and changes nothing; the two clock rotations are what make $m_4$ oscillate, and
+they are also what the kinetic term breaks (\cref{e6:prop:dirac}). On the reduced shell, the gauge-fixed reading of \cite{ES17}, a temporal $b$-field
+transverse to the clock is not admissible at fixed clock.
+
+\subsection{Between constituents}
+\label{e6:sec:copies}
+
+Write $C^{12}_+=-\tfrac12\sum_{i\le3}E_{(1,i)}E_{(2,i)}$ and $C^{12}_-=\tfrac12\sum_{a\ge4}E_{(1,a)}E_{(2,a)}$ for the temporal and the spatial parts of the copy rotation,
+$C_b=C^{12}_++C^{12}_-$, and $C_\times=C^{12}_+-C^{12}_-$. We drop the superscript.
+
+\begin{proposition}[Temporal and spatial copy rotations]
+\label{e6:prop:copyrot}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item $C_\pm$ are antisymmetric and commute, and each is a sum of three commuting terms of square $-\tfrac14\id$. Hence $e^{2\pi C_\pm}=-\id$ and $e^{2\pi C_b}=\id$.
+The eigenvalues of $C_\pm$ are $\pm\tfrac i2$ ($24$ times each) and $\pm\tfrac{3i}2$ ($8$ times each).
+\item On vectors neither $C_+$ nor $C_-$ commutes with $G_2$, $C_b$ does, and $C_\times$ is compact and anticommutes with $G_2$.
+\item $C_+=\tfrac12C_b+\tfrac12C_\times$. $C_b$ conserves $N$ and $C_\times=-\sum_i(a^+_{1,i}a^+_{2,i}+a^-_{1,i}a^-_{2,i})$ changes it by $\pm2$, one quantum in each
+constituent. From the Fock vacuum, $e^{\theta C_+}|0\rangle$ has weight $\binom3k\cos^{2(3-k)}\tfrac\theta2\,\sin^{2k}\tfrac\theta2$ in $N=2k$, none in odd $N$,
+and $N^{(1)}=N^{(2)}$ throughout. So $\langle N\rangle=3(1-\cos\theta)$, and $\theta=\pi$ fills all six modes.
+\item As a constant field between two binding frames, $S=\kappa G_2+\beta V_+$, where $V_+$ is the vector form of $C_+$, has
+$\det(\lambda-S)=\bigl(\lambda^4+(2\kappa^2+\beta^2)\lambda^2+\kappa^4\bigr)^3$. The rates are $\kappa$ and the lines are $s\pm\beta/2$. At $(\kappa,\beta)=(2,3)$, $M$ has Jordan blocks
+at both lines.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) $E_{(1,i)}E_{(2,i)}$ squares to $-\id$ for every $i$, and the terms for distinct $i$ involve four distinct anticommuting generators. Then
+$e^{2\pi C_\pm}=\prod(\cos\pi\mp\sin\pi\,E_{(1,i)}E_{(2,i)})=(-1)^3$. The multiplicities follow from the minimal polynomial $(\lambda^2+1)(\lambda^2+9)$ of
+$2C_\pm$ and $\Tr(2C_\pm)^2=-192$. (ii) $V_\pm$ maps $e^{(1)}_a$ to $e^{(2)}_a$ on the temporal (respectively spatial) directions, and $G_2$ exchanges the two
+kinds; $V_+-V_-=\varepsilon\otimes\eta$. (iii) As in \cref{e6:prop:binding}(v): $E_{(1,i)}E_{(2,i)}\pm E_{(1,i+3)}E_{(2,i+3)}$ is a pair term or a hopping term. Since
+$[C_b,C_\times]=0$ and $C_b|0\rangle=0$, $e^{\theta C_+}|0\rangle=e^{\theta C_\times/2}|0\rangle$, a product of three rotations in the planes
+$\langle|0\rangle,a^+_{1,i}a^+_{2,i}|0\rangle\rangle$; this is checked exactly at $\cos\tfrac\theta2=\tfrac35$. (iv) As in \cref{e6:prop:binding}(iii), with
+$\varepsilon\otimes\id_3$ in place of $[\hat{\mathbf r}]_\times$.
+\end{proof}
+
+Part (i) restates Proposition~9.6(i) of \cite{RE}; the rest is fixed (e6-6a, e6-6c, e6-6e). Part (iii) is the compact counterpart of the copy boost
+of \cref{e2:prop:copyboost}. The pairs emerge unitarily, with probability $\binom3k\cos^{2(3-k)}\tfrac\theta2\sin^{2k}\tfrac\theta2$ in place of the hyperbolic
+weights there. As \cref{e2:sec:quanta} says, compactness does not protect the number of quanta; commutation with the binding root does, and $C_+$
+fails it. Part (iv) puts $C_+$ outside the binding-compatible class of Theorem~9.3 of \cite{RE}: as a constant field it tears the binding of two
+manifolds as a temporal $b$-field tears that of one.
+
+\begin{proposition}[Mass transfer between constituents]
+\label{e6:prop:transfer}
+Let $H_g=m_1E_{(1,1)}+m_2E_{(2,1)}$, $M=(m_1^2+m_2^2)^{1/2}$, $u_1=e_1\otimes\id$ and $u_2=\id\otimes e_1$.
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item $\Ad(e^{\theta C_+})E_{(1,1)}=\cos\theta\,E_{(1,1)}+\sin\theta\,E_{(2,1)}$ and $\Ad(e^{\theta C_+})E_{(2,1)}=\cos\theta\,E_{(2,1)}-\sin\theta\,E_{(1,1)}$. Hence
+$\Ad(e^{\theta C_+})H_g=m_1(\theta)E_{(1,1)}+m_2(\theta)E_{(2,1)}$, where $(m_1(\theta),m_2(\theta))$ is $(m_1,m_2)$ rotated through $\theta$. The spectrum stays $\{\pm M\}$, and
+$(M,0)$ goes to $(M\cos\theta,M\sin\theta)$. $C_-$ commutes with $H_g$.
+\item The ungraded $H_u=m_1u_1+m_2u_2$ has spectrum $\{\pm m_1\pm m_2\}$, each value $16$ times, and this multiset determines $\{|m_1|,|m_2|\}$. Rotating
+$(m_1,m_2)$ inside the ungraded family changes the spectrum, from $\{\pm M\}$ at $(M,0)$ to $\{\pm M(\cos\theta+\sin\theta),\pm M(\cos\theta-\sin\theta)\}$.
+$(\cos\theta\,u_1+\sin\theta\,u_2)^2=\id+\sin2\theta\,u_1u_2$, so for $\sin2\theta\neq0$ no invertible matrix conjugates $u_1$ into $\cos\theta\,u_1+\sin\theta\,u_2$,
+whereas $(\cos\theta\,E_{(1,1)}+\sin\theta\,E_{(2,1)})^2=\id$. The product $u_1u_2$ of the two ungraded clocks squares to $\id$ and commutes with both.
+\item $\Ad(e^{\theta C_+})$ keeps the spectrum of $H_u$, but it maps $u_1$ to $\cos\theta\,u_1+\sin\theta\,\omega\otimes e_1$. This lies in
+$\Cl(3,3)\otimes\id+\id\otimes\Cl(3,3)$ only for $\sin\theta=0$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) For $i=2,3$, $E_{(k,1)}$ anticommutes with both factors of $E_{(1,i)}E_{(2,i)}$, so these terms commute with $E_{(k,1)}$. The term
+$X=E_{(1,1)}E_{(2,1)}$ anticommutes with $E_{(1,1)}$ and $E_{(2,1)}$, so $e^{-\theta X/2}E_{(1,1)}e^{\theta X/2}=e^{-\theta X}E_{(1,1)}=\cos\theta\,E_{(1,1)}+\sin\theta\,E_{(2,1)}$.
+$C_-$ commutes with $E_{(k,1)}$ by the same count. (ii) $u_1$ and $u_2$ are commuting involutions whose products have trace zero, so each joint sign
+occurs on $16$ dimensions. The largest and smallest absolute values in the multiset are $|m_1|+|m_2|$ and $||m_1|-|m_2||$. Conjugation preserves the
+spectrum, and $\{\pm\cos\theta\pm\sin\theta\}\neq\{\pm1\}$ for $\sin2\theta\neq0$. (iii) $\omega\otimes e_1$ is a tensor of two non-identity blades, independent of every
+$A\otimes\id$ and $\id\otimes B$.
+\end{proof}
+
+This is fixed (e6-6b, e6-6d). The checks are exact at $\cos\tfrac\theta2=\tfrac35$, where the rotated ungraded spectrum is
+$\{\pm\tfrac{17}{25},\pm\tfrac{31}{25}\}M$. Part (i) is \cref{e1:prop:rest}(ii) realised by the temporal copy field. The single bivector $B=E_{(2,1)}E_{(1,1)}$
+used there is one of the three terms of $2C_+$, and the other two leave the clocks alone.
+
+\begin{remark}[Does a second particle acquire mass from the first?]
+\label{e6:rem:transfer}
+The algebra is fixed. The temporal copy rotation turns the clock $E_{(1,1)}$ of the first constituent into the clock $E_{(2,1)}$ of the second, and
+from $(M,0)$ it produces $(M\cos\theta,M\sin\theta)$ at fixed graded mass: a massless second copy acquires mass from the first. Reading this as ``a
+second particle acquires mass from the first through the $b$-field'' needs two further structures. One is a clock per copy, $E_{(k,1)}$ as the
+$\gamma^0$ of copy $k$. The other is the graded reading, and there \cref{e1:prop:rest} applies: the copies have no joint mass shell, and the rest energy is
+the single value $M$. In that reading the process is a rotation of the mass direction of one particle between two internal clock directions,
+the masses adding in quadrature as in Proposition~8.11(iv) of \cite{RE}. It is not the creation of a second massive particle. In the ungraded
+reading, where energies add and there are two particles (\cref{e1:prop:rest}(iii)--(iv)), the transfer is obstructed: no conjugation turns one
+clock into the other, and the additive spectrum fixes the pair of masses (\cref{e6:prop:transfer}(ii)). The transfer is moreover not
+binding-compatible, and half of it creates quanta in pairs across the constituents (\cref{e6:prop:copyrot}(iii)). So the mass transfer between
+constituents is fixed algebra; the reading of it as the emergence of a second massive particle is interpretive in the one-particle reading and
+obstructed in the two-particle reading.
+\end{remark}
+
+\subsection{Up the ladder: the mass forms of a rung}
+\label{e6:sec:ladder}
+
+\begin{theorem}[Mass forms of a rung]
+\label{e6:thm:ladder}
+At rung $n$ let $T_n$ be the product, in increasing order, of the $3n$ temporal generators $E_{(k,i)}$ ($i\le3$), $S_n$ that of the $3n$ spatial ones, and
+$\Gamma_n$ the volume element of $\Cl(3n,3n)$.
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item For every $n$, $Y^{\!\top}T_n+T_nY=0=Y^{\!\top}S_n+S_nY$ for every bivector $Y$, $T_nS_n=\pm\Gamma_n$, and the forms on $S_n$ invariant under $\so{3n,3n}$
+are exactly $\operatorname{span}\{T_n,S_n\}$.
+\item $T_n^{\!\top}=(-1)^{3n(3n-1)/2}T_n$ and $S_n^{\!\top}=(-1)^{3n+3n(3n-1)/2}S_n$. For $n\equiv1,2,3,0\pmod4$ the pair $(T_n,S_n)$ is (antisymmetric,
+symmetric), (antisymmetric, antisymmetric), (symmetric, antisymmetric), (symmetric, symmetric). Hence the Grassmann mass kernel invariant under
+$\so{3n,3n}$ is unique iff $n$ is odd. It is $T_n$ for $n\equiv1$ and $S_n$ for $n\equiv3\pmod4$. For $n\equiv2$ the kernels form the plane $\operatorname{span}\{T_n,S_n\}$,
+and for $n\equiv0$ there is none.
+\item At $n=2$, $T_2=-\omega_S\otimes T$ and $S_2=-T\otimes\omega_S$. The four products $M_1\otimes M_2$, $M_k\in\{T,\omega_S\}$, span the forms invariant under
+$\so{3,3}^{(1)}\oplus\so{3,3}^{(2)}$; $T\otimes T$ and $\omega_S\otimes\omega_S$ are symmetric, and $\so{6,6}$ keeps exactly the antisymmetric ones,
+$T_2$ and $S_2$. The per-copy $T\otimes\id$ is not invariant even under the boosts of copy~$2$.
+\item The forms invariant under the temporal rotations $\so{3n}_+$ are their commutant, of dimension $16$, $128$ and $1024$ at $n=1,2,3$, with
+(symmetric, antisymmetric) dimensions $(6,10)$, $(64,64)$ and $(528,496)$. They contain $T_n$ and $S_n$.
+\item The forms invariant under the diagonal $\so{3,3}$, the same bivector on every constituent, have dimension $2$, $14$ and $168$ at $n=1,2,3$, with
+(symmetric, antisymmetric) dimensions $(1,1)$, $(10,4)$ and $(84,84)$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(i) At every rung the temporal generators are symmetric and the spatial ones antisymmetric, $E_A^{\!\top}=\eta_{AA}E_A$, since $\omega^{\!\top}=\omega$. By the
+blade rule in $\Cl(3n,3n)$, $T_nE_AT_n^{-1}=(-1)^{3n-1}\eta_{AA}E_A=(-1)^{3n-1}E_A^{\!\top}$ for every $A$, so for $Y=E_AE_B$,
+$T_nYT_n^{-1}=E_A^{\!\top}E_B^{\!\top}=(E_BE_A)^{\!\top}=-Y^{\!\top}$, which is the invariance. The same holds for $S_n$ with the sign $(-1)^{3n}$. Conversely, if $M$ is
+invariant, then $Y^{\!\top}=-T_nYT_n^{-1}$ gives $Y(T_n^{-1}M)=(T_n^{-1}M)Y$ for every bivector. The commutant of the bivectors is spanned by the blades it
+contains. A blade $e_I$ commutes with $E_AE_B$ iff $|I\cap\{A,B\}|$ is even, and this holds for all $A\neq B$ iff $I=\emptyset$ or $I$ is everything. So
+$M\in T_n\operatorname{span}\{\id,\Gamma_n\}=\operatorname{span}\{T_n,S_n\}$. (ii) The transpose of a product of $m$ symmetric (respectively antisymmetric)
+generators is the reversed product times $1$ (respectively $(-1)^m$), and reversal costs $(-1)^{m(m-1)/2}$. (iii) $E_{(2,1)}E_{(2,2)}E_{(2,3)}=\omega^3\otimes T=\omega\otimes T$
+and $T\omega=-\omega_S$. Within each copy the invariant forms are $\operatorname{span}\{T,\omega_S\}$, and blade conjugation is diagonal. (iv) A compact $Y$
+is antisymmetric, so invariance is commutation; the dimensions are exact orbit counts. (v) Let $c(\mu)$ be the weight multiplicities of a module for
+the split Cartan subalgebra spanned by the pole operators $e_ie_{i+3}$, which are diagonal. The multiplicity of the trivial module is
+$\sum_{w\in W(D_3)}\det(w)\,c(\rho-w\rho)$ \cite{Humphreys72}. It is evaluated on $\mathrm{Sym}^2S_n$ and $\Lambda^2S_n$ with the exact weights; at $n=2$ a
+direct exact solution on the $216$ entries of opposite weight agrees.
+\end{proof}
+
+The theorem is fixed (e6-7a to e6-7e). At $n=1$, (i) restates Corollary~18.4 of \cite{ES17} and the pairing of Section~28 there. The pattern of
+(ii) is Chevalley's: on the spinors of $\R^{m,m}$ the two invariant forms have symmetries $(-1)^{m(m-1)/2}$ and $(-1)^{m(m+1)/2}$
+\cite{Chevalley54,LawsonMichelsohn89}, here with $m=3n$ (inherited). What the arena adds is that the two forms are the temporal and the spatial volume
+elements of the rung, with the Klein factors of (iii). The uniqueness of the mass in $T=e_1e_2e_3$ is therefore a statement of the first rung. Up
+the ladder the full algebra keeps two invariant forms at every rung, but their symmetry turns with period four. At the paper's three-constituent rung the
+unique $\so{9,9}$-invariant Grassmann kernel is the spatial volume $S_3$, and the temporal volume $T_3$ is a symmetric (bosonic) form. Under the
+diagonal action the mass is not unique from $n=2$ on (four Grassmann kernels at $n=2$, $84$ at $n=3$). Under the temporal rotations alone it is not
+unique even at $n=1$. In the two-particle reading of the second rung (iii), the antisymmetric kernels pair the temporal volume of one constituent with
+the spatial volume of the other: there is no invariant mass kernel of one particle alone.
+
+\subsection{The two assignments compared}
+\label{e6:sec:compare}
+
+\begin{remark}[The temporal $b$-field and the $b$-field of \cite{RE}]
+\label{e6:rem:compare}
+\begin{enumerate}[label=(\alph*),leftmargin=2.2em]
+\item \emph{How they relate} (fixed). In Sections~5 and~9 of \cite{RE} the $b$-field is the $\eta$-antisymmetric part of the shift $S=\kappa G_n+b$, and
+$\kappa G_n$ is its $\eta$-self-adjoint part, $(\kappa G)^2=-c^2/\ell^2$; $\kappa G$ maps $V^+$ to $V^-$ and back, and that is where $c$ enters. Section~9 of
+\cite{RE} studies the binding-compatible fields, $[b,G_n]=0$. A $b$-field on the temporal triple is part of the connection, compact and
+gauge-admissible (Corollary~2.4 of \cite{ES17}), but it is not binding-compatible: half of it lies in $\mathfrak p_G$
+(\cref{e6:prop:binding}(i)). It belongs to the compact class of Section~5 of \cite{RE} with $\mathbf a=\mathbf c$, it transports $\kappa G$ to
+$\kappa G_{e^{-\theta R}}$ without changing the rates, and it tears the binding (\cref{e6:prop:binding}). Between constituents the same holds for the
+temporal copy rotation (\cref{e6:prop:copyrot}(iv)), which lies outside the Schr\"odinger class of Theorem~9.3 of \cite{RE}.
+\item \emph{A non-abelian Yang--Mills $\su2$ with Cartan direction $J$} (fixed; the Cartan choice is the clock's). $\so3_+\cong\su2$ is compact. It acts on
+$V$ as isospin one on $V^+$ and trivially on $V^-$, and on spinors as isospin one-half (\cref{e6:prop:dirac}(iii)). The algebra fixes no Cartan direction,
+since all elements of $\so3_+$ are conjugate. The kinetic term fixes it to $J=J(e_1)$, the rotation about the clock, which it keeps. The two
+off-diagonal directions are the clock rotations; they flip the charge, and their half turn acts as $\mathsf{CP}$.
+\item \emph{A mass term for the off-diagonal components} (identity fixed; reading interpretive; mechanism open). The breaking of the kinetic forms
+by $Y\in\so3_+$ is $Y^{\!\top}K^a+K^aY=2Y(n)\gamma^a$, with total weight $96|Y(n)|^2$ (\cref{e6:prop:dirac}(i)). This is a quadratic form on $\so3_+$ with
+kernel $\R J(n)$, invariant under the stabiliser of the clock, and it is the invariant statement asked for. It has the form of the adjoint-Higgs mass
+term $g^2|[b,\langle\Phi\rangle]|^2$ of the Georgi--Glashow $SO(3)$ model \cite{GeorgiGlashowPRL72}, with the clock in the role of the Higgs vector
+\cite{EnglertBrout64,Higgs64,Kibble67}: the two charge-flipping components would be massive and $J(n)$ massless. That needs a clock field $n(x)$ with a
+covariant kinetic term, and the arena supplies none: a dynamics that selects the clock is open (Section~3 of \cite{TR}). Gauge invariance forbids a
+bare mass term (inherited), and the Dirac mass gives none, since $\so3_+$ preserves $T$ (\cref{e6:prop:Tform}). In Remark~9.8(e) of \cite{RE} the rate matrix
+played the role of the adjoint vacuum value; here the clock does.
+\item \emph{What the assignment fixes, constructs, obstructs and leaves open.} Fixed: the commutation pattern and commutant of $T$; the action of
+$\so3_+$ on the Dirac data and its breaking to $\uu1_J$; the half-and-half split relative to $G$ and the lines $\kappa,s\pm\omega/2$; the invariance of
+$CC^{\!\top}$ under temporal rotations and the conversions $C=cR$; the oscillation of $m_4$ at fixed $\mu$; the mass transfer at fixed $M$; the rung
+mass forms $\operatorname{span}\{T_n,S_n\}$. Constructed: the choice of a clock, which fixes the Cartan direction and the kinetic term, and the
+choice of a temporal $b$-field. Obstructed: removal of a temporal $b$-field along a worldline; bounded binding under it; mass transfer at fixed
+spectrum in the ungraded reading; a unique Grassmann mass kernel at even rungs. Open: a dynamics for the clock, hence a mass for the off-diagonal
+components.
+\item \emph{What it implies for the emergence of a second particle} (interpretive, drawn from the fixed statements). The temporal $b$-field gives the
+second rung a process that moves mass from one constituent to the other, but only as a rotation of one mass vector in the graded reading, in which
+the rung carries one particle. In the reading that has two particles it is obstructed. The uniqueness of the mass in $T$, which the assignment invokes,
+does not survive the ladder in a form that assigns a mass to each particle: the invariant kernels of the second rung pair the temporal volume of one
+constituent with the spatial volume of the other.
+\end{enumerate}
+\end{remark}
+
+\subsection{Answer}
+\label{e6:sec:answer}
+
+The assignment ``$c$ on $(-,-,-)$, $b$ on $(+,+,+)$'' has a precise and correct form. The temporal rotations cannot change the symmetric factor
+$CC^{\!\top}$ of the conversion, which lives on the spatial triple and is $c^2$ in the isotropic case. They are a symmetry of the mass form
+$T=e_1e_2e_3$ and of the Dirac rest flow, and they move only the orthogonal factor of the conversion, the clock and the binding root. The price is
+the binding and the kinetic term. A temporal $b$-field is half a field-strength rotation and half a counter-rotation. It keeps the rates and splits the
+lines, it cannot be gauged away along a worldline, and it tears the binding. On the Dirac data it is broken to $\uu1_J$ by the kinetic term, in
+proportion to the speed of the clock. The mass is unique in $T$ on the first rung, as a form under all of $\so{3,3}$. Up the ladder the full algebra
+keeps two forms, the temporal and the spatial volume, whose symmetry alternates with period four. Between two constituents the temporal $b$-field
+rotates graded mass from one clock to the other at fixed total, which is a statement about one particle, not two.
+
+\begin{table}[htbp]
+\centering
+\footnotesize
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{8.0cm}>{\raggedright\arraybackslash}p{4.7cm}>{\raggedright\arraybackslash}p{2.1cm}@{}}
+\toprule
+statement & class & checks\\
+\midrule
+conventions; the triples, $T$, $\omega_S$, Fock modes & restated (ES17 eqs.~(1), (2), Thm~18.1) & e6-0\\
+\cref{e6:prop:Tform}(i): $T$ and $\omega_S$ invariant forms under $\mathrm{Spin}(3,3)$ & restated (ES17 Cor.~18.4, Sec.~28; RE Prop.~3.5) & e6-1a\\
+\cref{e6:prop:Tform}(ii), (iii): commutes with $\so3_+\oplus\so3_-$ only; commutant $M_4(\C)$, $32$ blades & fixed ($M_4(\C)$ inherited) & e6-1b\\
+\cref{e6:prop:Tform}(iv): $\Ad_T=\eta$; boosts conjugate $T$ to $e^{2sY}T$ & restated (RE Prop.~2.11); fixed & e6-1c\\
+\cref{e6:prop:dirac}(i): kinetic breaking $2Y(n)\gamma^a$, weight $96|Y(n)|^2$; $\so3_+\cap(\lint\oplus\R J)=\R J$ & fixed (covariance restated, RE Prop.~3.5(ii)) & e6-2a\\
+\cref{e6:prop:dirac}(ii): clock rotation of $H(0)$; transport to the clock $n$ & fixed (transport restated, TR Prop.~3.4, Thm~3.5) & e6-2b\\
+\cref{e6:prop:dirac}(iii), (iv): rest flow kept; isospin $\tfrac12$; $\mathsf{CP}$ half turn; octant duality & fixed; (iv) restated (TR Prop.~4.12) & e6-2c\\
+\cref{e6:prop:twosu2}: $\so3_+$ and $\su2_{\rm PG}$ two diagonals of $\so4$, meeting in $\R J$ & fixed ((v) restated, ES17 Prop.~5.5) & e6-2d\\
+\cref{e6:prop:binding}(i), (ii): half $\lG$, half $\mathfrak p_G$; $G\to G_{e^{-\theta R}}$; rates kept; not removable & fixed (rates restated, RE Thm~9.3(iii)) & e6-3a, e6-3b\\
+\cref{e6:prop:binding}(iii), (iv): lines $\kappa$, $s\pm\omega/2$; Jordan blocks & fixed & e6-3c, e6-3d\\
+\cref{e6:prop:binding}(v): paired half conserves $N$, counter half changes it by $\pm2$ & fixed & e6-3e\\
+\cref{e6:prop:polar}: $C=cR$; twisted diagonal; orbit $O(3)$; $CC^{\!\top}$ invariant; $q_C$ & fixed & e6-4a to e6-4e\\
+\cref{e6:rem:csym}: ``$c^2$ on $(-,-,-)$, $b$ on $(+,+,+)$'' & (a), (b) fixed; reading interpretive & ---\\
+\cref{e6:prop:clock}: $m_4$ oscillates at fixed $\mu$; constant iff on the axis & fixed; the reading interpretive & e6-5a, e6-5b\\
+\cref{e6:prop:copyrot}: $C_\pm$, $e^{2\pi C_\pm}=-\id$; pairs of quanta; tearing between frames & fixed ((i) restated, RE Prop.~9.6(i)) & e6-6a, e6-6c, e6-6e\\
+\cref{e6:prop:transfer}: graded mass transfer at fixed $M$; ungraded obstruction & fixed & e6-6b, e6-6d\\
+\cref{e6:rem:transfer}: ``a second particle acquires mass'' & interpretive (one-particle reading); obstructed (two-particle reading) & ---\\
+\cref{e6:thm:ladder}(i), (ii): invariant forms $\operatorname{span}\{T_n,S_n\}$; period four & fixed (Chevalley's pattern inherited) & e6-7a, e6-7b\\
+\cref{e6:thm:ladder}(iii)--(v): Klein factors; temporal and diagonal counts & fixed & e6-7a, e6-7c to e6-7e\\
+\cref{e6:rem:compare}: relation to RE; Yang--Mills $\su2$; clock as adjoint Higgs & (a), (b) fixed; (c) identity fixed, reading interpretive, mechanism open; (e) interpretive & e6-2a\\
+\bottomrule
+\end{tabular}
+\caption{Claims of \cref{e6:sec:main}, their classes and their checks, which are \texttt{PASS} lines of \texttt{verify/e6\_bfield\_triples.py}. ``Restated'':
+fixed in \cite{ES17}, \cite{RE} or \cite{TR}, re-verified here.}
+\label{e6:tab:claims}
+\end{table}

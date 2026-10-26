@@ -244,7 +244,7 @@ Ysym = a_ * sp.Matrix(J.tolist()) + b_ * sp.Matrix((e[3] @ e[1]).tolist()) + g_ 
 
 @claim("e6-2a", "kinetic forms: Y = alpha J + beta e3e1 + gamma e1e2 in so(3)_+ satisfies Y^T K^mu + K^mu Y = Lambda^mu_nu K^nu for some Lambda iff "
        "beta = gamma = 0 (so(3)_+ meets lint + RJ in RJ, from ES17/RE mb:Tinv(ii)); explicitly Y^T K^0 + K^0 Y = 0 and "
-       "Y^T K^a + K^a Y = -2 Y(e1) gamma^a, with Y(e1) = (1/2)[Y, e1] = beta e3 - gamma e2 the rotated clock, so "
+       "Y^T K^a + K^a Y = 2 Y(e1) gamma^a, with Y(e1) = (1/2)[Y, e1] = beta e3 - gamma e2 the rotated clock, so "
        "sum_a ||Y^T K^a + K^a Y||^2 = 96 (beta^2 + gamma^2)")
 def _():
     Ks_ = [sp.Matrix(k.tolist()) for k in KIN]
@@ -253,10 +253,22 @@ def _():
     ok &= sp.simplify((Ysym * sp.Matrix(e[1].tolist()) - sp.Matrix(e[1].tolist()) * Ysym) / 2 - v) == sp.zeros(8)
     for mu in range(4):
         lhs = Ysym.T * Ks_[mu] + Ks_[mu] * Ysym
-        target = sp.zeros(8) if mu == 0 else -2 * v * sp.Matrix(GAM[mu].tolist())
+        target = sp.zeros(8) if mu == 0 else 2 * v * sp.Matrix(GAM[mu].tolist())
         ok &= sp.expand(lhs - target) == sp.zeros(8)
     tot = sum(sum(x ** 2 for x in (Ysym.T * Ks_[mu] + Ks_[mu] * Ysym)) for mu in range(1, 4))
     ok &= sp.expand(tot - 96 * (b_ ** 2 + g_ ** 2)) == 0
+    # at the clock n = (-7 e1 - 24 e2)/25 (the image of e1 under exp(phi e1e2), cos phi = 3/5) with K^a(n) = -n gamma^a:
+    # Y^T K^a(n) + K^a(n) Y = 2 Y(n) gamma^a and sum_a ||.||^2 = 96 |Y(n)|^2
+    nM = (-7 * sp.Matrix(e[1].tolist()) - 24 * sp.Matrix(e[2].tolist())) / 25
+    Yn = (Ysym * nM - nM * Ysym) / 2
+    totn = 0
+    for mu in range(1, 4):
+        Kn = -nM * sp.Matrix(GAM[mu].tolist())
+        lhs = Ysym.T * Kn + Kn * Ysym
+        ok &= sp.expand(lhs - 2 * Yn * sp.Matrix(GAM[mu].tolist())) == sp.zeros(8)
+        totn += sum(x ** 2 for x in lhs)
+    Yn2 = sp.expand((Yn * Yn)[0, 0])                       # Y(n) is a vector, Y(n)^2 = |Y(n)|^2 (temporal)
+    ok &= sp.expand(Yn * Yn - Yn2 * sp.eye(8)) == sp.zeros(8) and sp.expand(totn - 96 * Yn2) == 0
     # covariance system: unknowns (alpha, beta, gamma, Lambda 16)
     Lam = sp.symbols('L0:16')
     eqs = []
@@ -279,7 +291,7 @@ def rotor5(B):
 
 @claim("e6-2b", "rest Hamiltonian: for R = exp(phi e1e2), R e1 R^{-1} = cos2phi e1 - sin2phi e2 =: n (and for e1e3, cos2phi e1 - sin2phi e3), exact at "
        "(cos phi, sin phi) = (3/5, 4/5); R J R^{-1} = J(n) = T n, n J(n) = J(n) n = T, R K^mu R^{-1} = -n gamma^mu, R T R^{-1} = T: the clock rotation "
-       "carries the Dirac data at e1 to those at n (TR Prop. 2.4, Thm 2.5); the stabiliser of H(0) = m e1 in so(3)_+ is RJ")
+       "carries the Dirac data at e1 to those at n (TR Prop. 3.4, Thm 3.5); the stabiliser of H(0) = m e1 in so(3)_+ is RJ")
 def _():
     ok = True
     for (B, other) in ((e[1] @ e[2], e[2]), (e[1] @ e[3], e[3])):
@@ -300,7 +312,7 @@ def _():
 
 @claim("e6-2c", "rest flow: e^{-m lambda T} commutes with Spin(3)_+ x Spin(3)_-; the spin lift (1/2)e_je_k of so(3)_+ has Casimir -3/4 on all of S "
        "(isospin 1/2) and exp(pi e_je_k) = -1; the clock rotations e1e2, e3e1 anticommute with J and commute with T, and the half-turn Ad_{e1e2} = Ad_{e1}Ad_{e2} "
-       "maps (e1, J, T, gamma^a) to (-e1, -J, T, gamma^a); on the field octants -T Phi = Phi G (TR Prop. 3.12(i)), so e^{-m lambda T} Phi = Phi e^{m lambda G}")
+       "maps (e1, J, T, gamma^a) to (-e1, -J, T, gamma^a); on the field octants -T Phi = Phi G (TR Prop. 4.12(i)), so e^{-m lambda T} Phi = Phi e^{m lambda G}")
 def _():
     ok = all(eq(comm(T, biv(a, b)), Z8) for a, b in COMPACT)
     cas4 = sum(Y @ Y for Y in TEMP_ROT.values())          # 4 * Casimir of (1/2) e_je_k
@@ -312,7 +324,7 @@ def _():
     Yi = -Y
     ok &= eq(Y @ e[1] @ Yi, -e[1]) and eq(Y @ J @ Yi, -J) and eq(Y @ T @ Yi, T) and all(eq(Y @ e[a] @ Yi, e[a]) for a in (4, 5, 6))
     ok &= all(eq(e[1] @ (e[2] @ e[a] @ e[2]) @ e[1], Y @ e[a] @ Yi) for a in range(1, 7))
-    # field-octant map Phi (TR Thm 3.7): Phi(X) = sum E_k f_k + sum B_m g_m, f_k = a+_k|vac>, g_m = a+_j a+_k |vac>
+    # field-octant map Phi (TR Thm 4.7): Phi(X) = sum E_k f_k + sum B_m g_m, f_k = a+_k|vac>, g_m = a+_j a+_k |vac>
     N2 = sum((I8 - e[i] @ e[i + 3]) for i in (1, 2, 3))
     vac = np.zeros(8, dtype=np.int64)
     vac[int(np.argmin(np.diag(N2)))] = 1
@@ -598,7 +610,7 @@ def rodrigues(eh, x, t):
 
 @claim("e6-5a", "under a temporal rotation of rate Omega about a unit axis e^, E(t) = R(Omega t)E keeps |E| and mu; the energy read by a fixed clock n is "
        "E_n(t) = A + B cos(Omega t - phi) with A = (n.e^)(e^.E) and B = |n_perp||E_perp| (parts orthogonal to e^), so m_4^2 c^4 = mu^2 c^4 - |E|^2 + E_n(t)^2 "
-       "(TR Prop. 2.13) oscillates, and is constant iff n || e^ or E || e^ (symbolic in n, E for three rational axes)")
+       "(TR Prop. 3.13) oscillates, and is constant iff n || e^ or E || e^ (symbolic in n, E for three rational axes)")
 def _():
     ok = True
     nv, Evv = sp.Matrix([n1, n2, n3]), sp.Matrix([E1, E2, E3])
@@ -692,7 +704,7 @@ G2s = blk(Gs, Gs)
 
 @claim("e6-6a", "C_+ and C_- are antisymmetric and commute; each is a sum of three commuting terms of square -1/4, so exp(2pi C_+-) = -1 and exp(2pi C_b) = +1, with "
        "eigenvalues i{+-1/2, +-3/2} (restates RE d7:prop:isospin(i)); on vectors neither commutes with G_2, their sum does, and their difference C_x = C_+ - C_- "
-       "is compact and anticommutes with G_2")
+       "is compact and anticommutes with G_2; on vectors V_+ - V_- = eps(x)eta and V_+ + V_- = eps(x)1")
 def _():
     ok = eq(Cp2.T, -Cp2) and eq(Cm2.T, -Cm2) and eq(comm(Cp2, Cm2), 0 * I64)
     ok &= all(eq(X @ X, -I64) for X in list(Xp.values()) + list(Xm.values()))
@@ -709,6 +721,8 @@ def _():
     Vp, Vm = vec_copy_rotation([1, 2, 3]), vec_copy_rotation([4, 5, 6])
     ok &= Vp * G2s != G2s * Vp and Vm * G2s != G2s * Vm and (Vp + Vm) * G2s == G2s * (Vp + Vm)
     ok &= (Vp - Vm) * G2s == -G2s * (Vp - Vm) and (Vp - Vm).T == -(Vp - Vm)
+    epsm = sp.Matrix([[0, -1], [1, 0]])
+    ok &= Vp - Vm == sp.kronecker_product(epsm, ETAs) and Vp + Vm == sp.kronecker_product(epsm, sp.eye(6))
     return ok
 
 
@@ -729,19 +743,34 @@ def _():
     return ok
 
 
-@claim("e6-6c", "C_+ does not conserve N: C_+ = (1/2)C_b + (1/2)C_x, where C_b conserves N (it hops a quantum) and C_x changes N by +-2 only (one quantum in each constituent); "
-       "from the Fock vacuum <N>(theta) = 3(1 - cos theta), exact at cos(theta/2) = 3/5 (<N> = 96/25), and theta = pi fills all six modes")
+@claim("e6-6c", "C_+ does not conserve N: C_+ = (1/2)C_b + (1/2)C_x, where C_b conserves N (it hops a quantum) and C_x changes N by +-2 only (one quantum in each constituent), C_x = -sum_i (a+_{1i}a+_{2i} + a-_{1i}a-_{2i}) and C_b = -sum_i (a+_{1i}a-_{2i} + a-_{1i}a+_{2i}); "
+       "from the Fock vacuum the weight in N = 2k is C(3,k) cos^{2(3-k)}(theta/2) sin^{2k}(theta/2), none in odd N, N^(1) = N^(2) throughout, so "
+       "<N>(theta) = 3(1 - cos theta), exact at cos(theta/2) = 3/5 (<N> = 96/25), and theta = pi fills all six modes")
 def _():
     Cx2 = Cp2 - Cm2
     ok = eq(Cp2, (Cb2 + Cx2) // 2) and eq(2 * Cp2, Cb2 + Cx2)
     ok &= eq(comm(Cb2, N2_2), 0 * I64) and not eq(comm(Cp2, N2_2), 0 * I64)
     ok &= set(dN2[Cx2 != 0].tolist()) == {2, -2} and set(dN2[Cb2 != 0].tolist()) == {0}
+    # Fock form: 2 C_x = -sum_i (2a+_{1i})(2a+_{2i}) + (2a-_{1i})(2a-_{2i}) / 2, i.e. C_x = -sum (a+a+ + a-a-)
+    ap = {(k, i): E2[(k, i)] + E2[(k, i + 3)] for k in (1, 2) for i in (1, 2, 3)}     # 2 a+
+    am = {(k, i): E2[(k, i)] - E2[(k, i + 3)] for k in (1, 2) for i in (1, 2, 3)}     # 2 a-
+    ok &= eq(2 * Cx2, -sum(ap[(1, i)] @ ap[(2, i)] + am[(1, i)] @ am[(2, i)] for i in (1, 2, 3)))
+    ok &= eq(2 * Cb2, -sum(ap[(1, i)] @ am[(2, i)] + am[(1, i)] @ ap[(2, i)] for i in (1, 2, 3)))
     vac = np.zeros(64, dtype=np.int64)
     vac[int(np.argmin(np.diag(N2_2)))] = 1
     R, _ = rotC5(Xp.values(), -1)
     v = R @ vac                                # 125 * state
     expN = Fraction(int(v @ (N2_2 @ v)), 2 * 125 ** 2)
     ok &= expN == Fraction(96, 25) and expN == 3 * (1 - Fraction(-7, 25))
+    # weight in N = 2k is C(3,k) cos^{2(3-k)}(theta/2) sin^{2k}(theta/2), none in odd N, and N^(1) = N^(2) on the state
+    from math import comb
+    Nd = np.diag(N2_2) // 2
+    for k in range(4):
+        wk = Fraction(int(np.sum(v[Nd == 2 * k] ** 2)), 125 ** 2)
+        ok &= wk == comb(3, k) * Fraction(9, 25) ** (3 - k) * Fraction(16, 25) ** k
+    ok &= int(np.sum(v[Nd % 2 == 1] ** 2)) == 0
+    N1d = np.diag(sum((I64 - E2[(1, i)] @ E2[(1, i + 3)]) for i in (1, 2, 3))) // 2
+    ok &= all(N1d[j] * 2 == Nd[j] for j in np.nonzero(v)[0])
     # theta = pi: cos(pi/2) = 0, sin = 1: prod(-X) applied to vac lands in N = 6
     w = vac.copy()
     for X in Xp.values():
@@ -752,7 +781,9 @@ def _():
 
 @claim("e6-6d", "ungraded copies: spec(m1 e1(x)1 + m2 1(x)e1) = {+-m1 +- m2}, each value 16 times, and this multiset determines {|m1|, |m2|}; Ad(e^{theta C_+}) maps e1(x)1 to "
        "cos theta e1(x)1 + sin theta omega(x)e1, outside Cl(3,3)(x)1 + 1(x)Cl(3,3) unless sin theta = 0; rotating (m1, m2) inside the ungraded family from (M, 0) changes "
-       "the spectrum to {+-M(cos theta + sin theta), +-M(cos theta - sin theta)} (exact: 25 x spectrum = {+-17, +-31} at cos theta = -7/25)")
+       "the spectrum to {+-M(cos theta + sin theta), +-M(cos theta - sin theta)} (exact: 25 x spectrum = {+-17, +-31} at cos theta = -7/25); "
+       "(cos theta u1 + sin theta u2)^2 = 1 + sin 2theta u1u2, so no invertible matrix conjugates the ungraded clock of copy 1 into a rotated clock, "
+       "whereas the graded (cos theta E_(1,1) + sin theta E_(2,1))^2 = 1; the product u1u2 squares to +1 and commutes with both clocks")
 def _():
     u1, u2 = np.kron(e[1], I8), np.kron(I8, e[1])
     ok = eq(comm(u1, u2), 0 * I64) and np.trace(u1) == 0 and np.trace(u2) == 0 and np.trace(u1 @ u2) == 0
@@ -774,6 +805,13 @@ def _():
     vals = sorted({s1 * (-7) + s2 * 24 for s1 in (1, -1) for s2 in (1, -1)})
     ok &= vals == [-31, -17, 17, 31]
     ok &= all(eq((H25 - (s1 * -7 + s2 * 24) * I64) @ (I64 + s1 * u1) @ (I64 + s2 * u2), 0 * I64) for s1 in (1, -1) for s2 in (1, -1))
+    # no conjugation turns the ungraded clock u1 into cos u1 + sin u2: (25 x it)^2 = 625 - 336 u1u2 is not 625, while the graded
+    # (cos E11 + sin E21)^2 = 1; the product u1u2 of the commuting clocks squares to +1 and commutes with both, so exp(theta u1u2) fixes them
+    ok &= eq(H25 @ H25, 625 * I64 - 336 * (u1 @ u2)) and not eq(H25 @ H25, 625 * I64)
+    Hg25 = -7 * E2[(1, 1)] + 24 * E2[(2, 1)]
+    ok &= eq(Hg25 @ Hg25, 625 * I64)
+    P = u1 @ u2
+    ok &= eq(P @ P, I64) and eq(comm(P, u1), 0 * I64) and eq(comm(P, u2), 0 * I64)
     return ok
 
 
@@ -785,6 +823,7 @@ def _():
     S = kap * G2s + w_ * Vp
     p = sp.expand((lam * sp.eye(12) - S).det())
     ok = sp.expand(p - (lam ** 4 + (2 * kap ** 2 + w_ ** 2) * lam ** 2 + kap ** 4) ** 3) == 0
+    ok &= dagger(Vp, sp.diag(*([1, 1, 1, -1, -1, -1] * 2))) == -Vp     # V_+ is a connection: the self-adjoint part of S is kappa G_2
     S23 = 2 * G2s + 3 * Vp
     prof = jordan_profile(S23)
     ok &= set(abs(sp.im(ev)) for ev in prof) == {1, 4}
