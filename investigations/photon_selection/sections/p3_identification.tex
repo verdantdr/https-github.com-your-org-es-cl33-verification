@@ -1,0 +1,579 @@
+% Track p3 -- Which charge is the photon, and the residual choice.
+% Verification: investigations/photon_selection/verify/p3_identification.py (claims p3-1 ... p3-22).
+% New references: sections/bib_p3.tex.
+\section{Which charge is the photon, and the residual choice}
+\label{p3:sec:main}
+
+The second-rung construction gauges the charge $Q=\tfrac12J_1$ and carries it, in the curved extension, by the normal $SO(2)$ connection
+\cite[Thms.~26.7, 26.8]{ES17}. At the third rung that charge is $Q_A=\tfrac12q_A=\tfrac12E_2E_3$, and the matter block of \cite[Section~8]{ES17} carries a
+second candidate, the electric charge $B_{\rm em}$. This section decides which of the two is the photon on the family $F_3$ of \cref{p1:sec:main}, and what is
+left to choose once a gauged subalgebra has aligned the vacuum. The results are as follows. The charge operator of $Q_A$ is half the involution $U$ that cuts
+out $P_*$, so on the block $Q_A$ equals $\tfrac12$ on every state: it is half the fermion number, and it is anomalous together with $\su2_L$ (fixed). It is not
+electromagnetism on that matter, whatever the vacuum (obstructed). The electric charge leaves the four aligned vacua massless, has four charged complex
+fluctuations with the electron's charge magnitude, and acts on the block with the Standard-Model charges and without anomaly. With $B_{\rm em}$ gauged, the
+massless vector of the projector current is the electromagnetic photon of the block, and the normal $U(1)$ is a separate abelian field (fixed). Of the three
+counts against the normal $U(1)$ in \cite[Section~31]{ES17} only the sign count changes status, and a fourth count, the charge on the block, decides.
+After alignment by $\mathfrak h_{\rm SM}$ four vacua remain. A Klein group of symmetries of the projector sector permutes them simply transitively, so no
+alignment energy, kinetic term or current separates them (fixed). The overlaps with $P_*$, with the lepton projector and with the chirality halves do
+not separate them either (fixed). The overlap with the half $P_L$ of the block on which $\su2_L$ acts selects the pair $\{\Pi_A,\Pi_{-W}\}$, and the two
+members of the pair coincide on the half of the module that contains the block (fixed). A single point needs a coupling that sees the other half, for
+instance the overlap with $\Pfam$ (constructed). Identifiers p3-$n$ refer to the \texttt{PASS} lines of \texttt{verify/p3\_identification.py}
+(\cref{p3:tab:claims}).
+
+\paragraph{Conventions.} Definitions and notation are those of \cref{p1:sec:main}; in particular $F_3$, $\Pi_{\pm A}$, $\Pi_{\pm W}$, $Q_A$, $B_{\rm em}$, $t^{L,R}_i$,
+$t_Y$, $H_C$, $\rho_+$ and $\mathrm{vol}_+$ are as there. For a compact generator $X$ commuting with $J$ the charge operator is $\hat X:=-JX$. It is symmetric, and
+$X=J\hat X$ acts as $i\hat X$ in the complex structure $J$ \cite[Section~8]{ES17}. The inner product on $\mathfrak k$ is $\langle X,Y\rangle=-\Tr(XY)/512$. For it the unit
+blades $e_ie_j$ have norm one, $|t^L_3|^2=\tfrac18$ and $|t_Y|^2=\tfrac5{24}$. Orthonormal bases are $2\sqrt2\,t^L_i$, $\sqrt{24/5}\,t_Y$ and an orthonormal basis of
+$\su3_C$ for $\mathfrak h_{\rm SM}$, with couplings $g_2$, $g_Y$, $g_3$, and the unit blades of $\so4_W\oplus\so6_C$ for $\mathfrak h_{\rm PS}$, with one coupling
+$g$. We write $U_A=\operatorname{span}(E_2,E_3)$, $A_0=\operatorname{span}(E_8,E_9)$, $U_{\rm em}=\operatorname{span}(E_7,E_{13})$, $W_0=\operatorname{span}(E_{14},E_{15})$
+and $P_{L,R}=P_*\tfrac12(\id\mp\Gamma)$. For an oriented four-plane $P\subset V_+$ with oriented orthonormal frame $(f_1,\dots,f_4)$, written as a $4\times8$ matrix $F$ in
+the generator basis of $V_+$, the Plücker coordinates are $p_I(P)=\det F_I$ for the $70$ four-subsets $I$ of that basis, and $e_I$ is the blade of $I$ in increasing
+order. We write $p_A$ and $p_W$ for $I=A$ and $I=W$. The family projector is $\Pfam=\tfrac18\prod_i(\id+X_i)$ \cite[Section~7]{ES17}, and
+$Q_v=P_L+\gamma^0P_L\gamma^0$ \cite[Prop.~21.6]{ES17}.
+
+\begin{definition}[The lepton projector]
+\label{p3:def:plep}
+$P_{\rm lep}$ is the spectral projector of the colour charge $Q_c=-JH_C$ for the eigenvalue $-3$. With $s_k=J\,E_{9+k}E_{15+k}$, $k=1,2,3$, one has
+$Q_c=s_1+s_2+s_3$ and $P_{\rm lep}=\tfrac18\prod_k(\id-s_k)$.
+\end{definition}
+
+On $P_*$ the eigenvalue $-3$ of $Q_c$ is the colour singlet \cite[Prop.~8.4]{ES17}. \Cref{p3:prop:restated} shows that $P_{\rm lep}$ reproduces the row of
+\cite[Prop.~21.6]{ES17}, where the colour-singlet lepton projector is named but not written out.
+
+\subsection{Two charges on the matter}
+\label{p3:sec:charges}
+
+\begin{proposition}[The construction's charge is half of $U$; fixed, and restated]
+\label{p3:prop:charges}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item $\hat Q_A=-JQ_A=\tfrac12U$ on $\R^{512}$, where $U=-Jq_A$ is the third involution of $P_*$. Since $UP_*=P_*$ and $q_A$ commutes with $X$, $Z$ and $U$,
+\[
+q_AP_*=JP_*,\qquad \hat Q_AP_*=\tfrac12P_* .
+\]
+The first identity is the statement $q_A|_{V_*}=J$ of \cite[Section~8]{ES17} (p3-1).
+\item On $V_*=\operatorname{im}P_*$ the operators $\Gamma$, $\hat T^3_L=-Jt^L_3$, $\hat Y=-Jt_Y$, $\hat Q_{\rm em}=-JB_{\rm em}$, $\hat Q_A$ and $\BmL=-JH_C/3$ commute. Their
+joint spectrum is that of \cref{p3:tab:charges} (p3-2).
+\item On the Weyl block $\tfrac12(\id-\Gamma)$ of the spectator action, of rank $256$, $\hat Q_A$ takes the values $\pm\tfrac12$, each $128$ times. There
+$\hat Q_{\rm em}$ takes the values $\pm1$ ($16$ times each), $\pm\tfrac23$ ($48$), $\pm\tfrac13$ ($48$) and $0$ ($32$), the charges of the two families and two mirror
+families of \cite[Prop.~10.12]{ES17} (p3-3).
+\end{enumerate}
+\end{proposition}
+
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{@{}lcccccccc@{}}
+\toprule
+field & $\Gamma$ & $\hat T^3_L$ & $\hat Y$ & $\hat Q_{\rm em}$ & $\hat Q_A$ & $\BmL$ & real dim. & complex dim.\\
+\midrule
+$Q_L$ & $-1$ & $\pm\tfrac12$ & $\tfrac16$ & $\tfrac23,\ -\tfrac13$ & $\tfrac12$ & $\tfrac13$ & $12+12$ & $6+6$\\
+$L_L$ & $-1$ & $\pm\tfrac12$ & $-\tfrac12$ & $0,\ -1$ & $\tfrac12$ & $-1$ & $4+4$ & $2+2$\\
+$u_R$ & $+1$ & $0$ & $\tfrac23$ & $\tfrac23$ & $\tfrac12$ & $\tfrac13$ & $12$ & $6$\\
+$d_R$ & $+1$ & $0$ & $-\tfrac13$ & $-\tfrac13$ & $\tfrac12$ & $\tfrac13$ & $12$ & $6$\\
+$e_R$ & $+1$ & $0$ & $-1$ & $-1$ & $\tfrac12$ & $-1$ & $4$ & $2$\\
+$\nu_R$ & $+1$ & $0$ & $0$ & $0$ & $\tfrac12$ & $-1$ & $4$ & $2$\\
+\bottomrule
+\end{tabular}
+\caption{Joint eigenvalues on $V_*$ (p3-2). Complex dimensions refer to the complex structure $J$; one internal Weyl component has four real, or two complex,
+dimensions. The columns $\hat Y$ and $\hat Q_{\rm em}$ restate \cite[Prop.~8.4]{ES17}. The column $\hat Q_A$ is constant.}
+\label{p3:tab:charges}
+\end{table}
+
+\begin{proof}
+(i) $\hat Q_A=-J\tfrac12q_A=\tfrac12U$. As index sets, $X\sim I\cup A\cup C$ with $I$ the interior, $Z\sim A\cup W$ and $U\sim\{8,9\}\cup W\cup C$. The bivector $q_A$ shares two
+indices with $X$ and with $Z$ and none with $U$, so by equation~(3) of \cite{ES17} it commutes with all three. $X$, $Z$, $U$ commute, so $UP_*=P_*$, that is
+$-Jq_AP_*=P_*$; multiplying by $J$ and using $J^2=-\id$ gives $q_AP_*=JP_*$. (ii) The operators are the charge operators of commuting compact elements, together with
+$\Gamma$, which commutes with every internal bivector; p3-2 diagonalises them jointly on $V_*$. (iii) $U$ commutes with $\Gamma$ and is traceless on the Weyl block;
+p3-3 computes both spectra there.
+\end{proof}
+
+\begin{corollary}[What the construction's photon couples to; fixed, restated and obstructed]
+\label{p3:cor:notem}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item A gauge field coupled through $Q_A$ couples to every Weyl fermion of the block with the same charge $\tfrac12$, on both chiralities. In the complex structure
+$J$ each of the sixteen Weyl fermions has fermion number one \cite[Section~8]{ES17}. The coupling is therefore to $\tfrac12F$, $F=3B+L$, a universal vector charge
+(fixed).
+\item No real $\lambda$ gives $\hat Q_AP_*=\lambda\hat Q_{\rm em}P_*$, since $\hat Q_{\rm em}$ vanishes on the neutrinos and $\hat Q_A$ does not (p3-4). The statement
+involves only $P_*$, so the construction's charge is not the electric charge on the block for any vacuum projector (obstructed).
+\item $\hat Q_{\rm em}$ has the same spectrum on $P_L$ as on $P_R$, so its cubic, gravitational and mixed colour anomalies cancel between the chiralities, and
+$\Tr(P_L\hat Q_{\rm em}(\hat T^3_L)^2)=0$ (fixed; the anomaly conditions are inherited \cite{BouchiatIliopoulosMeyer72,GeorgiGlashow72}). For $\hat Q_A$ the same
+traces vanish except $\Tr(P_L\hat Q_A(\hat T^3_L)^2)=4$. This is the mixed $SU(2)_L^2\,U(1)_A$ anomaly of \cite[Prop.~8.5]{ES17} at $a=\tfrac12$, $b=0$ (restated;
+p1-28, p3-5). With $P_*$ as the matter and $\su2_L$ gauged, $\uu1_A$ cannot be gauged (obstructed under these hypotheses).
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+(i) and (ii) read off \cref{p3:tab:charges}. (iii) is p3-5. The anomaly of $\hat Q_A$ is that of fermion number in the Standard Model, which $SU(2)_L$ instantons
+violate \cite{tHooft76}.
+\end{proof}
+
+The universality of $Q_A$ on matter is therefore not a property of the vacuum. It is the factor $\tfrac12(\id+U)$ of $P_*$: the block is cut out as an eigenspace of
+the construction's charge (\cref{p3:prop:charges}(i)), and on the rest of the spectator Weyl block the same charge takes the value $-\tfrac12$
+(\cref{p3:prop:charges}(iii)). At the second rung the coupled model and the vacuum share the charge $\tfrac12J_1$ \cite[Section~26]{ES17}. At the third rung that
+shared charge is half the fermion number.
+
+\subsection{The counts against the normal \texorpdfstring{$U(1)$}{U(1)}, and the dichotomy}
+\label{p3:sec:counts}
+
+\Cref{p3:tab:counts} takes the three counts of \cite[Section~31]{ES17} to the third rung and adds the count of \cref{p3:cor:notem}. The four aligned vacua
+$\Pi_0\in\{\Pi_{\pm A},\Pi_{\pm W}\}$ commute with both $Q_A$ and $B_{\rm em}$ (\cref{p1:thm:vacuum}), so both charges can be compared at the same vacuum.
+
+\begin{table}[t]
+\centering
+\footnotesize
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{3.1cm}>{\raggedright\arraybackslash}p{4.2cm}>{\raggedright\arraybackslash}p{4.4cm}>{\raggedright\arraybackslash}p{2.6cm}@{}}
+\toprule
+count & normal $U(1)$, generator $Q_A$ & $\uu1_{\rm em}$, generator $B_{\rm em}$ & change\\
+\midrule
+(i) a spinless test particle cannot see it \cite[Prop.~23.4, Thm.~30.1]{ES17}
+& holds: it concerns the metric charge of the normal plane; the field couples through the spinor sector, at $\Pi_0$ to four complex scalars $\phi_w$ and to the block
+& not applicable, since $B_{\rm em}$ is not a metric charge; it couples through the spinor sector to four complex scalars $\phi_a$ and to the block, and a neutral spinless field does not see the ordinary photon either
+& none in substance (restated; interpretive reading)\\
+(ii) the adapted generator does not commute with the physical generators \cite[Section~25]{ES17}
+& removed: $[Q_A,\Pi_0]=0$, $D\Pi_0=0$, and the adapted correction is compact and commutes with the interior gammas \cite[Thm.~26.8]{ES17}, \cref{p1:thm:curved}
+& removed in the same way
+& none at $n=3$; removed already at $n=2$ (fixed)\\
+(iii) it gravitates with the wrong sign \cite[Cor.~23.6, Thm.~30.4]{ES17}
+& holds for the Kaluza--Klein vector of the normal plane
+& not covered: the Maxwell term is adopted, and a positive one exists since $\langle B_{\rm em},B_{\rm em}\rangle>0$; read as a Kaluza--Klein vector, the plane $U_{\rm em}$ has the sign of time, like the normal plane
+& from forced to adopted (constructed); the Kaluza--Klein reading is interpretive\\
+(iv) the charge on the block, \cref{p3:cor:notem}
+& universal $\tfrac12$, anomalous with $\su2_L$
+& the Standard-Model charges, anomaly free
+& decides (obstructed for $Q_A$, fixed for $B_{\rm em}$)\\
+\bottomrule
+\end{tabular}
+\caption{The counts against the normal $U(1)$ at the third rung (p3-4, p3-5). In row (iii), $E_2,E_3,E_7,E_{13}$ square to $+\id$, as the time generator $\gamma^0=E_1$
+does, and the colour generators to $-\id$ (p3-4).}
+\label{p3:tab:counts}
+\end{table}
+
+Row (iii) rests on \cite[Cor.~23.6, Thm.~30.4]{ES17}: there a vector obtained by reduction on a plane of the sign of time has a kinetic term of the wrong sign
+\cite{Hull98}. That theorem is about a metric origin of the field. An internal gauge field with an adopted Maxwell term is not covered by it. For a compact generator
+the invariant form is positive (\cite[Thm.~2.3]{ES17}, \cref{p3:tab:counts}), so a Maxwell term of the healthy sign exists, as in ordinary Yang--Mills theory. If $\uu1_{\rm em}$
+were itself obtained by reduction, its weak part would rotate the plane $U_{\rm em}$, of the sign of time, and the same mechanism would apply to that part and not to the
+colour part $\tfrac16H_C$ (interpretive). The same holds for $Q_A$, whose plane $U_A$ also has the sign of time. Count (iii) therefore separates the two fields only by
+their origin, and not by their generator.
+
+The dichotomy at the end of \cite[Section~25]{ES17} reads: either the normal $U(1)$ is not electromagnetic, or the paired-mode projector is not the observation projector.
+\cite[Section~26]{ES17} resolves it in one direction: if the normal $U(1)$ is to be electromagnetism, the paired-mode projector must go. At the third rung count (iv)
+decides the first alternative for every projector, because it is a property of $P_*$ through its factor $U$: on the block matter the normal $U(1)$ is not electromagnetic
+(obstructed). The replacement of the paired-mode projector is still available, as $\Pi_A$ or any point of the aligned set, and the charge that uses it is $B_{\rm em}$.
+At $n=3$ both alternatives of the dichotomy hold, and neither is a choice.
+
+\subsection{Identification at the aligned vacua}
+\label{p3:sec:ident}
+
+\begin{proposition}[Joint fixed points of the two charges; fixed]
+\label{p3:prop:jointfixed}
+The points of $F_3$ commuting with both $Q_A$ and $B_{\rm em}$ form six components: the isolated points $\Pi_{\pm(U_A\oplus U_{\rm em})}$, the isolated points $\Pi_{\pm R}$ with
+$R=\operatorname{span}(E_8,E_9,E_{14},E_{15})$, and two copies of $\widetilde{\mathrm{Gr}}_2(\R^4)$, of dimension $4$,
+\[
+\{\Pi_{U_A\oplus P'}:P'\in\widetilde{\mathrm{Gr}}_2(R)\},\qquad\{\Pi_{U_{\rm em}\oplus P'}:P'\in\widetilde{\mathrm{Gr}}_2(R)\}.
+\]
+$\Pi_{\pm A}$ lie on the first of these, with tangent $A_0\otimes W_0$, and $\Pi_{\pm W}$ on the second (p3-6).
+\end{proposition}
+
+\begin{proof}
+By \cref{p1:thm:fixed}, $\Pi_P$ commutes with $Q_A$ iff $P\supset U_A$ or $P\perp U_A$, and with $B_{\rm em}$ iff $P\supset U_{\rm em}$ or $P\perp U_{\rm em}$. The four
+combinations give $P=U_A\oplus U_{\rm em}$; $P=U_A\oplus P'$ with $P'\subset(U_A\oplus U_{\rm em})^\perp=R$; $P=U_{\rm em}\oplus P'$; and $P=R$. An orientation of a direct sum
+is a pair of orientations of the summands up to a common reversal. This gives $\widetilde{\mathrm{Gr}}_2(R)$ in the middle cases and two points in the outer ones. Finally
+$A=U_A\oplus A_0$ and $W=U_{\rm em}\oplus W_0$ with $A_0,W_0\subset R$. p3-6 computes the joint tangent kernels $0$, $0$, $4$, $4$ at representatives.
+\end{proof}
+
+\begin{proposition}[Charges of the fluctuations; fixed]
+\label{p3:prop:torus}
+At each of $\Pi_{\pm A}$, $\Pi_{\pm W}$ the sixteen tangent directions decompose under the torus $\uu1_A\times\uu1_{\rm em}$ into complex lines of weights
+\[
+U_A\otimes U_{\rm em}:\ (1,1)\oplus(1,-1),\qquad U_A\otimes W_0:\ 2\times(1,0),\qquad A_0\otimes U_{\rm em}:\ 2\times(0,1),
+\]
+and four real neutral directions $A_0\otimes W_0$ (p3-7). Eight real directions are charged under each $\uu1$, four under both and four under neither, in agreement
+with \cref{p1:thm:tangent}(iii),(iv).
+\end{proposition}
+
+\begin{proof}
+$\rho_+(Q_A)$ is the rotation of $U_A$ at unit rate and $\rho_+(B_{\rm em})$ the rotation of $U_{\rm em}$; on $A\otimes W$ the first acts on the first factor and the
+second on the second factor.
+\end{proof}
+
+\begin{theorem}[The photon of the aligned vacua; fixed, with the gauged generator a choice]
+\label{p3:thm:photon}
+Let $\Pi_0\in\{\Pi_{\pm A},\Pi_{\pm W}\}$. Let the internal connection carry a field $A_\mu$ along a compact generator $Q\in\mathfrak k$, acting on spinors by $Q$ and on the
+projector by $\ad Q$, and adopt a Maxwell term.
+\begin{enumerate}[label=(\alph*),leftmargin=2.2em]
+\item For $Q=B_{\rm em}$ the four requirements on an electromagnetic photon of the block hold. (1) The generator is the electric charge: $\hat Q_{\rm em}=\hat T^3_L+\hat Y$ on
+$V_*$, with the values of \cref{p3:tab:charges}. (2) $[B_{\rm em},\Pi_0]=0$, so the kinetic term gives no $A_\mu A^\mu$ term. (3) Charged fluctuations exist: the four complex
+scalars $\phi_a$ of \cref{p1:thm:tangent}(iii), with current $j^\mu_{\Pi,\rm em}=128f^2\sum_a\Im(\bar\phi_aD^\mu\phi_a)$ (\cref{p1:thm:kinetic}). (4) The matter carries the
+Standard-Model charges without anomaly (\cref{p3:cor:notem}(iii)). Both currents have the same unit of charge: $B_{\rm em}^2=-\hat Q_{\rm em}^2$ on $V_*$, with value $-1$ on
+the electron, and $(\ad B_{\rm em})^2=-1$ on the charged tangent directions (p3-8). The scalars of the projector current carry the electron's charge magnitude, and no
+normalisation is free.
+\item For $Q=Q_A$ requirements (2) and (3) hold and (1) and (4) fail (\cref{p3:cor:notem}). The massless vector couples to $\tfrac12F$ on the block and to four complex
+scalars $\phi_w$ of charge $1$, twice the fermion charge (p3-8). It is not the electromagnetic photon (obstructed).
+\item $Q_A$ and $B_{\rm em}$ commute and are orthogonal. $Q_A$ commutes with $\mathfrak h_{\rm SM}$ and $\mathfrak h_{\rm PS}$ and lies in the centraliser $\so4_A$ of
+$\mathfrak h_{\rm PS}$ in $\mathfrak k$ (p3-4). The normal $SO(2)$ connection of \cite[Thm.~26.8]{ES17}, whose plane is the surplus pair $E_2,E_3$ of the first
+constituent, is the component of the connection along $Q_A$. It is a second abelian field, not the photon (fixed).
+\item All twelve generators of $\mathfrak h_{\rm SM}$ commute with $\Pi_0$, so with $\mathfrak h_{\rm SM}$ gauged no gauge boson is massive at $\Pi_0$, and $\uu1_{\rm em}$
+is singled out only by an electroweak stage. The projector's own neutral directions provide one. At $\Pi_\theta=\Ad(\exp\tfrac\theta2E_8E_{14})\Pi_A$, $\theta\notin\pi\Z$, the
+mass matrix of $\mathfrak h_{\rm SM}$ has the eigenvalue $0$ nine times (gluons and photon), $m_W^2$ twice and $m_Z^2$ once, with
+\[
+\frac{m_W^2}{m_Z^2}=\frac1{1+\tfrac35\,g_Y^2/g_2^2},
+\]
+and its massless electroweak combination is $B_{\rm em}$ (p3-9). At $g_Y=g_2$ the ratio is $\tfrac58=1-\tfrac38$, the value $\cos^2\theta_W$ for the
+$\sin^2\theta_W=\tfrac38$ of \cite[Thm.~21.1]{ES17}.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(a) (1) is \cref{p3:prop:charges}(ii). (2) and (3) are \cref{p1:thm:vacuum,p1:thm:tangent,p1:thm:kinetic}. At $\Pi_{-A}=\id-\Pi_A$ the tangents change sign and nothing
+else changes, and at $\Pi_{\pm W}$ \cref{p1:thm:tangent}(v) applies. For the unit: on $V_*$, $B_{\rm em}=J\hat Q_{\rm em}$ with $J$ commuting and $J^2=-\id$, so
+$B_{\rm em}^2=-\hat Q_{\rm em}^2$; on the tangent, $[B_{\rm em},T_{a,7}]=T_{a,13}$ and $[B_{\rm em},T_{a,13}]=-T_{a,7}$ (\cref{p1:thm:tangent}). (b) p3-8 gives
+$(\ad Q_A)^2=-1$ on $U_A\otimes W$ and $Q_A^2=-\tfrac14$ on $V_*$. (c) is p3-4 together with the form $\Omega=\Omega_{\rm Lorentz}+AQ$, $Q=\tfrac12ab$, of the curved
+extension \cite[Thm.~26.8]{ES17}. (d) $\su3_C$ acts trivially on $V_+$. In the vector model of \cref{p1:lem:vector}, $p_\theta=p_{\operatorname{span}(E_2,E_3,E_9)}+uu^{\!\top}$ with
+$u=\cos\theta\,E_8\pm\sin\theta\,E_{14}$. For $x\in\rho_+(\mathfrak h_{\rm SM})$, which kills $A$, $[x,uu^{\!\top}]=au^{\!\top}+ua^{\!\top}$ with $a=xu=\pm\sin\theta\,xE_{14}$, so
+the mass matrix is $128\sin^2\theta$ times the Gram matrix of the vectors $g_a\rho_+(T_a)E_{14}$. The vectors $\rho_+(t^L_i)E_{14}$ are orthogonal of length $\tfrac12$,
+because the $2\rho_+(t^L_i)$ are anticommuting complex structures, and $\rho_+(t_Y)E_{14}=-\rho_+(t^L_3)E_{14}$, because $B_{\rm em}$ kills $E_{14}$. In the basis of the
+conventions the Gram matrix is $2g_2^2$ on the first two generators, and on $(2\sqrt2\,t^L_3,\sqrt{24/5}\,t_Y)$ it is
+$\bigl(\begin{smallmatrix}2g_2^2&-\sqrt{12/5}\,g_2g_Y\\-\sqrt{12/5}\,g_2g_Y&\frac65g_Y^2\end{smallmatrix}\bigr)$, with eigenvalues $0$ and $2g_2^2+\tfrac65g_Y^2$. p3-9 computes
+the full $12\times12$ matrix on $\R^{512}$.
+\end{proof}
+
+So at the third rung the photon of the aligned vacua is the $\uu1_{\rm em}$ gauge field of the internal connection, and the normal $U(1)$ is a separate abelian field. On
+the block that field couples to fermion number, and with $\su2_L$ gauged it cannot be gauged on that matter (\cref{p3:cor:notem}). The construction's
+identification of its photon with the normal connection is therefore not compatible with the matter at $n=3$ (obstructed). What the second rung established survives
+with $B_{\rm em}$ in place of $Q_A$: the massless criterion of \cite[Cor.~26.2]{ES17} at a Lorentz-invariant vacuum, the charged-scalar current, and a curved extension in which
+the vacuum is parallel (\cref{p1:thm:curved}). The theorem rests on the choice of the gauged generator, and $B_{\rm em}$ is fixed only once the Standard-Model embedding of
+\cite[Section~8]{ES17} is adopted (constructed). The coupling of the second abelian field and the values of $f$ and of the gauge couplings are not decided (open).
+\Cref{p3:thm:photon}(d) shows that the projector can itself carry an electroweak stage: its neutral doublet directions break $\mathfrak h_{\rm SM}$ to
+$\su3_C\oplus\uu1_{\rm em}$ with the tree-level relation of one doublet \cite{Glashow61,Weinberg67}. Whether the vacuum moves there is decided by the potential, which
+\cref{p3:sec:robust} examines.
+
+\subsection{The residual choice}
+\label{p3:sec:residual}
+
+By \cref{p1:prop:K,p1:thm:fixed}, with $\mathfrak h_{\rm SM}$ or $\mathfrak h_{\rm PS}$ gauged with positive couplings, the alignment energy vanishes on $F_3$ exactly at
+$\Pi_A$, $\Pi_{-A}$, $\Pi_W$ and $\Pi_{-W}$. This subsection determines what separates these four points.
+
+\begin{lemma}[Overlaps are Plücker functions; fixed]
+\label{p3:lem:plucker}
+For every oriented four-plane $P\subset V_+$, $\mathrm{vol}_P=\sum_Ip_I(P)\,e_I$, and for every operator $M$ on $\R^{512}$
+\[
+\Tr(\Pi_PM)=\tfrac12\Tr M+\tfrac12\sum_Ip_I(P)\Tr(e_IM).
+\]
+The four-blade components $\Tr(e_IM)$ vanish for $M=P_*$, $P_{\rm lep}$ and $\tfrac12(\id\pm\Gamma)$. The nonzero ones are $\Tr(e_A\Pfam)=64$,
+$\Tr(e_AP_L)=-\Tr(e_WP_L)=32$, their negatives for $P_R$, $\Tr(e_AQ_v)=-\Tr(e_WQ_v)=64$ and $\Tr(e_A\Pi_A)=256$ (p3-10).
+\end{lemma}
+
+\begin{proof}
+The frame vectors are orthonormal, so their Clifford product equals their exterior product, $\sum_I\det F_I\,e_I$. The blades $e_I$ are symmetric involutions with
+$\Tr(e_Ie_J)=512\,\delta_{IJ}$. For the components it suffices to list index sets. The eight products of $X$, $Z$, $U$ have the index sets $\emptyset$, $I\cup A\cup C$,
+$A\cup W$, $\{8,9\}\cup W\cup C$ and their symmetric differences, none of which is a four-subset of $V_+$. With $\Gamma$, whose index set is all eighteen generators, the
+products include $\Gamma X=\chi_W$ and $\Gamma XZ=-\chi_W\mathrm{vol}_+=-\mathrm{vol}_A$, so $P_L=\tfrac1{16}(\id+X)(\id+Z)(\id+U)(\id-\Gamma)$ contains
+$\tfrac1{16}(\mathrm{vol}_A-\chi_W)$ and no other four-blade of $V_+$. The products of the $s_k$ have index sets of sizes $12$, $4$ inside $C$, and $8$ equal to $A\cup W$.
+Among the products of the $X_i$ only $X_1=\mathrm{vol}_A$ is a four-blade of $V_+$ (\cref{p3:prop:restated}). $\gamma^0$ commutes with every $e_I$, which doubles the components
+of $P_L$ in $Q_v$.
+\end{proof}
+
+\begin{proposition}[The overlaps; fixed]
+\label{p3:prop:overlaps}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item On all of $F_3$, $\Tr(\Pi P_*)=\Tr(\Pi P_{\rm lep})=32$ and $\Tr(\Pi\tfrac12(\id\pm\Gamma))=128$ are constant, while
+\[
+\Tr(\Pi_P\Pfam)=32(1+p_A)=\tfrac14\Tr(\Pi_P\Pi_A),\qquad \Tr(\Pi_PP_L)=16(1+p_A-p_W)=\tfrac12\Tr(\Pi_PQ_v),
+\]
+and $\Tr(\Pi_PP_R)=16(1-p_A+p_W)$ (p3-12).
+\item $\Tr(\Pi P_*\Pi P_*)=\|P_*\Pi P_*\|^2\le\Tr(\Pi P_*)=32$, with equality iff $[\Pi,P_*]=0$. The points of $F_3$ commuting with $P_*$ are $\Pi_{\pm A}$ and $\Pi_{\pm W}$,
+which are isolated, and the two components $\{\Pi_{U_A\oplus W'}\}$ and $\{\Pi_{A_0\oplus W'}\}$, $W'\in\widetilde{\mathrm{Gr}}_2(W)$, of dimension $4$ (p3-12, p3-13).
+\item At the four points the linear and quadratic overlaps are those of \cref{p3:tab:overlaps} (p3-11).
+\end{enumerate}
+\end{proposition}
+
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{@{}lccccl@{}}
+\toprule
+$M$ & $\Pi_A$ & $\Pi_{-A}$ & $\Pi_W$ & $\Pi_{-W}$ & $\Tr(\Pi_PM)$ on $F_3$\\
+\midrule
+$P_*$ & $(32,32)$ & $(32,32)$ & $(32,32)$ & $(32,32)$ & $32$\\
+$P_{\rm lep}$ & $(32,32)$ & $(32,32)$ & $(32,32)$ & $(32,32)$ & $32$\\
+$\tfrac12(\id\pm\Gamma)$ & $(128,128)$ & $(128,128)$ & $(128,128)$ & $(128,128)$ & $128$\\
+$P_L$ & $(32,32)$ & $(0,0)$ & $(0,0)$ & $(32,32)$ & $16(1+p_A-p_W)$\\
+$P_R$ & $(0,0)$ & $(32,32)$ & $(32,32)$ & $(0,0)$ & $16(1-p_A+p_W)$\\
+$Q_v$ & $(64,64)$ & $(0,0)$ & $(0,0)$ & $(64,64)$ & $32(1+p_A-p_W)$\\
+$\Pfam$ & $(64,64)$ & $(0,0)$ & $(32,16)$ & $(32,16)$ & $32(1+p_A)$\\
+\bottomrule
+\end{tabular}
+\caption{Overlaps $(\Tr\Pi M,\ \Tr\Pi M\Pi M)$ at the four aligned points, and the linear overlap on all of $F_3$ (p3-11, p3-12).}
+\label{p3:tab:overlaps}
+\end{table}
+
+\begin{proof}
+(i) is \cref{p3:lem:plucker} with $\Tr M$ and the components listed there. (ii) $P_*$ is a contraction, so $\|P_*\Pi P_*\|^2\le\|\Pi P_*\|^2=\Tr(P_*\Pi P_*)=32$, with equality
+iff $(\id-P_*)\Pi P_*=0$, that is iff $\Pi P_*=P_*\Pi P_*$ is symmetric, that is iff $\Pi$ commutes with $P_*$. Every $\mathrm{vol}_P$ commutes with $J$, $\Gamma$ and
+$\mathrm{vol}_+=-Z$, so $\Pi_P$ commutes with $P_*$ iff $\mathrm{vol}_P$ commutes with $\chi_W$ and with $q_A$. $\Ad(\chi_W)$ acts on $V_+$ as the reflection $-1$ on $W$, $+1$ on $A$.
+It fixes $\mathrm{vol}_P$ iff $P=(P\cap A)\oplus(P\cap W)$ with $\dim(P\cap W)$ even. With \cref{p1:thm:fixed} for $q_A$ this leaves $P=\pm A$, $P=\pm W$, and $P=A'\oplus W'$ with
+$A'\in\{U_A,A_0\}$ and $W'$ a two-plane in $W$. p3-13 checks that the four points are isolated and that the components have dimension $4$. (iii) is the computation
+p3-11.
+\end{proof}
+
+\begin{lemma}[A comass inequality; fixed]
+\label{p3:lem:comass}
+For every oriented four-plane $P\subset V_+=A\oplus W$, $|p_A(P)|+|p_W(P)|\le1$, with equality iff $P\in\{\pm A,\pm W\}$.
+\end{lemma}
+
+\begin{proof}
+Let $M_A=(\langle a_i,f_j\rangle)$ and $M_W=(\langle w_i,f_j\rangle)$ for an oriented orthonormal frame $(f_j)$ of $P$, so that $M_A^{\!\top}M_A+M_W^{\!\top}M_W=\id$. The two
+symmetric matrices commute, so in a common eigenbasis they are $\operatorname{diag}(\cos^2\theta_i)$ and $\operatorname{diag}(\sin^2\theta_i)$, with
+$\theta_i\in[0,\tfrac\pi2]$ the principal angles between $P$ and $A$. Hence $|p_A|=\prod_i\cos\theta_i$ and $|p_W|=\prod_i\sin\theta_i$. For any two indices $i\neq j$,
+\[
+|p_A|+|p_W|\le\cos\theta_i\cos\theta_j+\sin\theta_i\sin\theta_j=\cos(\theta_i-\theta_j)\le1 .
+\]
+Equality for every pair forces all $\theta_i$ to equal one $\theta$, and then $\cos^4\theta+\sin^4\theta=1-2\cos^2\theta\sin^2\theta=1$ forces $\theta\in\{0,\tfrac\pi2\}$,
+that is $P=\pm A$ or $P=\pm W$. p3-14 checks the identities at $300$ random planes and finds the maximum $1$ of $p_A-p_W$ only at $A$ and $-W$.
+\end{proof}
+
+\begin{corollary}[The extremes of the separating overlaps; fixed]
+\label{p3:cor:extremes}
+On $F_3$, $0\le\Tr(\Pi P_L)\le32$, with the maximum attained exactly at $\Pi_A$ and $\Pi_{-W}$ and the minimum exactly at $\Pi_{-A}$ and $\Pi_W$. Likewise
+$0\le\Tr(\Pi\Pfam)\le64$, with the maximum only at $\Pi_A$ and the minimum only at $\Pi_{-A}$.
+\end{corollary}
+
+\begin{proof}
+By \cref{p3:prop:overlaps}(i) and \cref{p3:lem:comass}, $|p_A-p_W|\le1$ with $p_A-p_W=1$ iff $P\in\{A,-W\}$ and $=-1$ iff $P\in\{-A,W\}$. Also $|p_A|\le1$ with equality
+iff $P=\pm A$, since $|p_A|=\prod\cos\theta_i$.
+\end{proof}
+
+\begin{proposition}[A Klein group of the projector sector; fixed]
+\label{p3:prop:klein}
+Let $\mathsf C(\Pi)=\id-\Pi$, let $\mathsf D(\Pi)=\tfrac12(\id+\mathrm{vol}_+(2\Pi-\id))$ be the duality of \cref{p1:prop:duality}, and let $\mathsf E=\mathsf C\mathsf D$, so
+that $\mathsf E(\Pi)=\tfrac12(\id+\mathrm{vol}_+)-\mathrm{vol}_+\Pi$.
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item $\{1,\mathsf C,\mathsf D,\mathsf E\}$ is a Klein four-group of $K$-equivariant involutions of $F_3$, with $\mathsf E(\Pi_P)=\Pi_{-P^\perp}$. It acts simply transitively on
+the four points: $\mathsf D$ exchanges $\Pi_A$ and $\Pi_W$, $\mathsf C$ exchanges $\Pi_A$ and $\Pi_{-A}$, and $\mathsf E$ exchanges $\Pi_A$ and $\Pi_{-W}$ (p3-16).
+\item Each element preserves every mass matrix $\Tr([T,\Pi][T',\Pi])$, $T,T'\in\mathfrak k$, and, for connections valued in $\mathfrak k$ and the interior Lorentz algebra, the
+kinetic term and the current $j_\Pi$ of every $Q\in\mathfrak k$ (p3-16).
+\item $\mathsf E$ is the identity on the half $Z=+1$, the range of $\tfrac12(\id+Z)$, which contains $P_*$: $\mathsf E(\Pi)\tfrac12(\id+Z)=\Pi\tfrac12(\id+Z)$, and
+$P_*\mathsf E(\Pi)P_*=P_*\Pi P_*$. On that half $\Pi_A=\Pi_{-W}=\tfrac12(\id-\chi_W)$ and $\Pi_W=\Pi_{-A}=\tfrac12(\id+\chi_W)$, and there $t^L_i=\Pi_A\tau_i$ and
+$t^R_i=\Pi_W\tau_i$. On the half $Z=-1$, $\Pi_A=\Pi_W$ and $\Pi_{-A}=\Pi_{-W}$ (p3-17).
+\end{enumerate}
+Hence no alignment energy, kinetic term or current separates any two of the four points. No coupling that depends on $\Pi$ only through $\Pi\tfrac12(\id+Z)$ separates
+$\Pi_A$ from $\Pi_{-W}$, or $\Pi_{-A}$ from $\Pi_W$.
+\end{proposition}
+
+\begin{proof}
+$\mathrm{vol}_+$ is $K$-invariant, commutes with the interior gammas and with every $\Pi_P$, and squares to $\id$ (\cref{p1:lem:census,p1:prop:duality}). $\mathsf C$ and
+$\mathsf D$ commute, since both $\mathsf C\mathsf D(\Pi)$ and $\mathsf D\mathsf C(\Pi)$ equal $\tfrac12(\id-\mathrm{vol}_+(2\Pi-\id))$. (ii) For $T$ in $\mathfrak k$ or in the
+interior Lorentz algebra, $[T,\mathsf C\Pi]=-[T,\Pi]$, $[T,\mathsf D\Pi]=\mathrm{vol}_+[T,\Pi]$ and $[T,\mathsf E\Pi]=-\mathrm{vol}_+[T,\Pi]$. Since $\mathrm{vol}_+$ is orthogonal and
+commutes with $[T,\Pi]$, the traces are preserved. $\mathrm{vol}_+$ is parallel for such connections, so $D_\mu$ transforms in the same way. (iii) On $Z=+1$,
+$\mathrm{vol}_+=-\id$, so $\mathsf E(\Pi)=\Pi$ there. $\mathrm{vol}_A=\mathrm{vol}_+\chi_W$ equals $-\chi_W$ there and $+\chi_W$ on $Z=-1$; with
+$t^L_i=\tfrac12(\id-\chi_W)\tau_i$ \cite[Thm.~8.2]{ES17} the remaining identities follow.
+\end{proof}
+
+On the half of the module that contains the matter, the vacuum $\Pi_A$ is the support projector of $\su2_L$, and $\Pi_W$ that of $\su2_R$. The residual choice is
+therefore, on the matter, the choice of which weak $\su2$ acts inside the image of the vacuum. It is not a choice of spacetime chirality: the chirality halves have
+constant overlap, and the vector-like $Q_v$ separates exactly as the chiral $P_L$ does (\cref{p3:tab:overlaps}).
+
+\begin{proposition}[Normalisers; fixed]
+\label{p3:prop:normaliser}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item The fixed vectors of $\rho_+(\mathfrak h_{\rm SM})$ and of $\rho_+(\mathfrak h_{\rm PS})$ in $V_+$ are exactly $A$. A reflection of $W$ conjugates $\su2_L$ onto $\su2_R$.
+Hence every element of $K$ normalising $\mathfrak h_{\rm SM}$ fixes each of $\Pi_A$, $\Pi_{-A}$, $\Pi_W$, $\Pi_{-W}$ (p3-18).
+\item $g=E_9E_{15}=\exp(\tfrac\pi2E_9E_{15})$ normalises $\mathfrak h_{\rm PS}$, exchanges $\su2_L$ and $\su2_R$, and sends $\mathrm{vol}_A\mapsto-\mathrm{vol}_A$,
+$\mathrm{vol}_W\mapsto-\mathrm{vol}_W$ and $X\mapsto-X$. So the normaliser of $\mathfrak h_{\rm PS}$ identifies $\Pi_A$ with $\Pi_{-A}$ and $\Pi_W$ with $\Pi_{-W}$, by
+elements that do not preserve $P_*$. No element of either normaliser maps $\Pi_{\pm A}$ to $\Pi_{\pm W}$ (p3-18).
+\item $g_{AW}=\prod_i\tfrac1{\sqrt2}(\id+a_iw_i)$, with $(a_i)=(E_2,E_3,E_8,E_9)$ and $(w_i)=(E_7,E_{13},E_{14},E_{15})$, is an element of $\mathrm{Spin}(8)$ with
+$\Ad(g_{AW})\mathrm{vol}_A=\mathrm{vol}_W$ and $\Ad(g_{AW})\mathrm{vol}_W=\mathrm{vol}_A$, which normalises neither $\mathfrak h_{\rm SM}$ nor $\mathfrak h_{\rm PS}$. Moreover
+$\mathrm{vol}_A\mathrm{vol}_W=\mathrm{vol}_+$ (p3-18).
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) $\Ad(k)$ acts on $F_3$ through the rotation $R=\rho(k)$ of $V_+$ (\cref{p1:thm:classify}). If $\Ad(k)$ normalises $\mathfrak h$, $R$ preserves the fixed space $A$ of
+$\rho_+(\mathfrak h)$ and its complement $W$. For $\mathfrak h_{\rm SM}$, $R|_W$ normalises the derived algebra $\su2_L$ of $\rho_+(\mathfrak h_{\rm SM})$. A rotation of $W$ of
+determinant $-1$ is a rotation times a reflection, and it maps $\su2_L$ onto $\su2_R$; so $\det R|_W=1$, hence $\det R|_A=1$, and $R$ fixes the oriented planes $A$ and $W$. (ii)
+$\Ad(g)$ is the rotation by $\pi$ in the plane $(E_9,E_{15})$, of determinant $-1$ on $A$ and on $W$; it preserves $W$ and $V_-$, hence $\mathfrak h_{\rm PS}$. $\Gamma$ commutes
+with $g$ and $\Ad(g)\chi_W=-\chi_W$. The last statement follows from (i), which applies to $\mathfrak h_{\rm PS}$ as well. (iii) $\Ad(\exp\tfrac\pi4a_iw_i)$ rotates the plane
+$(a_i,w_i)$ by $\tfrac\pi2$; the signs and the failure to normalise are computed in p3-18.
+\end{proof}
+
+With $\mathfrak h_{\rm SM}$ gauged the four points are therefore distinct points of the gauged theory, although the projector sector cannot tell them apart. With
+$\mathfrak h_{\rm PS}$ gauged, $\Pi_A$ and $\Pi_{-A}$ are related by a left--right exchange of the Pati--Salam algebra, which the matter block breaks.
+
+\subsection{Robustness}
+\label{p3:sec:robust}
+
+\begin{lemma}[Invariant couplings keep fixed critical points; inherited, with proof]
+\label{p3:lem:robust}
+Let $H\subset K$ be connected with Lie algebra $\mathfrak h$, let $f$ be a smooth $H$-invariant function on $F_3$, and let $\Pi_0\in F_3$ be fixed by $H$. Then $df_{\Pi_0}$ is
+an $H$-invariant covector. If $T_{\Pi_0}F_3$ contains no nonzero $\mathfrak h$-invariant vector, $\Pi_0$ is a critical point of $f$. In particular $\Pi_0$ stays critical
+for $V_0+tf$ for every $t$ whenever $V_0$ is $H$-invariant too, and it stays a nondegenerate local minimum as long as the Hessian of $V_0+tf$, an $H$-invariant
+symmetric form, stays positive definite.
+\end{lemma}
+
+\begin{proof}
+For $h\in H$, $f\circ h=f$ and $h\Pi_0=\Pi_0$ give $df_{\Pi_0}\circ dh_{\Pi_0}=df_{\Pi_0}$. The metric $\Tr(d\Pi\,d\Pi)$ is $K$-invariant (\cref{p1:lem:vector}), so the gradient
+is an $H$-invariant tangent vector, and for a connected group the invariant vectors are those killed by $\ad\mathfrak h$ \cite{Michel71,Palais79}. The Hessian at a critical
+point is invariant for the same reason.
+\end{proof}
+
+\begin{proposition}[Invariant tangent vectors; fixed]
+\label{p3:prop:invariants}
+The dimensions of the $\mathfrak h$-invariant subspaces of the tangent spaces at $\Pi_A$ and $\Pi_W$, and so at $\Pi_{-A}$ and $\Pi_{-W}$, whose tangent spaces are the same
+up to sign, are: $\mathfrak h_{\rm SM}$, $\mathfrak h_{\rm PS}$, $\su2_L$ and $\uu1_Y\oplus\su3_C$: $0$; $\uu1_{\rm em}\oplus\su3_C$: $8$, the neutral components $A\otimes W_0$;
+$\uu1_A$: $8$; $\uu1_A\oplus\uu1_{\rm em}$: $4$ (p3-19).
+\end{proposition}
+
+\begin{corollary}[Matter couplings that respect $\mathfrak h$; fixed, with an inherited principle]
+\label{p3:cor:matter}
+Let the vacuum energy on $F_3$ be the sum of an alignment energy and of couplings to matter that respect $\mathfrak h\in\{\mathfrak h_{\rm SM},\mathfrak h_{\rm PS}\}$: functions of $\Pi$
+and of operators fixed by $\mathfrak h$, such as the overlaps of \cref{p3:prop:overlaps}, Yukawa-type kernels commuting with $\mathfrak h$, or the fermion loop of a Dirac operator
+with $\mathfrak h$-invariant couplings \cite[Section~21]{ES17}. Such an energy is $H$-invariant, since $f(\Ad(h)\Pi;M)=f(\Pi;\Ad(h^{-1})M)$, and $\Pi_{\pm A}$, $\Pi_{\pm W}$ remain
+critical points of it. All linear overlaps of \cref{p3:tab:overlaps}, including the one with $\Pfam$, which does not commute with $\su3_C$, are $\mathfrak h_{\rm SM}$-invariant
+functions on $F_3$, and their first variations vanish at the four points along all of $\mathfrak k$ (p3-20). With only $\uu1_{\rm em}\oplus\su3_C$ gauged the eight neutral
+directions are invariant, and an invariant coupling can move the vacuum along the $\uu1_{\rm em}$-fixed component $\widetilde{\mathrm{Gr}}_4(A\oplus W_0)$ of
+\cref{p1:thm:fixed}.
+\end{corollary}
+
+\begin{proof}
+\Cref{p3:lem:robust} with \cref{p3:prop:invariants}. The invariance of the overlaps is p3-20; for $\Pfam$ it also follows from $\Tr(\Pi_P\Pfam)=\tfrac14\Tr(\Pi_P\Pi_A)$ and
+$[\mathfrak h_{\rm SM},\Pi_A]=0$.
+\end{proof}
+
+What invariant couplings can do is change the Hessian. Write $\Pi(x)=\Ad(e^X)\Pi_0$ with $X=\sum x_{aw}\tfrac12aw$, as in \cref{p1:thm:tangent}, and
+\[
+c_{\rm SM}=6g_2^2+\tfrac65g_Y^2,\qquad c_{\rm PS}=12g^2 .
+\]
+
+\begin{proposition}[Hessians at the four points; fixed]
+\label{p3:prop:hessian}
+At each of the four points $V_{\mathfrak h_{\rm SM}}(\Pi(x))=128\,c_{\rm SM}|x|^2+O(x^3)$ and $V_{\mathfrak h_{\rm PS}}(\Pi(x))=128\,c_{\rm PS}|x|^2+O(x^3)$. The overlaps expand as
+\[
+\Tr(\Pi(x)P_L)=\begin{cases}32-8|x|^2+O(x^3)&\text{at }\Pi_A,\ \Pi_{-W},\\ 8|x|^2+O(x^3)&\text{at }\Pi_{-A},\ \Pi_W,\end{cases}\qquad
+\Tr(\Pi(x)\Pfam)=\begin{cases}64-16|x|^2+\cdots&\text{at }\Pi_A,\\ 16|x|^2+\cdots&\text{at }\Pi_{-A},\\ 32+O(x^4)&\text{at }\Pi_{\pm W}\end{cases}
+\]
+(p3-21). For $V=\kappa V_{\mathfrak h_{\rm SM}}-\lambda\Tr(\Pi P_L)-\mu\Tr(\Pi\Pfam)$ every Hessian at the four points is a multiple of the identity. $\Pi_A$ and $\Pi_{-W}$ are
+nondegenerate local minima for all $\kappa\ge0$, $\lambda,\mu\ge0$ not all zero. $\Pi_W$ is a local minimum iff $\lambda<16\kappa c_{\rm SM}$, and $\Pi_{-A}$ iff
+$\lambda+2\mu<16\kappa c_{\rm SM}$. Beyond these values all sixteen directions become unstable at once.
+\end{proposition}
+
+\begin{proof}
+Since $[T_a,\Pi_0]=0$, $\|[T_a,\Pi(x)]\|^2=\|[[T_a,X],\Pi_0]\|^2+O(x^3)$. $[T_a,X]$ corresponds to $x\,\rho_+(T_a)^{\!\top}$ on $A\otimes W$, so the sum is
+$128\,\tr(x\,C\,x^{\!\top})$ with $C=\sum_ag_a^2\rho_+(T_a)\rho_+(T_a)^{\!\top}$ on $W$. For $\mathfrak h_{\rm SM}$ the Casimir of $\su2_L$ and $\rho_+(t_Y)^2=-\tfrac14$ give
+$C=(6g_2^2+\tfrac65g_Y^2)\id_W$, and $\su3_C$ gives nothing; for $\mathfrak h_{\rm PS}$ each of the four directions of $W$ lies in three unit blades, so $C=12g^2\id_W$. The
+overlaps follow from \cref{p3:prop:overlaps}(i) with $p_A(\Pi(x))=1-\tfrac12|x|^2+O(x^4)$ near $A$, and $p_W=\det(O(x))=O(x^4)$ there; near $\pm W$ the roles are exchanged.
+p3-21 checks the second derivatives $\Tr([X,[X,\Pi_0]]P)$ exactly and by finite differences. The stability conditions compare $128\kappa c_{\rm SM}$ with $8\lambda$, and with
+$8\lambda+16\mu$ at $\Pi_{-A}$.
+\end{proof}
+
+The sign of $\lambda$ is a choice. For $\lambda<0$ the roles of $\{\Pi_A,\Pi_{-W}\}$ and $\{\Pi_{-A},\Pi_W\}$ are exchanged. The Hessians found here are the multiples of
+the identity in the sixteen-dimensional space of $\mathfrak h_{\rm SM}$-invariant forms of \cref{p1:cor:critical}; a coupling with a component of the form
+$N\otimes\omega_Y$ would split the doublet directions.
+
+\subsection{The complete selection}
+\label{p3:sec:selection}
+
+The alignment result used is \cref{p1:prop:K,p1:thm:fixed}: for positive couplings $V_{\mathfrak h_{\rm SM}}\ge0$ on $F_3$, with zero set exactly $\{\Pi_{\pm A},\Pi_{\pm W}\}$.
+
+\begin{theorem}[Selection on $F_3$]
+\label{p3:thm:selection}
+Assume:
+\begin{enumerate}[label=(H\arabic*),leftmargin=2.6em]
+\item the vacuum projector is a point of $F_3$ (constructed: \cref{p1:sec:answer});
+\item $\mathfrak h_{\rm SM}$ is gauged, embedded as in \cite[Section~8]{ES17}, with couplings $g_3,g_2,g_Y>0$ (constructed);
+\item the sign hypothesis: the gauge fluctuations contribute $\kappa V_{\mathfrak h_{\rm SM}}$ to the vacuum energy with $\kappa\ge0$ (inherited mechanism of vacuum alignment
+\cite{Peskin80,Preskill81}; its sign is proved for vector-like theories \cite{Witten83} and assumed here);
+\item the vacuum couples to the block by $-\lambda\Tr(\Pi P_L)$ with $\lambda>0$ (constructed, sign chosen);
+\item optionally, it couples to the family block by $-\mu\Tr(\Pi\Pfam)$ with $\mu>0$ (constructed).
+\end{enumerate}
+Let $V=\kappa V_{\mathfrak h_{\rm SM}}-\lambda\Tr(\Pi P_L)-\mu\Tr(\Pi\Pfam)$, with $\mu=0$ when (H5) is not assumed.
+\begin{enumerate}[label=(\alph*),leftmargin=2.2em]
+\item Under (H1)--(H3) the minimum set is $\{\Pi_{\pm A},\Pi_{\pm W}\}$. Overlaps with $P_*$, $P_{\rm lep}$ and $\tfrac12(\id\pm\Gamma)$, linear or quadratic, take equal values at
+these points and do not separate them.
+\item Under (H1)--(H4) the global minimum value is $-32\lambda$, attained exactly at $\Pi_A$ and $\Pi_{-W}$, for every $\kappa\ge0$. These two points coincide on the half
+$Z=+1$ that contains $P_*$, and they are exchanged by $\mathsf E$, which preserves every term of $V$ except the one of (H5). $\Pi_W$ and $\Pi_{-A}$ remain critical, and are
+local minima iff $\lambda<16\kappa c_{\rm SM}$.
+\item Under (H1)--(H5) the global minimum is $\Pi_A$ alone, with value $-32\lambda-64\mu$.
+\item At the selected vacuum all of $\mathfrak h_{\rm SM}$ is unbroken, the massless vector of \cref{p3:thm:photon}(a) is the photon of $\uu1_{\rm em}$, and the field along $Q_A$ is
+a second abelian field.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(a) is \cref{p1:prop:K,p1:thm:fixed} and \cref{p3:tab:overlaps}. (b) $V\ge\kappa\cdot0-32\lambda$ by \cref{p3:cor:extremes}, with equality iff $V_{\mathfrak h_{\rm SM}}=0$ and
+$\Tr(\Pi P_L)=32$, that is iff $\Pi\in\{\Pi_A,\Pi_{-W}\}$, where both conditions hold. The coincidence and the role of $\mathsf E$ are \cref{p3:prop:klein}; the overlap with $P_L$
+depends on $\Pi$ only through $\Pi\tfrac12(\id+Z)$. Stability is \cref{p3:prop:hessian}. (c) With $\mu>0$ equality requires in addition $\Tr(\Pi\Pfam)=64$, which holds only at
+$\Pi_A$ (\cref{p3:cor:extremes}). (d) is \cref{p1:thm:vacuum} and \cref{p3:thm:photon}. p3-22 minimises $V$ from random starts for several couplings, including
+$\lambda>16\kappa c_{\rm SM}$ and $\kappa=0$, and finds exactly these minima.
+\end{proof}
+
+Two features of the theorem could have come out otherwise. The overlap with $P_*$ itself, which the matter block suggests first, is constant on $F_3$ and selects nothing,
+and the selection is made by the weak-chirality half $P_L$. Once that overlap is present the alignment energy is not needed for the selection; it only stabilises the
+other two critical points. The pair $\{\Pi_A,\Pi_{-W}\}$ is one projector on the half of the module that carries the matter, so for physics on the block the selected
+vacuum is unique (interpretive). A unique point of $F_3$ needs a coupling that sees the other half. The overlap with $\Pfam$ is such a coupling, but $\Pfam$ carries no colour,
+and adopting it amounts to choosing $\Pi_A$, since $\Tr(\Pi\Pfam)=\tfrac14\Tr(\Pi\Pi_A)$ on $F_3$ (constructed). The rank-$256$ projector $\Pi_A$ is the projector $P_1$ of the
+projector family \cite[Thm.~7.5]{ES17}, on which colour and a chiral doublet first coexist \cite[Thms.~7.7, 7.9]{ES17}.
+
+\begin{proposition}[Restated data of the projectors; restated]
+\label{p3:prop:restated}
+$X_1=J^{(1)}J^{(2)}=\mathrm{vol}_A$, so $P_1=\Pi_A$, with $\dim\mathfrak g_{\rm phys}(P_1)=51$, $\dim\mathfrak k(P_1)=27$ and a three-dimensional annihilator, as in
+\cite[Thm.~7.5]{ES17}, and $\Pfam\le\Pi_A$. The projector $P_{\rm lep}$ of \cref{p3:def:plep} has rank $64$, commutes with the interior gammas and with $J$, and with $P_*$,
+$\Pfam$ and $Q_v$ reproduces the alignment energies $3$, $5$, $9$, $5$ and stabilisers $37$, $23$, $9$, $25$ of \cite[Prop.~21.6]{ES17} (p3-15).
+\end{proposition}
+
+\begin{proof}
+$X_1=e^{(1)}_2e^{(1)}_3e^{(2)}_2e^{(2)}_3=E_2E_3E_8E_9$. The other statements are the computation p3-15.
+\end{proof}
+
+\subsection{The answer}
+\label{p3:sec:answer}
+
+\begin{enumerate}[label=(\alph*),leftmargin=2.2em]
+\item \emph{Which $\uu1$ is the photon.} At the third rung the photon of the aligned vacua is the $\uu1_{\rm em}$ gauge field of the internal connection, generated by
+$B_{\rm em}=-\tfrac12E_7E_{13}+\tfrac16H_C$. It is massless at $\Pi_{\pm A}$ and $\Pi_{\pm W}$, its projector current is carried by four complex scalars of the electron's
+charge magnitude, and on the block it couples with the Standard-Model charges without anomaly (fixed, given the adopted embedding, which is constructed).
+\item \emph{The construction's charge.} $Q=\tfrac12J_1$ becomes $Q_A=\tfrac12E_2E_3$, whose charge operator is $\tfrac12U$. On the block it is half the fermion number, the
+same on every state, and anomalous with $\su2_L$ (fixed; anomaly restated). It is not electromagnetism (obstructed). The normal $SO(2)$ connection that carries it is a
+separate abelian field (fixed), and its coupling is not decided (open).
+\item \emph{The counts and the dichotomy.} Of the three counts against the normal $U(1)$, the spinless count is unchanged, the adapted-generator count is removed for both
+charges, and the sign count changes from forced to adopted; a fourth count, the charge on the block, decides. Both alternatives of the dichotomy of
+\cite[Section~25]{ES17} hold at $n=3$ (fixed; the Kaluza--Klein reading of the sign count is interpretive).
+\item \emph{Which vacuum.} Alignment by $\mathfrak h_{\rm SM}$ leaves $\Pi_{\pm A},\Pi_{\pm W}$ (fixed, \cref{p1:thm:fixed}). A Klein group of symmetries of the projector sector
+permutes them simply transitively; no alignment energy, kinetic term or current separates them (fixed). The weak-chirality overlap $-\lambda\Tr(\Pi P_L)$, $\lambda>0$, selects
+$\{\Pi_A,\Pi_{-W}\}$, which is one projector on the matter half (fixed under constructed hypotheses). A single point requires a coupling off that half, such as
+$-\mu\Tr(\Pi\Pfam)$, which selects $\Pi_A$ (constructed).
+\item \emph{Robustness.} $\mathfrak h_{\rm SM}$- or $\mathfrak h_{\rm PS}$-invariant couplings, including matter couplings, keep the four points critical, because their
+tangent spaces carry no invariant vector (fixed; principle inherited). They can only change the Hessians, which for the couplings considered are multiples of the identity;
+$\Pi_W$ and $\Pi_{-A}$ lose stability for $\lambda>16\kappa c_{\rm SM}$ and $\lambda+2\mu>16\kappa c_{\rm SM}$ (fixed).
+\item \emph{Open.} The dynamical origin and sign of the overlap couplings, the scales $f$, $g$, $\kappa$, $\lambda$, $\mu$, the coupling of the second abelian field, whether the
+half $Z=-1$ is physical, and the origin of the Maxwell term of $\uu1_{\rm em}$ are open.
+\end{enumerate}
+
+\begin{table}[t]
+\centering
+\footnotesize
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{8.4cm}>{\raggedright\arraybackslash}p{4.3cm}>{\raggedright\arraybackslash}p{2.2cm}@{}}
+\toprule
+statement & class & checks\\
+\midrule
+\cref{p3:def:plep}, \cref{p3:prop:restated}: $P_{\rm lep}$, $P_1=\Pi_A$, the table of ES17 Prop.~21.6 & restated (ES17 Thm.~7.5, Prop.~21.6) & p3-15\\
+\cref{p3:prop:charges}: $\hat Q_A=\tfrac12U$, $q_AP_*=JP_*$, charge table, Weyl block & fixed; $q_AP_*=JP_*$ and the $\hat Y$, $\hat Q_{\rm em}$ columns restated & p3-1 to p3-3\\
+\cref{p3:cor:notem}: $Q_A$ is $\tfrac12F$ on the block, not the electric charge, anomalous; $\uu1_{\rm em}$ anomaly free & fixed; obstructed; anomaly restated; anomaly conditions inherited & p3-4, p3-5\\
+\cref{p3:tab:counts}: the four counts and the dichotomy & restated (i); fixed (ii), (iv); constructed and interpretive (iii) & p3-4, p3-5\\
+\cref{p3:prop:jointfixed}: joint fixed points of $Q_A$ and $B_{\rm em}$ & fixed & p3-6\\
+\cref{p3:prop:torus}: torus weights of the fluctuations & fixed & p3-7\\
+\cref{p3:thm:photon}: the photon is $\uu1_{\rm em}$; common charge unit; $Q_A$ field separate; $m_W^2/m_Z^2$ & fixed; gauged generator constructed; (b) obstructed & p3-4, p3-8, p3-9\\
+\cref{p3:lem:plucker}, \cref{p3:prop:overlaps}: overlaps as Plücker functions, values, commutant of $P_*$ & fixed & p3-10 to p3-13\\
+\cref{p3:lem:comass}, \cref{p3:cor:extremes}: comass inequality, extremes of the separating overlaps & fixed & p3-12, p3-14\\
+\cref{p3:prop:klein}: Klein group, $\mathsf E$ trivial on the matter half & fixed & p3-16, p3-17\\
+\cref{p3:prop:normaliser}: normalisers of $\mathfrak h_{\rm SM}$, $\mathfrak h_{\rm PS}$; $g_{AW}$ & fixed & p3-18\\
+\cref{p3:lem:robust}: invariant couplings keep fixed critical points & inherited \cite{Michel71,Palais79}, proof given & ---\\
+\cref{p3:prop:invariants}, \cref{p3:cor:matter}: invariant tangent vectors, matter couplings & fixed; invariance of induced energies inherited & p3-19, p3-20\\
+\cref{p3:prop:hessian}: Hessians and stability conditions & fixed & p3-21\\
+\cref{p3:thm:selection}: selection of $\{\Pi_A,\Pi_{-W}\}$, and of $\Pi_A$ with (H5) & fixed under (H1), (H2), (H4), (H5) constructed and (H3) inherited & p3-22\\
+unique vacuum for physics on the block; Kaluza--Klein reading of the sign count & interpretive & ---\\
+origin and sign of the overlap couplings; scales; the second abelian field & open & ---\\
+\bottomrule
+\end{tabular}
+\caption{Claims of \cref{p3:sec:main} and their classes. The checks are the \texttt{PASS} lines printed by \texttt{verify/p3\_identification.py}.}
+\label{p3:tab:claims}
+\end{table}

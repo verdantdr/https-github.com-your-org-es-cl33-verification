@@ -598,6 +598,29 @@ def _():
     return ok
 
 
+@claim("e6-4f", "remark csym(a): C C^T is a complete invariant of the orthogonal group of the temporal triple (C' = C Q with Q orthogonal of either determinant "
+       "has C'C'^T = CC^T; conversely C'C'^T = CC^T gives (C^-1 C')(C^-1 C')^T = C^-1 C C^T C^-T = 1), and the rotations SO(3)_+ (a temporal b-field) also keep sgn det C: "
+       "C and C diag(1,1,-1) have the same C C^T but opposite det; the energy factor C^T C (a form on the temporal triple) is conjugated, not fixed")
+def _():
+    C = sp.Matrix([[2, 1, 0], [0, 1, 3], [1, 0, 1]])
+    ok = True
+    for Q in (cayley([1, 0, 2]), cayley([1, 0, 2]) * sp.diag(1, 1, -1)):
+        Cp = C * Q
+        ok &= sp.simplify(Cp * Cp.T - C * C.T) == sp.zeros(3)
+        W = sp.simplify(C.inv() * Cp)
+        ok &= sp.simplify(W.T * W) == Is3
+        ok &= sp.sign(Cp.det()) == sp.sign(C.det()) * sp.sign(Q.det())
+    # converse: for any X with X X^T = C C^T, (C^-1 X)(C^-1 X)^T = C^-1 (X X^T) C^-T = C^-1 C C^T C^-T = 1
+    X = sp.Matrix(3, 3, sp.symbols('x0:9'))
+    ok &= sp.expand((C.inv() * X) * (C.inv() * X).T - C.inv() * (X * X.T) * C.inv().T) == sp.zeros(3)
+    ok &= C.inv() * (C * C.T) * C.inv().T == Is3
+    Cr = C * sp.diag(1, 1, -1)
+    ok &= Cr * Cr.T == C * C.T and sp.sign(Cr.det()) == -sp.sign(C.det())
+    Q = cayley([1, 0, 2])
+    ok &= sp.simplify((C * Q.inv()).T * (C * Q.inv()) - C.T * C) != sp.zeros(3)
+    return ok
+
+
 # ======================================================================================== 5. six-momentum and the clock
 n1, n2, n3, E1, E2, E3 = sp.symbols('n1 n2 n3 E1 E2 E3', real=True)
 tt = sp.symbols('t', real=True)
@@ -660,6 +683,23 @@ def _():
     # reduced shell: E = |E| n preserved iff axis || n (n = e1)
     ok &= sp.simplify(rodrigues([1, 0, 0], sp.Matrix([5, 0, 0]), tt) - sp.Matrix([5, 0, 0])) == sp.zeros(3, 1)
     ok &= sp.simplify(rodrigues([0, 0, 1], sp.Matrix([5, 0, 0]), tt)[1]) != 0
+    return ok
+
+
+@claim("e6-5c", "read passively, the clock n(t) = R(-Omega t) n (E_n(t) = n(t).E) keeps n.e^ and runs on the circle of radius |n_perp| about the axis e^ "
+       "(symbolic in n for three rational axes): a great circle only for n perpendicular to e^; for W about e3 the radius is sqrt(2/3)")
+def _():
+    ok = True
+    nv, Evv = sp.Matrix([n1, n2, n3]), sp.Matrix([E1, E2, E3])
+    for eh in ([0, 0, 1], [sp.Rational(1, 3), sp.Rational(2, 3), sp.Rational(2, 3)], [sp.Rational(2, 7), sp.Rational(3, 7), sp.Rational(6, 7)]):
+        ehv = sp.Matrix(eh)
+        nt = rodrigues(eh, nv, -tt)
+        ok &= sp.simplify(nt.dot(Evv) - nv.dot(rodrigues(eh, Evv, tt))) == 0
+        ok &= sp.simplify(nt.dot(ehv) - nv.dot(ehv)) == 0
+        rad2 = sp.simplify((nt - nv.dot(ehv) * ehv).dot(nt - nv.dot(ehv) * ehv))
+        ok &= sp.simplify(rad2 - (nv.dot(nv) - nv.dot(ehv) ** 2)) == 0
+    W = sp.Matrix([1, 1, 1]) / sp.sqrt(3)
+    ok &= sp.simplify(1 - W[2] ** 2) == sp.Rational(2, 3)
     return ok
 
 
@@ -782,7 +822,7 @@ def _():
 @claim("e6-6d", "ungraded copies: spec(m1 e1(x)1 + m2 1(x)e1) = {+-m1 +- m2}, each value 16 times, and this multiset determines {|m1|, |m2|}; Ad(e^{theta C_+}) maps e1(x)1 to "
        "cos theta e1(x)1 + sin theta omega(x)e1, outside Cl(3,3)(x)1 + 1(x)Cl(3,3) unless sin theta = 0; rotating (m1, m2) inside the ungraded family from (M, 0) changes "
        "the spectrum to {+-M(cos theta + sin theta), +-M(cos theta - sin theta)} (exact: 25 x spectrum = {+-17, +-31} at cos theta = -7/25); "
-       "(cos theta u1 + sin theta u2)^2 = 1 + sin 2theta u1u2, so no invertible matrix conjugates the ungraded clock of copy 1 into a rotated clock, "
+       "(cos theta u1 + sin theta u2)^2 = 1 + sin 2theta u1u2, so for sin 2theta != 0 no invertible matrix conjugates the ungraded clock of copy 1 into the rotated clock, "
        "whereas the graded (cos theta E_(1,1) + sin theta E_(2,1))^2 = 1; the product u1u2 squares to +1 and commutes with both clocks")
 def _():
     u1, u2 = np.kron(e[1], I8), np.kron(I8, e[1])
@@ -828,6 +868,25 @@ def _():
     prof = jordan_profile(S23)
     ok &= set(abs(sp.im(ev)) for ev in prof) == {1, 4}
     ok &= all(geo < alg for (geo, alg) in prof.values())
+    return ok
+
+
+@claim("e6-6f", "ungraded exchange: the flip P(x(x)y) = y(x)x is orthogonal with P u1 P^-1 = u2, so m1 u1 + m2 u2 -> m2 u1 + m1 u2 at fixed spectrum; the rotated "
+       "family cos theta u1 + sin theta u2 has spectrum {+-1} again at theta = pi/2 (sin 2theta = 0); the spectrum {+-m1 +- m2} fixes the unordered pair "
+       "{|m1|, |m2|}, so the exchange is the only spectrum-preserving change and no continuous family at fixed spectrum transfers mass")
+def _():
+    P = np.zeros((64, 64), dtype=np.int64)
+    for i in range(8):
+        for j in range(8):
+            P[8 * j + i, 8 * i + j] = 1
+    u1, u2 = np.kron(e[1], I8), np.kron(I8, e[1])
+    ok = eq(P.T @ P, I64) and eq(P @ u1 @ P.T, u2) and eq(P @ u2 @ P.T, u1)
+    ok &= eq(P @ (3 * u1 + u2) @ P.T, u1 + 3 * u2)
+    # theta = pi/2: the rotated clock is u2, an involution with traceless square-root projectors: spectrum {+-1}, 32 each
+    ok &= eq(u2 @ u2, I64) and np.trace(u2) == 0
+    # spectra of m1 u1 + m2 u2 for (3,1) and (1,3) coincide as multisets
+    spec = lambda a, b: sorted([s1 * a + s2 * b for s1 in (1, -1) for s2 in (1, -1)])
+    ok &= spec(3, 1) == spec(1, 3) and spec(3, 1) != spec(2, 2)
     return ok
 
 
