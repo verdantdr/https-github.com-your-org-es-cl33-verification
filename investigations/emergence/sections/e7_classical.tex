@@ -119,8 +119,8 @@ column is $u_0/c^2$; reading it as a mass density is the reading of \cref{e7:cor
 \label{e7:tab:fields}
 \end{table}
 
-The galactic field of $3$--$6\,\mu$G carries $0.22$--$0.89\,{\rm eV\,cm^{-3}}$. The CMB carries $aT_0^4=0.261\,{\rm eV\,cm^{-3}}$ ($T_0=2.72548$~K
-\cite{Fixsen09}), and the cosmic rays of the local interstellar medium about $1\,{\rm eV\,cm^{-3}}$ \cite{Ferriere01,Draine11}. The three agree to a
+The galactic field of $3$ to $6\,\mu$G carries $0.22$ to $0.89\,{\rm eV\,cm^{-3}}$. The CMB carries $aT_0^4=0.261\,{\rm eV\,cm^{-3}}$, with
+$T_0=2.72548$~K \cite{Fixsen09}, and the cosmic rays of the local interstellar medium about $1\,{\rm eV\,cm^{-3}}$ \cite{Ferriere01,Draine11}. The three agree to a
 factor of a few (e7-6). This rough equipartition of the magnetic, cosmic-ray and thermal energy densities is an inherited fact of the interstellar
 medium \cite{Ferriere01}. The arena neither explains it nor uses it.
 
@@ -391,13 +391,22 @@ both couple to $m_4$, the test says nothing.
 \subsection{Summary and answer}
 \label{e7:sec:summary}
 
-\begin{table}[ht]
-\centering
-\footnotesize
-\begin{tabular}{@{}p{3.3cm}p{3.3cm}p{2.5cm}p{1.6cm}p{3.6cm}@{}}
+{\footnotesize
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{3.4cm}>{\raggedright\arraybackslash}p{3.2cm}>{\raggedright\arraybackslash}p{2.6cm}>{\raggedright\arraybackslash}p{1.5cm}>{\raggedright\arraybackslash}p{3.5cm}@{}}
+\caption{Claims of \cref{e7:sec:main}: the finding, its classical counterpart, its class, its check (\texttt{PASS} lines of
+\texttt{verify/e7\_classical.py}, e7-1 being the realisation) and what an observation could decide. ``RE~$x$'' is Proposition, Theorem or
+Corollary~$x$ of \cite{RE}.}
+\label{e7:tab:claims}\\
 \toprule
 finding & classical counterpart & class & check & what an observation could decide\\
 \midrule
+\endfirsthead
+\toprule
+finding & classical counterpart & class & check & what an observation could decide\\
+\midrule
+\endhead
+\bottomrule
+\endfoot
 $u_0$ of a field point (RE~2.8) & energy density where $\bE\parallel\Btext$; minimum over frames & restated; inherited & e7-2 & nothing (identity)\\
 traceless stress, tension and pressure $u_0$ (\cref{e7:prop:stress}) & radiation, $w=\tfrac13$; von Laue & inherited & e7-3, e7-4 & nothing\\
 $\rho_0$ as dark matter (\cref{e7:cor:dm}) & pressureless dark matter & obstructed & e7-26 & already decided: dark matter has $w\approx0$\\
@@ -417,13 +426,7 @@ interior flow on light at $\kappa=m_ec^2/\hbar$ & cosmic birefringence & obstruc
 flat duality angle of radiation (RE~4.5) & axion-like birefringence & open; restated & e7-22 & $\beta$ fixes a datum, tests nothing\\
 three-manifold $J$ (RE~9.5) & Jarlskog, Sakharov & reading & e7-23 & nothing, unless manifolds become families\\
 oscillating $m_4$ (\cref{e6:prop:clock}) & constancy of $m_p/m_e$, equivalence principle & fixed; bounds conditional & e7-24, e7-25 & quasars, clocks, EP tests\\
-\bottomrule
-\end{tabular}
-\caption{Claims of \cref{e7:sec:main}: the finding, its classical counterpart, its class, its check (\texttt{PASS} lines of
-\texttt{verify/e7\_classical.py}, e7-1 being the realisation) and what an observation could decide. ``RE~$x$'' is Proposition, Theorem or
-Corollary~$x$ of \cite{RE}.}
-\label{e7:tab:claims}
-\end{table}
+\end{longtable}}
 
 \emph{Answer.} Classical or astronomical content belongs to the inherited parts: the rest energy of a field point and its stress, the
 pointwise rest fraction $\tfrac23$ of thermal radiation, pair kinematics and the gamma-ray horizon, the canonical fields and the Schwinger rate,

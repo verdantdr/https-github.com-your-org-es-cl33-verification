@@ -10,7 +10,7 @@ applied are in `findings/`.
 | Paper with the four rest-energy sections (Sections 15, 16, 20, 21 of the new numbering) | `tex/`, `ES_electromagnetic_sphere_2026-10-26.pdf` | builds, 154 pp. |
 | Rest-energy note | `investigations/rest_energy/` | 14 scripts, 464 PASS |
 | Two readings of X (Lagrangians; four-momentum on the spatial triple; X_EM=(B;E) on the octants; bridge T=nJ(n)) | `investigations/two_readings/` (50 pp.) | 8 scripts, 252 PASS; r1–r4 refereed |
-| Emergence: two from one (e1), processes (e2), ladder (e3), b-field up the ladder (e4), closure at n=2 (e5, refereed), b-field on +++ / c on −−− (e6, refereed) | `investigations/emergence/` (draft) | e1–e6 scripts pass |
+| Emergence: two from one (e1), processes (e2), ladder (e3), b-field up the ladder (e4), closure at n=2 (e5, refereed), b-field on +++ / c on −−− (e6, refereed), classical readings (e7) | `investigations/emergence/` (draft) | e1–e7 scripts pass |
 | Photon selection: compact families at n=3 (p1) | `investigations/photon_selection/` (22 pp., draft) | p1 47 PASS |
 
 ## Unfinished
@@ -20,8 +20,9 @@ applied are in `findings/`.
 3. ~~**Emergence, tracks e3 (ladder) and e4 (b-field up the ladder)**~~ — sections written 26 October (`e3_ladder.py` 22 PASS, `e4_bfield_ladder.py`
    24 PASS); not yet refereed: `prompts/check_e3.txt`, `prompts/check_e4.txt` (add STEP 2/3 as in `referee_e6.txt`). Small fix for e1:
    in `e1:prop:Nlorentz`(i) the product (1/8)prod(1 + eta E E) equals exp(-pi C_b/2), not exp(+pi C_b/2) (harmless).
-4. **Emergence, track e7 (classical physics: astronomy, cosmology)**: partial script `e7_classical.py`; no section. Resume:
-   `prompts/derive_e7.txt`.
+4. ~~**Emergence, track e7 (classical physics: astronomy, cosmology)**~~ — section written 27 October (`e7_classical.py` 27 PASS); not yet
+   refereed (`prompts/check_e7.txt`). Partly confirmed references are listed in the e7 agent report: Gould–Schreder title, Nikishov title,
+   Kaspi–Beloborodov numbers, Lorimer–Kramer typical field, IGRF range, Goodman sections, Planck age, CFJ radio-galaxy bound.
 5. **Emergence, referees for e1 and e2**: partial independent scripts `y1_check.py`, `y2_check.py`, findings `findings/y1_findings.md`.
    Resume: `prompts/check_e1.txt`, `prompts/check_e2.txt` (combine with a STEP 2/3 as in `referee_e6.txt`).
 6. **Emergence, intro, synthesis, methods, abstract** (`e0_intro`, `e8_synthesis`, `e9_methods`): not written.
