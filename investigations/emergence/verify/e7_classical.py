@@ -262,13 +262,15 @@ s_inv = sp.simplify((ksum.T * g * ksum)[0])
 ok = sp.simplify(s_inv - 2 * E1s * E2s * (1 - cth)) == 0
 mec2 = C.m_e * C.c ** 2 / EV                                 # eV
 kT = C.k * T_CMB / EV
-eps_mean = 2.7012 * kT                                       # mean blackbody photon energy
+c_mean = math.pi ** 4 / (30 * float(sp.zeta(3)))              # <eps>/kT of a blackbody = pi^4/(30 zeta(3))
+eps_mean = c_mean * kT                                       # mean blackbody photon energy
 Eth_mean = mec2 ** 2 / eps_mean                              # head-on, (1-cos)=2: E eps >= (m c^2)^2
 Eth_kT = mec2 ** 2 / kT
 Eth_ebl = [mec2 ** 2 / e for e in (3.0, 0.1)]
 info(f"m_e c^2 = {mec2:.6e} eV; kT0 = {kT:.4e} eV; E_th(head-on) on <eps>: {Eth_mean:.3e} eV, on kT0: {Eth_kT:.3e} eV;"
      f" on EBL 3 eV..0.1 eV: {Eth_ebl[0]:.3e}..{Eth_ebl[1]:.3e} eV")
-ok &= 1e14 < Eth_mean < Eth_kT < 2e15 and 5e10 < Eth_ebl[0] < 1e11 and 2e12 < Eth_ebl[1] < 3e12
+ok &= 1e14 < Eth_mean < Eth_kT < 2e15 and 5e10 < Eth_ebl[0] < 1e11 and 2e12 < Eth_ebl[1] < 3e12 \
+    and math.isclose(c_mean, 2.70118, rel_tol=1e-5)
 report("e7-11", ok, f"two photons: s=2E1E2(1-cos th) (exact); head-on threshold E*eps>=(m_e c^2)^2: on the CMB "
        f"{Eth_mean:.1e} eV (mean photon) to {Eth_kT:.1e} eV (kT0); on EBL photons of 3-0.1 eV: 0.087-2.6 TeV")
 
@@ -406,21 +408,27 @@ ok = sp.simplify(ser - (m1 + m2 - m1 * m2 / (m1 + m2) * tht ** 2 / 2)) == 0
 ok &= sp.simplify(sp.expand_trig(2 * ms ** 2 + 2 * ms ** 2 * sp.cos(tht) - 4 * ms ** 2 * sp.cos(tht / 2) ** 2)
                   .rewrite(sp.cos)) == 0
 ok &= sp.series(1 - sp.cos(tht / 2), tht, 0, 4).removeO() == tht ** 2 / 8
-delta = 4.4e-7                                               # Rainville et al. 2005, 1 sigma
-th_eq = math.sqrt(8 * delta)
+# general masses: fractional defect (m1 m2 / M0^2) theta^2 / 2 with M0 = m1 + m2; equal masses: theta^2 / 8
+frac = sp.simplify(((m1 + m2) - (m1 + m2 - m1 * m2 / (m1 + m2) * tht ** 2 / 2)) / (m1 + m2))
+ok &= sp.simplify(frac - m1 * m2 / (m1 + m2) ** 2 * tht ** 2 / 2) == 0 and sp.simplify(frac.subs(m2, m1) - tht ** 2 / 8) == 0
+delta = 4.4e-7                                               # Rainville et al. 2005: |1 - Delta m c^2 / E_gamma| = (-1.4 +- 4.4)e-7
 u_MeV = C.physical_constants['atomic mass constant energy equivalent in MeV'][0]
 m28, m29 = 27.97692653465, 28.97649466490                    # AME2020 atomic masses (u)
 mn_u = C.physical_constants['neutron mass in u'][0]
-Sn = (m28 + mn_u - m29) * u_MeV                              # MeV
+Sn = (m28 + mn_u - m29) * u_MeV                              # MeV, neutron separation energy of 29Si
 mu_red = (m28 * u_MeV) * (mn_u * u_MeV) / ((m28 + mn_u) * u_MeV)
-dE = delta * Sn                                               # MeV
+M0 = (m28 + mn_u) * u_MeV
+dE = delta * Sn                                               # MeV: budget for an unexplained defect (1 sigma)
+eps_M = dE / M0                                               # the same budget as a fraction of the whole mass
 th_si = math.sqrt(2 * dE / mu_red)
-info(f"S_n(29Si) = {Sn:.4f} MeV, reduced mass {mu_red:.2f} MeV, 1 sigma budget {dE * 1e6:.2f} eV, theta < {th_si:.2e} rad;"
-     f" equal masses, fractional delta=4.4e-7: theta < {th_eq:.2e} rad")
-ok &= math.isclose(Sn, 8.4736, abs_tol=2e-4) and math.isclose(th_eq, 1.876e-3, rel_tol=2e-3) and 8e-5 < th_si < 1e-4
-report("e7-18", ok, f"M=m1+m2-mu theta^2/2+O(theta^4), equal masses M=2m cos(theta/2), defect theta^2/8; bounds (1 sigma, "
-       f"conditional): fractional additivity 4.4e-7 -> theta<{th_eq:.2e} rad; n+28Si (S_n={Sn:.4f} MeV, "
-       f"budget {dE * 1e6:.1f} eV) -> theta<{th_si:.1e} rad")
+th_eq = math.sqrt(8 * eps_M)
+info(f"S_n(29Si) = {Sn:.4f} MeV, reduced mass {mu_red:.2f} MeV, 1 sigma budget {dE * 1e6:.2f} eV = {eps_M:.2e} of "
+     f"M0 = {M0:.1f} MeV; theta < {th_si:.2e} rad (n + 28Si); equal masses at the same fraction: theta < {th_eq:.2e} rad")
+ok &= math.isclose(Sn, 8.4736, abs_tol=2e-4) and 8e-5 < th_si < 1e-4 and 1.3e-10 < eps_M < 1.5e-10 and 3e-5 < th_eq < 3.5e-5
+report("e7-18", ok, f"M=m1+m2-mu theta^2/2+O(theta^4), fractional defect (m1m2/M0^2)theta^2/2, theta^2/8 at equal masses "
+       f"(M=2m cos(theta/2), exact); conditional 1 sigma bounds from Rainville et al.: unexplained defect <= 4.4e-7 S_n = "
+       f"{dE * 1e6:.1f} eV = {eps_M:.1e} M0, so theta<{th_si:.1e} rad for n+28Si (S_n={Sn:.4f} MeV) and theta<{th_eq:.1e} "
+       f"rad for equal masses at that fraction")
 
 # ----------------------------------------------------------------------------------- rates kappa = c/l (e7-19)
 lam_e = C.hbar / (C.m_e * C.c)
@@ -489,8 +497,12 @@ info(f"beta_max (2 sigma) = {math.degrees(beta_max):.2f} deg = {beta_max:.4e} ra
      f"kappa < {kap_max:.3e} 1/s; m_e c^2/hbar = {kap_e:.4e} 1/s; ratio 10^{orders:.1f}; 1 deg bound: "
      f"{math.radians(1) / t_age:.2e} 1/s")
 ok = 1e-20 < kap_max < 5e-20 and orders > 40
-report("e7-21", ok, f"|beta|<0.63 deg (2 sigma) over 13.79 Gyr: a uniform duality rate kappa<{kap_max:.1e} 1/s, "
-       f"10^{orders:.1f} below m_e c^2/hbar={kap_e:.2e} 1/s (arithmetic on cited inputs)")
+rH = kap_max / H0
+E_kap = C.hbar * kap_max / EV
+info(f"kappa_max / H0 = {rH:.3e}; hbar kappa_max = {E_kap:.3e} eV")
+ok &= 1.0e-2 < rH < 1.3e-2 and 1.5e-35 < E_kap < 1.8e-35
+report("e7-21", ok, f"|beta|<0.63 deg (2 sigma) over 13.79 Gyr: a uniform duality rate kappa<{kap_max:.1e} 1/s = "
+       f"{rH:.1e} H0 (hbar kappa<{E_kap:.1e} eV), 10^{orders:.1f} below m_e c^2/hbar={kap_e:.2e} 1/s (arithmetic on cited inputs)")
 
 # ---------------------------------------------------------- closure pendulum vanishes on null fields (e7-22)
 nu1, nu2, mm = sp.symbols('nu1 nu2 m', real=True)
@@ -536,23 +548,78 @@ ok &= sp.simplify(m4sq_t - (mu_ ** 2 - Pt[1] ** 2 - Pt[2] ** 2)) == 0          #
 ok &= sp.simplify(m4sq_t - mu_ ** 2 * sp.cos(phi_) ** 2) == 0
 osc = sp.series(sp.cos(th0 * sp.sin(Om * t_)), th0, 0, 4).removeO()
 ok &= sp.simplify(osc - (1 - th0 ** 2 / 4 + th0 ** 2 / 4 * sp.cos(2 * Om * t_))) == 0
+# uniform rotation at rate nu about an axis e_hat at angle alpha from the clock n, temporal energy initially along n, p = 0
+al, nu_ = sp.symbols('alpha nu', positive=True)
+nvec_c = sp.Matrix([1, 0, 0])
+ehat = sp.Matrix([sp.cos(al), sp.sin(al), 0])
+Kx = sp.Matrix([[0, -ehat[2], ehat[1]], [ehat[2], 0, -ehat[0]], [-ehat[1], ehat[0], 0]])
+Rrod = sp.eye(3) + sp.sin(nu_ * t_) * Kx + (1 - sp.cos(nu_ * t_)) * Kx * Kx       # Rodrigues
+En_t = sp.simplify((nvec_c.T * Rrod * nvec_c)[0])
+ok &= sp.simplify(En_t - (sp.cos(al) ** 2 + sp.sin(al) ** 2 * sp.cos(nu_ * t_))) == 0
 report("e7-24", ok, "a temporal rotation at fixed six-dimensional mass mu: the clock e1 reads m4=mu cos(phi) "
-       "(= RE Prop. 2.10); for phi=theta0 sin(Omega t), m4/mu = 1-theta0^2/4+(theta0^2/4)cos(2 Omega t)+O(theta0^4) (exact)")
+       "(= RE Prop. 2.10); for phi=theta0 sin(Omega t), m4/mu = 1-theta0^2/4+(theta0^2/4)cos(2 Omega t)+O(theta0^4); "
+       "for a uniform rotation about an axis at angle alpha from the clock (p=0, energy along the clock at t=0), "
+       "m4/mu = 1 - sin^2(alpha)(1-cos nu t) (exact)")
 
 A_q = 4e-7                                                   # |dmu/mu| <= 4e-7 (2 sigma), Kanekar et al. 2015
 th_q = math.sqrt(4 * A_q)
 rate = 0.5e-16 + 2 * 1.6e-16                                 # |mudot/mu| (2 sigma), Huntemann et al. 2014, per yr
 AOm = rate / 2                                               # 2 Omega A <= rate
-A_age = AOm * (13.787e9) / (2 * math.pi) * 2 * math.pi      # A for Omega = 1/(13.787 Gyr)  (per yr units)
+A_age = AOm * 13.787e9                                       # A for Omega = 1/(13.787 Gyr) (Omega in rad/yr)
 eta_E = 1.5e-15 + 2 * math.hypot(2.3e-15, 1.5e-15)           # MICROSCOPE, central + 2 sigma
 th_ep = math.sqrt(2 * eta_E)
 info(f"quasar: A<=4e-7 -> theta0<{th_q:.2e}; clocks: A*Omega <= {AOm:.2e}/yr (A<={A_age:.1e} at Omega=1/13.8 Gyr, "
      f"A<={AOm:.1e} at Omega=1/yr); MICROSCOPE |eta|<{eta_E:.1e} -> |d theta^2|<{2 * eta_E:.1e}, theta<{th_ep:.1e}")
 ok = math.isclose(th_q, 1.26e-3, rel_tol=1e-2) and math.isclose(AOm, 1.85e-16, rel_tol=1e-2) \
     and math.isclose(eta_E, 7.0e-15, rel_tol=1e-2) and math.isclose(th_ep, 1.18e-7, rel_tol=1e-2)
-report("e7-25", ok, f"conditional bounds on a differential temporal angle: quasar methanol |dmu/mu|<4e-7 -> theta0<"
-       f"{th_q:.1e} rad; clocks |mudot/mu|<3.7e-16/yr -> A*Omega<{AOm:.2e}/yr; MICROSCOPE |eta|<7.0e-15 -> "
-       f"|theta_A^2-theta_B^2|<1.4e-14, theta<{th_ep:.1e} rad")
+ok &= math.isclose(rate, 3.7e-16, rel_tol=1e-9) and math.isclose(math.sqrt(A_q), 6.3e-4, rel_tol=1e-2)
+report("e7-25", ok, f"conditional bounds on differential oscillations m4/mu=1-A+A cos(omega t): quasar methanol "
+       f"|dmu/mu|<4e-7 -> A<4e-7, i.e. theta0<{th_q:.1e} rad (libration, A=theta0^2/4) or alpha<6.3e-4 rad (A=sin^2 alpha); "
+       f"clocks |mudot/mu|<3.7e-16/yr -> A omega<3.7e-16/yr (A*Omega<{AOm:.2e}/yr for omega=2 Omega); MICROSCOPE "
+       f"|eta|<7.0e-15 -> |theta_A^2-theta_B^2|<1.4e-14, theta<{th_ep:.1e} rad")
+
+# ------------------------------------------------------------- field energy against dark matter (e7-26)
+h = 0.674
+Oc_h2 = 0.120                                                # Planck 2018: Omega_c h^2 = 0.120 +- 0.001
+rho_dm = Oc_h2 / h ** 2 * rho_crit                           # kg/m^3, cosmic mean cold dark matter density
+u_dm_ev = rho_dm * C.c ** 2 / EV * CM3                       # eV/cm^3
+ratio_gal = table["galactic field 6 muG"][1] / EV * CM3 / u_dm_ev
+ratio_cmb = u0_cmb / (rho_dm * C.c ** 2)
+info(f"rho_dm = {rho_dm:.3e} kg/m^3 = {u_dm_ev:.4e} eV/cm^3; galactic 6 muG / rho_dm c^2 = {ratio_gal:.2e}; "
+     f"CMB <u0> / rho_dm c^2 = {ratio_cmb:.2e}")
+ok = 1.2e3 < u_dm_ev < 1.3e3 and ratio_gal < 1e-3 and ratio_cmb < 2e-4
+report("e7-26", ok, f"cosmic mean dark-matter energy density Omega_c h^2=0.120: {u_dm_ev:.0f} eV/cm^3; the local galactic "
+       f"field (6 muG) is {ratio_gal:.1e} of it and the CMB mean rest-energy density {ratio_cmb:.1e} "
+       "(arithmetic on cited inputs)")
+
+# ------------------------------------------------- Schwinger rate is not a function of the rest energy (e7-27)
+def schwinger_first(eps, beta):
+    """First (pair-production) term of the Schwinger rate per unit volume and time, fields in units of E_S,
+    rate in units m^4 c^5/hbar^3 (constant prefactors irrelevant): eps beta/(4 pi^2) coth(pi beta/eps) exp(-pi/eps)."""
+    if eps == 0:
+        return 0.0
+    if beta == 0:
+        return eps ** 2 / (4 * math.pi ** 3) * math.exp(-math.pi / eps)
+    return eps * beta / (4 * math.pi ** 2) / math.tanh(math.pi * beta / eps) * math.exp(-math.pi / eps)
+
+
+ok = True
+for E0n in (0.02, 0.5, 2.0):                                # fixed E0 = (eps^2+beta^2)/2 in units of E_S^2
+    r = math.sqrt(2 * E0n)
+    rates = [schwinger_first(r * math.cos(ph), r * math.sin(ph)) for ph in np.linspace(0, math.pi / 2, 41)]
+    ok &= rates[0] > 0 and rates[-1] == 0.0 and max(rates) > 10 * min(x for x in rates if x > 0)
+    # at fixed eps the rate increases with beta (x coth x is increasing): a parallel B enhances, never creates
+    ok &= all(schwinger_first(r, r * bb) < schwinger_first(r, r * (bb + 0.1)) for bb in np.linspace(0, 2, 21))
+    # the limit beta -> 0 of the general formula equals the pure-E expression
+    ok &= math.isclose(schwinger_first(r, 1e-9 * r), schwinger_first(r, 0.0), rel_tol=1e-6)
+lim_ok = sp.limit(sp.Symbol('b') / sp.tanh(sp.pi * sp.Symbol('b') / sp.Symbol('e', positive=True)), sp.Symbol('b'), 0) \
+    == sp.Symbol('e', positive=True) / sp.pi
+info(f"at E0 = 0.5 E_S^2: rate(beta=0) = {schwinger_first(1.0, 0.0):.3e}, rate(eps=beta) = "
+     f"{schwinger_first(math.sqrt(0.5), math.sqrt(0.5)):.3e}, rate(eps=0) = 0")
+report("e7-27", ok and lim_ok, "first Schwinger term eps beta coth(pi beta/eps) exp(-pi E_S/eps)/(4 pi^2): at fixed "
+       "E0=(eps^2+beta^2)/2 (three values, 41 angles) it varies by more than a factor 10 and vanishes at eps=0, so it is not a "
+       "function of E0; at fixed eps it increases with beta, and its beta->0 limit is eps^2 exp(-pi/eps)/(4 pi^3) (floating "
+       "point; limit exact)")
 
 print(f"{'ALL PASS' if not FAILED else 'FAILED: ' + ', '.join(FAILED)}")
 sys.exit(1 if FAILED else 0)

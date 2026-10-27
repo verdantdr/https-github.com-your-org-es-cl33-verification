@@ -1,0 +1,438 @@
+% Track e7 -- Classical readings: astronomy and cosmology.
+% Verification: investigations/emergence/verify/e7_classical.py (claims e7-1 ... e7-27).
+% New references: sections/bib_e7.tex.
+\section{Classical readings: astronomy and cosmology}
+\label{e7:sec:main}
+
+This section reads the results of \cite{RE} and of the preceding sections in the sense of classical physics, astronomy and cosmology. Five
+classes are kept apart. A statement is \emph{inherited} when it is ordinary physics, true in any notation, and cited from the literature. It is
+a \emph{reading} (interpretive, in the classes of this note) when it identifies a quantity of the arena with an observed one; we say what the
+identification needs. It is a \emph{constraint} when, if a reading is adopted, an observation bounds a parameter. The constraint is then fixed
+arithmetic on cited inputs, conditional on the reading. It is \emph{obstructed} when observation or inherited physics excludes the reading, and
+\emph{open} otherwise. Mathematical statements carry the classes fixed and restated as before.
+
+One fact governs the whole section. The arena is scale-free: the rate $\kappa=c/\ell$ of the interior flow has no fixed length $\ell$, the
+identification $mc^2=\hbar\kappa$ is added, and the multiscale ratio of Corollary~17.15 of \cite{ES17} is an input (Theorem~4.12,
+Propositions~4.8 and~4.9 of \cite{RE}). No number of astronomy or cosmology follows from the arena alone. Every number below is either
+inherited arithmetic on observed inputs or a bound on a parameter of a reading.
+
+The answers, with their classes, are these. (1) The rest energy $u_0$ of a field point is the energy density in the frames where $\bE\parallel\Btext$
+(inherited). Its stress is a tension $u_0$ along the common axis and a pressure $u_0$ across it, and every isotropic ensemble of field points
+gravitates as radiation, $w=\tfrac13$, whatever its $u_0$. So the reading ``field rest energy is dark matter'' is obstructed
+(\cref{e7:sec:point}). (2) For isotropic thermal radiation at a point the ratio $E_0/E_6$ has density $2t$ on $[0,1]$, independent of the
+energy, so $\langle E_0\rangle/\langle E_6\rangle=\tfrac23$ (fixed). Every plane wave is null, but the random superposition is massive almost
+everywhere; ``the CMB is locally massive'' is a reading (\cref{e7:sec:cmb}). (3) The pair invariant of two null fields of \cite{RE} vanishes
+on the same configurations as the Breit--Wheeler invariant. The thresholds of the gamma-ray horizon need $m_e$, which the arena does not
+supply. The vacuum pair rate depends on the canonical electric field $\epsilon$, not on $E_0=\half(\epsilon^2+\beta^2)$, so magnetar fields above
+$B_Q$ create no pairs from the vacuum (inherited; \cref{e7:sec:pairs}). (4) Two six-momenta at mutual rest with temporal angle $\vartheta$ have
+$M^2=m_1^2+m_2^2+2m_1m_2\cos\vartheta$. In three times ``uphill'' decays are kinematically open, and one clock closes them (inherited, with an
+exact example). Mass additivity bounds the temporal angle of the neutron and $^{28}$Si to $9\times10^{-5}$~rad, if the reading is adopted
+(\cref{e7:sec:sixmomenta}). (5) A duality rotation of a null field is a rotation about its propagation axis (fixed). If the interior flow acted
+on light, CMB polarisation would bound its rate by $2.5\times10^{-20}\,{\rm s^{-1}}$, $10^{40.5}$ below $m_ec^2/\hbar$; that reading is
+obstructed (\cref{e7:sec:rate}). (6) The three-manifold time-odd invariant of \cite{RE} parallels the Jarlskog invariant only as a reading. A
+temporal $b$-field acting on the clocks of matter is bounded by the constancy of $m_p/m_e$ and by the equivalence principle, as conditional
+constraints (\cref{e7:sec:timeodd}). \Cref{e7:sec:summary} collects the claims (\cref{e7:tab:claims}). Identifiers e7-$n$ refer to the
+\texttt{PASS} lines of \texttt{verify/e7\_classical.py}; physical constants are CODATA values from \texttt{scipy.constants}.
+
+\paragraph{Notation.} SI units. The frame variable is $\bB=-\Btext$, with $\Btext$ the textbook field (Section~1.4 of \cite{ES17}), $z_c=c\bB+i\bE$,
+$q_c=z_c\cdot z_c$, $u=\tfrac{\varepsilon_0}2|z_c|^2$, $u_0=\tfrac{\varepsilon_0}2|q_c|$, $\mathbf g=\bE\times\Btext/(\mu_0c^2)$ and $\rho_0=u_0/c^2$. Then
+$u^2=c^2|\mathbf g|^2+u_0^2$ (Proposition~2.8 of \cite{RE}; restated, e7-2). In Heaviside--Lorentz units with $c=1$, $z=\bB+i\bE$, $E_6=\half|z|^2$,
+$E_0=\half|q|$, $q=z\cdot z=|\Btext|^2-|\bE|^2-2i\,\bE\cdot\Btext$. The realisation is that of \cite{ES17}, and $G$ acts on $z$ as $i$ (e7-1).
+
+\subsection{The rest energy of a field point in the sky}
+\label{e7:sec:point}
+
+The minimum of $u$ over frames is $u_0$. It is attained exactly in the frames where the Poynting vector vanishes, and there $\bE\parallel\Btext$
+or one of them vanishes; for $q\neq0$ such frames exist (Theorem~2.6 of \cite{RE}). This is inherited: the classification of a field at a point
+\cite{Synge56} and the problem of the frame with parallel fields in \S25 of \cite{LandauLifshitz2}. Let
+$T^{00}=u$, $T^{0i}=(\bE\times\Btext)_i$, $T^{ij}=-(E_iE_j+B_{{\rm t}i}B_{{\rm t}j})+u\,\delta_{ij}$ be the stress--energy tensor of the field
+(Heaviside--Lorentz, $c=1$).
+
+\begin{proposition}[The stress of a field point]
+\label{e7:prop:stress}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item $T^\mu{}_\mu=0$ and $T^\mu{}_\lambda T^\lambda{}_\nu=E_0^2\,\delta^\mu{}_\nu$.
+\item If $\bE=\epsilon\,\mathbf n$ and $\Btext=\beta\,\mathbf n$ with $|\mathbf n|=1$, then $T^{00}=u_0$, $T^{0i}=0$ and $T^{ij}=u_0(\delta_{ij}-2n_in_j)$:
+a tension $u_0$ along $\mathbf n$ and a pressure $u_0$ in the two directions across it.
+\item In every ensemble of field points whose mean stress is isotropic in some frame, $\langle T^{ij}\rangle=p\,\delta^{ij}$ with
+$p=\tfrac13\langle T^{00}\rangle$, whatever the distribution of $u_0$. For field points at rest with isotropically distributed axes,
+$p=\tfrac13\langle u_0\rangle$.
+\item In a Friedmann--Lema\^itre universe a component with $p=w\rho c^2$ obeys $\dot\rho=-3(1+w)\rho\,\dot a/a$. So $\rho\propto a^{-4}$ for every
+such ensemble of free fields, against $a^{-3}$ for dust.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) $\sum_iT^{ii}=-(|\bE|^2+|\Btext|^2)+3u=u$, so $T^\mu{}_\mu=T^{00}-\sum_iT^{ii}=0$; the square is the Rainich identity (Proposition~2.5 of
+\cite{RE}). (ii) Substitute; $u=\half(\epsilon^2+\beta^2)=u_0$ since $|q|=\epsilon^2+\beta^2$ when $\bE\parallel\Btext$, and $\bE\times\Btext=0$.
+(iii) Tracelessness gives $\langle T^{00}\rangle=\sum_i\langle T^{ii}\rangle=3p$. In the second case $\langle n_in_j\rangle=\tfrac13\delta_{ij}$, so
+$\langle T^{ij}\rangle=u_0(1-\tfrac23)\delta_{ij}$. (iv) Integrate the continuity equation.
+\end{proof}
+
+Inherited (\S\S33 and~35 of \cite{LandauLifshitz2}; \cite{Rainich1925} via \cite{RE}; \cite{WeinbergCosmo08}), checked exactly (e7-3, e7-4). A
+bounded static configuration together with its sources has total mass $U/c^2$, with the field stresses balanced by those of the sources (von Laue's
+theorem \cite{Laue1911}; Proposition~2.9 of \cite{RE}). Field energy then gravitates as part of the mass of a matter system, and the matter fixes
+its share.
+
+\begin{corollary}[Field rest energy is not dark matter]
+\label{e7:cor:dm}
+Reading $\rho_0=u_0/c^2$ as a rest-mass density does not make field rest energy behave as matter in cosmology. The reading ``field rest energy is
+dark matter'' is obstructed by inherited physics.
+\end{corollary}
+
+\begin{proof}
+What gravitates is $T^{\mu\nu}$, and the reading leaves it unchanged. The dark matter of the standard model of cosmology is pressureless
+since before recombination, with $\Omega_ch^2=0.120\pm0.001$ \cite{Planck18VI}. By \cref{e7:prop:stress}(iii)--(iv) every isotropic ensemble
+of free field points has $w=\tfrac13$ and redshifts as $a^{-4}$, whatever $u_0$. A field point with $u_0>0$ is at rest only in the sense of
+\cref{e7:prop:stress}(ii): its stress is not that of dust, and a free field propagates at $c$. The only configurations whose field energy
+weighs like rest mass are bound ones, by von Laue's theorem, and there the mass belongs to the matter system. The amounts are also small: the
+mean cold-dark-matter energy density is $1.26\,{\rm keV\,cm^{-3}}$, of which the local galactic magnetic energy density is $7\times10^{-4}$ and the
+mean rest energy of the CMB (\cref{e7:sec:cmb}) $1.4\times10^{-4}$ (e7-26). The cause of the obstruction is the tracelessness, not the deficit.
+\end{proof}
+
+The fields of astronomy are, to a good approximation, magnetic in the frame of the conducting matter, where $\bE\approx0$, so $u=u_0=B^2/(2\mu_0)$
+and $\rho_0=B^2/(2\mu_0c^2)$ there. \Cref{e7:tab:fields} gives the arithmetic (e7-5) for representative inputs: the geomagnetic field at the surface
+(about $50\,\mu$T; total intensity maps of \cite{Alken21}), a sunspot umbra ($0.3$~T \cite{Solanki03}), a strongly magnetic white dwarf (isolated
+magnetic white dwarfs reach about $10^5$~T \cite{Ferrario15}), the surface of a radio pulsar (about $10^8$~T \cite{LorimerKramer05}), a magnetar
+($10^{10}$--$10^{11}$~T \cite{KaspiBeloborodov17}) and the galactic field (a few microgauss, about $6\,\mu$G in total near the Sun
+\cite{Beck16}).
+
+\begin{table}[ht]
+\centering
+\small
+\begin{tabular}{@{}lccc@{}}
+\toprule
+field & $B$ (T) & $u=u_0$ (J\,m$^{-3}$) & $\rho_0$ (kg\,m$^{-3}$)\\
+\midrule
+geomagnetic, surface & $5\times10^{-5}$ & $9.9\times10^{-4}$ & $1.1\times10^{-20}$\\
+sunspot umbra & $0.3$ & $3.6\times10^{4}$ & $4.0\times10^{-13}$\\
+magnetic white dwarf & $10^{5}$ & $4.0\times10^{15}$ & $4.4\times10^{-2}$\\
+radio pulsar, surface & $10^{8}$ & $4.0\times10^{21}$ & $4.4\times10^{4}$\\
+magnetar & $10^{10}$--$10^{11}$ & $4.0\times10^{25}$--$4.0\times10^{27}$ & $4.4\times10^{8}$--$4.4\times10^{10}$\\
+galactic, $3$--$6\,\mu$G & $3$--$6\times10^{-10}$ & $3.6$--$14\times10^{-14}$ & $4.0$--$16\times10^{-31}$\\
+\midrule
+CMB, $T_0=2.72548$~K & --- & $4.17\times10^{-14}$ ($u$) & $3.10\times10^{-31}$ ($\langle\rho_0\rangle$)\\
+\bottomrule
+\end{tabular}
+\caption{Energy and rest-energy densities of astronomical fields in the frame where $\bE\approx0$ (e7-5), and of the CMB (e7-10). The last
+column is $u_0/c^2$; reading it as a mass density is the reading of \cref{e7:cor:dm}.}
+\label{e7:tab:fields}
+\end{table}
+
+The galactic field of $3$--$6\,\mu$G carries $0.22$--$0.89\,{\rm eV\,cm^{-3}}$. The CMB carries $aT_0^4=0.261\,{\rm eV\,cm^{-3}}$ ($T_0=2.72548$~K
+\cite{Fixsen09}), and the cosmic rays of the local interstellar medium about $1\,{\rm eV\,cm^{-3}}$ \cite{Ferriere01,Draine11}. The three agree to a
+factor of a few (e7-6). This rough equipartition of the magnetic, cosmic-ray and thermal energy densities is an inherited fact of the interstellar
+medium \cite{Ferriere01}. The arena neither explains it nor uses it.
+
+\subsection{The pointwise rest energy of isotropic radiation}
+\label{e7:sec:cmb}
+
+\begin{proposition}[Rest-energy fraction of a Gaussian field]
+\label{e7:prop:gauss}
+Let $z=\mathbf x+i\mathbf y$ with $\mathbf x,\mathbf y\in\R^3$ independent and $N(0,\sigma^2\id)$, and let $\lambda_1\ge\lambda_2$ be the
+eigenvalues of the Gram matrix $\Gamma$ of $(\mathbf x,\mathbf y)$. Then $|q|=\lambda_1-\lambda_2$ and $|z|^2=\lambda_1+\lambda_2$. The ratio
+$t=E_0/E_6=|z\cdot z|/|z|^2\in[0,1]$ has density $2t$ (distribution function $t^2$), is independent of $|z|^2$, and has mean $\tfrac23$ and
+second moment $\half$. Hence $\langle E_0\rangle/\langle E_6\rangle=\tfrac23$, and $q\neq0$ with probability one.
+\end{proposition}
+
+\begin{proof}
+$|q|^2=(\mathbf x\cdot\mathbf x-\mathbf y\cdot\mathbf y)^2+4(\mathbf x\cdot\mathbf y)^2=(\tr\Gamma)^2-4\det\Gamma=(\lambda_1-\lambda_2)^2$. $\Gamma$ is a real Wishart
+matrix $W_2(3,\sigma^2\id)$, whose eigenvalues have the density $\propto(\lambda_1-\lambda_2)e^{-(\lambda_1+\lambda_2)/2\sigma^2}$ on
+$\lambda_1>\lambda_2>0$; the general factor $\prod_i\lambda_i^{(n-p-1)/2}$ is $1$ at $n=3$, $p=2$ \cite{Muirhead82}. With $s=\lambda_1+\lambda_2$,
+$t=(\lambda_1-\lambda_2)/s$ and Jacobian $s/2$ the density becomes $\propto s^2e^{-s/2\sigma^2}\cdot t$ on $s>0$, $0<t<1$. It factorises, the first
+factor being the $\chi^2_6$ law of $|z|^2/\sigma^2$. So $t$ has density $2t$ and is independent of $s$, and
+$\langle ts\rangle/\langle s\rangle=\langle t\rangle=\tfrac23$.
+\end{proof}
+
+Fixed: symbolically (e7-7); by Isserlis' theorem, $\langle|q|^2\rangle=24\sigma^4$, $\langle|z|^4\rangle=48\sigma^4$,
+$\langle|q|^4\rangle=1920\sigma^8$ and $\langle|z|^8\rangle=5760\sigma^8$, whose ratios are the moments $\half$ and $\tfrac13$ of the density $2t$
+(e7-8); and by Monte Carlo with $2\times10^6$ samples, with mean $0.6665$, Kolmogorov distance $7.5\times10^{-4}$ to $t^2$ and correlation
+$-1.1\times10^{-3}$ between $t$ and $|z|^2$ (e7-9).
+
+\emph{The model.} Thermal light is a circular complex Gaussian field, by the central limit theorem over many independent emitters
+(Sections~4.2 and~4.3 of \cite{Goodman15}); this is inherited. For isotropic, unpolarised blackbody radiation at a point, isotropy gives
+$\langle E_iE_j\rangle=\langle B_{{\rm t}i}B_{{\rm t}j}\rangle=\tfrac13u\,\delta_{ij}$ and $\langle E_iB_{{\rm t}j}\rangle=\tfrac13\langle\bE\cdot\Btext\rangle\delta_{ij}$,
+and parity invariance gives $\langle\bE\cdot\Btext\rangle=0$. The six components of $z$ are therefore independent with a common variance, which
+is the hypothesis of \cref{e7:prop:gauss}, and $\langle E_6\rangle=u$, $\langle E_0\rangle=\tfrac23u$. The distribution $2t$ is a prediction of the
+Gaussian model. Any measurement of the joint statistics of $\bE$ and $\Btext$ at a point of thermal radiation can decide it; it is not a
+prediction of the arena.
+
+\emph{The reading.} Every plane wave is null, $q=0$ (Theorem~13.8 of \cite{ES17}). A random superposition has $q\neq0$ almost everywhere, with
+mean rest-energy density $\tfrac23u$. To say that the CMB is ``locally massive'' is a reading. Its content is $\langle E_0\rangle=\tfrac23u$, and it
+says nothing about gravitation, which sees the traceless $T^{\mu\nu}$ of \cref{e7:prop:stress}. The whole behaves differently. Radiation in a box at
+rest in the CMB frame has $\mathbf P=0$ and $Mc^2=U$, while $\int E_0=\tfrac23U$ on average; this is the strict inequality $M\ge\int E_0$ of
+Proposition~2.9(2) of \cite{RE}, strict because the local energy--momenta are not proportional. Numbers (e7-10): today
+$u=aT_0^4=4.17\times10^{-14}\,{\rm J\,m^{-3}}$, $\langle u_0\rangle=2.78\times10^{-14}\,{\rm J\,m^{-3}}$ and
+$\langle\rho_0\rangle=3.10\times10^{-31}\,{\rm kg\,m^{-3}}=3.6\times10^{-5}\rho_{\rm crit}$, with $\rho_{\rm crit}=3H_0^2/8\pi G$ for
+$H_0=67.4\,{\rm km\,s^{-1}Mpc^{-1}}$ \cite{Planck18VI}. Like the whole CMB ($\Omega_\gamma=5.4\times10^{-5}$), this density redshifts as $a^{-4}$.
+
+\subsection{Two from one in the sky: pair creation}
+\label{e7:sec:pairs}
+
+\emph{Two photons.} For null four-momenta $k_1,k_2$ with energies $E_1,E_2$ at angle $\vartheta$, $s=(k_1+k_2)^2=2E_1E_2(1-\cos\vartheta)$, and
+$\gamma\gamma\to e^+e^-$ needs $s\ge4m_e^2c^4$ \cite{BreitWheeler34}. Head-on, $E_1E_2\ge(m_ec^2)^2$ (e7-11). On CMB photons of mean energy
+$\pi^4kT_0/30\zeta(3)=6.3\times10^{-4}$~eV the threshold is $4.1\times10^{14}$~eV, and on photons of energy $kT_0$ it is $1.1\times10^{15}$~eV. On
+optical and near-infrared extragalactic background light, $0.1$--$3$~eV, it is $0.09$--$2.6$~TeV. These are the edges of the gamma-ray horizon
+\cite{Nikishov62,GouldSchreder67,DwekKrennrich13}; Gould and Schr\'eder predicted the cut-off of the cosmic photon spectrum above $10^{14}$~eV by
+the $3$~K photons. The process has been observed with quasi-real, linearly polarised photons of ultraperipheral Au+Au collisions, with angular
+distributions in accord with QED \cite{STAR21}. All of this is inherited.
+
+\emph{Relation to the arena.} For two null fields $M_{\rm pair}=|z_1\cdot z_2|=(E_6^{(1)}E_6^{(2)})^{1/2}(1-\cos\vartheta_{12})$, with $\vartheta_{12}$ the
+angle between the Poynting vectors (Theorem~8.6(v) of \cite{RE}; restated, e7-12). One null field does not become a massive pair under any
+covariant duplication, and no closure dynamics fills an empty constituent (Corollary~8.3 of \cite{RE}; \cref{e2:cor:field}). The precise
+relation is this. $M_{\rm pair}$ and $s$ vanish on the same configurations, the collinear ones, and are positive on all others: the selection
+rule ``one photon makes no pair, two non-collinear photons can'' is shared. The functions differ. $M_{\rm pair}$ is linear in $1-\cos\vartheta$,
+because field densities are quadratic in the fields; $s$ is linear in $1-\cos\vartheta$, so the photon pair mass $s^{1/2}$ goes as its square root.
+The threshold $2m_ec^2$ needs $m_e$, which the arena does not supply (Theorem~4.12 of \cite{RE}). The gamma-ray horizon tests QED and the
+background light, not the arena.
+
+\emph{Constant fields.} If $q\neq0$ there are frames with $\bE=\epsilon\,\mathbf n$, $\Btext=\beta\,\mathbf n$ (\S25 of \cite{LandauLifshitz2}).
+
+\begin{proposition}[Canonical fields]
+\label{e7:prop:canon}
+In such a frame, with $\epsilon\ge0$ and $\beta$ real,
+\[
+\epsilon^2=\half(|q|-\Re q),\qquad \beta^2=\half(|q|+\Re q),\qquad E_0=\half|q|=\half(\epsilon^2+\beta^2).
+\]
+The characteristic polynomial of $F^\mu{}_\nu$ is $\lambda^4+(|\Btext|^2-|\bE|^2)\lambda^2-(\bE\cdot\Btext)^2=(\lambda^2-\epsilon^2)(\lambda^2+\beta^2)$, with
+eigenvalues $\pm\epsilon$ and $\pm i\beta$: $\epsilon=\epsilon_E$ and $|\beta|=\epsilon_M$ of Section~14.1 of \cite{ES17}. A purely magnetic $F$
+generates rotations and a purely electric one boosts.
+\end{proposition}
+
+\begin{proof}
+$q$ is invariant under the Lorentz group, which acts on $z$ through $SO(3,\C)$. In the canonical frame $\bE\cdot\Btext=\epsilon\beta$, so
+$q=\beta^2-\epsilon^2-2i\epsilon\beta=(\beta-i\epsilon)^2$, $|q|=\epsilon^2+\beta^2$ and $\Re q=\beta^2-\epsilon^2$. The coefficients of the
+characteristic polynomial are invariants and take these values. A real antisymmetric $F$ exponentiates to rotations, a symmetric one to boosts.
+\end{proof}
+
+Inherited, checked exactly and on $200$ random fields to $10^{-14}$ (e7-13). The vacuum decay rate in a constant field is
+\[
+w=\frac{e^2\epsilon\beta}{4\pi^2\hbar^2c}\sum_{n\ge1}\frac1n\coth\frac{n\pi\beta}{\epsilon}\,\exp\Bigl(-\frac{n\pi E_S}{\epsilon}\Bigr),\qquad
+E_S=\frac{m_e^2c^3}{e\hbar}=1.32\times10^{18}\,{\rm V\,m^{-1}},
+\]
+in Heaviside--Lorentz units \cite{Schwinger51,HeisenbergEuler36}. It is exponential in $\epsilon$ and vanishes for $\epsilon=0$, whatever $\beta$;
+Section~14.4 of \cite{ES17} records the same fact for non-orthogonal fields. At fixed $E_0$ the first term varies by more than a factor $10$
+between the electric and the magnetic canonical field and vanishes at the magnetic end; at fixed $\epsilon$ it grows with $\beta$ (e7-27). The
+critical magnetic field is $B_Q=m_e^2c^2/(e\hbar)=4.41\times10^9$~T. Radio pulsars sit at $0.02\,B_Q$; magnetars, at $10^{10}$--$10^{11}$~T, exceed
+it by factors $2$--$23$ \cite{KaspiBeloborodov17} (e7-14). Yet their fields are magnetic, $\epsilon\approx0$, and create no pairs from the vacuum by
+this mechanism, although their $E_0$ is the largest in nature. Hence the reading ``the rest energy of a field point materialises as pairs'' is
+obstructed: the pair rate is not a function of $E_0$.
+
+\emph{Pulsars.} In a corotating, force-free magnetosphere $\bE\cdot\Btext=0$ \cite{GoldreichJulian69}. Pair cascades need gaps where
+$\bE\cdot\Btext\neq0$, which accelerate the primary particles \cite{RudermanSutherland75}. The curvature gamma-rays of the primaries convert into
+pairs in the strong magnetic field \cite{Sturrock71}. That one-photon conversion takes its energy from the photon; the magnetic field supplies
+momentum, not rest energy (inherited).
+
+\emph{The analogy with the tower.} A magnetic field acts on momenta as a rotation, which is compact; an electric field acts as a boost, which is
+non-compact (\cref{e7:prop:canon}). In the tower the compact elements that commute with the binding root conserve the Fock number, and every
+element outside the centraliser of $K_n$, every boost included, creates quanta in pairs from the Fock vacuum (\cref{e2:lem:N}(iii),(iv),
+\cref{e2:prop:bogo}). The analogy is interpretive. It shows that one algebraic dichotomy, compact against non-compact, decides both questions. It
+does not identify the two. The Schwinger generator acts on the four-momentum of a charged particle in spacetime; the generators of
+\cref{e2:lem:N} act on the interior Fock space, whose number $N$ is not the number of electrons. The pairs of \cref{e2:prop:bogo} appear at first
+order in the rapidity, with no threshold and no exponent, as in a change of reference vacuum, whereas the Schwinger rate is non-perturbative,
+with an exponent fixed by $e$ and $m_e$, neither of which the arena contains.
+
+\subsection{Several particles in three times}
+\label{e7:sec:sixmomenta}
+
+The six-momentum $P=\sum_i(\mathsf E_i/c)\,e_i+\sum_ap_a\,e_{a+3}$ has three temporal components (Proposition~2.10 of \cite{RE}). Set $c=1$.
+
+\begin{proposition}[Two six-momenta at mutual rest]
+\label{e7:prop:sixmass}
+Let $u_1,u_2\in V^+$ be unit vectors with $\eta(u_1,u_2)=\cos\vartheta$ and $P=m_1u_1+m_2u_2$. Then
+\[
+M^2:=\eta(P,P)=m_1^2+m_2^2+2m_1m_2\cos\vartheta ,
+\]
+so $M=m_1+m_2$ at $\vartheta=0$, $M=(m_1^2+m_2^2)^{1/2}$ at $\vartheta=\pi/2$ and $M=|m_1-m_2|$ at $\vartheta=\pi$. In $\Cl(3,3)$, $P^2=M^2\id$.
+The graded rest Hamiltonian $H_g=m_1E_{(1,1)}+m_2E_{(2,1)}$ of the tower is the case of two orthogonal unit vectors of $\R^{6,6}$, $H_g^2=(m_1^2+m_2^2)\id$;
+the ungraded $H_u=m_1\,e_1\otimes\id+m_2\,\id\otimes e_1$ has spectrum $\{\pm m_1\pm m_2\}$ and is not a vector.
+\end{proposition}
+
+\begin{proof}
+Expand $\eta(P,P)$; $V^+$ is positive definite. Vectors of a Clifford algebra square to their norm. The rest is \cref{e1:prop:rest}(i),(iii).
+\end{proof}
+
+Fixed (e7-15: symbolic; $P^2$ exactly at $\cos\vartheta=\tfrac35$; the tower exactly at $n=2$). The reading is this: the graded composite of
+\cref{e1:prop:rest}, with masses in quadrature (Proposition~8.11(iv) of \cite{RE}), is ``two masses with orthogonal clocks'', and the additive
+ungraded pair is ``two masses with one clock''. Its precise sense is limited. In $\R^{6,6}$ the temporal triples of the two copies are orthogonal,
+so $\vartheta=\pi/2$ is forced between vectors of different copies; inside one copy $\vartheta$ is free. The ungraded operator agrees with the
+case $\vartheta=0$ only in its largest eigenvalue $m_1+m_2$. Its additivity is that of the eigenvalues of commuting operators, one mass shell per
+particle, not that of a vector sum, which has two eigenvalues, not four. The identification is interpretive.
+
+\begin{proposition}[Uphill decays and one clock]
+\label{e7:prop:uphill}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item In signature $(1,3)$, future timelike $P_1,P_2$ satisfy $\eta(P_1,P_2)\ge m_1m_2$, so $\eta(P_1+P_2,P_1+P_2)\ge(m_1+m_2)^2$: a particle
+decays only into lighter ones in total.
+\item In signature $(3,3)$ this fails. $P=(10,0,0;0,0,0)$ splits as $P_1=(5,5,0;1,0,0)$ plus $P_2=(5,-5,0;-1,0,0)$, with masses
+$10\to7+7=14$ and $\eta(P_1,P_2)=1<49$, every clock component $\mathsf E_1$ positive.
+\item The clock $e_1$ reads $m_4^2=\mathsf E_1^2-|\bp|^2=24$ for each product, and $2\sqrt{24}<10$: read by the clock the decay is downhill.
+\item If all temporal parts are parallel to one unit $u\in V^+$, the momenta lie in $\R u\oplus V^-$, of signature $(1,3)$, and (i) holds.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) $\eta(P_1,P_2)=E_1E_2-\bp_1\cdot\bp_2\ge E_1E_2-|\bp_1||\bp_2|\ge m_1m_2$, the last step since
+$(E_1E_2-|\bp_1||\bp_2|)^2-m_1^2m_2^2=(E_1|\bp_2|-E_2|\bp_1|)^2\ge0$ with $E_1E_2\ge|\bp_1||\bp_2|$. (ii)--(iii) Integer arithmetic. (iv) The Gram
+matrix of $(u,e_4,e_5,e_6)$ is $\operatorname{diag}(1,-1,-1,-1)$.
+\end{proof}
+
+(i) is inherited; (ii) is the observation that with more than one time a particle can decay into heavier ones \cite{Dorling70}, recalled in
+\cite{Tegmark97}, whose main argument is the loss of well-posed prediction; an ultrahyperbolic Cauchy problem can be made well posed by a nonlocal
+constraint \cite{CraigWeinstein09}, and Example~27.3 of \cite{ES17} shows that compact surplus times give tachyons. All are checked exactly or,
+for (iv), with no violation among $20000$ random pairs, against $12639$ violations without a common clock (e7-16, e7-17). Item~(iii) locates the
+paradox. ``Uphill'' is uphill in the six-dimensional mass $\mu$ and downhill in the mass $m_4$ read by a clock, since $m_4(n)\le\mu$ with equality iff
+the temporal momentum is parallel to the clock (Proposition~3.13 of \cite{TR}; Proposition~2.10 of \cite{RE}).
+
+\emph{Constraint.} Adopt the reading in which particles are labelled by $\mu$ and observed through one clock. Then mass additivity bounds the
+temporal angles between the constituents of ordinary matter. At mutual rest $M=m_1+m_2-\mu_{12}\vartheta^2/2+O(\vartheta^4)$, with
+$\mu_{12}=m_1m_2/(m_1+m_2)$; the fractional defect is $(m_1m_2/M_0^2)\vartheta^2/2$ with $M_0=m_1+m_2$, which is $\vartheta^2/8$ at equal masses,
+where $M=2m\cos(\vartheta/2)$ exactly. Rainville \emph{et al.} compared mass differences with $\gamma$-ray energies and found
+$1-\Delta mc^2/E=(-1.4\pm4.4)\times10^{-7}$ \cite{Rainville05}. For neutron capture on $^{28}$Si, $S_n=8.4736$~MeV from the AME2020 masses
+\cite{AME2020}, so an unexplained defect is at most $3.7$~eV at $1\sigma$, a fraction $1.4\times10^{-10}$ of $M_0$. This gives
+$\vartheta<9.1\times10^{-5}$~rad between the neutron and the nucleus, and $\vartheta<3.3\times10^{-5}$~rad for an equal-mass system tested at the
+same fractional precision (e7-18). Proton stability enters differently. With off-clock final states accessible, the baryon-number-conserving
+channel $p\to n\,e^+\nu_e$, closed in one time since $m_n>m_p$, opens kinematically by \cref{e7:prop:uphill}(ii), with a non-compact phase space. The
+proton mean life exceeds $10^{29}$ years in every mode searched and $\tau/B(p\to e^+\pi^0)>2.4\times10^{34}$ years \cite{PDG,Takenaka20}. A weak
+decay with MeV energy release has a lifetime of minutes unless it is forbidden, so this observation asks for a selection, one clock for all matter,
+not for a small angle. The arena does not compute the rate, since it has no amplitudes. This is the classical content of the clock selection
+(Proposition~3.5 of \cite{ES17}; the reduced shell of Theorem~30.1 of \cite{ES17}, Proposition~3.10 of \cite{TR}). Classes: (i) and the
+kinematics of (ii) inherited; the bounds are constraints, conditional on the reading.
+
+\subsection{\texorpdfstring{The rate $\kappa=c/\ell$ and the sky}{The rate kappa = c/l and the sky}}
+\label{e7:sec:rate}
+
+The arena fixes no $\ell$ (Theorem~4.12 of \cite{RE}). Three choices give (e7-19):
+\begin{center}
+\small
+\begin{tabular}{@{}lccc@{}}
+\toprule
+$\ell$ & $\ell$ (m) & $\kappa=c/\ell$ (s$^{-1}$) & $\hbar\kappa$\\
+\midrule
+reduced Compton wavelength $\hbar/(m_ec)$ & $3.86\times10^{-13}$ & $7.76\times10^{20}$ & $511.0$~keV $=m_ec^2$\\
+Planck length $(\hbar G/c^3)^{1/2}$ & $1.62\times10^{-35}$ & $1.85\times10^{43}$ & $1.22\times10^{19}$~GeV\\
+Hubble radius $c/H_0$ \cite{Planck18VI} & $1.37\times10^{26}$ & $2.18\times10^{-18}$ & $1.44\times10^{-33}$~eV\\
+\bottomrule
+\end{tabular}
+\end{center}
+The first is the identification $mc^2=\hbar\kappa$ of \cite{RE}, for which $\ell=\hbar/(mc)$ is the only length (Theorem~4.12(ii) of \cite{RE}). The
+last puts $\hbar\kappa$ at the scale of ultralight fields. Each is a reading with no support from the arena.
+
+\begin{proposition}[Duality on a null field is a rotation about its axis]
+\label{e7:prop:dualrot}
+Let $z=\bB+i\bE\neq0$ be null and $\mathbf n=\bB\times\bE/|\bB\times\bE|$, which equals $\bE\times\Btext/|\bE\times\Btext|$, the direction of
+propagation. Then $\mathbf n\times z=-iz$, $\mathbf n\cdot z=0$, and the duality rotation $e^{\vartheta G}$, $z\mapsto e^{i\vartheta}z$, acts as the
+rotation $R_{\mathbf n}(-\vartheta)$ on $\bB$ and on $\bE$ separately. The plane wave $z=w\,f(\mathbf n\cdot\mathbf x-t)$ with $\mathbf n\times w=-iw$
+solves $\partial_tz=-i\curl z$ (Proposition~12.10 of \cite{ES17}). For $q\neq0$ and $\vartheta\notin\pi\Z$ no rotation acts as $e^{\vartheta G}$.
+\end{proposition}
+
+\begin{proof}
+$\mathbf n\times z=-iz$ is Theorem~3.4(ii) of \cite{RE}, from $\bB\cdot\bE=0$ and $|\bB|=|\bE|$; dotting with $\mathbf n$ gives $\mathbf n\cdot z=0$. Then
+$e^{i\vartheta}z=\cos\vartheta\,z+\sin\vartheta\,iz=\cos\vartheta\,z-\sin\vartheta\,\mathbf n\times z=R_{\mathbf n}(-\vartheta)z$ by Rodrigues' formula,
+and $R_{\mathbf n}(-\vartheta)$ is real. For the wave, $\curl z=\mathbf n\times w\,f'=-iw\,f'$ and $\partial_tz=-w\,f'$. Rotations fix $q$, while
+$e^{\vartheta G}$ sends $q$ to $e^{2i\vartheta}q$.
+\end{proof}
+
+Fixed; checked on $50$ null fields at three angles to $2\times10^{-15}$, the wave equation exactly (e7-20). It is the identity of helicity and
+duality on null fields \cite{Calkin65,PenroseRindler84}, Example~13.11 of \cite{ES17}, pulled back to the frame. Physically, a duality angle
+$\vartheta$ turns the plane of linear polarisation of a freely propagating wave about its line of sight by $\vartheta$, the same for all
+frequencies, and only multiplies a circularly polarised wave by a phase.
+
+\emph{Constraint, and an obstructed reading.} Suppose the interior flow $X(\tau)=e^{\mp\kappa G\tau}X_0$ (Proposition~4.9(ii) of \cite{RE}) acted on
+freely propagating radiation, with $\tau$ the cosmic time. By \cref{e7:prop:dualrot} linearly polarised light would arrive with its plane turned by
+$\kappa t$. The CMB polarisation gives a uniform rotation $\beta=0.35^\circ\pm0.14^\circ$ (68\%) \cite{MinamiKomatsu20}; distant radio galaxies bound
+a uniform rotation over cosmological distances to a few degrees \cite{CarrollFieldJackiw90}. With $|\beta|<0.63^\circ$ ($|$central value$|+2\sigma$)
+over $t_0=13.79$~Gyr \cite{Planck18VI}, the light having travelled for nearly all of it, $\kappa<2.5\times10^{-20}\,{\rm s^{-1}}=1.2\times10^{-2}H_0$,
+that is $\hbar\kappa<1.7\times10^{-35}$~eV. This is $10^{40.5}$ below $m_ec^2/\hbar=7.8\times10^{20}\,{\rm s^{-1}}$ (e7-21). Under $mc^2=\hbar\kappa$,
+for the electron or any particle heavier than $1.7\times10^{-35}$~eV, the interior flow cannot act on propagating radiation: that reading is
+obstructed. Even the Hubble rate is excluded by a factor $86$.
+
+\emph{The converse reading.} A cosmological duality angle of light is cosmic birefringence, as produced by a Chern--Simons or axion-like term
+\cite{CarrollFieldJackiw90} (Section~14.4 of \cite{ES17}). In the closure its potential vanishes on null fields. $U(\theta)=(R_0/2m)\cos\psi$ with
+$R_0=2|\nu|E_0(\pi_0)=0$, so the duality angle of radiation is an exact flat direction (Proposition~4.3 and Corollary~4.5(i) of \cite{RE}; restated,
+e7-22). The closure therefore neither forbids nor predicts a uniform rotation of polarisation. Its rate is a free datum, open, bounded as above
+if constant in time. A measured $\beta\neq0$, now at $2.4\sigma$, would fix that datum and not test the arena.
+
+\subsection{Time-odd invariants, clocks and the constancy of masses}
+\label{e7:sec:timeodd}
+
+\emph{Three manifolds and three generations.} For three manifolds with rates $\kappa_k$ and couplings $B_{kl}$ the plaquette is
+$H_{12}H_{23}H_{31}=iJ$ with $J=B_{12}B_{23}B_{31}$, $\det[H,K]=2iJ(\kappa_1-\kappa_2)(\kappa_1-\kappa_3)(\kappa_2-\kappa_3)$, and interior time
+reversal sends $J$ to $-J$, which no copy reflection undoes at $n=3$ (Theorem~9.5(ii),(iv) of \cite{RE}; restated, e7-23). The Jarlskog invariant of
+quark mixing has the same shape: a rephasing-invariant plaquette of the mixing matrix, nonzero only for three generations, with
+$\det[M_uM_u^\dagger,M_dM_d^\dagger]$ equal to $2iJ$ times the two Vandermonde products of squared masses \cite{Jarlskog85,KobayashiMaskawa73}. The
+parallel is a reading. It says that in both cases a time-odd invariant of a Hermitian $3\times3$ structure needs three labels, and that the
+commutator determinant factorises through it. It does not establish CP violation in particle physics: the arena has no baryons, no C, no
+CP, and its $J$ is a property of the interior $b$-field between manifolds, with a free magnitude. Sakharov's conditions for a baryon asymmetry,
+baryon-number violation, C and CP violation and departure from equilibrium \cite{Sakharov67}, are not touched. At most $J$ is a candidate source
+of time-odd effects, and only under a reading that identifies interior time reversal with physical time reversal.
+
+\emph{A temporal $b$-field on the clocks of matter.} A temporal rotation turns the temporal momentum at fixed six-dimensional mass, and the mass
+read by a fixed clock oscillates (\cref{e6:prop:clock}). At rest, for a libration $\phi=\theta_0\sin\Omega t$ in the plane $(e_1,e_2)$ read by
+$e_1$, $m_4=\mu\cos\phi$ and $m_4/\mu=1-\theta_0^2/4+(\theta_0^2/4)\cos2\Omega t+O(\theta_0^4)$. For a uniform rotation at rate $\nu$ about an axis at
+angle $\alpha$ from the clock, with the temporal energy initially on the clock, $m_4/\mu=1-\sin^2\alpha\,(1-\cos\nu t)$ (fixed, e7-24). Both are
+$m_4/\mu=1-A+A\cos\omega t$. A rotation common to all matter cancels in dimensionless mass ratios, so the bounds concern differential
+oscillations; all are conditional on the reading (e7-25).
+\begin{itemize}
+\item \emph{Quasar absorption.} Methanol lines at $z=0.89$ give $|\Delta\mu_{pe}/\mu_{pe}|\lesssim4\times10^{-7}$ ($2\sigma$) for
+$\mu_{pe}=m_p/m_e$, over a look-back time of about $7.5$~Gyr \cite{Kanekar15}. For generic phases this gives $A<4\times10^{-7}$, so
+$\theta_0<1.3\times10^{-3}$~rad for the libration and $\alpha<6.3\times10^{-4}$~rad for the uniform rotation. One pair of epochs cannot exclude a
+coincidence of phases.
+\item \emph{Atomic clocks.} Yb$^+$ against Cs gives $\dot\mu_{pe}/\mu_{pe}=(-0.5\pm1.6)\times10^{-16}\,{\rm yr^{-1}}$ \cite{Huntemann14}, consistent with
+$(0.2\pm1.1)\times10^{-16}\,{\rm yr^{-1}}$ \cite{Godun14}. At $2\sigma$, $A\omega<3.7\times10^{-16}\,{\rm yr^{-1}}$ for periods long compared with the
+years of comparison: $A<2.6\times10^{-6}$ for $\omega$ equal to the inverse age, and $A<1.8\times10^{-16}$ for $\omega=1\,{\rm yr^{-1}}$.
+\item \emph{Equivalence principle.} Add the hypothesis that inertia is $m_4$ read by the clock while gravity couples to the undivided $\mu$. Then
+$m_g/m_i=1/\cos\vartheta\approx1+\vartheta^2/2$, and the E\"otv\"os parameter of two bodies is $\eta\approx\half(\vartheta_A^2-\vartheta_B^2)$.
+MICROSCOPE measured $\eta({\rm Ti},{\rm Pt})=[-1.5\pm2.3({\rm stat})\pm1.5({\rm syst})]\times10^{-15}$ \cite{Touboul22}, so $|\eta|<7.0\times10^{-15}$
+at $2\sigma$, $|\vartheta_A^2-\vartheta_B^2|<1.4\times10^{-14}$, and $\vartheta<1.2\times10^{-7}$~rad if one body is aligned. If inertia and gravity
+both couple to $m_4$, the test says nothing.
+\end{itemize}
+
+\subsection{Summary and answer}
+\label{e7:sec:summary}
+
+\begin{table}[ht]
+\centering
+\footnotesize
+\begin{tabular}{@{}p{3.3cm}p{3.3cm}p{2.5cm}p{1.6cm}p{3.6cm}@{}}
+\toprule
+finding & classical counterpart & class & check & what an observation could decide\\
+\midrule
+$u_0$ of a field point (RE~2.8) & energy density where $\bE\parallel\Btext$; minimum over frames & restated; inherited & e7-2 & nothing (identity)\\
+traceless stress, tension and pressure $u_0$ (\cref{e7:prop:stress}) & radiation, $w=\tfrac13$; von Laue & inherited & e7-3, e7-4 & nothing\\
+$\rho_0$ as dark matter (\cref{e7:cor:dm}) & pressureless dark matter & obstructed & e7-26 & already decided: dark matter has $w\approx0$\\
+$u_0$ of astronomical fields (\cref{e7:tab:fields}) & magnetic energy densities; ISM equipartition & inherited arithmetic & e7-5, e7-6 & nothing for the arena\\
+$E_0/E_6$ has density $2t$ (\cref{e7:prop:gauss}) & Gaussian thermal field & fixed; model inherited & e7-7 to e7-9 & joint statistics of $\bE,\Btext$ at a point test the model\\
+CMB ``locally massive'', $\langle u_0\rangle=\tfrac23u$ & photon gas, $Mc^2=U$ & reading & e7-10 & nothing gravitational\\
+$M_{\rm pair}$ of two null fields (RE~8.6) & Breit--Wheeler, gamma-ray horizon & restated; same zero set; thresholds inherited & e7-11, e7-12 & horizon tests QED and background light\\
+canonical fields, $E_0=\half(\epsilon^2+\beta^2)$ (\cref{e7:prop:canon}) & Schwinger rate, $E_S$, $B_Q$ & inherited & e7-13, e7-14 & strong-field QED\\
+rest energy materialises as pairs & magnetars above $B_Q$ & obstructed & e7-27 & already decided (Schwinger)\\
+compact/boost and pairs (\cref{e2:lem:N}) & magnetic against electric fields & interpretive (analogy) & e7-13 & nothing\\
+$M^2=m_1^2+m_2^2+2m_1m_2\cos\vartheta$ (\cref{e7:prop:sixmass}) & graded quadrature, additive copies & fixed; identification interpretive & e7-15 & nothing\\
+uphill decays (\cref{e7:prop:uphill}) & Dorling's instability & inherited; example fixed & e7-16, e7-17 & proton stability: one clock\\
+one clock for matter & mass additivity, $E=mc^2$ test & constraint (conditional) & e7-18 & $\vartheta<9\times10^{-5}$~rad; better tests tighten\\
+$\kappa=c/\ell$, three lengths & Compton, Planck, Hubble & interpretive & e7-19 & nothing until $\ell$ is fixed\\
+duality $=$ rotation about $\mathbf n$ (\cref{e7:prop:dualrot}) & helicity, polarisation rotation & fixed; inherited & e7-20 & nothing\\
+interior flow on light at $\kappa=m_ec^2/\hbar$ & cosmic birefringence & obstructed; constraint $\kappa<2.5\times10^{-20}$~s$^{-1}$ & e7-21 & CMB polarisation\\
+flat duality angle of radiation (RE~4.5) & axion-like birefringence & open; restated & e7-22 & $\beta$ fixes a datum, tests nothing\\
+three-manifold $J$ (RE~9.5) & Jarlskog, Sakharov & reading & e7-23 & nothing, unless manifolds become families\\
+oscillating $m_4$ (\cref{e6:prop:clock}) & constancy of $m_p/m_e$, equivalence principle & fixed; bounds conditional & e7-24, e7-25 & quasars, clocks, EP tests\\
+\bottomrule
+\end{tabular}
+\caption{Claims of \cref{e7:sec:main}: the finding, its classical counterpart, its class, its check (\texttt{PASS} lines of
+\texttt{verify/e7\_classical.py}, e7-1 being the realisation) and what an observation could decide. ``RE~$x$'' is Proposition, Theorem or
+Corollary~$x$ of \cite{RE}.}
+\label{e7:tab:claims}
+\end{table}
+
+\emph{Answer.} Classical or astronomical content belongs to the inherited parts: the rest energy of a field point and its stress, the
+pointwise rest fraction $\tfrac23$ of thermal radiation, pair kinematics and the gamma-ray horizon, the canonical fields and the Schwinger rate,
+the kinematics of several times, and the identity of duality and helicity on light. There the arena agrees with ordinary physics and adds
+nothing measurable. Excluded as readings are field rest energy as dark matter, the materialisation of rest energy into pairs, the interior flow
+acting on light at the rate $m_ec^2/\hbar$, and six-dimensional kinematics without a common clock. Unconstrained, or open, are $\ell$ and with it
+$\kappa$, the origin of a cosmic birefringence angle, the magnitude and meaning of the three-manifold invariant, and the readings that identify
+the interior with particles. Two structures are missing before the arena can make an astronomical or cosmological prediction. One is a fixed
+length $\ell$, equivalently a mass through $mc^2=\hbar\kappa$. The other is a coupling of the interior to spacetime: on which fields the interior
+flow acts, how the temporal part of the six-momentum couples to clocks and to gravity, and which clock ordinary matter shares. With them, the
+constraints above become tests: the angles of \cref{e7:sec:sixmomenta,e7:sec:timeodd} and the rate of \cref{e7:sec:rate} would be predicted
+rather than bounded.
